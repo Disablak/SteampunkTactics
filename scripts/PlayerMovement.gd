@@ -23,10 +23,9 @@ func _physics_process(delta: float) -> void:
 func follow_target(delta: float):
 	_player_animator.play_anim(Globals.AnimationType.WALKING)
 
-	var direction : Vector3 = (transform.origin - target).normalized()
-	look_at(direction, Vector3.UP)
-	
-	velocity = -global_transform.basis.z * speed * delta
+	look_at(target, Vector3.UP)
+	rotation.x = 0
+	velocity = -transform.basis.z * speed * delta
 	
 	if transform.origin.distance_to(target) < distance_to_stop:
 		_player_animator.play_anim(Globals.AnimationType.IDLE)
