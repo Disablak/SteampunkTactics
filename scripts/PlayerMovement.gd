@@ -5,7 +5,8 @@ signal on_player_reach_target
 export(NodePath) var animation_tree
 onready var _player_animator : PlayerAnimator = get_node(animation_tree)
 
-export(float) var speed = 5
+export(float) var walking_speed = 5
+export(float) var rotation_speed = 5
 export(float) var distance_to_stop = 0.1
 
 var target = null
@@ -23,9 +24,11 @@ func _physics_process(delta: float) -> void:
 func follow_target(delta: float):
 	_player_animator.play_anim(Globals.AnimationType.WALKING)
 
-	look_at(target, Vector3.UP)
+	var new_transform = transform.looking_at(target, Vector3.UP)
+	transform = transform.interpolate_with(new_transform, rotation_speed * delta)
 	rotation.x = 0
-	velocity = -transform.basis.z * speed * delta
+	
+	velocity = -transform.basis.z * walking_speed * delta
 	
 	if transform.origin.distance_to(target) < distance_to_stop:
 		_player_animator.play_anim(Globals.AnimationType.IDLE)
