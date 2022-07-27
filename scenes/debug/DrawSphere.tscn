@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/DrawSphere.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=10]
+vertex_color_use_as_albedo = true
+
+[node name="DrawSphere" type="ImmediateGeometry"]
+material_override = SubResource( 10 )
+script = ExtResource( 1 )

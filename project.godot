@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "PlayerAnimator",
 "language": "GDScript",
 "path": "res://scripts/PlayerAnimator.gd"
+}, {
+"base": "Spatial",
+"class": "Test3D",
+"language": "GDScript",
+"path": "res://addons/line_3d/line3d.gd"
 } ]
 _global_script_class_icons={
-"PlayerAnimator": ""
+"PlayerAnimator": "",
+"Test3D": ""
 }
 
 [application]
@@ -27,6 +33,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Globals="*res://scripts/Globals.gd"
+DebugDraw="*res://addons/zylann.debug_draw/debug_draw.gd"
 
 [editor_plugins]
 
