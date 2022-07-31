@@ -29,7 +29,7 @@ func reset_marker_position():
 
 
 func move_via_points(points: PoolVector3Array):
-	draw_line3d.add_points(points)
+	draw_line3d.draw_all_lines(points)
 	
 	tween_move.stop_all()
 	
@@ -39,7 +39,7 @@ func move_via_points(points: PoolVector3Array):
 		if cur_target_id == points.size() - 1:
 			player.player_animator.play_anim(Globals.AnimationType.IDLE)
 			print("finish!")
-			draw_line3d.clear_points()
+			draw_line3d.draw_all_lines([])
 			return
 		
 		player.look_at(points[cur_target_id + 1], Vector3.UP)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://scripts/DrawDebug.gd" type="Script" id=1]
+[ext_resource path="res://scripts/utils/DrawDebug.gd" type="Script" id=1]
 
 [node name="DrawDebug" type="ImmediateGeometry"]
 script = ExtResource( 1 )
