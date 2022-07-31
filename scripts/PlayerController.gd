@@ -4,11 +4,13 @@ extends Spatial
 onready var pathfinding_system = get_node("Level/PathfindingSystem")
 onready var player = get_node("Player")
 onready var draw_line3d = get_node("Level/DrawLine3D")
+onready var path = get_node("Level/Path")
+onready var smooth_line = $Level/SmoothLine
 
 var tween_move := Tween.new()
 var cur_target_point := Vector3.ZERO
 
-const move_speed = 0.5
+const move_speed = 2
 const rot_speed = 10
 
 func _ready() -> void:
@@ -30,7 +32,14 @@ func _process(delta: float) -> void:
 func _on_Floor_input_event(_camera: Node, event: InputEvent, position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		var points = pathfinding_system.find_path(player.global_transform.origin, position)
-		move_via_points(points)
+		
+		path.curve.clear_points()
+		for point in points:
+			path.curve.add_point(point)
+			
+		var new_points = smooth_line.make_points_smooth(path)
+		
+		move_via_points(new_points)
 
 
 func _on_Player_on_player_reach_target() -> void:
@@ -59,19 +68,18 @@ func move_via_points(points: PoolVector3Array):
 		cur_target_point = points[cur_target_id + 1]
 		
 		player.player_animator.play_anim(Globals.AnimationType.WALKING)
+		var time_move = points[cur_target_id].distance_to(points[cur_target_id + 1]) / move_speed
 		
 		tween_move.interpolate_property(
 			player,
 			"translation", 
 			points[cur_target_id], 
 			points[cur_target_id + 1],
-			move_speed
-#			Tween.TRANS_SINE,
-#			Tween.EASE_OUT
+			time_move
 		)
 		tween_move.start()
 		
 		cur_target_id += 1
-		yield(get_tree().create_timer(move_speed), "timeout") 
+		yield(get_tree().create_timer(time_move), "timeout") 
 
 
