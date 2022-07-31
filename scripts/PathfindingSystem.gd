@@ -3,6 +3,7 @@ extends Spatial
 
 export var is_debug := false
 export var grid_step := 1.0
+export var start_offset := Vector3(0.5, 0, 0.5)
 
 var points := {}
 var all_point_position := []
@@ -21,13 +22,14 @@ func _process(delta: float) -> void:
 func _ready() -> void:
 	var pathables = get_tree().get_nodes_in_group("pathable")
 	_add_points(pathables)
+	_remove_obstacle_points()
 	_connect_points()
 
 
 func _add_points(pathables: Array):
 	for pathable in pathables:
 		var aabb: AABB = _get_aabb_from_pathable(pathable)
-		var start_point = aabb.position
+		var start_point = aabb.position + start_offset
 		
 		var x_steps = aabb.size.x / grid_step
 		var z_steps = aabb.size.z / grid_step
@@ -75,6 +77,18 @@ func _connect_points():
 						astar.connect_points(current_id, neighbor_id)
 
 
+func _remove_obstacle_points():
+	var points_to_delete = []
+	var obstacles = get_tree().get_nodes_in_group("obstacle")
+	for point in points:
+		var world_pos := astar_to_world(point)
+		for obstacle in obstacles:
+			var aabb = obstacle.get_transformed_aabb()
+			if aabb.has_point(world_pos):
+				astar.remove_point(points[point])
+				print("remove ", world_pos)
+
+
 func find_path(from: Vector3, to: Vector3) -> PoolVector3Array:
 	var start_id = astar.get_closest_point(from)
 	var end_id = astar.get_closest_point(to)
@@ -88,3 +102,10 @@ func world_to_astar(world_point: Vector3) -> String:
 	var z = stepify(world_point.z, grid_step)
 	
 	return "%d,%d,%d" % [x, y, z]
+
+
+func astar_to_world(point: String) -> Vector3:
+	var pos_str = point.split(",")
+	var world_pos = Vector3(pos_str[0], pos_str[1], pos_str[2])
+	
+	return world_pos
