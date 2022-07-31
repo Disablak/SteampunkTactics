@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 
 
 func _on_Floor_input_event(_camera: Node, event: InputEvent, position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.pressed:
+	if event is InputEventMouseButton and event.pressed and not tween_move.is_active():
 		var points = pathfinding_system.find_path(player.global_transform.origin, position)
 		
 		path.curve.clear_points()
@@ -80,6 +80,6 @@ func move_via_points(points: PoolVector3Array):
 		tween_move.start()
 		
 		cur_target_id += 1
-		yield(get_tree().create_timer(time_move), "timeout") 
+		yield(tween_move, "tween_completed") 
 
 

@@ -8,6 +8,12 @@
 [ext_resource path="res://addons/my_draw_line_3d/MyDrawLine3D.gd" type="Script" id=6]
 [ext_resource path="res://scripts/SmoothLine.gd" type="Script" id=7]
 
+[sub_resource type="Curve3D" id=10]
+_data = {
+"points": PoolVector3Array(  ),
+"tilts": PoolRealArray(  )
+}
+
 [sub_resource type="BoxShape" id=1]
 
 [sub_resource type="ShaderMaterial" id=3]
@@ -24,12 +30,6 @@ uv1_offset = Vector3( 0.17, 0, 0 )
 
 [sub_resource type="SpatialMaterial" id=9]
 albedo_texture = ExtResource( 4 )
-
-[sub_resource type="Curve3D" id=10]
-_data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 2.17825, 0.700857, -6.24597, 0, 0, 0, 0, 0, 0, 5.0117, 0.606624, -4.84895, 0, 0, 0, 0, 0, 0, 3.37784, 0.263865, -2.34856, 0, 0, 0, 0, 0, 0, 0.603349, 0.318005, -2.83225, 0, 0, 0, 0, 0, 0, 2.17825, 0.700857, -6.24597 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0 )
-}
 
 [sub_resource type="CylinderMesh" id=4]
 
@@ -50,6 +50,9 @@ color = Color( 0.505882, 0.615686, 0.0392157, 1 )
 
 [node name="SmoothLine" type="Spatial" parent="Level"]
 script = ExtResource( 7 )
+
+[node name="Path" type="Path" parent="Level"]
+curve = SubResource( 10 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Level"]
 transform = Transform( 0.502835, 0.7379, -0.450179, -0.621857, 0.670557, 0.404534, 0.600376, 0.0765329, 0.796047, -8.73829, 6.87771, 9.37318 )
@@ -76,9 +79,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 4.32244, -0.804363, 2.50598 )
 mesh = SubResource( 8 )
 skeleton = NodePath("")
 material/0 = SubResource( 9 )
-
-[node name="Path" type="Path" parent="Level"]
-curve = SubResource( 10 )
 
 [node name="CameraPivot" type="Position3D" parent="."]
 transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -3.20546, 5.0352, 3.30646 )

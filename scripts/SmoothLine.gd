@@ -15,8 +15,7 @@ func make_points_smooth(path: Path) -> PoolVector3Array:
 	
 	result.push_back(points[0])
 	var last_m = Vector3()
-	for i in range(0, size, 2): 
-		print(i, size)
+	for i in range(0, size, 2):
 		var a = points[i]
 		var b = points[i+1] if i < size - 1  else points[i]
 		var c = points[i+2] if i < size - 2  else points[i]
