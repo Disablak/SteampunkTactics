@@ -1,6 +1,9 @@
 extends Spatial
 
 
+const SEGMENT_COUNT := 10
+
+
 func make_points_smooth(path: Path) -> PoolVector3Array:
 	var result = PoolVector3Array()
 	
@@ -44,7 +47,27 @@ func make_points_smooth(path: Path) -> PoolVector3Array:
 	return result
 
 
-func _quadratic_bezier(p0: Vector3, p1: Vector3, p2: Vector3, t: float):
+func my_smooth(points: PoolVector3Array) -> PoolVector3Array:
+	if (points.size() == 2):
+		return points
+
+	var result: PoolVector3Array = []
+	
+	var p0 = points[0]
+	for i in range(1, points.size(), 2):
+		var p1 = points[i]
+		var p2 = points[i+1] if i < points.size() - 1  else points[i]
+		
+		for j in range(1, SEGMENT_COUNT):
+			var t: float = 1.0 / SEGMENT_COUNT * j
+			result.push_back(_quadratic_bezier(p0, p1, p2, t) )
+		
+		p0 = p2
+	
+	return result
+
+
+func _quadratic_bezier(p0: Vector3, p1: Vector3, p2: Vector3, t: float) -> Vector3:
 	var q0 = p0.linear_interpolate(p1, t)
 	var q1 = p1.linear_interpolate(p2, t)
 
