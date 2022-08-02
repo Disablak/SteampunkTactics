@@ -1,29 +1,47 @@
+tool
 extends Spatial
 
 
+export var update_astar = false setget _update_astar
 export var is_debug := false
 export var grid_step := 1.0
 export var start_offset := Vector3(0.5, 0, 0.5)
+export var end_offset := Vector3(1.0, 0, 1.0)
+
+onready var pathfinding_debug := $PathfindingDebug
 
 var points := {}
-var all_point_position := []
-var grid_y := 0.05
 var astar := AStar.new()
 
+const grid_y := 0.05
 
-func _process(delta: float) -> void:
-	if not is_debug:
-		return
-	
-	for pos in all_point_position:
-		DebugDraw.draw_cube(pos, 0.1)
+
+func _update_astar(update):
+	_create_pathfinding()
 
 
 func _ready() -> void:
+	_create_pathfinding()
+
+
+func _create_pathfinding():
+	points = {}
+	astar = AStar.new()
+	
 	var pathables = get_tree().get_nodes_in_group("pathable")
 	_add_points(pathables)
 	_remove_obstacle_points()
 	_connect_points()
+
+	if is_debug:
+		var all_points = PoolVector3Array()
+		for point_pos in points.keys():
+			var pos = astar_to_world(point_pos)
+			pos = Vector3(pos.x, grid_y, pos.z)
+			all_points.push_back(pos)
+		
+		
+		pathfinding_debug.draw_squares(all_points)
 
 
 func _add_points(pathables: Array):
@@ -31,8 +49,8 @@ func _add_points(pathables: Array):
 		var aabb: AABB = _get_aabb_from_pathable(pathable)
 		var start_point = aabb.position + start_offset
 		
-		var x_steps = aabb.size.x / grid_step
-		var z_steps = aabb.size.z / grid_step
+		var x_steps = (aabb.size.x - end_offset.x) / grid_step
+		var z_steps = (aabb.size.z - end_offset.z) / grid_step
 		
 		for x in x_steps:
 			for z in z_steps:
@@ -54,7 +72,6 @@ func _add_point(point: Vector3):
 	var id = astar.get_available_point_id()
 	astar.add_point(id, point)
 	points[world_to_astar(point)] = id
-	all_point_position.append(point)
 
 
 func _connect_points():
@@ -78,15 +95,15 @@ func _connect_points():
 
 
 func _remove_obstacle_points():
-	var points_to_delete = []
 	var obstacles = get_tree().get_nodes_in_group("obstacle")
-	for point in points:
-		var world_pos := astar_to_world(point)
+	for str_point_world_pos in points.keys():
+		var world_pos := astar_to_world(str_point_world_pos)
 		for obstacle in obstacles:
 			var aabb = obstacle.get_transformed_aabb()
 			if aabb.has_point(world_pos):
-				astar.remove_point(points[point])
-				print("remove ", world_pos)
+				print("remove ", points[str_point_world_pos], world_pos)
+				astar.remove_point(points[str_point_world_pos])
+				points.erase(str_point_world_pos)
 
 
 func find_path(from: Vector3, to: Vector3) -> PoolVector3Array:

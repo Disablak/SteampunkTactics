@@ -1,6 +1,8 @@
+tool
 extends MeshInstance
 
 export var thickness = 0.1
+export var square_size = 0.2
 export var color := Color.white
 
 var points: PoolVector3Array
@@ -18,9 +20,9 @@ func _ready() -> void:
 
 
 func draw_all_lines(points: PoolVector3Array):
-	self.points = points
+	clear()
 	
-	mesh = ArrayMesh.new()
+	self.points = points
 	
 	for i in points.size():
 		if i == points.size() - 1:
@@ -31,15 +33,42 @@ func draw_all_lines(points: PoolVector3Array):
 		mesh.surface_set_material(i, meterial)
 
 
+func draw_squares(points: PoolVector3Array):
+	clear()
+	
+	self.points = points
+	
+	for i in points.size():
+		arrays[ArrayMesh.ARRAY_VERTEX] = _create_square(points[i], square_size)
+		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+		mesh.surface_set_material(i, meterial)
+
+
+func clear():
+	self.points = []
+	mesh = ArrayMesh.new()
+
+
 func _create_line(point_a: Vector3, point_b: Vector3) -> PoolVector3Array:
 	var dir = point_b - point_a
 	var left = dir.cross(Vector3.UP).normalized()
-	left *= thickness
+	left *= thickness / 2
 	
 	var result = PoolVector3Array([
 		Vector3(point_a.x, point_a.y, point_a.z) + left,
 		Vector3(point_a.x, point_a.y, point_a.z) - left,
 		Vector3(point_b.x, point_b.y, point_b.z) - left,
 		Vector3(point_b.x, point_b.y, point_b.z) + left,
+	])
+	return result
+	
+func _create_square(pos: Vector3, size: float) -> PoolVector3Array:
+	var half_size = size / 2
+	
+	var result = PoolVector3Array([
+		Vector3(pos.x - half_size, pos.y, pos.z - half_size),
+		Vector3(pos.x + half_size, pos.y, pos.z - half_size),
+		Vector3(pos.x + half_size, pos.y, pos.z + half_size),
+		Vector3(pos.x - half_size, pos.y, pos.z + half_size),
 	])
 	return result

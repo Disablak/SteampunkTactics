@@ -32,8 +32,9 @@ func _process(delta: float) -> void:
 func _on_Floor_input_event(_camera: Node, event: InputEvent, position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and not tween_move.is_active():
 		var points = pathfinding_system.find_path(player.global_transform.origin, position)
-		var my_smooth = smooth_line.my_smooth(points)
-		move_via_points(my_smooth)
+		var smoothed_points = smooth_line.my_smooth(points)
+		smoothed_points.insert(0, player.translation)
+		move_via_points(smoothed_points)
 
 
 func _on_Player_on_player_reach_target() -> void:
@@ -54,7 +55,7 @@ func move_via_points(points: PoolVector3Array):
 	for point in points:
 		if cur_target_id == points.size() - 1:
 			player.player_animator.play_anim(Globals.AnimationType.IDLE)
-			draw_line3d.draw_all_lines([])
+			draw_line3d.clear()
 			cur_target_point = Vector3.ZERO
 			print("finish!")
 			return
