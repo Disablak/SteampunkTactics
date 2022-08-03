@@ -2,8 +2,9 @@ tool
 extends Spatial
 
 
+export var is_debug := false setget _set_debug_mode, _get_debug_mode
 export var update_astar = false setget _update_astar
-export var is_debug := false
+
 export var grid_step := 1.0
 export var start_offset := Vector3(0.5, 0, 0.5)
 export var end_offset := Vector3(1.0, 0, 1.0)
@@ -14,6 +15,15 @@ var points := {}
 var astar := AStar.new()
 
 const grid_y := 0.05
+
+
+func _set_debug_mode(debug):
+	is_debug = debug
+	if pathfinding_debug:
+		pathfinding_debug.visible = debug
+
+func _get_debug_mode():
+	return is_debug
 
 
 func _update_astar(update):
