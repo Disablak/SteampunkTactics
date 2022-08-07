@@ -61,20 +61,18 @@ material/0 = SubResource( 6 )
 
 [node name="Obstacle0" type="MeshInstance" parent="World/Level" groups=["obstacle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68675, 0, -4.55297 )
-visible = false
 mesh = SubResource( 8 )
 skeleton = NodePath("")
 material/0 = SubResource( 9 )
 
 [node name="Obstacle1" type="MeshInstance" parent="World/Level" groups=["obstacle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 4.32244, -0.804363, 2.50598 )
-visible = false
 mesh = SubResource( 8 )
 skeleton = NodePath("")
 material/0 = SubResource( 9 )
 
 [node name="CameraPivot" type="Position3D" parent="World"]
-transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -5.39188, 6.12358, 6.19542 )
+transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -4.4, 4.8, 5.7 )
 script = ExtResource( 9 )
 
 [node name="Camera" type="Camera" parent="World/CameraPivot"]

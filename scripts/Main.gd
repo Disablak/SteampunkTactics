@@ -30,6 +30,10 @@ class Unit:
 		unit_object.init_unit(id, unit_data)
 
 
+func _init() -> void:
+	GlobalBus.connect(GlobalBus.on_unit_died_name, self, "_on_unit_died")
+
+
 func _enter_tree() -> void:
 	add_child(tween_move)
 
@@ -38,6 +42,7 @@ func _ready() -> void:
 	OS.set_window_always_on_top(true)
 	
 	_init_units()
+
 
 func _init_units():
 	var all_units = [
@@ -113,4 +118,11 @@ func _on_CameraPivot_on_click_world(raycast_result) -> void:
 	var unit_object = raycast_result.collider.get_parent()
 	if not unit_object.is_player_unit:
 		units[unit_object.unit_id].unit_data.set_damage(10)
+
+
+func _on_unit_died(unit_id):
+	var unit: Unit = units[unit_id]
+	unit.unit_object.queue_free()
+	
+	units.erase(unit_id)
 

@@ -39,8 +39,7 @@ func _create_pathfinding():
 	points = {}
 	astar = AStar.new()
 	
-	var pathables = get_tree().get_nodes_in_group("pathable")
-	_add_points(pathables)
+	_add_points()
 	_remove_obstacle_points()
 	_connect_points()
 
@@ -55,7 +54,7 @@ func _create_pathfinding():
 		pathfinding_debug.draw_squares(all_points)
 
 
-func _add_points(pathables: Array):
+func _add_points():
 	var x_steps = stepify(grid_size.x, grid_step)
 	var z_steps = stepify(grid_size.y, grid_step)
 	var offset = Vector3(start_offset.x, 0, start_offset.y)
