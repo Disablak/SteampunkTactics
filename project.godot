@@ -10,12 +10,24 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "AnimationTree",
-"class": "PlayerAnimator",
+"class": "UnitAnimator",
 "language": "GDScript",
-"path": "res://scripts/PlayerAnimator.gd"
+"path": "res://scripts/UnitAnimator.gd"
+}, {
+"base": "Reference",
+"class": "UnitData",
+"language": "GDScript",
+"path": "res://scripts/UnitData.gd"
+}, {
+"base": "Spatial",
+"class": "UnitObject",
+"language": "GDScript",
+"path": "res://scripts/units/UnitObject.gd"
 } ]
 _global_script_class_icons={
-"PlayerAnimator": ""
+"UnitAnimator": "",
+"UnitData": "",
+"UnitObject": ""
 }
 
 [application]
@@ -27,7 +39,9 @@ config/icon="res://icon.png"
 [autoload]
 
 Globals="*res://scripts/Globals.gd"
+GlobalBus="*res://scripts/GlobalBus.gd"
 DebugDraw="*res://addons/zylann.debug_draw/debug_draw.gd"
+DrawLine3d="*res://addons/Godot-3D-Lines/DrawLine3D.gd"
 
 [editor_plugins]
 

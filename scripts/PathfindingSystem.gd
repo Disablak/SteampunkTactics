@@ -5,9 +5,10 @@ extends Spatial
 export var is_debug := false setget _set_debug_mode, _get_debug_mode
 export var update_astar = false setget _update_astar
 
-export var grid_step := 1.0
-export var start_offset := Vector3(0.5, 0, 0.5)
-export var end_offset := Vector3(1.0, 0, 1.0)
+export var grid_size := Vector2(10, 10)
+export var start_offset := Vector2(0, 0)
+
+var grid_step := 1.0
 
 onready var pathfinding_debug := $PathfindingDebug
 
@@ -55,26 +56,14 @@ func _create_pathfinding():
 
 
 func _add_points(pathables: Array):
-	for pathable in pathables:
-		var aabb: AABB = _get_aabb_from_pathable(pathable)
-		var start_point = aabb.position + start_offset
-		
-		var x_steps = (aabb.size.x - end_offset.x) / grid_step
-		var z_steps = (aabb.size.z - end_offset.z) / grid_step
-		
-		for x in x_steps:
-			for z in z_steps:
-				var next_point = start_point + Vector3(x * grid_step, 0, z * grid_step)
-				_add_point(next_point)
-
-
-func _get_aabb_from_pathable(pathable: Node) -> AABB:
-	for child in pathable.get_children():
-		if child is MeshInstance:
-			return child.get_transformed_aabb()
+	var x_steps = stepify(grid_size.x, grid_step)
+	var z_steps = stepify(grid_size.y, grid_step)
+	var offset = Vector3(start_offset.x, 0, start_offset.y)
 	
-	push_error("MeshInstance not found!")
-	return AABB();
+	for x in x_steps:
+		for z in z_steps:
+			var next_point = offset + Vector3(x * grid_step, 0, z * grid_step)
+			_add_point(next_point)
 
 
 func _add_point(point: Vector3):
