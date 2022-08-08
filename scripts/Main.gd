@@ -38,6 +38,7 @@ func _enter_tree() -> void:
 	add_child(tween_move)
 
 
+
 func _ready() -> void:
 	OS.set_window_always_on_top(true)
 	
@@ -101,8 +102,8 @@ func move_via_points(points: PoolVector3Array):
 
 func _move_unit(pos):
 	var points = pathfinding_system.find_path(player.global_transform.origin, pos)
-	var smoothed_points = smooth_line.my_smooth(points)
-	smoothed_points.insert(0, player.translation)
+	var smoothed_points = smooth_line.get_smoothed_curve(points)
+	#smoothed_points.insert(0, player.translation)
 	move_via_points(smoothed_points)
 
 

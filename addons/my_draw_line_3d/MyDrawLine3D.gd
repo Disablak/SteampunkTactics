@@ -10,7 +10,7 @@ var arrays = []
 var meterial: SpatialMaterial
 
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	arrays.resize(ArrayMesh.ARRAY_MAX)
 	arrays[ArrayMesh.ARRAY_TEX_UV] = PoolVector2Array([Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1)])
 	arrays[ArrayMesh.ARRAY_INDEX] = PoolIntArray([0, 1, 2,  0, 2, 3])
