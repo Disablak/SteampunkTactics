@@ -72,8 +72,6 @@ func move_via_points(points: PoolVector3Array):
 	var cur_target_id = 0
 	
 	for point in points:
-		print("point {0}".format([cur_target_id]))
-		
 		if cur_target_id == points.size() - 1:
 			player.unit_animator.play_anim(Globals.AnimationType.IDLE)
 			draw_line3d.clear()

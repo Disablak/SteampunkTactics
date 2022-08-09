@@ -12,7 +12,14 @@ var grid_step := 1.0
 
 onready var pathfinding_debug := $PathfindingDebug
 
+var diagonals = [
+	[Vector3(-1, 0, 0), Vector3( 0, 0, 1)], 
+	[Vector3( 0, 0, 1), Vector3( 1, 0, 0)], 
+	[Vector3( 1, 0, 0), Vector3( 0, 0,-1)], 
+	[Vector3( 0, 0,-1), Vector3(-1, 0, 0)], 
+]
 var points := {}
+var obstacle_points := {}
 var astar := AStar.new()
 
 const grid_y := 0.05
@@ -42,6 +49,7 @@ func _create_pathfinding():
 	_add_points()
 	_remove_obstacle_points()
 	_connect_points()
+	_remove_obstacle_diagonals()
 
 	if is_debug:
 		var all_points = PoolVector3Array()
@@ -100,8 +108,24 @@ func _remove_obstacle_points():
 			var aabb = obstacle.get_transformed_aabb()
 			if aabb.has_point(world_pos):
 				print("remove ", points[str_point_world_pos], world_pos)
+				obstacle_points[str_point_world_pos] = points[str_point_world_pos]
 				astar.remove_point(points[str_point_world_pos])
 				points.erase(str_point_world_pos)
+
+
+func _remove_obstacle_diagonals():
+	for point_id in obstacle_points:
+		var world_pos : Vector3 = astar_to_world(point_id)
+		for pair in diagonals:
+			var point_a = world_pos + pair[0]
+			var point_b = world_pos + pair[1]
+			var str_a = world_to_astar(point_a)
+			var str_b = world_to_astar(point_b)
+			
+			if points.has(str_a) && points.has(str_b):
+				if astar.are_points_connected(points[str_a], points[str_b]):
+					astar.disconnect_points(points[str_a], points[str_b])
+					print("disconected two points {0} and {1}".format([points[str_a], points[str_b]]))
 
 
 func find_path(from: Vector3, to: Vector3) -> PoolVector3Array:

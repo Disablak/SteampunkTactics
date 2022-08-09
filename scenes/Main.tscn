@@ -60,15 +60,13 @@ mesh = SubResource( 2 )
 material/0 = SubResource( 6 )
 
 [node name="Obstacle0" type="MeshInstance" parent="World/Level" groups=["obstacle"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68675, 0, -4.55297 )
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.645855, 0, 0.459649 )
 mesh = SubResource( 8 )
 skeleton = NodePath("")
 material/0 = SubResource( 9 )
 
 [node name="Obstacle1" type="MeshInstance" parent="World/Level" groups=["obstacle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 4.32244, -0.804363, 2.50598 )
-visible = false
 mesh = SubResource( 8 )
 skeleton = NodePath("")
 material/0 = SubResource( 9 )
