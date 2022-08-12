@@ -1,6 +1,9 @@
 extends Spatial
 
 
+export(float, 0.0, 1) var smooth: float = 0.15
+
+
 onready var curve = Curve3D.new()
 
 
@@ -23,7 +26,7 @@ func get_smoothed_curve(points: PoolVector3Array) -> PoolVector3Array:
 		var next_len = next_vec.length()
 		var dir_vec = ((prev_len / next_len) * next_vec - prev_vec).normalized()
 		
-		var leng = prev_len * 0.15
+		var leng = prev_len * smooth
 		curve.add_point(idx_vec, -dir_vec*(leng), dir_vec*(leng))
 	
 	return curve.get_baked_points()

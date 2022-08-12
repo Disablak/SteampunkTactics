@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
+[ext_resource path="res://scripts/PathfindingSimplifier.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=2]
 [ext_resource path="res://data/textures/Dark/texture_01.png" type="Texture" id=3]
 [ext_resource path="res://data/textures/Orange/texture_02.png" type="Texture" id=4]
@@ -26,6 +27,12 @@ uv1_offset = Vector3( 0.17, 0, 0 )
 [sub_resource type="SpatialMaterial" id=9]
 albedo_texture = ExtResource( 4 )
 
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 1, 2.65782, 1 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 1, 3.51626, 1 )
+
 [node name="Main" type="Spatial"]
 script = ExtResource( 2 )
 
@@ -38,12 +45,16 @@ is_debug = true
 grid_size = Vector2( 11, 11 )
 start_offset = Vector2( -5, -5 )
 
-[node name="DrawLine3D" type="MeshInstance" parent="World/Level"]
-script = ExtResource( 6 )
-color = Color( 0.505882, 0.615686, 0.0392157, 1 )
+[node name="PathfindingSimplifier" type="Spatial" parent="World/Level"]
+script = ExtResource( 1 )
 
 [node name="SmoothLine" type="Spatial" parent="World/Level"]
 script = ExtResource( 7 )
+smooth = 0.08
+
+[node name="DrawLine3D" type="MeshInstance" parent="World/Level"]
+script = ExtResource( 6 )
+color = Color( 0.505882, 0.615686, 0.0392157, 1 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="World/Level"]
 transform = Transform( 0.502835, 0.7379, -0.450179, -0.621857, 0.670557, 0.404534, 0.600376, 0.0765329, 0.796047, -8.73829, 6.87771, 9.37318 )
@@ -65,11 +76,35 @@ mesh = SubResource( 8 )
 skeleton = NodePath("")
 material/0 = SubResource( 9 )
 
+[node name="Area" type="Area" parent="World/Level/Obstacle0"]
+collision_mask = 16
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Level/Obstacle0/Area"]
+shape = SubResource( 10 )
+
+[node name="Obstacle2" type="MeshInstance" parent="World/Level" groups=["obstacle"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.645855, 0, 5.58693 )
+mesh = SubResource( 8 )
+skeleton = NodePath("")
+material/0 = SubResource( 9 )
+
+[node name="Area" type="Area" parent="World/Level/Obstacle2"]
+collision_mask = 16
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Level/Obstacle2/Area"]
+shape = SubResource( 10 )
+
 [node name="Obstacle1" type="MeshInstance" parent="World/Level" groups=["obstacle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 4.32244, -0.804363, 2.50598 )
 mesh = SubResource( 8 )
 skeleton = NodePath("")
 material/0 = SubResource( 9 )
+
+[node name="Area" type="Area" parent="World/Level/Obstacle1"]
+collision_mask = 16
+
+[node name="CollisionShape" type="CollisionShape" parent="World/Level/Obstacle1/Area"]
+shape = SubResource( 11 )
 
 [node name="CameraPivot" type="Position3D" parent="World"]
 transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -4.4, 4.8, 5.7 )
