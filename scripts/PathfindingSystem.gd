@@ -10,6 +10,8 @@ export var start_offset := Vector2(0, 0)
 
 var grid_step := 1.0
 
+onready var simplifier = $PathfindingSimplifier
+onready var path_smoother = $PathfindingSmoother
 onready var pathfinding_debug := $PathfindingDebug
 
 var diagonals = [
@@ -132,7 +134,12 @@ func find_path(from: Vector3, to: Vector3) -> PoolVector3Array:
 	var start_id = astar.get_closest_point(from)
 	var end_id = astar.get_closest_point(to)
 	
-	return astar.get_point_path(start_id, end_id)
+	var astar_path = astar.get_point_path(start_id, end_id)
+	var simple_path = simplifier.get_simple_path(astar_path)
+	print("simple path: ", simple_path)
+	var smoother_path = path_smoother.get_smoothed_curve(simple_path)
+	
+	return smoother_path
 
 
 func world_to_astar(world_point: Vector3) -> String:

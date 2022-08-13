@@ -99,11 +99,8 @@ func move_via_points(points: PoolVector3Array):
 
 
 func _move_unit(pos):
-	var points = pathfinding_system.find_path(player.global_transform.origin, pos)
-	points = $World/Level/PathfindingSimplifier.get_simple_path(points)
-	print("simple path: ", points)
-	var smoothed_points = smooth_line.get_smoothed_curve(points)
-	move_via_points(smoothed_points)
+	var path = pathfinding_system.find_path(player.global_transform.origin, pos)
+	move_via_points(path)
 
 
 func _on_CameraPivot_on_click_world(raycast_result) -> void:
