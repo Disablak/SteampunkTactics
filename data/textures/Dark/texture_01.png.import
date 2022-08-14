@@ -34,4 +34,4 @@ process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false
-svg/scale=0.5
+svg/scale=1.0

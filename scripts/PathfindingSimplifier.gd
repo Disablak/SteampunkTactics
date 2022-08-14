@@ -3,10 +3,12 @@ extends Spatial
 
 export var unit_size := 0.9
 export var grid_size := 1.0
-onready var raycast = $RayCast
 
 
 func get_simple_path(astar_points: PoolVector3Array) -> PoolVector3Array:
+	if astar_points.size() <= 2:
+		return astar_points
+	
 	var points_result = []
 	points_result.push_back(astar_points[0])
 	
