@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/ybot.gltf-737cb24114c1bae3d0a189d6b992ffac.scn"
+path="res://.import/ybot.gltf-ef0bca58b46c8990a5a314650229bc36.scn"
 
 [deps]
 
-source_file="res://data/models/new_player/ybot.gltf"
-dest_files=[ "res://.import/ybot.gltf-737cb24114c1bae3d0a189d6b992ffac.scn" ]
+source_file="res://data/models/player0/ybot.gltf"
+dest_files=[ "res://.import/ybot.gltf-ef0bca58b46c8990a5a314650229bc36.scn" ]
 
 [params]
 

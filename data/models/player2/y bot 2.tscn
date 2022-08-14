@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://data/models/player2/y bot 2.gltf" type="PackedScene" id=1]
+
+[node name="y bot 2" instance=ExtResource( 1 )]

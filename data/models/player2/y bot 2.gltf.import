@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Noir_Male.fbx-a9c43e8023fa96c61508e47c51addf99.scn"
+path="res://.import/y bot 2.gltf-f5d499c66c8f3fcc07fd6c29ea739662.scn"
 
 [deps]
 
-source_file="res://data/models/Noir_Male.fbx"
-dest_files=[ "res://.import/Noir_Male.fbx-a9c43e8023fa96c61508e47c51addf99.scn" ]
+source_file="res://data/models/player2/y bot 2.gltf"
+dest_files=[ "res://.import/y bot 2.gltf-f5d499c66c8f3fcc07fd6c29ea739662.scn" ]
 
 [params]
 

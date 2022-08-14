@@ -1,7 +1,8 @@
 extends Spatial
 
 
-onready var unit_mesh = get_node("ybot/Armature/Skeleton/Alpha_Surface")
+export(NodePath) var path_to_mesh
+onready var unit_mesh = get_node(path_to_mesh)
 
 
 func _ready() -> void:

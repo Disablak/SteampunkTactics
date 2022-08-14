@@ -2,7 +2,7 @@ extends Node
 
 
 
-const move_speed = 2
+const move_speed = 3
 const rot_speed = 10
 
 onready var pathfinding_system = get_parent().get_node("%PathfindingSystem")
