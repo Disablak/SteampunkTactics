@@ -40,12 +40,20 @@ func can_move(distance: float) -> bool:
 	return cur_walk_distance >= distance
 
 
-func set_walk_distance(value):
+func remove_walk_distance(value):
 	if cur_walk_distance <= 0 || value > cur_walk_distance:
 		print("unit {0} cant walk".format([unit_id]))
 		return
 	
-	cur_walk_distance -= value
-	GlobalBus.emit_signal(GlobalBus.on_unit_changed_walk_distance, unit_id, cur_walk_distance, max_walk_distance)
+	set_walk_distance(cur_walk_distance - value)
 
+
+func restore_walk_distance():
+	set_walk_distance(max_walk_distance)
+
+
+func set_walk_distance(value):
+	var clamped_value = clamp(value, 0.0, max_walk_distance)
+	cur_walk_distance = clamped_value
+	GlobalBus.emit_signal(GlobalBus.on_unit_changed_walk_distance, unit_id, cur_walk_distance, max_walk_distance)
 

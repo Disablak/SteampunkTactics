@@ -28,10 +28,12 @@ script = ExtResource( 2 )
 [node name="Level" type="Spatial" parent="World"]
 
 [node name="PathfindingSystem" parent="World/Level" instance=ExtResource( 5 )]
+unique_name_in_owner = true
 is_debug = true
 grid_size = Vector2( 25, 11 )
 
 [node name="DrawLine3D" type="MeshInstance" parent="World/Level"]
+unique_name_in_owner = true
 script = ExtResource( 6 )
 color = Color( 0.505882, 0.615686, 0.0392157, 1 )
 
@@ -93,4 +95,5 @@ text = "Next Turn"
 [node name="UnitsController" type="Node" parent="."]
 script = ExtResource( 4 )
 
-[connection signal="on_click_world" from="World/CameraPivot" to="." method="_on_CameraPivot_on_click_world"]
+[connection signal="on_click_world" from="World/CameraPivot" to="UnitsController" method="_on_CameraPivot_on_click_world"]
+[connection signal="pressed" from="GUI/BattleUI/BtnNextTurn" to="UnitsController" method="_on_BtnNextTurn_pressed"]
