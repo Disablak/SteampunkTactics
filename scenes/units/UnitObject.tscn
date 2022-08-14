@@ -1,10 +1,13 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/units/UnitAnimator.gd" type="Script" id=1]
 [ext_resource path="res://scenes/units/UnitUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://data/models/player2/y bot 2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/units/UnitObject.gd" type="Script" id=4]
 [ext_resource path="res://scripts/units/UnitVisual.gd" type="Script" id=6]
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "hit"
 
 [sub_resource type="AnimationNodeAnimation" id=8]
 animation = "idle-loop"
@@ -18,31 +21,35 @@ animation = "running-loop"
 [sub_resource type="AnimationNodeStateMachineTransition" id=11]
 xfade_time = 0.3
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=12]
-xfade_time = 0.3
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=13]
+switch_mode = 2
+auto_advance = true
 xfade_time = 0.3
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=14]
 xfade_time = 0.3
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=15]
-xfade_time = 0.3
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=16]
 xfade_time = 0.3
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+switch_mode = 2
+auto_advance = true
+
 [sub_resource type="AnimationNodeStateMachine" id=17]
+states/Hit/node = SubResource( 21 )
+states/Hit/position = Vector2( 200.026, -92.2599 )
 states/Idle/node = SubResource( 8 )
-states/Idle/position = Vector2( 204.5, 60.5 )
+states/Idle/position = Vector2( 200, 48.5 )
 states/Shooting/node = SubResource( 9 )
 states/Shooting/position = Vector2( 505, 5 )
 states/Walking/node = SubResource( 10 )
 states/Walking/position = Vector2( 514.875, 140.5 )
-transitions = [ "Idle", "Walking", SubResource( 11 ), "Walking", "Shooting", SubResource( 12 ), "Shooting", "Idle", SubResource( 13 ), "Walking", "Idle", SubResource( 14 ), "Shooting", "Walking", SubResource( 15 ), "Idle", "Shooting", SubResource( 16 ) ]
+transitions = [ "Idle", "Walking", SubResource( 11 ), "Shooting", "Idle", SubResource( 13 ), "Walking", "Idle", SubResource( 14 ), "Idle", "Shooting", SubResource( 16 ), "Idle", "Hit", SubResource( 22 ), "Hit", "Idle", SubResource( 23 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -96.2548, -34.155 )
+graph_offset = Vector2( -318.015, -107.38 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=20]
 

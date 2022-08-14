@@ -11,6 +11,8 @@ func play_anim(animation_type):
 			set_anim("Walking")
 		Globals.AnimationType.SHOOTING:
 			set_anim("Shooting")
+		Globals.AnimationType.HIT:
+			set_anim("Hit")
 			
 
 func set_anim(name):

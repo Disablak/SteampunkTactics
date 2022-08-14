@@ -126,7 +126,11 @@ func _try_shoot(raycast_result, input_event: InputEventMouseButton):
 		printerr("unit not clicked or same unit")
 		return false
 	
-	units[unit_object.unit_id].unit_data.set_damage(10)
+	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.SHOOTING)
+	
+	var enemy = units[unit_object.unit_id]
+	enemy.unit_object.unit_animator.play_anim(Globals.AnimationType.HIT)
+	enemy.unit_data.set_damage(10)
 	return true
 
 func _on_BtnNextTurn_pressed() -> void:

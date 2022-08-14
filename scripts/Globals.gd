@@ -6,4 +6,5 @@ enum AnimationType{
 	IDLE,
 	WALKING,
 	SHOOTING,
+	HIT,
 }
