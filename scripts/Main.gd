@@ -47,8 +47,8 @@ func _ready() -> void:
 
 func _init_units():
 	var all_units = [
-		Unit.new(0, UnitData.new(20), player),
-		Unit.new(1, UnitData.new(20), enemy) 
+		Unit.new(0, UnitData.new(50, 20), player),
+		Unit.new(1, UnitData.new(30, 20), enemy)
 	]
 	
 	for i in all_units.size():
@@ -100,6 +100,11 @@ func move_via_points(points: PoolVector3Array):
 
 func _move_unit(pos):
 	var path = pathfinding_system.find_path(player.global_transform.origin, pos)
+	var distance = pathfinding_system.get_total_distance(path)
+	if not units[0].unit_data.can_move(distance):
+		return
+	
+	units[0].unit_data.set_walk_distance(distance)
 	move_via_points(path)
 
 

@@ -7,5 +7,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 script = ExtResource( 1 )
 
 [node name="Label3DHealth" type="Label3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+pixel_size = 0.015
 billboard = 1
 text = "100/100"
+
+[node name="Label3DWalkDistance" type="Label3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+pixel_size = 0.015
+billboard = 1
+text = "text"

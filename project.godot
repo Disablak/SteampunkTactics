@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "AnimationTree",
 "class": "UnitAnimator",
 "language": "GDScript",
-"path": "res://scripts/UnitAnimator.gd"
+"path": "res://scripts/units/UnitAnimator.gd"
 }, {
 "base": "Reference",
 "class": "UnitData",
 "language": "GDScript",
-"path": "res://scripts/UnitData.gd"
+"path": "res://scripts/units/UnitData.gd"
 }, {
 "base": "Spatial",
 "class": "UnitObject",
