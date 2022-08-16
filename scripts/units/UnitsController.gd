@@ -30,14 +30,14 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	_rotate_unit(delta)
+	_rotate_unit(cur_target_point, delta)
 
 
-func _rotate_unit(delta):
-	if cur_target_point == Vector3.ZERO:
+func _rotate_unit(pos, delta):
+	if pos == Vector3.ZERO:
 		return
 	
-	var new_transform = cur_unit_object.transform.looking_at(cur_target_point, Vector3.UP)
+	var new_transform = cur_unit_object.transform.looking_at(pos, Vector3.UP)
 	cur_unit_object.transform = cur_unit_object.transform.interpolate_with(new_transform, rot_speed * delta)
 	cur_unit_object.rotation.x = 0
 
@@ -88,7 +88,15 @@ func _on_unit_died(unit_id):
 	units.erase(unit_id)
 
 
-func _on_CameraPivot_on_click_world(raycast_result, input_event: InputEventMouseButton) -> void:	
+func _on_InputSystem_on_unit_rotation_pressed(pos) -> void:
+	if tween_move.is_active():
+		return
+	
+	cur_unit_object.look_at(pos, Vector3.UP)
+	cur_unit_object.rotation_degrees.x = 0
+
+
+func _on_InputSystem_on_click_world(raycast_result, input_event) -> void:
 	if tween_move.is_active():
 		print("wait unit {0} moving".format([cur_unit_id]))
 		return
@@ -163,4 +171,4 @@ func next_unit():
 	
 	set_unit_control(next_unit_id)
 	cur_unit_data.restore_walk_distance()
-
+	
