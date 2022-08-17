@@ -107,8 +107,7 @@ func _remove_obstacle_points():
 	for str_point_world_pos in points.keys():
 		var world_pos := astar_to_world(str_point_world_pos)
 		for obstacle in obstacles:
-			var aabb = obstacle.get_transformed_aabb()
-			if aabb.has_point(world_pos):
+			if obstacle.is_point_in_shape(world_pos):
 				print("remove ", points[str_point_world_pos], world_pos)
 				obstacle_points[str_point_world_pos] = points[str_point_world_pos]
 				astar.remove_point(points[str_point_world_pos])
