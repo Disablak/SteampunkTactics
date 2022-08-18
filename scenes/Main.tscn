@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/level/ObsBarrel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scripts/InputSystem.gd" type="Script" id=7]
 [ext_resource path="res://scenes/PathfindingSystem.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/units/UnitObject.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/CameraController.gd" type="Script" id=10]
 
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
@@ -110,11 +111,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 6 )
 
 [node name="CameraPivot" type="Position3D" parent="ViewportContainer/Viewport/World"]
-transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 1.414, 12.3727, 14.583 )
+transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 1.204, 12.373, 14.583 )
+script = ExtResource( 10 )
 
 [node name="Camera" type="Camera" parent="ViewportContainer/Viewport/World/CameraPivot"]
 unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, 1, -2.98023e-07, 0, 2.98023e-08, 1, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 fov = 30.0
 
 [node name="UnitObjectPlayer" parent="ViewportContainer/Viewport/World" instance=ExtResource( 9 )]
@@ -154,4 +156,5 @@ script = ExtResource( 7 )
 
 [connection signal="pressed" from="GUI/BattleUI/BtnNextTurn" to="UnitsController" method="_on_BtnNextTurn_pressed"]
 [connection signal="on_click_world" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_click_world"]
+[connection signal="on_drag" from="InputSystem" to="ViewportContainer/Viewport/World/CameraPivot" method="_on_InputSystem_on_drag"]
 [connection signal="on_unit_rotation_pressed" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_unit_rotation_pressed"]
