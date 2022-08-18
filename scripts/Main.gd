@@ -1,7 +1,7 @@
 extends Spatial
 
-onready var player = get_node("World/UnitObject")
-onready var enemy = get_node("World/UnitObject2")
+onready var player = get_node("%UnitObjectPlayer")
+onready var enemy = get_node("%UnitObjectEnemy")
 
 var units = {}
 
@@ -21,8 +21,6 @@ class Unit:
 
 
 func _ready() -> void:
-	OS.set_window_always_on_top(true)
-	
 	_init_units()
 
 

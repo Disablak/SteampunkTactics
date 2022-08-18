@@ -49,6 +49,15 @@ GlobalBus="*res://scripts/GlobalBus.gd"
 DebugDraw="*res://addons/zylann.debug_draw/debug_draw.gd"
 DrawLine3d="*res://addons/Godot-3D-Lines/DrawLine3D.gd"
 
+[display]
+
+window/size/resizable=false
+window/size/always_on_top=true
+window/size/test_width=1024
+window/size/test_height=600
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/blend/plugin.cfg" )
