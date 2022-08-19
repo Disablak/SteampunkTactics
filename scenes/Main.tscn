@@ -116,7 +116,6 @@ script = ExtResource( 10 )
 
 [node name="Camera" type="Camera" parent="ViewportContainer/Viewport/World/CameraPivot"]
 unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 fov = 30.0
 
 [node name="UnitObjectPlayer" parent="ViewportContainer/Viewport/World" instance=ExtResource( 9 )]

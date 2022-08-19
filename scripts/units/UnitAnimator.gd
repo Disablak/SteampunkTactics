@@ -11,6 +11,7 @@ func play_anim(animation_type):
 			set_anim("Walking")
 		Globals.AnimationType.SHOOTING:
 			set_anim("Shooting")
+			get_parent().play_fire_vfx()
 		Globals.AnimationType.HIT:
 			set_anim("Hit")
 			
