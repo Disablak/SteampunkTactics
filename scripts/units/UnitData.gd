@@ -23,7 +23,7 @@ func set_unit_id(id):
 	self.unit_id = id
 
 
-func set_damage(value):
+func set_damage(value, attacker_unit_id):
 	if cur_health <= 0:
 		print("unit {0} is already dead".format([unit_id]))
 		return
@@ -32,7 +32,7 @@ func set_damage(value):
 	GlobalBus.emit_signal(GlobalBus.on_unit_change_health_name, unit_id)
 	
 	if cur_health <= 0:
-		GlobalBus.emit_signal(GlobalBus.on_unit_died_name, unit_id)
+		GlobalBus.emit_signal(GlobalBus.on_unit_died_name, unit_id, attacker_unit_id)
 		print_debug("unit_died ", unit_id)
 
 

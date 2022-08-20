@@ -81,9 +81,9 @@ func _move_via_points(points: PoolVector3Array):
 		yield(tween_move, "tween_completed") 
 
 
-func _on_unit_died(unit_id):
+func _on_unit_died(unit_id, unit_id_killer):
 	var unit = units[unit_id]
-	unit.unit_object.queue_free()
+	#unit.unit_object.queue_free()
 	units.erase(unit_id)
 
 
@@ -137,7 +137,7 @@ func _try_shoot(raycast_result, input_event: InputEventMouseButton):
 	
 	var enemy = units[unit_object.unit_id]
 	enemy.unit_object.unit_animator.play_anim(Globals.AnimationType.HIT)
-	enemy.unit_data.set_damage(10)
+	enemy.unit_data.set_damage(10, cur_unit_id)
 	return true
 
 func _on_BtnNextTurn_pressed() -> void:

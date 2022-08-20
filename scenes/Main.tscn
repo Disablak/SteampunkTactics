@@ -10,7 +10,7 @@
 [ext_resource path="res://scenes/PathfindingSystem.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/units/UnitObject.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/CameraController.gd" type="Script" id=10]
-[ext_resource path="res://scenes/UnitsUI.gd" type="Script" id=11]
+[ext_resource path="res://scripts/units/UnitsUI.gd" type="Script" id=11]
 
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
@@ -94,10 +94,10 @@ mesh = SubResource( 2 )
 material/0 = SubResource( 6 )
 
 [node name="ObsDefault" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, 2.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 5.5 )
 
 [node name="ObsDefault2" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 8.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, 7.5 )
 
 [node name="ObsBarrel" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 3 )
@@ -107,9 +107,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 4 )
 
 [node name="ObsBarrel3" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 5 )
+visible = false
 
 [node name="ObsBarrel4" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 6 )
+visible = false
 
 [node name="CameraPivot" type="Position3D" parent="ViewportContainer/Viewport/World"]
 transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 1.204, 12.373, 14.583 )
@@ -122,11 +124,11 @@ fov = 30.0
 
 [node name="UnitObjectPlayer" parent="ViewportContainer/Viewport/World" instance=ExtResource( 9 )]
 unique_name_in_owner = true
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4, 0, 5 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, 5 )
 
 [node name="UnitObjectEnemy" parent="ViewportContainer/Viewport/World" instance=ExtResource( 9 )]
 unique_name_in_owner = true
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20, 0, 5 )
+transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 12, 0, 3 )
 is_player_unit = false
 
 [node name="GUI" type="Control" parent="."]
@@ -165,3 +167,6 @@ script = ExtResource( 7 )
 [connection signal="on_click_world" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_click_world"]
 [connection signal="on_drag" from="InputSystem" to="ViewportContainer/Viewport/World/CameraPivot" method="_on_InputSystem_on_drag"]
 [connection signal="on_unit_rotation_pressed" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_unit_rotation_pressed"]
+
+[editable path="ViewportContainer/Viewport/World/Level/ObsDefault"]
+[editable path="ViewportContainer/Viewport/World/Level/ObsDefault2"]
