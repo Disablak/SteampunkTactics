@@ -3,8 +3,6 @@ extends Spatial
 onready var player = get_node("%UnitObjectPlayer")
 onready var enemy = get_node("%UnitObjectEnemy")
 
-var units = {}
-
 
 class Unit:
 	var id: int
@@ -31,8 +29,6 @@ func _init_units():
 	]
 	
 	for i in all_units.size():
-		units[all_units[i].id] = all_units[i]
-		
-	print(units)
-	$UnitsController.units = units
+		GlobalUnits.units[all_units[i].id] = all_units[i]
+	
 	$UnitsController.set_unit_control(0)

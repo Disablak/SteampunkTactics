@@ -7,10 +7,9 @@ const rot_speed = 10
 
 onready var pathfinding_system = get_parent().get_node("%PathfindingSystem")
 onready var draw_line3d = get_parent().get_node("%DrawLine3D")
+onready var units = GlobalUnits.units
 
-var units = {}
 var tween_move := Tween.new()
-
 var cur_unit_id = -1
 var cur_unit_data: UnitData
 var cur_unit_object: UnitObject

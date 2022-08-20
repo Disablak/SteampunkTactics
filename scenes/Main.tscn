@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/level/ObsBarrel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/PathfindingSystem.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/units/UnitObject.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/CameraController.gd" type="Script" id=10]
+[ext_resource path="res://scenes/UnitsUI.gd" type="Script" id=11]
 
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
@@ -116,6 +117,7 @@ script = ExtResource( 10 )
 
 [node name="Camera" type="Camera" parent="ViewportContainer/Viewport/World/CameraPivot"]
 unique_name_in_owner = true
+current = true
 fov = 30.0
 
 [node name="UnitObjectPlayer" parent="ViewportContainer/Viewport/World" instance=ExtResource( 9 )]
@@ -134,6 +136,12 @@ anchor_bottom = 1.0
 [node name="BattleUI" type="Control" parent="GUI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+
+[node name="UnitsUI" type="Control" parent="GUI/BattleUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 11 )
+path_camera = NodePath("../../../ViewportContainer/Viewport/World/CameraPivot/Camera")
 
 [node name="BtnNextTurn" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true

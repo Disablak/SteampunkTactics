@@ -29,7 +29,7 @@ func set_damage(value):
 		return
 	
 	cur_health -= value
-	GlobalBus.emit_signal(GlobalBus.on_unit_change_health_name, unit_id, cur_health, max_health)
+	GlobalBus.emit_signal(GlobalBus.on_unit_change_health_name, unit_id)
 	
 	if cur_health <= 0:
 		GlobalBus.emit_signal(GlobalBus.on_unit_died_name, unit_id)
@@ -55,5 +55,5 @@ func restore_walk_distance():
 func set_walk_distance(value):
 	var clamped_value = clamp(value, 0.0, max_walk_distance)
 	cur_walk_distance = clamped_value
-	GlobalBus.emit_signal(GlobalBus.on_unit_changed_walk_distance, unit_id, cur_walk_distance, max_walk_distance)
+	GlobalBus.emit_signal(GlobalBus.on_unit_changed_walk_distance, unit_id)
 

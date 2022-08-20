@@ -1,7 +1,6 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/units/UnitAnimator.gd" type="Script" id=1]
-[ext_resource path="res://scenes/units/UnitUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://data/models/player2/y bot 2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/units/UnitObject.gd" type="Script" id=4]
 [ext_resource path="res://data/vfx/muzzle flesh.tscn" type="PackedScene" id=5]
@@ -87,6 +86,7 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.43548, -0.741855 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.8, 0 )
 shape = SubResource( 7 )
 
-[node name="UnitUI" parent="." instance=ExtResource( 2 )]
+[node name="PositionUI" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.87442, 0 )
 
 [editable path="UnitVisual/y bot 2"]

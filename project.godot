@@ -46,6 +46,7 @@ config/icon="res://icon.png"
 
 Globals="*res://scripts/Globals.gd"
 GlobalBus="*res://scripts/GlobalBus.gd"
+GlobalUnits="*res://scripts/GlobalUnits.gd"
 DebugDraw="*res://addons/zylann.debug_draw/debug_draw.gd"
 DrawLine3d="*res://addons/Godot-3D-Lines/DrawLine3D.gd"
 
