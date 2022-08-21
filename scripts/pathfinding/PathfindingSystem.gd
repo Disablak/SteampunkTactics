@@ -7,7 +7,7 @@ export var update_astar = false setget _update_astar
 export var grid_size := Vector2(10, 10)
 export var start_offset := Vector2(0, 0)
 
-var grid_step := 1.0
+var grid_step = Globals.GRID_STEP
 
 onready var simplifier = $PathfindingSimplifier
 onready var path_smoother = $PathfindingSmoother

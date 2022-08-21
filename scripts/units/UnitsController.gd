@@ -14,6 +14,7 @@ var cur_unit_id = -1
 var cur_unit_data: UnitData
 var cur_unit_object: UnitObject
 var cur_target_point := Vector3.ZERO
+var cur_unit_action = Globals.UnitAction.NONE
 
 
 func _init() -> void:
@@ -48,7 +49,6 @@ func _move_unit(pos):
 		return
 	
 	cur_unit_data.remove_walk_distance(distance)
-	draw_line3d.draw_all_lines(path)
 	_move_via_points(path)
 
 
@@ -83,7 +83,6 @@ func _move_via_points(points: PoolVector3Array):
 
 func _on_unit_died(unit_id, unit_id_killer):
 	var unit = units[unit_id]
-	#unit.unit_object.queue_free()
 	units.erase(unit_id)
 
 
@@ -113,11 +112,25 @@ func _on_InputSystem_on_click_world(raycast_result, input_event) -> void:
 		return
 
 
+func _on_InputSystem_on_mouse_hover_cell(cell_pos) -> void:
+	if tween_move.is_active():
+		return
+	
+	if cur_unit_action != Globals.UnitAction.WALK:
+		return
+	
+	var path = pathfinding_system.find_path(cur_unit_object.global_transform.origin, cell_pos)
+	draw_line3d.draw_all_lines(path)
+
+
 func _try_move(raycast_result, input_event: InputEventMouseButton) -> bool:
 	if not (input_event.pressed and input_event.button_index == 2 and raycast_result.collider.is_in_group("pathable")):
 		return false
 	
 	if raycast_result.position == Vector3.ZERO:
+		return false
+		
+	if cur_unit_action != Globals.UnitAction.WALK:
 		return false
 		
 	_move_unit(raycast_result.position)
@@ -142,6 +155,12 @@ func _try_shoot(raycast_result, input_event: InputEventMouseButton):
 
 func _on_BtnNextTurn_pressed() -> void:
 	next_unit()
+
+
+func _on_BtnMoveUnit_toggled(button_pressed: bool) -> void:
+	cur_unit_action = Globals.UnitAction.WALK if button_pressed else Globals.UnitAction.SHOOT
+	if not button_pressed:
+		draw_line3d.clear()
 
 
 func set_unit_control(unit_id):
