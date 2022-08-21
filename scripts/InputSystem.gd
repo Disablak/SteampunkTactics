@@ -19,8 +19,9 @@ var prev_mouse_hover_cell: Vector3
 func _input(event: InputEvent) -> void:
 	if _draging(event):
 		return
-	
+
 	if _press_shift(event):
+		_mouse_click(event)
 		return
 	
 	_mouse_click(event)
@@ -70,9 +71,6 @@ func _mouse_hover(event: InputEvent):
 				prev_mouse_hover_cell = cell_pos
 		else:
 			emit_signal("on_mouse_hover_cell", false, Vector3.ZERO)
-	
-	
-
 
 
 func _make_ray(pos):

@@ -8,6 +8,7 @@ const rot_speed = 10
 onready var pathfinding_system = get_parent().get_node("%PathfindingSystem")
 onready var draw_line3d = get_parent().get_node("%DrawLine3D")
 onready var mouse_pointer = get_parent().get_node("%MousePointer")
+onready var camera_pivot = get_parent().get_node("%CameraController")
 onready var units = GlobalUnits.units
 
 var tween_move := Tween.new()
@@ -146,12 +147,18 @@ func _try_move(raycast_result, input_event: InputEventMouseButton) -> bool:
 
 
 func _try_shoot(raycast_result, input_event: InputEventMouseButton):
+	if not input_event.shift:
+		return false
+	
 	if not (input_event.pressed and input_event.button_index == 1):
 		return false
 	
 	var unit_object = raycast_result.collider.get_parent() as UnitObject
-	if not unit_object or unit_object == cur_unit_object:
-		printerr("unit not clicked or same unit")
+	if not unit_object:
+		return false
+	
+	if unit_object == cur_unit_object:
+		printerr("unit clicked on yourself")
 		return false
 	
 	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.SHOOTING)
@@ -171,7 +178,7 @@ func _on_BtnMoveUnit_toggled(button_pressed: bool) -> void:
 		draw_line3d.clear()
 
 
-func set_unit_control(unit_id):
+func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	if tween_move.is_active():
 		printerr("unit {0} is moving now".format([unit_id]))
 		return
@@ -188,6 +195,8 @@ func set_unit_control(unit_id):
 	cur_unit_data = units[unit_id].unit_data
 	cur_unit_object = units[unit_id].unit_object
 	cur_target_point = Vector3.ZERO
+	
+	camera_pivot.focus_camera(cur_unit_object, camera_focus_instantly)
 
 
 func next_unit():

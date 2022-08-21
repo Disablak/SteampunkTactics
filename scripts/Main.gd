@@ -31,4 +31,4 @@ func _init_units():
 	for i in all_units.size():
 		GlobalUnits.units[all_units[i].id] = all_units[i]
 	
-	$UnitsController.set_unit_control(0)
+	$UnitsController.set_unit_control(0, true)
