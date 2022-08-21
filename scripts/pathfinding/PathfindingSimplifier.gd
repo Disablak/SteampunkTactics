@@ -39,7 +39,7 @@ func raycast(from, to) -> bool:
 	var end = Vector3(to.x, 0.5, to.z)
 	
 	var direct_state = get_world().direct_space_state
-	var collision = direct_state.intersect_ray(start, end, [], 5, true, true)
+	var collision = direct_state.intersect_ray(start, end, [], 5, false, true)
 	#print("ray ", start, " and ", end, " result: ", collision)
 	
 	return not collision.empty()

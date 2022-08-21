@@ -133,8 +133,9 @@ func find_path(from: Vector3, to: Vector3) -> PoolVector3Array:
 	var end_id = astar.get_closest_point(to)
 	
 	var astar_path = astar.get_point_path(start_id, end_id)
+	#print("astar path: ", astar_path)
 	var simple_path = simplifier.get_simple_path(astar_path)
-	print("simple path: ", simple_path)
+	#print("simple path: ", simple_path)
 	var smoother_path = path_smoother.get_smoothed_curve(simple_path)
 	
 	return smoother_path
