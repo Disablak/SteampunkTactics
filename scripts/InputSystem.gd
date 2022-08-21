@@ -4,7 +4,7 @@ extends Spatial
 signal on_click_world(ray_cast_result, input_event)
 signal on_unit_rotation_pressed(pos)
 signal on_drag(dir)
-signal on_mouse_hover_cell(cell_pos)
+signal on_mouse_hover_cell(is_hover, cell_pos)
 
 onready var camera = get_parent().get_node("%Camera")
 
@@ -65,9 +65,11 @@ func _mouse_hover(event: InputEvent):
 		if ray_result and ray_result.collider.is_in_group("pathable"):
 			var cell_pos = Globals.posToCellPos(ray_result.position)
 			if cell_pos != prev_mouse_hover_cell:
-				emit_signal("on_mouse_hover_cell", cell_pos)
+				emit_signal("on_mouse_hover_cell", true, cell_pos)
 				#print("cell ", cell_pos)
 				prev_mouse_hover_cell = cell_pos
+		else:
+			emit_signal("on_mouse_hover_cell", false, Vector3.ZERO)
 	
 	
 

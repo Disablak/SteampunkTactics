@@ -7,6 +7,7 @@ const rot_speed = 10
 
 onready var pathfinding_system = get_parent().get_node("%PathfindingSystem")
 onready var draw_line3d = get_parent().get_node("%DrawLine3D")
+onready var mouse_pointer = get_parent().get_node("%MousePointer")
 onready var units = GlobalUnits.units
 
 var tween_move := Tween.new()
@@ -112,7 +113,14 @@ func _on_InputSystem_on_click_world(raycast_result, input_event) -> void:
 		return
 
 
-func _on_InputSystem_on_mouse_hover_cell(cell_pos) -> void:
+func _on_InputSystem_on_mouse_hover_cell(is_hover, cell_pos) -> void:
+	mouse_pointer.visible = is_hover
+	mouse_pointer.global_transform.origin = cell_pos
+	
+	if not is_hover:
+		draw_line3d.clear()
+		return
+	
 	if tween_move.is_active():
 		return
 	

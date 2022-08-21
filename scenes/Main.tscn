@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/level/ObsBarrel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=2]
@@ -51,6 +51,16 @@ material = SubResource( 3 )
 albedo_texture = ExtResource( 3 )
 uv1_scale = Vector3( 40.5, 13, 1 )
 
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 0.286275, 0.690196, 0.788235, 1 )
+
+[sub_resource type="CylinderMesh" id=10]
+material = SubResource( 9 )
+top_radius = 0.05
+bottom_radius = 0.1
+height = 0.05
+radial_segments = 16
+
 [node name="Main" type="Spatial"]
 script = ExtResource( 2 )
 
@@ -71,7 +81,6 @@ shadow_atlas_size = 256
 
 [node name="PathfindingSystem" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 8 )]
 unique_name_in_owner = true
-is_debug = true
 grid_size = Vector2( 25, 11 )
 
 [node name="DrawLine3D" type="MeshInstance" parent="ViewportContainer/Viewport/World/Level"]
@@ -110,6 +119,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 5 )
 
 [node name="ObsBarrel4" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 6 )
+
+[node name="MousePointer" type="MeshInstance" parent="ViewportContainer/Viewport/World/Level"]
+unique_name_in_owner = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, -100 )
+mesh = SubResource( 10 )
 
 [node name="CameraPivot" type="Position3D" parent="ViewportContainer/Viewport/World"]
 transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 1.204, 12.373, 14.583 )
