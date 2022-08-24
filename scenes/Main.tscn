@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/level/ObsBarrel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://scenes/units/UnitObject.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/CameraController.gd" type="Script" id=10]
 [ext_resource path="res://scripts/units/UnitsUI.gd" type="Script" id=11]
+[ext_resource path="res://data/props/tree/tree0 with texture.glb" type="PackedScene" id=12]
+[ext_resource path="res://data/props/rock/rock.tscn" type="PackedScene" id=13]
 
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
@@ -72,6 +74,15 @@ scancode = 84
 
 [sub_resource type="ShortCut" id=14]
 shortcut = SubResource( 13 )
+
+[sub_resource type="Environment" id=15]
+fog_enabled = true
+fog_depth_end = 80.0
+dof_blur_far_enabled = true
+dof_blur_far_distance = 19.0
+dof_blur_near_distance = 6.49
+adjustment_enabled = true
+adjustment_brightness = 1.09
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 2 )
@@ -137,6 +148,21 @@ unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, -100 )
 mesh = SubResource( 10 )
 
+[node name="rock" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 13 )]
+transform = Transform( 0.0589928, 0, 0.998258, 0, 1, 0, -0.998258, 0, 0.0589928, 8.04928, 0.000283241, 11.0313 )
+
+[node name="rock2" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.9426, 0.000282764, 1.19405 )
+
+[node name="rock3" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 13 )]
+transform = Transform( 0.147775, 0, -0.989021, 0, 1, 0, 0.989021, 0, 0.147775, 2.93336, 0.000282764, 5.99985 )
+
+[node name="tree0 with texture" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 12 )]
+transform = Transform( 0.844604, 0, 1.81291, 0, 2, 0, -1.81291, 0, 0.844604, 8.94057, 0.000309944, 11.0922 )
+
+[node name="tree0 with texture2" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 12 )]
+transform = Transform( 0.633524, 0, -1.35965, 0, 1.5, 0, 1.35965, 0, 0.633524, 3.97059, 1.7643e-05, 0.145362 )
+
 [node name="CameraController" type="Position3D" parent="ViewportContainer/Viewport/World"]
 unique_name_in_owner = true
 transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 1.204, 12.373, 14.583 )
@@ -200,6 +226,9 @@ script = ExtResource( 4 )
 
 [node name="InputSystem" type="Spatial" parent="."]
 script = ExtResource( 7 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 15 )
 
 [connection signal="toggled" from="GUI/BattleUI/BtnMoveUnit" to="UnitsController" method="_on_BtnMoveUnit_toggled"]
 [connection signal="pressed" from="GUI/BattleUI/BtnNextTurn" to="UnitsController" method="_on_BtnNextTurn_pressed"]
