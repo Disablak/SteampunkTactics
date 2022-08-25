@@ -8,6 +8,7 @@ export var grid_size := Vector2(10, 10)
 export var start_offset := Vector2(0, 0)
 
 var grid_step = Globals.GRID_STEP
+var level: Spatial
 
 onready var simplifier = $PathfindingSimplifier
 onready var path_smoother = $PathfindingSmoother
@@ -102,7 +103,15 @@ func _connect_points():
 
 
 func _remove_obstacle_points():
-	var obstacles = get_tree().get_nodes_in_group("obstacle")
+	if not level:
+		return
+	
+	var obstacles = []
+	for child in level.get_children():
+		if child.is_in_group("obstacle"):
+			obstacles.push_back(child)
+	
+	
 	for str_point_world_pos in points.keys():
 		var world_pos := astar_to_world(str_point_world_pos)
 		for obstacle in obstacles:
@@ -169,3 +178,4 @@ func get_total_distance(points: PoolVector3Array) -> float:
 		start = points[i]
 	
 	return distance
+

@@ -1,14 +1,12 @@
 extends Node
 
 
-
 const move_speed = 3
 const rot_speed = 10
 
 onready var pathfinding_system = get_parent().get_node("%PathfindingSystem")
 onready var draw_line3d = get_parent().get_node("%DrawLine3D")
 onready var mouse_pointer = get_parent().get_node("%MousePointer")
-onready var camera_pivot = get_parent().get_node("%CameraController")
 onready var units = GlobalUnits.units
 
 var tween_move := Tween.new()
@@ -168,13 +166,10 @@ func _try_shoot(raycast_result, input_event: InputEventMouseButton):
 	enemy.unit_data.set_damage(10, cur_unit_id)
 	return true
 
-func _on_BtnNextTurn_pressed() -> void:
-	next_unit()
 
-
-func _on_BtnMoveUnit_toggled(button_pressed: bool) -> void:
-	cur_unit_action = Globals.UnitAction.WALK if button_pressed else Globals.UnitAction.SHOOT
-	if not button_pressed:
+func move_unit_mode(enable: bool) -> void:
+	cur_unit_action = Globals.UnitAction.WALK if enable else Globals.UnitAction.SHOOT
+	if not enable:
 		draw_line3d.clear()
 
 
@@ -196,7 +191,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	cur_unit_object = units[unit_id].unit_object
 	cur_target_point = Vector3.ZERO
 	
-	camera_pivot.focus_camera(cur_unit_object, camera_focus_instantly)
+	GlobalBus.emit_signal(GlobalBus.on_setted_unit_control_name, cur_unit_object, camera_focus_instantly)
 
 
 func next_unit():

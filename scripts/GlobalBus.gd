@@ -10,3 +10,5 @@ signal on_unit_change_health(unit_id)
 var on_unit_changed_walk_distance = "on_unit_changed_walk_distance"
 signal on_unit_changed_walk_distance(unit_id)
 
+var on_setted_unit_control_name = "on_setted_unit_control"
+signal on_setted_unit_control(unit_spatial, instantly)

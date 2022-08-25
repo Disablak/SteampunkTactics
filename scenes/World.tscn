@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scripts/World.gd" type="Script" id=1]
+[ext_resource path="res://addons/my_draw_line_3d/MyDrawLine3D.gd" type="Script" id=2]
+[ext_resource path="res://scripts/CameraController.gd" type="Script" id=3]
+[ext_resource path="res://scripts/InputSystem.gd" type="Script" id=4]
+[ext_resource path="res://scenes/units/UnitObject.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/level/LevelTest.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/PathfindingSystem.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scripts/units/UnitsController.gd" type="Script" id=8]
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 0.286275, 0.690196, 0.788235, 1 )
+
+[sub_resource type="CylinderMesh" id=10]
+material = SubResource( 9 )
+top_radius = 0.05
+bottom_radius = 0.1
+height = 0.05
+radial_segments = 16
+
+[node name="World" type="Spatial"]
+script = ExtResource( 1 )
+path_level = NodePath("LevelTest")
+
+[node name="LevelTest" parent="." instance=ExtResource( 6 )]
+
+[node name="CameraController" type="Position3D" parent="."]
+unique_name_in_owner = true
+transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 1.204, 12.373, 14.583 )
+script = ExtResource( 3 )
+camera_offset = Vector3( -9, 12, 9 )
+
+[node name="Camera" type="Camera" parent="CameraController"]
+unique_name_in_owner = true
+current = true
+fov = 30.0
+
+[node name="PathfindingSystem" parent="." instance=ExtResource( 7 )]
+unique_name_in_owner = true
+is_debug = true
+grid_size = Vector2( 25, 11 )
+
+[node name="DrawLine3D" type="MeshInstance" parent="."]
+unique_name_in_owner = true
+skeleton = NodePath("../LevelTest")
+script = ExtResource( 2 )
+color = Color( 0.505882, 0.615686, 0.0392157, 1 )
+
+[node name="MousePointer" type="MeshInstance" parent="."]
+unique_name_in_owner = true
+transform = Transform( 1, 0, -2.98023e-08, -2.98023e-08, 1, 0, 0, 0, 1, -100, 3.33786e-06, -100 )
+mesh = SubResource( 10 )
+skeleton = NodePath("../LevelTest")
+
+[node name="UnitObjectPlayer" parent="." instance=ExtResource( 5 )]
+unique_name_in_owner = true
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, 5 )
+
+[node name="UnitObjectEnemy" parent="." instance=ExtResource( 5 )]
+unique_name_in_owner = true
+transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 12, 0, 3 )
+is_player_unit = false
+
+[node name="UnitsController" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource( 8 )
+
+[node name="InputSystem" type="Spatial" parent="."]
+script = ExtResource( 4 )
+
+[connection signal="on_click_world" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_click_world"]
+[connection signal="on_drag" from="InputSystem" to="CameraController" method="_on_InputSystem_on_drag"]
+[connection signal="on_mouse_hover_cell" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_mouse_hover_cell"]
+[connection signal="on_unit_rotation_pressed" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_unit_rotation_pressed"]

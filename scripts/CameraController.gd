@@ -10,7 +10,10 @@ onready var tween_move = Tween.new()
 
 
 func _ready() -> void:
+	GlobalBus.connect(GlobalBus.on_setted_unit_control_name, self, "focus_camera")
+	
 	add_child(tween_move)
+	
 
 
 func _on_InputSystem_on_drag(dir) -> void:

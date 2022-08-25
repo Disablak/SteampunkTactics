@@ -1,19 +1,8 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://scenes/level/ObsBarrel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=2]
-[ext_resource path="res://data/textures/Dark/texture_01.png" type="Texture" id=3]
-[ext_resource path="res://scripts/units/UnitsController.gd" type="Script" id=4]
-[ext_resource path="res://addons/my_draw_line_3d/MyDrawLine3D.gd" type="Script" id=5]
-[ext_resource path="res://scenes/level/ObsDefault.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scripts/InputSystem.gd" type="Script" id=7]
-[ext_resource path="res://scenes/PathfindingSystem.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/units/UnitObject.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scripts/CameraController.gd" type="Script" id=10]
 [ext_resource path="res://scripts/units/UnitsUI.gd" type="Script" id=11]
-[ext_resource path="res://data/props/tree/tree0 with texture.glb" type="PackedScene" id=12]
-[ext_resource path="res://data/props/rock/rock.tscn" type="PackedScene" id=13]
-[ext_resource path="res://data/textures/Dark/texture_02.png" type="Texture" id=14]
 
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
@@ -42,32 +31,6 @@ void fragment()
 [sub_resource type="ShaderMaterial" id=8]
 shader = SubResource( 7 )
 shader_param/pixelSize = 2
-
-[sub_resource type="ShaderMaterial" id=3]
-
-[sub_resource type="CubeMesh" id=2]
-material = SubResource( 3 )
-
-[sub_resource type="SpatialMaterial" id=16]
-albedo_color = Color( 0.847059, 0.796078, 0.796078, 1 )
-albedo_texture = ExtResource( 14 )
-uv1_scale = Vector3( 50, 35, 1 )
-
-[sub_resource type="BoxShape" id=1]
-
-[sub_resource type="SpatialMaterial" id=6]
-albedo_texture = ExtResource( 3 )
-uv1_scale = Vector3( 40.5, 13, 1 )
-
-[sub_resource type="SpatialMaterial" id=9]
-albedo_color = Color( 0.286275, 0.690196, 0.788235, 1 )
-
-[sub_resource type="CylinderMesh" id=10]
-material = SubResource( 9 )
-top_radius = 0.05
-bottom_radius = 0.1
-height = 0.05
-radial_segments = 16
 
 [sub_resource type="InputEventKey" id=11]
 scancode = 77
@@ -104,96 +67,7 @@ handle_input_locally = false
 render_target_update_mode = 3
 shadow_atlas_size = 256
 
-[node name="World" type="Spatial" parent="ViewportContainer/Viewport"]
-
-[node name="Level" type="Spatial" parent="ViewportContainer/Viewport/World"]
-
-[node name="PathfindingSystem" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 8 )]
-unique_name_in_owner = true
-grid_size = Vector2( 25, 11 )
-
-[node name="DrawLine3D" type="MeshInstance" parent="ViewportContainer/Viewport/World/Level"]
-unique_name_in_owner = true
-script = ExtResource( 5 )
-color = Color( 0.505882, 0.615686, 0.0392157, 1 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="ViewportContainer/Viewport/World/Level"]
-transform = Transform( 0.435596, 0.65974, -0.612373, -0.433013, 0.75, 0.5, 0.789149, 0.0473672, 0.612372, 20.2617, 6.87771, 9.37318 )
-shadow_enabled = true
-
-[node name="FloorBackground" type="MeshInstance" parent="ViewportContainer/Viewport/World/Level"]
-transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 12, -1.2, 5 )
-mesh = SubResource( 2 )
-skeleton = NodePath("../Floor")
-material/0 = SubResource( 16 )
-
-[node name="Floor" type="StaticBody" parent="ViewportContainer/Viewport/World/Level" groups=["pathable"]]
-transform = Transform( 13.5, 0, 0, 0, 1, 0, 0, 0, 6.5, 12, -1, 5 )
-
-[node name="CollisionShape" type="CollisionShape" parent="ViewportContainer/Viewport/World/Level/Floor"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="ViewportContainer/Viewport/World/Level/Floor"]
-mesh = SubResource( 2 )
-material/0 = SubResource( 6 )
-
-[node name="ObsDefault" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 5.5 )
-
-[node name="ObsDefault2" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, 7.5 )
-
-[node name="ObsBarrel" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 3 )
-
-[node name="ObsBarrel2" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 4 )
-
-[node name="ObsBarrel3" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 5 )
-
-[node name="ObsBarrel4" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 6 )
-
-[node name="MousePointer" type="MeshInstance" parent="ViewportContainer/Viewport/World/Level"]
-unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, -100 )
-mesh = SubResource( 10 )
-
-[node name="rock" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 13 )]
-transform = Transform( 0.0589928, 0, 0.998258, 0, 1, 0, -0.998258, 0, 0.0589928, 8.04928, 0.000283241, 11.0313 )
-
-[node name="rock2" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.9426, 0.000282764, 1.19405 )
-
-[node name="rock3" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 13 )]
-transform = Transform( 0.147775, 0, -0.989021, 0, 1, 0, 0.989021, 0, 0.147775, 2.93336, 0.000282764, 5.99985 )
-
-[node name="tree0 with texture" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 12 )]
-transform = Transform( 0.844604, 0, 1.81291, 0, 2, 0, -1.81291, 0, 0.844604, 8.94057, 0.000309944, 11.0922 )
-
-[node name="tree0 with texture2" parent="ViewportContainer/Viewport/World/Level" instance=ExtResource( 12 )]
-transform = Transform( 0.633524, 0, -1.35965, 0, 1.5, 0, 1.35965, 0, 0.633524, 3.97059, 1.7643e-05, 0.145362 )
-
-[node name="CameraController" type="Position3D" parent="ViewportContainer/Viewport/World"]
-unique_name_in_owner = true
-transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 1.204, 12.373, 14.583 )
-script = ExtResource( 10 )
-camera_offset = Vector3( -9, 12, 9 )
-
-[node name="Camera" type="Camera" parent="ViewportContainer/Viewport/World/CameraController"]
-unique_name_in_owner = true
-current = true
-fov = 30.0
-
-[node name="UnitObjectPlayer" parent="ViewportContainer/Viewport/World" instance=ExtResource( 9 )]
-unique_name_in_owner = true
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, 5 )
-
-[node name="UnitObjectEnemy" parent="ViewportContainer/Viewport/World" instance=ExtResource( 9 )]
-unique_name_in_owner = true
-transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 12, 0, 3 )
-is_player_unit = false
+[node name="World" parent="ViewportContainer/Viewport" instance=ExtResource( 1 )]
 
 [node name="GUI" type="Control" parent="."]
 anchor_right = 1.0
@@ -233,18 +107,8 @@ margin_bottom = -20.0
 shortcut = SubResource( 14 )
 text = "Next Turn (T)"
 
-[node name="UnitsController" type="Node" parent="."]
-script = ExtResource( 4 )
-
-[node name="InputSystem" type="Spatial" parent="."]
-script = ExtResource( 7 )
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 15 )
 
-[connection signal="toggled" from="GUI/BattleUI/BtnMoveUnit" to="UnitsController" method="_on_BtnMoveUnit_toggled"]
-[connection signal="pressed" from="GUI/BattleUI/BtnNextTurn" to="UnitsController" method="_on_BtnNextTurn_pressed"]
-[connection signal="on_click_world" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_click_world"]
-[connection signal="on_drag" from="InputSystem" to="ViewportContainer/Viewport/World/CameraController" method="_on_InputSystem_on_drag"]
-[connection signal="on_mouse_hover_cell" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_mouse_hover_cell"]
-[connection signal="on_unit_rotation_pressed" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_unit_rotation_pressed"]
+[connection signal="toggled" from="GUI/BattleUI/BtnMoveUnit" to="ViewportContainer/Viewport/World" method="_on_BtnMoveUnit_toggled"]
+[connection signal="button_down" from="GUI/BattleUI/BtnNextTurn" to="ViewportContainer/Viewport/World" method="_on_BtnNextTurn_button_down"]

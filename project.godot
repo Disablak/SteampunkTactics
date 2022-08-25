@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/utils/NodeUtilities.gd"
 }, {
+"base": "Node",
+"class": "Unit",
+"language": "GDScript",
+"path": "res://scripts/units/Unit.gd"
+}, {
 "base": "AnimationTree",
 "class": "UnitAnimator",
 "language": "GDScript",
@@ -31,6 +36,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "NodeUtilities": "",
+"Unit": "",
 "UnitAnimator": "",
 "UnitData": "",
 "UnitObject": ""
