@@ -20,10 +20,7 @@ func _input(event: InputEvent) -> void:
 	if _draging(event):
 		return
 
-	if _press_shift(event):
-		_mouse_click(event)
-		return
-	
+	_press_shift(event)
 	_mouse_click(event)
 	_mouse_hover(event)
 
@@ -51,7 +48,7 @@ func _mouse_click(event: InputEvent):
 
 
 func _press_shift(event: InputEvent) -> bool:
-	if event.shift:
+	if event is InputEventMouseMotion:
 		var ray_result = _make_ray(get_viewport().get_mouse_position())
 		if ray_result and ray_result.position != Vector3.ZERO:
 			emit_signal("on_unit_rotation_pressed", ray_result.position)

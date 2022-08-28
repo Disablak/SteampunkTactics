@@ -12,3 +12,6 @@ signal on_unit_changed_walk_distance(unit_id)
 
 var on_setted_unit_control_name = "on_setted_unit_control"
 signal on_setted_unit_control(unit_spatial, instantly)
+
+var on_unit_changed_action_name = "on_unit_changed_action"
+signal on_unit_changed_action(unit_id, unit_action_type)

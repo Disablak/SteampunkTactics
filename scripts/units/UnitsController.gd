@@ -16,6 +16,8 @@ var cur_unit_object: UnitObject
 var cur_target_point := Vector3.ZERO
 var cur_unit_action = Globals.UnitAction.NONE
 
+var cur_pointer_pos := Vector3.ZERO
+
 
 func _init() -> void:
 	GlobalBus.connect(GlobalBus.on_unit_died_name, self, "_on_unit_died")
@@ -30,16 +32,25 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	_rotate_unit(cur_target_point, delta)
+	_when_walk_auto_rotate_unit(cur_target_point, delta)
+	_pointer_rotate_unit(delta)
 
 
-func _rotate_unit(pos, delta):
-	if pos == Vector3.ZERO:
+func _when_walk_auto_rotate_unit(pos, delta):
+	if pos == Vector3.ZERO or not tween_move.is_active():
 		return
 	
 	var new_transform = cur_unit_object.transform.looking_at(pos, Vector3.UP)
 	cur_unit_object.transform = cur_unit_object.transform.interpolate_with(new_transform, rot_speed * delta)
 	cur_unit_object.rotation.x = 0
+
+
+func _pointer_rotate_unit(delta):
+	if cur_unit_action != Globals.UnitAction.SHOOT or tween_move.is_active():
+		return
+	
+	cur_unit_object.look_at(cur_pointer_pos, Vector3.UP)
+	cur_unit_object.rotation_degrees.x = 0
 
 
 func _move_unit(pos):
@@ -87,11 +98,7 @@ func _on_unit_died(unit_id, unit_id_killer):
 
 
 func _on_InputSystem_on_unit_rotation_pressed(pos) -> void:
-	if tween_move.is_active():
-		return
-	
-	cur_unit_object.look_at(pos, Vector3.UP)
-	cur_unit_object.rotation_degrees.x = 0
+	cur_pointer_pos = pos
 
 
 func _on_InputSystem_on_click_world(raycast_result, input_event) -> void:
@@ -145,7 +152,7 @@ func _try_move(raycast_result, input_event: InputEventMouseButton) -> bool:
 
 
 func _try_shoot(raycast_result, input_event: InputEventMouseButton):
-	if not input_event.shift:
+	if cur_unit_action != Globals.UnitAction.SHOOT:
 		return false
 	
 	if not (input_event.pressed and input_event.button_index == 1):
@@ -167,10 +174,27 @@ func _try_shoot(raycast_result, input_event: InputEventMouseButton):
 	return true
 
 
+func _change_unit_action(action_type, enable):
+	var future_action
+	
+	if action_type == cur_unit_action or not enable:
+		future_action = Globals.UnitAction.NONE;
+	else:
+		future_action = action_type
+	
+	GlobalBus.emit_signal(GlobalBus.on_unit_changed_action_name, cur_unit_id, future_action)
+	cur_unit_action = future_action
+
+
 func move_unit_mode(enable: bool) -> void:
-	cur_unit_action = Globals.UnitAction.WALK if enable else Globals.UnitAction.SHOOT
+	_change_unit_action(Globals.UnitAction.WALK, enable)
 	if not enable:
 		draw_line3d.clear()
+
+
+func shoot_unit_mode(enable: bool) -> void:
+	_change_unit_action(Globals.UnitAction.SHOOT, enable)
+	draw_line3d.clear()
 
 
 func set_unit_control(unit_id, camera_focus_instantly: bool = false):
@@ -201,4 +225,5 @@ func next_unit():
 	
 	set_unit_control(next_unit_id)
 	cur_unit_data.restore_walk_distance()
-	
+
+

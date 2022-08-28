@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=2]
+[ext_resource path="res://scenes/BattleUI.gd" type="Script" id=3]
 [ext_resource path="res://scripts/units/UnitsUI.gd" type="Script" id=11]
 
 [sub_resource type="Shader" id=7]
@@ -32,11 +33,17 @@ void fragment()
 shader = SubResource( 7 )
 shader_param/pixelSize = 2
 
-[sub_resource type="InputEventKey" id=11]
-scancode = 77
+[sub_resource type="InputEventKey" id=16]
+scancode = 87
 
 [sub_resource type="ShortCut" id=12]
-shortcut = SubResource( 11 )
+shortcut = SubResource( 16 )
+
+[sub_resource type="InputEventKey" id=17]
+scancode = 16777237
+
+[sub_resource type="ShortCut" id=18]
+shortcut = SubResource( 17 )
 
 [sub_resource type="InputEventKey" id=13]
 scancode = 84
@@ -76,6 +83,7 @@ anchor_bottom = 1.0
 [node name="BattleUI" type="Control" parent="GUI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 3 )
 
 [node name="UnitsUI" type="Control" parent="GUI/BattleUI"]
 anchor_right = 1.0
@@ -84,6 +92,7 @@ script = ExtResource( 11 )
 path_camera = NodePath("../../../ViewportContainer/Viewport/World/CameraController/Camera")
 
 [node name="BtnMoveUnit" type="Button" parent="GUI/BattleUI"]
+unique_name_in_owner = true
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 20.0
@@ -92,7 +101,19 @@ margin_right = 100.0
 margin_bottom = -20.0
 toggle_mode = true
 shortcut = SubResource( 12 )
-text = "Move (M)"
+text = "Move (W)"
+
+[node name="BtnUnitAim" type="Button" parent="GUI/BattleUI"]
+unique_name_in_owner = true
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 120.0
+margin_top = -50.0
+margin_right = 200.0
+margin_bottom = -20.0
+toggle_mode = true
+shortcut = SubResource( 18 )
+text = "Aim (Shift)"
 
 [node name="BtnNextTurn" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true
@@ -111,4 +132,5 @@ text = "Next Turn (T)"
 environment = SubResource( 15 )
 
 [connection signal="toggled" from="GUI/BattleUI/BtnMoveUnit" to="ViewportContainer/Viewport/World" method="_on_BtnMoveUnit_toggled"]
+[connection signal="toggled" from="GUI/BattleUI/BtnUnitAim" to="ViewportContainer/Viewport/World" method="_on_BtnUnitAim_toggled"]
 [connection signal="button_down" from="GUI/BattleUI/BtnNextTurn" to="ViewportContainer/Viewport/World" method="_on_BtnNextTurn_button_down"]
