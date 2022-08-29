@@ -13,7 +13,7 @@ const ray_length = 1000
 var dragging: bool
 var drag_pos: Vector2
 var prev_drag_pos: Vector2
-var prev_mouse_hover_cell: Vector3
+var prev_hover_pos: Vector3
 
 
 func _input(event: InputEvent) -> void:
@@ -61,11 +61,10 @@ func _mouse_hover(event: InputEvent):
 	if event is InputEventMouseMotion:
 		var ray_result = _make_ray(get_viewport().get_mouse_position())
 		if ray_result and ray_result.collider.is_in_group("pathable"):
-			var cell_pos = Globals.posToCellPos(ray_result.position)
-			if cell_pos != prev_mouse_hover_cell:
-				emit_signal("on_mouse_hover_cell", true, cell_pos)
-				#print("cell ", cell_pos)
-				prev_mouse_hover_cell = cell_pos
+			var pos = ray_result.position
+			if pos != prev_hover_pos:
+				emit_signal("on_mouse_hover_cell", true, ray_result.position)
+				prev_hover_pos = pos
 		else:
 			emit_signal("on_mouse_hover_cell", false, Vector3.ZERO)
 

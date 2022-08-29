@@ -20,9 +20,14 @@ func _enter_tree() -> void:
 
 
 func draw_all_lines(points: PoolVector3Array):
+	draw_all_lines_colored(points, self.color)
+
+
+func draw_all_lines_colored(points: PoolVector3Array, new_color: Color):
 	clear()
 	
 	self.points = points
+	meterial.albedo_color = new_color
 	
 	for i in points.size():
 		if i == points.size() - 1:
