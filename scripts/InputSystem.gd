@@ -6,7 +6,7 @@ signal on_unit_rotation_pressed(pos)
 signal on_drag(dir)
 signal on_mouse_hover_cell(is_hover, cell_pos)
 
-onready var camera = get_parent().get_node("%Camera")
+onready var camera = get_node("%Camera")
 
 const ray_length = 1000
 

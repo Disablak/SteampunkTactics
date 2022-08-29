@@ -89,7 +89,7 @@ script = ExtResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 11 )
-path_camera = NodePath("../../../ViewportContainer/Viewport/World/CameraController/Camera")
+path_camera = NodePath("../../../ViewportContainer/Viewport/World/InputSystem/CameraController/Camera")
 
 [node name="BtnMoveUnit" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true
@@ -134,3 +134,6 @@ environment = SubResource( 15 )
 [connection signal="toggled" from="GUI/BattleUI/BtnMoveUnit" to="ViewportContainer/Viewport/World" method="_on_BtnMoveUnit_toggled"]
 [connection signal="toggled" from="GUI/BattleUI/BtnUnitAim" to="ViewportContainer/Viewport/World" method="_on_BtnUnitAim_toggled"]
 [connection signal="button_down" from="GUI/BattleUI/BtnNextTurn" to="ViewportContainer/Viewport/World" method="_on_BtnNextTurn_button_down"]
+
+[editable path="ViewportContainer/Viewport/World"]
+[editable path="ViewportContainer/Viewport/World/UnitsController/Navigation/NavigationMeshInstance/LevelTest"]

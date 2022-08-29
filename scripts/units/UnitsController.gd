@@ -4,11 +4,10 @@ extends Node
 const move_speed = 3
 const rot_speed = 10
 
-onready var navigation = get_parent().get_node("Navigation")
-onready var pathfinding_system = get_parent().get_node("%PathfindingSystem")
-onready var draw_line3d = get_parent().get_node("%DrawLine3D")
-onready var mouse_pointer = get_parent().get_node("%MousePointer")
-onready var units = GlobalUnits.units
+onready var navigation = get_node("Navigation")
+onready var draw_line3d = get_node("%DrawLine3D")
+onready var mouse_pointer = get_node("%MousePointer")
+onready var units
 
 var tween_move := Tween.new()
 var cur_unit_id = -1
@@ -29,12 +28,26 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	pass
+	_init_units()
 
 
 func _process(delta: float) -> void:
 	_when_walk_auto_rotate_unit(cur_target_point, delta)
 	_pointer_rotate_unit(delta)
+
+
+func _init_units():
+	var all_units = [
+			Unit.new(0, UnitData.new(50, 20), get_node("%UnitObjectPlayer")),
+			Unit.new(1, UnitData.new(30, 20), get_node("%UnitObjectEnemy"))
+		]
+	
+	for i in all_units.size():
+		GlobalUnits.units[all_units[i].id] = all_units[i]
+	
+	units = GlobalUnits.units
+	
+	set_unit_control(0, true)
 
 
 func _when_walk_auto_rotate_unit(pos, delta):
@@ -56,7 +69,7 @@ func _pointer_rotate_unit(delta):
 
 func _move_unit(pos):
 	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, pos) #pathfinding_system.find_path(cur_unit_object.global_transform.origin, pos)
-	var distance = pathfinding_system.get_total_distance(path)
+	var distance = Globals.get_total_distance(path)
 	if not cur_unit_data.can_move(distance):
 		return
 	
@@ -135,7 +148,7 @@ func _on_InputSystem_on_mouse_hover_cell(is_hover, cell_pos) -> void:
 		return
 	
 	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, cell_pos)
-	var distance = pathfinding_system.get_total_distance(path)
+	var distance = Globals.get_total_distance(path)
 	var can_move = cur_unit_data.can_move(distance)
 	draw_line3d.draw_all_lines_colored(path, Color.forestgreen if can_move else Color.red)
 
