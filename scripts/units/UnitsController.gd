@@ -4,6 +4,7 @@ extends Node
 const move_speed = 3
 const rot_speed = 10
 
+onready var navigation = get_parent().get_node("Navigation")
 onready var pathfinding_system = get_parent().get_node("%PathfindingSystem")
 onready var draw_line3d = get_parent().get_node("%DrawLine3D")
 onready var mouse_pointer = get_parent().get_node("%MousePointer")
@@ -54,8 +55,8 @@ func _pointer_rotate_unit(delta):
 
 
 func _move_unit(pos):
-	var path = pathfinding_system.find_path(cur_unit_object.global_transform.origin, pos)
-	var distance = pathfinding_system.get_total_distance(path)
+	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, pos) #pathfinding_system.find_path(cur_unit_object.global_transform.origin, pos)
+	var distance = 1.0#pathfinding_system.get_total_distance(path)
 	if not cur_unit_data.can_move(distance):
 		return
 	
@@ -133,7 +134,7 @@ func _on_InputSystem_on_mouse_hover_cell(is_hover, cell_pos) -> void:
 	if cur_unit_action != Globals.UnitAction.WALK:
 		return
 	
-	var path = pathfinding_system.find_path(cur_unit_object.global_transform.origin, cell_pos)
+	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, cell_pos)#pathfinding_system.find_path(cur_unit_object.global_transform.origin, cell_pos)
 	draw_line3d.draw_all_lines(path)
 
 

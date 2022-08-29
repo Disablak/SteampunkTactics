@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://addons/my_draw_line_3d/MyDrawLine3D.gd" type="Script" id=2]
@@ -19,11 +19,17 @@ bottom_radius = 0.1
 height = 0.05
 radial_segments = 16
 
+[sub_resource type="NavigationMesh" id=11]
+vertices = PoolVector3Array( 3.5, 0.2, -0.2, 3.9, 0.2, -0.4, 3.9, 0.2, -1.3, -1.3, 0.2, -1.3, -1.3, 0.2, 5.8, 2.2, 0.2, 5.8, 2.4, 0.2, 5.3, 3.6, 0.2, 0.5, 3.5, 0.2, -0.2, -1.3, 0.2, -1.3, 2.4, 0.2, 5.3, 3.4, 0.2, 5.4, 3.6, 0.2, 0.5, 3.9, 0.2, -1.3, 3.9, 0.2, -0.4, 4.4, 0.2, 0, 8.6, 0.2, 4.3, 10.3, 0.2, 3.3, 10.3, 0.2, 2.6, 10.6, 0.2, 2.3, 11, 0.2, 2.3, 11, 0.2, -1.3, 10.3, 0.2, 2.6, 10.6, 0.2, 2.3, 11, 0.2, -1.3, 6.4, 0.2, 4.3, 8.6, 0.2, 4.3, 10.3, 0.2, 2.6, 11, 0.2, -1.3, 3.9, 0.2, -1.3, 4.4, 0.2, 0, 4.4, 0.2, 0, 4.4, 0.2, 0.4, 6.4, 0.2, 4.3, 18.2, 0.2, 2.3, 18.5, 0.2, 1.9, 18.2, 0.2, 1.7, 13.3, 0.2, 4.3, 12.7, 0.2, 3.6, 12.7, 0.2, 4.3, 13.3, 0.2, 4.3, 18.2, 0.2, 1.7, 18.2, 0.2, 1.1, 11.7, 0.2, 2.6, 11.7, 0.2, 3.3, 12.4, 0.2, 3.3, 18.5, 0.2, 0.4, 18.7, 0.2, 0.4, 18.7, 0.2, -1.3, 18.2, 0.2, 1.1, 18.5, 0.2, 0.4, 18.7, 0.2, -1.3, 11, 0.2, -1.3, 12.4, 0.2, 3.3, 12.7, 0.2, 3.6, 11, 0.2, -1.3, 11, 0.2, 2.3, 11.4, 0.2, 2.3, 11, 0.2, -1.3, 11.4, 0.2, 2.3, 11.7, 0.2, 2.6, 11, 0.2, -1.3, 11.7, 0.2, 2.6, 12.4, 0.2, 3.3, 19.2, 0.2, 1.9, 18.5, 0.2, 1.9, 18.2, 0.2, 2.3, 18.7, 0.2, -1.3, 18.7, 0.2, 0.4, 19.7, 0.2, 0.9, 25.3, 0.2, -1.3, 14.4, 0.2, 6.7, 14, 0.2, 6.7, 14, 0.2, 11.3, 14.7, 0.2, 6.4, 14.4, 0.2, 6.7, 14, 0.2, 11.3, 18.2, 0.2, 2.3, 14.7, 0.2, 5.7, 14.7, 0.2, 6.4, 19.2, 0.2, 1.9, 25.3, 0.2, 5, 19.7, 0.2, 1.5, 19.2, 0.2, 1.9, 14.7, 0.2, 6.4, 14, 0.2, 11.3, 25.3, 0.2, 11.3, 25.3, 0.2, -1.3, 19.7, 0.2, 0.9, 19.7, 0.2, 1.5, 25.3, 0.2, 5, 3.4, 0.2, 5.4, 3.7, 0.2, 5.6, 6.3, 0.2, 5.6, 6.4, 0.2, 4.3, 4.3, 0.2, 0.6, 3.6, 0.2, 0.5, 6.4, 0.2, 4.3, 4.4, 0.2, 0.4, 4.3, 0.2, 0.6, 18.9, 1.1, 1, 18.9, 1.1, 1.2, 19.2, 1, 1.2, 13.7, 0.2, 4.6, 13.7, 0.2, 5.3, 14.4, 0.2, 5.3, 18.2, 0.2, 2.3, 14.4, 0.2, 5.3, 14.7, 0.2, 5.7, 18.2, 0.2, 2.3, 13.3, 0.2, 4.3, 13.7, 0.2, 4.6, 18.2, 0.2, 2.3, 10.7, 1.2, 2.8, 10.8, 1.2, 3.3, 11.3, 1.2, 3.2, 11.2, 1.2, 2.7, 12.3, 0.2, 5.4, 12.3, 0.2, 4.7, 11.6, 0.2, 4.7, 10.7, 0.2, 6.3, 11.3, 0.2, 4.4, 11.3, 0.2, 3.7, 10.6, 0.2, 3.7, 8.8, 0.2, 4.4, 8.8, 0.2, 6.3, 10.7, 0.2, 6.3, 10.8, 0.2, 6.5, 12.7, 0.2, 5.7, 12.3, 0.2, 5.4, 10.7, 0.2, 6.3, 10.3, 0.2, 3.3, 8.6, 0.2, 4.3, 8.8, 0.2, 4.4, 10.6, 0.2, 3.7, 10.7, 0.2, 6.3, 11.6, 0.2, 4.7, 11.3, 0.2, 4.4, 11.7, 1.2, 3.8, 11.8, 1.2, 4.3, 12.3, 1.2, 4.2, 12.2, 1.2, 3.7, 6.7, 1.2, 4.7, 6.7, 1.2, 6.3, 8.3, 1.2, 6.3, 8.3, 1.2, 4.7, 12.7, 1.2, 4.8, 12.8, 1.2, 5.3, 13.3, 1.2, 5.2, 13.2, 1.2, 4.7, 8.4, 0.2, 10.3, 8.5, 0.2, 8.8, 8.3, 0.2, 8.7, 7.7, 0.2, 10.3, 6.4, 0.2, 6.8, 3.5, 0.2, 6.5, 3, 0.2, 6.8, 3, 0.2, 11.3, 7.3, 0.2, 11.3, 8.3, 0.2, 8.7, 8.3, 0.2, 8.7, 8.3, 0.2, 6.8, 6.4, 0.2, 6.8, 7.3, 0.2, 11.3, 7.7, 0.2, 10.3, 8.3, 0.2, 8.7, 6.3, 0.2, 5.6, 3.7, 0.2, 5.6, 3.5, 0.2, 6.5, 6.4, 0.2, 6.8, 8.4, 0.2, 10.3, 8.6, 0.2, 10.6, 9.2, 0.3, 10.5, 10.6, 0.2, 8.8, 8.5, 0.2, 8.8, 13.3, 0.2, 6.4, 13.3, 0.2, 5.7, 12.7, 0.2, 5.7, 10.8, 0.2, 6.5, 10.8, 0.2, 8.6, 9.5, 0.2, 10.9, 9.4, 0.3, 11.3, 14, 0.2, 11.3, 14, 0.2, 6.7, 13.6, 0.2, 6.7, 13.6, 0.2, 6.7, 13.3, 0.2, 6.4, 10.8, 0.2, 6.5, 10.8, 0.2, 8.6, 10.6, 0.2, 8.8, 9.2, 0.3, 10.5, 9.5, 0.2, 10.9, 10.8, 0.2, 8.6, 13.7, 1.2, 5.8, 13.8, 1.2, 6.3, 14.3, 1.2, 6.2, 14.2, 1.2, 5.7, 2.3, 0.2, 6.4, 2.2, 0.2, 5.8, -1.3, 0.2, 5.8, 2.7, 0.2, 6.8, 2.3, 0.2, 6.4, -1.3, 0.2, 5.8, -1.3, 0.2, 11.3, 3, 0.2, 11.3, 3, 0.2, 11.3, 3, 0.2, 6.8, 2.7, 0.2, 6.8, 2.9, 1, 6.3, 3.1, 1, 6.3, 3.1, 1.1, 6, 2.9, 1.1, 5.9, 8.7, 1.2, 6.7, 8.7, 1.2, 8.3, 10.3, 1.2, 8.3, 10.3, 1.2, 6.7, 7.9, 1, 10.8, 7.9, 1.1, 11.1, 8.1, 1.1, 11.1, 8.1, 1, 10.7 )
+polygons = [ PoolIntArray( 1, 0, 2 ), PoolIntArray( 2, 0, 3 ), PoolIntArray( 5, 4, 6 ), PoolIntArray( 6, 4, 7 ), PoolIntArray( 7, 4, 8 ), PoolIntArray( 8, 4, 9 ), PoolIntArray( 12, 11, 10 ), PoolIntArray( 15, 14, 13 ), PoolIntArray( 18, 17, 16 ), PoolIntArray( 21, 20, 19 ), PoolIntArray( 24, 23, 22 ), PoolIntArray( 26, 25, 27 ), PoolIntArray( 27, 25, 30 ), PoolIntArray( 27, 30, 29 ), PoolIntArray( 27, 29, 28 ), PoolIntArray( 33, 32, 31 ), PoolIntArray( 35, 34, 36 ), PoolIntArray( 36, 34, 37 ), PoolIntArray( 39, 38, 40 ), PoolIntArray( 40, 38, 41 ), PoolIntArray( 41, 38, 42 ), PoolIntArray( 45, 44, 43 ), PoolIntArray( 48, 47, 46 ), PoolIntArray( 50, 49, 51 ), PoolIntArray( 51, 49, 54 ), PoolIntArray( 51, 54, 53 ), PoolIntArray( 51, 53, 52 ), PoolIntArray( 55, 57, 56 ), PoolIntArray( 60, 59, 58 ), PoolIntArray( 63, 62, 61 ), PoolIntArray( 66, 65, 64 ), PoolIntArray( 68, 67, 69 ), PoolIntArray( 69, 67, 70 ), PoolIntArray( 73, 72, 71 ), PoolIntArray( 76, 75, 74 ), PoolIntArray( 78, 77, 79 ), PoolIntArray( 79, 77, 80 ), PoolIntArray( 83, 82, 84 ), PoolIntArray( 84, 82, 85 ), PoolIntArray( 85, 82, 81 ), PoolIntArray( 85, 81, 86 ), PoolIntArray( 88, 87, 89 ), PoolIntArray( 89, 87, 90 ), PoolIntArray( 92, 91, 93 ), PoolIntArray( 93, 91, 94 ), PoolIntArray( 94, 91, 95 ), PoolIntArray( 95, 91, 96 ), PoolIntArray( 99, 98, 97 ), PoolIntArray( 102, 101, 100 ), PoolIntArray( 104, 103, 105 ), PoolIntArray( 105, 103, 106 ), PoolIntArray( 109, 108, 107 ), PoolIntArray( 110, 112, 111 ), PoolIntArray( 113, 116, 114 ), PoolIntArray( 114, 116, 115 ), PoolIntArray( 118, 117, 119 ), PoolIntArray( 119, 117, 120 ), PoolIntArray( 122, 121, 123 ), PoolIntArray( 123, 121, 124 ), PoolIntArray( 124, 121, 126 ), PoolIntArray( 124, 126, 125 ), PoolIntArray( 130, 129, 127 ), PoolIntArray( 127, 129, 128 ), PoolIntArray( 132, 131, 133 ), PoolIntArray( 133, 131, 134 ), PoolIntArray( 137, 136, 135 ), PoolIntArray( 138, 141, 139 ), PoolIntArray( 139, 141, 140 ), PoolIntArray( 145, 144, 142 ), PoolIntArray( 142, 144, 143 ), PoolIntArray( 146, 149, 147 ), PoolIntArray( 147, 149, 148 ), PoolIntArray( 151, 150, 152 ), PoolIntArray( 152, 150, 153 ), PoolIntArray( 155, 154, 156 ), PoolIntArray( 156, 154, 159 ), PoolIntArray( 156, 159, 158 ), PoolIntArray( 156, 158, 157 ), PoolIntArray( 162, 161, 160 ), PoolIntArray( 165, 164, 163 ), PoolIntArray( 167, 166, 168 ), PoolIntArray( 168, 166, 169 ), PoolIntArray( 171, 170, 172 ), PoolIntArray( 172, 170, 174 ), PoolIntArray( 172, 174, 173 ), PoolIntArray( 176, 175, 177 ), PoolIntArray( 177, 175, 178 ), PoolIntArray( 180, 179, 181 ), PoolIntArray( 181, 179, 182 ), PoolIntArray( 182, 179, 184 ), PoolIntArray( 182, 184, 183 ), PoolIntArray( 186, 185, 187 ), PoolIntArray( 187, 185, 188 ), PoolIntArray( 189, 192, 190 ), PoolIntArray( 190, 192, 191 ), PoolIntArray( 193, 196, 194 ), PoolIntArray( 194, 196, 195 ), PoolIntArray( 199, 198, 197 ), PoolIntArray( 201, 200, 202 ), PoolIntArray( 202, 200, 204 ), PoolIntArray( 202, 204, 203 ), PoolIntArray( 207, 206, 205 ), PoolIntArray( 209, 208, 210 ), PoolIntArray( 210, 208, 211 ), PoolIntArray( 215, 214, 212 ), PoolIntArray( 212, 214, 213 ), PoolIntArray( 217, 216, 218 ), PoolIntArray( 218, 216, 219 ) ]
+geometry_source_geometry_mode = 1
+cell_size = 0.1
+cell_height = 0.1
+agent_radius = 0.2
+
 [node name="World" type="Spatial"]
 script = ExtResource( 1 )
-path_level = NodePath("LevelTest")
-
-[node name="LevelTest" parent="." instance=ExtResource( 6 )]
+path_level = NodePath("Navigation/NavigationMeshInstance/LevelTest")
 
 [node name="CameraController" type="Position3D" parent="."]
 unique_name_in_owner = true
@@ -43,7 +49,7 @@ grid_size = Vector2( 25, 11 )
 
 [node name="DrawLine3D" type="MeshInstance" parent="."]
 unique_name_in_owner = true
-skeleton = NodePath("../LevelTest")
+skeleton = NodePath("../Navigation/NavigationMeshInstance/LevelTest")
 script = ExtResource( 2 )
 color = Color( 0.505882, 0.615686, 0.0392157, 1 )
 
@@ -51,7 +57,7 @@ color = Color( 0.505882, 0.615686, 0.0392157, 1 )
 unique_name_in_owner = true
 transform = Transform( 1, 0, -2.98023e-08, -2.98023e-08, 1, 0, 0, 0, 1, -100, 3.33786e-06, -100 )
 mesh = SubResource( 10 )
-skeleton = NodePath("../LevelTest")
+skeleton = NodePath("../Navigation/NavigationMeshInstance/LevelTest")
 
 [node name="UnitObjectPlayer" parent="." instance=ExtResource( 5 )]
 unique_name_in_owner = true
@@ -69,7 +75,34 @@ script = ExtResource( 8 )
 [node name="InputSystem" type="Spatial" parent="."]
 script = ExtResource( 4 )
 
+[node name="Navigation" type="Navigation" parent="."]
+
+[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
+navmesh = SubResource( 11 )
+
+[node name="LevelTest" parent="Navigation/NavigationMeshInstance" instance=ExtResource( 6 )]
+
+[node name="Floor" parent="Navigation/NavigationMeshInstance/LevelTest" index="2" groups=["navmesh"]]
+
+[node name="ObsDefault" parent="Navigation/NavigationMeshInstance/LevelTest" index="3" groups=["navmesh"]]
+
+[node name="ObsDefault2" parent="Navigation/NavigationMeshInstance/LevelTest" index="4" groups=["navmesh"]]
+
+[node name="ObsBarrel" parent="Navigation/NavigationMeshInstance/LevelTest" index="5" groups=["navmesh"]]
+
+[node name="ObsBarrel2" parent="Navigation/NavigationMeshInstance/LevelTest" index="6" groups=["navmesh"]]
+
+[node name="ObsBarrel3" parent="Navigation/NavigationMeshInstance/LevelTest" index="7" groups=["navmesh"]]
+
+[node name="ObsBarrel4" parent="Navigation/NavigationMeshInstance/LevelTest" index="8" groups=["navmesh"]]
+
+[node name="tree0 with texture" parent="Navigation/NavigationMeshInstance/LevelTest" index="12" groups=["navmesh"]]
+
+[node name="tree0 with texture2" parent="Navigation/NavigationMeshInstance/LevelTest" index="13" groups=["navmesh"]]
+
 [connection signal="on_click_world" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_click_world"]
 [connection signal="on_drag" from="InputSystem" to="CameraController" method="_on_InputSystem_on_drag"]
 [connection signal="on_mouse_hover_cell" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_mouse_hover_cell"]
 [connection signal="on_unit_rotation_pressed" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_unit_rotation_pressed"]
+
+[editable path="Navigation/NavigationMeshInstance/LevelTest"]
