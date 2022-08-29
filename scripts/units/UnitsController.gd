@@ -32,8 +32,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	_when_walk_auto_rotate_unit(cur_target_point, delta)
-	_pointer_rotate_unit(delta)
+	_try_to_rotate_unit(delta)
 
 
 func _init_units():
@@ -50,20 +49,17 @@ func _init_units():
 	set_unit_control(0, true)
 
 
-func _when_walk_auto_rotate_unit(pos, delta):
-	if pos == Vector3.ZERO or not tween_move.is_active():
+func _try_to_rotate_unit(delta):
+	if cur_target_point == Vector3.ZERO and cur_unit_action != Globals.UnitAction.SHOOT:
 		return
 	
-	var new_transform = cur_unit_object.transform.looking_at(pos, Vector3.UP)
+	var rotation_target = cur_target_point if tween_move.is_active() else cur_pointer_pos
+	_rotate_unit(rotation_target, delta)
+
+
+func _rotate_unit(target_pos, delta):
+	var new_transform = cur_unit_object.transform.looking_at(target_pos, Vector3.UP)
 	cur_unit_object.transform = cur_unit_object.transform.interpolate_with(new_transform, rot_speed * delta)
-	cur_unit_object.rotation.x = 0
-
-
-func _pointer_rotate_unit(delta):
-	if cur_unit_action != Globals.UnitAction.SHOOT or tween_move.is_active():
-		return
-	
-	cur_unit_object.look_at(cur_pointer_pos, Vector3.UP)
 	cur_unit_object.rotation_degrees.x = 0
 
 
