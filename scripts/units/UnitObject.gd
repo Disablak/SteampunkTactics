@@ -6,6 +6,13 @@ export var is_player_unit = true
 export var player_color = Color.white
 export var enemy_color = Color.white
 
+export(NodePath) var path_to_hit_points
+onready var hit_point_parent = get_node(path_to_hit_points)
+
+export(NodePath) var path_to_shoot_point
+onready var shoot_point_node = get_node(path_to_shoot_point)
+
+
 var unit_id = -1
 
 onready var unit_visual = get_node("UnitVisual")
@@ -40,3 +47,16 @@ func enable_ragdoll(unit_id_killer):
 	var enemy_obj: Spatial = GlobalUnits.units[unit_id_killer].unit_object
 	var dir = (global_transform.origin - enemy_obj.global_transform.origin).normalized()
 	head.apply_central_impulse(dir * DIE_POWER)
+
+
+func get_shoot_point():
+	return shoot_point_node.global_transform.origin
+
+
+func get_hit_points():
+	var hit_points: PoolVector3Array
+	
+	for child in hit_point_parent.get_children():
+		hit_points.push_back(child.global_transform.origin)
+	
+	return hit_points

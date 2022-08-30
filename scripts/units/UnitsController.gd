@@ -5,6 +5,7 @@ const move_speed = 3
 const rot_speed = 10
 
 onready var navigation = get_node("Navigation")
+onready var shooting_system = get_node("ShootingSystem")
 onready var draw_line3d = get_node("%DrawLine3D")
 onready var mouse_pointer = get_node("%MousePointer")
 onready var units
@@ -183,6 +184,8 @@ func _try_shoot(raycast_result, input_event: InputEventMouseButton):
 	var enemy = units[unit_object.unit_id]
 	enemy.unit_object.unit_animator.play_anim(Globals.AnimationType.HIT)
 	enemy.unit_data.set_damage(10, cur_unit_id)
+	shooting_system.shoot(cur_unit_object.get_shoot_point(), enemy.unit_object.get_hit_points())
+	
 	return true
 
 
