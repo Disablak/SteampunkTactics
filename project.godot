@@ -33,13 +33,25 @@ _global_script_classes=[ {
 "class": "UnitObject",
 "language": "GDScript",
 "path": "res://scripts/units/UnitObject.gd"
+}, {
+"base": "Resource",
+"class": "UnitSettings",
+"language": "GDScript",
+"path": "res://scripts/settings/UnitSettings.gd"
+}, {
+"base": "Resource",
+"class": "WeaponData",
+"language": "GDScript",
+"path": "res://scripts/settings/WeaponData.gd"
 } ]
 _global_script_class_icons={
 "NodeUtilities": "",
 "Unit": "",
 "UnitAnimator": "",
 "UnitData": "",
-"UnitObject": ""
+"UnitObject": "",
+"UnitSettings": "",
+"WeaponData": ""
 }
 
 [application]

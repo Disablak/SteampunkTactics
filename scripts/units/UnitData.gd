@@ -10,13 +10,17 @@ var max_health
 var cur_walk_distance
 var max_walk_distance
 
+var weapon
 
-func _init(health, walk_distance):
-	cur_health = health
-	max_health = health
+
+func _init(unit_settings: UnitSettings):
+	cur_health = unit_settings.max_health
+	max_health = unit_settings.max_health
 	
-	cur_walk_distance = walk_distance
-	max_walk_distance = walk_distance
+	cur_walk_distance = unit_settings.walk_distance
+	max_walk_distance = unit_settings.walk_distance
+	
+	weapon = unit_settings.weapon
 
 
 func set_unit_id(id):

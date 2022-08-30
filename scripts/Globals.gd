@@ -16,6 +16,7 @@ enum UnitAction{
 }
 
 const GRID_STEP = 1.0
+const CURVE_X_METERS = 40
 
 
 static func posToCellPos(pos: Vector3) -> Vector3:

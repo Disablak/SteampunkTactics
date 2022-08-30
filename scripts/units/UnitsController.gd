@@ -4,6 +4,8 @@ extends Node
 const move_speed = 3
 const rot_speed = 10
 
+export(Array) var units_data = []
+
 onready var navigation = get_node("Navigation")
 onready var shooting_system = get_node("ShootingSystem")
 onready var draw_line3d = get_node("%DrawLine3D")
@@ -38,8 +40,8 @@ func _process(delta: float) -> void:
 
 func _init_units():
 	var all_units = [
-			Unit.new(0, UnitData.new(50, 20), get_node("%UnitObjectPlayer")),
-			Unit.new(1, UnitData.new(30, 20), get_node("%UnitObjectEnemy"))
+			Unit.new(0, UnitData.new(units_data[0]), get_node("%UnitObjectPlayer")),
+			Unit.new(1, UnitData.new(units_data[1]), get_node("%UnitObjectEnemy"))
 		]
 	
 	for i in all_units.size():
@@ -182,11 +184,16 @@ func _try_shoot(raycast_result, input_event: InputEventMouseButton):
 	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.SHOOTING)
 	
 	var enemy = units[unit_object.unit_id]
-	enemy.unit_object.unit_animator.play_anim(Globals.AnimationType.HIT)
-	enemy.unit_data.set_damage(10, cur_unit_id)
-	shooting_system.shoot(cur_unit_object.get_shoot_point(), enemy.unit_object.get_hit_points())
 	
-	return true
+	var visibility: float = shooting_system.get_enemy_visibility(cur_unit_object.get_shoot_point(), enemy.unit_object.get_hit_points())
+	var distance: float = cur_unit_object.global_transform.origin.distance_to(enemy.unit_object.global_transform.origin)
+	var is_hitted: bool = shooting_system.is_hitted(visibility, distance, cur_unit_data.weapon)
+	
+	if is_hitted:
+		enemy.unit_object.unit_animator.play_anim(Globals.AnimationType.HIT)
+		enemy.unit_data.set_damage(cur_unit_data.weapon.damage, cur_unit_id)
+	
+	return is_hitted
 
 
 func _change_unit_action(action_type, enable):

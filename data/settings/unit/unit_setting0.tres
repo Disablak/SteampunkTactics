@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://scripts/settings/UnitSettings.gd" type="Script" id=1]
+[ext_resource path="res://data/settings/weapon/weapon0.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+max_health = 20.0
+walk_distance = 8.0
+weapon = ExtResource( 2 )
