@@ -5,6 +5,7 @@ onready var camera = get_node(path_camera)
 
 
 var units_ui = {}
+var label_tooltip := Label.new()
 
 const UI_OFFSET = Vector2(-30, -30)
 
@@ -15,8 +16,12 @@ func _ready() -> void:
 	GlobalBus.connect(GlobalBus.on_unit_change_health_name, self, "_update_unit_info")
 	GlobalBus.connect(GlobalBus.on_unit_changed_walk_distance, self, "_update_unit_info")
 	
+	add_child(label_tooltip)
+	show_tooltip(false, Vector3.ZERO, "")
+	
 	for unit_id in GlobalUnits.units:
 		_update_unit_info(unit_id)
+
 
 func _process(delta: float) -> void:
 	for id in units_ui.keys():
@@ -57,3 +62,20 @@ func _create_unit_ui(unit_id):
 func _delete_unit_ui(unit_id):
 	units_ui[unit_id].queue_free()
 	units_ui.erase(unit_id)
+
+
+func show_tooltip(show, world_pos, text):
+	label_tooltip.visible = show
+	
+	if not show:
+		label_tooltip.rect_position = Vector2(9999, 9999)
+		return
+	
+	label_tooltip.text = text
+	
+	var position_in_ui = camera.unproject_position(world_pos)
+	label_tooltip.rect_position = position_in_ui
+
+
+func _on_UnitsController_on_called_tooltip(show, world_pos, text) -> void:
+	show_tooltip(show, world_pos, text)

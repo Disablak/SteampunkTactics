@@ -108,7 +108,7 @@ fov = 30.0
 
 [connection signal="on_click_world" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_click_world"]
 [connection signal="on_drag" from="InputSystem" to="InputSystem/CameraController" method="_on_InputSystem_on_drag"]
-[connection signal="on_mouse_hover_cell" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_mouse_hover_cell"]
+[connection signal="on_mouse_hover" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_mouse_hover"]
 [connection signal="on_unit_rotation_pressed" from="InputSystem" to="UnitsController" method="_on_InputSystem_on_unit_rotation_pressed"]
 
 [editable path="UnitsController/Navigation/NavigationMeshInstance/LevelTest"]

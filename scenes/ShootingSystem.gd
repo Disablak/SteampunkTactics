@@ -3,10 +3,8 @@ extends Spatial
 
 export var is_debug := false
 
-var cur_shoot_point
-var cur_target_points: PoolVector3Array
-
 var random_number_generator: RandomNumberGenerator = null
+var prev_shoot_data: ShootData = null
 
 
 func _ready() -> void:
@@ -15,55 +13,91 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not is_debug or cur_target_points == null or cur_target_points.size() == 0:
+	if not is_debug or prev_shoot_data == null:
 		return
 	
-	for point in cur_target_points:
-		DebugDraw.draw_line_3d(cur_shoot_point, point, Color.white)
+	for point in prev_shoot_data.shoot_result_points:
+		DebugDraw.draw_line_3d(prev_shoot_data.shoot_point, point, Color.white)
 
 
-func get_enemy_visibility(shoot_point: Vector3, target_points: PoolVector3Array) -> float:
-	self.cur_shoot_point = shoot_point
-	cur_target_points = PoolVector3Array()
+func get_hit_result(shoot_data: ShootData) -> ShootData:
+	if _is_same_shoot_data(shoot_data):
+		if is_debug:
+			print("is same data!")
+		return prev_shoot_data
+	
+	prev_shoot_data = shoot_data
+	
+	shoot_data.visibility = get_enemy_visibility(shoot_data)
+	shoot_data.hit_chance = get_hit_chance(shoot_data)
+	
+	return shoot_data
+
+
+func get_enemy_visibility(shoot_data: ShootData) -> float:
+	shoot_data.shoot_result_points = PoolVector3Array()
+	
+	if shoot_data.shoot_point == Vector3.ZERO or shoot_data.target_points.size() == 0:
+		printerr("need add shoot_point and target_points to shoot_data")
 	
 	var count_hitted = 0
 	
-	for point in target_points:
-		var ray_result = _make_ray(shoot_point, point)
-		var target_pos = ray_result.position if ray_result else point
-		cur_target_points.push_back(target_pos)
+	for target_point in shoot_data.target_points:
+		var ray_result = _make_ray(shoot_data.shoot_point, target_point)
+		var target_pos = ray_result.position if ray_result else target_point
+		shoot_data.shoot_result_points.push_back(target_pos)
 		if not ray_result:
 			count_hitted += 1
 		elif is_debug:
 			print(ray_result)
 	
 	if is_debug:
-		print("hitted {0} / {1}".format([count_hitted, target_points.size()]))
+		print("hitted {0} / {1}".format([count_hitted, shoot_data.target_points.size()]))
 	
-	return float(count_hitted) / target_points.size()
+	prev_shoot_data.visibility = float(count_hitted) / shoot_data.target_points.size()
+	return prev_shoot_data.visibility
 
 
-func is_hitted(visibility: float, distance: float, weapon: WeaponData) -> bool:
-	if visibility == 0.0:
+func get_hit_chance(shoot_data: ShootData) -> float:
+	if shoot_data.visibility == 0.0:
 		print("you cant see an enemy")
-		return false
+		return 0.0
 	
-	if distance >= Globals.CURVE_X_METERS:
-		print("distance is to long {0}".format([distance]))
-		return false
+	if shoot_data.distance >= Globals.CURVE_X_METERS:
+		print("distance is to long {0}".format([shoot_data.distance]))
+		return 0.0
 	
-	var weapon_accuracy = clamp(weapon.accuracy.interpolate(distance / Globals.CURVE_X_METERS), 0.0, 1.0) 
-	var hit_chance = visibility * weapon_accuracy
+	var weapon_accuracy = clamp(shoot_data.weapon.accuracy.interpolate(shoot_data.distance / Globals.CURVE_X_METERS), 0.0, 1.0) 
+	var hit_chance = shoot_data.visibility * weapon_accuracy
+	
+	if is_debug:
+		print("visibility {0}, weapon_accuracy {1} hit_chance {2}".format([shoot_data.visibility, weapon_accuracy, hit_chance]))
+	
+	return hit_chance
+
+
+func is_hitted(shoot_data: ShootData) -> bool:
 	var random_value = random_number_generator.randf()
 	
 	if is_debug:
-		print("visibility {0}, weapon_accuracy {1} hit_chance {2}, random_value {3}".format([visibility, weapon_accuracy, hit_chance, random_value]))
+		print("chance: {0}, hit random value: {1}".format([shoot_data.hit_chance, random_value]))
 	
-	return random_value <= hit_chance
+	return random_value <= shoot_data.hit_chance
 
 
 func _make_ray(from, to):
 	var space_state = get_world().direct_space_state
 	var result = space_state.intersect_ray(from, to, [PhysicalBone, CollisionShape], 5, false, true)
 	return result
+
+
+func _is_same_shoot_data(shoot_data: ShootData) -> bool:
+	if not prev_shoot_data:
+		return false
+	
+	var values_calculated = prev_shoot_data.visibility != -1.0 and prev_shoot_data.hit_chance != -1.0
+	var shooter_same = shoot_data.shooter_id == prev_shoot_data.shooter_id and shoot_data.shooter_pos == prev_shoot_data.shooter_pos
+	var enemy_same   = shoot_data.enemy_id   == prev_shoot_data.enemy_id   and shoot_data.enemy_pos   == prev_shoot_data.enemy_pos
+	
+	return values_calculated and shooter_same and enemy_same
 

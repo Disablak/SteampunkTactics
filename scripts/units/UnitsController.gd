@@ -1,6 +1,8 @@
 extends Node
 
 
+signal on_called_tooltip(show, world_pos, text)
+
 const move_speed = 3
 const rot_speed = 10
 
@@ -20,6 +22,8 @@ var cur_target_point := Vector3.ZERO
 var cur_unit_action = Globals.UnitAction.NONE
 
 var cur_pointer_pos := Vector3.ZERO
+
+var shoot_data = ShootData.new()
 
 
 func _init() -> void:
@@ -81,10 +85,7 @@ func _move_via_points(points: PoolVector3Array):
 	
 	for point in points:
 		if cur_target_id == points.size() - 1:
-			cur_unit_object.unit_animator.play_anim(Globals.AnimationType.IDLE)
-			draw_line3d.clear()
-			cur_target_point = Vector3.ZERO
-			print("finish!")
+			_on_unit_finished_move()
 			return
 		
 		cur_target_point = points[cur_target_id + 1]
@@ -103,6 +104,20 @@ func _move_via_points(points: PoolVector3Array):
 		
 		cur_target_id += 1
 		yield(tween_move, "tween_completed") 
+
+
+func _on_unit_finished_move():
+	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.IDLE)
+	draw_line3d.clear()
+	cur_target_point = Vector3.ZERO
+	
+	_update_shoot_data()
+
+
+func _update_shoot_data():
+	shoot_data = ShootData.new()
+	shoot_data.shooter_id = cur_unit_id
+	shoot_data.shooter_pos = cur_unit_object.global_transform.origin
 
 
 func _on_unit_died(unit_id, unit_id_killer):
@@ -132,24 +147,45 @@ func _on_InputSystem_on_click_world(raycast_result, input_event) -> void:
 		return
 
 
-func _on_InputSystem_on_mouse_hover_cell(is_hover, cell_pos) -> void:
-	mouse_pointer.visible = is_hover
-	mouse_pointer.global_transform.origin = cell_pos
-	
-	if not is_hover:
-		draw_line3d.clear()
-		return
-	
+func _on_InputSystem_on_mouse_hover(hover_info) -> void:
 	if tween_move.is_active():
 		return
 	
-	if cur_unit_action != Globals.UnitAction.WALK:
-		return
-	
-	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, cell_pos)
+	if cur_unit_action == Globals.UnitAction.WALK and hover_info.hover_type == Globals.MouseHoverType.GROUND:
+		_draw_future_path(hover_info.pos)
+	elif cur_unit_action == Globals.UnitAction.SHOOT and hover_info.hover_type == Globals.MouseHoverType.UNIT:
+		_show_shoot_hint(true, hover_info.unit_id)
+	else:
+		draw_line3d.clear()
+		_show_shoot_hint(false)
+
+
+func _draw_future_path(mouse_pos):
+	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, mouse_pos)
 	var distance = Globals.get_total_distance(path)
 	var can_move = cur_unit_data.can_move(distance)
 	draw_line3d.draw_all_lines_colored(path, Color.forestgreen if can_move else Color.red)
+
+
+func _show_shoot_hint(show, unit_id = -1):
+	if not show or cur_unit_id == unit_id or not units.has(unit_id):
+		_emit_show_tooltip(show, Vector3.ZERO, "")
+		return
+	
+	var enemy_object = units[unit_id].unit_object
+	
+	shoot_data.enemy_id = unit_id
+	shoot_data.enemy_pos = enemy_object.global_transform.origin
+	shoot_data.weapon = cur_unit_data.weapon
+	shoot_data.distance = cur_unit_object.global_transform.origin.distance_to(enemy_object.global_transform.origin)
+	shoot_data.shoot_point = cur_unit_object.get_shoot_point()
+	shoot_data.target_points = enemy_object.get_hit_points()
+	
+	var shoot_result: ShootData = shooting_system.get_hit_result(shoot_data)
+	var chance_hit = "chance hit: {0}% \n".format(["%0.0f" % (shoot_result.hit_chance * 100)])
+	var visibility = "visibility: {0}% \n".format(["%0.0f" % (shoot_result.visibility * 100)])
+	var distance = "distance : {0}m \n".format(["%0.1f" % shoot_result.distance])
+	_emit_show_tooltip(show, enemy_object.global_transform.origin, visibility + distance + chance_hit)
 
 
 func _try_move(raycast_result, input_event: InputEventMouseButton) -> bool:
@@ -184,10 +220,7 @@ func _try_shoot(raycast_result, input_event: InputEventMouseButton):
 	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.SHOOTING)
 	
 	var enemy = units[unit_object.unit_id]
-	
-	var visibility: float = shooting_system.get_enemy_visibility(cur_unit_object.get_shoot_point(), enemy.unit_object.get_hit_points())
-	var distance: float = cur_unit_object.global_transform.origin.distance_to(enemy.unit_object.global_transform.origin)
-	var is_hitted: bool = shooting_system.is_hitted(visibility, distance, cur_unit_data.weapon)
+	var is_hitted: bool = shooting_system.is_hitted(shoot_data) # yea im sure that here we have all data thats I need
 	
 	if is_hitted:
 		enemy.unit_object.unit_animator.play_anim(Globals.AnimationType.HIT)
@@ -206,6 +239,10 @@ func _change_unit_action(action_type, enable):
 	
 	GlobalBus.emit_signal(GlobalBus.on_unit_changed_action_name, cur_unit_id, future_action)
 	cur_unit_action = future_action
+
+
+func _emit_show_tooltip(show, world_pos, text):
+	emit_signal("on_called_tooltip", show, world_pos, text)
 
 
 func move_unit_mode(enable: bool) -> void:
@@ -247,5 +284,4 @@ func next_unit():
 	
 	set_unit_control(next_unit_id)
 	cur_unit_data.restore_walk_distance()
-
-
+	_update_shoot_data()

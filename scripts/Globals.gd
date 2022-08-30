@@ -15,6 +15,13 @@ enum UnitAction{
 	SHOOT,
 }
 
+enum MouseHoverType{
+	NONE,
+	GROUND,
+	OBSTACLE,
+	UNIT
+}
+
 const GRID_STEP = 1.0
 const CURVE_X_METERS = 40
 

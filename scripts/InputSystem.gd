@@ -4,9 +4,10 @@ extends Spatial
 signal on_click_world(ray_cast_result, input_event)
 signal on_unit_rotation_pressed(pos)
 signal on_drag(dir)
-signal on_mouse_hover_cell(is_hover, cell_pos)
+signal on_mouse_hover(hover_info)
 
 onready var camera = get_node("%Camera")
+onready var hover_info = HoverInfo.new()
 
 const ray_length = 1000
 
@@ -14,6 +15,19 @@ var dragging: bool
 var drag_pos: Vector2
 var prev_drag_pos: Vector2
 var prev_hover_pos: Vector3
+
+
+class HoverInfo:
+	var pos
+	var hover_type
+	var unit_id
+	
+	func set_info(pos, hover_type, unit_id = -1) -> Reference:
+		self.pos = pos
+		self.hover_type = hover_type
+		self.unit_id = unit_id
+		
+		return self
 
 
 func _input(event: InputEvent) -> void:
@@ -58,15 +72,26 @@ func _press_shift(event: InputEvent) -> bool:
 
 
 func _mouse_hover(event: InputEvent):
-	if event is InputEventMouseMotion:
-		var ray_result = _make_ray(get_viewport().get_mouse_position())
-		if ray_result and ray_result.collider.is_in_group("pathable"):
-			var pos = ray_result.position
-			if pos != prev_hover_pos:
-				emit_signal("on_mouse_hover_cell", true, ray_result.position)
-				prev_hover_pos = pos
-		else:
-			emit_signal("on_mouse_hover_cell", false, Vector3.ZERO)
+	if not (event is InputEventMouseMotion):
+		return
+	
+	var ray_result = _make_ray(get_viewport().get_mouse_position())
+	if not ray_result:
+		emit_signal("on_mouse_hover", hover_info.set_info(Vector3.ZERO, Globals.MouseHoverType.NONE))
+		return
+	
+	if ray_result.collider.is_in_group("pathable"):
+		var pos = ray_result.position
+		if pos != prev_hover_pos:
+			emit_signal("on_mouse_hover", hover_info.set_info(pos, Globals.MouseHoverType.GROUND))
+			prev_hover_pos = pos
+			return
+	
+	var unit_object: UnitObject = ray_result.collider.get_parent() as UnitObject
+	if not unit_object:
+		return
+		
+	emit_signal("on_mouse_hover", hover_info.set_info(unit_object.global_transform.origin, Globals.MouseHoverType.UNIT, unit_object.unit_id))
 
 
 func _make_ray(pos):
