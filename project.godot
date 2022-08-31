@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "MeshInstance",
+"class": "DrawLine3D",
+"language": "GDScript",
+"path": "res://addons/my_draw_line_3d/MyDrawLine3D.gd"
+}, {
 "base": "Object",
 "class": "NodeUtilities",
 "language": "GDScript",
@@ -44,12 +49,18 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/settings/UnitSettings.gd"
 }, {
+"base": "Reference",
+"class": "WalkingSystem",
+"language": "GDScript",
+"path": "res://scripts/WalkingSystem.gd"
+}, {
 "base": "Resource",
 "class": "WeaponData",
 "language": "GDScript",
 "path": "res://scripts/settings/WeaponData.gd"
 } ]
 _global_script_class_icons={
+"DrawLine3D": "",
 "NodeUtilities": "",
 "ShootData": "",
 "Unit": "",
@@ -57,6 +68,7 @@ _global_script_class_icons={
 "UnitData": "",
 "UnitObject": "",
 "UnitSettings": "",
+"WalkingSystem": "",
 "WeaponData": ""
 }
 

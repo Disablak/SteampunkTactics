@@ -23,6 +23,7 @@ var cur_unit_action = Globals.UnitAction.NONE
 
 var cur_pointer_pos := Vector3.ZERO
 
+var walking_system: WalkingSystem
 var shoot_data = ShootData.new()
 
 
@@ -35,11 +36,14 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	var func_ref_finish_move = funcref(self, "_update_shoot_data")
+	walking_system = WalkingSystem.new(navigation, tween_move, draw_line3d, func_ref_finish_move)
+	
 	_init_units()
 
 
 func _process(delta: float) -> void:
-	_try_to_rotate_unit(delta)
+	walking_system.try_rotate_unit(delta, cur_pointer_pos, cur_unit_action)
 
 
 func _init_units():
@@ -54,64 +58,6 @@ func _init_units():
 	units = GlobalUnits.units
 	
 	set_unit_control(0, true)
-
-
-func _try_to_rotate_unit(delta):
-	if cur_target_point == Vector3.ZERO and cur_unit_action != Globals.UnitAction.SHOOT:
-		return
-	
-	var rotation_target = cur_target_point if tween_move.is_active() else cur_pointer_pos
-	_rotate_unit(rotation_target, delta)
-
-
-func _rotate_unit(target_pos, delta):
-	var new_transform = cur_unit_object.transform.looking_at(target_pos, Vector3.UP)
-	cur_unit_object.transform = cur_unit_object.transform.interpolate_with(new_transform, rot_speed * delta)
-	cur_unit_object.rotation_degrees.x = 0
-
-
-func _move_unit(pos):
-	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, pos) #pathfinding_system.find_path(cur_unit_object.global_transform.origin, pos)
-	var distance = Globals.get_total_distance(path)
-	if not cur_unit_data.can_move(distance):
-		return
-	
-	cur_unit_data.remove_walk_distance(distance)
-	_move_via_points(path)
-
-
-func _move_via_points(points: PoolVector3Array):
-	var cur_target_id = 0
-	
-	for point in points:
-		if cur_target_id == points.size() - 1:
-			_on_unit_finished_move()
-			return
-		
-		cur_target_point = points[cur_target_id + 1]
-		
-		cur_unit_object.unit_animator.play_anim(Globals.AnimationType.WALKING)
-		var time_move = points[cur_target_id].distance_to(points[cur_target_id + 1]) / move_speed
-		
-		tween_move.interpolate_property(
-			cur_unit_object,
-			"translation",
-			points[cur_target_id], 
-			points[cur_target_id + 1],
-			time_move
-		)
-		tween_move.start()
-		
-		cur_target_id += 1
-		yield(tween_move, "tween_completed") 
-
-
-func _on_unit_finished_move():
-	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.IDLE)
-	draw_line3d.clear()
-	cur_target_point = Vector3.ZERO
-	
-	_update_shoot_data()
 
 
 func _update_shoot_data():
@@ -138,7 +84,7 @@ func _on_InputSystem_on_click_world(raycast_result, input_event) -> void:
 		print("click on obstacle")
 		return
 	
-	if _try_move(raycast_result, input_event):
+	if walking_system.try_move(raycast_result, input_event, cur_unit_action):
 		print("unit {0} moving".format([cur_unit_id]))
 		return
 
@@ -186,20 +132,6 @@ func _show_shoot_hint(show, unit_id = -1):
 	var visibility = "visibility: {0}% \n".format(["%0.0f" % (shoot_result.visibility * 100)])
 	var distance = "distance : {0}m \n".format(["%0.1f" % shoot_result.distance])
 	_emit_show_tooltip(show, enemy_object.global_transform.origin, visibility + distance + chance_hit)
-
-
-func _try_move(raycast_result, input_event: InputEventMouseButton) -> bool:
-	if not (input_event.pressed and input_event.button_index == 2 and raycast_result.collider.is_in_group("pathable")):
-		return false
-	
-	if raycast_result.position == Vector3.ZERO:
-		return false
-		
-	if cur_unit_action != Globals.UnitAction.WALK:
-		return false
-		
-	_move_unit(raycast_result.position)
-	return true
 
 
 func _try_shoot(raycast_result, input_event: InputEventMouseButton):
@@ -273,6 +205,9 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	cur_unit_data = units[unit_id].unit_data
 	cur_unit_object = units[unit_id].unit_object
 	cur_target_point = Vector3.ZERO
+	
+	walking_system.set_cur_unit(units[unit_id])
+	walking_system.cur_move_point = Vector3.ZERO
 	
 	GlobalBus.emit_signal(GlobalBus.on_setted_unit_control_name, cur_unit_object, camera_focus_instantly)
 

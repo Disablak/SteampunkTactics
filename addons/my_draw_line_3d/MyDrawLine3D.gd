@@ -1,4 +1,5 @@
 tool
+class_name DrawLine3D
 extends MeshInstance
 
 export var thickness = 0.1
