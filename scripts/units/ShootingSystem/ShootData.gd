@@ -14,7 +14,5 @@ var target_points: PoolVector3Array = []
 var distance: float = -1.0
 var weapon: WeaponData = null
 
-var shoot_result_points: PoolVector3Array
-
 var visibility: float = -1.0
 var hit_chance: float = -1.0

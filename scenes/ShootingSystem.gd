@@ -5,6 +5,8 @@ export var is_debug := false
 
 var random_number_generator: RandomNumberGenerator = null
 var prev_shoot_data: ShootData = null
+var debug_shoot_pos: Vector3
+var debug_shoot_targets: PoolVector3Array = []
 
 
 func _ready() -> void:
@@ -13,11 +15,11 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not is_debug or prev_shoot_data == null:
+	if not is_debug or debug_shoot_targets.size() == 0:
 		return
 	
-	for point in prev_shoot_data.shoot_result_points:
-		DebugDraw.draw_line_3d(prev_shoot_data.shoot_point, point, Color.white)
+	for point in debug_shoot_targets:
+		DebugDraw.draw_line_3d(debug_shoot_pos, point, Color.white)
 
 
 func get_hit_result(shoot_data: ShootData) -> ShootData:
@@ -35,17 +37,20 @@ func get_hit_result(shoot_data: ShootData) -> ShootData:
 
 
 func get_enemy_visibility(shoot_data: ShootData) -> float:
-	shoot_data.shoot_result_points = PoolVector3Array()
+	debug_shoot_pos = shoot_data.shoot_point
+	debug_shoot_targets = []
 	
 	if shoot_data.shoot_point == Vector3.ZERO or shoot_data.target_points.size() == 0:
 		printerr("need add shoot_point and target_points to shoot_data")
+		return 0.0
 	
 	var count_hitted = 0
 	
 	for target_point in shoot_data.target_points:
 		var ray_result = _make_ray(shoot_data.shoot_point, target_point)
 		var target_pos = ray_result.position if ray_result else target_point
-		shoot_data.shoot_result_points.push_back(target_pos)
+		debug_shoot_targets.push_back(target_pos)
+		print("pushed data to {0}".format([shoot_data]))
 		if not ray_result:
 			count_hitted += 1
 		elif is_debug:
