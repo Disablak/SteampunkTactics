@@ -149,6 +149,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	cur_unit_id = unit_id
 	cur_unit_data = units[unit_id].unit_data
 	cur_unit_object = units[unit_id].unit_object
+	cur_unit_object.unit_visual.make_outline_effect()
 	
 	shooting_module.set_cur_unit(units[unit_id])
 	walking_system.set_cur_unit(units[unit_id])

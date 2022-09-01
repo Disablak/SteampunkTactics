@@ -9,11 +9,12 @@ var rot = Quat(Vector3.UP, -45).normalized()
 onready var tween_move = Tween.new()
 
 
-func _ready() -> void:
+func _init() -> void:
 	GlobalBus.connect(GlobalBus.on_setted_unit_control_name, self, "focus_camera")
-	
+
+
+func _ready() -> void:
 	add_child(tween_move)
-	
 
 
 func _on_InputSystem_on_drag(dir) -> void:
@@ -23,6 +24,10 @@ func _on_InputSystem_on_drag(dir) -> void:
 func focus_camera(target_spatial: Spatial, instantly: bool = false):
 	var target_pos: Vector3 = target_spatial.global_translation + camera_offset
 	target_pos.y = global_translation.y
+	
+	if instantly:
+		global_translation = target_pos
+		return
 	
 	tween_move.interpolate_property(
 		self,
