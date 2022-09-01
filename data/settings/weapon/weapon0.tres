@@ -7,6 +7,8 @@ _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.0668842, 0.707207 ), 2.863
 
 [resource]
 script = ExtResource( 1 )
+name = "Winchester"
 accuracy = SubResource( 1 )
 damage = 5.0
-ammo = 1
+ammo = 7
+reload_speed = 1

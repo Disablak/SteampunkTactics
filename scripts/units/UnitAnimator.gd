@@ -14,6 +14,8 @@ func play_anim(animation_type):
 			get_parent().play_fire_vfx()
 		Globals.AnimationType.HIT:
 			set_anim("Hit")
+		Globals.AnimationType.RELOADING:
+			set_anim("Reloading")
 			
 
 func set_anim(name):

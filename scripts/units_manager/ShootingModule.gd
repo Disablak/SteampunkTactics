@@ -35,6 +35,11 @@ func show_debug(delta: float) -> void:
 		DebugDraw.draw_line_3d(debug_shoot_pos, point, Color.white)
 
 
+func reload_weapon():
+	cur_unit_data.reload_weapon()
+	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.RELOADING)
+
+
 func update_shoot_data():
 	cur_shoot_data = ShootData.new()
 	cur_shoot_data.shooter_id = cur_unit_data.unit_id
@@ -55,7 +60,7 @@ func show_shoot_hint(show, unit_id = -1):
 	cur_shoot_data.shoot_point = cur_unit_object.get_shoot_point()
 	cur_shoot_data.target_points = enemy_object.get_hit_points()
 	
-	var shoot_result: ShootData = get_hit_result(cur_shoot_data)
+	var shoot_result: ShootData = _get_hit_result(cur_shoot_data)
 	var chance_hit = "chance hit: {0}% \n".format(["%0.0f" % (shoot_result.hit_chance * 100)])
 	var visibility = "visibility: {0}% \n".format(["%0.0f" % (shoot_result.visibility * 100)])
 	var distance = "distance : {0}m \n".format(["%0.1f" % shoot_result.distance])
@@ -82,10 +87,15 @@ func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_acti
 		printerr("unit clicked on yourself")
 		return false
 	
+	if not cur_unit_data.is_enough_ammo():
+		print("Not enough ammo!")
+		return
+	
+	cur_unit_data.spend_weapon_ammo()
 	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.SHOOTING)
 	
 	var enemy = GlobalUnits.units[unit_object.unit_id]
-	var is_hitted: bool = is_hitted(cur_shoot_data) # yea im sure that here we have all data thats I need
+	var is_hitted: bool = _is_hitted(cur_shoot_data) # yea im sure that here we have all data thats I need
 	
 	if is_hitted:
 		enemy.unit_object.unit_animator.play_anim(Globals.AnimationType.HIT)
@@ -94,7 +104,7 @@ func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_acti
 	return is_hitted
 
 
-func get_hit_result(shoot_data: ShootData) -> ShootData:
+func _get_hit_result(shoot_data: ShootData) -> ShootData:
 	if _is_same_shoot_data(shoot_data):
 		if is_debug:
 			print("is same data!")
@@ -102,13 +112,13 @@ func get_hit_result(shoot_data: ShootData) -> ShootData:
 	
 	prev_shoot_data = shoot_data
 	
-	shoot_data.visibility = get_enemy_visibility(shoot_data)
-	shoot_data.hit_chance = get_hit_chance(shoot_data)
+	shoot_data.visibility = _get_enemy_visibility(shoot_data)
+	shoot_data.hit_chance = _get_hit_chance(shoot_data)
 	
 	return shoot_data
 
 
-func get_enemy_visibility(shoot_data: ShootData) -> float:
+func _get_enemy_visibility(shoot_data: ShootData) -> float:
 	debug_shoot_pos = shoot_data.shoot_point
 	debug_shoot_targets = []
 	
@@ -135,7 +145,7 @@ func get_enemy_visibility(shoot_data: ShootData) -> float:
 	return prev_shoot_data.visibility
 
 
-func get_hit_chance(shoot_data: ShootData) -> float:
+func _get_hit_chance(shoot_data: ShootData) -> float:
 	if shoot_data.visibility == 0.0:
 		print("you cant see an enemy")
 		return 0.0
@@ -153,7 +163,7 @@ func get_hit_chance(shoot_data: ShootData) -> float:
 	return hit_chance
 
 
-func is_hitted(shoot_data: ShootData) -> bool:
+func _is_hitted(shoot_data: ShootData) -> bool:
 	var random_value = random_number_generator.randf()
 	
 	if is_debug:

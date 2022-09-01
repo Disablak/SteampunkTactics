@@ -1,8 +1,12 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=2]
 [ext_resource path="res://scripts/ui/BattleUI.gd" type="Script" id=3]
+[ext_resource path="res://data/settings/shortcuts/ShortcutMove.tres" type="ShortCut" id=4]
+[ext_resource path="res://data/settings/shortcuts/ShortcutAim.tres" type="ShortCut" id=5]
+[ext_resource path="res://data/settings/shortcuts/ShortcutReload.tres" type="ShortCut" id=6]
+[ext_resource path="res://data/settings/shortcuts/ShortcutNextTurn.tres" type="ShortCut" id=7]
 [ext_resource path="res://scripts/units/UnitsUI.gd" type="Script" id=11]
 
 [sub_resource type="Shader" id=7]
@@ -32,24 +36,6 @@ void fragment()
 [sub_resource type="ShaderMaterial" id=8]
 shader = SubResource( 7 )
 shader_param/pixelSize = 2
-
-[sub_resource type="InputEventKey" id=16]
-scancode = 87
-
-[sub_resource type="ShortCut" id=12]
-shortcut = SubResource( 16 )
-
-[sub_resource type="InputEventKey" id=17]
-scancode = 16777237
-
-[sub_resource type="ShortCut" id=18]
-shortcut = SubResource( 17 )
-
-[sub_resource type="InputEventKey" id=13]
-scancode = 84
-
-[sub_resource type="ShortCut" id=14]
-shortcut = SubResource( 13 )
 
 [sub_resource type="Environment" id=15]
 fog_enabled = true
@@ -100,7 +86,7 @@ margin_top = -50.0
 margin_right = 100.0
 margin_bottom = -20.0
 toggle_mode = true
-shortcut = SubResource( 12 )
+shortcut = ExtResource( 4 )
 text = "Move (W)"
 
 [node name="BtnUnitAim" type="Button" parent="GUI/BattleUI"]
@@ -112,8 +98,19 @@ margin_top = -50.0
 margin_right = 200.0
 margin_bottom = -20.0
 toggle_mode = true
-shortcut = SubResource( 18 )
+shortcut = ExtResource( 5 )
 text = "Aim (Shift)"
+
+[node name="BtnUnitReload" type="Button" parent="GUI/BattleUI"]
+unique_name_in_owner = true
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 220.0
+margin_top = -50.0
+margin_right = 300.0
+margin_bottom = -20.0
+shortcut = ExtResource( 6 )
+text = "Reload (R)"
 
 [node name="BtnNextTurn" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true
@@ -125,14 +122,25 @@ margin_left = -100.0
 margin_top = -50.0
 margin_right = -20.0
 margin_bottom = -20.0
-shortcut = SubResource( 14 )
+shortcut = ExtResource( 7 )
 text = "Next Turn (T)"
+
+[node name="LabelAmmo" type="Label" parent="GUI/BattleUI"]
+unique_name_in_owner = true
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 123.0
+margin_top = -70.0
+margin_right = 195.0
+margin_bottom = -56.0
+text = "Ammo: 0/0"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 15 )
 
 [connection signal="toggled" from="GUI/BattleUI/BtnMoveUnit" to="ViewportContainer/Viewport/World" method="_on_BtnMoveUnit_toggled"]
 [connection signal="toggled" from="GUI/BattleUI/BtnUnitAim" to="ViewportContainer/Viewport/World" method="_on_BtnUnitAim_toggled"]
+[connection signal="pressed" from="GUI/BattleUI/BtnUnitReload" to="ViewportContainer/Viewport/World/UnitsController" method="_on_BtnUnitReload_pressed"]
 [connection signal="button_down" from="GUI/BattleUI/BtnNextTurn" to="ViewportContainer/Viewport/World" method="_on_BtnNextTurn_button_down"]
 
 [editable path="ViewportContainer/Viewport/World"]

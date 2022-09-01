@@ -7,6 +7,7 @@ enum AnimationType{
 	WALKING,
 	SHOOTING,
 	HIT,
+	RELOADING,
 }
 
 enum UnitAction{

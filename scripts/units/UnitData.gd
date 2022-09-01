@@ -10,7 +10,8 @@ var max_health
 var cur_walk_distance
 var max_walk_distance
 
-var weapon
+var weapon: WeaponData
+var cur_weapon_ammo: int
 
 
 func _init(unit_settings: UnitSettings):
@@ -21,6 +22,7 @@ func _init(unit_settings: UnitSettings):
 	max_walk_distance = unit_settings.walk_distance
 	
 	weapon = unit_settings.weapon
+	cur_weapon_ammo = weapon.ammo
 
 
 func set_unit_id(id):
@@ -61,3 +63,19 @@ func set_walk_distance(value):
 	cur_walk_distance = clamped_value
 	GlobalBus.emit_signal(GlobalBus.on_unit_changed_walk_distance, unit_id)
 
+
+func is_enough_ammo(count = 1) -> bool:
+	return cur_weapon_ammo >= count
+
+
+func reload_weapon():
+	_set_weapon_ammo(weapon.ammo)
+
+
+func spend_weapon_ammo(count = 1):
+	_set_weapon_ammo(cur_weapon_ammo - count)
+
+
+func _set_weapon_ammo(value):
+	cur_weapon_ammo = value
+	GlobalBus.emit_signal(GlobalBus.on_unit_changed_ammo_name, unit_id, cur_weapon_ammo, weapon.ammo)

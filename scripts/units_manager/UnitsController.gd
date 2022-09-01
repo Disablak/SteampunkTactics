@@ -98,6 +98,10 @@ func _on_InputSystem_on_mouse_hover(hover_info) -> void:
 		shooting_module.show_shoot_hint(false)
 
 
+func _on_BtnUnitReload_pressed() -> void:
+	shooting_module.reload_weapon()
+
+
 func _draw_future_path(mouse_pos):
 	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, mouse_pos)
 	var distance = Globals.get_total_distance(path)
@@ -141,6 +145,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 		printerr("there are no unit with id {0}".format([unit_id]))
 		return
 	
+	GlobalUnits.cur_unit_id = unit_id
 	cur_unit_id = unit_id
 	cur_unit_data = units[unit_id].unit_data
 	cur_unit_object = units[unit_id].unit_object
@@ -160,3 +165,5 @@ func next_unit():
 	set_unit_control(next_unit_id)
 	cur_unit_data.restore_walk_distance()
 	shooting_module.update_shoot_data()
+
+

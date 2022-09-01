@@ -4,9 +4,17 @@ extends Control
 onready var btn_move_unit: Button = get_node("%BtnMoveUnit")
 onready var btn_aim_unit: Button = get_node("%BtnUnitAim")
 onready var btn_next_turn: Button = get_node("%BtnNextTurn")
+onready var label_ammo: Label = get_node("LabelAmmo")
+
 
 func _ready() -> void:
+	yield(get_tree().root, "ready")
+	
 	GlobalBus.connect(GlobalBus.on_unit_changed_action_name, self, "_on_unit_change_action")
+	GlobalBus.connect(GlobalBus.on_unit_changed_ammo_name, self, "_on_unit_changed_ammo")
+	
+	var cur_unit_data: UnitData = GlobalUnits.get_cur_unit().unit_data
+	_on_unit_changed_ammo(cur_unit_data.unit_id, cur_unit_data.cur_weapon_ammo, cur_unit_data.weapon.ammo)
 
 
 func _on_unit_change_action(unit_id, action_type):
@@ -19,3 +27,9 @@ func _on_unit_change_action(unit_id, action_type):
 		Globals.UnitAction.WALK:
 			btn_aim_unit.pressed = false
 
+
+func _on_unit_changed_ammo(unit_id, cur_ammo, max_ammo):
+	if unit_id != GlobalUnits.cur_unit_id:
+		return
+	
+	label_ammo.text = "Ammo: {0}/{1}".format([cur_ammo, max_ammo])
