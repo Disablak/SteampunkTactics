@@ -131,7 +131,7 @@ func get_enemy_visibility(shoot_data: ShootData) -> float:
 	if is_debug:
 		print("hitted {0} / {1}".format([count_hitted, shoot_data.target_points.size()]))
 	
-	prev_shoot_data.visibility = float(count_hitted) / shoot_data.target_points.size()
+	prev_shoot_data.visibility = _get_visible_percent(count_hitted)
 	return prev_shoot_data.visibility
 
 
@@ -177,4 +177,26 @@ func _is_same_shoot_data(shoot_data: ShootData) -> bool:
 	var enemy_same   = shoot_data.enemy_id   == prev_shoot_data.enemy_id   and shoot_data.enemy_pos   == prev_shoot_data.enemy_pos
 	
 	return values_calculated and shooter_same and enemy_same
+
+
+func _get_visible_percent(var count_hitted) -> float:
+	match(count_hitted):
+		0:
+			return 0.0
+		
+		1, 2, 3:
+			return 0.2
+		
+		4, 5, 6:
+			return 0.45
+		
+		7, 8, 9:
+			return 0.65
+		
+		10, 11, 12:
+			return 1.0
+		
+		_:
+			printerr("out of range!")
+			return 0.0
 
