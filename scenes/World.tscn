@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://addons/my_draw_line_3d/MyDrawLine3D.gd" type="Script" id=2]
@@ -6,8 +6,7 @@
 [ext_resource path="res://scripts/InputSystem.gd" type="Script" id=4]
 [ext_resource path="res://scenes/units/UnitObject.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/level/LevelTest.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/ShootingSystem.gd" type="Script" id=7]
-[ext_resource path="res://scripts/units/UnitsController.gd" type="Script" id=8]
+[ext_resource path="res://scripts/units_manager/UnitsController.gd" type="Script" id=8]
 [ext_resource path="res://data/settings/unit/unit_setting0.tres" type="Resource" id=9]
 
 [sub_resource type="NavigationMesh" id=11]
@@ -35,10 +34,6 @@ script = ExtResource( 1 )
 unique_name_in_owner = true
 script = ExtResource( 8 )
 units_data = [ ExtResource( 9 ), ExtResource( 9 ) ]
-
-[node name="ShootingSystem" type="Spatial" parent="UnitsController"]
-script = ExtResource( 7 )
-is_debug = true
 
 [node name="Navigation" type="Navigation" parent="UnitsController"]
 

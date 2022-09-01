@@ -15,6 +15,8 @@ func _ready() -> void:
 
 	GlobalBus.connect(GlobalBus.on_unit_change_health_name, self, "_update_unit_info")
 	GlobalBus.connect(GlobalBus.on_unit_changed_walk_distance, self, "_update_unit_info")
+	GlobalBus.connect(GlobalBus.on_hovered_unit_in_shooting_mode_name, self, "_on_hovered_unit_in_shooting_mode")
+	
 	
 	add_child(label_tooltip)
 	show_tooltip(false, Vector3.ZERO, "")
@@ -77,5 +79,5 @@ func show_tooltip(show, world_pos, text):
 	label_tooltip.rect_position = position_in_ui
 
 
-func _on_UnitsController_on_called_tooltip(show, world_pos, text) -> void:
-	show_tooltip(show, world_pos, text)
+func _on_hovered_unit_in_shooting_mode(is_hover, world_pos, text) -> void:
+	show_tooltip(is_hover, world_pos, text)

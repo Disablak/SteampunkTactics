@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=2]
-[ext_resource path="res://scenes/BattleUI.gd" type="Script" id=3]
+[ext_resource path="res://scripts/ui/BattleUI.gd" type="Script" id=3]
 [ext_resource path="res://scripts/units/UnitsUI.gd" type="Script" id=11]
 
 [sub_resource type="Shader" id=7]
@@ -131,7 +131,6 @@ text = "Next Turn (T)"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 15 )
 
-[connection signal="on_called_tooltip" from="ViewportContainer/Viewport/World/UnitsController" to="GUI/BattleUI/UnitsUI" method="_on_UnitsController_on_called_tooltip"]
 [connection signal="toggled" from="GUI/BattleUI/BtnMoveUnit" to="ViewportContainer/Viewport/World" method="_on_BtnMoveUnit_toggled"]
 [connection signal="toggled" from="GUI/BattleUI/BtnUnitAim" to="ViewportContainer/Viewport/World" method="_on_BtnUnitAim_toggled"]
 [connection signal="button_down" from="GUI/BattleUI/BtnNextTurn" to="ViewportContainer/Viewport/World" method="_on_BtnNextTurn_button_down"]

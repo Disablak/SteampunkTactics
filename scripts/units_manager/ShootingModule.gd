@@ -1,25 +1,97 @@
-extends Spatial
+class_name ShootingModule
+extends Reference
 
 
-export var is_debug := false
+var is_debug := true
 
+var world: World = null
 var random_number_generator: RandomNumberGenerator = null
-var prev_shoot_data: ShootData = null
 var debug_shoot_pos: Vector3
 var debug_shoot_targets: PoolVector3Array = []
 
+var cur_unit_object: UnitObject
+var cur_unit_data: UnitData
 
-func _ready() -> void:
+var cur_shoot_data: ShootData
+var prev_shoot_data: ShootData = null
+
+
+func _init(world) -> void:
+	self.world = world
 	random_number_generator = RandomNumberGenerator.new()
 	random_number_generator.randomize()
 
 
-func _process(delta: float) -> void:
+func set_cur_unit(unit: Unit):
+	cur_unit_object = unit.unit_object
+	cur_unit_data = unit.unit_data
+
+
+func show_debug(delta: float) -> void:
 	if not is_debug or debug_shoot_targets.size() == 0:
 		return
 	
 	for point in debug_shoot_targets:
 		DebugDraw.draw_line_3d(debug_shoot_pos, point, Color.white)
+
+
+func update_shoot_data():
+	cur_shoot_data = ShootData.new()
+	cur_shoot_data.shooter_id = cur_unit_data.unit_id
+	cur_shoot_data.shooter_pos = cur_unit_object.global_transform.origin
+
+
+func show_shoot_hint(show, unit_id = -1):
+	if not show or cur_unit_data.unit_id == unit_id or not GlobalUnits.units.has(unit_id):
+		_emit_show_tooltip(show, Vector3.ZERO, "")
+		return
+	
+	var enemy_object = GlobalUnits.units[unit_id].unit_object
+	
+	cur_shoot_data.enemy_id = unit_id
+	cur_shoot_data.enemy_pos = enemy_object.global_transform.origin
+	cur_shoot_data.weapon = cur_unit_data.weapon
+	cur_shoot_data.distance = cur_unit_object.global_transform.origin.distance_to(enemy_object.global_transform.origin)
+	cur_shoot_data.shoot_point = cur_unit_object.get_shoot_point()
+	cur_shoot_data.target_points = enemy_object.get_hit_points()
+	
+	var shoot_result: ShootData = get_hit_result(cur_shoot_data)
+	var chance_hit = "chance hit: {0}% \n".format(["%0.0f" % (shoot_result.hit_chance * 100)])
+	var visibility = "visibility: {0}% \n".format(["%0.0f" % (shoot_result.visibility * 100)])
+	var distance = "distance : {0}m \n".format(["%0.1f" % shoot_result.distance])
+	
+	_emit_show_tooltip(show, enemy_object.global_transform.origin, visibility + distance + chance_hit)
+
+
+func _emit_show_tooltip(show, world_pos, text):
+	GlobalBus.emit_signal(GlobalBus.on_hovered_unit_in_shooting_mode_name, show, world_pos, text)
+
+
+func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_action):
+	if cur_unit_action != Globals.UnitAction.SHOOT:
+		return false
+	
+	if not (input_event.pressed and input_event.button_index == 1):
+		return false
+	
+	var unit_object = raycast_result.collider.get_parent() as UnitObject
+	if not unit_object:
+		return false
+	
+	if unit_object == cur_unit_object:
+		printerr("unit clicked on yourself")
+		return false
+	
+	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.SHOOTING)
+	
+	var enemy = GlobalUnits.units[unit_object.unit_id]
+	var is_hitted: bool = is_hitted(cur_shoot_data) # yea im sure that here we have all data thats I need
+	
+	if is_hitted:
+		enemy.unit_object.unit_animator.play_anim(Globals.AnimationType.HIT)
+		enemy.unit_data.set_damage(cur_unit_data.weapon.damage, cur_unit_data.unit_id)
+	
+	return is_hitted
 
 
 func get_hit_result(shoot_data: ShootData) -> ShootData:
@@ -91,7 +163,7 @@ func is_hitted(shoot_data: ShootData) -> bool:
 
 
 func _make_ray(from, to):
-	var space_state = get_world().direct_space_state
+	var space_state = world.direct_space_state
 	var result = space_state.intersect_ray(from, to, [PhysicalBone, CollisionShape], 5, false, true)
 	return result
 

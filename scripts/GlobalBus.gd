@@ -15,3 +15,6 @@ signal on_setted_unit_control(unit_spatial, instantly)
 
 var on_unit_changed_action_name = "on_unit_changed_action"
 signal on_unit_changed_action(unit_id, unit_action_type)
+
+var on_hovered_unit_in_shooting_mode_name = "on_hovered_unit_in_shooting_mode"
+signal on_hovered_unit_in_shooting_mode(is_hover, world_pos, text)

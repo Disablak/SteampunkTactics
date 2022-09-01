@@ -1,4 +1,4 @@
-class_name WalkingSystem
+class_name WalkingModule
 extends Reference
 
 
