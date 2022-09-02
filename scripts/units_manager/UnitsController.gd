@@ -6,6 +6,7 @@ export(Array) var units_data = []
 onready var navigation = get_node("Navigation")
 onready var draw_line3d = get_node("%DrawLine3D")
 onready var mouse_pointer = get_node("%MousePointer")
+onready var bullet_effects = get_node("BulletEffects")
 
 var units = null
 var tween_move := Tween.new()
@@ -31,7 +32,7 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	shooting_module = ShootingModule.new(get_world())
+	shooting_module = ShootingModule.new(get_world(), bullet_effects)
 	
 	var func_ref_finish_move = funcref(shooting_module, "update_shoot_data")
 	walking_system = WalkingModule.new(navigation, tween_move, draw_line3d, func_ref_finish_move)

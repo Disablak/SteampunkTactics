@@ -12,6 +12,8 @@ onready var hit_point_parent = get_node(path_to_hit_points)
 export(NodePath) var path_to_shoot_point
 onready var shoot_point_node = get_node(path_to_shoot_point)
 
+export(NodePath) onready var hit_bullet_point = get_node(hit_bullet_point)
+
 
 var unit_id = -1
 

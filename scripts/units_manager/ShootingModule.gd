@@ -2,9 +2,10 @@ class_name ShootingModule
 extends Reference
 
 
-var is_debug := true
+var is_debug := false
 
 var world: World = null
+var bullet_effects: BulletEffects = null
 var random_number_generator: RandomNumberGenerator = null
 var debug_shoot_pos: Vector3
 var debug_shoot_targets: PoolVector3Array = []
@@ -16,8 +17,10 @@ var cur_shoot_data: ShootData
 var prev_shoot_data: ShootData = null
 
 
-func _init(world) -> void:
+func _init(world, bullet_effects) -> void:
 	self.world = world
+	self.bullet_effects = bullet_effects
+	
 	random_number_generator = RandomNumberGenerator.new()
 	random_number_generator.randomize()
 
@@ -96,6 +99,8 @@ func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_acti
 	
 	var enemy = GlobalUnits.units[unit_object.unit_id]
 	var is_hitted: bool = _is_hitted(cur_shoot_data) # yea im sure that here we have all data thats I need
+	
+	bullet_effects.shoot(cur_unit_object, enemy.unit_object, is_hitted)
 	
 	if is_hitted:
 		enemy.unit_object.unit_animator.play_anim(Globals.AnimationType.HIT)

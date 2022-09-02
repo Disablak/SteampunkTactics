@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="CapsuleMesh" id=1]
+radius = 0.03
+
+[node name="Bullet" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+cast_shadow = 0
+mesh = SubResource( 1 )
+
+[node name="OmniLight" type="OmniLight" parent="."]
+light_energy = 2.0
