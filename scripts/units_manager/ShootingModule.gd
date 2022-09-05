@@ -94,6 +94,10 @@ func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_acti
 		print("Not enough ammo!")
 		return
 	
+	if cur_shoot_data.visibility == 0.0:
+		print("You don't see the enemy")
+		return
+	
 	cur_unit_data.spend_weapon_ammo()
 	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.SHOOTING)
 	

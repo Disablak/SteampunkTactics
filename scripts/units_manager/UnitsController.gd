@@ -153,6 +153,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	cur_unit_object.unit_visual.make_outline_effect()
 	
 	shooting_module.set_cur_unit(units[unit_id])
+	shooting_module.update_shoot_data()
 	walking_system.set_cur_unit(units[unit_id])
 	walking_system.cur_move_point = Vector3.ZERO
 	
@@ -166,6 +167,4 @@ func next_unit():
 	
 	set_unit_control(next_unit_id)
 	cur_unit_data.restore_walk_distance()
-	shooting_module.update_shoot_data()
-
 

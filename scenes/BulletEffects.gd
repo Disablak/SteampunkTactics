@@ -4,6 +4,7 @@ extends Spatial
 
 const BULLET_SPEED = 150
 const MISSED_BULLET_DISTANCE = 100
+const SHOOT_MISS_POS_LERP = [0.0, 0.1, 0.2, 0.8, 0.9, 1.0]
 
 
 export(PackedScene) var bullet_scene
@@ -54,7 +55,7 @@ func _get_little_short_shoot(shoot_direction: Vector3) -> Vector3:
 
 func _get_little_wrong_shoot_direction(shoot_direction: Vector3) -> Vector3:
 	var left_offset = shoot_direction.cross(Vector3.UP).normalized() / 3
-	var random_offset = lerp(-left_offset, left_offset, random.randf())
+	var random_offset = lerp(-left_offset, left_offset, SHOOT_MISS_POS_LERP[random.randi() % SHOOT_MISS_POS_LERP.size()])
 	var with_big_length: Vector3 = (shoot_direction + random_offset).normalized() * MISSED_BULLET_DISTANCE
 	
 	return with_big_length
