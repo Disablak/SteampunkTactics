@@ -106,7 +106,9 @@ func _on_BtnUnitReload_pressed() -> void:
 func _draw_future_path(mouse_pos):
 	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, mouse_pos)
 	var distance = Globals.get_total_distance(path)
-	var can_move = cur_unit_data.can_move(distance)
+	var move_price = cur_unit_data.get_move_price(distance)
+	var can_move = TurnManager.can_spend_time_points(move_price) 
+	
 	draw_line3d.draw_all_lines_colored(path, Color.forestgreen if can_move else Color.red)
 
 
@@ -133,6 +135,14 @@ func shoot_unit_mode(enable: bool) -> void:
 	draw_line3d.clear()
 
 
+func next_unit():
+	var next_unit_id = cur_unit_id + 1
+	if not units.has(next_unit_id):
+		next_unit_id = 0
+	
+	set_unit_control(next_unit_id)
+
+
 func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	if tween_move.is_active():
 		printerr("unit {0} is moving now".format([unit_id]))
@@ -157,14 +167,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	walking_system.set_cur_unit(units[unit_id])
 	walking_system.cur_move_point = Vector3.ZERO
 	
-	GlobalBus.emit_signal(GlobalBus.on_setted_unit_control_name, cur_unit_object, camera_focus_instantly)
-
-
-func next_unit():
-	var next_unit_id = cur_unit_id + 1
-	if not units.has(next_unit_id):
-		next_unit_id = 0
+	TurnManager.restore_time_points()
 	
-	set_unit_control(next_unit_id)
-	cur_unit_data.restore_walk_distance()
+	GlobalBus.emit_signal(GlobalBus.on_setted_unit_control_name, cur_unit_object, camera_focus_instantly)
 

@@ -39,6 +39,10 @@ func show_debug(delta: float) -> void:
 
 
 func reload_weapon():
+	if not TurnManager.can_spend_time_points(cur_unit_data.weapon.reload_price):
+		return
+	
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.RELOADING, cur_unit_data.weapon.reload_price)
 	cur_unit_data.reload_weapon()
 	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.RELOADING)
 
@@ -75,7 +79,7 @@ func _emit_show_tooltip(show, world_pos, text):
 	GlobalBus.emit_signal(GlobalBus.on_hovered_unit_in_shooting_mode_name, show, world_pos, text)
 
 
-func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_action):
+func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_action) -> bool:
 	if cur_unit_action != Globals.UnitAction.SHOOT:
 		return false
 	
@@ -92,18 +96,23 @@ func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_acti
 	
 	if not cur_unit_data.is_enough_ammo():
 		print("Not enough ammo!")
-		return
+		return false
 	
 	if cur_shoot_data.visibility == 0.0:
 		print("You don't see the enemy")
-		return
+		return false
 	
-	cur_unit_data.spend_weapon_ammo()
-	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.SHOOTING)
+	if not TurnManager.can_spend_time_points(cur_unit_data.weapon.shoot_price):
+		return false
 	
 	if not GlobalUnits.units.has(unit_object.unit_id):
 		printerr("Enemy not exist id: {0}".format([unit_object.unit_id]))
 		return false
+	
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, cur_unit_data.weapon.shoot_price)
+	
+	cur_unit_data.spend_weapon_ammo()
+	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.SHOOTING)
 	
 	var enemy = GlobalUnits.units[unit_object.unit_id]
 	var is_hitted: bool = _is_hitted(cur_shoot_data) # yea im sure that here we have all data thats I need

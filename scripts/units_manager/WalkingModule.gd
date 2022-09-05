@@ -63,10 +63,11 @@ func try_move(raycast_result, input_event: InputEventMouseButton, cur_unit_actio
 func _move_unit(pos):
 	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, pos)
 	var distance = Globals.get_total_distance(path)
-	if not cur_unit_data.can_move(distance):
+	var price_time_points = cur_unit_data.get_move_price(distance)
+	if not TurnManager.can_spend_time_points(price_time_points):
 		return
 	
-	cur_unit_data.remove_walk_distance(distance)
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.WALKING, price_time_points)
 	_move_via_points(path)
 
 

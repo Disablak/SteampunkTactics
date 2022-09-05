@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://data/settings/shortcuts/ShortcutAim.tres" type="ShortCut" id=5]
 [ext_resource path="res://data/settings/shortcuts/ShortcutReload.tres" type="ShortCut" id=6]
 [ext_resource path="res://data/settings/shortcuts/ShortcutNextTurn.tres" type="ShortCut" id=7]
+[ext_resource path="res://scripts/ui/TimePointsUI.gd" type="Script" id=8]
 [ext_resource path="res://scripts/units/UnitsUI.gd" type="Script" id=11]
 
 [sub_resource type="Shader" id=7]
@@ -76,6 +77,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 11 )
 path_camera = NodePath("../../../ViewportContainer/Viewport/World/InputSystem/CameraController/Camera")
+
+[node name="TimePointsUI" type="Control" parent="GUI/BattleUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 8 )
+
+[node name="ProgressBar" type="ProgressBar" parent="GUI/BattleUI/TimePointsUI"]
+modulate = Color( 1, 1, 1, 0.392157 )
+anchor_right = 1.0
+margin_bottom = 14.0
 
 [node name="BtnMoveUnit" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true

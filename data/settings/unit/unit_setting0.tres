@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource( 1 )
 max_health = 20.0
-walk_distance = 8.0
+walk_speed = 10
 weapon = ExtResource( 2 )

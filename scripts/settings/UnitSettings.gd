@@ -3,5 +3,5 @@ extends Resource
 
 
 export var max_health: float = 20.0
-export var walk_distance: float = 8.0
+export var walk_speed: int = 10 # price for 1 metr
 export var weapon: Resource

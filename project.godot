@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "BulletEffects",
 "language": "GDScript",
-"path": "res://scenes/BulletEffects.gd"
+"path": "res://scripts/visual/BulletEffects.gd"
 }, {
 "base": "MeshInstance",
 "class": "DrawLine3D",
@@ -97,6 +97,7 @@ GlobalBus="*res://scripts/GlobalBus.gd"
 GlobalUnits="*res://scripts/GlobalUnits.gd"
 DebugDraw="*res://addons/zylann.debug_draw/debug_draw.gd"
 DrawLine3d="*res://addons/Godot-3D-Lines/DrawLine3D.gd"
+TurnManager="*res://scripts/TurnManager.gd"
 
 [display]
 

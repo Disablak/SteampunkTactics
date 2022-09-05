@@ -47,10 +47,9 @@ func _update_health(unit_id):
 	var unit_ui = units_ui[unit_id]
 	var unit_data = GlobalUnits.units[unit_id].unit_data
 	
-	unit_ui.text = "HP:{0}/{1}\nMP:{2}".format([
+	unit_ui.text = "HP:{0}/{1}".format([
 		unit_data.cur_health, 
-		unit_data.max_health, 
-		"%0.2f" % unit_data.cur_walk_distance
+		unit_data.unit_settings.max_health
 	])
 	
 	

@@ -4,24 +4,18 @@ class_name UnitData
 
 var unit_id = -1
 
-var cur_health
-var max_health
-
-var cur_walk_distance
-var max_walk_distance
-
+var unit_settings: UnitSettings
 var weapon: WeaponData
+
+var cur_health: float
 var cur_weapon_ammo: int
 
 
 func _init(unit_settings: UnitSettings):
+	self.unit_settings = unit_settings
+	self.weapon = unit_settings.weapon
+	
 	cur_health = unit_settings.max_health
-	max_health = unit_settings.max_health
-	
-	cur_walk_distance = unit_settings.walk_distance
-	max_walk_distance = unit_settings.walk_distance
-	
-	weapon = unit_settings.weapon
 	cur_weapon_ammo = weapon.ammo
 
 
@@ -42,26 +36,9 @@ func set_damage(value, attacker_unit_id):
 		print_debug("unit_died ", unit_id)
 
 
-func can_move(distance: float) -> bool:
-	return cur_walk_distance >= distance
-
-
-func remove_walk_distance(value):
-	if cur_walk_distance <= 0 || value > cur_walk_distance:
-		print("unit {0} cant walk".format([unit_id]))
-		return
-	
-	set_walk_distance(cur_walk_distance - value)
-
-
-func restore_walk_distance():
-	set_walk_distance(max_walk_distance)
-
-
-func set_walk_distance(value):
-	var clamped_value = clamp(value, 0.0, max_walk_distance)
-	cur_walk_distance = clamped_value
-	GlobalBus.emit_signal(GlobalBus.on_unit_changed_walk_distance, unit_id)
+func get_move_price(distance: float) -> int:
+	var result = distance * unit_settings.walk_speed
+	return result
 
 
 func is_enough_ammo(count = 1) -> bool:
