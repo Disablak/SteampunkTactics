@@ -97,6 +97,10 @@ func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_acti
 	cur_unit_data.spend_weapon_ammo()
 	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.SHOOTING)
 	
+	if not GlobalUnits.units.has(unit_object.unit_id):
+		printerr("Enemy not exist id: {0}".format([unit_object.unit_id]))
+		return false
+	
 	var enemy = GlobalUnits.units[unit_object.unit_id]
 	var is_hitted: bool = _is_hitted(cur_shoot_data) # yea im sure that here we have all data thats I need
 	

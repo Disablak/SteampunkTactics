@@ -20,6 +20,7 @@ var unit_id = -1
 onready var unit_visual = get_node("UnitVisual")
 onready var unit_animator : UnitAnimator = get_node("UnitVisual/AnimationTree")
 onready var skeleton = get_node("UnitVisual/y bot 2/Armature/Skeleton")
+onready var unit_collision = get_node("UnitArea/CollisionShape")
 
 const DIE_POWER = 30
 
@@ -39,6 +40,7 @@ func _on_unit_died(unit_id, unit_id_killer):
 		return
 	
 	enable_ragdoll(unit_id_killer)
+	unit_collision.disabled = true
 	
 
 
