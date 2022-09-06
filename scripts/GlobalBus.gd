@@ -24,3 +24,6 @@ signal on_hovered_unit_in_shooting_mode(is_hover, world_pos, text)
 
 var on_changed_time_points_name = "on_changed_time_points"
 signal on_changed_time_points(type_spend_action, cur_points, max_points)
+
+var on_hint_time_points_name = "on_hint_time_points"
+signal on_hint_time_points(cur_points, max_points)

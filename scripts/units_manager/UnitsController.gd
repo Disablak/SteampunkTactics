@@ -97,6 +97,7 @@ func _on_InputSystem_on_mouse_hover(hover_info) -> void:
 	else:
 		draw_line3d.clear()
 		shooting_module.show_shoot_hint(false)
+		TurnManager.show_hint_spend_points(0)
 
 
 func _on_BtnUnitReload_pressed() -> void:
@@ -109,6 +110,7 @@ func _draw_future_path(mouse_pos):
 	var move_price = cur_unit_data.get_move_price(distance)
 	var can_move = TurnManager.can_spend_time_points(move_price) 
 	
+	TurnManager.show_hint_spend_points(move_price)
 	draw_line3d.draw_all_lines_colored(path, Color.forestgreen if can_move else Color.red)
 
 

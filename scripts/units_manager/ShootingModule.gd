@@ -77,6 +77,7 @@ func show_shoot_hint(show, unit_id = -1):
 
 func _emit_show_tooltip(show, world_pos, text):
 	GlobalBus.emit_signal(GlobalBus.on_hovered_unit_in_shooting_mode_name, show, world_pos, text)
+	TurnManager.show_hint_spend_points(cur_unit_data.weapon.shoot_price if show else 0)
 
 
 func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_action) -> bool:

@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Spatial",
+"base": "Reference",
 "class": "BulletEffects",
 "language": "GDScript",
 "path": "res://scripts/visual/BulletEffects.gd"
