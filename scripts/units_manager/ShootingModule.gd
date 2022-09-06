@@ -2,7 +2,7 @@ class_name ShootingModule
 extends Reference
 
 
-var is_debug := false
+var is_debug := true
 
 var world: World = null
 var bullet_effects: BulletEffects = null

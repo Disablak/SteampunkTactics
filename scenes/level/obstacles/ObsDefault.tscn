@@ -9,7 +9,8 @@ extents = Vector3( 1, 0.5, 1 )
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 2, 1, 2 )
 
-[node name="ObsDefault" instance=ExtResource( 2 )]
+[node name="ObsDefault" groups=["navmesh"] instance=ExtResource( 2 )]
+script = null
 
 [node name="CollisionShape" parent="." index="0"]
 shape = SubResource( 2 )
