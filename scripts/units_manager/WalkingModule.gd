@@ -41,6 +41,7 @@ func try_rotate_unit(delta, pointer_target_pos, cur_unit_action):
 
 
 func _rotate_unit(target_pos, delta):
+	target_pos.y = 0.0
 	var new_transform = cur_unit_object.transform.looking_at(target_pos, Vector3.UP)
 	cur_unit_object.transform = cur_unit_object.transform.interpolate_with(new_transform, ROTATION_SPEED * delta)
 	cur_unit_object.rotation_degrees.x = 0
