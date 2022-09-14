@@ -47,17 +47,13 @@ func reload_weapon():
 	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.RELOADING)
 
 
-func update_shoot_data():
+func create_shoot_data():
 	cur_shoot_data = ShootData.new()
 	cur_shoot_data.shooter_id = cur_unit_data.unit_id
 	cur_shoot_data.shooter_pos = cur_unit_object.global_transform.origin
 
 
-func show_shoot_hint(show, unit_id = -1):
-	if not show or cur_unit_data.unit_id == unit_id or not GlobalUnits.units.has(unit_id):
-		_emit_show_tooltip(show, Vector3.ZERO, "")
-		return
-	
+func update_shoot_data(unit_id: int):
 	var enemy_object = GlobalUnits.units[unit_id].unit_object
 	
 	cur_shoot_data.enemy_id = unit_id
@@ -66,11 +62,20 @@ func show_shoot_hint(show, unit_id = -1):
 	cur_shoot_data.distance = cur_unit_object.global_transform.origin.distance_to(enemy_object.global_transform.origin)
 	cur_shoot_data.shoot_point = cur_unit_object.get_shoot_point()
 	cur_shoot_data.target_points = enemy_object.get_hit_points()
+	cur_shoot_data = _get_hit_result(cur_shoot_data)
+
+
+func show_shoot_hint(show, unit_id = -1):
+	if not show or cur_unit_data.unit_id == unit_id or not GlobalUnits.units.has(unit_id):
+		_emit_show_tooltip(show, Vector3.ZERO, "")
+		return
 	
-	var shoot_result: ShootData = _get_hit_result(cur_shoot_data)
-	var chance_hit = "chance hit: {0}% \n".format(["%0.0f" % (shoot_result.hit_chance * 100)])
-	var visibility = "visibility: {0}% \n".format(["%0.0f" % (shoot_result.visibility * 100)])
-	var distance = "distance : {0}m \n".format(["%0.1f" % shoot_result.distance])
+	update_shoot_data(unit_id)
+	
+	var enemy_object = GlobalUnits.units[unit_id].unit_object
+	var chance_hit = "chance hit: {0}% \n".format(["%0.0f" % (cur_shoot_data.hit_chance * 100)])
+	var visibility = "visibility: {0}% \n".format(["%0.0f" % (cur_shoot_data.visibility * 100)])
+	var distance = "distance : {0}m \n".format(["%0.1f" % cur_shoot_data.distance])
 	
 	_emit_show_tooltip(show, enemy_object.global_transform.origin, visibility + distance + chance_hit)
 
@@ -91,8 +96,12 @@ func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_acti
 	if not unit_object:
 		return false
 	
+	return shoot(unit_object)
+
+
+func shoot(unit_object: UnitObject) -> bool:
 	if unit_object == cur_unit_object:
-		printerr("unit clicked on yourself")
+		printerr("Is same unit")
 		return false
 	
 	if not cur_unit_data.is_enough_ammo():
@@ -115,9 +124,10 @@ func try_shoot(raycast_result, input_event: InputEventMouseButton, cur_unit_acti
 	cur_unit_data.spend_weapon_ammo()
 	cur_unit_object.unit_animator.play_anim(Globals.AnimationType.SHOOTING)
 	
-	var enemy = GlobalUnits.units[unit_object.unit_id]
-	var is_hitted: bool = _is_hitted(cur_shoot_data) # yea im sure that here we have all data thats I need
+	update_shoot_data(unit_object.unit_id)
+	var is_hitted: bool = _is_hitted(cur_shoot_data)
 	
+	var enemy = GlobalUnits.units[unit_object.unit_id]
 	bullet_effects.shoot(cur_unit_object, enemy.unit_object, is_hitted)
 	
 	if is_hitted:

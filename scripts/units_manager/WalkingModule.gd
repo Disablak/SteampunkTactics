@@ -57,11 +57,11 @@ func try_move(raycast_result, input_event: InputEventMouseButton, cur_unit_actio
 	if cur_unit_action != Globals.UnitAction.WALK:
 		return false
 		
-	_move_unit(raycast_result.position)
+	move_unit(raycast_result.position)
 	return true
 
 
-func _move_unit(pos):
+func move_unit(pos):
 	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, pos)
 	var distance = Globals.get_total_distance(path)
 	var price_time_points = cur_unit_data.get_move_price(distance)

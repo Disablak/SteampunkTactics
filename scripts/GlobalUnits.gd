@@ -1,6 +1,7 @@
 extends Node
 
 
+var units_controller: UnitsController
 var units = {}
 var cur_unit_id: int = -1
 

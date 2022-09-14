@@ -1,3 +1,4 @@
+class_name UnitsController
 extends Spatial
 
 
@@ -7,6 +8,7 @@ onready var navigation = get_node("Navigation")
 onready var draw_line3d = get_node("%DrawLine3D")
 onready var mouse_pointer = get_node("%MousePointer")
 onready var bullet_effects = get_node("BulletEffects")
+onready var brain_ai = get_node("%BrainAI")
 
 var units = null
 var tween_move := Tween.new()
@@ -34,8 +36,10 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	shooting_module = ShootingModule.new(get_world(), bullet_effects)
 	
-	var func_ref_finish_move = funcref(shooting_module, "update_shoot_data")
+	var func_ref_finish_move = funcref(shooting_module, "create_shoot_data")
 	walking_system = WalkingModule.new(navigation, tween_move, draw_line3d, func_ref_finish_move)
+	
+	GlobalUnits.units_controller = self
 	
 	_init_units()
 
@@ -165,11 +169,14 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	cur_unit_object.unit_visual.make_outline_effect()
 	
 	shooting_module.set_cur_unit(units[unit_id])
-	shooting_module.update_shoot_data()
+	shooting_module.create_shoot_data()
 	walking_system.set_cur_unit(units[unit_id])
 	walking_system.cur_move_point = Vector3.ZERO
 	
 	TurnManager.restore_time_points()
+	
+	if not cur_unit_object.is_player_unit:
+		brain_ai.decide_best_action_and_execute()
 	
 	GlobalBus.emit_signal(GlobalBus.on_setted_unit_control_name, cur_unit_object, camera_focus_instantly)
 

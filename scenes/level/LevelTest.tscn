@@ -46,7 +46,7 @@ mesh = SubResource( 2 )
 material/0 = SubResource( 6 )
 
 [node name="ObsDefault" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.193185, 0, 0.258819, 0, 2, 0, -0.0517638, 0, 0.965926, 8, 0, 5.5 )
+transform = Transform( 0.193185, 0, 0.258819, 0, 2, 0, -0.0517638, 0, 0.965926, 8, 0, 6.5 )
 
 [node name="ObsDefault2" parent="." instance=ExtResource( 4 )]
 transform = Transform( 0.2, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 8.5 )
