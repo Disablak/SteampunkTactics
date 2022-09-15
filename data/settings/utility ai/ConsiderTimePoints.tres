@@ -1,6 +1,10 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://scripts/utility_ai/considerations/ConsiderTimePoints.gd" type="Script" id=1]
 
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 1.0, 0, 1, Vector2( 1, 1 ), 1.0, 0.0, 1, 0 ]
+
 [resource]
 script = ExtResource( 1 )
+response_curve = SubResource( 1 )

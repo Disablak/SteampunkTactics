@@ -41,7 +41,7 @@ func score_action(action: Action) -> float:
 	var score: float = 1.0
 	
 	for consideration in action.considerations:
-		var score_consideration: float = consideration.calc_score()
+		var score_consideration: float = consideration.get_score()
 		score *= score_consideration
 		
 		if score == 0:
