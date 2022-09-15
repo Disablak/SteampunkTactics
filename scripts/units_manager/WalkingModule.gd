@@ -1,5 +1,5 @@
 class_name WalkingModule
-extends Reference
+extends RefCounted
 
 
 const ROTATION_SPEED = 10
@@ -10,17 +10,17 @@ var cur_unit_object: UnitObject
 var cur_unit_data: UnitData
 var cur_move_point: Vector3
 
-var navigation: Navigation
+var navigation: Node3D
 var tween_move: Tween
 var draw_line3d: DrawLine3D
-var func_ref_finish_move: FuncRef
+var callable_finish_move: Callable
 
 
-func _init(navigation, tween_move, draw_line3d, func_ref_finish_move) -> void:
+func _init(navigation, tween_move, draw_line3d, callable_finish_move: Callable):
 	self.navigation = navigation
 	self.tween_move = tween_move
 	self.draw_line3d = draw_line3d
-	self.func_ref_finish_move = func_ref_finish_move
+	self.callable_finish_move = callable_finish_move
 
 
 func _ready() -> void:
@@ -72,7 +72,7 @@ func move_unit(pos):
 	_move_via_points(path)
 
 
-func _move_via_points(points: PoolVector3Array):
+func _move_via_points(points: PackedVector3Array):
 	var cur_target_id = 0
 	
 	for point in points:
@@ -87,7 +87,7 @@ func _move_via_points(points: PoolVector3Array):
 		
 		tween_move.interpolate_property(
 			cur_unit_object,
-			"translation",
+			"position",
 			points[cur_target_id], 
 			points[cur_target_id + 1],
 			time_move
@@ -95,7 +95,7 @@ func _move_via_points(points: PoolVector3Array):
 		tween_move.start()
 		
 		cur_target_id += 1
-		yield(tween_move, "tween_completed") 
+		await tween_move.finished 
 
 
 func _on_unit_finished_move():
@@ -103,4 +103,4 @@ func _on_unit_finished_move():
 	draw_line3d.clear()
 	cur_move_point = Vector3.ZERO
 	
-	func_ref_finish_move.call_func()
+	callable_finish_move.call()

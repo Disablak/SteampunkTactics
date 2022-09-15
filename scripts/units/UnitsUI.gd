@@ -1,7 +1,7 @@
 extends Control
 
-export(NodePath) var path_camera
-onready var camera = get_node(path_camera)
+@export var path_camera: NodePath
+@onready var camera = get_node(path_camera)
 
 
 var units_ui = {}
@@ -11,11 +11,11 @@ const UI_OFFSET = Vector2(-30, -30)
 
 
 func _ready() -> void:
-	yield(get_tree().root, "ready")
+	await get_tree().root.ready
 
-	GlobalBus.connect(GlobalBus.on_unit_change_health_name, self, "_update_unit_info")
-	GlobalBus.connect(GlobalBus.on_unit_changed_walk_distance, self, "_update_unit_info")
-	GlobalBus.connect(GlobalBus.on_hovered_unit_in_shooting_mode_name, self, "_on_hovered_unit_in_shooting_mode")
+	GlobalBus.connect(GlobalBus.on_unit_change_health_name, Callable(self, "_update_unit_info"))
+	GlobalBus.connect(GlobalBus.on_unit_changed_walk_distance_name, Callable(self, "_update_unit_info"))
+	GlobalBus.connect(GlobalBus.on_hovered_unit_in_shooting_mode_name, Callable(self, "_on_hovered_unit_in_shooting_mode"))
 	
 	
 	add_child(label_tooltip)
@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 		
 		var point_3d = GlobalUnits.units[id].unit_object.get_node("PositionUI")
 		var position_in_ui = camera.unproject_position(point_3d.global_transform.origin)
-		units_ui[id].rect_position = position_in_ui + UI_OFFSET
+		units_ui[id].position = position_in_ui + UI_OFFSET
 
 
 func _update_unit_info(unit_id):
@@ -69,13 +69,13 @@ func show_tooltip(show, world_pos, text):
 	label_tooltip.visible = show
 	
 	if not show:
-		label_tooltip.rect_position = Vector2(9999, 9999)
+		label_tooltip.position = Vector2(9999, 9999)
 		return
 	
 	label_tooltip.text = text
 	
 	var position_in_ui = camera.unproject_position(world_pos)
-	label_tooltip.rect_position = position_in_ui
+	label_tooltip.position = position_in_ui
 
 
 func _on_hovered_unit_in_shooting_mode(is_hover, world_pos, text) -> void:

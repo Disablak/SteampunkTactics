@@ -1,18 +1,26 @@
-extends Spatial
+extends Node3D
 
 
-export var is_debug := false setget _set_debug_mode, _get_debug_mode
-export var update_astar = false setget _update_astar
+@export var is_debug := false :
+	get:
+		return is_debug # TODOConverter40 Copy here content of _get_debug_mode
+	set(mod_value):
+		mod_value  # TODOConverter40 Copy here content of _set_debug_mode
+@export var update_astar = false :
+	get:
+		return update_astar # TODOConverter40 Non existent get function 
+	set(mod_value):
+		mod_value  # TODOConverter40 Copy here content of _update_astar
 
-export var grid_size := Vector2(10, 10)
-export var start_offset := Vector2(0, 0)
+@export var grid_size := Vector2(10, 10)
+@export var start_offset := Vector2(0, 0)
 
 var grid_step = Globals.GRID_STEP
-var level: Spatial
+var level: Node3D
 
-onready var simplifier = $PathfindingSimplifier
-onready var path_smoother = $PathfindingSmoother
-onready var pathfinding_debug := $PathfindingDebug
+@onready var simplifier = $PathfindingSimplifier
+@onready var path_smoother = $PathfindingSmoother
+@onready var pathfinding_debug := $PathfindingDebug
 
 var diagonals = [
 	[Vector3(-1, 0, 0), Vector3( 0, 0, 1)], 
@@ -22,7 +30,7 @@ var diagonals = [
 ]
 var points := {}
 var obstacle_points := {}
-var astar := AStar.new()
+var astar := AStar3D.new()
 
 const grid_y := 0.05
 
@@ -46,7 +54,7 @@ func _ready() -> void:
 
 func _create_pathfinding():
 	points = {}
-	astar = AStar.new()
+	astar = AStar3D.new()
 	
 	_add_points()
 	_remove_obstacle_points()
@@ -54,7 +62,7 @@ func _create_pathfinding():
 	_remove_obstacle_diagonals()
 
 	if is_debug:
-		var all_points = PoolVector3Array()
+		var all_points = PackedVector3Array()
 		for point_pos in points.keys():
 			var pos = astar_to_world(point_pos)
 			pos = Vector3(pos.x, grid_y, pos.z)
@@ -65,8 +73,8 @@ func _create_pathfinding():
 
 
 func _add_points():
-	var x_steps = stepify(grid_size.x, grid_step)
-	var z_steps = stepify(grid_size.y, grid_step)
+	var x_steps = snapped(grid_size.x, grid_step)
+	var z_steps = snapped(grid_size.y, grid_step)
 	var offset = Vector3(start_offset.x, 0, start_offset.y)
 	
 	for x in x_steps:
@@ -116,7 +124,7 @@ func _remove_obstacle_points():
 		var world_pos := astar_to_world(str_point_world_pos)
 		for obstacle in obstacles:
 			if obstacle.is_point_in_shape(world_pos):
-				print("remove ", points[str_point_world_pos], world_pos)
+				print("remove_at ", points[str_point_world_pos], world_pos)
 				obstacle_points[str_point_world_pos] = points[str_point_world_pos]
 				astar.remove_point(points[str_point_world_pos])
 				points.erase(str_point_world_pos)
@@ -137,7 +145,7 @@ func _remove_obstacle_diagonals():
 					print("disconected two points {0} and {1}".format([points[str_a], points[str_b]]))
 
 
-func find_path(from: Vector3, to: Vector3) -> PoolVector3Array:
+func find_path(from: Vector3, to: Vector3) -> PackedVector3Array:
 	var start_id = astar.get_closest_point(from)
 	var end_id = astar.get_closest_point(to)
 	
@@ -151,9 +159,9 @@ func find_path(from: Vector3, to: Vector3) -> PoolVector3Array:
 
 
 func world_to_astar(world_point: Vector3) -> String:
-	var x = stepify(world_point.x, grid_step)
-	var y = stepify(world_point.y, grid_step)
-	var z = stepify(world_point.z, grid_step)
+	var x = snapped(world_point.x, grid_step)
+	var y = snapped(world_point.y, grid_step)
+	var z = snapped(world_point.z, grid_step)
 	
 	return "%d,%d,%d" % [x, y, z]
 
@@ -165,7 +173,7 @@ func astar_to_world(point: String) -> Vector3:
 	return world_pos
 
 
-func get_total_distance(points: PoolVector3Array) -> float:
+func get_total_distance(points: PackedVector3Array) -> float:
 	if points.size() <= 1:
 		return 0.0
 	

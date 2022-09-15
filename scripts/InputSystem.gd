@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 
 signal on_click_world(ray_cast_result, input_event)
@@ -6,8 +6,8 @@ signal on_unit_rotation_pressed(pos)
 signal on_drag(dir)
 signal on_mouse_hover(hover_info)
 
-onready var camera = get_node("%Camera")
-onready var hover_info = HoverInfo.new()
+@onready var camera = get_node("%Camera3D")
+@onready var hover_info = HoverInfo.new()
 
 const ray_length = 1000
 
@@ -22,7 +22,7 @@ class HoverInfo:
 	var hover_type
 	var unit_id
 	
-	func set_info(pos, hover_type, unit_id = -1) -> Reference:
+	func set_info(pos, hover_type, unit_id = -1) -> RefCounted:
 		self.pos = pos
 		self.hover_type = hover_type
 		self.unit_id = unit_id
@@ -95,8 +95,12 @@ func _mouse_hover(event: InputEvent):
 
 
 func _make_ray(pos):
-	var space_state = get_world().direct_space_state
+	var space_state = get_world_3d().direct_space_state
 	var from = camera.project_ray_origin(pos)
 	var to = from + camera.project_ray_normal(pos) * ray_length
-	var result = space_state.intersect_ray(from, to, [], 0x7FFFFFFF, true, true)
+	var ray_query_params := PhysicsRayQueryParameters3D.create(from, to, 0x7FFFFFFF)
+	ray_query_params.collide_with_areas = true
+	ray_query_params.collide_with_bodies = true
+	
+	var result = space_state.intersect_ray(ray_query_params)
 	return result

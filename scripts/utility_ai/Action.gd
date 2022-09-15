@@ -2,7 +2,7 @@ class_name Action
 extends Resource
 
 
-export(Array) var considerations = []
+@export var considerations: Array = []
 var score: float = 0.0
 
 

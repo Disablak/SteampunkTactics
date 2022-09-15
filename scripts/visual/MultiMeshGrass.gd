@@ -1,13 +1,13 @@
-tool
-extends MultiMeshInstance
+@tool
+extends MultiMeshInstance3D
 
-export var extents := Vector2.ONE
-export var grass_size = 0.2
+@export var extents := Vector2.ONE
+@export var grass_size = 0.2
 
-onready var GRASS_SIZE = Vector3(grass_size, grass_size, grass_size)
+@onready var GRASS_SIZE = Vector3(grass_size, grass_size, grass_size)
 
 func _enter_tree() -> void:
-	connect("visibility_changed", self, "_on_MultiMeshGrass_visibility_changed")
+	connect("visibility_changed",Callable(self,"_on_MultiMeshGrass_visibility_changed"))
 
 
 func _ready() -> void:
@@ -19,7 +19,7 @@ func _ready() -> void:
 	var center: Vector3 = get_parent().global_transform.origin
 
 	for instance_index in multimesh.instance_count:
-		var transform := Transform().rotated(Vector3.UP, rng.randf_range(-PI / 2, PI / 2))
+		var transform := Transform3D().rotated(Vector3.UP, rng.randf_range(-PI / 2, PI / 2))
 		transform = transform.scaled(GRASS_SIZE)
 		
 		var x: float

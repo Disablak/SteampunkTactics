@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 
 class_name UnitData
 
@@ -38,7 +38,7 @@ func set_damage(value, attacker_unit_id):
 
 func get_move_price(distance: float) -> int:
 	var result = distance * unit_settings.walk_speed
-	return result
+	return int(result)
 
 
 func is_enough_ammo(count = 1) -> bool:

@@ -1,7 +1,7 @@
-extends Spatial
+extends Node3D
 
 
-onready var units_controller = get_node("%UnitsController")
+@onready var units_controller = get_node("%UnitsController")
 
 
 func _on_BtnMoveUnit_toggled(button_pressed: bool) -> void:

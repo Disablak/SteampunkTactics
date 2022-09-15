@@ -1,30 +1,30 @@
-tool
+@tool
 class_name DrawLine3D
-extends MeshInstance
+extends MeshInstance3D
 
-export var thickness = 0.1
-export var square_size = 0.2
-export var color := Color.white
+@export var thickness = 0.1
+@export var square_size = 0.2
+@export var color := Color.WHITE
 
-var points: PoolVector3Array
+var points: PackedVector3Array
 var arrays = []
-var meterial: SpatialMaterial
+var meterial: StandardMaterial3D
 
 
 func _enter_tree() -> void:
 	arrays.resize(ArrayMesh.ARRAY_MAX)
-	arrays[ArrayMesh.ARRAY_TEX_UV] = PoolVector2Array([Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1)])
-	arrays[ArrayMesh.ARRAY_INDEX] = PoolIntArray([0, 1, 2,  0, 2, 3])
+	arrays[ArrayMesh.ARRAY_TEX_UV] = PackedVector2Array([Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1)])
+	arrays[ArrayMesh.ARRAY_INDEX] = PackedInt32Array([0, 1, 2,  0, 2, 3])
 	
-	meterial = SpatialMaterial.new()
+	meterial = StandardMaterial3D.new()
 	meterial.albedo_color = color
 
 
-func draw_all_lines(points: PoolVector3Array):
+func draw_all_lines(points: PackedVector3Array):
 	draw_all_lines_colored(points, self.color)
 
 
-func draw_all_lines_colored(points: PoolVector3Array, new_color: Color):
+func draw_all_lines_colored(points: PackedVector3Array, new_color: Color):
 	clear()
 	
 	self.points = points
@@ -39,7 +39,7 @@ func draw_all_lines_colored(points: PoolVector3Array, new_color: Color):
 		mesh.surface_set_material(i, meterial)
 
 
-func draw_squares(points: PoolVector3Array):
+func draw_squares(points: PackedVector3Array):
 	clear()
 	
 	self.points = points
@@ -55,12 +55,12 @@ func clear():
 	mesh = ArrayMesh.new()
 
 
-func _create_line(point_a: Vector3, point_b: Vector3) -> PoolVector3Array:
+func _create_line(point_a: Vector3, point_b: Vector3) -> PackedVector3Array:
 	var dir = point_b - point_a
 	var left = dir.cross(Vector3.UP).normalized()
 	left *= thickness / 2
 	
-	var result = PoolVector3Array([
+	var result = PackedVector3Array([
 		Vector3(point_a.x, point_a.y, point_a.z) + left,
 		Vector3(point_a.x, point_a.y, point_a.z) - left,
 		Vector3(point_b.x, point_b.y, point_b.z) - left,
@@ -68,10 +68,10 @@ func _create_line(point_a: Vector3, point_b: Vector3) -> PoolVector3Array:
 	])
 	return result
 	
-func _create_square(pos: Vector3, size: float) -> PoolVector3Array:
+func _create_square(pos: Vector3, size: float) -> PackedVector3Array:
 	var half_size = size / 2
 	
-	var result = PoolVector3Array([
+	var result = PackedVector3Array([
 		Vector3(pos.x - half_size, pos.y, pos.z - half_size),
 		Vector3(pos.x + half_size, pos.y, pos.z - half_size),
 		Vector3(pos.x + half_size, pos.y, pos.z + half_size),

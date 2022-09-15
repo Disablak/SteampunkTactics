@@ -1,7 +1,7 @@
 extends Node
 
 
-export(Array) var available_actions
+@export var available_actions: Array
 
 var best_action: Action = null
 var is_finished_deciding := false

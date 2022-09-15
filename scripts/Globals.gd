@@ -29,15 +29,15 @@ const CURVE_X_METERS = 40
 
 static func posToCellPos(pos: Vector3) -> Vector3:
 	var simply = Vector3(
-		stepify(pos.x, GRID_STEP),
-		stepify(pos.y, GRID_STEP),
-		stepify(pos.z, GRID_STEP)
+		snapped(pos.x, GRID_STEP),
+		snapped(pos.y, GRID_STEP),
+		snapped(pos.z, GRID_STEP)
 	)
 	
 	return simply
 
 
-static func get_total_distance(points: PoolVector3Array) -> float:
+static func get_total_distance(points: PackedVector3Array) -> float:
 	if points.size() <= 1:
 		return 0.0
 	

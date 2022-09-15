@@ -1,11 +1,11 @@
-extends Spatial
+extends Node3D
 
 
-export(Material) var original_material
-export(NodePath) onready var unit_mesh = get_node(unit_mesh) as MeshInstance
-export(NodePath) onready var muzzle_flesh = get_node(muzzle_flesh)
+@export var original_material: Material
+@export var unit_mesh: MeshInstance3D = null 
+@export var muzzle_flesh: Node3D
 
-onready var anim_player_muzzle_flesh : AnimationPlayer = muzzle_flesh.get_node("AnimationPlayer")
+@onready var anim_player_muzzle_flesh : AnimationPlayer = muzzle_flesh.get_node("AnimationPlayer")
 
 var unit_material: Material
 
@@ -25,12 +25,12 @@ func make_outline_effect():
 	var time = .5
 
 	_enable_outline(true)
-	yield(get_tree().create_timer(time), "timeout")
+	await get_tree().create_timer(time).timeout
 	_enable_outline(false)
 
 
 func _enable_outline(enable):
-	unit_material.next_pass.set_shader_param("outline_width", 2.0 if enable else 0.0)
+	unit_material.next_pass.set_shader_parameter("outline_width", 2.0 if enable else 0.0)
 
 
 func play_fire_vfx():

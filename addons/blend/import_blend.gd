@@ -20,8 +20,8 @@
 #	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #	SOFTWARE.
 
-tool
-extends EditorSceneImporter
+@tool
+extends EditorSceneFormatImporter
 
 const settings_blender_path = "filesystem/import/blend/blender_path"
 
@@ -47,17 +47,17 @@ func _get_extensions():
 
 
 func _get_import_flags():
-	return EditorSceneImporter.IMPORT_SCENE
+	return EditorSceneFormatImporter.IMPORT_SCENE
 
 
 func _import_scene(path: String, flags: int, bake_fps: int):
 	var import_config_file = ConfigFile.new()
 	import_config_file.load(path + ".import")
 	var compression_flags: int = import_config_file.get_value("params", "meshes/compress", 0)
-	# ARRAY_COMPRESS_BASE = (ARRAY_INDEX + 1)
-	compression_flags = compression_flags << (VisualServer.ARRAY_INDEX + 1)
+	# ARRAY_COMPRESS_FLAGS_BASE = (ARRAY_INDEX + 1)
+	compression_flags = compression_flags << (RenderingServer.ARRAY_INDEX + 1)
 	if import_config_file.get_value("params", "meshes/octahedral_compression", false):
-		compression_flags |= VisualServer.ARRAY_FLAG_USE_OCTAHEDRAL_COMPRESSION
+		compression_flags |= RenderingServer.ARRAY_FLAG_USE_OCTAHEDRAL_COMPRESSION
 
 	var path_global : String = ProjectSettings.globalize_path(path)
 	path_global = path_global.c_escape()
@@ -67,7 +67,7 @@ func _import_scene(path: String, flags: int, bake_fps: int):
 	var stdout = [].duplicate()
 	var addon_path : String = blender_path
 	var addon_path_global = ProjectSettings.globalize_path(addon_path)
-	var params: PoolStringArray = [
+	var params: PackedStringArray = [
 		"filepath='%s'" % output_path_global,
 		"export_format='GLB'",
 		"export_colors=True",
@@ -77,9 +77,9 @@ func _import_scene(path: String, flags: int, bake_fps: int):
 		"export_lights=True",
 		"export_apply=(len(bpy.data.shape_keys)==0)"
 	]
-	var script : String = "import bpy; bpy.ops.export_scene.gltf(%s)" % params.join(",")
+	var script : String = "import bpy; bpy.ops.export_scene.gltf(%s)" % ",".join(params)
 	path_global = path_global.c_escape()
-	var args = PoolStringArray([
+	var args = PackedStringArray([
 		path_global,
 		"--background",
 		"--python-expr",
@@ -90,15 +90,15 @@ func _import_scene(path: String, flags: int, bake_fps: int):
 		push_error(
 			"Blender import failed with code=%d.\nCommand: %s\nOutput: %s" % [
 				ret,
-				args.join(" "),
-				PoolStringArray(stdout).join("\n")
+				" ".join(args),
+				"\n".join(PackedStringArray(stdout))
 			]
 		)
 		return null
 
-	var root_node: Spatial = null
+	var root_node: Node3D = null
 	if Engine.get_version_info()["major"] <= 3 and Engine.get_version_info()["minor"] <= 3:
-		root_node = call("import_scene_from_other_importer", output_path, flags, bake_fps)
+		root_node = call("_import_scene", output_path, flags, bake_fps)
 	else:
-		root_node = call("import_scene_from_other_importer", output_path, flags, bake_fps, compression_flags)
+		root_node = call("_import_scene", output_path, flags, bake_fps, compression_flags)
 	return root_node

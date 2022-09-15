@@ -6,7 +6,7 @@ class Line:
 	var LineColor
 	var Time
 	
-	func _init(Start, End, LineColor, Time):
+	func _init(Start,End,LineColor,Time):
 		self.Start = Start
 		self.End = End
 		self.LineColor = LineColor
@@ -24,7 +24,7 @@ func _process(delta):
 		RemovedLine = false
 
 func _draw():
-	var Cam = get_viewport().get_camera()
+	var Cam = get_viewport().get_camera_3d()
 	for i in range(len(Lines)):
 		var ScreenPointStart = Cam.unproject_position(Lines[i].Start)
 		var ScreenPointEnd = Cam.unproject_position(Lines[i].End)
@@ -42,7 +42,7 @@ func _draw():
 	var i = Lines.size() - 1
 	while (i >= 0):
 		if(Lines[i].Time < 0.0):
-			Lines.remove(i)
+			Lines.remove_at(i)
 			RemovedLine = true
 		i -= 1
 

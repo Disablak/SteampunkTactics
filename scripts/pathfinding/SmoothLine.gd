@@ -1,13 +1,13 @@
-extends Spatial
+extends Node3D
 
 
-export(float, 0.0, 1) var smooth: float = 0.15
+@export var smooth: float = 0.15 # (float, 0.0, 1)
 
 
-onready var curve = Curve3D.new()
+@onready var curve = Curve3D.new()
 
 
-func get_smoothed_curve(points: PoolVector3Array) -> PoolVector3Array:
+func get_smoothed_curve(points: PackedVector3Array) -> PackedVector3Array:
 	if points.size() <= 2:
 		return points
 	

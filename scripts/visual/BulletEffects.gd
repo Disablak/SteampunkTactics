@@ -1,5 +1,5 @@
 class_name BulletEffects
-extends Spatial
+extends Node3D
 
 
 const BULLET_SPEED = 150
@@ -7,7 +7,7 @@ const MISSED_BULLET_DISTANCE = 100
 const SHOOT_MISS_POS_LERP = [0.0, 0.1, 0.2, 0.8, 0.9, 1.0]
 
 
-export(PackedScene) var bullet_scene
+@export var bullet_scene: PackedScene
 
 var random: RandomNumberGenerator
 
@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func shoot(unit_obj_shooter: UnitObject, unit_obj_enemy: UnitObject, is_hitted: bool):
-	var new_instance = bullet_scene.instance()
+	var new_instance = bullet_scene.instantiate()
 	add_child(new_instance)
 	
 	var point_from: Vector3 = unit_obj_shooter.unit_visual.muzzle_flesh.global_translation
@@ -35,13 +35,13 @@ func shoot(unit_obj_shooter: UnitObject, unit_obj_enemy: UnitObject, is_hitted: 
 	var distance = point_from.distance_to(shoot_target_pos)
 	var time = distance / BULLET_SPEED
 	
-	var tween: SceneTreeTween = get_tree().create_tween()
+	var tween: Tween = get_tree().create_tween()
 	
 	tween.tween_property(
 		new_instance, "global_translation",
 		shoot_target_pos, time
 	)
-	tween.tween_callback(new_instance, "queue_free")
+	tween.tween_callback(Callable(new_instance,"queue_free"))
 
 
 func _get_little_short_shoot(shoot_direction: Vector3) -> Vector3:

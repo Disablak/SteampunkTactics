@@ -1,14 +1,14 @@
 class_name UnitsController
-extends Spatial
+extends Node3D
 
 
-export(Array) var units_data = []
+@export var units_data: Array = []
 
-onready var navigation = get_node("Navigation")
-onready var draw_line3d = get_node("%DrawLine3D")
-onready var mouse_pointer = get_node("%MousePointer")
-onready var bullet_effects = get_node("BulletEffects")
-onready var brain_ai = get_node("%BrainAI")
+@onready var navigation = get_node("Node3D")
+@onready var draw_line3d = get_node("%DrawLine3D")
+@onready var mouse_pointer = get_node("%MousePointer")
+@onready var bullet_effects = get_node("BulletEffects")
+@onready var brain_ai = get_node("%BrainAI")
 
 var units = null
 var tween_move := Tween.new()
@@ -25,19 +25,19 @@ var shooting_module: ShootingModule
 var walking_system: WalkingModule
 
 
-func _init() -> void:
-	GlobalBus.connect(GlobalBus.on_unit_died_name, self, "_on_unit_died")
+func _init():
+	GlobalBus.connect(GlobalBus.on_unit_died_name,Callable(self,"_on_unit_died"))
 
 
 func _enter_tree() -> void:
-	add_child(tween_move)
+	tween_move = create_tween()
 
 
 func _ready() -> void:
-	shooting_module = ShootingModule.new(get_world(), bullet_effects)
-	
-	var func_ref_finish_move = funcref(shooting_module, "create_shoot_data")
-	walking_system = WalkingModule.new(navigation, tween_move, draw_line3d, func_ref_finish_move)
+	shooting_module = ShootingModule.new(get_world_3d(), bullet_effects)
+
+	var callable_on_finish_move = Callable(shooting_module, "create_shoot_data")
+	walking_system = WalkingModule.new(navigation, tween_move, draw_line3d, callable_on_finish_move)
 	
 	GlobalUnits.units_controller = self
 	
@@ -77,8 +77,8 @@ func _on_InputSystem_on_click_world(raycast_result, input_event) -> void:
 		print("wait unit {0} moving".format([cur_unit_id]))
 		return
 	
-	if raycast_result.collider.name == "Area":
-		print("click on obstacle")
+	if raycast_result.collider.name == "Area3D":
+		print("click checked obstacle")
 		return
 	
 	if walking_system.try_move(raycast_result, input_event, cur_unit_action):
@@ -115,7 +115,7 @@ func _draw_future_path(mouse_pos):
 	var can_move = TurnManager.can_spend_time_points(move_price) 
 	
 	TurnManager.show_hint_spend_points(move_price)
-	draw_line3d.draw_all_lines_colored(path, Color.forestgreen if can_move else Color.red)
+	draw_line3d.draw_all_lines_colored(path, Color.FOREST_GREEN if can_move else Color.RED)
 
 
 func _change_unit_action(action_type, enable):

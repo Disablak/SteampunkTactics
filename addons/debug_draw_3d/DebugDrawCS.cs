@@ -2,7 +2,7 @@ using Godot;
 using Godot.Collections;
 
 [Tool]
-public class DebugDrawCS : Node
+public partial class DebugDrawCS : Node
 {
 #if DEBUG
 	static Color empty_color = new Color(0,0,0,0);
@@ -59,7 +59,7 @@ public class DebugDrawCS : Node
 	public static bool VisibleInstanceBounds { get => debug_draw_3d != null ? (bool)debug_draw_3d.Get("visible_instance_bounds") : default; set => debug_draw_3d?.Set("visible_instance_bounds", value); }
 
 	/// <summary>
-	/// Geometry culling based on camera frustum.
+	/// Geometry2D culling based on camera frustum.
 	/// It is not recommended to use with the current implementation.
 	/// </summary>
 	public static bool UseFrustumCulling { get => debug_draw_3d != null ? (bool)debug_draw_3d.Get("use_frustum_culling") : default; set => debug_draw_3d?.Set("use_frustum_culling", value); }
@@ -126,9 +126,9 @@ public class DebugDrawCS : Node
 	public static Color LineAfterHitColor { get => debug_draw_3d != null ? (Color)debug_draw_3d.Get("line_after_hit_color") : default; set => debug_draw_3d?.Set("line_after_hit_color", value); }
 
 	/// <summary>
-	/// Custom 'Viewport' to use for frustum culling.
+	/// Custom 'SubViewport' to use for frustum culling.
 	/// </summary>
-	public static Viewport CustomViewport { get => debug_draw_3d != null ? (Viewport)debug_draw_3d.Get("custom_viewport") : default; set => debug_draw_3d?.Set("custom_viewport", value); }
+	public static SubViewport CustomViewport { get => debug_draw_3d != null ? (SubViewport)debug_draw_3d.Get("custom_viewport") : default; set => debug_draw_3d?.Set("custom_viewport", value); }
 
 	/// <summary>
 	/// Custom 'CanvasItem' to draw on it. Set to 'null' to disable.
@@ -153,7 +153,7 @@ public class DebugDrawCS : Node
 	public static Font TextCustomFont = default;
 	public static Color LineHitColor = default;
 	public static Color LineAfterHitColor = default;
-	public static Viewport CustomViewport = default;
+	public static SubViewport CustomViewport = default;
 	public static CanvasItem CustomCanvas = default;
 #endif
 
@@ -254,10 +254,10 @@ public class DebugDrawCS : Node
 	/// <summary>
 	/// Draw sphere
 	/// </summary>
-	/// <param name="transform">Transform of the Sphere</param>
+	/// <param name="transform">Transform3D of the Sphere</param>
 	/// <param name="color">Sphere color</param>
 	/// <param name="duration">Duration of existence in seconds</param>
-	public static void DrawSphereXf(Transform transform, Color? color = null, float duration = 0f){
+	public static void DrawSphereXf(Transform3D transform, Color? color = null, float duration = 0f){
 		debug_draw_3d?.Call("draw_sphere_xf", transform, color == null? empty_color : color, duration);
 	}
 
@@ -275,20 +275,20 @@ public class DebugDrawCS : Node
 	/// <summary>
 	/// Draw sphere with higher lines count
 	/// </summary>
-	/// <param name="transform">Transform of the sphere</param>
+	/// <param name="transform">Transform3D of the sphere</param>
 	/// <param name="color">Sphere color</param>
 	/// <param name="duration">Duration of existence in seconds</param>
-	public static void DrawSphereHdXf(Transform transform, Color? color = null, float duration = 0f){
+	public static void DrawSphereHdXf(Transform3D transform, Color? color = null, float duration = 0f){
 		debug_draw_3d?.Call("draw_sphere_hd_xf", transform, color == null? empty_color : color, duration);
 	}
 
 	/// <summary>
 	/// Draw vertical cylinder
 	/// </summary>
-	/// <param name="transform">Transform of the Cylinder</param>
+	/// <param name="transform">Transform3D of the Cylinder</param>
 	/// <param name="color">Cylinder color</param>
 	/// <param name="duration">Duration of existence in seconds</param>
-	public static void DrawCylinder(Transform transform, Color? color = null, float duration = 0f){
+	public static void DrawCylinder(Transform3D transform, Color? color = null, float duration = 0f){
 		debug_draw_3d?.Call("draw_cylinder", transform, color == null? empty_color : color, duration);
 	}
 
@@ -307,11 +307,11 @@ public class DebugDrawCS : Node
 	/// <summary>
 	/// Draw box
 	/// </summary>
-	/// <param name="transform">Transform of the Box</param>
+	/// <param name="transform">Transform3D of the Box</param>
 	/// <param name="color">Box color</param>
 	/// <param name="is_box_centered">Use 'transform' as the center of the box, not as the bottom corner</param>
 	/// <param name="duration">Duration of existence in seconds</param>
-	public static void DrawBoxXf(Transform transform, Color? color = null, bool is_box_centered = true, float duration = 0f){
+	public static void DrawBoxXf(Transform3D transform, Color? color = null, bool is_box_centered = true, float duration = 0f){
 		debug_draw_3d?.Call("draw_box_xf", transform, color == null? empty_color : color, is_box_centered, duration);
 	}
 
@@ -412,10 +412,10 @@ public class DebugDrawCS : Node
 	/// <summary>
 	/// Draw arrow
 	/// </summary>
-	/// <param name="Transform">Transform of the Arrow</param>
+	/// <param name="Transform3D">Transform3D of the Arrow</param>
 	/// <param name="color">Arrow color</param>
 	/// <param name="duration">Duration of existence in seconds</param>
-	public static void DrawArrow(Transform transform, Color? color = null, float duration = 0f){
+	public static void DrawArrow(Transform3D transform, Color? color = null, float duration = 0f){
 		debug_draw_3d?.Call("draw_arrow", transform, color == null? empty_color : color, duration);
 	}
 
@@ -495,21 +495,21 @@ public class DebugDrawCS : Node
 	/// <summary>
 	/// Draw 3 intersecting lines with the given transformations
 	/// </summary>
-	/// <param name="transform">Transform of lines</param>
+	/// <param name="transform">Transform3D of lines</param>
 	/// <param name="color">Color</param>
 	/// <param name="duration">Duration of existence in seconds</param>
-	public static void DrawPosition(Transform transform, Color? color = null, float duration = 0f){
+	public static void DrawPosition(Transform3D transform, Color? color = null, float duration = 0f){
 		debug_draw_3d?.Call("draw_position", transform, color == null? empty_color : color, duration);
 	}
 
 	/// <summary>
 	/// Draw 3 lines with the given transformations and arrows at the ends
 	/// </summary>
-	/// <param name="transform">Transform of lines</param>
+	/// <param name="transform">Transform3D of lines</param>
 	/// <param name="color">Color</param>
 	/// <param name="is_centered">If 'true', then the lines will intersect in the center of the transform</param>
 	/// <param name="duration">Duration of existence in seconds</param>
-	public static void DrawGizmo(Transform transform, Color? color = null, bool is_centered = false, float duration = 0f){
+	public static void DrawGizmo(Transform3D transform, Color? color = null, bool is_centered = false, float duration = 0f){
 		debug_draw_3d?.Call("draw_gizmo", transform, color == null? empty_color : color, is_centered, duration);
 	}
 
@@ -530,22 +530,22 @@ public class DebugDrawCS : Node
 	/// <summary>
 	/// Draw simple grid with given size and subdivision
 	/// </summary>
-	/// <param name="transform">Transform of the Grid</param>
+	/// <param name="transform">Transform3D of the Grid</param>
 	/// <param name="subdivision">Number of cells for the X and Y axes</param>
 	/// <param name="color">Lines color</param>
 	/// <param name="is_centered">Draw lines relative to origin</param>
 	/// <param name="duration">Duration of existence in seconds</param>
-	public static void DrawGridXf(Transform transform, Vector2 subdivision, Color? color = null, bool is_centered = true, float duration = 0f){
+	public static void DrawGridXf(Transform3D transform, Vector2 subdivision, Color? color = null, bool is_centered = true, float duration = 0f){
 		debug_draw_3d?.Call("draw_grid_xf", transform, subdivision, color == null? empty_color : color, is_centered, duration);
 	}
 
 	/// <summary>
 	/// Draw camera frustum area
 	/// </summary>
-	/// <param name="camera">Camera node</param>
+	/// <param name="camera">Camera3D node</param>
 	/// <param name="color">Color</param>
 	/// <param name="duration">Duration of existence in seconds</param>
-	public static void DrawCameraFrustum(Camera camera, Color? color = null, float duration = 0f){
+	public static void DrawCameraFrustum(Camera3D camera, Color? color = null, float duration = 0f){
 		debug_draw_3d?.Call("draw_camera_frustum", camera, color == null? empty_color : color, duration);
 	}
 
@@ -597,7 +597,7 @@ public class DebugDrawCS : Node
 	/// <param name="title">Title of the graph</param>
 	public static GraphParameters CreateGraph(string title){
 		if (debug_draw_3d != null){
-			return (GraphParameters)(Reference)debug_draw_3d.Call("create_graph", title);
+			return (GraphParameters)(RefCounted)debug_draw_3d.Call("create_graph", title);
 		}
 		else{
 			return default;
@@ -611,7 +611,7 @@ public class DebugDrawCS : Node
 	/// <param name="title">Title of the graph</param>
 	public static GraphParameters CreateFpsGraph(string title){
 		if (debug_draw_3d != null){
-			return (GraphParameters)(Reference)debug_draw_3d.Call("create_fps_graph", title);
+			return (GraphParameters)(RefCounted)debug_draw_3d.Call("create_fps_graph", title);
 		}
 		else{
 			return default;
@@ -628,7 +628,7 @@ public class DebugDrawCS : Node
 	}
 
 	/// <summary>
-	/// Remove graph
+	/// RemoveAt graph
 	/// </summary>
 	/// <param name="title">Title of the graph</param>
 	public static void RemoveGraph(string title){
@@ -636,7 +636,7 @@ public class DebugDrawCS : Node
 	}
 
 	/// <summary>
-	/// Remove all graphs
+	/// RemoveAt all graphs
 	/// </summary>
 	public static void ClearGraphs(){
 		debug_draw_3d?.Call("clear_graphs");
@@ -649,7 +649,7 @@ public class DebugDrawCS : Node
 	/// <param name="title">Title of the graph</param>
 	public static GraphParameters GetGraphConfig(string title){
 		if (debug_draw_3d != null){
-			return (GraphParameters)(Reference)debug_draw_3d.Call("get_graph_config", title);
+			return (GraphParameters)(RefCounted)debug_draw_3d.Call("get_graph_config", title);
 		}
 		else{
 			return default;
@@ -669,18 +669,18 @@ public class DebugDrawCS : Node
 	}
 
 #else
-#pragma warning disable IDE0060 // Remove unused parameter
+#pragma warning disable IDE0060 // RemoveAt unused parameter
 	public static Dictionary GetRenderStats() => new Dictionary();
 	public static void Clear3dObjects() {}
 	public static void Clear2dObjects() {}
 	public static void ClearAll() {}
 	public static void DrawSphere(Vector3 position, float radius = 0.5f, Color? color = null, float duration = 0f) {}
-	public static void DrawSphereXf(Transform transform, Color? color = null, float duration = 0f) {}
+	public static void DrawSphereXf(Transform3D transform, Color? color = null, float duration = 0f) {}
 	public static void DrawSphereHd(Vector3 position, float radius = 0.5f, Color? color = null, float duration = 0f) {}
-	public static void DrawSphereHdXf(Transform transform, Color? color = null, float duration = 0f) {}
-	public static void DrawCylinder(Transform transform, Color? color = null, float duration = 0f) {}
+	public static void DrawSphereHdXf(Transform3D transform, Color? color = null, float duration = 0f) {}
+	public static void DrawCylinder(Transform3D transform, Color? color = null, float duration = 0f) {}
 	public static void DrawBox(Vector3 position, Vector3 size, Color? color = null, bool is_box_centered = false, float duration = 0f) {}
-	public static void DrawBoxXf(Transform transform, Color? color = null, bool is_box_centered = true, float duration = 0f) {}
+	public static void DrawBoxXf(Transform3D transform, Color? color = null, bool is_box_centered = true, float duration = 0f) {}
 	public static void DrawAabb(AABB aabb, Color? color = null, float duration = 0f) {}
 	public static void DrawAabbAb(Vector3 a, Vector3 b, Color? color = null, float duration = 0f) {}
 	public static void DrawLineHit(Vector3 start, Vector3 end, Vector3 hit, bool is_hit, float hit_size = 0.25f, Color? hit_color = null, Color? after_hit_color = null, float duration = 0f) {}
@@ -689,18 +689,18 @@ public class DebugDrawCS : Node
 	public static void DrawLines(Vector3[] lines, Color? color = null, float duration = 0f) {}
 	public static void DrawRay(Vector3 origin, Vector3 direction, float length, Color? color = null, float duration = 0f) {}
 	public static void DrawLinePath(Vector3[] path, Color? color = null, float duration = 0f) {}
-	public static void DrawArrow(Transform transform, Color? color = null, float duration = 0f) {}
+	public static void DrawArrow(Transform3D transform, Color? color = null, float duration = 0f) {}
 	public static void DrawArrowLine(Vector3 a, Vector3 b, Color? color = null, float arrow_size = 0.5f, bool absolute_size = false, float duration = 0f) {}
 	public static void DrawArrowRay(Vector3 origin, Vector3 direction, float length, Color? color = null, float arrow_size = 0.5f, bool absolute_size = false, float duration = 0f) {}
 	public static void DrawArrowPath(Vector3[] path, Color? color = null, float arrow_size = 0.75f, bool absolute_size = true, float duration = 0f) {}
 	public static void DrawPointPath(Vector3[] path, float size = 0.25f, Color? points_color = null, Color? lines_color = null, float duration = 0f) {}
 	public static void DrawSquare(Vector3 position, float size = 0.2f, Color? color = null, float duration = 0f) {}
 	public static void DrawPoints(Vector3[] points, float size = 0.25f, Color? color = null, float duration = 0f) {}
-	public static void DrawPosition(Transform transform, Color? color = null, float duration = 0f) {}
-	public static void DrawGizmo(Transform transform, Color? color = null, bool is_centered = false, float duration = 0f) {}
+	public static void DrawPosition(Transform3D transform, Color? color = null, float duration = 0f) {}
+	public static void DrawGizmo(Transform3D transform, Color? color = null, bool is_centered = false, float duration = 0f) {}
 	public static void DrawGrid(Vector3 origin, Vector3 x_size, Vector3 y_size, Vector2 subdivision, Color? color = null, bool is_centered = true, float duration = 0f) {}
-	public static void DrawGridXf(Transform transform, Vector2 subdivision, Color? color = null, bool is_centered = true, float duration = 0f) {}
-	public static void DrawCameraFrustum(Camera camera, Color? color = null, float duration = 0f) {}
+	public static void DrawGridXf(Transform3D transform, Vector2 subdivision, Color? color = null, bool is_centered = true, float duration = 0f) {}
+	public static void DrawCameraFrustum(Camera3D camera, Color? color = null, float duration = 0f) {}
 	public static void DrawCameraFrustumPlanes(Array camera_frustum, Color? color = null, float duration = 0f) {}
 	public static void BeginTextGroup(string group_title, int group_priority = 0, Color? group_color = null, bool show_title = true) {}
 	public static void EndTextGroup() {}
@@ -712,7 +712,7 @@ public class DebugDrawCS : Node
 	public static void ClearGraphs() {}
 	public static GraphParameters GetGraphConfig(string title) => default;
 	public static string[] GetGraphNames() => new string[0];
-#pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore IDE0060 // RemoveAt unused parameter
 #endif
 #endregion Draw Functions
 
@@ -723,17 +723,17 @@ public class DebugDrawCS : Node
 	///////////////////////////////////////////////////////////////////////
 
 
-	public class GraphParameters
+	public partial class GraphParameters
 	{
 #if DEBUG
-		readonly Reference orig_ref;
-		public GraphParameters(Reference reference) { orig_ref = reference; }
-		public static explicit operator GraphParameters(Reference reference) => reference != null ? new GraphParameters(reference) : null;
+		readonly RefCounted orig_ref;
+		public GraphParameters(RefCounted reference) { orig_ref = reference; }
+		public static explicit operator GraphParameters(RefCounted reference) => reference != null ? new GraphParameters(reference) : null;
 
 #else
-#pragma warning disable IDE0060 // Remove unused parameter
-		public GraphParameters(Reference reference) { }
-#pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning disable IDE0060 // RemoveAt unused parameter
+		public GraphParameters(RefCounted reference) { }
+#pragma warning restore IDE0060 // RemoveAt unused parameter
 #endif
 
 

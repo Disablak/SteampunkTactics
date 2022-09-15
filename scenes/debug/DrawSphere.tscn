@@ -2,9 +2,9 @@
 
 [ext_resource path="res://scripts/utils/DrawSphere.gd" type="Script" id=1]
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="StandardMaterial3D" id=10]
 vertex_color_use_as_albedo = true
 
-[node name="DrawSphere" type="ImmediateGeometry"]
+[node name="DrawSphere" type="ImmediateMesh"]
 material_override = SubResource( 10 )
 script = ExtResource( 1 )

@@ -1,14 +1,14 @@
 class_name ShootingModule
-extends Reference
+extends RefCounted
 
 
 var is_debug := true
 
-var world: World = null
+var world: World3D = null
 var bullet_effects: BulletEffects = null
 var random_number_generator: RandomNumberGenerator = null
 var debug_shoot_pos: Vector3
-var debug_shoot_targets: PoolVector3Array = []
+var debug_shoot_targets: PackedVector3Array = []
 
 var cur_unit_object: UnitObject
 var cur_unit_data: UnitData
@@ -17,7 +17,7 @@ var cur_shoot_data: ShootData
 var prev_shoot_data: ShootData = null
 
 
-func _init(world, bullet_effects) -> void:
+func _init(world,bullet_effects):
 	self.world = world
 	self.bullet_effects = bullet_effects
 	
@@ -34,8 +34,8 @@ func show_debug(delta: float) -> void:
 	if not is_debug or debug_shoot_targets.size() == 0:
 		return
 	
-	for point in debug_shoot_targets:
-		DebugDraw.draw_line_3d(debug_shoot_pos, point, Color.white)
+#	for point in debug_shoot_targets:
+#		DebugDraw.draw_line_3d(debug_shoot_pos, point, Color.WHITE)
 
 
 func reload_weapon():
@@ -187,7 +187,7 @@ func _get_hit_chance(shoot_data: ShootData) -> float:
 		print("distance is to long {0}".format([shoot_data.distance]))
 		return 0.0
 	
-	var weapon_accuracy = clamp(shoot_data.weapon.accuracy.interpolate(shoot_data.distance / Globals.CURVE_X_METERS), 0.0, 1.0) 
+	var weapon_accuracy = clamp(shoot_data.weapon.accuracy.sample(shoot_data.distance / Globals.CURVE_X_METERS), 0.0, 1.0) 
 	var hit_chance = shoot_data.visibility * weapon_accuracy
 	
 	if is_debug:
@@ -207,7 +207,11 @@ func _is_hitted(shoot_data: ShootData) -> bool:
 
 func _make_ray(from, to):
 	var space_state = world.direct_space_state
-	var result = space_state.intersect_ray(from, to, [PhysicalBone, CollisionShape], 5, false, true)
+	var ray_query_params := PhysicsRayQueryParameters3D.create(from, to, 5, [PhysicalBone3D, CollisionShape3D])
+	ray_query_params.collide_with_bodies = false
+	ray_query_params.collide_with_areas = true
+	
+	var result = space_state.intersect_ray(ray_query_params)
 	return result
 
 
@@ -222,7 +226,7 @@ func _is_same_shoot_data(shoot_data: ShootData) -> bool:
 	return values_calculated and shooter_same and enemy_same
 
 
-func _get_visible_percent(var count_hitted) -> float:
+func _get_visible_percent(count_hitted) -> float:
 	match(count_hitted):
 		0:
 			return 0.0

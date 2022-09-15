@@ -6,114 +6,114 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
-_global_script_classes=[ {
+_global_script_classes=[{
 "base": "Resource",
-"class": "Action",
-"language": "GDScript",
+"class": &"Action",
+"language": &"GDScript",
 "path": "res://scripts/utility_ai/Action.gd"
 }, {
 "base": "Action",
-"class": "ActionMove",
-"language": "GDScript",
+"class": &"ActionMove",
+"language": &"GDScript",
 "path": "res://scripts/utility_ai/actions/ActionMove.gd"
 }, {
 "base": "Action",
-"class": "ActionReload",
-"language": "GDScript",
+"class": &"ActionReload",
+"language": &"GDScript",
 "path": "res://scripts/utility_ai/actions/ActionReload.gd"
 }, {
 "base": "Action",
-"class": "ActionShoot",
-"language": "GDScript",
+"class": &"ActionShoot",
+"language": &"GDScript",
 "path": "res://scripts/utility_ai/actions/ActionShoot.gd"
 }, {
-"base": "Reference",
-"class": "BulletEffects",
-"language": "GDScript",
+"base": "Node3D",
+"class": &"BulletEffects",
+"language": &"GDScript",
 "path": "res://scripts/visual/BulletEffects.gd"
 }, {
 "base": "Consideration",
-"class": "ConsiderAmmo",
-"language": "GDScript",
+"class": &"ConsiderAmmo",
+"language": &"GDScript",
 "path": "res://scripts/utility_ai/considerations/ConsiderAmmo.gd"
 }, {
 "base": "Consideration",
-"class": "ConsiderEnemyVisibility",
-"language": "GDScript",
+"class": &"ConsiderEnemyVisibility",
+"language": &"GDScript",
 "path": "res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd"
 }, {
 "base": "Consideration",
-"class": "ConsiderTimePoints",
-"language": "GDScript",
+"class": &"ConsiderTimePoints",
+"language": &"GDScript",
 "path": "res://scripts/utility_ai/considerations/ConsiderTimePoints.gd"
 }, {
 "base": "Resource",
-"class": "Consideration",
-"language": "GDScript",
+"class": &"Consideration",
+"language": &"GDScript",
 "path": "res://scripts/utility_ai/Consideration.gd"
 }, {
-"base": "MeshInstance",
-"class": "DrawLine3D",
-"language": "GDScript",
+"base": "MeshInstance3D",
+"class": &"DrawLine3D",
+"language": &"GDScript",
 "path": "res://addons/my_draw_line_3d/MyDrawLine3D.gd"
 }, {
 "base": "Object",
-"class": "NodeUtilities",
-"language": "GDScript",
+"class": &"NodeUtilities",
+"language": &"GDScript",
 "path": "res://scripts/utils/NodeUtilities.gd"
 }, {
-"base": "Reference",
-"class": "ShootData",
-"language": "GDScript",
+"base": "RefCounted",
+"class": &"ShootData",
+"language": &"GDScript",
 "path": "res://scripts/units/ShootingSystem/ShootData.gd"
 }, {
-"base": "Reference",
-"class": "ShootingModule",
-"language": "GDScript",
+"base": "RefCounted",
+"class": &"ShootingModule",
+"language": &"GDScript",
 "path": "res://scripts/units_manager/ShootingModule.gd"
 }, {
 "base": "Node",
-"class": "Unit",
-"language": "GDScript",
+"class": &"Unit",
+"language": &"GDScript",
 "path": "res://scripts/units/Unit.gd"
 }, {
 "base": "AnimationTree",
-"class": "UnitAnimator",
-"language": "GDScript",
+"class": &"UnitAnimator",
+"language": &"GDScript",
 "path": "res://scripts/units/UnitAnimator.gd"
 }, {
-"base": "Reference",
-"class": "UnitData",
-"language": "GDScript",
+"base": "RefCounted",
+"class": &"UnitData",
+"language": &"GDScript",
 "path": "res://scripts/units/UnitData.gd"
 }, {
-"base": "Spatial",
-"class": "UnitObject",
-"language": "GDScript",
+"base": "Node3D",
+"class": &"UnitObject",
+"language": &"GDScript",
 "path": "res://scripts/units/UnitObject.gd"
 }, {
 "base": "Resource",
-"class": "UnitSettings",
-"language": "GDScript",
+"class": &"UnitSettings",
+"language": &"GDScript",
 "path": "res://scripts/settings/UnitSettings.gd"
 }, {
-"base": "Spatial",
-"class": "UnitsController",
-"language": "GDScript",
+"base": "Node3D",
+"class": &"UnitsController",
+"language": &"GDScript",
 "path": "res://scripts/units_manager/UnitsController.gd"
 }, {
-"base": "Reference",
-"class": "WalkingModule",
-"language": "GDScript",
+"base": "RefCounted",
+"class": &"WalkingModule",
+"language": &"GDScript",
 "path": "res://scripts/units_manager/WalkingModule.gd"
 }, {
 "base": "Resource",
-"class": "WeaponData",
-"language": "GDScript",
+"class": &"WeaponData",
+"language": &"GDScript",
 "path": "res://scripts/settings/WeaponData.gd"
-} ]
+}]
 _global_script_class_icons={
 "Action": "",
 "ActionMove": "",
@@ -142,6 +142,7 @@ _global_script_class_icons={
 
 config/name="Strategy Steam Punk"
 run/main_scene="res://scenes/Main.tscn"
+config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 
 [autoload]
@@ -149,35 +150,32 @@ config/icon="res://icon.png"
 Globals="*res://scripts/Globals.gd"
 GlobalBus="*res://scripts/GlobalBus.gd"
 GlobalUnits="*res://scripts/GlobalUnits.gd"
-DebugDraw="*res://addons/zylann.debug_draw/debug_draw.gd"
-DrawLine3d="*res://addons/Godot-3D-Lines/DrawLine3D.gd"
 TurnManager="*res://scripts/TurnManager.gd"
 
 [display]
 
 window/size/resizable=false
 window/size/always_on_top=true
+window/stretch/mode="viewport"
 window/size/test_width=1024
 window/size/test_height=600
-window/stretch/mode="viewport"
-window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/blend/plugin.cfg" )
+enabled=PackedStringArray()
 
 [input]
 
 unit_rotation={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777237,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":0,"unicode":0,"echo":false,"script":null)
+]
 }
 click={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
-, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":false,"double_click":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"pressed":false,"double_click":false,"script":null)
+]
 }
 
 [physics]

@@ -1,6 +1,6 @@
 
 ## @brief Single-file autoload for debug drawing and printing.
-## Draw and print on screen from anywhere in a single line of code.
+## Draw and print checked screen from anywhere in a single line of code.
 ## Find it quickly by naming it "DDD".
 
 # TODO Thread-safety
@@ -13,7 +13,7 @@ const TEXT_LINGER_FRAMES = 5
 ## @brief How many frames lines remain shown after being drawn.
 const LINES_LINGER_FRAMES = 1
 ## @brief Color of the text drawn as HUD
-const TEXT_COLOR = Color.white
+const TEXT_COLOR = Color.WHITE
 ## @brief Background color of the text drawn as HUD
 const TEXT_BG_COLOR = Color(0.3, 0.3, 0.3, 0.8)
 
@@ -31,11 +31,11 @@ var _box_mesh : Mesh = null
 var _line_material_pool := []
 
 var _lines := []
-var _line_immediate_geometry : ImmediateGeometry
+var _line_immediate_geometry : ImmediateMesh
 
 
 func _ready():
-	pause_mode = Node.PAUSE_MODE_PROCESS
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer = 100
 	# Get default font
 	# Meh
@@ -44,7 +44,7 @@ func _ready():
 	_font = c.get_font("font")
 	c.queue_free()
 	
-	_line_immediate_geometry = ImmediateGeometry.new()
+	_line_immediate_geometry = ImmediateMesh.new()
 	_line_immediate_geometry.material_override = _get_line_material()
 	add_child(_line_immediate_geometry)
 
@@ -54,7 +54,7 @@ func _ready():
 ## @param size: size of the cube in world units
 ## @param color
 ## @param linger_frames: optionally makes the box remain drawn for longer
-func draw_cube(position: Vector3, size: float, color: Color = Color.white, linger := 0):
+func draw_cube(position: Vector3, size: float, color: Color = Color.WHITE, linger := 0):
 	draw_box(position, Vector3(size, size, size), color, linger)
 
 
@@ -63,12 +63,12 @@ func draw_cube(position: Vector3, size: float, color: Color = Color.white, linge
 ## @param size: size of the box in world units
 ## @param color
 ## @param linger_frames: optionally makes the box remain drawn for longer
-func draw_box(position: Vector3, size: Vector3, color: Color = Color.white, linger_frames = 0):
+func draw_box(position: Vector3, size: Vector3, color: Color = Color.WHITE, linger_frames = 0):
 	var mi := _get_box()
 	var mat := _get_line_material()
 	mat.albedo_color = color
 	mi.material_override = mat
-	mi.translation = position
+	mi.position = position
 	mi.scale = size
 	_boxes.append({
 		"node": mi,
@@ -79,12 +79,12 @@ func draw_box(position: Vector3, size: Vector3, color: Color = Color.white, ling
 ## @brief Draws the unshaded outline of a 3D transformed cube.
 ## @param trans: transform of the cube. The basis defines its size.
 ## @param color
-func draw_transformed_cube(trans: Transform, color: Color = Color.white):
+func draw_transformed_cube(trans: Transform3D, color: Color = Color.WHITE):
 	var mi := _get_box()
 	var mat := _get_line_material()
 	mat.albedo_color = color
 	mi.material_override = mat
-	mi.transform = Transform(trans.basis, trans.origin - trans.basis * Vector3(0.5,0.5,0.5))
+	mi.transform = Transform3D(trans.basis, trans.origin - trans.basis * Vector3(0.5,0.5,0.5))
 	_boxes.append({
 		"node": mi,
 		"frame": Engine.get_frames_drawn() + LINES_LINGER_FRAMES
@@ -94,8 +94,8 @@ func draw_transformed_cube(trans: Transform, color: Color = Color.white):
 ## @brief Draws the basis of the given transform using 3 lines
 ##        of color red for X, green for Y, and blue for Z.
 ## @param transform
-## @param scale: extra scale applied on top of the transform
-func draw_axes(transform: Transform, scale = 1.0):
+## @param scale: extra scale applied checked top of the transform
+func draw_axes(transform: Transform3D, scale = 1.0):
 	draw_ray_3d(transform.origin, transform.basis.x, scale, Color(1,0,0))
 	draw_ray_3d(transform.origin, transform.basis.y, scale, Color(0,1,0))
 	draw_ray_3d(transform.origin, transform.basis.z, scale, Color(0,0,1))
@@ -105,12 +105,12 @@ func draw_axes(transform: Transform, scale = 1.0):
 ## @param aabb: world-space box to draw as an AABB
 ## @param color
 ## @param linger_frames: optionally makes the box remain drawn for longer
-func draw_box_aabb(aabb: AABB, color = Color.white, linger_frames = 0):
+func draw_box_aabb(aabb: AABB, color = Color.WHITE, linger_frames = 0):
 	var mi := _get_box()
 	var mat := _get_line_material()
 	mat.albedo_color = color
 	mi.material_override = mat
-	mi.translation = aabb.position
+	mi.position = aabb.position
 	mi.scale = aabb.size
 	_boxes.append({
 		"node": mi,
@@ -150,12 +150,12 @@ func set_text(key: String, value):
 	}
 
 
-func _get_box() -> MeshInstance:
-	var mi : MeshInstance
+func _get_box() -> MeshInstance3D:
+	var mi : MeshInstance3D
 	if len(_box_pool) == 0:
-		mi = MeshInstance.new()
+		mi = MeshInstance3D.new()
 		if _box_mesh == null:
-			_box_mesh = _create_wirecube_mesh(Color.white)
+			_box_mesh = _create_wirecube_mesh(Color.WHITE)
 		mi.mesh = _box_mesh
 		add_child(mi)
 	else:
@@ -164,15 +164,15 @@ func _get_box() -> MeshInstance:
 	return mi
 
 
-func _recycle_box(mi: MeshInstance):
+func _recycle_box(mi: MeshInstance3D):
 	mi.hide()
 	_box_pool.append(mi)
 
 
-func _get_line_material() -> SpatialMaterial:
-	var mat : SpatialMaterial
+func _get_line_material() -> StandardMaterial3D:
+	var mat : StandardMaterial3D
 	if len(_line_material_pool) == 0:
-		mat = SpatialMaterial.new()
+		mat = StandardMaterial3D.new()
 		mat.flags_unshaded = true
 		mat.vertex_color_use_as_albedo = true
 	else:
@@ -181,7 +181,7 @@ func _get_line_material() -> SpatialMaterial:
 	return mat
 
 
-func _recycle_line_material(mat: SpatialMaterial):
+func _recycle_line_material(mat: StandardMaterial3D):
 	_line_material_pool.append(mat)
 
 
@@ -252,7 +252,7 @@ func _process_canvas():
 	if _canvas_item == null:
 		_canvas_item = Node2D.new()
 		_canvas_item.position = Vector2(8, 8)
-		_canvas_item.connect("draw", self, "_on_CanvasItem_draw")
+		_canvas_item.connect("draw",Callable(self,"_on_CanvasItem_draw"))
 		add_child(_canvas_item)
 	_canvas_item.update()
 
@@ -276,8 +276,8 @@ func _on_CanvasItem_draw():
 		pos.y += line_height
 
 
-static func _create_wirecube_mesh(color := Color.white) -> ArrayMesh:
-	var positions := PoolVector3Array([
+static func _create_wirecube_mesh(color := Color.WHITE) -> ArrayMesh:
+	var positions := PackedVector3Array([
 		Vector3(0, 0, 0),
 		Vector3(1, 0, 0),
 		Vector3(1, 0, 1),
@@ -287,11 +287,11 @@ static func _create_wirecube_mesh(color := Color.white) -> ArrayMesh:
 		Vector3(1, 1, 1),
 		Vector3(0, 1, 1)
 	])
-	var colors := PoolColorArray([
+	var colors := PackedColorArray([
 		color, color, color, color,
 		color, color, color, color,
 	])
-	var indices := PoolIntArray([
+	var indices := PackedInt32Array([
 		0, 1,
 		1, 2,
 		2, 3,

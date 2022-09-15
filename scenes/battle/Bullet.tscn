@@ -3,11 +3,11 @@
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.03
 
-[node name="Bullet" type="Spatial"]
+[node name="Bullet" type="Node3D"]
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 cast_shadow = 0
 mesh = SubResource( 1 )
 
-[node name="OmniLight" type="OmniLight" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_energy = 2.0

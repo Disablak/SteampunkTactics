@@ -1,4 +1,4 @@
-extends ImmediateGeometry
+extends ImmediateMesh
 
 const DRAW_SPHERE = preload("res://scenes/debug/DrawSphere.tscn")
 
@@ -6,7 +6,7 @@ func spheres(points):
 	_remove_all()
 	
 	for p in points:
-		var sphere = DRAW_SPHERE.instance()
+		var sphere = DRAW_SPHERE.instantiate()
 		add_child(sphere)
 		sphere.global_transform.origin = p
 		
