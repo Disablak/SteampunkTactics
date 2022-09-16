@@ -11,7 +11,7 @@ extends Node3D
 @onready var brain_ai = get_node("%BrainAI")
 
 var units = null
-var tween_move := Tween.new()
+var tween_move : Tween
 
 var cur_unit_id = -1
 var cur_unit_data: UnitData
@@ -29,13 +29,10 @@ func _init():
 	GlobalBus.connect(GlobalBus.on_unit_died_name,Callable(self,"_on_unit_died"))
 
 
-func _enter_tree() -> void:
-	tween_move = create_tween()
-
-
 func _ready() -> void:
 	shooting_module = ShootingModule.new(get_world_3d(), bullet_effects)
 
+	tween_move = create_tween()
 	var callable_on_finish_move = Callable(shooting_module, "create_shoot_data")
 	walking_system = WalkingModule.new(navigation, tween_move, draw_line3d, callable_on_finish_move)
 	
@@ -73,7 +70,7 @@ func _on_InputSystem_on_unit_rotation_pressed(pos) -> void:
 
 
 func _on_InputSystem_on_click_world(raycast_result, input_event) -> void:
-	if tween_move.is_active():
+	if tween_move.is_running():
 		print("wait unit {0} moving".format([cur_unit_id]))
 		return
 	
@@ -91,7 +88,7 @@ func _on_InputSystem_on_click_world(raycast_result, input_event) -> void:
 
 
 func _on_InputSystem_on_mouse_hover(hover_info) -> void:
-	if tween_move.is_active():
+	if tween_move.is_running():
 		return
 	
 	if cur_unit_action == Globals.UnitAction.WALK and hover_info.hover_type == Globals.MouseHoverType.GROUND:
@@ -150,7 +147,7 @@ func next_unit():
 
 
 func set_unit_control(unit_id, camera_focus_instantly: bool = false):
-	if tween_move.is_active():
+	if tween_move.is_valid() and tween_move.is_running():
 		printerr("unit {0} is moving now".format([unit_id]))
 		return
 	

@@ -8,7 +8,8 @@ extends Control
 
 
 func _ready() -> void:
-	await get_tree().root.ready
+	# kostil
+	await get_tree().create_timer(5.0).timeout
 	
 	GlobalBus.connect(GlobalBus.on_unit_changed_action_name,Callable(self,"_on_unit_change_action"))
 	GlobalBus.connect(GlobalBus.on_unit_changed_ammo_name,Callable(self,"_on_unit_changed_ammo"))

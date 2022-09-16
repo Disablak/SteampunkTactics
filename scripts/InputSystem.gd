@@ -76,7 +76,7 @@ func _mouse_hover(event: InputEvent):
 		return
 	
 	var ray_result = _make_ray(get_viewport().get_mouse_position())
-	if not ray_result:
+	if ray_result.is_empty():
 		emit_signal("on_mouse_hover", hover_info.set_info(Vector3.ZERO, Globals.MouseHoverType.NONE))
 		return
 	
@@ -94,7 +94,7 @@ func _mouse_hover(event: InputEvent):
 	emit_signal("on_mouse_hover", hover_info.set_info(unit_object.global_transform.origin, Globals.MouseHoverType.UNIT, unit_object.unit_id))
 
 
-func _make_ray(pos):
+func _make_ray(pos) -> Dictionary:
 	var space_state = get_world_3d().direct_space_state
 	var from = camera.project_ray_origin(pos)
 	var to = from + camera.project_ray_normal(pos) * ray_length

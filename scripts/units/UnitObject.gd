@@ -12,12 +12,13 @@ class_name UnitObject
 @export var path_to_shoot_point: NodePath
 @onready var shoot_point_node = get_node(path_to_shoot_point)
 
-@export var hit_bullet_point = get_node(hit_bullet_point)
+@export var hit_bullet_point_path: NodePath
+@onready var hit_bullet_point = get_node(hit_bullet_point_path)
 
 
 var unit_id = -1
 
-@export_node_path(Node3D) var unit_visual = get_node("UnitVisual")
+@onready var unit_visual = get_node("UnitVisual")
 @onready var unit_animator : UnitAnimator = get_node("UnitVisual/AnimationTree")
 @onready var skeleton = get_node("UnitVisual/y bot 2/Armature/Skeleton3D")
 @onready var unit_collision = get_node("UnitArea/CollisionShape3D")

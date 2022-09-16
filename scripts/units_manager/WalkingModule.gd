@@ -36,7 +36,7 @@ func try_rotate_unit(delta, pointer_target_pos, cur_unit_action):
 	if cur_move_point == Vector3.ZERO and cur_unit_action != Globals.UnitAction.SHOOT:
 		return
 	
-	var rotation_target = cur_move_point if tween_move.is_active() else pointer_target_pos
+	var rotation_target = cur_move_point if tween_move.is_running() else pointer_target_pos
 	_rotate_unit(rotation_target, delta)
 
 
