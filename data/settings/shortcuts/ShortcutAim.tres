@@ -1,7 +1,8 @@
-[gd_resource type="Shortcut" load_steps=2 format=2]
+[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://bvgksghj38sf7"]
 
-[sub_resource type="InputEventKey" id=17]
-scancode = 16777237
+[sub_resource type="InputEventKey" id="InputEventKey_tpo2v"]
+device = -1
+keycode = 4194325
 
 [resource]
-shortcut = SubResource( 17 )
+events = [SubResource("InputEventKey_tpo2v")]

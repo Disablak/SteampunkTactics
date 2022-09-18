@@ -10,21 +10,16 @@ var cur_unit_object: UnitObject
 var cur_unit_data: UnitData
 var cur_move_point: Vector3
 
-var navigation: Node3D
 var tween_move: Tween
 var draw_line3d: DrawLine3D
 var callable_finish_move: Callable
+var callable_create_tween: Callable
 
 
-func _init(navigation, tween_move, draw_line3d, callable_finish_move: Callable):
-	self.navigation = navigation
-	self.tween_move = tween_move
+func _init(draw_line3d, callable_finish_move: Callable, callable_create_tween: Callable):
 	self.draw_line3d = draw_line3d
 	self.callable_finish_move = callable_finish_move
-
-
-func _ready() -> void:
-	pass
+	self.callable_create_tween = callable_create_tween
 
 
 func set_cur_unit(unit: Unit):
@@ -40,11 +35,15 @@ func try_rotate_unit(delta, pointer_target_pos, cur_unit_action):
 	_rotate_unit(rotation_target, delta)
 
 
+func is_unit_moving() -> bool:
+	return tween_move != null and tween_move.is_running()
+
+
 func _rotate_unit(target_pos, delta):
 	target_pos.y = 0.0
 	var new_transform = cur_unit_object.transform.looking_at(target_pos, Vector3.UP)
 	cur_unit_object.transform = cur_unit_object.transform.interpolate_with(new_transform, ROTATION_SPEED * delta)
-	cur_unit_object.rotation_degrees.x = 0
+	cur_unit_object.rotation.x = 0
 
 
 func try_move(raycast_result, input_event: InputEventMouseButton, cur_unit_action) -> bool:
@@ -62,7 +61,7 @@ func try_move(raycast_result, input_event: InputEventMouseButton, cur_unit_actio
 
 
 func move_unit(pos):
-	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, pos)
+	var path = cur_unit_object.get_move_path(pos)
 	var distance = Globals.get_total_distance(path)
 	var price_time_points = cur_unit_data.get_move_price(distance)
 	if not TurnManager.can_spend_time_points(price_time_points):
@@ -85,14 +84,13 @@ func _move_via_points(points: PackedVector3Array):
 		cur_unit_object.unit_animator.play_anim(Globals.AnimationType.WALKING)
 		var time_move = points[cur_target_id].distance_to(points[cur_target_id + 1]) / MOVING_SPEED
 		
-		tween_move.interpolate_property(
+		tween_move = callable_create_tween.call()
+		tween_move.tween_property(
 			cur_unit_object,
 			"position",
-			points[cur_target_id], 
 			points[cur_target_id + 1],
 			time_move
-		)
-		tween_move.start()
+		).from(points[cur_target_id])
 		
 		cur_target_id += 1
 		await tween_move.finished 

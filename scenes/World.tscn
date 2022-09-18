@@ -45,16 +45,14 @@ units_data = [ExtResource("9"), ExtResource("9")]
 script = ExtResource("7")
 bullet_scene = ExtResource("10")
 
-[node name="Node3D" type="Node3D" parent="UnitsController"]
-
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="UnitsController/Node3D"]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="UnitsController"]
 navmesh = SubResource("11")
 
-[node name="LevelTest" parent="UnitsController/Node3D/NavigationRegion3D" instance=ExtResource("6")]
+[node name="LevelTest" parent="UnitsController/NavigationRegion3D" instance=ExtResource("6")]
 
 [node name="DrawLine3D" type="MeshInstance3D" parent="UnitsController"]
 unique_name_in_owner = true
-skeleton = NodePath("../Node3D/NavigationRegion3D/LevelTest")
+skeleton = NodePath("../NavigationRegion3D/LevelTest")
 script = ExtResource("2")
 color = Color(0.505882, 0.615686, 0.0392157, 1)
 
@@ -62,7 +60,7 @@ color = Color(0.505882, 0.615686, 0.0392157, 1)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, -2.98023e-08, -2.98023e-08, 1, 0, 0, 0, 1, -100, 3.33786e-06, -100)
 mesh = SubResource("10")
-skeleton = NodePath("../Node3D/NavigationRegion3D/LevelTest")
+skeleton = NodePath("../NavigationRegion3D/LevelTest")
 
 [node name="UnitObjectPlayer" parent="UnitsController" instance=ExtResource("5")]
 unique_name_in_owner = true
@@ -85,6 +83,7 @@ script = ExtResource("4")
 unique_name_in_owner = true
 transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 1.204, 12.373, 14.583)
 script = ExtResource("3")
+drag_sensitive = 0.01
 camera_offset = Vector3(-9, 12, 9)
 
 [node name="Camera3D" type="Camera3D" parent="InputSystem/CameraController"]
@@ -93,6 +92,6 @@ current = true
 fov = 30.0
 
 [connection signal="on_click_world" from="InputSystem" to="UnitsController" method="_on_input_system_on_click_world"]
-[connection signal="on_drag" from="InputSystem" to="UnitsController" method="_on_input_system_on_drag"]
+[connection signal="on_drag" from="InputSystem" to="InputSystem/CameraController" method="_on_input_system_on_drag"]
 [connection signal="on_mouse_hover" from="InputSystem" to="UnitsController" method="_on_input_system_on_mouse_hover"]
 [connection signal="on_unit_rotation_pressed" from="InputSystem" to="UnitsController" method="_on_input_system_on_unit_rotation_pressed"]

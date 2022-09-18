@@ -17,7 +17,7 @@ func _ready() -> void:
 	tween_move = create_tween()
 
 
-func _on_InputSystem_on_drag(dir) -> void:
+func _on_input_system_on_drag(dir) -> void:
 	global_transform.origin += rot * (Vector3(dir.x, 0.0, dir.y) * drag_sensitive)
 
 

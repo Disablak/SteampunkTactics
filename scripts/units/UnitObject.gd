@@ -22,6 +22,7 @@ var unit_id = -1
 @onready var unit_animator : UnitAnimator = get_node("UnitVisual/AnimationTree")
 @onready var skeleton = get_node("UnitVisual/y bot 2/Armature/Skeleton3D")
 @onready var unit_collision = get_node("UnitArea/CollisionShape3D")
+@onready var navigation_agent : NavigationAgent3D = $NavigationAgent3d
 
 const DIE_POWER = 30
 
@@ -65,3 +66,12 @@ func get_hit_points():
 		hit_points.push_back(child.global_transform.origin)
 	
 	return hit_points
+
+
+func get_move_path(target_pos : Vector3) -> PackedVector3Array:
+	navigation_agent.set_target_location(target_pos)
+	if navigation_agent.is_target_reachable():# if not use this method path return zero! 
+		return navigation_agent.get_nav_path()
+	else:
+		print("path not reachable")
+		return PackedVector3Array()

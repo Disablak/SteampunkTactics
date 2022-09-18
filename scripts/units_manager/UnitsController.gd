@@ -4,14 +4,12 @@ extends Node3D
 
 @export var units_data: Array = []
 
-@onready var navigation = get_node("Node3D")
 @onready var draw_line3d = get_node("%DrawLine3D")
 @onready var mouse_pointer = get_node("%MousePointer")
 @onready var bullet_effects = get_node("BulletEffects")
 @onready var brain_ai = get_node("%BrainAI")
 
 var units = null
-var tween_move : Tween = null
 
 var cur_unit_id = -1
 var cur_unit_data: UnitData
@@ -32,11 +30,9 @@ func _init():
 func _ready() -> void:
 	shooting_module = ShootingModule.new(get_world_3d(), bullet_effects)
 	
-	tween_move = create_tween()
-	tween_move.stop()
-	
+	var callable_create_tween = Callable(create_tween)
 	var callable_on_finish_move = Callable(shooting_module, "create_shoot_data")
-	walking_system = WalkingModule.new(navigation, tween_move, draw_line3d, callable_on_finish_move)
+	walking_system = WalkingModule.new(draw_line3d, callable_on_finish_move, callable_create_tween)
 	
 	GlobalUnits.units_controller = self
 	
@@ -72,7 +68,7 @@ func _on_input_system_on_unit_rotation_pressed(pos) -> void:
 
 
 func _on_input_system_on_click_world(raycast_result, input_event) -> void:
-	if tween_move.is_running():
+	if walking_system.is_unit_moving():
 		print("wait unit {0} moving".format([cur_unit_id]))
 		return
 	
@@ -90,7 +86,7 @@ func _on_input_system_on_click_world(raycast_result, input_event) -> void:
 
 
 func _on_input_system_on_mouse_hover(hover_info) -> void:
-	if tween_move.is_running():
+	if walking_system.is_unit_moving():
 		return
 	
 	if cur_unit_action == Globals.UnitAction.WALK and hover_info.hover_type == Globals.MouseHoverType.GROUND:
@@ -108,7 +104,7 @@ func _on_BtnUnitReload_pressed() -> void:
 
 
 func _draw_future_path(mouse_pos):
-	var path = navigation.get_simple_path(cur_unit_object.global_transform.origin, mouse_pos)
+	var path = cur_unit_object.get_move_path(mouse_pos)
 	var distance = Globals.get_total_distance(path)
 	var move_price = cur_unit_data.get_move_price(distance)
 	var can_move = TurnManager.can_spend_time_points(move_price) 
@@ -149,7 +145,7 @@ func next_unit():
 
 
 func set_unit_control(unit_id, camera_focus_instantly: bool = false):
-	if tween_move.is_running():
+	if walking_system.is_unit_moving():
 		printerr("unit {0} is moving now".format([unit_id]))
 		return
 	

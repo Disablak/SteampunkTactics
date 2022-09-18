@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://srjk2kwihx8y" path="res://scenes/World.tscn" id="1"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/ui/BattleUI.gd" id="3"]
-[ext_resource type="Shortcut" path="res://data/settings/shortcuts/ShortcutMove.tres" id="4"]
-[ext_resource type="Shortcut" path="res://data/settings/shortcuts/ShortcutAim.tres" id="5"]
+[ext_resource type="Shortcut" uid="uid://b4ekl04mw6kx6" path="res://data/settings/shortcuts/ShortcutMove.tres" id="4"]
+[ext_resource type="Shortcut" uid="uid://bvgksghj38sf7" path="res://data/settings/shortcuts/ShortcutAim.tres" id="5"]
 [ext_resource type="Shortcut" path="res://data/settings/shortcuts/ShortcutReload.tres" id="6"]
 [ext_resource type="Shortcut" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="7"]
 [ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="8"]
@@ -192,7 +192,7 @@ text = "Ammo: 0/0"
 environment = SubResource("15")
 
 [connection signal="toggled" from="GUI/BattleUI/BtnMoveUnit" to="SubViewportContainer/SubViewport/World3D" method="_on_BtnMoveUnit_toggled"]
-[connection signal="toggled" from="GUI/BattleUI/BtnUnitAim" to="SubViewportContainer/SubViewport/World3D" method="_on_BtnUnitAim_toggled"]
+[connection signal="toggled" from="GUI/BattleUI/BtnUnitAim" to="SubViewportContainer/SubViewport/World3D" method="_on_btn_unit_aim_toggled"]
 [connection signal="pressed" from="GUI/BattleUI/BtnUnitReload" to="SubViewportContainer/SubViewport/World3D/UnitsController" method="_on_BtnUnitReload_pressed"]
 [connection signal="button_down" from="GUI/BattleUI/BtnNextTurn" to="SubViewportContainer/SubViewport/World3D" method="_on_BtnNextTurn_button_down"]
 
