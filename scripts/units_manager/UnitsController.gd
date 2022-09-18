@@ -11,7 +11,7 @@ extends Node3D
 @onready var brain_ai = get_node("%BrainAI")
 
 var units = null
-var tween_move : Tween
+var tween_move : Tween = null
 
 var cur_unit_id = -1
 var cur_unit_data: UnitData
@@ -31,8 +31,10 @@ func _init():
 
 func _ready() -> void:
 	shooting_module = ShootingModule.new(get_world_3d(), bullet_effects)
-
+	
 	tween_move = create_tween()
+	tween_move.stop()
+	
 	var callable_on_finish_move = Callable(shooting_module, "create_shoot_data")
 	walking_system = WalkingModule.new(navigation, tween_move, draw_line3d, callable_on_finish_move)
 	
@@ -65,11 +67,11 @@ func _on_unit_died(unit_id, unit_id_killer):
 	units.erase(unit_id)
 
 
-func _on_InputSystem_on_unit_rotation_pressed(pos) -> void:
+func _on_input_system_on_unit_rotation_pressed(pos) -> void:
 	cur_pointer_pos = pos
 
 
-func _on_InputSystem_on_click_world(raycast_result, input_event) -> void:
+func _on_input_system_on_click_world(raycast_result, input_event) -> void:
 	if tween_move.is_running():
 		print("wait unit {0} moving".format([cur_unit_id]))
 		return
@@ -87,7 +89,7 @@ func _on_InputSystem_on_click_world(raycast_result, input_event) -> void:
 		return
 
 
-func _on_InputSystem_on_mouse_hover(hover_info) -> void:
+func _on_input_system_on_mouse_hover(hover_info) -> void:
 	if tween_move.is_running():
 		return
 	
@@ -147,7 +149,7 @@ func next_unit():
 
 
 func set_unit_control(unit_id, camera_focus_instantly: bool = false):
-	if tween_move.is_valid() and tween_move.is_running():
+	if tween_move.is_running():
 		printerr("unit {0} is moving now".format([unit_id]))
 		return
 	
@@ -176,4 +178,3 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 		brain_ai.decide_best_action_and_execute()
 	
 	GlobalBus.emit_signal(GlobalBus.on_setted_unit_control_name, cur_unit_object, camera_focus_instantly)
-

@@ -7,3 +7,9 @@ res://data/settings/utility ai/ConsiderAmmo.tres
 res://data/settings/utility ai/ConsiderTimePoints.tres
 res://data/settings/utility ai/ConsiderEnemyVisibility.tres
 res://scripts/units_manager/UnitsController.gd
+res://scripts/ui/BattleUI.gd
+res://scripts/CameraController.gd
+res://scripts/units_manager/WalkingModule.gd
+res://scenes/World.tscn
+res://scenes/units/UnitObject.tscn
+res://scripts/InputSystem.gd

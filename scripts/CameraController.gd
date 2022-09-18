@@ -22,7 +22,7 @@ func _on_InputSystem_on_drag(dir) -> void:
 
 
 func focus_camera(target_spatial: Node3D, instantly: bool = false):
-	var target_pos: Vector3 = target_spatial.global_translation + camera_offset
+	var target_pos: Vector3 = target_spatial.global_transform.origin + camera_offset
 	target_pos.y = global_transform.origin.y
 	
 	if instantly:

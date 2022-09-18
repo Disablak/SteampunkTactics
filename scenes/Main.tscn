@@ -70,7 +70,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BattleUI" type="Control" parent="GUI"]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -79,7 +79,7 @@ grow_vertical = 2
 script = ExtResource("3")
 
 [node name="UnitsUI" type="Control" parent="GUI/BattleUI"]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -89,7 +89,7 @@ script = ExtResource("11")
 path_camera = NodePath("../../../SubViewportContainer/SubViewport/World3D/InputSystem/CameraController/Camera3D")
 
 [node name="TimePointsUI" type="Control" parent="GUI/BattleUI"]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -99,7 +99,6 @@ script = ExtResource("8")
 
 [node name="ProgressBarHint" type="ProgressBar" parent="GUI/BattleUI/TimePointsUI"]
 modulate = Color(1, 1, 1, 0.509804)
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -111,7 +110,6 @@ value = 26.77
 
 [node name="ProgressBar" type="ProgressBar" parent="GUI/BattleUI/TimePointsUI"]
 modulate = Color(1, 1, 1, 0.309804)
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -123,7 +121,6 @@ value = 36.42
 
 [node name="BtnMoveUnit" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true
-layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -138,7 +135,6 @@ text = "Move (W)"
 
 [node name="BtnUnitAim" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true
-layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -153,7 +149,6 @@ text = "Aim (Shift)"
 
 [node name="BtnUnitReload" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true
-layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -167,7 +162,6 @@ text = "Reload (R)"
 
 [node name="BtnNextTurn" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true
-layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -184,7 +178,6 @@ text = "Next Turn (T)"
 
 [node name="LabelAmmo" type="Label" parent="GUI/BattleUI"]
 unique_name_in_owner = true
-layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0

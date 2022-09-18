@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://addons/my_draw_line_3d/MyDrawLine3D.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/CameraController.gd" id="3"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="4"]
-[ext_resource type="PackedScene" path="res://scenes/units/UnitObject.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://cj3xg8hji41fv" path="res://scenes/units/UnitObject.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://df2slce38lnhd" path="res://scenes/level/LevelTest.tscn" id="6"]
 [ext_resource type="Script" path="res://scripts/visual/BulletEffects.gd" id="7"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsController.gd" id="8"]
@@ -91,3 +91,8 @@ camera_offset = Vector3(-9, 12, 9)
 unique_name_in_owner = true
 current = true
 fov = 30.0
+
+[connection signal="on_click_world" from="InputSystem" to="UnitsController" method="_on_input_system_on_click_world"]
+[connection signal="on_drag" from="InputSystem" to="UnitsController" method="_on_input_system_on_drag"]
+[connection signal="on_mouse_hover" from="InputSystem" to="UnitsController" method="_on_input_system_on_mouse_hover"]
+[connection signal="on_unit_rotation_pressed" from="InputSystem" to="UnitsController" method="_on_input_system_on_unit_rotation_pressed"]
