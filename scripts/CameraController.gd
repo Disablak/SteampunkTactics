@@ -13,10 +13,6 @@ func _init():
 	GlobalBus.connect(GlobalBus.on_setted_unit_control_name,Callable(self,"focus_camera"))
 
 
-func _ready() -> void:
-	tween_move = create_tween()
-
-
 func _on_input_system_on_drag(dir) -> void:
 	global_transform.origin += rot * (Vector3(dir.x, 0.0, dir.y) * drag_sensitive)
 
@@ -29,12 +25,11 @@ func focus_camera(target_spatial: Node3D, instantly: bool = false):
 		global_transform.origin = target_pos
 		return
 	
-	tween_move.interpolate_property(
+	tween_move = create_tween()
+	tween_move.set_trans(Tween.TRANS_SINE)
+	tween_move.tween_property(
 		self,
-		"global_translation",
-		self.global_translation,
+		"position",
 		target_pos,
-		focus_time if not instantly else 0.0, 
-		Tween.TRANS_SINE
+		focus_time if not instantly else 0.0
 	)
-	tween_move.start()
