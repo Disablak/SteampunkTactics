@@ -47,7 +47,9 @@ func _on_unit_died(unit_id, unit_id_killer):
 
 
 func enable_ragdoll(unit_id_killer):
-	global_transform.origin
+	# TODO make ragdoll again
+	queue_free()
+	return
 	skeleton.physical_bones_start_simulation()
 	var head: PhysicalBone3D = skeleton.get_node("Physical Bone Head")
 	var enemy_obj: Node3D = GlobalUnits.units[unit_id_killer].unit_object

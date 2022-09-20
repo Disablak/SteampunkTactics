@@ -2,7 +2,7 @@ class_name ShootingModule
 extends RefCounted
 
 
-var is_debug := true
+var is_debug := false
 
 var world: World3D = null
 var bullet_effects: BulletEffects = null

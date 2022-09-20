@@ -13,3 +13,6 @@ res://scenes/units/UnitObject.tscn
 res://scenes/level/LevelTest.tscn
 res://scripts/visual/BulletEffects.gd
 res://scenes/battle/Bullet.tscn
+res://scripts/units_manager/ShootingModule.gd
+res://data/models/player2/y bot 2.tscn
+res://scripts/units/UnitObject.gd
