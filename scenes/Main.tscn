@@ -36,11 +36,11 @@ void fragment()
 
 [sub_resource type="ShaderMaterial" id="8"]
 shader = SubResource("7")
-shader_parameter/pixelSize = 2
+shader_parameter/pixelSize = 4
 
 [sub_resource type="Environment" id="15"]
-fog_enabled = true
-adjustment_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.03
 adjustment_brightness = 1.09
 
 [node name="Main" type="Node3D"]

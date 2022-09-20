@@ -166,7 +166,7 @@ func _get_enemy_visibility(shoot_data: ShootData) -> float:
 		var target_pos = ray_result.position if ray_result else target_point
 		debug_shoot_targets.push_back(target_pos)
 		print("pushed data to {0}".format([shoot_data]))
-		if not ray_result:
+		if ray_result.is_empty():
 			count_hitted += 1
 		elif is_debug:
 			print(ray_result)
@@ -207,7 +207,7 @@ func _is_hitted(shoot_data: ShootData) -> bool:
 
 func _make_ray(from, to):
 	var space_state = world.direct_space_state
-	var ray_query_params := PhysicsRayQueryParameters3D.create(from, to, 5, [PhysicalBone3D, CollisionShape3D])
+	var ray_query_params := PhysicsRayQueryParameters3D.create(from, to, 5) #[PhysicalBone3D, CollisionShape3D]
 	ray_query_params.collide_with_bodies = false
 	ray_query_params.collide_with_areas = true
 	

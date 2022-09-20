@@ -31,7 +31,7 @@ func try_rotate_unit(delta, pointer_target_pos, cur_unit_action):
 	if cur_move_point == Vector3.ZERO and cur_unit_action != Globals.UnitAction.SHOOT:
 		return
 	
-	var rotation_target = cur_move_point if tween_move.is_running() else pointer_target_pos
+	var rotation_target = cur_move_point if is_unit_moving() else pointer_target_pos
 	_rotate_unit(rotation_target, delta)
 
 
@@ -44,6 +44,7 @@ func _rotate_unit(target_pos, delta):
 	var new_transform = cur_unit_object.transform.looking_at(target_pos, Vector3.UP)
 	cur_unit_object.transform = cur_unit_object.transform.interpolate_with(new_transform, ROTATION_SPEED * delta)
 	cur_unit_object.rotation.x = 0
+	cur_unit_object.rotation.z = 0
 
 
 func try_move(raycast_result, input_event: InputEventMouseButton, cur_unit_action) -> bool:

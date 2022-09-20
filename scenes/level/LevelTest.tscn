@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" path="res://scenes/level/obstacles/ObsRock.tscn" id="1"]
 [ext_resource type="Material" uid="uid://b7jond23vjbkr" path="res://data/materials/mat_floor1.tres" id="1_bddam"]
 [ext_resource type="Material" uid="uid://bjvk1s82dx3wt" path="res://data/materials/mat_floor0.tres" id="1_xfg2e"]
-[ext_resource type="PackedScene" path="res://scenes/level/obstacles/ObsTree.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://jvv4i8t8fg21" path="res://scenes/level/obstacles/ObsTree.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://3oljlgdojgt1" path="res://scenes/level/obstacles/ObsDefault.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/level/obstacles/ObsBarrel.tscn" id="5"]
 
