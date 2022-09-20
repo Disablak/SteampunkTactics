@@ -1,5 +1,5 @@
 0b7126e0c6e86d3ec295a72f5aa6e0bd
-::res://::1663694573
+::res://::1663695963
 default_env.tres::Environment::-1::1663263718::0::1::::<><>::
 godot.png::CompressedTexture2D::3110203215601662774::1662045807::1663263743::1::::<><>::
 icon.png::CompressedTexture2D::4068871975197802344::1662045807::1663263743::1::::<><>::
@@ -32,10 +32,10 @@ MyDrawLine3D.gd::GDScript::-1::1663263719::0::1::::DrawLine3D<>MeshInstance3D<>:
 debug_draw.gd::GDScript::-1::1663263719::0::1::::<>CanvasLayer<>::
 LICENSE.md::TextFile::-1::1662045807::0::1::::<><>::
 ::res://data/::1663264858
-::res://data/materials/::1663663192
-mat_floor0.tres::StandardMaterial3D::3062126807470390647::1663663192::0::1::::<><>::uid://c3euwqv1ef0vm
-mat_floor1.tres::StandardMaterial3D::4651916533696549313::1663663192::0::1::::<><>::uid://lbwyc0t0l4v4
-mat_wall_orange.tres::StandardMaterial3D::454450374172789981::1663663192::0::1::::<><>::uid://dh8q0bsmkkph2
+::res://data/materials/::1663694804
+mat_floor0.tres::StandardMaterial3D::3062126807470390647::1663694804::0::1::::<><>::uid://c3euwqv1ef0vm
+mat_floor1.tres::StandardMaterial3D::4651916533696549313::1663694804::0::1::::<><>::uid://lbwyc0t0l4v4
+mat_wall_orange.tres::StandardMaterial3D::454450374172789981::1663694804::0::1::::<><>::uid://dh8q0bsmkkph2
 ::res://data/models/::1662045807
 ::res://data/models/player0/::1663263741
 Alpha_Body_MAT.material::StandardMaterial3D::-1::1662045807::0::1::::<><>::
@@ -67,22 +67,22 @@ Material_001.material::StandardMaterial3D::-1::1663180394::0::1::::<><>::
 tree0 with texture.glb::PackedScene::705888108783799513::1662045807::1663608913::1::::<><>::
 tree0.tscn::PackedScene::-1::1663263719::0::1::::<><>::res://data/props/tree/tree0 with texture.glb
 ::res://data/settings/::1662661281
-::res://data/settings/shortcuts/::1663663192
-ShortcutAim.tres::Shortcut::3873412307235478586::1663663192::0::1::::<><>::
-ShortcutMove.tres::Shortcut::4430782832331834733::1663663192::0::1::::<><>::
+::res://data/settings/shortcuts/::1663694804
+ShortcutAim.tres::Shortcut::3873412307235478586::1663694804::0::1::::<><>::
+ShortcutMove.tres::Shortcut::4430782832331834733::1663694804::0::1::::<><>::
 ShortcutNextTurn.tres::Shortcut::-1::1663263719::0::1::::<><>::
 ShortcutReload.tres::Shortcut::-1::1663263719::0::1::::<><>::
 ::res://data/settings/unit/::1663180394
 unit_setting0.tres::Resource::-1::1663263719::0::1::::<><>::res://scripts/settings/UnitSettings.gd<>res://data/settings/weapon/weapon0.tres
-::res://data/settings/utility ai/::1663663192
+::res://data/settings/utility ai/::1663694804
 ActionMove.tres::Resource::-1::1663263719::0::1::::<><>::res://scripts/utility_ai/actions/ActionMove.gd<>res://data/settings/utility ai/ConsiderTimePoints.tres
 ActionReload.tres::Resource::-1::1663263719::0::1::::<><>::res://scripts/utility_ai/actions/ActionReload.gd<>res://data/settings/utility ai/ConsiderAmmo.tres
 ActionShoot.tres::Resource::-1::1663263719::0::1::::<><>::res://scripts/utility_ai/actions/ActionShoot.gd<>res://data/settings/utility ai/ConsiderEnemyVisibility.tres
-ConsiderAmmo.tres::Resource::7896088950425491953::1663663192::0::1::::<><>::res://scripts/utility_ai/considerations/ConsiderAmmo.gd
-ConsiderEnemyVisibility.tres::Resource::1022208931882388223::1663663192::0::1::::<><>::res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd
-ConsiderTimePoints.tres::Resource::9000264856528876867::1663663192::0::1::::<><>::res://scripts/utility_ai/considerations/ConsiderTimePoints.gd
-::res://data/settings/weapon/::1663663192
-weapon0.tres::Resource::4432692910646880361::1663663192::0::1::::<><>::res://scripts/settings/WeaponData.gd
+ConsiderAmmo.tres::Resource::7896088950425491953::1663694804::0::1::::<><>::res://scripts/utility_ai/considerations/ConsiderAmmo.gd
+ConsiderEnemyVisibility.tres::Resource::1022208931882388223::1663694804::0::1::::<><>::res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd
+ConsiderTimePoints.tres::Resource::9000264856528876867::1663694804::0::1::::<><>::res://scripts/utility_ai/considerations/ConsiderTimePoints.gd
+::res://data/settings/weapon/::1663694804
+weapon0.tres::Resource::4432692910646880361::1663694804::0::1::::<><>::res://scripts/settings/WeaponData.gd
 weapon_debug.tres::Resource::-1::1663263719::0::1::::<><>::res://scripts/settings/WeaponData.gd
 ::res://data/textures/::1658072695
 ::res://data/textures/Dark/::1663264954
@@ -175,16 +175,16 @@ muzzle flesh.obj::Mesh::4827608963043013107::1662045807::1663263739::1::::<><>::
 muzzle flesh.tscn::PackedScene::-1::1663263718::0::1::::<><>::res://data/vfx/muzzle flesh.glb<>res://data/vfx/muzzle_flesh.material
 muzzle_flesh.material::StandardMaterial3D::-1::1663180394::0::1::::<><>::res://data/vfx/muzzle_flesh.png
 muzzle_flesh.png::CompressedTexture2D::8021370494251397477::1662045807::1663265559::1::::<><>::
-::res://scenes/::1663663192
-Main.tscn::PackedScene::1965951608307046000::1663663192::0::1::::<><>::uid://srjk2kwihx8y<>res://scripts/Main.gd<>res://scripts/ui/BattleUI.gd<>uid://b4ekl04mw6kx6<>uid://bvgksghj38sf7<>res://data/settings/shortcuts/ShortcutReload.tres<>res://data/settings/shortcuts/ShortcutNextTurn.tres<>res://scripts/ui/TimePointsUI.gd<>res://scripts/units/UnitsUI.gd
-World.tscn::PackedScene::1299059352766617166::1663663192::0::1::::<><>::res://scripts/World.gd<>res://addons/my_draw_line_3d/MyDrawLine3D.gd<>res://scripts/CameraController.gd<>res://scripts/InputSystem.gd<>uid://cj3xg8hji41fv<>uid://df2slce38lnhd<>res://scripts/visual/BulletEffects.gd<>res://scripts/units_manager/UnitsController.gd<>res://data/settings/unit/unit_setting0.tres<>res://scenes/battle/Bullet.tscn<>res://data/settings/utility ai/ActionReload.tres<>res://scripts/utility_ai/BrainAI.gd<>res://data/settings/utility ai/ActionMove.tres<>res://data/settings/utility ai/ActionShoot.tres
+::res://scenes/::1663695918
+Main.tscn::PackedScene::1965951608307046000::1663695918::0::1::::<><>::uid://srjk2kwihx8y<>res://scripts/Main.gd<>res://scripts/ui/BattleUI.gd<>uid://b4ekl04mw6kx6<>uid://bvgksghj38sf7<>res://data/settings/shortcuts/ShortcutReload.tres<>res://data/settings/shortcuts/ShortcutNextTurn.tres<>res://scripts/ui/TimePointsUI.gd<>res://scripts/units/UnitsUI.gd
+World.tscn::PackedScene::1299059352766617166::1663695918::0::1::::<><>::res://scripts/World.gd<>res://addons/my_draw_line_3d/MyDrawLine3D.gd<>res://scripts/CameraController.gd<>res://scripts/InputSystem.gd<>uid://cj3xg8hji41fv<>uid://df2slce38lnhd<>res://scripts/visual/BulletEffects.gd<>res://scripts/units_manager/UnitsController.gd<>res://data/settings/unit/unit_setting0.tres<>res://scenes/battle/Bullet.tscn<>res://data/settings/utility ai/ActionReload.tres<>res://scripts/utility_ai/BrainAI.gd<>res://data/settings/utility ai/ActionMove.tres<>res://data/settings/utility ai/ActionShoot.tres
 ::res://scenes/battle/::1662113460
 Bullet.tscn::PackedScene::-1::1663263719::0::1::::<><>::
 ::res://scenes/debug/::1662045807
 DrawDebug.tscn::PackedScene::-1::1663263719::0::1::::<><>::res://scripts/utils/DrawDebug.gd
 DrawSphere.tscn::PackedScene::-1::1663263719::0::1::::<><>::res://scripts/utils/DrawSphere.gd
-::res://scenes/level/::1663663192
-LevelTest.tscn::PackedScene::7567057130774485773::1663663192::0::1::::<><>::res://scenes/level/obstacles/ObsRock.tscn<>uid://b7jond23vjbkr<>uid://bjvk1s82dx3wt<>uid://jvv4i8t8fg21<>uid://3oljlgdojgt1<>res://scenes/level/obstacles/ObsBarrel.tscn
+::res://scenes/level/::1663695918
+LevelTest.tscn::PackedScene::7567057130774485773::1663695918::0::1::::<><>::res://scenes/level/obstacles/ObsRock.tscn<>uid://b7jond23vjbkr<>uid://bjvk1s82dx3wt<>uid://jvv4i8t8fg21<>uid://3oljlgdojgt1<>res://scenes/level/obstacles/ObsBarrel.tscn
 ::res://scenes/level/obstacles/::1663608973
 ObsBarrel.tscn::PackedScene::-1::1663263719::0::1::::<><>::res://data/props/barel/prop_barel.tscn<>res://scenes/level/obstacles/ObstacleBase.tscn
 ObsDefault.tscn::PackedScene::1994873456668373184::1663265207::0::1::::<><>::res://scenes/level/obstacles/ObstacleBase.tscn<>uid://gqey4lx42ujt
@@ -195,8 +195,8 @@ ObsTree.tscn::PackedScene::676378842521807904::1663608973::0::1::::<><>::res://s
 MultiMeshGrass.tscn::PackedScene::-1::1663263719::0::1::::<><>::res://scripts/visual/MultiMeshGrass.gd<>res://data/props/grass/wind_grass.tres<>res://data/props/grass/grass_triangle.obj
 ::res://scenes/pathfinding/::1662045807
 PathfindingSystem.tscn::PackedScene::-1::1663263719::0::1::::<><>::res://scripts/pathfinding/PathfindingSystem.gd<>res://addons/my_draw_line_3d/MyDrawLine3D.gd<>res://scripts/pathfinding/SmoothLine.gd<>res://scripts/pathfinding/PathfindingSimplifier.gd
-::res://scenes/units/::1663663192
-UnitObject.tscn::PackedScene::5463752487344190575::1663663192::0::1::::<><>::res://scripts/units/UnitAnimator.gd<>res://data/models/player2/Alpha_Body_MAT.material<>uid://bbew76llhdkcq<>res://scripts/units/UnitObject.gd<>res://data/vfx/muzzle flesh.tscn<>res://scripts/units/UnitVisual.gd
+::res://scenes/units/::1663695918
+UnitObject.tscn::PackedScene::5463752487344190575::1663695918::0::1::::<><>::res://scripts/units/UnitAnimator.gd<>res://data/models/player2/Alpha_Body_MAT.material<>uid://bbew76llhdkcq<>res://scripts/units/UnitObject.gd<>res://data/vfx/muzzle flesh.tscn<>res://scripts/units/UnitVisual.gd
 ::res://scripts/::1663521718
 CameraController.gd::GDScript::-1::1663521718::0::1::::<>Marker3D<>::
 GlobalBus.gd::GDScript::-1::1663265288::0::1::::<>Node<>::
@@ -227,10 +227,10 @@ UnitsUI.gd::GDScript::-1::1663267294::0::1::::<>Control<>::
 UnitVisual.gd::GDScript::-1::1663267195::0::1::::<>Node3D<>::
 ::res://scripts/units/ShootingSystem/::1662045807
 ShootData.gd::GDScript::-1::1663263719::0::1::::ShootData<>RefCounted<>::
-::res://scripts/units_manager/::1663613701
+::res://scripts/units_manager/::1663695140
 ShootingModule.gd::GDScript::-1::1663607928::0::1::::ShootingModule<>RefCounted<>::
 UnitsController.gd::GDScript::-1::1663606878::0::1::::UnitsController<>Node3D<>::
-WalkingModule.gd::GDScript::-1::1663613701::0::1::::WalkingModule<>RefCounted<>::
+WalkingModule.gd::GDScript::-1::1663695140::0::1::::WalkingModule<>RefCounted<>::
 ::res://scripts/utility_ai/::1663267225
 Action.gd::GDScript::-1::1663263719::0::1::::Action<>Resource<>::
 BrainAI.gd::GDScript::-1::1663263719::0::1::::<>Node<>::
@@ -247,6 +247,6 @@ ConsiderTimePoints.gd::GDScript::-1::1663263719::0::1::::ConsiderTimePoints<>Con
 DrawDebug.gd::GDScript::-1::1663263719::0::1::::<>ImmediateMesh<>::
 DrawSphere.gd::GDScript::-1::1663263719::0::1::::<>ImmediateMesh<>::
 NodeUtilities.gd::GDScript::-1::1663263719::0::1::::NodeUtilities<>Object<>::
-::res://scripts/visual/::1663608342
-BulletEffects.gd::GDScript::-1::1663608342::0::1::::BulletEffects<>Node3D<>::
+::res://scripts/visual/::1663695878
+BulletEffects.gd::GDScript::-1::1663695878::0::1::::<><>::
 MultiMeshGrass.gd::GDScript::-1::1663263719::0::1::::<>MultiMeshInstance3D<>::

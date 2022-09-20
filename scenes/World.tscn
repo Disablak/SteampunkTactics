@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scripts/visual/BulletEffects.gd" id="7"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsController.gd" id="8"]
 [ext_resource type="Resource" path="res://data/settings/unit/unit_setting0.tres" id="9"]
-[ext_resource type="PackedScene" path="res://scenes/battle/Bullet.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://uuo0kulcupm8" path="res://scenes/battle/Bullet.tscn" id="10"]
 [ext_resource type="Resource" path="res://data/settings/utility ai/ActionReload.tres" id="11"]
 [ext_resource type="Script" path="res://scripts/utility_ai/BrainAI.gd" id="12"]
 [ext_resource type="Resource" path="res://data/settings/utility ai/ActionMove.tres" id="13"]

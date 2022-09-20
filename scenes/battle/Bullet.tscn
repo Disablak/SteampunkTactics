@@ -1,13 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://uuo0kulcupm8"]
 
-[sub_resource type="CapsuleMesh" id=1]
+[sub_resource type="CapsuleMesh" id="1"]
 radius = 0.03
 
 [node name="Bullet" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 cast_shadow = 0
-mesh = SubResource( 1 )
+mesh = SubResource("1")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_energy = 2.0

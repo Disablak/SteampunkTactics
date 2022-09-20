@@ -37,7 +37,7 @@ func shoot(unit_obj_shooter: UnitObject, unit_obj_enemy: UnitObject, is_hitted: 
 	
 	var tween: Tween = create_tween()
 	tween.tween_property(
-		new_instance, "global_translation",
+		new_instance, "position",
 		shoot_target_pos, time
 	)
 	tween.tween_callback(Callable(new_instance,"queue_free"))
