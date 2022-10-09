@@ -3,4 +3,8 @@ extends Consideration
 
 
 func calc_score() -> float:
-	return 0.9
+	var cur_unit : Unit = GlobalUnits.get_cur_unit()
+	var enemy: Unit = GlobalUnits.units[0]
+	var visibility : float = GlobalUnits.units_controller.shooting_module.get_visibility(enemy, cur_unit)
+	
+	return visibility

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://crvqrkg5nrh8j"]
+
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughReloadTP.gd" id="1_l1fvi"]
+
+[sub_resource type="Curve" id="Curve_ehqi2"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1_l1fvi")
+response_curve = SubResource("Curve_ehqi2")

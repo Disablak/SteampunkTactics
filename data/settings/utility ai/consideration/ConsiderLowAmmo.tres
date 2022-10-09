@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://djoy06lst8nry"]
+
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderLowAmmo.gd" id="1"]
+
+[sub_resource type="Curve" id="1"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 4.08359, 0.0, 0, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1")
+response_curve = SubResource("1")

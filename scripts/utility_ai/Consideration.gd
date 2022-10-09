@@ -3,6 +3,7 @@ extends Resource
 
 
 @export var response_curve: Curve
+
 var score: float = 0.0
 
 
@@ -11,6 +12,6 @@ func calc_score() -> float:
 	
 
 func get_score() -> float:
-	score = response_curve.sample(clamp(calc_score(), 0.0, 1.0))
+	score = clamp(response_curve.sample(calc_score()), 0.0, 1.0) 
 	print("consideration result {0}".format([score]))
 	return score

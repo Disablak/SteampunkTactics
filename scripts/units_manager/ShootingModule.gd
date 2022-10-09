@@ -151,6 +151,13 @@ func _get_hit_result(shoot_data: ShootData) -> ShootData:
 	return shoot_data
 
 
+func get_visibility(unit_attacker : Unit, unit_deffenser : Unit) -> float:
+	var shoot_data : ShootData = ShootData.new()
+	shoot_data.shoot_point = unit_attacker.unit_object.get_shoot_point()
+	shoot_data.target_points = unit_deffenser.unit_object.get_hit_points()
+	return _get_enemy_visibility(shoot_data)
+
+
 func _get_enemy_visibility(shoot_data: ShootData) -> float:
 	debug_shoot_pos = shoot_data.shoot_point
 	debug_shoot_targets = []
@@ -165,7 +172,6 @@ func _get_enemy_visibility(shoot_data: ShootData) -> float:
 		var ray_result = _make_ray(shoot_data.shoot_point, target_point)
 		var target_pos = ray_result.position if ray_result else target_point
 		debug_shoot_targets.push_back(target_pos)
-		print("pushed data to {0}".format([shoot_data]))
 		if ray_result.is_empty():
 			count_hitted += 1
 		elif is_debug:
@@ -173,6 +179,9 @@ func _get_enemy_visibility(shoot_data: ShootData) -> float:
 	
 	if is_debug:
 		print("hitted {0} / {1}".format([count_hitted, shoot_data.target_points.size()]))
+	
+	if prev_shoot_data == null: # kostil ?
+		prev_shoot_data = shoot_data
 	
 	prev_shoot_data.visibility = _get_visible_percent(count_hitted)
 	return prev_shoot_data.visibility

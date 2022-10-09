@@ -2,5 +2,9 @@ class_name ActionReload
 extends Action
 
 
-func execute():
+func execute_action():
 	GlobalUnits.units_controller.shooting_module.reload_weapon()
+
+
+func calc_time_points_price() -> int:
+	return GlobalUnits.get_cur_unit().unit_data.weapon.reload_price

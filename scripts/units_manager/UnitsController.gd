@@ -7,7 +7,7 @@ extends Node3D
 @onready var draw_line3d = get_node("%DrawLine3D")
 @onready var mouse_pointer = get_node("%MousePointer")
 @onready var bullet_effects = get_node("BulletEffects")
-@onready var brain_ai = get_node("%BrainAI")
+@onready var brain_ai : BrainAI = get_node("%BrainAI") as BrainAI
 
 var units = null
 
@@ -31,12 +31,11 @@ func _ready() -> void:
 	shooting_module = ShootingModule.new(get_world_3d(), bullet_effects)
 	
 	var callable_create_tween = Callable(create_tween)
-	var callable_on_finish_move = Callable(shooting_module, "create_shoot_data")
-	walking_system = WalkingModule.new(draw_line3d, callable_on_finish_move, callable_create_tween)
-	
-	GlobalUnits.units_controller = self
+	walking_system = WalkingModule.new(draw_line3d, _on_finish_move, callable_create_tween)
 	
 	_init_units()
+	GlobalUnits.units_controller = self
+	GlobalUnits.calc_units_team()
 
 
 func _process(delta: float) -> void:
@@ -101,6 +100,18 @@ func _on_input_system_on_mouse_hover(hover_info) -> void:
 
 func _on_BtnUnitReload_pressed() -> void:
 	shooting_module.reload_weapon()
+
+
+func _on_finish_move() -> void:
+	shooting_module.create_shoot_data()
+	_try_to_enemy_continue_turn()
+
+
+func _try_to_enemy_continue_turn() -> void:
+	if cur_unit_object.is_player_unit:
+		return
+		
+	brain_ai.decide_best_action_and_execute()
 
 
 func _draw_future_path(mouse_pos):
@@ -171,6 +182,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	TurnManager.restore_time_points()
 	
 	if not cur_unit_object.is_player_unit:
+		brain_ai.start_brain()
 		brain_ai.decide_best_action_and_execute()
 	
 	GlobalBus.emit_signal(GlobalBus.on_setted_unit_control_name, cur_unit_object, camera_focus_instantly)

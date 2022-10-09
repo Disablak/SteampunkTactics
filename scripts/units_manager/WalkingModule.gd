@@ -63,13 +63,24 @@ func try_move(raycast_result, input_event: InputEventMouseButton, cur_unit_actio
 
 func move_unit(pos):
 	var path = cur_unit_object.get_move_path(pos)
-	var distance = Globals.get_total_distance(path)
-	var price_time_points = cur_unit_data.get_move_price(distance)
+	var price_time_points = get_move_price(path)
 	if not TurnManager.can_spend_time_points(price_time_points):
 		return
 	
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.WALKING, price_time_points)
 	_move_via_points(path)
+
+
+func get_move_price_to_pos(pos : Vector3) -> int:
+	var path = cur_unit_object.get_move_path(pos)
+	var price_time_points = get_move_price(path)
+	return price_time_points
+
+
+func get_move_price(path : PackedVector3Array) -> int:
+	var distance = Globals.get_total_distance(path)
+	var price_time_points = cur_unit_data.get_move_price(distance)
+	return price_time_points
 
 
 func _move_via_points(points: PackedVector3Array):

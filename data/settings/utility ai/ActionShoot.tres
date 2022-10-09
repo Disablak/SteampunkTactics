@@ -1,8 +1,10 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://cv0nsfwodcjy4"]
 
-[ext_resource path="res://scripts/utility_ai/actions/ActionShoot.gd" type="Script" id=1]
-[ext_resource path="res://data/settings/utility ai/ConsiderEnemyVisibility.tres" type="Resource" id=2]
+[ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionShoot.gd" id="1"]
+[ext_resource type="Resource" uid="uid://mx4hxm60qv22" path="res://data/settings/utility ai/consideration/ConsiderEnoughShootTP.tres" id="1_p0ux1"]
+[ext_resource type="Resource" uid="uid://cx6p5e3by1tm5" path="res://data/settings/utility ai/consideration/ConsiderEnoughAmmoToShoot.tres" id="2_foala"]
+[ext_resource type="Resource" uid="uid://otfvqk0wa3eh" path="res://data/settings/utility ai/consideration/ConsiderEnemyVisibility.tres" id="3_s8cqa"]
 
 [resource]
-script = ExtResource( 1 )
-considerations = [ ExtResource( 2 ) ]
+script = ExtResource("1")
+considerations = [ExtResource("1_p0ux1"), ExtResource("2_foala"), ExtResource("3_s8cqa")]

@@ -1,19 +1,21 @@
-[gd_scene load_steps=18 format=3 uid="uid://srjk2kwihx8y"]
+[gd_scene load_steps=20 format=3 uid="uid://srjk2kwihx8y"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Script" path="res://addons/my_draw_line_3d/MyDrawLine3D.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/CameraController.gd" id="3"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="4"]
+[ext_resource type="Resource" uid="uid://mn2771n5e5qo" path="res://data/settings/unit/unit_setting_enemy.tres" id="4_ui7mv"]
 [ext_resource type="PackedScene" uid="uid://cj3xg8hji41fv" path="res://scenes/units/UnitObject.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://df2slce38lnhd" path="res://scenes/level/LevelTest.tscn" id="6"]
 [ext_resource type="Script" path="res://scripts/visual/BulletEffects.gd" id="7"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsController.gd" id="8"]
 [ext_resource type="Resource" path="res://data/settings/unit/unit_setting0.tres" id="9"]
 [ext_resource type="PackedScene" uid="uid://uuo0kulcupm8" path="res://scenes/battle/Bullet.tscn" id="10"]
-[ext_resource type="Resource" path="res://data/settings/utility ai/ActionReload.tres" id="11"]
+[ext_resource type="Resource" uid="uid://cogp64iiq2s6y" path="res://data/settings/utility ai/ActionReload.tres" id="11"]
 [ext_resource type="Script" path="res://scripts/utility_ai/BrainAI.gd" id="12"]
-[ext_resource type="Resource" path="res://data/settings/utility ai/ActionMove.tres" id="13"]
-[ext_resource type="Resource" path="res://data/settings/utility ai/ActionShoot.tres" id="14"]
+[ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/ActionMove.tres" id="13"]
+[ext_resource type="Resource" uid="uid://cv0nsfwodcjy4" path="res://data/settings/utility ai/ActionShoot.tres" id="14"]
+[ext_resource type="Script" path="res://scripts/Raycaster.gd" id="15_rl2x8"]
 
 [sub_resource type="NavigationMesh" id="11"]
 vertices = PackedVector3Array(3.3, 0.2, 0.45, 4.05, 0.2, 0.3, 4.05, 0.2, -1.2, -1.2, 0.2, 1.95, 3.15, 0.2, 1.95, 3.3, 0.2, 0.45, 3.3, 0.2, 0.45, 4.05, 0.2, -1.2, -1.2, 0.2, -1.2, -1.2, 0.2, 1.95, 4.05, 0.2, -1.2, 4.05, 0.2, 0.3, 4.5, 0.2, 0.3, 8.25, 0.2, 5.1, 8.4, 0.2, 5.4, 10.2, 0.2, 4.5, 4.05, 0.2, -1.2, 4.5, 0.2, 0.3, 4.8, 0.2, 0.75, 7.5, 0.2, 5.1, 8.25, 0.2, 5.1, 10.2, 0.2, 4.5, 10.2, 0.2, 2.4, 10.2, 0.2, 2.4, 10.95, 0.2, 2.1, 10.95, 0.2, -1.2, 4.8, 0.2, 0.75, 4.95, 0.2, 2.4, 7.5, 0.2, 5.1, 4.5, 0.2, 2.7, 7.2, 0.2, 5.55, 7.5, 0.2, 5.1, 4.95, 0.2, 2.4, 4.8, 0.2, 0.75, 7.5, 0.2, 5.1, 10.2, 0.2, 2.4, 10.95, 0.2, -1.2, 4.05, 0.2, -1.2, 15.45, 0.2, 0.15, 15.9, 0.2, 0.15, 15.9, 0.2, -1.2, 11.85, 0.2, 4.35, 13.2, 0.2, 4.65, 13.5, 0.2, 4.2, 11.85, 0.2, 2.55, 15.15, 0.2, 0.75, 15.45, 0.2, 0.15, 15.9, 0.2, -1.2, 10.95, 0.2, -1.2, 11.4, 0.2, 2.1, 11.85, 0.2, 2.55, 13.5, 0.2, 4.2, 14.55, 0.2, 4.2, 15.15, 0.2, 1.65, 15.15, 0.2, 0.75, 11.85, 0.2, 2.55, 14.55, 0.2, 4.2, 14.85, 0.2, 4.5, 15.45, 0.2, 1.8, 15.15, 0.2, 1.65, 10.95, 0.2, -1.2, 10.95, 0.2, 2.1, 11.4, 0.2, 2.1, 15.9, 0.2, -1.2, 15.9, 0.2, 0.15, 16.8, 0.2, 0.45, 25.2, 0.2, -1.2, 14.85, 0.2, 4.5, 14.85, 0.2, 6.3, 15.75, 0.2, 6.45, 16.95, 0.2, 1.35, 16.5, 0.2, 1.8, 16.5, 0.2, 1.8, 15.45, 0.2, 1.8, 14.85, 0.2, 4.5, 25.2, 0.2, -1.2, 16.8, 0.2, 0.45, 16.95, 0.2, 1.35, 25.2, 0.2, 4.95, 15.75, 0.2, 7.5, 15.15, 0.2, 7.65, 15.15, 0.2, 11.25, 25.2, 0.2, 4.95, 16.95, 0.2, 1.35, 15.75, 0.2, 7.5, 15.15, 0.2, 11.25, 25.2, 0.2, 11.25, 16.95, 0.2, 1.35, 15.75, 0.2, 6.45, 15.75, 0.2, 7.5, -1.2, 0.2, 7.35, -0.9, 0.2, 7.35, -0.6, 0.2, 6.15, -1.2, 0.2, 1.95, 0.6, 0.2, 6.3, 0.9, 0.2, 6.75, 3.45, 0.2, 2.85, 3.15, 0.2, 2.7, 3.15, 0.2, 2.7, 3.15, 0.2, 1.95, -1.2, 0.2, 1.95, -0.6, 0.2, 6.15, 0.6, 0.2, 6.3, -0.75, 0.2, 7.8, -0.9, 0.2, 7.35, -1.2, 0.2, 7.35, -1.2, 0.2, 11.25, 7.95, 0.2, 11.25, 7.95, 0.2, 9.9, 7.5, 0.2, 9.75, 7.2, 0.2, 5.55, 4.5, 0.2, 2.7, 3.45, 0.2, 2.85, 0.9, 0.2, 6.75, 0.9, 0.2, 7.5, 7.5, 0.2, 9.75, 0.45, 0.2, 7.8, -0.75, 0.2, 7.8, -1.2, 0.2, 11.25, 7.5, 0.2, 9.75, 7.5, 0.2, 6.75, 7.2, 0.2, 5.55, 0.9, 0.2, 7.5, 0.45, 0.2, 7.8, -1.2, 0.2, 11.25, 7.95, 0.2, 11.25, 7.5, 0.2, 9.75, 10.8, 1.2, 2.85, 10.8, 1.2, 4.2, 11.25, 1.2, 4.2, 11.25, 1.2, 2.85, 11.25, 1, 3.525, 8.55, 0.2, 9.75, 7.95, 0.2, 9.9, 7.95, 0.2, 11.25, 13.2, 0.2, 4.65, 11.85, 0.2, 4.35, 11.55, 0.2, 4.8, 14.55, 0.2, 7.65, 14.25, 0.2, 6.9, 13.2, 0.2, 6.6, 8.55, 0.2, 9.75, 7.95, 0.2, 11.25, 15.15, 0.2, 11.25, 8.85, 0.2, 7.65, 8.55, 0.2, 7.8, 8.55, 0.2, 9.75, 10.5, 0.2, 4.8, 10.2, 0.2, 4.5, 8.4, 0.2, 5.4, 13.2, 0.2, 6.6, 13.2, 0.2, 4.65, 11.55, 0.2, 4.8, 8.85, 0.2, 7.65, 8.55, 0.2, 9.75, 11.55, 0.2, 4.8, 10.5, 0.2, 4.8, 8.4, 0.2, 5.4, 8.85, 0.2, 7.65, 15.15, 0.2, 11.25, 15.15, 0.2, 7.65, 14.55, 0.2, 7.65, 13.8, 1.2, 4.8, 13.8, 1.2, 6.15, 14.25, 1.2, 6.15, 14.25, 1.2, 4.8, 14.25, 1, 5.475)
@@ -39,7 +41,7 @@ script = ExtResource("1")
 [node name="UnitsController" type="Node3D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("8")
-units_data = [ExtResource("9"), ExtResource("9")]
+units_data = [ExtResource("9"), ExtResource("4_ui7mv")]
 
 [node name="BulletEffects" type="Node3D" parent="UnitsController"]
 script = ExtResource("7")
@@ -68,7 +70,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, 
 
 [node name="UnitObjectEnemy" parent="UnitsController" instance=ExtResource("5")]
 unique_name_in_owner = true
-transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 15.5355, 0, 5.12132)
+transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 19.0818, -4.76837e-07, 3.56459)
 is_player_unit = false
 
 [node name="BrainAI" type="Node" parent="UnitsController"]
@@ -90,6 +92,9 @@ camera_offset = Vector3(-9, 12, 9)
 unique_name_in_owner = true
 current = true
 fov = 30.0
+
+[node name="Raycaster" type="Node3D" parent="."]
+script = ExtResource("15_rl2x8")
 
 [connection signal="on_click_world" from="InputSystem" to="UnitsController" method="_on_input_system_on_click_world"]
 [connection signal="on_drag" from="InputSystem" to="InputSystem/CameraController" method="_on_input_system_on_drag"]

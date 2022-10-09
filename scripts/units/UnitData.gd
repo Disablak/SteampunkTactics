@@ -9,6 +9,11 @@ var weapon: WeaponData
 
 var cur_health: float
 var cur_weapon_ammo: int
+var enemy_data_ai : EnemyDataAI = null
+
+
+class EnemyDataAI:
+	var cur_cover_data = null
 
 
 func _init(unit_settings: UnitSettings):
@@ -17,6 +22,9 @@ func _init(unit_settings: UnitSettings):
 	
 	cur_health = unit_settings.max_health
 	cur_weapon_ammo = weapon.ammo
+	
+	if unit_settings.is_enemy:
+		enemy_data_ai = EnemyDataAI.new()
 
 
 func set_unit_id(id):

@@ -1,18 +1,21 @@
 res://scenes/Main.tscn
+res://data/settings/weapon/weapon0.tres
 res://data/materials/mat_floor1.tres
 res://data/materials/mat_floor0.tres
 res://data/materials/mat_wall_orange.tres
-res://data/settings/weapon/weapon0.tres
-res://data/settings/utility ai/ConsiderAmmo.tres
-res://data/settings/utility ai/ConsiderTimePoints.tres
-res://data/settings/utility ai/ConsiderEnemyVisibility.tres
+res://data/settings/utility ai/consideration/ConsiderEnoughReloadTP.tres
+res://data/settings/utility ai/consideration/ConsiderLowAmmo.tres
+res://data/settings/utility ai/ActionReload.tres
+res://data/settings/utility ai/consideration/ConsiderNotInCover.tres
+res://data/settings/utility ai/consideration/ConsiderTimePoints.tres
+res://data/settings/utility ai/consideration/ConsiderNearCover.tres
+res://data/settings/utility ai/ActionMove.tres
+res://data/settings/utility ai/consideration/ConsiderEnoughShootTP.tres
+res://data/settings/utility ai/consideration/ConsiderEnoughAmmoToShoot.tres
+res://data/settings/utility ai/consideration/ConsiderEnemyVisibility.tres
+res://data/settings/utility ai/ActionShoot.tres
 res://data/settings/shortcuts/ShortcutMove.tres
 res://data/settings/shortcuts/ShortcutAim.tres
-res://scenes/World.tscn
-res://scenes/units/UnitObject.tscn
 res://scenes/level/LevelTest.tscn
-res://scripts/visual/BulletEffects.gd
-res://scenes/battle/Bullet.tscn
-res://scripts/units_manager/ShootingModule.gd
-res://data/models/player2/y bot 2.tscn
-res://scripts/units/UnitObject.gd
+res://scenes/World.tscn
+res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd

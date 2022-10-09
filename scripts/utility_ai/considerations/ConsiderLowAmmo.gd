@@ -1,4 +1,4 @@
-class_name ConsiderAmmo
+class_name ConsiderLowAmmo
 extends Consideration
 
 

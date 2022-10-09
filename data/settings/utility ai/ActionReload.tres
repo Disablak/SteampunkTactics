@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cogp64iiq2s6y"]
 
-[ext_resource path="res://scripts/utility_ai/actions/ActionReload.gd" type="Script" id=1]
-[ext_resource path="res://data/settings/utility ai/ConsiderAmmo.tres" type="Resource" id=2]
+[ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionReload.gd" id="1"]
+[ext_resource type="Resource" uid="uid://crvqrkg5nrh8j" path="res://data/settings/utility ai/consideration/ConsiderEnoughReloadTP.tres" id="1_m4xeo"]
+[ext_resource type="Resource" uid="uid://djoy06lst8nry" path="res://data/settings/utility ai/consideration/ConsiderLowAmmo.tres" id="2"]
 
 [resource]
-script = ExtResource( 1 )
-considerations = [ ExtResource( 2 ) ]
+script = ExtResource("1")
+considerations = [ExtResource("1_m4xeo"), ExtResource("2")]

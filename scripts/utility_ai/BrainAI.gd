@@ -1,40 +1,38 @@
+class_name BrainAI
 extends Node
 
 
 @export var available_actions: Array
 
-var best_action: Action = null
-var is_finished_deciding := false
+var is_moved := false
+
+
+func start_brain():
+	#is_moved = false
+	pass
 
 
 func decide_best_action_and_execute():
-	decide_best_action(available_actions)
-	best_action.execute()
-
-
-func _process(delta: float) -> void:
-	return
+	var best_action : Action = decide_best_action(available_actions)
 	
-	if best_action == null:
-		decide_best_action(available_actions)
-	
-	if is_finished_deciding:
-		is_finished_deciding = false
-		best_action.execute()
+	if best_action != null and best_action.is_enough_time_points_to_execute():
+		best_action.execute_action()
+	else:
+		print("no actions available!")
 
 
-func decide_best_action(actions):
+func decide_best_action(actions) -> Action:
 	var score: float = 0.0
-	var next_best_action_idx = 0
+	var cur_best_action : Action = null
 	
-	for i in actions.size():
-		var cur_action = actions[i]
+	for cur_action in actions:
+		cur_action.pre_action()
+		
 		if score_action(cur_action) > score:
-			next_best_action_idx = i
+			cur_best_action = cur_action
 			score = cur_action.score
 	
-	best_action = actions[next_best_action_idx]
-	is_finished_deciding = true
+	return cur_best_action
 
 
 func score_action(action: Action) -> float:

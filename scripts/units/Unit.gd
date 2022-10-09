@@ -7,7 +7,7 @@ var unit_data: UnitData
 var unit_object: UnitObject
 
 
-func _init(id,unit_data,unit_object):
+func _init(id, unit_data, unit_object):
 	self.id = id
 	self.unit_data = unit_data
 	self.unit_object = unit_object

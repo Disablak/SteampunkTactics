@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://mn2771n5e5qo"]
+
+[ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="1"]
+[ext_resource type="Resource" uid="uid://b4fh2mesn3mcf" path="res://data/settings/weapon/weapon0.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+is_enemy = true
+max_health = 10.0
+walk_speed = 10
+weapon = ExtResource("2")

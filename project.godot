@@ -29,20 +29,50 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://scripts/utility_ai/actions/ActionShoot.gd"
 }, {
+"base": "Node",
+"class": &"BrainAI",
+"language": &"GDScript",
+"path": "res://scripts/utility_ai/BrainAI.gd"
+}, {
 "base": "Node3D",
 "class": &"BulletEffects",
 "language": &"GDScript",
 "path": "res://scripts/visual/BulletEffects.gd"
 }, {
 "base": "Consideration",
-"class": &"ConsiderAmmo",
-"language": &"GDScript",
-"path": "res://scripts/utility_ai/considerations/ConsiderAmmo.gd"
-}, {
-"base": "Consideration",
 "class": &"ConsiderEnemyVisibility",
 "language": &"GDScript",
 "path": "res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd"
+}, {
+"base": "Consideration",
+"class": &"ConsiderEnoughAmmoToShoot",
+"language": &"GDScript",
+"path": "res://scripts/utility_ai/considerations/ConsiderEnoughAmmoToShoot.gd"
+}, {
+"base": "Consideration",
+"class": &"ConsiderEnoughReloadTP",
+"language": &"GDScript",
+"path": "res://scripts/utility_ai/considerations/ConsiderEnoughReloadTP.gd"
+}, {
+"base": "Consideration",
+"class": &"ConsiderEnoughShootTP",
+"language": &"GDScript",
+"path": "res://scripts/utility_ai/considerations/ConsiderEnoughShootTP.gd"
+}, {
+"base": "Consideration",
+"class": &"ConsiderInCover",
+"language": &"GDScript",
+"path": "res://scripts/utility_ai/considerations/ConsiderInCover.gd"
+}, {
+"base": "Consideration",
+"class": &"ConsiderLowAmmo",
+"language": &"GDScript",
+"path": "res://scripts/utility_ai/considerations/ConsiderLowAmmo.gd"
+}, {
+"base": "Consideration",
+"class": &"ConsiderNearCover",
+"language": &"GDScript",
+"path": "res://scripts/utility_ai/considerations/ConsiderNearCover.gd"
 }, {
 "base": "Consideration",
 "class": &"ConsiderTimePoints",
@@ -63,6 +93,11 @@ _global_script_classes=[{
 "class": &"NodeUtilities",
 "language": &"GDScript",
 "path": "res://scripts/utils/NodeUtilities.gd"
+}, {
+"base": "Node3D",
+"class": &"Raycaster",
+"language": &"GDScript",
+"path": "res://scripts/Raycaster.gd"
 }, {
 "base": "RefCounted",
 "class": &"ShootData",
@@ -113,19 +148,31 @@ _global_script_classes=[{
 "class": &"WeaponData",
 "language": &"GDScript",
 "path": "res://scripts/settings/WeaponData.gd"
+}, {
+"base": "Node3D",
+"class": &"World",
+"language": &"GDScript",
+"path": "res://scripts/World.gd"
 }]
 _global_script_class_icons={
 "Action": "",
 "ActionMove": "",
 "ActionReload": "",
 "ActionShoot": "",
+"BrainAI": "",
 "BulletEffects": "",
-"ConsiderAmmo": "",
 "ConsiderEnemyVisibility": "",
+"ConsiderEnoughAmmoToShoot": "",
+"ConsiderEnoughReloadTP": "",
+"ConsiderEnoughShootTP": "",
+"ConsiderInCover": "",
+"ConsiderLowAmmo": "",
+"ConsiderNearCover": "",
 "ConsiderTimePoints": "",
 "Consideration": "",
 "DrawLine3D": "",
 "NodeUtilities": "",
+"Raycaster": "",
 "ShootData": "",
 "ShootingModule": "",
 "Unit": "",
@@ -135,7 +182,8 @@ _global_script_class_icons={
 "UnitSettings": "",
 "UnitsController": "",
 "WalkingModule": "",
-"WeaponData": ""
+"WeaponData": "",
+"World": ""
 }
 
 [application]
@@ -149,6 +197,7 @@ config/icon="res://icon.png"
 
 Globals="*res://scripts/Globals.gd"
 GlobalBus="*res://scripts/GlobalBus.gd"
+GlobalMap="*res://scripts/GlobalMap.gd"
 GlobalUnits="*res://scripts/GlobalUnits.gd"
 TurnManager="*res://scripts/TurnManager.gd"
 
