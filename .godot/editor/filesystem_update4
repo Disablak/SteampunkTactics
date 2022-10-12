@@ -1,21 +1,16 @@
-res://scenes/Main.tscn
+res://scenes/World.tscn
 res://data/settings/weapon/weapon0.tres
 res://data/materials/mat_floor1.tres
 res://data/materials/mat_floor0.tres
 res://data/materials/mat_wall_orange.tres
 res://data/settings/utility ai/consideration/ConsiderEnoughReloadTP.tres
 res://data/settings/utility ai/consideration/ConsiderLowAmmo.tres
-res://data/settings/utility ai/ActionReload.tres
 res://data/settings/utility ai/consideration/ConsiderNotInCover.tres
 res://data/settings/utility ai/consideration/ConsiderTimePoints.tres
 res://data/settings/utility ai/consideration/ConsiderNearCover.tres
-res://data/settings/utility ai/ActionMove.tres
 res://data/settings/utility ai/consideration/ConsiderEnoughShootTP.tres
 res://data/settings/utility ai/consideration/ConsiderEnoughAmmoToShoot.tres
 res://data/settings/utility ai/consideration/ConsiderEnemyVisibility.tres
-res://data/settings/utility ai/ActionShoot.tres
-res://data/settings/shortcuts/ShortcutMove.tres
-res://data/settings/shortcuts/ShortcutAim.tres
-res://scenes/level/LevelTest.tscn
-res://scenes/World.tscn
-res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd
+res://scenes/2d/World.tscn
+res://scenes/2d/Pathfinding.gd
+res://scenes/2d/World2D.gd

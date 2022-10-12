@@ -39,6 +39,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://scripts/visual/BulletEffects.gd"
 }, {
+"base": "Resource",
+"class": &"CellObject",
+"language": &"GDScript",
+"path": "res://scripts/2d/CellObject.gd"
+}, {
 "base": "Consideration",
 "class": &"ConsiderEnemyVisibility",
 "language": &"GDScript",
@@ -161,6 +166,7 @@ _global_script_class_icons={
 "ActionShoot": "",
 "BrainAI": "",
 "BulletEffects": "",
+"CellObject": "",
 "ConsiderEnemyVisibility": "",
 "ConsiderEnoughAmmoToShoot": "",
 "ConsiderEnoughReloadTP": "",
