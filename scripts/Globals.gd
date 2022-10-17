@@ -25,6 +25,8 @@ enum MouseHoverType{
 
 const GRID_STEP = 1.0
 const CURVE_X_METERS = 40
+const CELL_SIZE := 64
+const CELL_OFFSET := Vector2(CELL_SIZE / 2, CELL_SIZE / 2)
 
 
 static func posToCellPos(pos: Vector3) -> Vector3:
@@ -37,12 +39,12 @@ static func posToCellPos(pos: Vector3) -> Vector3:
 	return simply
 
 
-static func get_total_distance(points: PackedVector3Array) -> float:
+static func get_total_distance(points: PackedVector2Array) -> float:
 	if points.size() <= 1:
 		return 0.0
 	
 	var distance = 0.0
-	var start: Vector3 = points[0]
+	var start: Vector2 = points[0]
 	
 	for i in range(1, points.size()):
 		var end = points[i]
@@ -50,3 +52,18 @@ static func get_total_distance(points: PackedVector3Array) -> float:
 		start = points[i]
 	
 	return distance
+
+static func convert_to_tile_pos(rect_pos : Vector2) -> Vector2:
+	return rect_pos / CELL_SIZE
+
+static func convert_to_rect_pos(tile_pos : Vector2) -> Vector2:
+	return tile_pos * CELL_SIZE + CELL_OFFSET
+
+
+static func convert_tile_points_to_rect(points: PackedVector2Array) -> PackedVector2Array:
+	var result: PackedVector2Array = PackedVector2Array()
+	
+	for point in points:
+		result.push_back(convert_to_rect_pos(point))
+	
+	return result

@@ -1,5 +1,5 @@
 class_name Raycaster
-extends Node3D
+extends Node2D
 
 
 const OBSTACLE_MASK = 5
@@ -11,8 +11,8 @@ func make_ray_check_no_obstacle(from, to) -> bool:
 
 
 func make_ray(from, to, collsion_mask) -> Dictionary:
-	var space_state = get_world_3d().direct_space_state
-	var ray_query_params := PhysicsRayQueryParameters3D.create(from, to, collsion_mask) #[PhysicalBone3D, CollisionShape3D]
+	var space_state = get_world_2d().direct_space_state
+	var ray_query_params := PhysicsRayQueryParameters2D.create(from, to, collsion_mask) #[PhysicalBone3D, CollisionShape3D]
 	ray_query_params.collide_with_bodies = false
 	ray_query_params.collide_with_areas = true
 	

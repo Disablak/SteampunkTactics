@@ -1,5 +1,9 @@
+class_name Pathfinding
 extends Node2D
 
+
+signal on_hovered_cell(hover_info)
+signal on_clicked_cell(hover_info)
 
 @export var cell_objects : Array[CellObject]
 
@@ -10,7 +14,6 @@ const TILEMAP_LAYER = 0
 var astar : AStar2D = AStar2D.new()
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var all_cell_pos := tilemap.get_used_cells(TILEMAP_LAYER)
 	
@@ -43,6 +46,7 @@ func _ready() -> void:
 					print("connected {0} and {1}".format([cur_cell_id, potential_cell_id]))
 
 
+
 func get_path_to_point(from : Vector2i, to : Vector2i) -> PackedVector2Array:
 	if not is_point_walkable(to):
 		return PackedVector2Array()
@@ -68,4 +72,39 @@ func is_point_walkable(cell_pos : Vector2i) -> bool:
 		return cell_obj != null and cell_obj.obj_type == CellObject.AtlasObjectType.GROUND
 	
 	return false
+
+
+func get_unit_on_cell(cell_pos: Vector2) -> Unit:
+	var all_units = GlobalUnits.units
 	
+	for unit in all_units.values():
+		var unit_obj: UnitObject = unit.unit_object
+		var unit_pos: Vector2 = unit_obj.position
+		var unit_pos_cell = Globals.convert_to_tile_pos(unit_pos)
+		
+		if cell_pos == unit_pos_cell:
+			return unit
+	
+	return null
+
+
+func set_hover_info_cell_obj(hover_info):
+	var cell_obj: CellObject = get_cell_obj(Globals.convert_to_tile_pos(hover_info.pos))
+	hover_info.cell_obj = cell_obj
+	return hover_info
+
+
+func _on_input_system_on_mouse_hover(hover_info) -> void:
+	on_hovered_cell.emit(set_hover_info_cell_obj(hover_info))
+
+
+func _on_input_system_on_mouse_click(hover_info) -> void:
+	hover_info = set_hover_info_cell_obj(hover_info)
+	var unit_on_cell: Unit = get_unit_on_cell(hover_info.pos)
+	if unit_on_cell:
+		hover_info.unit_id = unit_on_cell.id
+	
+	print("clicked on {0}".format([hover_info]))
+	on_clicked_cell.emit(hover_info)
+
+

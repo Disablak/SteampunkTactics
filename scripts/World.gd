@@ -55,7 +55,7 @@ func find_nearest_cover(unit_pos : Vector3) -> Vector3:
 
 
 func get_best_cover() -> CoverData:
-	var unit_pos = GlobalUnits.get_cur_unit().unit_object.global_position
+	var unit_pos = Vector3()#GlobalUnits.get_cur_unit().unit_object.global_position
 	var covers = find_near_cover_spot(unit_pos, 10)
 	var sorted_covers = sort_any_enemy_is_visible_from_cover(covers)
 	var best_cover : CoverData = null
@@ -121,7 +121,7 @@ func sort_covers_realy_can_cover(covers : Array[CoverData]) -> Array[CoverData]:
 		var enemy_obj : UnitObject = GlobalUnits.units[enemy_id].unit_object
 		
 		for cover in covers:
-			var enemy_pos : Vector3 = enemy_obj.global_position
+			var enemy_pos : Vector3 = Vector3.ZERO#enemy_obj.global_position
 			enemy_pos.y = 0.2
 			var cover_pos : Vector3 = cover.pos
 			cover_pos.y = 0.2

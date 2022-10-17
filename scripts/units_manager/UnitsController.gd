@@ -1,26 +1,21 @@
 class_name UnitsController
-extends Node3D
+extends Node2D
 
 
-@export var units_data: Array = []
 
-@onready var draw_line3d = get_node("%DrawLine3D")
-@onready var mouse_pointer = get_node("%MousePointer")
-@onready var bullet_effects = get_node("BulletEffects")
-@onready var brain_ai : BrainAI = get_node("%BrainAI") as BrainAI
 
-var units = null
+#@onready var draw_line3d = get_node("%DrawLine3D")
+#@onready var mouse_pointer = get_node("%MousePointer")
+#@onready var bullet_effects = get_node("BulletEffects")
+#@onready var brain_ai : BrainAI = get_node("%BrainAI") as BrainAI
 
-var cur_unit_id = -1
-var cur_unit_data: UnitData
-var cur_unit_object: UnitObject
 
-var cur_unit_action = Globals.UnitAction.NONE
 
-var cur_pointer_pos := Vector3.ZERO
+
 
 var shooting_module: ShootingModule
-var walking_system: WalkingModule
+
+
 
 
 func _init():
@@ -28,46 +23,23 @@ func _init():
 
 
 func _ready() -> void:
-	shooting_module = ShootingModule.new(get_world_3d(), bullet_effects)
+	#shooting_module = ShootingModule.new(get_world_3d(), bullet_effects)
 	
-	var callable_create_tween = Callable(create_tween)
-	walking_system = WalkingModule.new(draw_line3d, _on_finish_move, callable_create_tween)
 	
-	_init_units()
-	GlobalUnits.units_controller = self
-	GlobalUnits.calc_units_team()
+
 
 
 func _process(delta: float) -> void:
-	walking_system.try_rotate_unit(delta, cur_pointer_pos, cur_unit_action)
-	shooting_module.show_debug(delta)
+	#shooting_module.show_debug(delta)
+	pass
 
 
-func _init_units():
-	var all_units = [
-			Unit.new(0, UnitData.new(units_data[0]), get_node("%UnitObjectPlayer")),
-			Unit.new(1, UnitData.new(units_data[1]), get_node("%UnitObjectEnemy"))
-		]
-	
-	for i in all_units.size():
-		GlobalUnits.units[all_units[i].id] = all_units[i]
-	
-	units = GlobalUnits.units
-	
-	set_unit_control(0, true)
 
 
-func _on_unit_died(unit_id, unit_id_killer):
-	var unit = units[unit_id]
-	units.erase(unit_id)
-
-
-func _on_input_system_on_unit_rotation_pressed(pos) -> void:
-	cur_pointer_pos = pos
 
 
 func _on_input_system_on_click_world(raycast_result, input_event) -> void:
-	if walking_system.is_unit_moving():
+	if walking.is_unit_moving():
 		print("wait unit {0} moving".format([cur_unit_id]))
 		return
 	
@@ -75,7 +47,7 @@ func _on_input_system_on_click_world(raycast_result, input_event) -> void:
 		print("click checked obstacle")
 		return
 	
-	if walking_system.try_move(raycast_result, input_event, cur_unit_action):
+	if walking.try_move(raycast_result, input_event, cur_unit_action):
 		print("unit {0} moving".format([cur_unit_id]))
 		return
 
@@ -85,7 +57,7 @@ func _on_input_system_on_click_world(raycast_result, input_event) -> void:
 
 
 func _on_input_system_on_mouse_hover(hover_info) -> void:
-	if walking_system.is_unit_moving():
+	if walking.is_unit_moving():
 		return
 	
 	if cur_unit_action == Globals.UnitAction.WALK and hover_info.hover_type == Globals.MouseHoverType.GROUND:
@@ -93,7 +65,7 @@ func _on_input_system_on_mouse_hover(hover_info) -> void:
 	elif cur_unit_action == Globals.UnitAction.SHOOT and hover_info.hover_type == Globals.MouseHoverType.UNIT:
 		shooting_module.show_shoot_hint(true, hover_info.unit_id)
 	else:
-		draw_line3d.clear()
+		line2d.clear_points()
 		shooting_module.show_shoot_hint(false)
 		TurnManager.show_hint_spend_points(0)
 
@@ -102,26 +74,17 @@ func _on_BtnUnitReload_pressed() -> void:
 	shooting_module.reload_weapon()
 
 
-func _on_finish_move() -> void:
-	shooting_module.create_shoot_data()
-	_try_to_enemy_continue_turn()
+
 
 
 func _try_to_enemy_continue_turn() -> void:
 	if cur_unit_object.is_player_unit:
 		return
 		
-	brain_ai.decide_best_action_and_execute()
+	#brain_ai.decide_best_action_and_execute()
 
 
-func _draw_future_path(mouse_pos):
-	var path = cur_unit_object.get_move_path(mouse_pos)
-	var distance = Globals.get_total_distance(path)
-	var move_price = cur_unit_data.get_move_price(distance)
-	var can_move = TurnManager.can_spend_time_points(move_price) 
-	
-	TurnManager.show_hint_spend_points(move_price)
-	draw_line3d.draw_all_lines_colored(path, Color.FOREST_GREEN if can_move else Color.RED)
+
 
 
 func _change_unit_action(action_type, enable):
@@ -139,50 +102,9 @@ func _change_unit_action(action_type, enable):
 func move_unit_mode(enable: bool) -> void:
 	_change_unit_action(Globals.UnitAction.WALK, enable)
 	if not enable:
-		draw_line3d.clear()
+		line2d.clear_points()
 
 
 func shoot_unit_mode(enable: bool) -> void:
 	_change_unit_action(Globals.UnitAction.SHOOT, enable)
-	draw_line3d.clear()
-
-
-func next_unit():
-	var next_unit_id = cur_unit_id + 1
-	if not units.has(next_unit_id):
-		next_unit_id = 0
-	
-	set_unit_control(next_unit_id)
-
-
-func set_unit_control(unit_id, camera_focus_instantly: bool = false):
-	if walking_system.is_unit_moving():
-		printerr("unit {0} is moving now".format([unit_id]))
-		return
-	
-	if cur_unit_id == unit_id:
-		printerr("its same unit {0}".format([unit_id]))
-		return
-	
-	if not units.has(unit_id):
-		printerr("there are no unit with id {0}".format([unit_id]))
-		return
-	
-	GlobalUnits.cur_unit_id = unit_id
-	cur_unit_id = unit_id
-	cur_unit_data = units[unit_id].unit_data
-	cur_unit_object = units[unit_id].unit_object
-	cur_unit_object.unit_visual.make_outline_effect()
-	
-	shooting_module.set_cur_unit(units[unit_id])
-	shooting_module.create_shoot_data()
-	walking_system.set_cur_unit(units[unit_id])
-	walking_system.cur_move_point = Vector3.ZERO
-	
-	TurnManager.restore_time_points()
-	
-	if not cur_unit_object.is_player_unit:
-		brain_ai.start_brain()
-		brain_ai.decide_best_action_and_execute()
-	
-	GlobalBus.emit_signal(GlobalBus.on_setted_unit_control_name, cur_unit_object, camera_focus_instantly)
+	line2d.clear_points()

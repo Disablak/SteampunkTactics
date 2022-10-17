@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://2ikcthg31xdg"]
+
+[ext_resource type="Texture2D" uid="uid://b6bldh7ukfv6p" path="res://content/sprites/terrain atlas.png" id="1_a2xkr"]
+[ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_a7ikt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_660gu"]
+atlas = ExtResource("1_a2xkr")
+region = Rect2(0, 64, 64, 64)
+
+[node name="UnitObject" type="Node2D"]
+script = ExtResource("1_a7ikt")
+
+[node name="Sprite2d" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_660gu")

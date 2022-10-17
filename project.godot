@@ -99,7 +99,12 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://scripts/utils/NodeUtilities.gd"
 }, {
-"base": "Node3D",
+"base": "Node2D",
+"class": &"Pathfinding",
+"language": &"GDScript",
+"path": "res://scenes/2d/Pathfinding.gd"
+}, {
+"base": "Node2D",
 "class": &"Raycaster",
 "language": &"GDScript",
 "path": "res://scripts/Raycaster.gd"
@@ -129,7 +134,7 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://scripts/units/UnitData.gd"
 }, {
-"base": "Node3D",
+"base": "Node2D",
 "class": &"UnitObject",
 "language": &"GDScript",
 "path": "res://scripts/units/UnitObject.gd"
@@ -139,12 +144,7 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://scripts/settings/UnitSettings.gd"
 }, {
-"base": "Node3D",
-"class": &"UnitsController",
-"language": &"GDScript",
-"path": "res://scripts/units_manager/UnitsController.gd"
-}, {
-"base": "RefCounted",
+"base": "Node2D",
 "class": &"WalkingModule",
 "language": &"GDScript",
 "path": "res://scripts/units_manager/WalkingModule.gd"
@@ -178,6 +178,7 @@ _global_script_class_icons={
 "Consideration": "",
 "DrawLine3D": "",
 "NodeUtilities": "",
+"Pathfinding": "",
 "Raycaster": "",
 "ShootData": "",
 "ShootingModule": "",
@@ -186,7 +187,6 @@ _global_script_class_icons={
 "UnitData": "",
 "UnitObject": "",
 "UnitSettings": "",
-"UnitsController": "",
 "WalkingModule": "",
 "WeaponData": "",
 "World": ""

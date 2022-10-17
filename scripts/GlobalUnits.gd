@@ -1,7 +1,7 @@
 extends Node
 
 
-var units_controller: UnitsController
+var units_manager = null
 var units = {}
 var cur_unit_id: int = -1
 var player_units : PackedByteArray = PackedByteArray()
@@ -17,7 +17,7 @@ func get_cur_unit() -> Unit:
 
 func calc_units_team():
 	for unit in units.values():
-		if unit.unit_object.is_player_unit:
+		if not unit.unit_data.unit_settings.is_enemy:
 			player_units.push_back(unit.id)
 		else:
 			enemy_units.push_back(unit.id)

@@ -1,16 +1,14 @@
-res://scenes/World.tscn
-res://data/settings/weapon/weapon0.tres
-res://data/materials/mat_floor1.tres
-res://data/materials/mat_floor0.tres
-res://data/materials/mat_wall_orange.tres
-res://data/settings/utility ai/consideration/ConsiderEnoughReloadTP.tres
-res://data/settings/utility ai/consideration/ConsiderLowAmmo.tres
-res://data/settings/utility ai/consideration/ConsiderNotInCover.tres
-res://data/settings/utility ai/consideration/ConsiderTimePoints.tres
-res://data/settings/utility ai/consideration/ConsiderNearCover.tres
-res://data/settings/utility ai/consideration/ConsiderEnoughShootTP.tres
-res://data/settings/utility ai/consideration/ConsiderEnoughAmmoToShoot.tres
-res://data/settings/utility ai/consideration/ConsiderEnemyVisibility.tres
 res://scenes/2d/World.tscn
+res://data/settings/shortcuts/ShortcutMove.tres
+res://data/settings/shortcuts/ShortcutAim.tres
+res://data/settings/weapon/weapon0.tres
+res://scripts/utils/UnitsManager.gd
+res://scenes/Main.tscn
+res://scripts/World.gd
+res://scripts/GlobalUnits.gd
+res://scripts/CameraController.gd
+res://scripts/InputSystem.gd
+res://scripts/Globals.gd
 res://scenes/2d/Pathfinding.gd
-res://scenes/2d/World2D.gd
+res://scripts/units/UnitData.gd
+res://scripts/units_manager/WalkingModule.gd
