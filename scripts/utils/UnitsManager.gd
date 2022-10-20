@@ -4,9 +4,10 @@ extends Node2D
 @export var units_data: Array = []
 @export var unit_objects: Array[NodePath]
 
-@onready var pathfinding: Pathfinding = $Pathfinding
-@onready var walking: WalkingModule = $WalkingModule
-@onready var line2d: Line2D = $Line2d
+@onready var pathfinding: Pathfinding = $Pathfinding as Pathfinding
+@onready var walking: WalkingModule = $WalkingModule as WalkingModule
+@onready var shooting: ShootingModule = $ShootingModule as ShootingModule
+@onready var line2d: Line2D = $Line2d as Line2D
 
 var units = null
 
@@ -22,6 +23,11 @@ func _ready() -> void:
 	_init_units()
 	GlobalUnits.units_manager = self
 	GlobalUnits.calc_units_team()
+
+
+#func _process(delta: float) -> void:
+#	var pos = Globals.convert_to_tile_pos(cur_unit_object.position)
+#	print(pos)
 
 
 func _init_units():
@@ -117,12 +123,18 @@ func _on_pathfinding_on_clicked_cell(hover_info) -> void:
 	if walking.is_unit_moving():
 		return
 	
-	if hover_info.unit_id != -1:
-		return
-	
-	var formatted_path: PackedVector2Array = _get_formatted_path(hover_info.pos)
-	walking.move_unit(formatted_path)
+	if hover_info.unit_id == -1:
+		var formatted_path: PackedVector2Array = _get_formatted_path(hover_info.pos)
+		walking.move_unit(formatted_path)
+	else:
+		shooting.shoot(units[cur_unit_id], units[hover_info.unit_id])
 
 
 func _on_pathfinding_on_hovered_cell(hover_info) -> void:
-	_draw_future_path(hover_info.pos)
+	if walking.is_unit_moving():
+		return
+	
+	if hover_info.unit_id == -1:
+		_draw_future_path(hover_info.pos)
+	else:
+		print("hover unit {0}".format([hover_info.unit_id]))

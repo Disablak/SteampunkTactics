@@ -1,19 +1,19 @@
 [gd_scene load_steps=10 format=3 uid="uid://3ak620dmnets"]
 
-[ext_resource type="Script" path="res://scripts/Main.gd" id="2"]
-[ext_resource type="Script" path="res://scripts/ui/BattleUI.gd" id="3"]
-[ext_resource type="Shortcut" uid="uid://b4ekl04mw6kx6" path="res://data/settings/shortcuts/ShortcutMove.tres" id="4"]
-[ext_resource type="Shortcut" uid="uid://bvgksghj38sf7" path="res://data/settings/shortcuts/ShortcutAim.tres" id="5"]
-[ext_resource type="Shortcut" path="res://data/settings/shortcuts/ShortcutReload.tres" id="6"]
-[ext_resource type="Shortcut" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="7"]
-[ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="8"]
-[ext_resource type="PackedScene" uid="uid://bi6s273hnyh6g" path="res://World.tscn" id="9_w4srd"]
-[ext_resource type="Script" path="res://scripts/units/UnitsUI.gd" id="11"]
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_p1tb3"]
+[ext_resource type="PackedScene" uid="uid://bi6s273hnyh6g" path="res://scenes/2d/World2d.tscn" id="2_bb7rw"]
+[ext_resource type="Script" path="res://scripts/ui/BattleUI.gd" id="3_ur4ey"]
+[ext_resource type="Script" path="res://scripts/units/UnitsUI.gd" id="4_bhut4"]
+[ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="5_8dsqb"]
+[ext_resource type="Shortcut" uid="uid://b4ekl04mw6kx6" path="res://data/settings/shortcuts/ShortcutMove.tres" id="6_yd1b5"]
+[ext_resource type="Shortcut" uid="uid://bvgksghj38sf7" path="res://data/settings/shortcuts/ShortcutAim.tres" id="7_plqe3"]
+[ext_resource type="Shortcut" path="res://data/settings/shortcuts/ShortcutReload.tres" id="8_oxv7h"]
+[ext_resource type="Shortcut" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="9_nq4bl"]
 
 [node name="Main" type="Node3D"]
-script = ExtResource("2")
+script = ExtResource("1_p1tb3")
 
-[node name="World" parent="." instance=ExtResource("9_w4srd")]
+[node name="World" parent="." instance=ExtResource("2_bb7rw")]
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3
@@ -24,35 +24,36 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BattleUI" type="Control" parent="GUI"]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("3")
+script = ExtResource("3_ur4ey")
 
 [node name="UnitsUI" type="Control" parent="GUI/BattleUI"]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("11")
+script = ExtResource("4_bhut4")
 path_camera = NodePath("")
 
 [node name="TimePointsUI" type="Control" parent="GUI/BattleUI"]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("8")
+script = ExtResource("5_8dsqb")
 
 [node name="ProgressBarHint" type="ProgressBar" parent="GUI/BattleUI/TimePointsUI"]
 modulate = Color(1, 1, 1, 0.509804)
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -64,6 +65,7 @@ value = 26.77
 
 [node name="ProgressBar" type="ProgressBar" parent="GUI/BattleUI/TimePointsUI"]
 modulate = Color(1, 1, 1, 0.309804)
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -75,6 +77,7 @@ value = 36.42
 
 [node name="BtnMoveUnit" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -84,11 +87,12 @@ offset_right = 220.0
 offset_bottom = -40.0
 grow_vertical = 0
 toggle_mode = true
-shortcut = ExtResource("4")
+shortcut = ExtResource("6_yd1b5")
 text = "Move (W)"
 
 [node name="BtnUnitAim" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -98,11 +102,12 @@ offset_right = 440.0
 offset_bottom = -40.0
 grow_vertical = 0
 toggle_mode = true
-shortcut = ExtResource("5")
+shortcut = ExtResource("7_plqe3")
 text = "Aim (Shift)"
 
 [node name="BtnUnitReload" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -111,11 +116,12 @@ offset_top = -100.0
 offset_right = 660.0
 offset_bottom = -40.0
 grow_vertical = 0
-shortcut = ExtResource("6")
+shortcut = ExtResource("8_oxv7h")
 text = "Reload (R)"
 
 [node name="BtnNextTurn" type="Button" parent="GUI/BattleUI"]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -127,11 +133,12 @@ offset_right = -20.0
 offset_bottom = -40.0
 grow_horizontal = 0
 grow_vertical = 0
-shortcut = ExtResource("7")
+shortcut = ExtResource("9_nq4bl")
 text = "Next Turn (T)"
 
 [node name="LabelAmmo" type="Label" parent="GUI/BattleUI"]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0

@@ -40,6 +40,7 @@ func try_move(raycast_result, input_event: InputEventMouseButton, cur_unit_actio
 
 
 func move_unit(path: PackedVector2Array):
+	
 	print(path)
 	var price_time_points = get_move_price(path)
 	if not TurnManager.can_spend_time_points(price_time_points):

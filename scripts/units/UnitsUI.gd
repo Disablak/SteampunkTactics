@@ -7,11 +7,11 @@ extends Control
 var units_ui = {}
 var label_tooltip := Label.new()
 
-const UI_OFFSET = Vector2(-30, -30)
+const UI_OFFSET = -Globals.CELL_OFFSET + Vector2(0, -20)
 
 
 func _ready() -> void:
-	await get_tree().root.ready
+	#await get_tree().root.ready
 
 	GlobalBus.connect(GlobalBus.on_unit_change_health_name, Callable(self, "_update_unit_info"))
 	GlobalBus.connect(GlobalBus.on_unit_changed_walk_distance_name, Callable(self, "_update_unit_info"))
@@ -31,8 +31,8 @@ func _process(delta: float) -> void:
 			_delete_unit_ui(id)
 			break
 		
-		var point_3d = GlobalUnits.units[id].unit_object.get_node("PositionUI")
-		var position_in_ui = camera.unproject_position(point_3d.global_transform.origin)
+		var point = GlobalUnits.units[id].unit_object
+		var position_in_ui = point.position
 		units_ui[id].position = position_in_ui + UI_OFFSET
 
 

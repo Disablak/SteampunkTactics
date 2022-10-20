@@ -1,0 +1,98 @@
+[gd_scene load_steps=19 format=3 uid="uid://bi6s273hnyh6g"]
+
+[ext_resource type="Texture2D" uid="uid://b6bldh7ukfv6p" path="res://content/sprites/terrain atlas.png" id="1_lwnrx"]
+[ext_resource type="Script" path="res://scenes/2d/World2D.gd" id="1_vidxh"]
+[ext_resource type="Script" path="res://scripts/utils/UnitsManager.gd" id="2_1pgd0"]
+[ext_resource type="Script" path="res://scripts/2d/CellObject.gd" id="2_dpl01"]
+[ext_resource type="Script" path="res://scenes/2d/Pathfinding.gd" id="3_0wwuy"]
+[ext_resource type="Resource" path="res://data/settings/unit/unit_setting0.tres" id="3_5rc2h"]
+[ext_resource type="Resource" uid="uid://mn2771n5e5qo" path="res://data/settings/unit/unit_setting_enemy.tres" id="4_8ur0q"]
+[ext_resource type="PackedScene" uid="uid://2ikcthg31xdg" path="res://scenes/2d/UnitObject.tscn" id="8_u5vun"]
+[ext_resource type="Script" path="res://scripts/units_manager/WalkingModule.gd" id="9_42fdl"]
+[ext_resource type="Script" path="res://scripts/InputSystem.gd" id="10_yja2f"]
+[ext_resource type="Script" path="res://scripts/2d/ShootingModule2d.gd" id="10_yumpn"]
+[ext_resource type="Script" path="res://scripts/CameraController.gd" id="11_sv5rh"]
+[ext_resource type="Script" path="res://scripts/Raycaster.gd" id="12_pdk27"]
+
+[sub_resource type="Resource" id="Resource_wx4au"]
+script = ExtResource("2_dpl01")
+atlas_coords = null
+obj_type = 1
+
+[sub_resource type="Resource" id="Resource_77dc4"]
+script = ExtResource("2_dpl01")
+atlas_coords = Vector2i(2, 0)
+obj_type = 2
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_plu3x"]
+texture = ExtResource("1_lwnrx")
+texture_region_size = Vector2i(64, 64)
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+1:0/0 = 0
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_0yjwk"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_plu3x")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pp6uq"]
+atlas = ExtResource("1_lwnrx")
+region = Rect2(64, 64, 64, 64)
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_vidxh")
+
+[node name="UnitsManager" type="Node2D" parent="."]
+script = ExtResource("2_1pgd0")
+units_data = [ExtResource("3_5rc2h"), ExtResource("4_8ur0q")]
+unit_objects = [NodePath("UnitObject0"), NodePath("UnitObject1")]
+
+[node name="Pathfinding" type="Node2D" parent="UnitsManager"]
+script = ExtResource("3_0wwuy")
+cell_objects = [SubResource("Resource_wx4au"), SubResource("Resource_77dc4")]
+
+[node name="TileMap" type="TileMap" parent="UnitsManager/Pathfinding"]
+tile_set = SubResource("TileSet_0yjwk")
+format = 2
+layer_0/name = "Base"
+layer_0/tile_data = PackedInt32Array(65537, 131072, 0, 65538, 131072, 0, 131073, 131072, 0, 983041, 131072, 0, 917505, 131072, 0, 851969, 131072, 0, 786433, 131072, 0, 983042, 131072, 0, 983043, 131072, 0, 983044, 131072, 0, 983045, 131072, 0, 983046, 131072, 0, 983047, 131072, 0, 983048, 131072, 0, 983050, 131072, 0, 983051, 131072, 0, 983052, 131072, 0, 983053, 131072, 0, 983054, 131072, 0, 983055, 131072, 0, 983056, 131072, 0, 983057, 131072, 0, 983058, 131072, 0, 983059, 131072, 0, 983060, 131072, 0, 983061, 131072, 0, 983062, 131072, 0, 983063, 131072, 0, 983064, 131072, 0, 983065, 131072, 0, 983066, 131072, 0, 983067, 131072, 0, 983068, 131072, 0, 917532, 131072, 0, 851996, 131072, 0, 786460, 131072, 0, 720924, 131072, 0, 655388, 131072, 0, 589852, 131072, 0, 524316, 131072, 0, 458780, 131072, 0, 393244, 131072, 0, 327708, 131072, 0, 262172, 131072, 0, 196636, 131072, 0, 131100, 131072, 0, 65564, 131072, 0, 65563, 131072, 0, 65562, 131072, 0, 65561, 131072, 0, 65560, 131072, 0, 65559, 131072, 0, 65558, 131072, 0, 65557, 131072, 0, 65556, 131072, 0, 65555, 131072, 0, 65554, 131072, 0, 65553, 131072, 0, 65552, 131072, 0, 65551, 131072, 0, 65550, 131072, 0, 65549, 131072, 0, 65548, 131072, 0, 65547, 131072, 0, 65546, 131072, 0, 65545, 131072, 0, 65544, 131072, 0, 65543, 131072, 0, 65542, 131072, 0, 65541, 131072, 0, 65540, 131072, 0, 65539, 131072, 0, 196609, 131072, 0, 262145, 131072, 0, 327681, 131072, 0, 393217, 131072, 0, 458753, 131072, 0, 524289, 131072, 0, 589825, 131072, 0, 655361, 131072, 0, 720897, 131072, 0, 524300, 0, 0, 458764, 0, 0, 393228, 0, 0, 327692, 0, 0, 262156, 0, 0, 196620, 0, 0, 131084, 0, 0, 131083, 0, 0, 131082, 0, 0, 131081, 0, 0, 131080, 0, 0, 131079, 0, 0, 131078, 0, 0, 131077, 0, 0, 131076, 0, 0, 131075, 0, 0, 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 0, 0, 393218, 0, 0, 458754, 0, 0, 524290, 0, 0, 589826, 0, 0, 655362, 0, 0, 720898, 0, 0, 786434, 0, 0, 851970, 0, 0, 917506, 0, 0, 917507, 0, 0, 851971, 0, 0, 786435, 0, 0, 720899, 0, 0, 655363, 0, 0, 589827, 0, 0, 524291, 0, 0, 458755, 0, 0, 393219, 0, 0, 327683, 0, 0, 262147, 0, 0, 196611, 0, 0, 196612, 0, 0, 262148, 0, 0, 327684, 0, 0, 393220, 0, 0, 458756, 0, 0, 524292, 0, 0, 589828, 0, 0, 655364, 0, 0, 720900, 0, 0, 786436, 0, 0, 851972, 0, 0, 917508, 0, 0, 917509, 0, 0, 851973, 0, 0, 786437, 0, 0, 720901, 0, 0, 655365, 0, 0, 589829, 0, 0, 524293, 0, 0, 458757, 0, 0, 393221, 65536, 0, 327685, 0, 0, 262149, 0, 0, 196613, 0, 0, 196614, 0, 0, 262150, 0, 0, 327686, 0, 0, 393222, 0, 0, 458758, 0, 0, 524294, 0, 0, 589830, 0, 0, 655366, 0, 0, 720902, 0, 0, 786438, 0, 0, 851974, 0, 0, 917510, 0, 0, 917511, 0, 0, 851975, 0, 0, 786439, 0, 0, 720903, 0, 0, 655367, 0, 0, 589831, 0, 0, 524295, 0, 0, 458759, 0, 0, 393223, 0, 0, 327687, 0, 0, 262151, 0, 0, 196615, 0, 0, 196616, 0, 0, 262152, 0, 0, 327688, 0, 0, 393224, 0, 0, 458760, 0, 0, 524296, 0, 0, 589832, 0, 0, 655368, 0, 0, 720904, 0, 0, 786440, 0, 0, 851976, 0, 0, 917512, 0, 0, 917513, 0, 0, 851977, 0, 0, 786441, 0, 0, 720905, 65536, 0, 655369, 0, 0, 589833, 0, 0, 524297, 0, 0, 458761, 0, 0, 393225, 0, 0, 327689, 0, 0, 262153, 0, 0, 196617, 0, 0, 196618, 0, 0, 262154, 0, 0, 327690, 0, 0, 393226, 0, 0, 458762, 0, 0, 524298, 0, 0, 589834, 0, 0, 655370, 0, 0, 720906, 0, 0, 786442, 0, 0, 851978, 0, 0, 917514, 0, 0, 917515, 0, 0, 851979, 0, 0, 786443, 0, 0, 720907, 0, 0, 655371, 0, 0, 589835, 0, 0, 524299, 0, 0, 458763, 0, 0, 393227, 0, 0, 327691, 0, 0, 262155, 0, 0, 196619, 0, 0, 589836, 0, 0, 655372, 0, 0, 720908, 0, 0, 786444, 0, 0, 851980, 0, 0, 917516, 0, 0, 917517, 0, 0, 851981, 0, 0, 786445, 0, 0, 720909, 0, 0, 655373, 0, 0, 589837, 0, 0, 524301, 0, 0, 458765, 0, 0, 393229, 65536, 0, 327693, 0, 0, 262157, 0, 0, 196621, 0, 0, 131085, 0, 0, 131086, 0, 0, 196622, 0, 0, 262158, 0, 0, 327694, 0, 0, 393230, 0, 0, 458766, 0, 0, 524302, 0, 0, 589838, 0, 0, 655374, 0, 0, 720910, 0, 0, 786446, 0, 0, 851982, 0, 0, 917518, 0, 0, 917519, 0, 0, 851983, 0, 0, 786447, 0, 0, 720911, 0, 0, 655375, 0, 0, 589839, 0, 0, 524303, 0, 0, 458767, 0, 0, 393231, 0, 0, 327695, 0, 0, 262159, 0, 0, 196623, 0, 0, 131087, 0, 0, 131088, 0, 0, 196624, 0, 0, 262160, 0, 0, 327696, 0, 0, 393232, 0, 0, 458768, 0, 0, 524304, 0, 0, 589840, 0, 0, 655376, 0, 0, 720912, 0, 0, 786448, 0, 0, 851984, 0, 0, 917520, 0, 0, 917521, 0, 0, 851985, 0, 0, 786449, 0, 0, 720913, 0, 0, 655377, 0, 0, 589841, 0, 0, 524305, 0, 0, 458769, 0, 0, 393233, 0, 0, 327697, 0, 0, 262161, 0, 0, 196625, 0, 0, 131089, 0, 0, 131090, 0, 0, 196626, 0, 0, 262162, 0, 0, 327698, 0, 0, 393234, 0, 0, 458770, 0, 0, 524306, 0, 0, 589842, 0, 0, 655378, 0, 0, 720914, 0, 0, 786450, 0, 0, 851986, 0, 0, 917522, 0, 0, 917523, 0, 0, 851987, 0, 0, 786451, 0, 0, 720915, 0, 0, 655379, 65536, 0, 589843, 0, 0, 524307, 0, 0, 458771, 0, 0, 393235, 0, 0, 327699, 0, 0, 262163, 0, 0, 196627, 0, 0, 131091, 0, 0, 131092, 0, 0, 196628, 0, 0, 262164, 0, 0, 327700, 0, 0, 393236, 0, 0, 458772, 0, 0, 524308, 0, 0, 589844, 0, 0, 655380, 0, 0, 720916, 0, 0, 786452, 0, 0, 851988, 0, 0, 917524, 0, 0, 917525, 0, 0, 851989, 0, 0, 786453, 0, 0, 720917, 0, 0, 655381, 0, 0, 589845, 0, 0, 524309, 0, 0, 458773, 0, 0, 393237, 0, 0, 327701, 0, 0, 262165, 0, 0, 196629, 0, 0, 131093, 0, 0, 131094, 0, 0, 196630, 0, 0, 262166, 0, 0, 327702, 0, 0, 393238, 0, 0, 458774, 0, 0, 524310, 0, 0, 589846, 0, 0, 655382, 0, 0, 720918, 0, 0, 786454, 0, 0, 851990, 0, 0, 917526, 0, 0, 917527, 0, 0, 851991, 0, 0, 786455, 0, 0, 720919, 0, 0, 655383, 0, 0, 589847, 0, 0, 524311, 0, 0, 458775, 0, 0, 393239, 0, 0, 327703, 65536, 0, 262167, 0, 0, 196631, 0, 0, 131095, 0, 0, 131096, 0, 0, 196632, 0, 0, 262168, 0, 0, 327704, 0, 0, 393240, 0, 0, 458776, 0, 0, 524312, 0, 0, 589848, 0, 0, 655384, 0, 0, 720920, 0, 0, 786456, 0, 0, 851992, 0, 0, 917528, 0, 0, 917529, 0, 0, 851993, 0, 0, 786457, 65536, 0, 720921, 0, 0, 655385, 0, 0, 589849, 0, 0, 524313, 0, 0, 458777, 0, 0, 393241, 0, 0, 327705, 0, 0, 262169, 0, 0, 196633, 0, 0, 131097, 0, 0, 131098, 0, 0, 196634, 0, 0, 262170, 0, 0, 327706, 0, 0, 393242, 0, 0, 458778, 0, 0, 524314, 0, 0, 589850, 0, 0, 655386, 0, 0, 720922, 0, 0, 786458, 0, 0, 851994, 0, 0, 917530, 0, 0, 917531, 0, 0, 851995, 0, 0, 786459, 0, 0, 720923, 0, 0, 655387, 0, 0, 589851, 0, 0, 524315, 0, 0, 458779, 0, 0, 393243, 0, 0, 327707, 0, 0, 262171, 0, 0, 196635, 0, 0, 131099, 0, 0, 983049, 131072, 0)
+
+[node name="UnitObject0" parent="UnitsManager" instance=ExtResource("8_u5vun")]
+position = Vector2(163, 168)
+
+[node name="UnitObject1" parent="UnitsManager" instance=ExtResource("8_u5vun")]
+position = Vector2(1503, 429)
+
+[node name="Sprite2d" parent="UnitsManager/UnitObject1" index="0"]
+texture = SubResource("AtlasTexture_pp6uq")
+
+[node name="WalkingModule" type="Node2D" parent="UnitsManager"]
+script = ExtResource("9_42fdl")
+
+[node name="ShootingModule" type="Node2D" parent="UnitsManager"]
+script = ExtResource("10_yumpn")
+
+[node name="Line2d" type="Line2D" parent="UnitsManager"]
+
+[node name="InputSystem" type="Node2D" parent="."]
+script = ExtResource("10_yja2f")
+
+[node name="CameraController" type="Node2D" parent="InputSystem"]
+position = Vector2(960, 540)
+script = ExtResource("11_sv5rh")
+
+[node name="Camera2d" type="Camera2D" parent="InputSystem/CameraController"]
+current = true
+
+[node name="Raycaster" type="Node2D" parent="InputSystem"]
+script = ExtResource("12_pdk27")
+
+[connection signal="on_clicked_cell" from="UnitsManager/Pathfinding" to="UnitsManager" method="_on_pathfinding_on_clicked_cell"]
+[connection signal="on_hovered_cell" from="UnitsManager/Pathfinding" to="UnitsManager" method="_on_pathfinding_on_hovered_cell"]
+[connection signal="on_mouse_click" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_click"]
+[connection signal="on_mouse_hover" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_hover"]
+
+[editable path="UnitsManager/UnitObject1"]

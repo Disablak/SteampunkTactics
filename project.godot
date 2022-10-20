@@ -114,10 +114,10 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://scripts/units/ShootingSystem/ShootData.gd"
 }, {
-"base": "RefCounted",
+"base": "Node2D",
 "class": &"ShootingModule",
 "language": &"GDScript",
-"path": "res://scripts/units_manager/ShootingModule.gd"
+"path": "res://scripts/2d/ShootingModule2d.gd"
 }, {
 "base": "Node",
 "class": &"Unit",
@@ -195,7 +195,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Strategy Steam Punk"
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 

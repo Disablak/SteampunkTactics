@@ -60,6 +60,7 @@ func get_path_to_point(from : Vector2i, to : Vector2i) -> PackedVector2Array:
 func get_cell_obj(cell_pos : Vector2i) -> CellObject:
 	for cell_obj in cell_objects:
 		var atlas_coords := tilemap.get_cell_atlas_coords(TILEMAP_LAYER, cell_pos)
+		var tile_data := tilemap.get_cell_tile_data(TILEMAP_LAYER, cell_pos)
 		if atlas_coords == cell_obj.atlas_coords:
 			return cell_obj
 	
@@ -94,13 +95,17 @@ func set_hover_info_cell_obj(hover_info):
 	return hover_info
 
 
+func get_cell_pos(mouse_pos: Vector2):
+	var convert
+
+
 func _on_input_system_on_mouse_hover(hover_info) -> void:
 	on_hovered_cell.emit(set_hover_info_cell_obj(hover_info))
 
 
 func _on_input_system_on_mouse_click(hover_info) -> void:
 	hover_info = set_hover_info_cell_obj(hover_info)
-	var unit_on_cell: Unit = get_unit_on_cell(hover_info.pos)
+	var unit_on_cell: Unit = get_unit_on_cell(Globals.convert_to_tile_pos(hover_info.pos))
 	if unit_on_cell:
 		hover_info.unit_id = unit_on_cell.id
 	

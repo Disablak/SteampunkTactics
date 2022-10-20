@@ -54,7 +54,7 @@ static func get_total_distance(points: PackedVector2Array) -> float:
 	return distance
 
 static func convert_to_tile_pos(rect_pos : Vector2) -> Vector2:
-	return rect_pos / CELL_SIZE
+	return floor(rect_pos / CELL_SIZE)
 
 static func convert_to_rect_pos(tile_pos : Vector2) -> Vector2:
 	return tile_pos * CELL_SIZE + CELL_OFFSET
