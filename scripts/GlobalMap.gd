@@ -1,5 +1,5 @@
 extends Node
 
 
-var world : World
+var world : MyWorld
 var raycaster : Raycaster

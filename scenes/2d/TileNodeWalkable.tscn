@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bl8mjd5oq6mgq"]
+
+[ext_resource type="PackedScene" uid="uid://banafdl7532kg" path="res://scenes/2d/TileNode.tscn" id="1_7pj3c"]
+[ext_resource type="Texture2D" uid="uid://b6bldh7ukfv6p" path="res://content/sprites/terrain atlas.png" id="2_e3cav"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jv7sa"]
+atlas = ExtResource("2_e3cav")
+region = Rect2(0, 0, 64, 64)
+
+[node name="TileNodeWalkable" instance=ExtResource("1_7pj3c")]
+position = Vector2(0, 0)
+
+[node name="Sprite2D" parent="." index="0"]
+modulate = Color(0.188235, 0.376471, 0.8, 0.776471)
+rotation = 0.00124391
+texture = SubResource("AtlasTexture_jv7sa")

@@ -1,18 +1,25 @@
+class_name MyWorld
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
+@onready var units_manager: UnitsManager = $UnitsManager as UnitsManager
+
+
 func _ready() -> void:
-	pass
+	GlobalMap.world = self
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_btn_unit_reload_button_down() -> void:
+	units_manager.reload_weapon()
 
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		pass
+func _on_btn_next_turn_button_down() -> void:
+	units_manager.next_unit()
 
 
+func _on_btn_move_unit_toggled(button_pressed: bool) -> void:
+	units_manager.change_unit_action(Globals.UnitAction.WALK, button_pressed)
+
+
+func _on_btn_unit_aim_toggled(button_pressed: bool) -> void:
+	units_manager.change_unit_action(Globals.UnitAction.SHOOT, button_pressed)

@@ -1,6 +1,4 @@
-res://scenes/Main.tscn
-res://data/settings/shortcuts/ShortcutMove.tres
-res://data/settings/shortcuts/ShortcutAim.tres
+res://scenes/2d/World2d.tscn
 res://data/settings/weapon/weapon0.tres
-res://Main.tscn
-res://scripts/units/UnitsUI.gd
+res://data/settings/unit/unit_setting0.tres
+res://scripts/units_manager/WalkingModule.gd

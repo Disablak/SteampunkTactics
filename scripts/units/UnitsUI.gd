@@ -11,12 +11,9 @@ const UI_OFFSET = -Globals.CELL_OFFSET + Vector2(0, -20)
 
 
 func _ready() -> void:
-	#await get_tree().root.ready
-
-	GlobalBus.connect(GlobalBus.on_unit_change_health_name, Callable(self, "_update_unit_info"))
-	GlobalBus.connect(GlobalBus.on_unit_changed_walk_distance_name, Callable(self, "_update_unit_info"))
-	GlobalBus.connect(GlobalBus.on_hovered_unit_in_shooting_mode_name, Callable(self, "_on_hovered_unit_in_shooting_mode"))
-	
+	GlobalBus.on_unit_change_health.connect(_update_unit_info)
+	GlobalBus.on_unit_changed_walk_distance.connect(_update_unit_info)
+	GlobalBus.on_hovered_unit_in_shooting_mode.connect(_on_hovered_unit_in_shooting_mode)
 	
 	add_child(label_tooltip)
 	show_tooltip(false, Vector3.ZERO, "")
@@ -29,9 +26,13 @@ func _process(delta: float) -> void:
 	for id in units_ui.keys():
 		if not GlobalUnits.units.has(id):
 			_delete_unit_ui(id)
-			break
+			return
 		
 		var point = GlobalUnits.units[id].unit_object
+		if point == null:
+			_delete_unit_ui(id)
+			return
+		
 		var position_in_ui = point.position
 		units_ui[id].position = position_in_ui + UI_OFFSET
 

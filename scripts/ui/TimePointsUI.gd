@@ -6,8 +6,8 @@ extends Control
 
 
 func _ready() -> void:
-	GlobalBus.connect(GlobalBus.on_changed_time_points_name,Callable(self,"_on_changed_time_points"))
-	GlobalBus.connect(GlobalBus.on_hint_time_points_name,Callable(self,"_on_hint_time_points"))
+	GlobalBus.on_changed_time_points.connect(_on_changed_time_points)
+	GlobalBus.on_hint_time_points.connect(_on_hint_time_points)
 	
 	progress_bar.value = TurnManager.cur_time_points
 	progress_bar_hint.value = TurnManager.cur_time_points

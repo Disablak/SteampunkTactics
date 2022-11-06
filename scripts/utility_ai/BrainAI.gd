@@ -1,15 +1,10 @@
 class_name BrainAI
-extends Node
+extends Node2D
 
 
 @export var available_actions: Array
 
 var is_moved := false
-
-
-func start_brain():
-	#is_moved = false
-	pass
 
 
 func decide_best_action_and_execute():

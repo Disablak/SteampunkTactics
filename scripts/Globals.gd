@@ -24,7 +24,7 @@ enum MouseHoverType{
 }
 
 const GRID_STEP = 1.0
-const CURVE_X_METERS = 40
+const CURVE_X_METERS = 3000
 const CELL_SIZE := 64
 const CELL_OFFSET := Vector2(CELL_SIZE / 2, CELL_SIZE / 2)
 

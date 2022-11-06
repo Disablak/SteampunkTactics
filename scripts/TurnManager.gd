@@ -30,10 +30,10 @@ func restore_time_points():
 
 
 func show_hint_spend_points(spend_points: int):
-	GlobalBus.emit_signal(GlobalBus.on_hint_time_points_name, cur_time_points - spend_points, max_time_points)
+	GlobalBus.on_hint_time_points.emit(cur_time_points - spend_points, max_time_points)
 
 
 func _set_time_points(type_spend_action, value: int):
 	cur_time_points = value
-	GlobalBus.emit_signal(GlobalBus.on_changed_time_points_name, type_spend_action, cur_time_points, max_time_points)
-	GlobalBus.emit_signal(GlobalBus.on_hint_time_points_name, cur_time_points, max_time_points)
+	GlobalBus.on_changed_time_points.emit(type_spend_action, cur_time_points, max_time_points)
+	GlobalBus.on_hint_time_points.emit(cur_time_points, max_time_points)

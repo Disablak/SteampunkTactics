@@ -37,10 +37,10 @@ func set_damage(value, attacker_unit_id):
 		return
 	
 	cur_health -= value
-	GlobalBus.emit_signal(GlobalBus.on_unit_change_health_name, unit_id)
+	GlobalBus.on_unit_change_health.emit(unit_id)
 	
 	if cur_health <= 0:
-		GlobalBus.emit_signal(GlobalBus.on_unit_died_name, unit_id, attacker_unit_id)
+		GlobalBus.on_unit_died.emit(unit_id, attacker_unit_id)
 		print_debug("unit_died ", unit_id)
 
 
@@ -63,4 +63,4 @@ func spend_weapon_ammo(count = 1):
 
 func _set_weapon_ammo(value):
 	cur_weapon_ammo = value
-	GlobalBus.emit_signal(GlobalBus.on_unit_changed_ammo_name, unit_id, cur_weapon_ammo, weapon.ammo)
+	GlobalBus.on_unit_changed_ammo.emit(unit_id, cur_weapon_ammo, weapon.ammo)

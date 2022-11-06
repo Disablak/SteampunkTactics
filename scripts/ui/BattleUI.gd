@@ -8,12 +8,14 @@ extends Control
 
 
 func _ready() -> void:
-	# kostil
-	#await get_tree().create_timer(1.0).timeout
-	
-	GlobalBus.connect(GlobalBus.on_unit_changed_action_name,Callable(self,"_on_unit_change_action"))
-	GlobalBus.connect(GlobalBus.on_unit_changed_ammo_name,Callable(self,"_on_unit_changed_ammo"))
-	
+	GlobalBus.on_unit_changed_action.connect(_on_unit_change_action)
+	GlobalBus.on_unit_changed_ammo.connect(_on_unit_changed_ammo)
+	GlobalBus.on_setted_unit_control.connect(_update_unit_ammo)
+
+	_update_unit_ammo(-1, false)
+
+
+func _update_unit_ammo(unit_id, instantly):
 	var cur_unit_data: UnitData = GlobalUnits.get_cur_unit().unit_data
 	_on_unit_changed_ammo(cur_unit_data.unit_id, cur_unit_data.cur_weapon_ammo, cur_unit_data.weapon.ammo)
 

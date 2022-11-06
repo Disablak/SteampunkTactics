@@ -1,3 +1,4 @@
+class_name UnitsManager
 extends Node2D
 
 
@@ -8,6 +9,9 @@ extends Node2D
 @onready var walking: WalkingModule = $WalkingModule as WalkingModule
 @onready var shooting: ShootingModule = $ShootingModule as ShootingModule
 @onready var line2d: Line2D = $Line2d as Line2D
+@onready var effect_manager: EffectManager = $EffectManager as EffectManager
+@onready var raycaster: Raycaster = $Raycaster as Raycaster
+@onready var brain_ai: BrainAI = $BrainAI as BrainAI
 
 var units = null
 
@@ -17,17 +21,13 @@ var cur_unit_object: UnitObject
 
 var cur_unit_action = Globals.UnitAction.NONE
 
+
 func _ready() -> void:
-	walking.set_data(_on_finish_move)
+	walking.set_data(pathfinding, _on_finish_move)
 	
 	_init_units()
 	GlobalUnits.units_manager = self
 	GlobalUnits.calc_units_team()
-
-
-#func _process(delta: float) -> void:
-#	var pos = Globals.convert_to_tile_pos(cur_unit_object.position)
-#	print(pos)
 
 
 func _init_units():
@@ -96,17 +96,37 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	cur_unit_object = units[unit_id].unit_object
 	#cur_unit_object.unit_visual.make_outline_effect()
 	
-#	shooting_module.set_cur_unit(units[unit_id])
-##	shooting_module.create_shoot_data()
 	walking.set_cur_unit(units[unit_id])
 	
 	TurnManager.restore_time_points()
 	
-#	if not cur_unit_object.is_player_unit:
+	if cur_unit_data.unit_settings.is_enemy:
 #		brain_ai.start_brain()
 #		brain_ai.decide_best_action_and_execute()
+		pass
 	
-	GlobalBus.emit_signal(GlobalBus.on_setted_unit_control_name, cur_unit_object, camera_focus_instantly)
+	GlobalBus.on_setted_unit_control.emit(cur_unit_id, camera_focus_instantly)
+
+
+func change_unit_action(unit_action, enable):
+	var future_action
+	
+	if unit_action == cur_unit_action or not enable:
+		future_action = Globals.UnitAction.NONE;
+	else:
+		future_action = unit_action
+	
+	line2d.clear_points()
+	cur_unit_action = unit_action
+	GlobalBus.on_unit_changed_action.emit(cur_unit_id, unit_action)
+
+
+func reload_weapon():
+	if not TurnManager.can_spend_time_points(cur_unit_data.weapon.reload_price):
+		return
+	
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.RELOADING, cur_unit_data.weapon.reload_price)
+	cur_unit_data.reload_weapon()
 
 
 func _get_formatted_path(mouse_pos: Vector2) -> PackedVector2Array:
@@ -123,18 +143,16 @@ func _on_pathfinding_on_clicked_cell(hover_info) -> void:
 	if walking.is_unit_moving():
 		return
 	
-	if hover_info.unit_id == -1:
+	if cur_unit_action == Globals.UnitAction.WALK and hover_info.unit_id == -1:
 		var formatted_path: PackedVector2Array = _get_formatted_path(hover_info.pos)
 		walking.move_unit(formatted_path)
-	else:
-		shooting.shoot(units[cur_unit_id], units[hover_info.unit_id])
+	elif cur_unit_action == Globals.UnitAction.SHOOT and hover_info.unit_id != -1:
+		shooting.shoot(units[cur_unit_id], units[hover_info.unit_id], effect_manager, raycaster)
 
 
 func _on_pathfinding_on_hovered_cell(hover_info) -> void:
 	if walking.is_unit_moving():
 		return
 	
-	if hover_info.unit_id == -1:
+	if cur_unit_action == Globals.UnitAction.WALK and hover_info.unit_id == -1:
 		_draw_future_path(hover_info.pos)
-	else:
-		print("hover unit {0}".format([hover_info.unit_id]))
