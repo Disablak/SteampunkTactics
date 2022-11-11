@@ -118,6 +118,9 @@ func get_cell_pos(mouse_pos: Vector2):
 
 
 func get_walkable_cells(unit_pos: Vector2i, max_distance: int) -> PackedVector2Array:
+	if max_distance == 1:
+		return PackedVector2Array()
+	
 	var from_x : int = unit_pos.x - max_distance
 	var to_x : int   = unit_pos.x + max_distance
 	var from_y : int = unit_pos.y - max_distance

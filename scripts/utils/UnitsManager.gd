@@ -96,9 +96,10 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	cur_unit_object = units[unit_id].unit_object
 	#cur_unit_object.unit_visual.make_outline_effect()
 	
+	TurnManager.restore_time_points()
+	
 	walking.set_cur_unit(units[unit_id])
 	
-	TurnManager.restore_time_points()
 	
 	if cur_unit_data.unit_settings.is_enemy:
 #		brain_ai.start_brain()
@@ -117,7 +118,7 @@ func change_unit_action(unit_action, enable):
 		future_action = unit_action
 	
 	line2d.clear_points()
-	cur_unit_action = unit_action
+	cur_unit_action = future_action
 	GlobalBus.on_unit_changed_action.emit(cur_unit_id, unit_action)
 
 
