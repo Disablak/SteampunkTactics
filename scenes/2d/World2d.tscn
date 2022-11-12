@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bi6s273hnyh6g"]
+[gd_scene load_steps=26 format=3 uid="uid://bi6s273hnyh6g"]
 
 [ext_resource type="Texture2D" uid="uid://b6bldh7ukfv6p" path="res://content/sprites/terrain atlas.png" id="1_lwnrx"]
 [ext_resource type="Script" path="res://scenes/2d/World2D.gd" id="1_vidxh"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://scripts/Raycaster.gd" id="12_pdk27"]
 [ext_resource type="PackedScene" uid="uid://bncbloimsnrob" path="res://scenes/2d/Bullet2D.tscn" id="12_ri7ra"]
 [ext_resource type="Script" path="res://scripts/utility_ai/BrainAI.gd" id="15_y513k"]
+[ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/ActionMove.tres" id="17_gjgab"]
 
 [sub_resource type="Resource" id="Resource_wx4au"]
 script = ExtResource("2_dpl01")
@@ -98,7 +99,7 @@ script = ExtResource("12_pdk27")
 
 [node name="BrainAI" type="Node2D" parent="UnitsManager"]
 script = ExtResource("15_y513k")
-available_actions = []
+available_actions = [ExtResource("17_gjgab")]
 
 [node name="InputSystem" type="Node2D" parent="."]
 script = ExtResource("10_yja2f")

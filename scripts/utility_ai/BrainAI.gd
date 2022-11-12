@@ -4,8 +4,6 @@ extends Node2D
 
 @export var available_actions: Array
 
-var is_moved := false
-
 
 func decide_best_action_and_execute():
 	var best_action : Action = decide_best_action(available_actions)

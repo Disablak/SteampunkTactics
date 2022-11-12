@@ -1,10 +1,7 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bvwkx08fi3j4f"]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bvwkx08fi3j4f"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionMove.gd" id="1"]
-[ext_resource type="Resource" uid="uid://sbtr5iaf73yd" path="res://data/settings/utility ai/consideration/ConsiderNotInCover.tres" id="1_axidy"]
-[ext_resource type="Resource" uid="uid://d1h2buunwok2v" path="res://data/settings/utility ai/consideration/ConsiderTimePoints.tres" id="1_dcqxj"]
-[ext_resource type="Resource" uid="uid://iko7lmuc6jx6" path="res://data/settings/utility ai/consideration/ConsiderNearCover.tres" id="2_oa0l2"]
 
 [resource]
 script = ExtResource("1")
-considerations = [ExtResource("1_axidy"), ExtResource("2_oa0l2"), ExtResource("1_dcqxj")]
+considerations = []

@@ -57,7 +57,7 @@ func _on_finish_move() -> void:
 
 
 func _draw_future_path(mouse_pos):
-	var formatted_path: PackedVector2Array = _get_formatted_path(mouse_pos)
+	var formatted_path: PackedVector2Array = _get_path_to_mouse_pos(mouse_pos)
 	var distance = Globals.get_total_distance(formatted_path)
 	var move_price = cur_unit_data.get_move_price(distance)
 	var can_move = TurnManager.can_spend_time_points(move_price) 
@@ -94,17 +94,13 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	cur_unit_id = unit_id
 	cur_unit_data = units[unit_id].unit_data
 	cur_unit_object = units[unit_id].unit_object
-	#cur_unit_object.unit_visual.make_outline_effect()
-	
+
 	TurnManager.restore_time_points()
 	
 	walking.set_cur_unit(units[unit_id])
 	
-	
 	if cur_unit_data.unit_settings.is_enemy:
-#		brain_ai.start_brain()
-#		brain_ai.decide_best_action_and_execute()
-		pass
+		brain_ai.decide_best_action_and_execute()
 	
 	GlobalBus.on_setted_unit_control.emit(cur_unit_id, camera_focus_instantly)
 
@@ -130,11 +126,18 @@ func reload_weapon():
 	cur_unit_data.reload_weapon()
 
 
-func _get_formatted_path(mouse_pos: Vector2) -> PackedVector2Array:
+func try_move_unit_to_cell(cell_pos: Vector2):
+	walking.move_unit(_get_path_to_cell(cell_pos))
+
+
+func _get_path_to_mouse_pos(mouse_pos: Vector2) -> PackedVector2Array:
+	var cell_pos: Vector2 = Globals.convert_to_tile_pos(mouse_pos)
+	return _get_path_to_cell(cell_pos)
+
+
+func _get_path_to_cell(cell_pos: Vector2) -> PackedVector2Array:
 	var unit_pos: Vector2 = Globals.convert_to_tile_pos(cur_unit_object.position)
-	var target_pos: Vector2 = Globals.convert_to_tile_pos(mouse_pos)
-	
-	var path: PackedVector2Array = pathfinding.get_path_to_point(unit_pos, target_pos)
+	var path: PackedVector2Array = pathfinding.get_path_to_point(unit_pos, cell_pos)
 	var formatted_path: PackedVector2Array = Globals.convert_tile_points_to_rect(path)
 	
 	return formatted_path
@@ -145,8 +148,8 @@ func _on_pathfinding_on_clicked_cell(hover_info) -> void:
 		return
 	
 	if cur_unit_action == Globals.UnitAction.WALK and hover_info.unit_id == -1:
-		var formatted_path: PackedVector2Array = _get_formatted_path(hover_info.pos)
-		walking.move_unit(formatted_path)
+		var path : PackedVector2Array = _get_path_to_mouse_pos(hover_info.pos)
+		walking.move_unit(path)
 	elif cur_unit_action == Globals.UnitAction.SHOOT and hover_info.unit_id != -1:
 		shooting.shoot(units[cur_unit_id], units[hover_info.unit_id], effect_manager, raycaster)
 

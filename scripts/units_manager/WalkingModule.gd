@@ -11,6 +11,7 @@ var cur_unit_data: UnitData
 var tween_move: Tween
 var pathfinding: Pathfinding
 var callable_finish_move: Callable
+var cached_walking_cells: PackedVector2Array
 
 
 func set_data(pathfinding: Pathfinding, callable_finish_move: Callable):
@@ -67,9 +68,9 @@ func get_move_price(path : PackedVector2Array) -> int:
 func draw_walking_cells():
 	var unit_pos := Globals.convert_to_tile_pos(cur_unit_object.position)
 	var max_move_distance : int = int(TurnManager.cur_time_points / cur_unit_data.unit_settings.walk_speed) + 1
-	print(max_move_distance)
-	var walking_cells := pathfinding.get_walkable_cells(unit_pos, max_move_distance)
-	pathfinding.draw_walking_cells(walking_cells)
+	
+	cached_walking_cells = pathfinding.get_walkable_cells(unit_pos, max_move_distance)
+	pathfinding.draw_walking_cells(cached_walking_cells)
 
 
 func _move_via_points(points: PackedVector2Array):
