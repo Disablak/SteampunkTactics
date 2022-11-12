@@ -24,6 +24,7 @@ var cur_unit_action = Globals.UnitAction.NONE
 
 func _ready() -> void:
 	walking.set_data(pathfinding, _on_finish_move)
+	shooting.set_data(effect_manager, raycaster)
 	
 	_init_units()
 	GlobalUnits.units_manager = self
@@ -151,7 +152,7 @@ func _on_pathfinding_on_clicked_cell(hover_info) -> void:
 		var path : PackedVector2Array = _get_path_to_mouse_pos(hover_info.pos)
 		walking.move_unit(path)
 	elif cur_unit_action == Globals.UnitAction.SHOOT and hover_info.unit_id != -1:
-		shooting.shoot(units[cur_unit_id], units[hover_info.unit_id], effect_manager, raycaster)
+		shooting.shoot(units[cur_unit_id], units[hover_info.unit_id])
 
 
 func _on_pathfinding_on_hovered_cell(hover_info) -> void:

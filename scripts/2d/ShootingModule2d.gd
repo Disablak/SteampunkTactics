@@ -3,6 +3,8 @@ extends Node2D
 
 
 var random_number_generator: RandomNumberGenerator = null
+var effect_manager: EffectManager
+var raycaster: Raycaster
 
 
 func _ready() -> void:
@@ -10,7 +12,12 @@ func _ready() -> void:
 	random_number_generator.randomize()
 
 
-func shoot(shooter: Unit, enemy: Unit, effect_manager: EffectManager, raycaster: Raycaster):
+func set_data(effect_manager: EffectManager, raycaster: Raycaster):
+	self.effect_manager = effect_manager
+	self.raycaster = raycaster
+
+
+func shoot(shooter: Unit, enemy: Unit):
 	print("shoot")
 	
 	if shooter == enemy:

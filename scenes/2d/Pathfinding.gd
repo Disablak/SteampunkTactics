@@ -131,6 +131,9 @@ func get_walkable_cells(unit_pos: Vector2i, max_distance: int) -> PackedVector2A
 	for x in range(from_x, to_x + 1):
 		for y in range(from_y, to_y + 1):
 			var cell_pos := Vector2i(x, y)
+			if cell_pos == unit_pos:
+				continue
+			
 			if is_point_walkable(cell_pos):
 				if has_path(unit_pos, cell_pos):
 					if get_path_to_point(unit_pos, cell_pos).size() <= max_distance:

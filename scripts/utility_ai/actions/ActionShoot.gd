@@ -3,8 +3,8 @@ extends Action
 
 
 func execute_action():
-	var player: UnitObject = GlobalUnits.units[0].unit_object
-	GlobalUnits.units_controller.shooting_module.shoot(player)
+	var enemy: Unit = GlobalUnits.units[0]
+	GlobalUnits.units_manager.shooting.shoot(GlobalUnits.get_cur_unit(), enemy)
 
 
 func calc_time_points_price() -> int:

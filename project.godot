@@ -157,7 +157,7 @@ _global_script_classes=[{
 "base": "Node2D",
 "class": &"UnitsManager",
 "language": &"GDScript",
-"path": "res://scripts/utils/UnitsManager.gd"
+"path": "res://scripts/units_manager/UnitsManager.gd"
 }, {
 "base": "Node2D",
 "class": &"WalkingModule",
