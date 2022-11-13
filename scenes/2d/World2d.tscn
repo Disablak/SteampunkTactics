@@ -29,12 +29,12 @@ obj_type = 1
 
 [sub_resource type="Resource" id="Resource_xbsyj"]
 script = ExtResource("6_khaqo")
-atlas_coords = Vector2i(0, 1)
+atlas_coords = Vector2i(1, 0)
 obj_type = 2
 
 [sub_resource type="Resource" id="Resource_t1k6d"]
 script = ExtResource("6_khaqo")
-atlas_coords = Vector2i(0, 2)
+atlas_coords = Vector2i(2, 0)
 obj_type = 2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_plu3x"]

@@ -5,7 +5,6 @@ signal on_mouse_hover(hover_info: HoverInfo)
 signal on_mouse_click(hover_info: HoverInfo)
 signal on_drag(dir)
 
-@onready var camera = get_node("%Camera3D")
 @onready var hover_info = HoverInfo.new()
 
 const ray_length = 1000

@@ -23,7 +23,8 @@ func set_cur_unit(unit: Unit):
 	cur_unit_object = unit.unit_object
 	cur_unit_data = unit.unit_data
 	
-	draw_walking_cells()
+	if not unit.unit_data.unit_settings.is_enemy:
+		draw_walking_cells()
 
 
 func is_unit_moving() -> bool:

@@ -4,7 +4,7 @@ extends Node2D
 
 @export var bullet_scene: PackedScene
 
-const BULLET_SPEED = 20000
+const BULLET_SPEED = 5000
 
 
 func shoot(from: Unit, to: Unit):

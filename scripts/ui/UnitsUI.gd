@@ -1,8 +1,5 @@
 extends Control
 
-@export var path_camera: NodePath
-@onready var camera = get_node(path_camera)
-
 
 var units_ui = {}
 var label_tooltip := Label.new()
@@ -75,8 +72,8 @@ func show_tooltip(show, world_pos, text):
 	
 	label_tooltip.text = text
 	
-	var position_in_ui = camera.unproject_position(world_pos)
-	label_tooltip.position = position_in_ui
+	#var position_in_ui = camera.unproject_position(world_pos)
+	#label_tooltip.position = position_in_ui
 
 
 func _on_hovered_unit_in_shooting_mode(is_hover, world_pos, text) -> void:
