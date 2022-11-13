@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" uid="uid://kb64ymqs886p" path="res://content/props/tree/tree0 with texture.glb" id="1"]
+
+[node name="tree0" instance=ExtResource( 1 )]
+
+[node name="Cylinder" parent="." index="1"]
+transform = Transform3D( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.0482344, 0.470614, 0 )

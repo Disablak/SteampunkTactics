@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" uid="uid://dewk2jgluv04r" path="res://content/props/barel/barel.glb" id="1"]
+
+[node name="barel" instance=ExtResource( 1 )]

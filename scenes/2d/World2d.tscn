@@ -1,19 +1,19 @@
-[gd_scene load_steps=28 format=3 uid="uid://cpotcucs1t3bc"]
+[gd_scene load_steps=28 format=3 uid="uid://bf3yqmkn5tw17"]
 
 [ext_resource type="Texture2D" uid="uid://b6bldh7ukfv6p" path="res://content/sprites/terrain atlas.png" id="1_lwnrx"]
-[ext_resource type="Script" path="res://scenes/2d/World2D.gd" id="1_vidxh"]
+[ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
-[ext_resource type="Script" path="res://scripts/2d/CellObject.gd" id="2_dpl01"]
-[ext_resource type="Script" path="res://scenes/2d/Pathfinding.gd" id="3_0wwuy"]
+[ext_resource type="Script" path="res://scripts/Pathfinding.gd" id="3_0wwuy"]
 [ext_resource type="Resource" uid="uid://ce4x8ilct2imn" path="res://data/settings/unit/unit_setting0.tres" id="3_5rc2h"]
 [ext_resource type="Resource" uid="uid://mn2771n5e5qo" path="res://data/settings/unit/unit_setting_enemy.tres" id="4_8ur0q"]
+[ext_resource type="Script" path="res://scripts/cells/CellObject.gd" id="6_khaqo"]
 [ext_resource type="PackedScene" uid="uid://banafdl7532kg" path="res://scenes/2d/TileNode.tscn" id="8_6cw3x"]
 [ext_resource type="PackedScene" uid="uid://bl8mjd5oq6mgq" path="res://scenes/2d/TileNodeWalkable.tscn" id="8_lk1gh"]
 [ext_resource type="PackedScene" uid="uid://2ikcthg31xdg" path="res://scenes/2d/UnitObject.tscn" id="8_u5vun"]
 [ext_resource type="Script" path="res://scripts/units_manager/WalkingModule.gd" id="9_42fdl"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="10_yja2f"]
-[ext_resource type="Script" path="res://scripts/2d/ShootingModule2d.gd" id="10_yumpn"]
-[ext_resource type="Script" path="res://scripts/2d/EffectManager.gd" id="11_cpn0u"]
+[ext_resource type="Script" path="res://scripts/units_manager/ShootingModule.gd" id="10_yumpn"]
+[ext_resource type="Script" path="res://scripts/visual/EffectManager.gd" id="11_cpn0u"]
 [ext_resource type="Script" path="res://scripts/CameraController.gd" id="11_sv5rh"]
 [ext_resource type="Script" path="res://scripts/Raycaster.gd" id="12_pdk27"]
 [ext_resource type="PackedScene" uid="uid://bncbloimsnrob" path="res://scenes/2d/Bullet2D.tscn" id="12_ri7ra"]
@@ -22,19 +22,19 @@
 [ext_resource type="Resource" uid="uid://cogp64iiq2s6y" path="res://data/settings/utility ai/ActionReload.tres" id="18_8v7si"]
 [ext_resource type="Resource" uid="uid://cv0nsfwodcjy4" path="res://data/settings/utility ai/ActionShoot.tres" id="19_2d76o"]
 
-[sub_resource type="Resource" id="Resource_wx4au"]
-script = ExtResource("2_dpl01")
+[sub_resource type="Resource" id="Resource_w5cxt"]
+script = ExtResource("6_khaqo")
 atlas_coords = null
 obj_type = 1
 
-[sub_resource type="Resource" id="Resource_k7nu3"]
-script = ExtResource("2_dpl01")
-atlas_coords = Vector2i(1, 0)
+[sub_resource type="Resource" id="Resource_xbsyj"]
+script = ExtResource("6_khaqo")
+atlas_coords = Vector2i(0, 1)
 obj_type = 2
 
-[sub_resource type="Resource" id="Resource_77dc4"]
-script = ExtResource("2_dpl01")
-atlas_coords = Vector2i(2, 0)
+[sub_resource type="Resource" id="Resource_t1k6d"]
+script = ExtResource("6_khaqo")
+atlas_coords = Vector2i(0, 2)
 obj_type = 2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_plu3x"]
@@ -65,7 +65,7 @@ unit_objects = [NodePath("UnitObject0"), NodePath("UnitObject1")]
 
 [node name="Pathfinding" type="Node2D" parent="UnitsManager"]
 script = ExtResource("3_0wwuy")
-cell_objects = [SubResource("Resource_wx4au"), SubResource("Resource_k7nu3"), SubResource("Resource_77dc4")]
+cell_objects = [SubResource("Resource_w5cxt"), SubResource("Resource_xbsyj"), SubResource("Resource_t1k6d")]
 tile_node_scene = ExtResource("8_6cw3x")
 tile_walkable_scene = ExtResource("8_lk1gh")
 

@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://3ak620dmnets"]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_p1tb3"]
-[ext_resource type="PackedScene" uid="uid://bi6s273hnyh6g" path="res://scenes/2d/World2d.tscn" id="2_bb7rw"]
+[ext_resource type="PackedScene" path="res://scenes/2d/World2d.tscn" id="2_bb7rw"]
 [ext_resource type="Script" path="res://scripts/ui/BattleUI.gd" id="3_ur4ey"]
-[ext_resource type="Script" path="res://scripts/units/UnitsUI.gd" id="4_bhut4"]
+[ext_resource type="Script" path="res://scripts/ui/UnitsUI.gd" id="4_bhut4"]
 [ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="5_8dsqb"]
 [ext_resource type="Shortcut" uid="uid://b4ekl04mw6kx6" path="res://data/settings/shortcuts/ShortcutMove.tres" id="6_yd1b5"]
 [ext_resource type="Shortcut" uid="uid://bvgksghj38sf7" path="res://data/settings/shortcuts/ShortcutAim.tres" id="7_plqe3"]

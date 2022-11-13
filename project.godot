@@ -42,7 +42,7 @@ _global_script_classes=[{
 "base": "Resource",
 "class": &"CellObject",
 "language": &"GDScript",
-"path": "res://scripts/2d/CellObject.gd"
+"path": "res://scripts/cells/CellObject.gd"
 }, {
 "base": "Consideration",
 "class": &"ConsiderEnemyVisibility",
@@ -97,12 +97,12 @@ _global_script_classes=[{
 "base": "Node2D",
 "class": &"EffectManager",
 "language": &"GDScript",
-"path": "res://scripts/2d/EffectManager.gd"
+"path": "res://scripts/visual/EffectManager.gd"
 }, {
 "base": "Node2D",
 "class": &"MyWorld",
 "language": &"GDScript",
-"path": "res://scenes/2d/World2D.gd"
+"path": "res://scripts/World.gd"
 }, {
 "base": "Object",
 "class": &"NodeUtilities",
@@ -112,32 +112,22 @@ _global_script_classes=[{
 "base": "Node2D",
 "class": &"Pathfinding",
 "language": &"GDScript",
-"path": "res://scenes/2d/Pathfinding.gd"
+"path": "res://scripts/Pathfinding.gd"
 }, {
 "base": "Node2D",
 "class": &"Raycaster",
 "language": &"GDScript",
 "path": "res://scripts/Raycaster.gd"
 }, {
-"base": "RefCounted",
-"class": &"ShootData",
-"language": &"GDScript",
-"path": "res://scripts/units/ShootingSystem/ShootData.gd"
-}, {
 "base": "Node2D",
 "class": &"ShootingModule",
 "language": &"GDScript",
-"path": "res://scripts/2d/ShootingModule2d.gd"
+"path": "res://scripts/units_manager/ShootingModule.gd"
 }, {
 "base": "Node",
 "class": &"Unit",
 "language": &"GDScript",
 "path": "res://scripts/units/Unit.gd"
-}, {
-"base": "AnimationTree",
-"class": &"UnitAnimator",
-"language": &"GDScript",
-"path": "res://scripts/units/UnitAnimator.gd"
 }, {
 "base": "RefCounted",
 "class": &"UnitData",
@@ -168,11 +158,6 @@ _global_script_classes=[{
 "class": &"WeaponData",
 "language": &"GDScript",
 "path": "res://scripts/settings/WeaponData.gd"
-}, {
-"base": "Node3D",
-"class": &"World",
-"language": &"GDScript",
-"path": "res://scripts/World.gd"
 }]
 _global_script_class_icons={
 "Action": "",
@@ -197,17 +182,14 @@ _global_script_class_icons={
 "NodeUtilities": "",
 "Pathfinding": "",
 "Raycaster": "",
-"ShootData": "",
 "ShootingModule": "",
 "Unit": "",
-"UnitAnimator": "",
 "UnitData": "",
 "UnitObject": "",
 "UnitSettings": "",
 "UnitsManager": "",
 "WalkingModule": "",
-"WeaponData": "",
-"World": ""
+"WeaponData": ""
 }
 
 [application]
@@ -219,11 +201,11 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Globals="*res://scripts/Globals.gd"
-GlobalBus="*res://scripts/GlobalBus.gd"
-GlobalMap="*res://scripts/GlobalMap.gd"
-GlobalUnits="*res://scripts/GlobalUnits.gd"
-TurnManager="*res://scripts/TurnManager.gd"
+Globals="*res://scripts/globals/Globals.gd"
+GlobalBus="*res://scripts/globals/GlobalBus.gd"
+GlobalMap="*res://scripts/globals/GlobalMap.gd"
+GlobalUnits="*res://scripts/globals/GlobalUnits.gd"
+TurnManager="*res://scripts/units_manager/TurnManager.gd"
 
 [display]
 

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" uid="uid://b0mhelbkovja" path="res://content/models/player0/ybot.gltf" id="1"]
+
+[node name="ybot" instance=ExtResource( 1 )]
