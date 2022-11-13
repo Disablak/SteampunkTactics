@@ -195,7 +195,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Strategy Steam Punk"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 
