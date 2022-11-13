@@ -22,9 +22,6 @@ func set_data(pathfinding: Pathfinding, callable_finish_move: Callable):
 func set_cur_unit(unit: Unit):
 	cur_unit_object = unit.unit_object
 	cur_unit_data = unit.unit_data
-	
-	if not unit.unit_data.unit_settings.is_enemy:
-		draw_walking_cells()
 
 
 func is_unit_moving() -> bool:
@@ -74,6 +71,10 @@ func draw_walking_cells():
 	pathfinding.draw_walking_cells(cached_walking_cells)
 
 
+func clear_walking_cells():
+	pathfinding.clear_walking_cells()
+
+
 func _move_via_points(points: PackedVector2Array):
 	var cur_target_id = 0
 	
@@ -100,5 +101,5 @@ func _move_via_points(points: PackedVector2Array):
 
 func _on_unit_finished_move():
 	#cur_unit_object.unit_animator.play_anim(Globals.AnimationType.IDLE)
-	draw_walking_cells()
+	#draw_walking_cells()
 	callable_finish_move.call()

@@ -56,6 +56,7 @@ func _on_finish_move() -> void:
 #	shooting_module.create_shoot_data()
 #	_try_to_enemy_continue_turn()
 	line2d.clear_points()
+	walking.draw_walking_cells()
 
 
 func _draw_future_path(mouse_pos):
@@ -117,6 +118,12 @@ func change_unit_action(unit_action, enable):
 	
 	line2d.clear_points()
 	cur_unit_action = future_action
+	
+	if cur_unit_action == Globals.UnitAction.WALK:
+		walking.draw_walking_cells()
+	else:
+		walking.clear_walking_cells()
+	
 	GlobalBus.on_unit_changed_action.emit(cur_unit_id, unit_action)
 
 
