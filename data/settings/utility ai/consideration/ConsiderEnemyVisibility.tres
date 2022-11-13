@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd" id="1"]
 
-[sub_resource type="Curve" id="1"]
+[sub_resource type="Curve" id="Curve_xab0h"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
 [resource]
 script = ExtResource("1")
-response_curve = SubResource("1")
+response_curve = SubResource("Curve_xab0h")

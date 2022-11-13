@@ -29,6 +29,7 @@ func _ready() -> void:
 	_init_units()
 	GlobalUnits.units_manager = self
 	GlobalUnits.calc_units_team()
+	GlobalMap.raycaster = raycaster
 
 
 func _init_units():

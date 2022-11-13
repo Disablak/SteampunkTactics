@@ -73,7 +73,6 @@ func get_path_to_point(from : Vector2i, to : Vector2i) -> PackedVector2Array:
 func get_cell_obj(cell_pos : Vector2i) -> CellObject:
 	for cell_obj in cell_objects:
 		var atlas_coords := tilemap.get_cell_atlas_coords(TILEMAP_LAYER, cell_pos)
-		var tile_data := tilemap.get_cell_tile_data(TILEMAP_LAYER, cell_pos)
 		if atlas_coords == cell_obj.atlas_coords:
 			return cell_obj
 	

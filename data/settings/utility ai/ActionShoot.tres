@@ -7,4 +7,4 @@
 
 [resource]
 script = ExtResource("1")
-considerations = [ExtResource("1_p0ux1"), ExtResource("2_foala"), ExtResource("3_s8cqa")]
+considerations = [ExtResource("3_s8cqa"), ExtResource("2_foala"), ExtResource("1_p0ux1")]

@@ -14,3 +14,7 @@ position = Vector2(0, 0)
 modulate = Color(0.188235, 0.376471, 0.8, 0.776471)
 rotation = 0.00124391
 texture = SubResource("AtlasTexture_jv7sa")
+
+[node name="Area2D" parent="." index="1"]
+collision_layer = 0
+collision_mask = 0

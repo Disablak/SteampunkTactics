@@ -1,7 +1,8 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bvwkx08fi3j4f"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bvwkx08fi3j4f"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionMove.gd" id="1"]
+[ext_resource type="Resource" path="res://data/settings/utility ai/consideration/ConsiderEnemyNotVisibility.tres" id="1_abssk"]
 
 [resource]
 script = ExtResource("1")
-considerations = []
+considerations = [ExtResource("1_abssk")]
