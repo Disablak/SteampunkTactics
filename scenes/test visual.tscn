@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://derhpf5ajr74m"]
+
+[ext_resource type="Texture2D" uid="uid://b1w8sbgdq7jkr" path="res://content/sprites/template.png" id="1_g8hpp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jv3ff"]
+albedo_color = Color(0.294118, 0.294118, 0.294118, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1q1fa"]
+material = SubResource("StandardMaterial3D_jv3ff")
+size = Vector2(10, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2sqge"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0.018263, 0.396816, 0)
+alpha_cut = 2
+texture_filter = 4
+texture = ExtResource("1_g8hpp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.132285, 0)
+mesh = SubResource("PlaneMesh_1q1fa")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.884727, -0.310367, 0.347749, -7.41868e-10, 0.746069, 0.665869, -0.466109, -0.589112, 0.660068, 0.79148, 0.847383, 1.09741)
+shadow_enabled = true
+shadow_blur = 0.567
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.693024, 0, -0.720914, 0, 1, 0, 0.720914, 0, 0.693024, -2.25813, 0, 0.783485)
+mesh = SubResource("BoxMesh_2sqge")

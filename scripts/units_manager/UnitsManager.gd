@@ -19,7 +19,7 @@ var cur_unit_id = -1
 var cur_unit_data: UnitData
 var cur_unit_object: UnitObject
 
-var cur_unit_action = Globals.UnitAction.NONE
+var cur_unit_action: Globals.UnitAction = Globals.UnitAction.NONE
 
 
 func _ready() -> void:
@@ -57,6 +57,9 @@ func _on_finish_move() -> void:
 #	_try_to_enemy_continue_turn()
 	line2d.clear_points()
 	walking.draw_walking_cells()
+	
+	if cur_unit_data.unit_settings.is_enemy:
+		next_turn()
 
 
 func _draw_future_path(mouse_pos):
@@ -72,7 +75,7 @@ func _draw_future_path(mouse_pos):
 	for point in formatted_path:
 		line2d.add_point(point)
 
-func next_unit():
+func next_turn():
 	var next_unit_id = cur_unit_id + 1
 	if not units.has(next_unit_id):
 		next_unit_id = 0
@@ -92,6 +95,8 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	if not units.has(unit_id):
 		printerr("there are no unit with id {0}".format([unit_id]))
 		return
+	
+	print("next turn, cur unit {0}".format([unit_id]))
 	
 	GlobalUnits.cur_unit_id = unit_id
 	cur_unit_id = unit_id
