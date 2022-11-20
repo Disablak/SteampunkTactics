@@ -14,7 +14,7 @@ size = Vector2(10, 10)
 [node name="Node3D" type="Node3D"]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0.018263, 0.396816, 0)
+transform = Transform3D(1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0.018263, 0.396816, 0)
 alpha_cut = 2
 texture_filter = 4
 texture = ExtResource("1_g8hpp")
