@@ -28,7 +28,6 @@ func _ready() -> void:
 	
 	_init_units()
 	GlobalUnits.units_manager = self
-	GlobalUnits.calc_units_team()
 	GlobalMap.raycaster = raycaster
 
 
@@ -53,8 +52,6 @@ func _on_unit_died(unit_id, unit_id_killer):
 
 
 func _on_finish_move() -> void:
-#	shooting_module.create_shoot_data()
-#	_try_to_enemy_continue_turn()
 	line2d.clear_points()
 	walking.draw_walking_cells()
 	

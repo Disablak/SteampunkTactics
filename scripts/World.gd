@@ -4,6 +4,8 @@ extends Node2D
 
 @onready var units_manager: UnitsManager = $UnitsManager as UnitsManager
 
+var cached_visible_enemy: Unit = null
+
 
 func _ready() -> void:
 	GlobalMap.world = self
@@ -25,10 +27,27 @@ func _on_btn_unit_aim_toggled(button_pressed: bool) -> void:
 	units_manager.change_unit_action(Globals.UnitAction.SHOOT, button_pressed)
 
 
-func shoot_to_player():
-	var player: Unit = GlobalUnits.units[0] #todo hardcode
-	print("shoot! to player")
-	units_manager.shooting.shoot(GlobalUnits.get_cur_unit(), player)
+func try_find_any_visible_enemy(cur_unit: Unit) -> Unit:
+	var raycaster: Raycaster = GlobalMap.raycaster;
+	var all_enemies = GlobalUnits.get_units(!cur_unit.unit_data.unit_settings.is_enemy)
+	var nearest_enemy: Unit = null
+	var nearest_distance: float = 999_999_999
+	
+	for enemy in all_enemies:
+		var is_enemy_visible := raycaster.make_ray_check_no_obstacle(cur_unit.unit_object.position, enemy.unit_object.position)
+		if is_enemy_visible:
+			var distance := cur_unit.unit_object.position.distance_squared_to(enemy.unit_object.position)
+			if distance <= nearest_distance:
+				nearest_enemy = enemy
+				nearest_distance = distance
+	
+	cached_visible_enemy = nearest_enemy
+	return cached_visible_enemy
+
+
+func cur_unit_shoot_to_visible_enemy():
+	print("shoot! to unit_id - {0}".format([cached_visible_enemy.id]))
+	units_manager.shooting.shoot(GlobalUnits.get_cur_unit(), cached_visible_enemy)
 	units_manager.next_turn()
 
 

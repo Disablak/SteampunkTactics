@@ -12,6 +12,8 @@ var cur_weapon_ammo: int
 var enemy_data_ai : EnemyDataAI = null
 
 
+
+
 class EnemyDataAI:
 	var cur_cover_data = null
 

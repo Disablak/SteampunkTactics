@@ -3,7 +3,7 @@ extends Action
 
 
 func execute_action():
-	GlobalMap.world.shoot_to_player()
+	GlobalMap.world.cur_unit_shoot_to_visible_enemy()
 
 
 func calc_time_points_price() -> int:
