@@ -20,3 +20,11 @@ func get_units(enemies: bool) -> Array[Unit]:
 			result.push_back(unit)
 	
 	return result
+
+
+func remove_unit(unit_id: int):
+	if units.has(unit_id):
+		units.erase(unit_id)
+		print_debug("unit removed {0}".format([unit_id]))
+	else:
+		print_debug("unit {0} not exist".format([unit_id]))

@@ -23,6 +23,8 @@ var cur_unit_action: Globals.UnitAction = Globals.UnitAction.NONE
 
 
 func _ready() -> void:
+	GlobalBus.on_unit_died.connect(_on_unit_died)
+	
 	walking.set_data(pathfinding, _on_finish_move)
 	shooting.set_data(effect_manager, raycaster)
 	
@@ -47,8 +49,7 @@ func _init_units():
 
 
 func _on_unit_died(unit_id, unit_id_killer):
-	var unit = units[unit_id]
-	units.erase(unit_id)
+	GlobalUnits.remove_unit(unit_id)
 
 
 func _on_finish_move() -> void:
