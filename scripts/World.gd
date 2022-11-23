@@ -48,6 +48,9 @@ func try_find_any_visible_enemy(cur_unit: Unit) -> Unit:
 func cur_unit_shoot_to_visible_enemy():
 	print("shoot! to unit_id - {0}".format([cached_visible_enemy.id]))
 	units_manager.shooting.shoot(GlobalUnits.get_cur_unit(), cached_visible_enemy)
+	
+	await get_tree().create_timer(0.5).timeout
+	
 	units_manager.next_turn()
 
 
@@ -57,5 +60,8 @@ func walk_to_rand_cell():
 	
 	var walking_cells : PackedVector2Array = unit_walking.cached_walking_cells;
 	var random_cell := walking_cells[randi_range(0, walking_cells.size() - 1)]
-	
 	units_manager.try_move_unit_to_cell(random_cell)
+	
+	await unit_walking.on_finished_move
+	
+	units_manager.next_turn()

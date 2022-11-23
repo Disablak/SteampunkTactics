@@ -55,9 +55,6 @@ func _on_unit_died(unit_id, unit_id_killer):
 func _on_finish_move() -> void:
 	line2d.clear_points()
 	walking.draw_walking_cells()
-	
-	if cur_unit_data.unit_settings.is_enemy:
-		next_turn()
 
 
 func _draw_future_path(mouse_pos):
@@ -96,10 +93,14 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	
 	print("next turn, cur unit {0}".format([unit_id]))
 	
+	if cur_unit_object != null:
+		cur_unit_object.mark_selected(false)
+	
 	GlobalUnits.cur_unit_id = unit_id
 	cur_unit_id = unit_id
 	cur_unit_data = units[unit_id].unit_data
 	cur_unit_object = units[unit_id].unit_object
+	cur_unit_object.mark_selected(true)
 
 	TurnManager.restore_time_points()
 	

@@ -2,6 +2,8 @@ class_name WalkingModule
 extends Node2D
 
 
+signal on_finished_move()
+
 const ROTATION_SPEED = 10
 const MOVING_SPEED = 3
 
@@ -81,6 +83,7 @@ func _move_via_points(points: PackedVector2Array):
 	for point in points:
 		if cur_target_id == points.size() - 1:
 			_on_unit_finished_move()
+			on_finished_move.emit()
 			return
 		
 		var start_point = points[cur_target_id]
@@ -96,6 +99,7 @@ func _move_via_points(points: PackedVector2Array):
 		).from(start_point)
 		
 		cur_target_id += 1
+		
 		await tween_move.finished 
 
 
