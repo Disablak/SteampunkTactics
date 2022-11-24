@@ -56,7 +56,7 @@ func _on_unit_died(unit_id, unit_id_killer):
 
 
 func _on_finish_move() -> void:
-	line2d_manager.clear_line(PATH_LINE_NAME)
+	_clear_all_lines()
 	walking.draw_walking_cells()
 
 
@@ -68,7 +68,15 @@ func _draw_future_path(mouse_pos):
 	
 	TurnManager.show_hint_spend_points(move_price)
 	
+	_clear_all_lines()
+	
 	line2d_manager.draw_new_line(PATH_LINE_NAME, formatted_path, Color.FOREST_GREEN if can_move else Color.RED)
+	
+	var tile_pos = Globals.convert_to_rect_pos(Globals.convert_to_tile_pos(mouse_pos))
+	var enemies = GlobalUnits.get_units(!cur_unit_data.unit_settings.is_enemy)
+	for enemy in enemies:
+		var positions = raycaster.make_ray_and_get_positions(tile_pos, enemy.unit_object.position)
+		line2d_manager.draw_new_line(RAY_LINE_NAME, positions, Color.BLACK)
 
 
 func next_turn():
@@ -121,7 +129,7 @@ func change_unit_action(unit_action, enable):
 	else:
 		future_action = unit_action
 	
-	line2d_manager.clear_line(PATH_LINE_NAME)
+	_clear_all_lines()
 	cur_unit_action = future_action
 	
 	if cur_unit_action == Globals.UnitAction.WALK:
@@ -138,6 +146,11 @@ func reload_weapon():
 	
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.RELOADING, cur_unit_data.weapon.reload_price)
 	cur_unit_data.reload_weapon()
+
+
+func _clear_all_lines():
+	line2d_manager.clear_line(PATH_LINE_NAME)
+	line2d_manager.clear_line(RAY_LINE_NAME)
 
 
 func try_move_unit_to_cell(cell_pos: Vector2):
@@ -170,6 +183,15 @@ func _on_pathfinding_on_clicked_cell(hover_info) -> void:
 
 func _on_pathfinding_on_hovered_cell(hover_info) -> void:
 	if walking.is_unit_moving():
+		_clear_all_lines()
+		return
+	
+	if hover_info.cell_obj == null:
+		_clear_all_lines()
+		return
+	
+	if hover_info.cell_obj.obj_type != CellObject.AtlasObjectType.GROUND:
+		_clear_all_lines()
 		return
 	
 	if cur_unit_action == Globals.UnitAction.WALK and hover_info.unit_id == -1:

@@ -6,6 +6,9 @@ var all_lines = {} # String / Line2d
 
 
 func draw_new_line(name: String, points: PackedVector2Array, color: Color):
+	if points.size() == 0:
+		return
+	
 	var new_line_2d: Line2D = null
 	
 	if all_lines.has(name):

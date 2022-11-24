@@ -13,6 +13,18 @@ func make_ray_check_no_obstacle(from, to) -> bool:
 	return result.is_empty()
 
 
+func make_ray_and_get_positions(pos_from: Vector2, pos_to: Vector2) -> PackedVector2Array:
+	var ray_result = make_ray(pos_from, pos_to, OBSTACLE_MASK)
+	
+	if ray_result.is_empty():
+		var result = PackedVector2Array()
+		result.push_back(pos_from)
+		result.push_back(pos_to)
+		return result
+	else:
+		return PackedVector2Array()
+
+
 func make_ray(from, to, collsion_mask) -> Dictionary:
 	var space_state = get_world_2d().direct_space_state
 	var ray_query_params := PhysicsRayQueryParameters2D.create(from, to, collsion_mask) #[PhysicalBone3D, CollisionShape3D]
