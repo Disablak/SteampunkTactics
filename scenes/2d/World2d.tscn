@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bf3yqmkn5tw17"]
+[gd_scene load_steps=29 format=3 uid="uid://bf3yqmkn5tw17"]
 
 [ext_resource type="Texture2D" uid="uid://b6bldh7ukfv6p" path="res://content/sprites/terrain atlas.png" id="1_lwnrx"]
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
@@ -21,6 +21,7 @@
 [ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/ActionMove.tres" id="17_gjgab"]
 [ext_resource type="Resource" uid="uid://cogp64iiq2s6y" path="res://data/settings/utility ai/ActionReload.tres" id="18_8v7si"]
 [ext_resource type="Resource" uid="uid://cv0nsfwodcjy4" path="res://data/settings/utility ai/ActionShoot.tres" id="19_2d76o"]
+[ext_resource type="PackedScene" uid="uid://mau4pmjnw4jl" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
 
 [sub_resource type="Resource" id="Resource_w5cxt"]
 script = ExtResource("6_khaqo")
@@ -90,8 +91,6 @@ script = ExtResource("9_42fdl")
 [node name="ShootingModule" type="Node2D" parent="UnitsManager"]
 script = ExtResource("10_yumpn")
 
-[node name="Line2d" type="Line2D" parent="UnitsManager"]
-
 [node name="EffectManager" type="Node2D" parent="UnitsManager"]
 script = ExtResource("11_cpn0u")
 bullet_scene = ExtResource("12_ri7ra")
@@ -102,6 +101,8 @@ script = ExtResource("12_pdk27")
 [node name="BrainAI" type="Node2D" parent="UnitsManager"]
 script = ExtResource("15_y513k")
 available_actions = [ExtResource("17_gjgab"), ExtResource("18_8v7si"), ExtResource("19_2d76o")]
+
+[node name="Line2dManager" parent="UnitsManager" instance=ExtResource("20_syji7")]
 
 [node name="InputSystem" type="Node2D" parent="."]
 script = ExtResource("10_yja2f")

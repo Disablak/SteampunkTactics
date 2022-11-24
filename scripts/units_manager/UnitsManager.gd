@@ -8,10 +8,13 @@ extends Node2D
 @onready var pathfinding: Pathfinding = $Pathfinding as Pathfinding
 @onready var walking: WalkingModule = $WalkingModule as WalkingModule
 @onready var shooting: ShootingModule = $ShootingModule as ShootingModule
-@onready var line2d: Line2D = $Line2d as Line2D
+@onready var line2d_manager: Line2dManager = $Line2dManager as Line2dManager
 @onready var effect_manager: EffectManager = $EffectManager as EffectManager
 @onready var raycaster: Raycaster = $Raycaster as Raycaster
 @onready var brain_ai: BrainAI = $BrainAI as BrainAI
+
+const PATH_LINE_NAME = "path"
+const RAY_LINE_NAME = "ray"
 
 var units = null
 
@@ -53,7 +56,7 @@ func _on_unit_died(unit_id, unit_id_killer):
 
 
 func _on_finish_move() -> void:
-	line2d.clear_points()
+	line2d_manager.clear_line(PATH_LINE_NAME)
 	walking.draw_walking_cells()
 
 
@@ -65,10 +68,8 @@ func _draw_future_path(mouse_pos):
 	
 	TurnManager.show_hint_spend_points(move_price)
 	
-	line2d.default_color = Color.FOREST_GREEN if can_move else Color.RED
-	line2d.clear_points()
-	for point in formatted_path:
-		line2d.add_point(point)
+	line2d_manager.draw_new_line(PATH_LINE_NAME, formatted_path, Color.FOREST_GREEN if can_move else Color.RED)
+
 
 func next_turn():
 	var next_unit_id = cur_unit_id + 1
@@ -120,7 +121,7 @@ func change_unit_action(unit_action, enable):
 	else:
 		future_action = unit_action
 	
-	line2d.clear_points()
+	line2d_manager.clear_line(PATH_LINE_NAME)
 	cur_unit_action = future_action
 	
 	if cur_unit_action == Globals.UnitAction.WALK:

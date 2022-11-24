@@ -13,7 +13,6 @@ func make_ray_check_no_obstacle(from, to) -> bool:
 	return result.is_empty()
 
 
-
 func make_ray(from, to, collsion_mask) -> Dictionary:
 	var space_state = get_world_2d().direct_space_state
 	var ray_query_params := PhysicsRayQueryParameters2D.create(from, to, collsion_mask) #[PhysicalBone3D, CollisionShape3D]
