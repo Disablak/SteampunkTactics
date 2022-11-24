@@ -2,21 +2,32 @@ class_name Line2dManager
 extends Node2D
 
 
-var all_lines = {} # String / Line2d
+const PATH_LINE_NAME = "path"
+const RAY_LINE_NAME = "ray"
+
+
+func draw_path(points, can_move):
+	draw_new_line(PATH_LINE_NAME, points, Color.FOREST_GREEN if can_move else Color.RED)
+
+
+func clear_path():
+	clear_line(PATH_LINE_NAME)
+
+
+func draw_ray(points):
+	draw_new_line(RAY_LINE_NAME, points, Color.DARK_RED)
+
+
+func clear_ray():
+	clear_line(RAY_LINE_NAME)
 
 
 func draw_new_line(name: String, points: PackedVector2Array, color: Color):
 	if points.size() == 0:
 		return
 	
-	var new_line_2d: Line2D = null
-	
-	if all_lines.has(name):
-		new_line_2d = all_lines[name]
-	else:
-		new_line_2d = Line2D.new()
-		add_child(new_line_2d)
-		all_lines[name] = new_line_2d
+	var new_line_2d = Line2D.new()
+	add_child(new_line_2d)
 	
 	new_line_2d.name = name
 	new_line_2d.default_color = color
@@ -27,8 +38,7 @@ func draw_new_line(name: String, points: PackedVector2Array, color: Color):
 
 
 func clear_line(name: String):
-	if all_lines.has(name):
-		var line_2d: Line2D = all_lines[name]
-		line_2d.clear_points()
-	else:
-		print("line with name {0} not exist".format([name]))
+	for line in get_children():
+		var name_line: String = line.name
+		if name_line.contains(name):
+			line.queue_free()

@@ -13,8 +13,6 @@ extends Node2D
 @onready var raycaster: Raycaster = $Raycaster as Raycaster
 @onready var brain_ai: BrainAI = $BrainAI as BrainAI
 
-const PATH_LINE_NAME = "path"
-const RAY_LINE_NAME = "ray"
 
 var units = null
 
@@ -70,13 +68,13 @@ func _draw_future_path(mouse_pos):
 	
 	_clear_all_lines()
 	
-	line2d_manager.draw_new_line(PATH_LINE_NAME, formatted_path, Color.FOREST_GREEN if can_move else Color.RED)
+	line2d_manager.draw_path(formatted_path, can_move)
 	
 	var tile_pos = Globals.convert_to_rect_pos(Globals.convert_to_tile_pos(mouse_pos))
 	var enemies = GlobalUnits.get_units(!cur_unit_data.unit_settings.is_enemy)
 	for enemy in enemies:
 		var positions = raycaster.make_ray_and_get_positions(tile_pos, enemy.unit_object.position)
-		line2d_manager.draw_new_line(RAY_LINE_NAME, positions, Color.BLACK)
+		line2d_manager.draw_ray(positions)
 
 
 func next_turn():
@@ -149,8 +147,8 @@ func reload_weapon():
 
 
 func _clear_all_lines():
-	line2d_manager.clear_line(PATH_LINE_NAME)
-	line2d_manager.clear_line(RAY_LINE_NAME)
+	line2d_manager.clear_path()
+	line2d_manager.clear_ray()
 
 
 func try_move_unit_to_cell(cell_pos: Vector2):
