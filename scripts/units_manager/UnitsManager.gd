@@ -119,7 +119,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	GlobalBus.on_setted_unit_control.emit(cur_unit_id, camera_focus_instantly)
 
 
-func change_unit_action(unit_action, enable):
+func change_unit_action_with_enable(unit_action, enable):
 	var future_action
 	
 	if unit_action == cur_unit_action or not enable:
@@ -127,8 +127,13 @@ func change_unit_action(unit_action, enable):
 	else:
 		future_action = unit_action
 	
+	change_unit_action(future_action)
+
+
+func change_unit_action(unit_action):
+	cur_unit_action = unit_action
+	
 	_clear_all_lines()
-	cur_unit_action = future_action
 	
 	if cur_unit_action == Globals.UnitAction.WALK:
 		walking.draw_walking_cells()
@@ -172,11 +177,32 @@ func _on_pathfinding_on_clicked_cell(hover_info) -> void:
 	if walking.is_unit_moving():
 		return
 	
-	if cur_unit_action == Globals.UnitAction.WALK and hover_info.unit_id == -1:
+	if hover_info.cell_obj == null:
+		return
+	
+	var is_clicked_on_unit = hover_info.unit_id != -1
+	
+	if is_clicked_on_unit and cur_unit_action != Globals.UnitAction.SHOOT:
+		change_unit_action(Globals.UnitAction.SHOOT)
+		return
+	
+	if is_clicked_on_unit and cur_unit_action == Globals.UnitAction.SHOOT:
+		shooting.shoot(units[cur_unit_id], units[hover_info.unit_id])
+		return
+	
+	if is_clicked_on_unit:
+		return
+	
+	var is_clicked_on_ground = hover_info.cell_obj.obj_type == CellObject.AtlasObjectType.GROUND
+	
+	if is_clicked_on_ground and cur_unit_action != Globals.UnitAction.WALK:
+		change_unit_action(Globals.UnitAction.WALK)
+		return
+	
+	if is_clicked_on_ground and cur_unit_action == Globals.UnitAction.WALK:
 		var path : PackedVector2Array = _get_path_to_mouse_pos(hover_info.pos)
 		walking.move_unit(path)
-	elif cur_unit_action == Globals.UnitAction.SHOOT and hover_info.unit_id != -1:
-		shooting.shoot(units[cur_unit_id], units[hover_info.unit_id])
+		return
 
 
 func _on_pathfinding_on_hovered_cell(hover_info) -> void:
