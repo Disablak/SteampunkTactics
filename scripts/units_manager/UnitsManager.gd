@@ -2,6 +2,7 @@ class_name UnitsManager
 extends Node2D
 
 
+@export var show_enemy_raycast: bool = false
 @export var units_data: Array = []
 @export var unit_objects: Array[NodePath]
 
@@ -59,18 +60,30 @@ func _on_finish_move() -> void:
 
 
 func _draw_future_path(mouse_pos):
+	if TurnManager.cur_time_points == 0:
+		return
+	
 	var formatted_path: PackedVector2Array = _get_path_to_mouse_pos(mouse_pos)
 	var distance = Globals.get_total_distance(formatted_path)
 	var move_price = cur_unit_data.get_move_price(distance)
 	var can_move = TurnManager.can_spend_time_points(move_price) 
+	
+	if not can_move: # dont show path if not enough money
+		return
 	
 	TurnManager.show_hint_spend_points(move_price)
 	
 	_clear_all_lines()
 	
 	line2d_manager.draw_path(formatted_path, can_move)
+	_draw_enemy_visible_raycast(mouse_pos)
+
+
+func _draw_enemy_visible_raycast(from_pos: Vector2):
+	if not show_enemy_raycast:
+		return
 	
-	var tile_pos = Globals.convert_to_rect_pos(Globals.convert_to_tile_pos(mouse_pos))
+	var tile_pos = Globals.convert_to_rect_pos(Globals.convert_to_tile_pos(from_pos))
 	var enemies = GlobalUnits.get_units(!cur_unit_data.unit_settings.is_enemy)
 	for enemy in enemies:
 		var positions = raycaster.make_ray_and_get_positions(tile_pos, enemy.unit_object.position)
@@ -144,11 +157,7 @@ func change_unit_action(unit_action):
 
 
 func reload_weapon():
-	if not TurnManager.can_spend_time_points(cur_unit_data.weapon.reload_price):
-		return
-	
-	TurnManager.spend_time_points(TurnManager.TypeSpendAction.RELOADING, cur_unit_data.weapon.reload_price)
-	cur_unit_data.reload_weapon()
+	shooting.reload(cur_unit_data)
 
 
 func _clear_all_lines():
@@ -181,6 +190,18 @@ func _on_pathfinding_on_clicked_cell(hover_info) -> void:
 		return
 	
 	var is_clicked_on_unit = hover_info.unit_id != -1
+	var is_clicked_on_same_unit = is_clicked_on_unit and hover_info.unit_id == cur_unit_id
+	
+	if is_clicked_on_same_unit and cur_unit_action != Globals.UnitAction.RELOAD:
+		change_unit_action(Globals.UnitAction.RELOAD)
+		return
+	
+	if is_clicked_on_same_unit and cur_unit_action == Globals.UnitAction.RELOAD:
+		reload_weapon()
+		return
+	
+	if is_clicked_on_same_unit:
+		return
 	
 	if is_clicked_on_unit and cur_unit_action != Globals.UnitAction.SHOOT:
 		change_unit_action(Globals.UnitAction.SHOOT)

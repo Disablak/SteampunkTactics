@@ -14,6 +14,7 @@ enum UnitAction{
 	NONE,
 	WALK,
 	SHOOT,
+	RELOAD
 }
 
 enum MouseHoverType{

@@ -18,7 +18,9 @@ func set_data(effect_manager: EffectManager, raycaster: Raycaster):
 
 
 func shoot(shooter: Unit, enemy: Unit):
-	print("shoot")
+	if not TurnManager.can_spend_time_points(shooter.unit_data.weapon.shoot_price):
+		printerr("not enough tp")
+		return
 	
 	if shooter == enemy:
 		printerr("shoot same unit")
@@ -42,6 +44,19 @@ func shoot(shooter: Unit, enemy: Unit):
 	
 	enemy.unit_data.set_damage(shooter.unit_data.weapon.damage, shooter.id)
 	effect_manager.shoot(shooter, enemy)
+
+
+func reload(unit_data: UnitData):
+	if not TurnManager.can_spend_time_points(unit_data.weapon.reload_price):
+		printerr("not enough tp to reload")
+		return
+	
+	if unit_data.cur_weapon_ammo == unit_data.weapon.ammo:
+		printerr("ammo is full")
+		return
+	
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.RELOADING, unit_data.weapon.reload_price)
+	unit_data.reload_weapon()
 
 
 func _get_hit_chance(weapon: WeaponData, distance: float) -> float:

@@ -1,14 +1,15 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c7n87684anh1x"]
 
-[ext_resource path="res://scripts/settings/WeaponData.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://scripts/settings/WeaponData.gd" id="1"]
 
-[sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0 ]
+[sub_resource type="Curve" id="1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0]
+point_count = 1
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource("1")
 name = "Winchester"
-accuracy = SubResource( 1 )
+accuracy = SubResource("1")
 damage = 5.0
 ammo = 7
 shoot_price = 10

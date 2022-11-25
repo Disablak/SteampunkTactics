@@ -168,7 +168,7 @@ func _on_input_system_on_mouse_click(hover_info) -> void:
 	if unit_on_cell:
 		hover_info.unit_id = unit_on_cell.id
 	
-	print("clicked on {0}".format([hover_info]))
+	print("clicked on {0}".format([hover_info.cell_obj.obj_type]))
 	on_clicked_cell.emit(hover_info)
 
 
