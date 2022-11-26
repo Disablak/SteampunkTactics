@@ -10,4 +10,4 @@ func set_hp(cur, max):
 
 
 func set_action(action):
-	label_action.text = "Action: {0}".format([action])
+	label_action.text = "Action: {0}".format([Globals.UnitAction.keys()[action]])

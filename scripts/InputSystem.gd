@@ -4,6 +4,7 @@ extends Node2D
 signal on_mouse_hover(hover_info: HoverInfo)
 signal on_mouse_click(hover_info: HoverInfo)
 signal on_drag(dir)
+signal on_pressed_esc()
 
 @onready var hover_info = HoverInfo.new()
 
@@ -32,7 +33,7 @@ func _input(event: InputEvent) -> void:
 
 	_mouse_hover(event)
 	_mouse_click(event)
-	#_press_shift(event)
+	_click_escape(event)
 
 
 func _draging(event: InputEvent) -> bool:
@@ -56,17 +57,7 @@ func _mouse_click(event: InputEvent):
 		hover_info.pos = event.position
 		on_mouse_click.emit(hover_info)
 
-#
-#func _press_shift(event: InputEvent) -> bool:
-#	if event is InputEventMouseMotion:
-#		var ray_result = _make_ray(get_viewport().get_mouse_position())
-#		if ray_result and ray_result.position != Vector3.ZERO:
-#			emit_signal("on_unit_rotation_pressed", ray_result.position)
-#			return true
-#
-#	return false
-#
-#
+
 func _mouse_hover(event: InputEvent):
 	if not (event is InputEventMouseMotion):
 		return
@@ -74,3 +65,8 @@ func _mouse_hover(event: InputEvent):
 	hover_info.reset()
 	hover_info.pos = event.position
 	on_mouse_hover.emit(hover_info)
+
+
+func _click_escape(event: InputEvent):
+	if event.is_action_pressed("ui_cancel"):
+		on_pressed_esc.emit()

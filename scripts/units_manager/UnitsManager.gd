@@ -27,6 +27,7 @@ var cur_unit_action: Globals.UnitAction = Globals.UnitAction.NONE
 func _ready() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 	
+	
 	walking.set_data(pathfinding, _on_finish_move)
 	shooting.set_data(effect_manager, raycaster)
 	
@@ -241,3 +242,7 @@ func _on_pathfinding_on_hovered_cell(hover_info) -> void:
 	
 	if cur_unit_action == Globals.UnitAction.WALK and hover_info.unit_id == -1:
 		_draw_future_path(hover_info.pos)
+
+
+func _on_input_system_on_pressed_esc() -> void:
+	change_unit_action(Globals.UnitAction.NONE)
