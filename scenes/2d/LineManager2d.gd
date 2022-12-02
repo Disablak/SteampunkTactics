@@ -25,14 +25,14 @@ func clear_ray():
 func draw_new_line(name: String, points: PackedVector2Array, color: Color):
 	if points.size() == 0:
 		return
-	
+
 	var new_line_2d = Line2D.new()
 	add_child(new_line_2d)
-	
+
 	new_line_2d.name = name
 	new_line_2d.default_color = color
 	new_line_2d.clear_points()
-	
+
 	for point in points:
 		new_line_2d.add_point(point)
 

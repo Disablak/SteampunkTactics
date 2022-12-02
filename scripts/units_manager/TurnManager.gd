@@ -17,14 +17,14 @@ func can_spend_time_points(spend_points: int) -> bool:
 	var enough = cur_time_points >= spend_points
 	#if not enough:
 	#	print("Not enough time points {0}".format([spend_points]))
-		
+
 	return enough
 
 
 func spend_time_points(type_spend_action: TypeSpendAction, spend_points: int):
 	_set_time_points(type_spend_action, cur_time_points - spend_points)
 
-	
+
 func restore_time_points():
 	_set_time_points(TypeSpendAction.RESTORE_TURN, max_time_points)
 

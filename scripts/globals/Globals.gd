@@ -36,22 +36,22 @@ static func posToCellPos(pos: Vector3) -> Vector3:
 		snapped(pos.y, GRID_STEP),
 		snapped(pos.z, GRID_STEP)
 	)
-	
+
 	return simply
 
 
 static func get_total_distance(points: PackedVector2Array) -> float:
 	if points.size() <= 1:
 		return 0.0
-	
+
 	var distance = 0.0
 	var start: Vector2 = points[0]
-	
+
 	for i in range(1, points.size()):
 		var end = points[i]
 		distance += start.distance_to(end)
 		start = points[i]
-	
+
 	return distance
 
 static func convert_to_tile_pos(rect_pos : Vector2) -> Vector2:
@@ -63,8 +63,8 @@ static func convert_to_rect_pos(tile_pos : Vector2) -> Vector2:
 
 static func convert_tile_points_to_rect(points: PackedVector2Array) -> PackedVector2Array:
 	var result: PackedVector2Array = PackedVector2Array()
-	
+
 	for point in points:
 		result.push_back(convert_to_rect_pos(point))
-	
+
 	return result

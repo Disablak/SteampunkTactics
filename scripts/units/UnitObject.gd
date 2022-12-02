@@ -16,14 +16,14 @@ func init_unit(unit_id, unit_data) -> void:
 
 func _ready() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
-	
+
 	mark_selected(false)
 
 
 func _on_unit_died(unit_id, unit_id_killer):
 	if self.unit_id != unit_id:
 		return
-	
+
 	queue_free()
 
 

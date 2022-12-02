@@ -34,5 +34,5 @@ func _on_unit_change_action(unit_id, action_type):
 func _on_unit_changed_ammo(unit_id, cur_ammo, max_ammo):
 	if unit_id != GlobalUnits.cur_unit_id:
 		return
-	
+
 	label_ammo.text = "Ammo: {0}/{1}".format([cur_ammo, max_ammo])

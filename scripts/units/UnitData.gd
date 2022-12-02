@@ -13,7 +13,6 @@ var enemy_data_ai : EnemyDataAI = null
 
 
 
-
 class EnemyDataAI:
 	var cur_cover_data = null
 
@@ -21,10 +20,10 @@ class EnemyDataAI:
 func _init(unit_settings: UnitSettings):
 	self.unit_settings = unit_settings
 	self.weapon = unit_settings.weapon
-	
+
 	cur_health = unit_settings.max_health
 	cur_weapon_ammo = weapon.ammo
-	
+
 	if unit_settings.is_enemy:
 		enemy_data_ai = EnemyDataAI.new()
 
@@ -37,10 +36,10 @@ func set_damage(value, attacker_unit_id):
 	if cur_health <= 0:
 		print("unit {0} is already dead".format([unit_id]))
 		return
-	
+
 	cur_health -= value
 	GlobalBus.on_unit_change_health.emit(unit_id)
-	
+
 	if cur_health <= 0:
 		GlobalBus.on_unit_died.emit(unit_id, attacker_unit_id)
 		print_debug("unit_died ", unit_id)

@@ -20,7 +20,7 @@ class HoverInfo:
 	var pos: Vector2
 	var cell_obj: CellObject
 	var unit_id: int
-	
+
 	func reset():
 		pos = Vector2.ZERO
 		cell_obj = null
@@ -41,13 +41,13 @@ func _draging(event: InputEvent) -> bool:
 		dragging = event.pressed
 		prev_drag_pos = event.position
 		return false
-		
+
 	elif event is InputEventMouseMotion and dragging:
 		drag_pos = (prev_drag_pos - event.position)
 		prev_drag_pos = event.position
 		emit_signal("on_drag", drag_pos)
 		return true
-		
+
 	return false
 
 
@@ -61,7 +61,7 @@ func _mouse_click(event: InputEvent):
 func _mouse_hover(event: InputEvent):
 	if not (event is InputEventMouseMotion):
 		return
-	
+
 	hover_info.reset()
 	hover_info.pos = event.position
 	on_mouse_hover.emit(hover_info)
