@@ -22,11 +22,11 @@ func focus_camera(target: Node2D, instantly: bool = false):
 	pass
 	var target_pos: Vector2 = target.global_transform.origin + camera_offset
 	target_pos.y = global_transform.origin.y
-	
+
 	if instantly:
 		position = target_pos
 		return
-	
+
 	tween_move = create_tween()
 	tween_move.set_trans(Tween.TRANS_SINE)
 	tween_move.tween_property(

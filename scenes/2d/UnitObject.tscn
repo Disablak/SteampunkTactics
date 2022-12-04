@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://2ikcthg31xdg"]
+[gd_scene load_steps=5 format=3 uid="uid://2ikcthg31xdg"]
 
 [ext_resource type="Texture2D" uid="uid://b6bldh7ukfv6p" path="res://content/sprites/terrain atlas.png" id="1_a2xkr"]
 [ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_a7ikt"]
@@ -7,8 +7,16 @@
 atlas = ExtResource("1_a2xkr")
 region = Rect2(0, 64, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_putcr"]
+atlas = ExtResource("1_a2xkr")
+region = Rect2(157, 13.5, 32, 32)
+
 [node name="UnitObject" type="Node2D"]
 script = ExtResource("1_a7ikt")
 
 [node name="Sprite2d" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_660gu")
+
+[node name="SelectedMark" type="Sprite2D" parent="."]
+position = Vector2(32, 32)
+texture = SubResource("AtlasTexture_putcr")

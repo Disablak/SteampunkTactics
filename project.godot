@@ -99,6 +99,16 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://scripts/visual/EffectManager.gd"
 }, {
+"base": "Control",
+"class": &"GUI",
+"language": &"GDScript",
+"path": "res://scripts/ui/GUI.gd"
+}, {
+"base": "Node2D",
+"class": &"Line2dManager",
+"language": &"GDScript",
+"path": "res://scripts/visual/LineManager2d.gd"
+}, {
 "base": "Node2D",
 "class": &"MyWorld",
 "language": &"GDScript",
@@ -178,6 +188,8 @@ _global_script_class_icons={
 "Consideration": "",
 "DrawLine3D": "",
 "EffectManager": "",
+"GUI": "",
+"Line2dManager": "",
 "MyWorld": "",
 "NodeUtilities": "",
 "Pathfinding": "",
@@ -206,12 +218,12 @@ GlobalBus="*res://scripts/globals/GlobalBus.gd"
 GlobalMap="*res://scripts/globals/GlobalMap.gd"
 GlobalUnits="*res://scripts/globals/GlobalUnits.gd"
 TurnManager="*res://scripts/units_manager/TurnManager.gd"
+GlobalsUi="*res://scripts/globals/GlobalsUI.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/always_on_top=true
 window/size/test_width=1920
 window/size/test_height=1080
 
