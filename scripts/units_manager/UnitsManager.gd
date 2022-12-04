@@ -144,15 +144,19 @@ func change_unit_action_with_enable(unit_action, enable):
 	change_unit_action(future_action)
 
 
-func change_unit_action(unit_action):
+func change_unit_action(unit_action: Globals.UnitAction):
 	cur_unit_action = unit_action
 
 	_clear_all_lines()
+	walking.clear_walking_cells()
 
 	if cur_unit_action == Globals.UnitAction.WALK:
 		walking.draw_walking_cells()
+
+	if cur_unit_action == Globals.UnitAction.SHOOT:
+		line2d_manager.draw_ray([cur_unit_object.position, shooting.selected_enemy.unit_object.position])
 	else:
-		walking.clear_walking_cells()
+		shooting.deselect_enemy()
 
 	GlobalBus.on_unit_changed_action.emit(cur_unit_id, unit_action)
 
@@ -205,11 +209,13 @@ func _on_pathfinding_on_clicked_cell(hover_info) -> void:
 		return
 
 	if is_clicked_on_unit and cur_unit_action != Globals.UnitAction.SHOOT:
+		shooting.select_enemy(units[hover_info.unit_id])
 		change_unit_action(Globals.UnitAction.SHOOT)
 		return
 
 	if is_clicked_on_unit and cur_unit_action == Globals.UnitAction.SHOOT:
-		shooting.shoot(units[cur_unit_id], units[hover_info.unit_id])
+		shooting.shoot(units[cur_unit_id])
+		_clear_all_lines()
 		return
 
 	if is_clicked_on_unit:
@@ -237,7 +243,6 @@ func _on_pathfinding_on_hovered_cell(hover_info) -> void:
 		return
 
 	if hover_info.cell_obj.obj_type != CellObject.AtlasObjectType.GROUND:
-		_clear_all_lines()
 		return
 
 	if cur_unit_action == Globals.UnitAction.WALK and hover_info.unit_id == -1:

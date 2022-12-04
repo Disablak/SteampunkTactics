@@ -1,15 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://cv6vynbm156xv"]
+[gd_scene load_steps=13 format=3 uid="uid://cv6vynbm156xv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_p1tb3"]
 [ext_resource type="PackedScene" uid="uid://bf3yqmkn5tw17" path="res://scenes/2d/World2d.tscn" id="2_bb7rw"]
 [ext_resource type="Script" path="res://scripts/ui/BattleUI.gd" id="3_ur4ey"]
+[ext_resource type="Script" path="res://scripts/ui/GUI.gd" id="3_w0484"]
 [ext_resource type="Script" path="res://scripts/ui/UnitsUI.gd" id="4_bhut4"]
-[ext_resource type="PackedScene" uid="uid://bsb3t8ybmx3tn" path="res://scenes/2d/UnitUi.tscn" id="5_3w331"]
+[ext_resource type="PackedScene" path="res://scenes/2d/UnitUi.tscn" id="5_3w331"]
 [ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="5_8dsqb"]
 [ext_resource type="Shortcut" uid="uid://b4ekl04mw6kx6" path="res://data/settings/shortcuts/ShortcutMove.tres" id="6_yd1b5"]
 [ext_resource type="Shortcut" uid="uid://bvgksghj38sf7" path="res://data/settings/shortcuts/ShortcutAim.tres" id="7_plqe3"]
 [ext_resource type="Shortcut" uid="uid://c7527kmt3j7ss" path="res://data/settings/shortcuts/ShortcutReload.tres" id="8_oxv7h"]
 [ext_resource type="Shortcut" uid="uid://wn8cqlrakbky" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="9_nq4bl"]
+[ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="12_yd8h8"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p1tb3")
@@ -23,6 +25,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_w0484")
+tooltip_scene = ExtResource("12_yd8h8")
 
 [node name="BattleUI" type="Control" parent="GUI"]
 layout_mode = 3

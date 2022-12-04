@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsb3t8ybmx3tn"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://scenes/2d/UnitUi.gd" id="1_vikxc"]
+[ext_resource type="Script" path="res://scripts/ui/UnitUi.gd" id="1_vikxc"]
 
 [node name="UnitUI" type="Control"]
 layout_mode = 3

@@ -68,3 +68,9 @@ static func convert_tile_points_to_rect(points: PackedVector2Array) -> PackedVec
 		result.push_back(convert_to_rect_pos(point))
 
 	return result
+
+
+static func format_hit_chance(hit_chance: float) -> String:
+	return "%0.1f" % (hit_chance * 100)
+
+
