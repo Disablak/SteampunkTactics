@@ -150,13 +150,20 @@ func change_unit_action(unit_action: Globals.UnitAction):
 	_clear_all_lines()
 	walking.clear_walking_cells()
 
-	if cur_unit_action == Globals.UnitAction.WALK:
-		walking.draw_walking_cells()
+	match unit_action:
+		Globals.UnitAction.WALK:
+			walking.draw_walking_cells()
+		Globals.UnitAction.SHOOT:
+			TurnManager.show_hint_spend_points(cur_unit_data.weapon.shoot_price)
+			line2d_manager.draw_ray([cur_unit_object.position, shooting.selected_enemy.unit_object.position])
+		Globals.UnitAction.RELOAD:
+			TurnManager.show_hint_spend_points(cur_unit_data.weapon.reload_price)
 
-	if cur_unit_action == Globals.UnitAction.SHOOT:
-		line2d_manager.draw_ray([cur_unit_object.position, shooting.selected_enemy.unit_object.position])
-	else:
+	if cur_unit_action != Globals.UnitAction.SHOOT:
 		shooting.deselect_enemy()
+
+	if cur_unit_action == Globals.UnitAction.NONE: #TODO change in match default
+		TurnManager.show_hint_spend_points(0)
 
 	GlobalBus.on_unit_changed_action.emit(cur_unit_id, unit_action)
 
