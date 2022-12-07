@@ -13,7 +13,7 @@ func make_ray_check_no_obstacle(from, to) -> bool:
 	return result.is_empty()
 
 
-func make_ray_and_get_positions(pos_from: Vector2, pos_to: Vector2) -> PackedVector2Array:
+func make_ray_and_get_positions(pos_from: Vector2, pos_to: Vector2, show_line_to_obstacle = false) -> PackedVector2Array:
 	var ray_result = make_ray(pos_from, pos_to, OBSTACLE_MASK)
 
 	if ray_result.is_empty():
@@ -21,6 +21,8 @@ func make_ray_and_get_positions(pos_from: Vector2, pos_to: Vector2) -> PackedVec
 		result.push_back(pos_from)
 		result.push_back(pos_to)
 		return result
+	elif show_line_to_obstacle:
+		return PackedVector2Array([pos_from, ray_result.position])
 	else:
 		return PackedVector2Array()
 

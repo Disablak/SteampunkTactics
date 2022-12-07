@@ -47,8 +47,8 @@ func try_find_any_visible_enemy(cur_unit: Unit) -> Unit:
 
 func cur_unit_shoot_to_visible_enemy():
 	print("shoot! to unit_id - {0}".format([cached_visible_enemy.id]))
-	units_manager.change_unit_action(Globals.UnitAction.SHOOT)
 	units_manager.shooting.select_enemy(cached_visible_enemy)
+	units_manager.change_unit_action(Globals.UnitAction.SHOOT)
 	units_manager.shooting.shoot(GlobalUnits.get_cur_unit())
 
 	await get_tree().create_timer(0.5).timeout

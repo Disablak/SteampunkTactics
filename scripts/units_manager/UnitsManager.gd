@@ -155,7 +155,11 @@ func change_unit_action(unit_action: Globals.UnitAction):
 			walking.draw_walking_cells()
 		Globals.UnitAction.SHOOT:
 			TurnManager.show_hint_spend_points(cur_unit_data.weapon.shoot_price)
-			line2d_manager.draw_ray([cur_unit_object.position, shooting.selected_enemy.unit_object.position])
+
+			var tile_pos = Globals.convert_to_rect_pos(Globals.convert_to_tile_pos(cur_unit_object.position))
+			var positions = raycaster.make_ray_and_get_positions(tile_pos, shooting.selected_enemy.unit_object.position, true)
+			line2d_manager.draw_ray(positions)
+
 		Globals.UnitAction.RELOAD:
 			TurnManager.show_hint_spend_points(cur_unit_data.weapon.reload_price)
 
