@@ -7,6 +7,7 @@ signal on_clicked_cell(cell_info: CellInfo)
 
 @export var walkable_hint_cell_scene: PackedScene
 @export var node_with_walk_cells: Node2D
+@export var node_with_walls: Node2D
 
 const TILEMAP_LAYER = 0
 const CELL_OFFSETS = [Vector2(-Globals.CELL_SIZE, 0), Vector2(Globals.CELL_SIZE, 0), Vector2(0, Globals.CELL_SIZE), Vector2(0, Globals.CELL_SIZE)]
@@ -17,10 +18,11 @@ var dict_id_and_cell = {}
 
 
 func _ready() -> void:
-	connect_walkable_cells()
+	_connect_walkable_cells()
+	_remove_wall_points()
 
 
-func connect_walkable_cells():
+func _connect_walkable_cells():
 	for cell in node_with_walk_cells.get_children():
 		var cell_pos: Vector2 = cell.position
 		var id = astar.get_available_point_id()
@@ -45,6 +47,13 @@ func connect_walkable_cells():
 			if not astar.are_points_connected(cell_id, potential_cell_id):
 				astar.connect_points(cell_id, potential_cell_id)
 				print("connected {0} and {1}".format([cell_id, potential_cell_id]))
+
+
+func _remove_wall_points():
+	for wall in node_with_walls.get_children():
+		var wall_pos: Vector2 = wall.position
+		var cell_id = astar.get_closest_point(wall_pos)
+		astar.remove_point(cell_id)
 
 
 func get_path_to_point(from : Vector2i, to : Vector2i) -> PackedVector2Array:
