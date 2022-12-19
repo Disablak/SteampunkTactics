@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Material" path="res://content/materials/BlendTexture.tres" id="1_ihhyq"]
+[ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="2_ovjjf"]
+[ext_resource type="Script" path="res://scenes/2d/TiledSprite.gd" id="3_d3f1u"]
+
+[node name="TiledSprite" type="Sprite2D"]
+material = ExtResource("1_ihhyq")
+texture = ExtResource("2_ovjjf")
+script = ExtResource("3_d3f1u")

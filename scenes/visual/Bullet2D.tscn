@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bncbloimsnrob"]
+
+[ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="1_r3xoq"]
+
+[node name="Bullet2d" type="Sprite2D"]
+modulate = Color(1, 0.301961, 0.109804, 1)
+position = Vector2(409, 277.5)
+scale = Vector2(1, 0.2)
+texture = ExtResource("1_r3xoq")

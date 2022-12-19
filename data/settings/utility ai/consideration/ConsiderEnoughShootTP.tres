@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughShootTP.gd" id="1_7pnxb"]
 
-[sub_resource type="Curve" id="Curve_q62x2"]
+[sub_resource type="Curve" id="Curve_ihvw2"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
 [resource]
 script = ExtResource("1_7pnxb")
-response_curve = SubResource("Curve_q62x2")
+response_curve = SubResource("Curve_ihvw2")

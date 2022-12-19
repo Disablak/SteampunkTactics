@@ -36,6 +36,7 @@ func _process(delta: float) -> void:
 
 		var position_in_ui = point.position
 		units_ui[id].position = position_in_ui + UI_OFFSET
+		units_ui[id].scale = Vector2.ONE / get_viewport().get_camera_2d().zoom
 
 
 func _update_unit_info(unit_id):

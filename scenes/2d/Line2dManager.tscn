@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://ccjtjw661geoi"]
 
 [ext_resource type="Script" path="res://scripts/visual/LineManager2d.gd" id="1_2pxbm"]
-[ext_resource type="Texture2D" path="res://data/ui/texture_line.tres" id="2_5ndfg"]
+[ext_resource type="PackedScene" uid="uid://xsewefbctbln" path="res://scenes/visual/Line2DScrolling.tscn" id="2_2im4v"]
 
 [node name="Line2dManager" type="Node2D"]
 script = ExtResource("1_2pxbm")
-line_canvas_texture = ExtResource("2_5ndfg")
+line_2d_scrolling = ExtResource("2_2im4v")

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dqnggy3btgqrm"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/ScrollingTexture.gdshader" id="1_h6msg"]
+
+[resource]
+shader = ExtResource("1_h6msg")
+shader_parameter/color = Color(0, 0.592157, 0, 1)
+shader_parameter/scrolling_speed = 2.0

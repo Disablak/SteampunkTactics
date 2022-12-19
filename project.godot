@@ -39,7 +39,12 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://scripts/visual/BulletEffects.gd"
 }, {
-"base": "Resource",
+"base": "RefCounted",
+"class": &"CellInfo",
+"language": &"GDScript",
+"path": "res://scripts/cells/CellInfo.gd"
+}, {
+"base": "Node2D",
 "class": &"CellObject",
 "language": &"GDScript",
 "path": "res://scripts/cells/CellObject.gd"
@@ -176,6 +181,7 @@ _global_script_class_icons={
 "ActionShoot": "",
 "BrainAI": "",
 "BulletEffects": "",
+"CellInfo": "",
 "CellObject": "",
 "ConsiderEnemyVisibility": "",
 "ConsiderEnoughAmmoToShoot": "",
@@ -224,8 +230,6 @@ GlobalsUi="*res://scripts/globals/GlobalsUI.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/test_width=1920
-window/size/test_height=1080
 
 [editor_plugins]
 

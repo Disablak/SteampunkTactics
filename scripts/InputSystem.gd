@@ -1,12 +1,14 @@
 extends Node2D
 
 
-signal on_mouse_hover(hover_info: HoverInfo)
-signal on_mouse_click(hover_info: HoverInfo)
+signal on_mouse_hover(cell_info: CellInfo)
+signal on_mouse_click(cell_info: CellInfo)
 signal on_drag(dir)
 signal on_pressed_esc()
 
-@onready var hover_info = HoverInfo.new()
+@onready var camera_controller := get_node("CameraController")
+@onready var camera := get_node("CameraController/Camera2d") as Camera2D
+@onready var cell_info: = CellInfo.new()
 
 const ray_length = 1000
 
@@ -14,17 +16,6 @@ var dragging: bool
 var drag_pos: Vector2
 var prev_drag_pos: Vector2
 var prev_hover_pos: Vector3
-
-
-class HoverInfo:
-	var pos: Vector2
-	var cell_obj: CellObject
-	var unit_id: int
-
-	func reset():
-		pos = Vector2.ZERO
-		cell_obj = null
-		unit_id = -1
 
 
 func _input(event: InputEvent) -> void:
@@ -53,20 +44,27 @@ func _draging(event: InputEvent) -> bool:
 
 func _mouse_click(event: InputEvent):
 	if event is InputEventMouseButton and event.pressed:
-		hover_info.reset()
-		hover_info.pos = event.position
-		on_mouse_click.emit(hover_info)
+		cell_info.reset()
+		cell_info.cell_pos = formatted_position(event.position)
+		on_mouse_click.emit(cell_info)
 
 
 func _mouse_hover(event: InputEvent):
 	if not (event is InputEventMouseMotion):
 		return
 
-	hover_info.reset()
-	hover_info.pos = event.position
-	on_mouse_hover.emit(hover_info)
+	cell_info.reset()
+	cell_info.cell_pos = formatted_position(event.position)
+	on_mouse_hover.emit(cell_info)
 
 
 func _click_escape(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):
 		on_pressed_esc.emit()
+
+
+func formatted_position(position: Vector2) -> Vector2:
+	var view_size := camera.get_viewport_rect().size
+	var camera_offset = camera_controller.position - (view_size / 2)
+	var camera_zoomed_pos = ((view_size / 2) - ((view_size / camera.zoom) / 2))
+	return camera_zoomed_pos + camera_offset + position / camera.zoom

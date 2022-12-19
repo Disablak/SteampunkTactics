@@ -5,7 +5,7 @@ extends Node2D
 signal on_finished_move()
 
 const ROTATION_SPEED = 10
-const MOVING_SPEED = 3
+const MOVING_SPEED = 100
 
 var cur_unit_object: UnitObject
 var cur_unit_data: UnitData
@@ -66,7 +66,7 @@ func get_move_price(path : PackedVector2Array) -> int:
 
 
 func draw_walking_cells():
-	var unit_pos := Globals.convert_to_tile_pos(cur_unit_object.position)
+	var unit_pos := cur_unit_object.position
 	var max_move_distance : int = int(TurnManager.cur_time_points / cur_unit_data.unit_settings.walk_speed) + 1
 
 	cached_walking_cells = pathfinding.get_walkable_cells(unit_pos, max_move_distance)
@@ -88,7 +88,7 @@ func _move_via_points(points: PackedVector2Array):
 
 		var start_point = points[cur_target_id]
 		var finish_point = points[cur_target_id + 1]
-		var time_move = start_point.distance_to(finish_point) / 500
+		var time_move = start_point.distance_to(finish_point) / MOVING_SPEED
 
 		tween_move = get_tree().create_tween()
 		tween_move.tween_property(

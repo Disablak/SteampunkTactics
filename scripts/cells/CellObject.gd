@@ -1,8 +1,11 @@
 class_name CellObject
-extends Resource
+extends Node2D
 
 
-enum AtlasObjectType {NONE, GROUND, WALL}
+enum CellType {NONE, GROUND, WALL}
 
-@export var atlas_coords : Vector2i
-@export var obj_type : AtlasObjectType = AtlasObjectType.NONE
+@export var cell_type : CellType = CellType.NONE
+
+
+func get_type_string() -> String:
+	return CellType.keys()[cell_type]

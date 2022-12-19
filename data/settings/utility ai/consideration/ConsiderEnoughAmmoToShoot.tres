@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughAmmoToShoot.gd" id="1_30u01"]
 
-[sub_resource type="Curve" id="Curve_ggl1h"]
+[sub_resource type="Curve" id="Curve_iqlqr"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
 [resource]
 script = ExtResource("1_30u01")
-response_curve = SubResource("Curve_ggl1h")
+response_curve = SubResource("Curve_iqlqr")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://xsewefbctbln"]
+
+[ext_resource type="Material" uid="uid://dqnggy3btgqrm" path="res://content/materials/ScrollingLine.tres" id="1_gvo01"]
+[ext_resource type="Texture2D" uid="uid://cg6ufjokd42sh" path="res://content/sprites/line_texture.png" id="2_n6ork"]
+
+[node name="Line2DScrolling" type="Line2D"]
+texture_filter = 1
+texture_repeat = 2
+material = ExtResource("1_gvo01")
+texture = ExtResource("2_n6ork")
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

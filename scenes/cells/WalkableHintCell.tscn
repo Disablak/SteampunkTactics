@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://baqjremy63s66"]
+
+[ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/WalkableCell.tscn" id="1_f782g"]
+
+[node name="WalkableHintCell" instance=ExtResource("1_f782g")]
+modulate = Color(1, 1, 1, 0.509804)
+cell_type = 0

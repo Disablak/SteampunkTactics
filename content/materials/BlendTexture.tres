@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c01sskwccgwbi"]
+
+[ext_resource type="Shader" path="res://scripts/shaders/BlendTexture.gdshader" id="1_d401j"]
+[ext_resource type="Texture2D" uid="uid://dbb4ktvlrhst5" path="res://content/sprites/ground/dithering.png" id="2_ptr71"]
+
+[resource]
+shader = ExtResource("1_d401j")
+shader_parameter/img_color = Color(0.74902, 0.145098, 0.392157, 0.435294)
+shader_parameter/img_scale = 5.0
+shader_parameter/img_texture = ExtResource("2_ptr71")
+shader_parameter/scale_factor = Vector2(40, 30)

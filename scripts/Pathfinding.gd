@@ -2,62 +2,49 @@ class_name Pathfinding
 extends Node2D
 
 
-signal on_hovered_cell(hover_info)
-signal on_clicked_cell(hover_info)
+signal on_hovered_cell(cell_info: CellInfo)
+signal on_clicked_cell(cell_info: CellInfo)
 
-@export var cell_objects : Array[CellObject]
-@export var tile_node_scene: PackedScene
-@export var tile_walkable_scene: PackedScene
-
-@onready var tilemap : TileMap = $TileMap as TileMap
+@export var walkable_hint_cell_scene: PackedScene
+@export var node_with_walk_cells: Node2D
 
 const TILEMAP_LAYER = 0
+const CELL_OFFSETS = [Vector2(-Globals.CELL_SIZE, 0), Vector2(Globals.CELL_SIZE, 0), Vector2(0, Globals.CELL_SIZE), Vector2(0, Globals.CELL_SIZE)]
 
 var astar : AStar2D = AStar2D.new()
 var spawned_walking_tiles = Array()
+var dict_id_and_cell = {}
 
 
 func _ready() -> void:
-	var all_cell_pos := tilemap.get_used_cells(TILEMAP_LAYER)
+	connect_walkable_cells()
 
-	# add points to astar
-	for cell_pos in all_cell_pos:
-		var cell_obj := get_cell_obj(cell_pos)
-		if cell_obj != null and cell_obj.obj_type == CellObject.AtlasObjectType.GROUND:
-			var id = astar.get_available_point_id()
-			astar.add_point(id, cell_pos)
 
-	# connect ground cells
-	for cell_pos in all_cell_pos:
-		var cell_obj := get_cell_obj(cell_pos)
-		if cell_obj == null or cell_obj.obj_type != CellObject.AtlasObjectType.GROUND:
-			continue
+func connect_walkable_cells():
+	for cell in node_with_walk_cells.get_children():
+		var cell_pos: Vector2 = cell.position
+		var id = astar.get_available_point_id()
 
-		var cur_cell_id = astar.get_closest_point(cell_pos)
+		astar.add_point(id, cell_pos)
+		dict_id_and_cell[id] = cell
 
-		for offset in [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(0, 1)]:
-			var potential_ground_coords : Vector2i = cell_pos + offset
-			if not all_cell_pos.has(potential_ground_coords):
+	for cell in dict_id_and_cell.values():
+		var cell_pos: Vector2 = cell.position
+		var cell_id = astar.get_closest_point(cell_pos)
+
+		for offset in CELL_OFFSETS:
+			var potential_cell_pos : Vector2 = cell_pos + offset
+			var potential_cell_id = astar.get_closest_point(potential_cell_pos)
+			assert(potential_cell_id != -1, "cell id not found!" )
+			var potential_cell = dict_id_and_cell.get(potential_cell_id)
+			assert(potential_cell != null, "cell not found!" )
+
+			if cell_id == potential_cell_id:
 				continue
 
-			var potential_cell_obj := get_cell_obj(potential_ground_coords)
-
-			if potential_cell_obj != null and potential_cell_obj.obj_type == CellObject.AtlasObjectType.GROUND:
-				var potential_cell_id = astar.get_closest_point(potential_ground_coords)
-				if not astar.are_points_connected(cur_cell_id, potential_cell_id):
-					astar.connect_points(cur_cell_id, potential_cell_id)
-					print("connected {0} and {1}".format([cur_cell_id, potential_cell_id]))
-
-	spawn_walls()
-
-
-func spawn_walls():
-	for cell_pos in tilemap.get_used_cells(TILEMAP_LAYER):
-		var cell_obj := get_cell_obj(cell_pos)
-		if cell_obj != null and cell_obj.obj_type == CellObject.AtlasObjectType.WALL:
-			var spawned_wall: Node2D = tile_node_scene.instantiate()
-			add_child(spawned_wall)
-			spawned_wall.position = Globals.convert_to_rect_pos(cell_pos)
+			if not astar.are_points_connected(cell_id, potential_cell_id):
+				astar.connect_points(cell_id, potential_cell_id)
+				print("connected {0} and {1}".format([cell_id, potential_cell_id]))
 
 
 func get_path_to_point(from : Vector2i, to : Vector2i) -> PackedVector2Array:
@@ -70,21 +57,9 @@ func get_path_to_point(from : Vector2i, to : Vector2i) -> PackedVector2Array:
 	return astar.get_point_path(from_id, to_id)
 
 
-func get_cell_obj(cell_pos : Vector2i) -> CellObject:
-	for cell_obj in cell_objects:
-		var atlas_coords := tilemap.get_cell_atlas_coords(TILEMAP_LAYER, cell_pos)
-		if atlas_coords == cell_obj.atlas_coords:
-			return cell_obj
-
-	return null
-
-
 func is_point_walkable(cell_pos : Vector2i) -> bool:
-	if tilemap.get_used_cells(TILEMAP_LAYER).has(cell_pos):
-		var cell_obj := get_cell_obj(cell_pos)
-		return cell_obj != null and cell_obj.obj_type == CellObject.AtlasObjectType.GROUND
-
-	return false
+	var cell_obj: CellObject = get_cell_by_pos(cell_pos)
+	return cell_obj != null and cell_obj.cell_type == CellObject.CellType.GROUND
 
 
 func has_path(from: Vector2, to: Vector2) -> bool:
@@ -98,38 +73,27 @@ func get_unit_on_cell(cell_pos: Vector2) -> Unit:
 	for unit in all_units.values():
 		var unit_obj: UnitObject = unit.unit_object
 		var unit_pos: Vector2 = unit_obj.position
-		var unit_pos_cell = Globals.convert_to_tile_pos(unit_pos)
 
-		if cell_pos == unit_pos_cell:
+		if cell_pos.distance_to(unit_pos) < Globals.CELL_SIZE:
 			return unit
 
 	return null
 
 
-func set_hover_info_cell_obj(hover_info):
-	var cell_obj: CellObject = get_cell_obj(Globals.convert_to_tile_pos(hover_info.pos))
-	hover_info.cell_obj = cell_obj
-	return hover_info
-
-
-func get_cell_pos(mouse_pos: Vector2):
-	var convert
-
-
-func get_walkable_cells(unit_pos: Vector2i, max_distance: int) -> PackedVector2Array:
+func get_walkable_cells(unit_pos: Vector2, max_distance: int) -> PackedVector2Array:
 	if max_distance == 1:
 		return PackedVector2Array()
 
-	var from_x : int = unit_pos.x - max_distance
-	var to_x : int   = unit_pos.x + max_distance
-	var from_y : int = unit_pos.y - max_distance
-	var to_y : int   = unit_pos.y + max_distance
+	var from_x : int = unit_pos.x - max_distance * Globals.CELL_SIZE
+	var to_x : int   = unit_pos.x + max_distance * Globals.CELL_SIZE
+	var from_y : int = unit_pos.y - max_distance * Globals.CELL_SIZE
+	var to_y : int   = unit_pos.y + max_distance * Globals.CELL_SIZE
 
 	var walkable_cells := PackedVector2Array()
 
-	for x in range(from_x, to_x + 1):
-		for y in range(from_y, to_y + 1):
-			var cell_pos := Vector2i(x, y)
+	for x in range(from_x, to_x + Globals.CELL_SIZE, Globals.CELL_SIZE):
+		for y in range(from_y, to_y + Globals.CELL_SIZE, Globals.CELL_SIZE):
+			var cell_pos = Vector2(x, y)
 			if cell_pos == unit_pos:
 				continue
 
@@ -145,10 +109,10 @@ func draw_walking_cells(walking_cells: PackedVector2Array):
 	clear_walking_cells()
 
 	for cell_pos in walking_cells:
-		var walkable: Node2D = tile_walkable_scene.instantiate()
+		var walkable: Node2D = walkable_hint_cell_scene.instantiate()
 		add_child(walkable)
 		spawned_walking_tiles.push_back(walkable)
-		walkable.position = Globals.convert_to_rect_pos(cell_pos)
+		walkable.position = cell_pos
 
 
 func clear_walking_cells():
@@ -158,17 +122,34 @@ func clear_walking_cells():
 	spawned_walking_tiles.clear()
 
 
-func _on_input_system_on_mouse_hover(hover_info) -> void:
-	on_hovered_cell.emit(set_hover_info_cell_obj(hover_info))
+func get_cell_by_pos(cell_pos: Vector2) -> CellObject:
+	var cell_id := astar.get_closest_point(cell_pos)
+	var cell_obj: CellObject = dict_id_and_cell[cell_id]
+
+	if cell_pos.distance_to(cell_obj.position) < Globals.CELL_SIZE:
+		return dict_id_and_cell[cell_id]
+
+	return null
 
 
-func _on_input_system_on_mouse_click(hover_info) -> void:
-	hover_info = set_hover_info_cell_obj(hover_info)
-	var unit_on_cell: Unit = get_unit_on_cell(Globals.convert_to_tile_pos(hover_info.pos))
+func _on_input_system_on_mouse_hover(cell_info: CellInfo) -> void:
+	cell_info.cell_obj = get_cell_by_pos(cell_info.cell_pos)
+	on_hovered_cell.emit(cell_info)
+
+
+func _on_input_system_on_mouse_click(cell_info: CellInfo) -> void:
+	var unit_on_cell: Unit = get_unit_on_cell(cell_info.cell_pos)
 	if unit_on_cell:
-		hover_info.unit_id = unit_on_cell.id
+		cell_info.unit_id = unit_on_cell.id
 
-	print("clicked on {0}".format([hover_info.cell_obj.obj_type]))
-	on_clicked_cell.emit(hover_info)
+	cell_info.cell_obj = get_cell_by_pos(cell_info.cell_pos)
+	on_clicked_cell.emit(cell_info)
+
+	if cell_info.cell_obj == null:
+		print("clicked nowhere")
+		return
+
+	var clicked_tile_id := astar.get_closest_point(cell_info.cell_pos)
+	print("clicked on {0}".format([cell_info.cell_obj.get_type_string()]))
 
 

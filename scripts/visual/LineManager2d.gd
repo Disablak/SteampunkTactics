@@ -2,7 +2,7 @@ class_name Line2dManager
 extends Node2D
 
 
-@export var line_canvas_texture: CanvasTexture
+@export var line_2d_scrolling: PackedScene
 
 const PATH_LINE_NAME = "path"
 const RAY_LINE_NAME = "ray"
@@ -17,26 +17,24 @@ func clear_path():
 
 
 func draw_ray(points):
-	draw_new_line(RAY_LINE_NAME, points, Color.DARK_RED, 5, line_canvas_texture)
+	draw_new_line(RAY_LINE_NAME, points, Color.DARK_RED)
 
 
 func clear_ray():
 	clear_line(RAY_LINE_NAME)
 
 
-func draw_new_line(name: String, points: PackedVector2Array, color: Color, width: int = 10, texture = null):
+func draw_new_line(name: String, points: PackedVector2Array, color: Color, width: int = 20):
 	if points.size() == 0:
 		return
 
-	var new_line_2d = Line2D.new()
+	var new_line_2d = line_2d_scrolling.instantiate()
 	add_child(new_line_2d)
 
 	new_line_2d.name = name
-	new_line_2d.default_color = color
 	new_line_2d.width = width
-	new_line_2d.texture = texture
-	if texture != null:
-		new_line_2d.texture_mode = Line2D.LINE_TEXTURE_TILE
+	new_line_2d.material = new_line_2d.material.duplicate()
+	new_line_2d.material.set_shader_parameter("color", color)
 	new_line_2d.clear_points()
 
 	for point in points:

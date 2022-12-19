@@ -64,8 +64,8 @@ func _draw_future_path(mouse_pos):
 	if TurnManager.cur_time_points == 0:
 		return
 
-	var formatted_path: PackedVector2Array = _get_path_to_mouse_pos(mouse_pos)
-	var distance = Globals.get_total_distance(formatted_path)
+	var path: PackedVector2Array = _get_path_to_cell(mouse_pos)
+	var distance = Globals.get_total_distance(path)
 	var move_price = cur_unit_data.get_move_price(distance)
 	var can_move = TurnManager.can_spend_time_points(move_price)
 
@@ -76,7 +76,7 @@ func _draw_future_path(mouse_pos):
 
 	_clear_all_lines()
 
-	line2d_manager.draw_path(formatted_path, can_move)
+	line2d_manager.draw_path(path, can_move)
 	_draw_enemy_visible_raycast(mouse_pos)
 
 
@@ -84,10 +84,9 @@ func _draw_enemy_visible_raycast(from_pos: Vector2):
 	if not show_enemy_raycast:
 		return
 
-	var tile_pos = Globals.convert_to_rect_pos(Globals.convert_to_tile_pos(from_pos))
 	var enemies = GlobalUnits.get_units(!cur_unit_data.unit_settings.is_enemy)
 	for enemy in enemies:
-		var positions = raycaster.make_ray_and_get_positions(tile_pos, enemy.unit_object.position)
+		var positions = raycaster.make_ray_and_get_positions(from_pos, enemy.unit_object.position)
 		line2d_manager.draw_ray(positions)
 
 
@@ -156,8 +155,8 @@ func change_unit_action(unit_action: Globals.UnitAction):
 		Globals.UnitAction.SHOOT:
 			TurnManager.show_hint_spend_points(cur_unit_data.weapon.shoot_price)
 
-			var tile_pos = Globals.convert_to_rect_pos(Globals.convert_to_tile_pos(cur_unit_object.position))
-			var positions = raycaster.make_ray_and_get_positions(tile_pos, shooting.selected_enemy.unit_object.position, true)
+			var unit_pos = cur_unit_object.position
+			var positions = raycaster.make_ray_and_get_positions(unit_pos, shooting.selected_enemy.unit_object.position, true)
 			line2d_manager.draw_ray(positions)
 
 		Globals.UnitAction.RELOAD:
@@ -185,28 +184,22 @@ func try_move_unit_to_cell(cell_pos: Vector2):
 	walking.move_unit(_get_path_to_cell(cell_pos))
 
 
-func _get_path_to_mouse_pos(mouse_pos: Vector2) -> PackedVector2Array:
-	var cell_pos: Vector2 = Globals.convert_to_tile_pos(mouse_pos)
-	return _get_path_to_cell(cell_pos)
-
-
 func _get_path_to_cell(cell_pos: Vector2) -> PackedVector2Array:
-	var unit_pos: Vector2 = Globals.convert_to_tile_pos(cur_unit_object.position)
+	var unit_pos: Vector2 = cur_unit_object.position
 	var path: PackedVector2Array = pathfinding.get_path_to_point(unit_pos, cell_pos)
-	var formatted_path: PackedVector2Array = Globals.convert_tile_points_to_rect(path)
 
-	return formatted_path
+	return path
 
 
-func _on_pathfinding_on_clicked_cell(hover_info) -> void:
+func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	if walking.is_unit_moving():
 		return
 
-	if hover_info.cell_obj == null:
+	if cell_info.cell_obj == null:
 		return
 
-	var is_clicked_on_unit = hover_info.unit_id != -1
-	var is_clicked_on_same_unit = is_clicked_on_unit and hover_info.unit_id == cur_unit_id
+	var is_clicked_on_unit = cell_info.unit_id != -1
+	var is_clicked_on_same_unit = is_clicked_on_unit and cell_info.unit_id == cur_unit_id
 
 	if is_clicked_on_same_unit and cur_unit_action != Globals.UnitAction.RELOAD:
 		change_unit_action(Globals.UnitAction.RELOAD)
@@ -220,7 +213,7 @@ func _on_pathfinding_on_clicked_cell(hover_info) -> void:
 		return
 
 	if is_clicked_on_unit and cur_unit_action != Globals.UnitAction.SHOOT:
-		shooting.select_enemy(units[hover_info.unit_id])
+		shooting.select_enemy(units[cell_info.unit_id])
 		change_unit_action(Globals.UnitAction.SHOOT)
 		return
 
@@ -232,33 +225,34 @@ func _on_pathfinding_on_clicked_cell(hover_info) -> void:
 	if is_clicked_on_unit:
 		return
 
-	var is_clicked_on_ground = hover_info.cell_obj.obj_type == CellObject.AtlasObjectType.GROUND
+	var is_clicked_on_ground = cell_info.cell_obj.cell_type == CellObject.CellType.GROUND
 
 	if is_clicked_on_ground and cur_unit_action != Globals.UnitAction.WALK:
 		change_unit_action(Globals.UnitAction.WALK)
 		return
 
 	if is_clicked_on_ground and cur_unit_action == Globals.UnitAction.WALK:
-		var path : PackedVector2Array = _get_path_to_mouse_pos(hover_info.pos)
+		var path : PackedVector2Array = _get_path_to_cell(cell_info.cell_pos)
 		walking.move_unit(path)
 		return
 
 
-func _on_pathfinding_on_hovered_cell(hover_info) -> void:
+func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 	if walking.is_unit_moving():
 		_clear_all_lines()
 		return
 
-	if hover_info.cell_obj == null:
+	if cell_info.cell_obj == null:
 		_clear_all_lines()
 		return
 
-	if hover_info.cell_obj.obj_type != CellObject.AtlasObjectType.GROUND:
+	if cell_info.cell_obj.cell_type != CellObject.CellType.GROUND:
 		return
 
-	if cur_unit_action == Globals.UnitAction.WALK and hover_info.unit_id == -1:
-		_draw_future_path(hover_info.pos)
+	if cur_unit_action == Globals.UnitAction.WALK and cell_info.unit_id == -1:
+		_draw_future_path(cell_info.cell_pos)
 
 
 func _on_input_system_on_pressed_esc() -> void:
 	change_unit_action(Globals.UnitAction.NONE)
+

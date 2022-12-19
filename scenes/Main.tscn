@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cv6vynbm156xv"]
+[gd_scene load_steps=11 format=3 uid="uid://cv6vynbm156xv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_p1tb3"]
 [ext_resource type="PackedScene" uid="uid://bf3yqmkn5tw17" path="res://scenes/2d/World2d.tscn" id="2_bb7rw"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/2d/UnitUi.tscn" id="5_3w331"]
 [ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="5_8dsqb"]
 [ext_resource type="Shortcut" uid="uid://wn8cqlrakbky" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="9_nq4bl"]
+[ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="10_1t6bt"]
 [ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="12_yd8h8"]
 
 [node name="Main" type="Node3D"]
@@ -16,6 +17,7 @@ script = ExtResource("1_p1tb3")
 [node name="World" parent="." instance=ExtResource("2_bb7rw")]
 
 [node name="GUI" type="Control" parent="."]
+layout_direction = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +28,7 @@ script = ExtResource("3_w0484")
 tooltip_scene = ExtResource("12_yd8h8")
 
 [node name="BattleUI" type="Control" parent="GUI"]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -35,7 +37,7 @@ grow_vertical = 2
 script = ExtResource("3_ur4ey")
 
 [node name="UnitsUI" type="Control" parent="GUI/BattleUI"]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -44,8 +46,10 @@ grow_vertical = 2
 script = ExtResource("4_bhut4")
 unit_ui_scene = ExtResource("5_3w331")
 
-[node name="TimePointsUI" type="Control" parent="GUI/BattleUI"]
-layout_mode = 1
+[node name="AlwaysUI" type="CanvasLayer" parent="GUI/BattleUI"]
+
+[node name="TimePointsUI" type="Control" parent="GUI/BattleUI/AlwaysUI"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -53,9 +57,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_8dsqb")
 
-[node name="ProgressBar" type="ProgressBar" parent="GUI/BattleUI/TimePointsUI"]
+[node name="ProgressBar" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
 modulate = Color(0.423529, 0.32549, 0.87451, 1)
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -67,9 +70,8 @@ grow_vertical = 0
 value = 50.0
 show_percentage = false
 
-[node name="ProgressBarHint" type="ProgressBar" parent="GUI/BattleUI/TimePointsUI"]
+[node name="ProgressBarHint" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
 modulate = Color(1, 1, 1, 0.54902)
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -80,9 +82,8 @@ grow_horizontal = 2
 grow_vertical = 0
 value = 20.0
 
-[node name="BtnNextTurn" type="Button" parent="GUI/BattleUI"]
+[node name="BtnNextTurn" type="Button" parent="GUI/BattleUI/AlwaysUI"]
 unique_name_in_owner = true
-layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -97,9 +98,8 @@ grow_vertical = 0
 shortcut = ExtResource("9_nq4bl")
 text = "Next Turn (T)"
 
-[node name="LabelAmmo" type="Label" parent="GUI/BattleUI"]
+[node name="LabelAmmo" type="Label" parent="GUI/BattleUI/AlwaysUI"]
 unique_name_in_owner = true
-layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -111,4 +111,13 @@ grow_vertical = 0
 text = "Ammo: 0/0"
 vertical_alignment = 2
 
-[connection signal="button_down" from="GUI/BattleUI/BtnNextTurn" to="World" method="_on_btn_next_turn_button_down"]
+[node name="Pointer" type="Sprite2D" parent="GUI/BattleUI"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("10_1t6bt")
+
+[connection signal="on_mouse_hover" from="World/InputSystem" to="GUI/BattleUI" method="_on_input_system_on_mouse_hover"]
+[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnNextTurn" to="World" method="_on_btn_next_turn_button_down"]
+
+[editable path="World"]
