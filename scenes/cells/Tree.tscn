@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbya624ruwy5i"]
+
+[ext_resource type="PackedScene" uid="uid://dfebb6xmoyf4" path="res://scenes/cells/HorizontalWall.tscn" id="1_uq2a0"]
+[ext_resource type="Texture2D" uid="uid://ymmbokucpl6n" path="res://content/sprites/objects/tree_0.png" id="2_axxw3"]
+[ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="2_xyxrb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cw5fb"]
+size = Vector2(6, 6)
+
+[node name="Tree" instance=ExtResource("1_uq2a0")]
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 0)
+texture = ExtResource("2_xyxrb")
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(-0.120635, 0.0531921)
+shape = SubResource("RectangleShape2D_cw5fb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+position = Vector2(1.00895, -20.5993)
+texture = ExtResource("2_axxw3")

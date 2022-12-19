@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dgv6kg6f50073"]
+[gd_scene load_steps=32 format=3 uid="uid://dgv6kg6f50073"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -8,19 +8,24 @@
 [ext_resource type="PackedScene" uid="uid://baqjremy63s66" path="res://scenes/cells/WalkableHintCell.tscn" id="6_vdct5"]
 [ext_resource type="PackedScene" uid="uid://2ikcthg31xdg" path="res://scenes/2d/UnitObject.tscn" id="8_u5vun"]
 [ext_resource type="Script" path="res://scripts/units_manager/WalkingModule.gd" id="9_42fdl"]
+[ext_resource type="Texture2D" uid="uid://c7asmn0oa7pdb" path="res://content/sprites/ground/tree_1.png" id="10_kmfi6"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="10_yja2f"]
 [ext_resource type="Script" path="res://scripts/units_manager/ShootingModule.gd" id="10_yumpn"]
+[ext_resource type="Texture2D" uid="uid://dof2jrvgqdrpv" path="res://content/sprites/ground/tree_detal_0.png" id="11_03jfb"]
 [ext_resource type="PackedScene" uid="uid://ctiecnj5p4261" path="res://scenes/cells/VerticalWall.tscn" id="11_6e4lp"]
 [ext_resource type="PackedScene" path="res://scenes/visual/TiledSprite.tscn" id="11_a67h1"]
 [ext_resource type="Script" path="res://scripts/visual/EffectManager.gd" id="11_cpn0u"]
 [ext_resource type="Script" path="res://scripts/CameraController.gd" id="11_sv5rh"]
 [ext_resource type="Shader" path="res://scripts/shaders/BlendTexture.gdshader" id="12_88j2a"]
 [ext_resource type="PackedScene" uid="uid://dfebb6xmoyf4" path="res://scenes/cells/HorizontalWall.tscn" id="12_g3143"]
+[ext_resource type="Texture2D" uid="uid://3o6gsr36ur05" path="res://content/sprites/ground/tree_detal_1.png" id="12_niexs"]
 [ext_resource type="Script" path="res://scripts/Raycaster.gd" id="12_pdk27"]
 [ext_resource type="Texture2D" uid="uid://dbb4ktvlrhst5" path="res://content/sprites/ground/dithering.png" id="13_1p7bo"]
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/WalkableCell.tscn" id="13_iafh6"]
+[ext_resource type="Texture2D" uid="uid://ddr608qbr4ykw" path="res://content/sprites/ground/tree_detal_2.png" id="13_y1ge1"]
 [ext_resource type="Script" path="res://scripts/utility_ai/BrainAI.gd" id="15_y513k"]
 [ext_resource type="PackedScene" uid="uid://bncbloimsnrob" path="res://scenes/visual/Bullet2D.tscn" id="16_n1bfs"]
+[ext_resource type="PackedScene" uid="uid://bbya624ruwy5i" path="res://scenes/cells/Tree.tscn" id="17_a1lrk"]
 [ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/ActionMove.tres" id="17_gjgab"]
 [ext_resource type="Resource" uid="uid://cogp64iiq2s6y" path="res://data/settings/utility ai/ActionReload.tres" id="18_8v7si"]
 [ext_resource type="Resource" uid="uid://cv0nsfwodcjy4" path="res://data/settings/utility ai/ActionShoot.tres" id="19_2d76o"]
@@ -55,6 +60,252 @@ material = SubResource("ShaderMaterial_scqag")
 position = Vector2(960, 544)
 scale = Vector2(40, 36)
 metadata/_edit_lock_ = true
+
+[node name="Grass" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(750, 370)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass2" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(759, 379)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass3" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(770, 387)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass4" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(760, 398)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass5" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(744, 390)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass6" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(734, 380)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass7" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(739, 372)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass8" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(772, 406)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass9" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(780, 417)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass10" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(786, 429)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass11" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(790, 421)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass12" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(787, 405)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass13" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(784, 398)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass14" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(778, 389)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass15" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(837, 556)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass16" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(841, 549)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass17" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(848, 540)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass18" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(861, 537)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass19" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(877, 538)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass20" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(895, 541)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass21" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(914, 539)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass22" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(932, 539)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass23" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(930, 550)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass24" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(917, 554)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass25" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(905, 558)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass26" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(891, 564)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass27" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(878, 571)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass28" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(863, 576)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass29" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(849, 584)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass30" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(834, 586)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass31" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(822, 586)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass32" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(816, 577)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass33" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(810, 565)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass34" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(803, 553)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass35" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(812, 546)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass36" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(825, 541)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass37" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(837, 541)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass38" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(826, 560)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass39" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(836, 570)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass40" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(856, 563)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass41" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(867, 554)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass42" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(884, 554)
+texture = ExtResource("10_kmfi6")
+
+[node name="Grass43" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(939, 543)
+texture = ExtResource("10_kmfi6")
+
+[node name="Flower" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(734, 380)
+texture = ExtResource("11_03jfb")
+
+[node name="Flower2" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(731, 383)
+texture = ExtResource("12_niexs")
+
+[node name="Flower3" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(807, 557)
+texture = ExtResource("12_niexs")
+
+[node name="Flower4" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(809, 566)
+texture = ExtResource("12_niexs")
+flip_h = true
+
+[node name="Flower5" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(813, 560)
+texture = ExtResource("13_y1ge1")
+
+[node name="Flower6" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
+texture_filter = 1
+position = Vector2(889, 562)
+texture = ExtResource("13_y1ge1")
 
 [node name="CellsWalkable" type="Node2D" parent="UnitsManager/Pathfinding"]
 
@@ -1427,6 +1678,12 @@ position = Vector2(688, 528)
 
 [node name="HorizontalWall4" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("12_g3143")]
 position = Vector2(656, 528)
+
+[node name="Tree" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("17_a1lrk")]
+position = Vector2(848, 560)
+
+[node name="Tree2" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("17_a1lrk")]
+position = Vector2(784, 416)
 
 [node name="UnitObject0" parent="UnitsManager" instance=ExtResource("8_u5vun")]
 position = Vector2(688, 432)
