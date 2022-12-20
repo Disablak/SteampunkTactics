@@ -1,7 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://baqjremy63s66"]
+[gd_scene load_steps=4 format=3 uid="uid://baqjremy63s66"]
 
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/WalkableCell.tscn" id="1_f782g"]
+[ext_resource type="Texture2D" uid="uid://bvmv67h0wumtc" path="res://content/sprites/walk_cell_hint.png" id="2_b1566"]
+[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="3_05o1w"]
 
 [node name="WalkableHintCell" instance=ExtResource("1_f782g")]
-modulate = Color(1, 1, 1, 0.509804)
+texture_filter = 1
+texture = ExtResource("2_b1566")
 cell_type = 0
+
+[node name="White" type="Sprite2D" parent="." index="0"]
+self_modulate = Color(1, 1, 1, 0.313726)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_05o1w")

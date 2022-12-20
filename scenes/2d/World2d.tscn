@@ -34,7 +34,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_scqag"]
 shader = ExtResource("12_88j2a")
 shader_parameter/img_color = Color(0.74902, 0.145098, 0.392157, 0.0941176)
-shader_parameter/img_scale = 32.0
+shader_parameter/img_scale = 2.0
 shader_parameter/scale_factor = Vector2(40, 36)
 shader_parameter/img_texture = ExtResource("13_1p7bo")
 
@@ -1714,12 +1714,12 @@ available_actions = [ExtResource("17_gjgab"), ExtResource("18_8v7si"), ExtResour
 script = ExtResource("10_yja2f")
 
 [node name="CameraController" type="Node2D" parent="InputSystem"]
-position = Vector2(800, 435)
+position = Vector2(864, 448)
 script = ExtResource("11_sv5rh")
 
 [node name="Camera2d" type="Camera2D" parent="InputSystem/CameraController"]
 current = true
-zoom = Vector2(3, 3)
+zoom = Vector2(4, 4)
 
 [connection signal="on_clicked_cell" from="UnitsManager/Pathfinding" to="UnitsManager" method="_on_pathfinding_on_clicked_cell"]
 [connection signal="on_hovered_cell" from="UnitsManager/Pathfinding" to="UnitsManager" method="_on_pathfinding_on_hovered_cell"]
