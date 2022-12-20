@@ -7,6 +7,7 @@
 size = Vector2(32, 5)
 
 [node name="HorizontalWall" instance=ExtResource("1_djgji")]
+modulate = Color(1, 1, 1, 1)
 texture_filter = 1
 texture = ExtResource("2_7sp31")
 cell_type = 2

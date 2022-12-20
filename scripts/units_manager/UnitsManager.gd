@@ -250,7 +250,7 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		return
 
 	if cur_unit_action == Globals.UnitAction.WALK and cell_info.unit_id == -1:
-		_draw_future_path(cell_info.cell_pos)
+		_draw_future_path(cell_info.cell_obj.position)
 
 
 func _on_input_system_on_pressed_esc() -> void:

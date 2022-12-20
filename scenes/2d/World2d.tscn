@@ -1683,7 +1683,7 @@ position = Vector2(656, 528)
 position = Vector2(848, 560)
 
 [node name="Tree2" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("17_a1lrk")]
-position = Vector2(784, 416)
+position = Vector2(784, 400)
 
 [node name="UnitObject0" parent="UnitsManager" instance=ExtResource("8_u5vun")]
 position = Vector2(688, 432)

@@ -22,4 +22,5 @@ func show_tooltip(show: bool, text: String, position: Vector2):
 		return
 
 	tooltip.position = position
+	tooltip.scale = Vector2.ONE / get_viewport().get_camera_2d().zoom
 	tooltip.get_node("Label").text = text

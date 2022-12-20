@@ -42,6 +42,6 @@ static func get_total_distance(points: PackedVector2Array) -> float:
 
 
 static func format_hit_chance(hit_chance: float) -> String:
-	return "%0.1f" % (hit_chance * 100)
+	return "%0.1f" % (hit_chance * 100) + "%"
 
 

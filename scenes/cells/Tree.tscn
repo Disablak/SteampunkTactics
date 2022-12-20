@@ -5,10 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="2_xyxrb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cw5fb"]
-size = Vector2(6, 6)
+size = Vector2(16, 16)
 
 [node name="Tree" instance=ExtResource("1_uq2a0")]
-modulate = Color(1, 1, 1, 1)
 self_modulate = Color(1, 1, 1, 0)
 texture = ExtResource("2_xyxrb")
 
