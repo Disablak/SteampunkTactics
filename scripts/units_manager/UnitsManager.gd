@@ -27,7 +27,6 @@ var cur_unit_action: Globals.UnitAction = Globals.UnitAction.NONE
 func _ready() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 
-
 	walking.set_data(pathfinding, _on_finish_move)
 	shooting.set_data(effect_manager, raycaster)
 
@@ -129,7 +128,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	if cur_unit_data.unit_settings.is_enemy:
 		brain_ai.decide_best_action_and_execute()
 
-	GlobalBus.on_setted_unit_control.emit(cur_unit_id, camera_focus_instantly)
+	GlobalBus.on_unit_changed_control.emit(cur_unit_id, camera_focus_instantly)
 
 
 func change_unit_action_with_enable(unit_action, enable):

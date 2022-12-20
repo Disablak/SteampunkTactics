@@ -8,7 +8,7 @@ extends Control
 
 func _ready() -> void:
 	GlobalBus.on_unit_changed_ammo.connect(_on_unit_changed_ammo)
-	GlobalBus.on_setted_unit_control.connect(_update_unit_ammo)
+	GlobalBus.on_unit_changed_control.connect(_update_unit_ammo)
 
 	_update_unit_ammo(-1, false)
 

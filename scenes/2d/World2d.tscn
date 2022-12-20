@@ -1718,6 +1718,8 @@ drag_sensitive = 0.4
 [node name="CameraController" type="Node2D" parent="InputSystem"]
 position = Vector2(864, 448)
 script = ExtResource("11_sv5rh")
+focus_time = 0.5
+bounds_path = NodePath("../CameraBounds")
 
 [node name="Camera2d" type="Camera2D" parent="InputSystem/CameraController"]
 current = true

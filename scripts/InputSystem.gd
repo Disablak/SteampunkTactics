@@ -24,12 +24,6 @@ var prev_hover_pos: Vector3
 var was_mouse_btn_pressed: bool = false
 var time_pressed: int
 
-var camera_bound_rect: Rect2
-
-
-func _ready() -> void:
-	camera_bound_rect = Rect2(camera_bounds.position, camera_bounds.scale * Globals.CELL_SIZE)
-
 
 func _input(event: InputEvent) -> void:
 	if _draging(event):
@@ -50,7 +44,7 @@ func _draging(event: InputEvent) -> bool:
 		drag_pos = (prev_drag_pos - event.position)
 		prev_drag_pos = event.position
 
-		_drag(drag_pos)
+		camera_controller.drag(drag_pos)
 		emit_signal("on_drag", drag_pos)
 		return true
 
@@ -89,19 +83,6 @@ func _mouse_hover(event: InputEvent):
 func _click_escape(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):
 		on_pressed_esc.emit()
-
-
-func _drag(dir: Vector2) -> void:
-	var half_bound_size := camera_bound_rect.size / 2
-	var half_camera_size := get_viewport_rect().size / camera.zoom / 2
-
-	var min_x = -half_bound_size.x + camera_bound_rect.position.x + half_camera_size.x
-	var max_x =  half_bound_size.x + camera_bound_rect.position.x - half_camera_size.x
-	var min_y = -half_bound_size.y + camera_bound_rect.position.y + half_camera_size.y
-	var max_y =  half_bound_size.y + camera_bound_rect.position.y - half_camera_size.y
-
-	var new_pos = camera_controller.position + dir * drag_sensitive
-	camera_controller.position = Vector2(clampf(new_pos.x, min_x, max_x), clampf(new_pos.y, min_y, max_y))
 
 
 func formatted_position(position: Vector2) -> Vector2:
