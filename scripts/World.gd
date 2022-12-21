@@ -58,15 +58,19 @@ func cur_unit_shoot_to_visible_enemy():
 
 
 func walk_to_rand_cell():
+	await GlobalsUi.input_system.camera_controller.on_focused
+
 	var unit_walking : WalkingModule = units_manager.walking
 	unit_walking.draw_walking_cells()
 
 	var walking_cells : PackedVector2Array = unit_walking.cached_walking_cells;
-	var random_cell := walking_cells[randi_range(0, walking_cells.size() - 1)]
-	units_manager.change_unit_action(Globals.UnitAction.WALK)
-	units_manager.try_move_unit_to_cell(random_cell)
-
-	await unit_walking.on_finished_move
+	if walking_cells.size() == 0:
+		printerr("No walking cells")
+	else:
+		var random_cell := walking_cells[randi_range(0, walking_cells.size() - 1)]
+		units_manager.change_unit_action(Globals.UnitAction.WALK)
+		units_manager.try_move_unit_to_cell(random_cell)
+		await unit_walking.on_finished_move
 
 	units_manager.change_unit_action(Globals.UnitAction.NONE)
 	units_manager.next_turn()

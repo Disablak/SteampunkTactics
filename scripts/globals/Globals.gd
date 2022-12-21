@@ -45,3 +45,5 @@ static func format_hit_chance(hit_chance: float) -> String:
 	return "%0.1f" % (hit_chance * 100) + "%"
 
 
+static func snap_to_cell_pos(pos: Vector2) -> Vector2:
+	return Vector2(snappedi(pos.x, CELL_HALF_SIZE), snappedi(pos.y, CELL_HALF_SIZE))

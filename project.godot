@@ -39,6 +39,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://scripts/visual/BulletEffects.gd"
 }, {
+"base": "Node2D",
+"class": &"CameraController",
+"language": &"GDScript",
+"path": "res://scripts/CameraController.gd"
+}, {
 "base": "RefCounted",
 "class": &"CellInfo",
 "language": &"GDScript",
@@ -108,6 +113,11 @@ _global_script_classes=[{
 "class": &"GUI",
 "language": &"GDScript",
 "path": "res://scripts/ui/GUI.gd"
+}, {
+"base": "Node2D",
+"class": &"InputSystem",
+"language": &"GDScript",
+"path": "res://scripts/InputSystem.gd"
 }, {
 "base": "Node2D",
 "class": &"Line2dManager",
@@ -181,6 +191,7 @@ _global_script_class_icons={
 "ActionShoot": "",
 "BrainAI": "",
 "BulletEffects": "",
+"CameraController": "",
 "CellInfo": "",
 "CellObject": "",
 "ConsiderEnemyVisibility": "",
@@ -195,6 +206,7 @@ _global_script_class_icons={
 "DrawLine3D": "",
 "EffectManager": "",
 "GUI": "",
+"InputSystem": "",
 "Line2dManager": "",
 "MyWorld": "",
 "NodeUtilities": "",

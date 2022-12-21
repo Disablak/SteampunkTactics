@@ -1,3 +1,4 @@
+class_name CameraController
 extends Node2D
 
 
@@ -20,7 +21,6 @@ func _ready() -> void:
 	_calc_bounds(camera_bound_rect)
 
 	GlobalBus.on_unit_changed_control.connect(focus_camera)
-	focus_camera(GlobalUnits.cur_unit_id, true)
 
 
 func focus_camera(unit_id, instantly):
@@ -33,7 +33,6 @@ func focus_camera(unit_id, instantly):
 		return
 
 	tween_move = create_tween()
-	tween_move.tween_callback(emit_on_focused)
 	tween_move.set_trans(Tween.TRANS_SINE)
 	tween_move.tween_property(
 		self,
@@ -41,6 +40,11 @@ func focus_camera(unit_id, instantly):
 		target_pos,
 		focus_time
 	)
+	tween_move.tween_callback(emit_on_focused)
+
+
+func is_camera_moving() -> bool:
+	return tween_move != null and tween_move.is_running()
 
 
 func emit_on_focused():

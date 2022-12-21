@@ -93,6 +93,8 @@ func get_walkable_cells(unit_pos: Vector2, max_distance: int) -> PackedVector2Ar
 	if max_distance == 1:
 		return PackedVector2Array()
 
+	unit_pos = Globals.snap_to_cell_pos(unit_pos)
+
 	var from_x : int = unit_pos.x - max_distance * Globals.CELL_SIZE
 	var to_x : int   = unit_pos.x + max_distance * Globals.CELL_SIZE
 	var from_y : int = unit_pos.y - max_distance * Globals.CELL_SIZE

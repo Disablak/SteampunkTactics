@@ -1713,7 +1713,6 @@ available_actions = [ExtResource("17_gjgab"), ExtResource("18_8v7si"), ExtResour
 
 [node name="InputSystem" type="Node2D" parent="."]
 script = ExtResource("10_yja2f")
-drag_sensitive = 0.4
 
 [node name="CameraController" type="Node2D" parent="InputSystem"]
 position = Vector2(864, 448)

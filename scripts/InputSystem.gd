@@ -6,8 +6,6 @@ signal on_mouse_click(cell_info: CellInfo)
 signal on_drag(dir)
 signal on_pressed_esc()
 
-@export var drag_sensitive = 0.5
-
 @onready var camera_controller := get_node("CameraController")
 @onready var camera := get_node("CameraController/Camera2d") as Camera2D
 @onready var camera_bounds: Node2D = get_node("CameraBounds") as Node2D

@@ -49,7 +49,6 @@ func _init_units():
 	set_unit_control(0, true)
 
 
-
 func _on_unit_died(unit_id, unit_id_killer):
 	GlobalUnits.remove_unit(unit_id)
 
@@ -98,6 +97,9 @@ func next_turn():
 
 
 func set_unit_control(unit_id, camera_focus_instantly: bool = false):
+	if _is_camera_moving():
+		return
+
 	if walking.is_unit_moving():
 		printerr("unit {0} is moving now".format([unit_id]))
 		return
@@ -190,7 +192,17 @@ func _get_path_to_cell(cell_pos: Vector2) -> PackedVector2Array:
 	return path
 
 
+func _is_camera_moving() -> bool:
+	if GlobalsUi.input_system == null:
+		return false
+
+	return GlobalsUi.input_system.camera_controller.is_camera_moving()
+
+
 func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
+	if _is_camera_moving():
+		return
+
 	if walking.is_unit_moving():
 		return
 
@@ -237,6 +249,9 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 
 
 func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
+	if _is_camera_moving():
+		return
+
 	if walking.is_unit_moving():
 		_clear_all_lines()
 		return
