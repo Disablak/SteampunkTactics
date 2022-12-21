@@ -52,15 +52,12 @@ func shoot(shooter: Unit):
 	shooter.unit_data.spend_weapon_ammo()
 
 	var hit_chance := get_hit_chance(shooter)
+	var is_hitted = _is_hitted(hit_chance)
 
-	if not _is_hitted(hit_chance):
-		print("miss")
-		return
+	if is_hitted:
+		selected_enemy.unit_data.set_damage(shooter.unit_data.weapon.damage, shooter.id)
 
-	print("hitted!")
-
-	selected_enemy.unit_data.set_damage(shooter.unit_data.weapon.damage, shooter.id)
-	effect_manager.shoot(shooter, selected_enemy)
+	effect_manager.shoot(shooter, selected_enemy, is_hitted)
 
 
 func reload(unit_data: UnitData):

@@ -15,6 +15,7 @@ const CELL_OFFSETS = [Vector2(-Globals.CELL_SIZE, 0), Vector2(Globals.CELL_SIZE,
 var astar : AStar2D = AStar2D.new()
 var spawned_walking_tiles = Array()
 var dict_id_and_cell = {}
+var prev_hovered_cell_pos: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
@@ -145,6 +146,12 @@ func get_cell_by_pos(cell_pos: Vector2) -> CellObject:
 
 func _on_input_system_on_mouse_hover(cell_info: CellInfo) -> void:
 	cell_info.cell_obj = get_cell_by_pos(cell_info.cell_pos)
+
+	if cell_info.cell_obj != null and prev_hovered_cell_pos == cell_info.cell_obj.position:
+		return
+
+	prev_hovered_cell_pos = cell_info.cell_obj.position if cell_info.cell_obj != null else Vector2.ZERO
+
 	on_hovered_cell.emit(cell_info)
 
 

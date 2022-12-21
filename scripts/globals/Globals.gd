@@ -47,3 +47,7 @@ static func format_hit_chance(hit_chance: float) -> String:
 
 static func snap_to_cell_pos(pos: Vector2) -> Vector2:
 	return Vector2(snappedi(pos.x, CELL_HALF_SIZE), snappedi(pos.y, CELL_HALF_SIZE))
+
+
+func create_timer_and_get_signal(time: float) -> Signal:
+	return get_tree().create_timer(time).timeout

@@ -54,7 +54,7 @@ func _on_unit_died(unit_id, unit_id_killer):
 
 
 func _on_finish_move() -> void:
-	_clear_all_lines()
+	clear_all_lines()
 	walking.draw_walking_cells()
 
 
@@ -72,7 +72,7 @@ func _draw_future_path(mouse_pos):
 
 	TurnManager.show_hint_spend_points(move_price)
 
-	_clear_all_lines()
+	clear_all_lines()
 
 	line2d_manager.draw_path(path, can_move)
 	_draw_enemy_visible_raycast(mouse_pos)
@@ -147,7 +147,7 @@ func change_unit_action_with_enable(unit_action, enable):
 func change_unit_action(unit_action: Globals.UnitAction):
 	cur_unit_action = unit_action
 
-	_clear_all_lines()
+	clear_all_lines()
 	walking.clear_walking_cells()
 
 	match unit_action:
@@ -176,7 +176,7 @@ func reload_weapon():
 	shooting.reload(cur_unit_data)
 
 
-func _clear_all_lines():
+func clear_all_lines():
 	line2d_manager.clear_path()
 	line2d_manager.clear_ray()
 
@@ -230,7 +230,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 
 	if is_clicked_on_unit and cur_unit_action == Globals.UnitAction.SHOOT:
 		shooting.shoot(units[cur_unit_id])
-		_clear_all_lines()
+		clear_all_lines()
 		return
 
 	if is_clicked_on_unit:
@@ -253,11 +253,11 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		return
 
 	if walking.is_unit_moving():
-		_clear_all_lines()
+		clear_all_lines()
 		return
 
 	if cell_info.cell_obj == null:
-		_clear_all_lines()
+		clear_all_lines()
 		return
 
 	if cell_info.cell_obj.cell_type != CellObject.CellType.GROUND:
