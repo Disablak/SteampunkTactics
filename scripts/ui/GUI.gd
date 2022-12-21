@@ -7,6 +7,8 @@ var tooltip: Control
 
 
 func _ready() -> void:
+	GlobalBus.on_unit_died.connect(_on_unit_died)
+
 	GlobalsUi.gui = self
 
 	tooltip = tooltip_scene.instantiate()
@@ -14,8 +16,11 @@ func _ready() -> void:
 	tooltip.visible = false
 
 
+func _on_unit_died(unit_id: int, killer_id: int):
+	show_tooltip(false)
 
-func show_tooltip(show: bool, text: String, position: Vector2):
+
+func show_tooltip(show: bool, text: String = "", position: Vector2 = Vector2.ZERO):
 	tooltip.visible = show
 
 	if not show:
