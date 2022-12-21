@@ -1,3 +1,4 @@
+class_name InputSystem
 extends Node2D
 
 
@@ -6,7 +7,7 @@ signal on_mouse_click(cell_info: CellInfo)
 signal on_drag(dir)
 signal on_pressed_esc()
 
-@onready var camera_controller := get_node("CameraController")
+@onready var camera_controller := get_node("CameraController") as CameraController
 @onready var camera := get_node("CameraController/Camera2d") as Camera2D
 @onready var camera_bounds: Node2D = get_node("CameraBounds") as Node2D
 
@@ -21,6 +22,10 @@ var prev_hover_pos: Vector3
 
 var was_mouse_btn_pressed: bool = false
 var time_pressed: int
+
+
+func _ready() -> void:
+	GlobalsUi.input_system = self
 
 
 func _input(event: InputEvent) -> void:
