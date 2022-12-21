@@ -47,11 +47,21 @@ func try_find_any_visible_enemy(cur_unit: Unit) -> Unit:
 
 func cur_unit_shoot_to_visible_enemy():
 	print("shoot! to unit_id - {0}".format([cached_visible_enemy.id]))
+
+	await GlobalsUi.input_system.camera_controller.on_focused
+
 	units_manager.shooting.select_enemy(cached_visible_enemy)
 	units_manager.change_unit_action(Globals.UnitAction.SHOOT)
+
+	await Globals.create_timer_and_get_signal(0.2)
+
+	units_manager.clear_all_lines()
+
+	await Globals.create_timer_and_get_signal(0.2)
+
 	units_manager.shooting.shoot(GlobalUnits.get_cur_unit())
 
-	await get_tree().create_timer(0.5).timeout
+	await Globals.create_timer_and_get_signal(0.5)
 
 	units_manager.change_unit_action(Globals.UnitAction.NONE)
 	units_manager.next_turn()
@@ -62,6 +72,8 @@ func walk_to_rand_cell():
 
 	var unit_walking : WalkingModule = units_manager.walking
 	unit_walking.draw_walking_cells()
+
+	await Globals.create_timer_and_get_signal(0.2)
 
 	var walking_cells : PackedVector2Array = unit_walking.cached_walking_cells;
 	if walking_cells.size() == 0:
