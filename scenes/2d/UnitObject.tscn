@@ -1,21 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://2ikcthg31xdg"]
 
-[ext_resource type="Texture2D" uid="uid://b6bldh7ukfv6p" path="res://content/sprites/terrain atlas.png" id="1_a2xkr"]
 [ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_a7ikt"]
+[ext_resource type="Shader" path="res://scripts/shaders/Outline.gdshader" id="2_e1f38"]
 [ext_resource type="Texture2D" uid="uid://bmjeh4ia33do8" path="res://content/sprites/unit_0.png" id="2_h7q2b"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_putcr"]
-atlas = ExtResource("1_a2xkr")
-region = Rect2(157, 13.5, 32, 32)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkajc"]
+shader = ExtResource("2_e1f38")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
 
 [node name="UnitObject" type="Node2D"]
 script = ExtResource("1_a7ikt")
 
 [node name="Sprite2d" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_lkajc")
 texture = ExtResource("2_h7q2b")
-
-[node name="SelectedMark" type="Sprite2D" parent="."]
-position = Vector2(11, 11)
-scale = Vector2(0.3, 0.3)
-texture = SubResource("AtlasTexture_putcr")
