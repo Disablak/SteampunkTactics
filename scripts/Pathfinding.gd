@@ -138,11 +138,10 @@ func get_cell_by_pos(cell_pos: Vector2) -> CellObject:
 	var cell_id := astar.get_closest_point(cell_pos)
 	var cell_obj: CellObject = dict_id_and_cell[cell_id]
 
-	var cell_rect: Rect2 = Rect2(cell_obj.position, Vector2(Globals.CELL_SIZE, Globals.CELL_SIZE))
-	if cell_rect.has_point(cell_pos):
-		return dict_id_and_cell[cell_id]
+	if cell_pos.distance_to(cell_obj.position) > Globals.CELL_SIZE:
+		return null
 
-	return null
+	return  dict_id_and_cell[cell_id]
 
 
 func get_cells_by_pattern(pos_center: Vector2, pattern_cells) -> Array[CellInfo]:
