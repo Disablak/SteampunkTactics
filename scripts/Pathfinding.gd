@@ -5,6 +5,8 @@ extends Node2D
 signal on_hovered_cell(cell_info: CellInfo)
 signal on_clicked_cell(cell_info: CellInfo)
 
+@onready var cell_hint := get_node("CellHovered") as Node2D
+
 @export var walkable_hint_cell_scene: PackedScene
 @export var node_with_walk_cells: Node2D
 @export var node_with_walls: Node2D
@@ -141,10 +143,13 @@ func clear_walking_cells():
 
 
 func get_cell_by_pos(cell_pos: Vector2) -> CellObject:
+	cell_pos = Globals.snap_to_cell_pos(cell_pos)
+
 	var cell_id := astar.get_closest_point(cell_pos)
 	var cell_obj: CellObject = dict_id_and_cell[cell_id]
 
-	if cell_pos.distance_to(cell_obj.position) < Globals.CELL_SIZE:
+	var rect: Rect2 = Rect2(cell_pos - Globals.CELL_OFFSET, Vector2.ONE * Globals.CELL_SIZE)
+	if rect.has_point(cell_obj.position):
 		return dict_id_and_cell[cell_id]
 
 	var cell_wall := _get_closest_wall(cell_pos)
@@ -197,6 +202,7 @@ func _on_input_system_on_mouse_hover(cell_info: CellInfo) -> void:
 		return
 
 	prev_hovered_cell_pos = cell_info.cell_obj.position if cell_info.cell_obj != null else Vector2.ZERO
+	cell_hint.position = prev_hovered_cell_pos
 
 	on_hovered_cell.emit(cell_info)
 

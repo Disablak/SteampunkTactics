@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://scripts/cells/CellObject.gd" id="2_k1pvc"]
 
 [node name="WalkableCell" type="Sprite2D"]
-modulate = Color(1, 0.764706, 1, 0.635294)
 texture = ExtResource("1_kbmvf")
 script = ExtResource("2_k1pvc")
 cell_type = 1
