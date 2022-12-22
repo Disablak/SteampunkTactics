@@ -28,7 +28,7 @@ func _ready() -> void:
 	GlobalsUi.input_system = self
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if _draging(event):
 		return
 

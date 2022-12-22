@@ -24,6 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("3_w0484")
 tooltip_scene = ExtResource("12_yd8h8")
 
@@ -34,6 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("3_ur4ey")
 
 [node name="UnitsUI" type="Control" parent="GUI/BattleUI"]
@@ -43,6 +45,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("4_bhut4")
 unit_ui_scene = ExtResource("5_3w331")
 
@@ -55,6 +58,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("5_8dsqb")
 
 [node name="ProgressBar" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
