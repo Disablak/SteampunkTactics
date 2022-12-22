@@ -47,7 +47,6 @@ func _get_little_wrong_shoot_direction(shoot_vector: Vector2) -> Vector2:
 
 
 func granade(cells: Array[CellInfo]):
-
 	for cell_info in cells:
 		if cell_info.cell_obj == null or cell_info.cell_obj.cell_type != CellObject.CellType.GROUND:
 			continue

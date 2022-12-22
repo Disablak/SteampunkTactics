@@ -15,6 +15,7 @@ const CELL_OFFSETS = [Vector2(-Globals.CELL_SIZE, 0), Vector2(Globals.CELL_SIZE,
 var astar : AStar2D = AStar2D.new()
 var spawned_walking_tiles = Array()
 var dict_id_and_cell = {}
+var obstacle_cells: Array[CellObject] = []
 var prev_hovered_cell_pos: Vector2 = Vector2.ZERO
 
 
@@ -52,7 +53,12 @@ func _connect_walkable_cells():
 
 func _remove_wall_points():
 	for wall in node_with_walls.get_children():
-		var wall_pos: Vector2 = wall.position
+		var wall_cell := wall as CellObject
+		if wall_cell.cell_type != CellObject.CellType.WALL:
+			continue
+
+		obstacle_cells.push_back(wall_cell)
+		var wall_pos: Vector2 = wall_cell.position
 		var cell_id = astar.get_closest_point(wall_pos)
 		astar.remove_point(cell_id)
 
@@ -138,10 +144,14 @@ func get_cell_by_pos(cell_pos: Vector2) -> CellObject:
 	var cell_id := astar.get_closest_point(cell_pos)
 	var cell_obj: CellObject = dict_id_and_cell[cell_id]
 
-	if cell_pos.distance_to(cell_obj.position) > Globals.CELL_SIZE:
-		return null
+	if cell_pos.distance_to(cell_obj.position) < Globals.CELL_SIZE:
+		return dict_id_and_cell[cell_id]
 
-	return  dict_id_and_cell[cell_id]
+	var cell_wall := _get_closest_wall(cell_pos)
+	if cell_pos.distance_to(cell_wall.position) < Globals.CELL_SIZE:
+		return cell_wall
+
+	return null
 
 
 func get_cells_by_pattern(pos_center: Vector2, pattern_cells) -> Array[CellInfo]:
@@ -165,6 +175,19 @@ func _get_cell_info(cell_pos: Vector2) -> CellInfo:
 	var unit_id := unit_on_cell.id if unit_on_cell != null else -1
 
 	return CellInfo.new(cell_pos, cell_obj, unit_id)
+
+
+func _get_closest_wall(pos: Vector2) -> CellObject:
+	var closest_wall: CellObject
+	var closest_distance
+
+	for wall in obstacle_cells:
+		var distance = pos.distance_squared_to(wall.position)
+		if closest_wall == null or distance < closest_distance:
+			closest_wall = wall
+			closest_distance = distance
+
+	return closest_wall
 
 
 func _on_input_system_on_mouse_hover(cell_info: CellInfo) -> void:

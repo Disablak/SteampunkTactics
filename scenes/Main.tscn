@@ -29,7 +29,7 @@ script = ExtResource("3_w0484")
 tooltip_scene = ExtResource("12_yd8h8")
 
 [node name="BattleUI" type="Control" parent="GUI"]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -39,7 +39,7 @@ mouse_filter = 1
 script = ExtResource("3_ur4ey")
 
 [node name="UnitsUI" type="Control" parent="GUI/BattleUI"]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -63,7 +63,6 @@ script = ExtResource("5_8dsqb")
 
 [node name="ProgressBar" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
 modulate = Color(0.423529, 0.32549, 0.87451, 1)
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -77,7 +76,6 @@ show_percentage = false
 
 [node name="ProgressBarHint" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
 modulate = Color(1, 1, 1, 0.54902)
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
