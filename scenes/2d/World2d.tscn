@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dgv6kg6f50073"]
+[gd_scene load_steps=34 format=3 uid="uid://dgv6kg6f50073"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -30,6 +30,7 @@
 [ext_resource type="Resource" uid="uid://cogp64iiq2s6y" path="res://data/settings/utility ai/ActionReload.tres" id="18_8v7si"]
 [ext_resource type="Resource" uid="uid://cv0nsfwodcjy4" path="res://data/settings/utility ai/ActionShoot.tres" id="19_2d76o"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
+[ext_resource type="PackedScene" uid="uid://b6xdyvup7cfys" path="res://scenes/cells/CellFireEffect.tscn" id="23_c5njg"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="31_mf2ah"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_scqag"]
@@ -1701,6 +1702,7 @@ script = ExtResource("10_yumpn")
 [node name="EffectManager" type="Node2D" parent="UnitsManager"]
 script = ExtResource("11_cpn0u")
 bullet_scene = ExtResource("16_n1bfs")
+fire_effect_scene = ExtResource("23_c5njg")
 
 [node name="Raycaster" type="Node2D" parent="UnitsManager"]
 script = ExtResource("12_pdk27")

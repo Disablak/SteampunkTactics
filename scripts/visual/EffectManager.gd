@@ -3,6 +3,7 @@ extends Node2D
 
 
 @export var bullet_scene: PackedScene
+@export var fire_effect_scene: PackedScene
 
 const BULLET_SPEED = 1500
 const SHOOT_MISS_POS_LERP = [0.0, 0.1, 0.2, 0.8, 0.9, 1.0]
@@ -43,3 +44,22 @@ func _get_little_wrong_shoot_direction(shoot_vector: Vector2) -> Vector2:
 	var with_big_length: Vector2 = (shoot_vector + random_offset).normalized() * MISSED_BULLET_DISTANCE
 
 	return with_big_length
+
+
+func granade(cells: Array[CellInfo]):
+
+	for cell_info in cells:
+		if cell_info.cell_obj == null or cell_info.cell_obj.cell_type != CellObject.CellType.GROUND:
+			continue
+
+		var new_fire: Node2D = fire_effect_scene.instantiate()
+		add_child(new_fire)
+
+		new_fire.position = cell_info.cell_pos
+
+		var tween: Tween = create_tween()
+		tween.tween_property(
+			new_fire, "scale",
+			Vector2.ZERO, 1.0
+		)
+		tween.tween_callback(Callable(new_fire, "queue_free"))

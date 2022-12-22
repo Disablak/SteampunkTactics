@@ -28,7 +28,7 @@ func _ready() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 
 	walking.set_data(pathfinding, _on_finish_move)
-	shooting.set_data(effect_manager, raycaster)
+	shooting.set_data(effect_manager, raycaster, pathfinding)
 
 	_init_units()
 	GlobalUnits.units_manager = self
@@ -151,8 +151,12 @@ func change_unit_action(unit_action: Globals.UnitAction):
 	walking.clear_walking_cells()
 
 	match unit_action:
+		Globals.UnitAction.NONE:
+			TurnManager.show_hint_spend_points(0)
+
 		Globals.UnitAction.WALK:
 			walking.draw_walking_cells()
+
 		Globals.UnitAction.SHOOT:
 			TurnManager.show_hint_spend_points(cur_unit_data.weapon.shoot_price)
 
@@ -163,11 +167,14 @@ func change_unit_action(unit_action: Globals.UnitAction):
 		Globals.UnitAction.RELOAD:
 			TurnManager.show_hint_spend_points(cur_unit_data.weapon.reload_price)
 
+		#Globals.UnitAction.GRANADE:
+
+
+		_:
+			printerr("change unit action not implemented for {0}".format([unit_action]))
+
 	if cur_unit_action != Globals.UnitAction.SHOOT:
 		shooting.deselect_enemy()
-
-	if cur_unit_action == Globals.UnitAction.NONE: #TODO change in match default
-		TurnManager.show_hint_spend_points(0)
 
 	GlobalBus.on_unit_changed_action.emit(cur_unit_id, unit_action)
 
@@ -237,6 +244,11 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		return
 
 	var is_clicked_on_ground = cell_info.cell_obj.cell_type == CellObject.CellType.GROUND
+	var is_granade_mode = cur_unit_action == Globals.UnitAction.GRANADE
+
+	if is_clicked_on_ground and is_granade_mode:
+		shooting.throw_granade(cur_unit_id, cell_info.cell_obj.position)
+		return
 
 	if is_clicked_on_ground and cur_unit_action != Globals.UnitAction.WALK:
 		change_unit_action(Globals.UnitAction.WALK)

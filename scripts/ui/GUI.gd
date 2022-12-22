@@ -16,6 +16,10 @@ func _ready() -> void:
 	tooltip.visible = false
 
 
+func _gui_input(event: InputEvent) -> void:
+	pass
+
+
 func _on_unit_died(unit_id: int, killer_id: int):
 	show_tooltip(false)
 

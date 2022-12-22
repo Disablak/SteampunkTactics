@@ -4,6 +4,7 @@ extends Control
 @onready var btn_next_turn: Button = get_node("%BtnNextTurn")
 @onready var label_ammo: Label = get_node("%LabelAmmo")
 @onready var pointer = get_node("%Pointer")
+@onready var btn_granade: Button = get_node("%BtnGranade") as Button
 
 
 func _ready() -> void:

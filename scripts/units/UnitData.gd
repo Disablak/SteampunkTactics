@@ -32,7 +32,7 @@ func set_unit_id(id):
 	self.unit_id = id
 
 
-func set_damage(value, attacker_unit_id):
+func set_damage(value: float, attacker_unit_id: int):
 	if cur_health <= 0:
 		print("unit {0} is already dead".format([unit_id]))
 		return

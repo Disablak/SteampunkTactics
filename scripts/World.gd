@@ -86,3 +86,7 @@ func walk_to_rand_cell():
 
 	units_manager.change_unit_action(Globals.UnitAction.NONE)
 	units_manager.next_turn()
+
+
+func _on_btn_granade_button_down() -> void:
+	units_manager.change_unit_action_with_enable(Globals.UnitAction.GRANADE, true)

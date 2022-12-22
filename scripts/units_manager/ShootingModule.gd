@@ -5,6 +5,7 @@ extends Node2D
 var random_number_generator: RandomNumberGenerator = null
 var effect_manager: EffectManager
 var raycaster: Raycaster
+var pathfinding: Pathfinding
 
 var selected_enemy: Unit
 
@@ -14,9 +15,10 @@ func _ready() -> void:
 	random_number_generator.randomize()
 
 
-func set_data(effect_manager: EffectManager, raycaster: Raycaster):
+func set_data(effect_manager: EffectManager, raycaster: Raycaster, pathfinding: Pathfinding):
 	self.effect_manager = effect_manager
 	self.raycaster = raycaster
+	self.pathfinding = pathfinding
 
 
 func select_enemy(enemy: Unit):
@@ -88,6 +90,18 @@ func get_distance_to_enemy(cur_unit: Unit) -> float:
 		return 0.0
 
 	return cur_unit.unit_object.position.distance_to(selected_enemy.unit_object.position)
+
+
+func throw_granade(unit_attacker_id: int, cell_pos: Vector2):
+	var pattern = Globals.CELL_AREA_3x3
+	var damaged_cells = pathfinding.get_cells_by_pattern(cell_pos, Globals.CELL_AREA_3x3)
+
+	for cell_info in damaged_cells:
+		if cell_info.unit_id != -1:
+			var unit_data: UnitData = GlobalUnits.units[cell_info.unit_id].unit_data
+			unit_data.set_damage(5, unit_attacker_id)
+
+	effect_manager.granade(damaged_cells)
 
 
 func _is_hitted(hit_chance) -> bool:

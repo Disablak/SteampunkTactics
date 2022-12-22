@@ -14,9 +14,14 @@ enum UnitAction{
 	NONE,
 	WALK,
 	SHOOT,
-	RELOAD
+	RELOAD,
+	GRANADE
 }
 
+const CELL_AREA_3x3: Array[Vector2]= [
+	Vector2.ZERO, Vector2.LEFT, Vector2.RIGHT,
+	Vector2.UP, Vector2.DOWN, Vector2(1, 1),
+	Vector2(-1, -1), Vector2(-1, 1), Vector2(1, -1)]
 
 const GRID_STEP = 1.0
 const CURVE_X_METERS = 3000

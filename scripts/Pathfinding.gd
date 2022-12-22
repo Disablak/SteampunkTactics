@@ -138,10 +138,34 @@ func get_cell_by_pos(cell_pos: Vector2) -> CellObject:
 	var cell_id := astar.get_closest_point(cell_pos)
 	var cell_obj: CellObject = dict_id_and_cell[cell_id]
 
-	if cell_pos.distance_to(cell_obj.position) < Globals.CELL_SIZE:
+	var cell_rect: Rect2 = Rect2(cell_obj.position, Vector2(Globals.CELL_SIZE, Globals.CELL_SIZE))
+	if cell_rect.has_point(cell_pos):
 		return dict_id_and_cell[cell_id]
 
 	return null
+
+
+func get_cells_by_pattern(pos_center: Vector2, pattern_cells) -> Array[CellInfo]:
+	pos_center = Globals.snap_to_cell_pos(pos_center)
+
+	var result: Array[CellInfo]
+
+	for cell_offset in pattern_cells:
+		var cell_pos = pos_center + cell_offset * Globals.CELL_SIZE
+		var cell_info = _get_cell_info(cell_pos)
+		result.push_back(cell_info)
+
+	return result
+
+
+func _get_cell_info(cell_pos: Vector2) -> CellInfo:
+	cell_pos = Globals.snap_to_cell_pos(cell_pos)
+
+	var cell_obj := get_cell_by_pos(cell_pos)
+	var unit_on_cell: Unit = get_unit_on_cell(cell_pos)
+	var unit_id := unit_on_cell.id if unit_on_cell != null else -1
+
+	return CellInfo.new(cell_pos, cell_obj, unit_id)
 
 
 func _on_input_system_on_mouse_hover(cell_info: CellInfo) -> void:
@@ -156,18 +180,14 @@ func _on_input_system_on_mouse_hover(cell_info: CellInfo) -> void:
 
 
 func _on_input_system_on_mouse_click(cell_info: CellInfo) -> void:
-	var unit_on_cell: Unit = get_unit_on_cell(cell_info.cell_pos)
-	if unit_on_cell:
-		cell_info.unit_id = unit_on_cell.id
+	var info = _get_cell_info(cell_info.cell_pos)
+	on_clicked_cell.emit(info)
 
-	cell_info.cell_obj = get_cell_by_pos(cell_info.cell_pos)
-	on_clicked_cell.emit(cell_info)
-
-	if cell_info.cell_obj == null:
+	if info.cell_obj == null:
 		print("clicked nowhere")
 		return
 
-	var clicked_tile_id := astar.get_closest_point(cell_info.cell_pos)
-	print("clicked on {0}".format([cell_info.cell_obj.get_type_string()]))
+	var clicked_tile_id := astar.get_closest_point(info.cell_pos)
+	print("clicked on {0}".format([info.cell_obj.get_type_string()]))
 
 
