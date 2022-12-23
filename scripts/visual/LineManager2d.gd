@@ -30,10 +30,11 @@ func clear_ray():
 	clear_line(RAY_LINE_NAME)
 
 
-func draw_trajectory(start: Vector2, end: Vector2):
+func draw_trajectory(start: Vector2, end: Vector2, enough_distance: bool):
 	if line2d_trajectory == null:
 		line2d_trajectory = draw_new_line(LINE_TRAJECTORY_NAME, [Vector2.ZERO], Color.ORANGE_RED)
 
+	_color_line(line2d_trajectory, Color.ORANGE_RED if enough_distance else Color.DARK_RED)
 	_draw_trajectory(line2d_trajectory, start, end)
 
 
@@ -51,8 +52,9 @@ func draw_new_line(name: String, points: PackedVector2Array, color: Color, width
 	new_line_2d.name = name
 	new_line_2d.width = width
 	new_line_2d.material = new_line_2d.material.duplicate()
-	new_line_2d.material.set_shader_parameter("color", color)
 	new_line_2d.clear_points()
+
+	_color_line(new_line_2d, color)
 
 	for point in points:
 		new_line_2d.add_point(point)
@@ -65,6 +67,10 @@ func clear_line(name: String):
 		var name_line: String = line.name
 		if name_line.contains(name):
 			line.queue_free()
+
+
+func _color_line(line2d: Line2D, color: Color):
+	line2d.material.set_shader_parameter("color", color)
 
 
 func _draw_trajectory(line2d: Line2D, start: Vector2, end: Vector2): # magic is here!
@@ -91,7 +97,7 @@ func _draw_trajectory(line2d: Line2D, start: Vector2, end: Vector2): # magic is 
 		var t: float = float(point) / POINTS_IN_TRAJECTORY
 		var time = total_time * t
 		var dx = time * x_comp
-		var dy = -1.0 * (time * y_comp + 0.5 * GRAVITY * time * time)
+		var dy = -1.0 * time * (y_comp + 0.5 * GRAVITY * time)
 
 		line2d.add_point(start + Vector2(dx, dy))
 

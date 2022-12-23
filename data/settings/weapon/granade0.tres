@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bpahwsjs2mhyg"]
+
+[ext_resource type="Script" path="res://scripts/settings/GranadeData.gd" id="1_iqq5y"]
+
+[resource]
+script = ExtResource("1_iqq5y")
+throw_distance = 4
+name = "Granade"
+use_price = 50
+damage = 10.0

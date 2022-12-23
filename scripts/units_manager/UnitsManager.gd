@@ -158,7 +158,7 @@ func change_unit_action(unit_action: Globals.UnitAction):
 			walking.draw_walking_cells()
 
 		Globals.UnitAction.SHOOT:
-			TurnManager.show_hint_spend_points(cur_unit_data.weapon.shoot_price)
+			TurnManager.show_hint_spend_points(cur_unit_data.weapon.use_price)
 
 			var unit_pos = cur_unit_object.position
 			var positions = raycaster.make_ray_and_get_positions(unit_pos, shooting.selected_enemy.unit_object.position, true)
@@ -207,6 +207,11 @@ func _is_camera_moving() -> bool:
 	return GlobalsUi.input_system.camera_controller.is_camera_moving()
 
 
+func _draw_trejectory_granade(cell_pos: Vector2):
+	var distance := cur_unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
+	line2d_manager.draw_trajectory(cur_unit_object.position, cell_pos, distance <= cur_unit_data.granade.throw_distance)
+
+
 func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	if _is_camera_moving():
 		return
@@ -248,7 +253,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	var is_granade_mode = cur_unit_action == Globals.UnitAction.GRANADE
 
 	if is_clicked_on_ground and is_granade_mode:
-		shooting.throw_granade(cur_unit_id, cell_info.cell_obj.position)
+		shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.cell_obj.position)
 		return
 
 	if is_clicked_on_ground and cur_unit_action != Globals.UnitAction.WALK:
@@ -283,10 +288,10 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		return
 
 	if cur_unit_action == Globals.UnitAction.WALK and cell_info.unit_id == -1:
-		_draw_future_path(cell_info.cell_obj.position)
+		_draw_future_path(cell_info.cell_pos)
 
 	if cur_unit_action == Globals.UnitAction.GRANADE:
-		line2d_manager.draw_trajectory(cur_unit_object.position, cell_info.cell_obj.position)
+		_draw_trejectory_granade(cell_info.cell_pos)
 
 
 func _on_input_system_on_pressed_esc() -> void:

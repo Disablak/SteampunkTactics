@@ -1011,7 +1011,7 @@ position = Vector2(320, -32)
 position = Vector2(672, 416)
 
 [node name="UnitObject1" parent="UnitsManager" instance=ExtResource("8_u5vun")]
-position = Vector2(1024, 512)
+position = Vector2(864, 416)
 
 [node name="WalkingModule" type="Node2D" parent="UnitsManager"]
 script = ExtResource("9_42fdl")

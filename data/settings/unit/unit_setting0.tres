@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ce4x8ilct2imn"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://ce4x8ilct2imn"]
 
 [ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="1"]
+[ext_resource type="Resource" uid="uid://bpahwsjs2mhyg" path="res://data/settings/weapon/granade0.tres" id="1_qcp8x"]
 [ext_resource type="Resource" uid="uid://b4fh2mesn3mcf" path="res://data/settings/weapon/weapon0.tres" id="2"]
 
 [resource]
@@ -9,3 +10,4 @@ is_enemy = false
 max_health = 20.0
 walk_speed = 25
 weapon = ExtResource("2")
+granade = ExtResource("1_qcp8x")
