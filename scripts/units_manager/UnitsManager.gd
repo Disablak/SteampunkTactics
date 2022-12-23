@@ -167,8 +167,8 @@ func change_unit_action(unit_action: Globals.UnitAction):
 		Globals.UnitAction.RELOAD:
 			TurnManager.show_hint_spend_points(cur_unit_data.weapon.reload_price)
 
-		#Globals.UnitAction.GRANADE:
-
+		Globals.UnitAction.GRANADE:
+			pass
 
 		_:
 			printerr("change unit action not implemented for {0}".format([unit_action]))
@@ -186,6 +186,7 @@ func reload_weapon():
 func clear_all_lines():
 	line2d_manager.clear_path()
 	line2d_manager.clear_ray()
+	line2d_manager.clear_trajectory()
 
 
 func try_move_unit_to_cell(cell_pos: Vector2):
@@ -273,10 +274,19 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		return
 
 	if cell_info.cell_obj.cell_type != CellObject.CellType.GROUND:
+		clear_all_lines()
+		return
+
+	var hovered_on_same_unit = cell_info.unit_id == cur_unit_id
+	if hovered_on_same_unit:
+		clear_all_lines()
 		return
 
 	if cur_unit_action == Globals.UnitAction.WALK and cell_info.unit_id == -1:
 		_draw_future_path(cell_info.cell_obj.position)
+
+	if cur_unit_action == Globals.UnitAction.GRANADE:
+		line2d_manager.draw_trajectory(cur_unit_object.position, cell_info.cell_obj.position)
 
 
 func _on_input_system_on_pressed_esc() -> void:

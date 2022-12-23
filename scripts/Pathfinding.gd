@@ -11,7 +11,6 @@ signal on_clicked_cell(cell_info: CellInfo)
 @export var node_with_walk_cells: Node2D
 @export var node_with_walls: Node2D
 
-const TILEMAP_LAYER = 0
 const CELL_OFFSETS = [Vector2(-Globals.CELL_SIZE, 0), Vector2(Globals.CELL_SIZE, 0), Vector2(0, Globals.CELL_SIZE), Vector2(0, Globals.CELL_SIZE)]
 
 var astar : AStar2D = AStar2D.new()
@@ -33,6 +32,8 @@ func _connect_walkable_cells():
 
 		astar.add_point(id, cell_pos)
 		dict_id_and_cell[id] = cell
+
+	node_with_walk_cells.visible = false
 
 	for cell in dict_id_and_cell.values():
 		var cell_pos: Vector2 = cell.position
@@ -196,15 +197,15 @@ func _get_closest_wall(pos: Vector2) -> CellObject:
 
 
 func _on_input_system_on_mouse_hover(cell_info: CellInfo) -> void:
-	cell_info.cell_obj = get_cell_by_pos(cell_info.cell_pos)
+	var info = _get_cell_info(cell_info.cell_pos)
 
-	if cell_info.cell_obj != null and prev_hovered_cell_pos == cell_info.cell_obj.position:
+	if info.cell_obj != null and prev_hovered_cell_pos == info.cell_pos:
 		return
 
-	prev_hovered_cell_pos = cell_info.cell_obj.position if cell_info.cell_obj != null else Vector2.ZERO
+	prev_hovered_cell_pos = info.cell_pos if info.cell_obj != null else Vector2.ZERO
 	cell_hint.position = prev_hovered_cell_pos
 
-	on_hovered_cell.emit(cell_info)
+	on_hovered_cell.emit(info)
 
 
 func _on_input_system_on_mouse_click(cell_info: CellInfo) -> void:
