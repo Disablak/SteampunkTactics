@@ -24,6 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("3_w0484")
 tooltip_scene = ExtResource("12_yd8h8")
 
@@ -34,6 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("3_ur4ey")
 
 [node name="UnitsUI" type="Control" parent="GUI/BattleUI"]
@@ -43,6 +45,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("4_bhut4")
 unit_ui_scene = ExtResource("5_3w331")
 
@@ -55,6 +58,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("5_8dsqb")
 
 [node name="ProgressBar" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
@@ -111,6 +115,14 @@ grow_vertical = 0
 text = "Ammo: 0/0"
 vertical_alignment = 2
 
+[node name="BtnGranade" type="Button" parent="GUI/BattleUI/AlwaysUI"]
+unique_name_in_owner = true
+offset_left = 9.0
+offset_top = 10.0
+offset_right = 129.0
+offset_bottom = 70.0
+text = "Granade"
+
 [node name="Pointer" type="Sprite2D" parent="GUI/BattleUI"]
 unique_name_in_owner = true
 modulate = Color(0, 0, 0, 1)
@@ -119,5 +131,6 @@ texture = ExtResource("10_1t6bt")
 
 [connection signal="on_mouse_hover" from="World/InputSystem" to="GUI/BattleUI" method="_on_input_system_on_mouse_hover"]
 [connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnNextTurn" to="World" method="_on_btn_next_turn_button_down"]
+[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnGranade" to="World" method="_on_btn_granade_button_down"]
 
 [editable path="World"]

@@ -6,6 +6,7 @@ var unit_id = -1
 
 var unit_settings: UnitSettings
 var weapon: WeaponData
+var granade: GranadeData
 
 var cur_health: float
 var cur_weapon_ammo: int
@@ -20,6 +21,7 @@ class EnemyDataAI:
 func _init(unit_settings: UnitSettings):
 	self.unit_settings = unit_settings
 	self.weapon = unit_settings.weapon
+	self.granade = unit_settings.granade
 
 	cur_health = unit_settings.max_health
 	cur_weapon_ammo = weapon.ammo
@@ -32,7 +34,7 @@ func set_unit_id(id):
 	self.unit_id = id
 
 
-func set_damage(value, attacker_unit_id):
+func set_damage(value: float, attacker_unit_id: int):
 	if cur_health <= 0:
 		print("unit {0} is already dead".format([unit_id]))
 		return

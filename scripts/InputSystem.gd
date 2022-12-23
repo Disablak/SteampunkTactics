@@ -11,7 +11,7 @@ signal on_pressed_esc()
 @onready var camera := get_node("CameraController/Camera2d") as Camera2D
 @onready var camera_bounds: Node2D = get_node("CameraBounds") as Node2D
 
-@onready var cell_info: = CellInfo.new()
+@onready var cell_info: = CellInfo.new(Vector2.ZERO, null, -1)
 
 const TIME_CLICK_MS = 150
 
@@ -28,7 +28,7 @@ func _ready() -> void:
 	GlobalsUi.input_system = self
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if _draging(event):
 		return
 

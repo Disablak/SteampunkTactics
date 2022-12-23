@@ -114,6 +114,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://scripts/ui/GUI.gd"
 }, {
+"base": "WeaponBaseData",
+"class": &"GranadeData",
+"language": &"GDScript",
+"path": "res://scripts/settings/GranadeData.gd"
+}, {
 "base": "Node2D",
 "class": &"InputSystem",
 "language": &"GDScript",
@@ -180,6 +185,11 @@ _global_script_classes=[{
 "path": "res://scripts/units_manager/WalkingModule.gd"
 }, {
 "base": "Resource",
+"class": &"WeaponBaseData",
+"language": &"GDScript",
+"path": "res://scripts/settings/WeaponBaseData.gd"
+}, {
+"base": "WeaponBaseData",
 "class": &"WeaponData",
 "language": &"GDScript",
 "path": "res://scripts/settings/WeaponData.gd"
@@ -206,6 +216,7 @@ _global_script_class_icons={
 "DrawLine3D": "",
 "EffectManager": "",
 "GUI": "",
+"GranadeData": "",
 "InputSystem": "",
 "Line2dManager": "",
 "MyWorld": "",
@@ -219,6 +230,7 @@ _global_script_class_icons={
 "UnitSettings": "",
 "UnitsManager": "",
 "WalkingModule": "",
+"WeaponBaseData": "",
 "WeaponData": ""
 }
 

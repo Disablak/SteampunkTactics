@@ -5,6 +5,7 @@ extends Node2D
 var random_number_generator: RandomNumberGenerator = null
 var effect_manager: EffectManager
 var raycaster: Raycaster
+var pathfinding: Pathfinding
 
 var selected_enemy: Unit
 
@@ -14,9 +15,10 @@ func _ready() -> void:
 	random_number_generator.randomize()
 
 
-func set_data(effect_manager: EffectManager, raycaster: Raycaster):
+func set_data(effect_manager: EffectManager, raycaster: Raycaster, pathfinding: Pathfinding):
 	self.effect_manager = effect_manager
 	self.raycaster = raycaster
+	self.pathfinding = pathfinding
 
 
 func select_enemy(enemy: Unit):
@@ -36,7 +38,7 @@ func shoot(shooter: Unit):
 		printerr("Enemy unit not selected!")
 		return
 
-	if not TurnManager.can_spend_time_points(shooter.unit_data.weapon.shoot_price):
+	if not TurnManager.can_spend_time_points(shooter.unit_data.weapon.use_price):
 		printerr("not enough tp")
 		return
 
@@ -48,7 +50,7 @@ func shoot(shooter: Unit):
 		printerr("obstacle!")
 		return
 
-	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, shooter.unit_data.weapon.shoot_price)
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, shooter.unit_data.weapon.use_price)
 	shooter.unit_data.spend_weapon_ammo()
 
 	var hit_chance := get_hit_chance(shooter)
@@ -88,6 +90,29 @@ func get_distance_to_enemy(cur_unit: Unit) -> float:
 		return 0.0
 
 	return cur_unit.unit_object.position.distance_to(selected_enemy.unit_object.position)
+
+
+func throw_granade(unit: Unit, cell_pos: Vector2):
+	if not TurnManager.can_spend_time_points(unit.unit_data.granade.use_price):
+		printerr("not enough tp")
+		return
+
+	var distance := unit.unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
+	if distance > unit.unit_data.granade.throw_distance:
+		printerr("Distance too long")
+		return
+
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, unit.unit_data.granade.use_price)
+
+	var pattern = Globals.CELL_AREA_3x3
+	var damaged_cells = pathfinding.get_cells_by_pattern(cell_pos, Globals.CELL_AREA_3x3)
+
+	for cell_info in damaged_cells:
+		if cell_info.unit_id != -1:
+			var unit_data: UnitData = GlobalUnits.units[cell_info.unit_id].unit_data
+			unit_data.set_damage(unit.unit_data.granade.damage, unit.id)
+
+	effect_manager.granade(damaged_cells)
 
 
 func _is_hitted(hit_chance) -> bool:

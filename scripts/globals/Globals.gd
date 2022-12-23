@@ -14,9 +14,14 @@ enum UnitAction{
 	NONE,
 	WALK,
 	SHOOT,
-	RELOAD
+	RELOAD,
+	GRANADE
 }
 
+const CELL_AREA_3x3: Array[Vector2]= [
+	Vector2.ZERO, Vector2.LEFT, Vector2.RIGHT,
+	Vector2.UP, Vector2.DOWN, Vector2(1, 1),
+	Vector2(-1, -1), Vector2(-1, 1), Vector2(1, -1)]
 
 const GRID_STEP = 1.0
 const CURVE_X_METERS = 3000
@@ -46,7 +51,7 @@ static func format_hit_chance(hit_chance: float) -> String:
 
 
 static func snap_to_cell_pos(pos: Vector2) -> Vector2:
-	return Vector2(snappedi(pos.x, CELL_HALF_SIZE), snappedi(pos.y, CELL_HALF_SIZE))
+	return Vector2(snappedi(pos.x, CELL_SIZE), snappedi(pos.y, CELL_SIZE))
 
 
 func create_timer_and_get_signal(time: float) -> Signal:
