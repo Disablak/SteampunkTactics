@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8lli71fdl17m"]
+
+[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="1_gc6av"]
+
+[node name="Granede" type="Sprite2D"]
+self_modulate = Color(1, 0.415686, 0, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_gc6av")

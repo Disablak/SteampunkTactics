@@ -29,6 +29,7 @@ func _ready() -> void:
 
 	walking.set_data(pathfinding, _on_finish_move)
 	shooting.set_data(effect_manager, raycaster, pathfinding)
+	effect_manager.inject_data(line2d_manager)
 
 	_init_units()
 	GlobalUnits.units_manager = self
@@ -254,6 +255,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 
 	if is_clicked_on_ground and is_granade_mode:
 		shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.cell_obj.position)
+		clear_all_lines()
 		return
 
 	if is_clicked_on_ground and cur_unit_action != Globals.UnitAction.WALK:
