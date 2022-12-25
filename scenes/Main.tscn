@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cv6vynbm156xv"]
+[gd_scene load_steps=15 format=3 uid="uid://cv6vynbm156xv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_p1tb3"]
 [ext_resource type="PackedScene" uid="uid://dgv6kg6f50073" path="res://scenes/2d/World2d.tscn" id="2_bb7rw"]
@@ -9,7 +9,11 @@
 [ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="5_8dsqb"]
 [ext_resource type="Shortcut" uid="uid://wn8cqlrakbky" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="9_nq4bl"]
 [ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="10_1t6bt"]
+[ext_resource type="Shortcut" uid="uid://k6ew0hlgd6lf" path="res://data/settings/shortcuts/ShortcutShoot.tres" id="10_rso07"]
+[ext_resource type="Shortcut" uid="uid://c7527kmt3j7ss" path="res://data/settings/shortcuts/ShortcutReload.tres" id="11_8go74"]
+[ext_resource type="Shortcut" uid="uid://b4ekl04mw6kx6" path="res://data/settings/shortcuts/ShortcutMove.tres" id="12_t2j8x"]
 [ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="12_yd8h8"]
+[ext_resource type="Shortcut" uid="uid://bwiu3ae8k4dfy" path="res://data/settings/shortcuts/ShortcutGranede.tres" id="13_oy2o1"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p1tb3")
@@ -29,7 +33,7 @@ script = ExtResource("3_w0484")
 tooltip_scene = ExtResource("12_yd8h8")
 
 [node name="BattleUI" type="Control" parent="GUI"]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -39,7 +43,7 @@ mouse_filter = 1
 script = ExtResource("3_ur4ey")
 
 [node name="UnitsUI" type="Control" parent="GUI/BattleUI"]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -63,6 +67,7 @@ script = ExtResource("5_8dsqb")
 
 [node name="ProgressBar" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
 modulate = Color(0.423529, 0.32549, 0.87451, 1)
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -76,6 +81,7 @@ show_percentage = false
 
 [node name="ProgressBarHint" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
 modulate = Color(1, 1, 1, 0.54902)
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -115,12 +121,41 @@ grow_vertical = 0
 text = "Ammo: 0/0"
 vertical_alignment = 2
 
-[node name="BtnGranade" type="Button" parent="GUI/BattleUI/AlwaysUI"]
+[node name="BtnMove" type="Button" parent="GUI/BattleUI/AlwaysUI"]
 unique_name_in_owner = true
 offset_left = 9.0
 offset_top = 10.0
 offset_right = 129.0
 offset_bottom = 70.0
+shortcut = ExtResource("12_t2j8x")
+text = "Move"
+
+[node name="BtnShoot" type="Button" parent="GUI/BattleUI/AlwaysUI"]
+unique_name_in_owner = true
+offset_left = 9.0
+offset_top = 82.0
+offset_right = 129.0
+offset_bottom = 142.0
+shortcut = ExtResource("10_rso07")
+text = "Shoot"
+
+[node name="BtnReload" type="Button" parent="GUI/BattleUI/AlwaysUI"]
+unique_name_in_owner = true
+offset_left = 9.0
+offset_top = 155.0
+offset_right = 129.0
+offset_bottom = 215.0
+shortcut = ExtResource("11_8go74")
+text = "Reload
+"
+
+[node name="BtnGranade" type="Button" parent="GUI/BattleUI/AlwaysUI"]
+unique_name_in_owner = true
+offset_left = 9.0
+offset_top = 227.0
+offset_right = 129.0
+offset_bottom = 287.0
+shortcut = ExtResource("13_oy2o1")
 text = "Granade"
 
 [node name="Pointer" type="Sprite2D" parent="GUI/BattleUI"]
@@ -131,6 +166,9 @@ texture = ExtResource("10_1t6bt")
 
 [connection signal="on_mouse_hover" from="World/InputSystem" to="GUI/BattleUI" method="_on_input_system_on_mouse_hover"]
 [connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnNextTurn" to="World" method="_on_btn_next_turn_button_down"]
+[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnMove" to="World" method="_on_btn_move_button_down"]
+[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnShoot" to="World" method="_on_btn_shoot_button_down"]
+[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnReload" to="World" method="_on_btn_reload_button_down"]
 [connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnGranade" to="World" method="_on_btn_granade_button_down"]
 
 [editable path="World"]

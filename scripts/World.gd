@@ -11,22 +11,6 @@ func _ready() -> void:
 	GlobalMap.world = self
 
 
-func _on_btn_unit_reload_button_down() -> void:
-	units_manager.reload_weapon()
-
-
-func _on_btn_next_turn_button_down() -> void:
-	units_manager.next_turn()
-
-
-func _on_btn_move_unit_toggled(button_pressed: bool) -> void:
-	units_manager.change_unit_action_with_enable(Globals.UnitAction.WALK, button_pressed)
-
-
-func _on_btn_unit_aim_toggled(button_pressed: bool) -> void:
-	units_manager.change_unit_action_with_enable(Globals.UnitAction.SHOOT, button_pressed)
-
-
 func try_find_any_visible_enemy(cur_unit: Unit) -> Unit:
 	var raycaster: Raycaster = GlobalMap.raycaster;
 	var all_enemies = GlobalUnits.get_units(!cur_unit.unit_data.unit_settings.is_enemy)
@@ -90,3 +74,19 @@ func walk_to_rand_cell():
 
 func _on_btn_granade_button_down() -> void:
 	units_manager.change_unit_action_with_enable(Globals.UnitAction.GRANADE, true)
+
+
+func _on_btn_move_button_down() -> void:
+	units_manager.change_unit_action_with_enable(Globals.UnitAction.WALK, true)
+
+
+func _on_btn_shoot_button_down() -> void:
+	units_manager.change_unit_action_with_enable(Globals.UnitAction.SHOOT, true)
+
+
+func _on_btn_reload_button_down() -> void:
+	units_manager.reload_weapon()
+
+
+func _on_btn_next_turn_button_down() -> void:
+	units_manager.next_turn()

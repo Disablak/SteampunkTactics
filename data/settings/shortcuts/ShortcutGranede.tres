@@ -1,0 +1,7 @@
+[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://bwiu3ae8k4dfy"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_t6ddv"]
+keycode = 71
+
+[resource]
+events = [SubResource("InputEventKey_t6ddv")]

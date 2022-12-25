@@ -159,11 +159,7 @@ func change_unit_action(unit_action: Globals.UnitAction):
 			walking.draw_walking_cells()
 
 		Globals.UnitAction.SHOOT:
-			TurnManager.show_hint_spend_points(cur_unit_data.weapon.use_price)
-
-			var unit_pos = cur_unit_object.position
-			var positions = raycaster.make_ray_and_get_positions(unit_pos, shooting.selected_enemy.unit_object.position, true)
-			line2d_manager.draw_ray(positions)
+			pass
 
 		Globals.UnitAction.RELOAD:
 			TurnManager.show_hint_spend_points(cur_unit_data.weapon.reload_price)
@@ -209,6 +205,9 @@ func _is_camera_moving() -> bool:
 
 
 func _draw_trejectory_granade(cell_pos: Vector2):
+	if cur_unit_data.granade == null:
+		return
+
 	var distance := cur_unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
 	line2d_manager.draw_trajectory(cur_unit_object.position, cell_pos, distance <= cur_unit_data.granade.throw_distance)
 
@@ -226,34 +225,29 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	var is_clicked_on_unit = cell_info.unit_id != -1
 	var is_clicked_on_same_unit = is_clicked_on_unit and cell_info.unit_id == cur_unit_id
 
-	if is_clicked_on_same_unit and cur_unit_action != Globals.UnitAction.RELOAD:
-		change_unit_action(Globals.UnitAction.RELOAD)
-		return
-
-	if is_clicked_on_same_unit and cur_unit_action == Globals.UnitAction.RELOAD:
-		reload_weapon()
-		return
-
 	if is_clicked_on_same_unit:
 		return
 
-	if is_clicked_on_unit and cur_unit_action != Globals.UnitAction.SHOOT:
+	var is_shoot_enemy_selected: bool = shooting.selected_enemy != null
+
+	if is_clicked_on_unit and cur_unit_action == Globals.UnitAction.SHOOT and not is_shoot_enemy_selected:
 		shooting.select_enemy(units[cell_info.unit_id])
-		change_unit_action(Globals.UnitAction.SHOOT)
+		TurnManager.show_hint_spend_points(cur_unit_data.weapon.use_price)
+		var unit_pos = cur_unit_object.position
+		var positions = raycaster.make_ray_and_get_positions(unit_pos, shooting.selected_enemy.unit_object.position, true)
+		line2d_manager.draw_ray(positions)
+
 		return
 
-	if is_clicked_on_unit and cur_unit_action == Globals.UnitAction.SHOOT:
+	if is_clicked_on_unit and cur_unit_action == Globals.UnitAction.SHOOT and is_shoot_enemy_selected:
 		shooting.shoot(units[cur_unit_id])
 		clear_all_lines()
-		return
-
-	if is_clicked_on_unit:
 		return
 
 	var is_clicked_on_ground = cell_info.cell_obj.cell_type == CellObject.CellType.GROUND
 	var is_granade_mode = cur_unit_action == Globals.UnitAction.GRANADE
 
-	if is_clicked_on_ground and is_granade_mode:
+	if is_granade_mode and cell_info.cell_obj.cell_type != CellObject.CellType.WALL:
 		shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.cell_obj.position)
 		clear_all_lines()
 		return
