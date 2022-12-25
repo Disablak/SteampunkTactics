@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cv6vynbm156xv"]
+[gd_scene load_steps=16 format=3 uid="uid://cv6vynbm156xv"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_p1tb3"]
 [ext_resource type="PackedScene" uid="uid://dgv6kg6f50073" path="res://scenes/2d/World2d.tscn" id="2_bb7rw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/ui/UnitsUI.gd" id="4_bhut4"]
 [ext_resource type="PackedScene" path="res://scenes/2d/UnitUi.tscn" id="5_3w331"]
 [ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="5_8dsqb"]
+[ext_resource type="PackedScene" uid="uid://caqxce2hd6oam" path="res://scenes/2d/ui/MessageUI.tscn" id="5_8luf0"]
 [ext_resource type="Shortcut" uid="uid://wn8cqlrakbky" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="9_nq4bl"]
 [ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="10_1t6bt"]
 [ext_resource type="Shortcut" uid="uid://k6ew0hlgd6lf" path="res://data/settings/shortcuts/ShortcutShoot.tres" id="10_rso07"]
@@ -31,9 +32,11 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("3_w0484")
 tooltip_scene = ExtResource("12_yd8h8")
+message_scene = ExtResource("5_8luf0")
+path_message_spawn = NodePath("BattleUI/AlwaysUI")
 
 [node name="BattleUI" type="Control" parent="GUI"]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -43,7 +46,7 @@ mouse_filter = 1
 script = ExtResource("3_ur4ey")
 
 [node name="UnitsUI" type="Control" parent="GUI/BattleUI"]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -67,7 +70,6 @@ script = ExtResource("5_8dsqb")
 
 [node name="ProgressBar" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
 modulate = Color(0.423529, 0.32549, 0.87451, 1)
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -81,7 +83,6 @@ show_percentage = false
 
 [node name="ProgressBarHint" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
 modulate = Color(1, 1, 1, 0.54902)
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0

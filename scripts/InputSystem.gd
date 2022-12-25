@@ -13,7 +13,7 @@ signal on_pressed_esc()
 
 @onready var cell_info: = CellInfo.new(Vector2.ZERO, null, -1)
 
-const TIME_CLICK_MS = 150
+const TIME_CLICK_MS = 200
 
 var dragging: bool
 var drag_pos: Vector2

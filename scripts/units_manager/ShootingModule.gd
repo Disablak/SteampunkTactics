@@ -35,19 +35,19 @@ func deselect_enemy():
 
 func shoot(shooter: Unit):
 	if selected_enemy == null:
-		printerr("Enemy unit not selected!")
+		GlobalsUi.message("Enemy unit not selected!")
 		return
 
 	if not TurnManager.can_spend_time_points(shooter.unit_data.weapon.use_price):
-		printerr("not enough tp")
+		GlobalsUi.message("Not enough time points!")
 		return
 
 	if shooter == selected_enemy:
-		printerr("shoot same unit")
+		GlobalsUi.message("Shoot same unit!")
 		return
 
 	if not raycaster.make_ray_check_no_obstacle(shooter.unit_object.position, selected_enemy.unit_object.position):
-		printerr("obstacle!")
+		GlobalsUi.message("Obstacle!")
 		return
 
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, shooter.unit_data.weapon.use_price)
@@ -64,11 +64,11 @@ func shoot(shooter: Unit):
 
 func reload(unit_data: UnitData):
 	if not TurnManager.can_spend_time_points(unit_data.weapon.reload_price):
-		printerr("not enough tp to reload")
+		GlobalsUi.message("Not enough time points!")
 		return
 
 	if unit_data.cur_weapon_ammo == unit_data.weapon.ammo:
-		printerr("ammo is full")
+		GlobalsUi.message("Ammo is full!")
 		return
 
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.RELOADING, unit_data.weapon.reload_price)
@@ -92,15 +92,15 @@ func get_distance_to_enemy(cur_unit: Unit) -> float:
 	return cur_unit.unit_object.position.distance_to(selected_enemy.unit_object.position)
 
 
-func throw_granade(unit: Unit, cell_pos: Vector2):
+func throw_granade(unit: Unit, cell_pos: Vector2) -> bool:
 	if not TurnManager.can_spend_time_points(unit.unit_data.granade.use_price):
-		printerr("not enough tp")
-		return
+		GlobalsUi.message("Not enough time points!")
+		return false
 
 	var distance := unit.unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
 	if distance > unit.unit_data.granade.throw_distance:
-		printerr("Distance too long")
-		return
+		GlobalsUi.message("Distance too long!")
+		return false
 
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, unit.unit_data.granade.use_price)
 
@@ -113,6 +113,8 @@ func throw_granade(unit: Unit, cell_pos: Vector2):
 			unit_data.set_damage(unit.unit_data.granade.damage, unit.id)
 
 	effect_manager.granade(damaged_cells)
+
+	return true
 
 
 func _is_hitted(hit_chance) -> bool:

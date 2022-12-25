@@ -214,18 +214,22 @@ func _draw_trejectory_granade(cell_pos: Vector2):
 
 func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	if _is_camera_moving():
+		GlobalsUi.message("camera is moving")
 		return
 
 	if walking.is_unit_moving():
+		GlobalsUi.message("unit walking")
 		return
 
 	if cell_info.cell_obj == null:
+		GlobalsUi.message("cell no data")
 		return
 
 	var is_clicked_on_unit = cell_info.unit_id != -1
 	var is_clicked_on_same_unit = is_clicked_on_unit and cell_info.unit_id == cur_unit_id
 
 	if is_clicked_on_same_unit:
+		GlobalsUi.message("clicked on same unit")
 		return
 
 	var is_shoot_enemy_selected: bool = shooting.selected_enemy != null
@@ -248,8 +252,8 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	var is_granade_mode = cur_unit_action == Globals.UnitAction.GRANADE
 
 	if is_granade_mode and cell_info.cell_obj.cell_type != CellObject.CellType.WALL:
-		shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.cell_obj.position)
-		clear_all_lines()
+		if shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.cell_obj.position):
+			clear_all_lines()
 		return
 
 	if is_clicked_on_ground and cur_unit_action != Globals.UnitAction.WALK:
