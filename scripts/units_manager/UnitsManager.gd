@@ -260,7 +260,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		change_unit_action(Globals.UnitAction.WALK)
 		return
 
-	if is_clicked_on_ground and cur_unit_action == Globals.UnitAction.WALK:
+	if is_clicked_on_ground and cur_unit_action == Globals.UnitAction.WALK and not is_clicked_on_unit:
 		var path : PackedVector2Array = _get_path_to_cell(cell_info.cell_pos)
 		walking.move_unit(path)
 		return
