@@ -13,7 +13,6 @@ const UI_OFFSET = -Globals.CELL_OFFSET + Vector2(0, -20)
 func _ready() -> void:
 	GlobalBus.on_unit_change_health.connect(_update_unit_info)
 	GlobalBus.on_unit_changed_walk_distance.connect(_update_unit_info)
-	GlobalBus.on_hovered_unit_in_shooting_mode.connect(_on_hovered_unit_in_shooting_mode)
 	GlobalBus.on_unit_changed_action.connect(_on_unit_changed_action)
 
 	add_child(label_tooltip)
@@ -86,13 +85,6 @@ func show_tooltip(show, world_pos, text):
 		return
 
 	label_tooltip.text = text
-
-	#var position_in_ui = camera.unproject_position(world_pos)
-	#label_tooltip.position = position_in_ui
-
-
-func _on_hovered_unit_in_shooting_mode(is_hover, world_pos, text) -> void:
-	show_tooltip(is_hover, world_pos, text)
 
 
 func _on_unit_changed_action(unit_id, unit_action):

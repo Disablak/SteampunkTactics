@@ -42,6 +42,10 @@ func shoot(shooter: Unit):
 		GlobalsUi.message("Not enough time points!")
 		return
 
+	if not shooter.unit_data.is_enough_ammo():
+		GlobalsUi.message("Not enough ammo!")
+		return
+
 	if shooter == selected_enemy:
 		GlobalsUi.message("Shoot same unit!")
 		return
