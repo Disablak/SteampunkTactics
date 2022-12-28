@@ -20,14 +20,16 @@ func inject_data(line2d_manager: Line2dManager):
 	self._line2d_manager = line2d_manager
 
 
-func shoot(from: Unit, to: Unit, is_hitted: bool):
+func shoot(from: Unit, to: Unit, hit_type: ShootingModule.HitType, cover_pos: Vector2):
 	var new_instance: Node2D = bullet_scene.instantiate()
 	add_child(new_instance)
 
 	var from_pos: Vector2 = from.unit_object.position
 	var to_pos: Vector2 = to.unit_object.position
 
-	if not is_hitted:
+	if hit_type == ShootingModule.HitType.HIT_IN_COVER:
+		to_pos = cover_pos
+	elif hit_type == ShootingModule.HitType.MISS:
 		to_pos = from_pos + _get_little_wrong_shoot_direction(to_pos - from_pos)
 
 	new_instance.position = from_pos

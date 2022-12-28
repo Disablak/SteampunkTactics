@@ -28,7 +28,7 @@ func _ready() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 
 	walking.set_data(pathfinding, _on_finish_move)
-	shooting.set_data(effect_manager, raycaster, pathfinding)
+	shooting.set_data(effect_manager, raycaster, pathfinding, line2d_manager)
 	effect_manager.inject_data(line2d_manager)
 
 	_init_units()
@@ -236,11 +236,6 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 
 	if is_clicked_on_unit and cur_unit_action == Globals.UnitAction.SHOOT and not is_shoot_enemy_selected:
 		shooting.select_enemy(units[cell_info.unit_id])
-		TurnManager.show_hint_spend_points(cur_unit_data.weapon.use_price)
-		var unit_pos = cur_unit_object.position
-		var positions = raycaster.make_ray_and_get_positions(unit_pos, shooting.selected_enemy.unit_object.position, true)
-		line2d_manager.draw_ray(positions)
-
 		return
 
 	if is_clicked_on_unit and cur_unit_action == Globals.UnitAction.SHOOT and is_shoot_enemy_selected:

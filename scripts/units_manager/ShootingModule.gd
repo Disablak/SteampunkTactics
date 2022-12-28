@@ -2,12 +2,17 @@ class_name ShootingModule
 extends Node2D
 
 
+enum HitType {NONE, HIT, HIT_IN_COVER, MISS}
+
 var random_number_generator: RandomNumberGenerator = null
 var effect_manager: EffectManager
 var raycaster: Raycaster
 var pathfinding: Pathfinding
+var line2d_manager: Line2dManager
 
 var selected_enemy: Unit
+var cover: CellObject
+var cover_hit_pos: Vector2
 
 
 func _ready() -> void:
@@ -15,21 +20,42 @@ func _ready() -> void:
 	random_number_generator.randomize()
 
 
-func set_data(effect_manager: EffectManager, raycaster: Raycaster, pathfinding: Pathfinding):
+func set_data(effect_manager: EffectManager, raycaster: Raycaster, pathfinding: Pathfinding, line2d_manager: Line2dManager):
 	self.effect_manager = effect_manager
 	self.raycaster = raycaster
 	self.pathfinding = pathfinding
+	self.line2d_manager = line2d_manager
 
 
 func select_enemy(enemy: Unit):
 	selected_enemy = enemy
 
-	var str_hit_chance: String = Globals.format_hit_chance(get_hit_chance(GlobalUnits.get_cur_unit()))
-	GlobalsUi.gui.show_tooltip(true, str_hit_chance, enemy.unit_object.position)
+	var cur_unit: Unit = GlobalUnits.get_cur_unit()
+	var unit_pos := cur_unit.unit_object.position
+	var enemy_pos := enemy.unit_object.position
+
+	var intersected_covers = raycaster.make_ray_check_covers(unit_pos, enemy_pos)
+	for cover in intersected_covers:
+		if pathfinding.is_unit_in_cover(enemy_pos, cover):
+			self.cover = cover
+			cover_hit_pos = raycaster.make_ray_and_get_collision_point(unit_pos, enemy_pos, Raycaster.COVER_MASK)
+			break
+
+	var hit_chance: float = get_hit_chance(cur_unit)
+	var str_hit_chance: String = Globals.format_hit_chance(hit_chance)
+	GlobalsUi.gui.show_tooltip(true, str_hit_chance, enemy_pos)
+
+	TurnManager.show_hint_spend_points(cur_unit.unit_data.weapon.use_price)
+
+	var positions = raycaster.make_ray_and_get_positions(unit_pos, enemy_pos, true)
+	line2d_manager.draw_ray(positions)
 
 
 func deselect_enemy():
 	selected_enemy = null
+	cover = null
+	cover_hit_pos = Vector2.ZERO
+
 	GlobalsUi.gui.show_tooltip(false, "", Vector2.ZERO)
 
 
@@ -57,13 +83,23 @@ func shoot(shooter: Unit):
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, shooter.unit_data.weapon.use_price)
 	shooter.unit_data.spend_weapon_ammo()
 
-	var hit_chance := get_hit_chance(shooter)
-	var is_hitted = _is_hitted(hit_chance)
+	var hit_chance_enemy := get_hit_chance(shooter)
+	var chance_miss = 1.0 - hit_chance_enemy
+	var hit_chance_cover := chance_miss * cover.shoot_debaf if cover else 0.0
+	var random = randf()
 
-	if is_hitted:
+	var hit_type: HitType
+
+	if random <= hit_chance_cover:
+		hit_type = HitType.HIT_IN_COVER
+		cover.set_damage()
+	elif random <= chance_miss:
+		hit_type = HitType.MISS
+	else:
+		hit_type = HitType.HIT
 		selected_enemy.unit_data.set_damage(shooter.unit_data.weapon.damage, shooter.id)
 
-	effect_manager.shoot(shooter, selected_enemy, is_hitted)
+	effect_manager.shoot(shooter, selected_enemy, hit_type, cover_hit_pos)
 
 
 func reload(unit_data: UnitData):
@@ -81,11 +117,14 @@ func reload(unit_data: UnitData):
 
 func get_hit_chance(shooter: Unit) -> float:
 	var distance := get_distance_to_enemy(shooter)
-	var weapon_accuracy = clamp(shooter.unit_data.unit_settings.weapon.accuracy.sample(distance / Globals.CURVE_X_METERS), 0.0, 1.0)
+	var weapon_accuracy: float = shooter.unit_data.unit_settings.weapon.accuracy.sample(distance / Globals.CURVE_X_METERS)
+	var cover_debaff: float = cover.shoot_debaf * weapon_accuracy if cover else 0.0
 
-	print("hit chance {0}".format([weapon_accuracy]))
+	var chance: float = clamp(weapon_accuracy - cover_debaff, 0.0, 1.0)
 
-	return weapon_accuracy
+	print("weapon_accuracy {0}, debaff {1}, result {2}".format([Globals.format_hit_chance(weapon_accuracy), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(chance)]))
+
+	return chance
 
 
 func get_distance_to_enemy(cur_unit: Unit) -> float:

@@ -7,13 +7,13 @@
 size = Vector2(32, 5)
 
 [node name="HorizontalWall" instance=ExtResource("1_djgji")]
-modulate = Color(1, 1, 1, 1)
 texture_filter = 1
 texture = ExtResource("2_7sp31")
 cell_type = 2
 
 [node name="Area2D" type="Area2D" parent="." index="0"]
-collision_mask = 16
+collision_layer = 16
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(0.0404563, 6.59995)

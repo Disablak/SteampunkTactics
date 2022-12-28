@@ -8,6 +8,8 @@ signal on_unit_changed_ammo(unit_id, cur_ammo, max_ammo)
 signal on_unit_changed_control(unit_id, instantly)
 signal on_unit_changed_action(unit_id, unit_action_type)
 
+signal on_cell_broke(cell: CellObject)
+
 signal on_changed_time_points(type_spend_action, cur_points, max_points)
 signal on_hint_time_points(cur_points, max_points)
 
