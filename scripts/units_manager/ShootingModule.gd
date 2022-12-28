@@ -2,7 +2,9 @@ class_name ShootingModule
 extends Node2D
 
 
-enum HitType {NONE, HIT, HIT_IN_COVER, MISS}
+enum HitType {NONE, HIT, HIT_IN_COVER, MISS, HIT_IN_OBS}
+
+const MAX_OBSTACLE_DEBAFF := 0.7
 
 var random_number_generator: RandomNumberGenerator = null
 var effect_manager: EffectManager
@@ -11,6 +13,8 @@ var pathfinding: Pathfinding
 var line2d_manager: Line2dManager
 
 var selected_enemy: Unit
+var obstacles: Array[CellObject]
+var obstacles_sum_debaff: float
 var cover: CellObject
 var cover_hit_pos: Vector2
 
@@ -34,12 +38,14 @@ func select_enemy(enemy: Unit):
 	var unit_pos := cur_unit.unit_object.position
 	var enemy_pos := enemy.unit_object.position
 
-	var intersected_covers = raycaster.make_ray_check_covers(unit_pos, enemy_pos)
+	var intersected_covers = raycaster.make_ray_get_obstacles(unit_pos, enemy_pos)
 	for cover in intersected_covers:
 		if pathfinding.is_unit_in_cover(enemy_pos, cover):
 			self.cover = cover
-			cover_hit_pos = raycaster.make_ray_and_get_collision_point(unit_pos, enemy_pos, Raycaster.COVER_MASK)
+			cover_hit_pos = raycaster.make_ray_and_get_collision_point(unit_pos, enemy_pos, Raycaster.MASK_OBSTACLE)
 			break
+
+	obstacles = raycaster.make_ray_get_obs(unit_pos, enemy_pos)
 
 	var hit_chance: float = get_hit_chance(cur_unit)
 	var str_hit_chance: String = Globals.format_hit_chance(hit_chance)
@@ -53,6 +59,8 @@ func select_enemy(enemy: Unit):
 
 func deselect_enemy():
 	selected_enemy = null
+	obstacles = []
+	obstacles_sum_debaff = 0.0
 	cover = null
 	cover_hit_pos = Vector2.ZERO
 
@@ -83,23 +91,27 @@ func shoot(shooter: Unit):
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, shooter.unit_data.weapon.use_price)
 	shooter.unit_data.spend_weapon_ammo()
 
-	var hit_chance_enemy := get_hit_chance(shooter)
-	var chance_miss = 1.0 - hit_chance_enemy
-	var hit_chance_cover := chance_miss * cover.shoot_debaf if cover else 0.0
+	var weapon_accuracy: float = _get_weapon_accuracy(shooter)
+	var cover_debaff: float = cover.shoot_debaf if cover else 0.0
+	var obs_debaff: float = obstacles_sum_debaff
+
 	var random = randf()
-
 	var hit_type: HitType
+	var hitted_obs: CellObject = obstacles.pick_random() if obstacles.size() > 0 else null
 
-	if random <= hit_chance_cover:
+	if random <= weapon_accuracy:
+		hit_type = HitType.MISS
+	elif random <= clamp(weapon_accuracy + cover_debaff, 0.0, 1.0):
 		hit_type = HitType.HIT_IN_COVER
 		cover.set_damage()
-	elif random <= chance_miss:
-		hit_type = HitType.MISS
+	elif random <= clamp(weapon_accuracy + cover_debaff + obs_debaff, 0.0, 1.0):
+		hit_type = HitType.HIT_IN_OBS
+		hitted_obs.set_damage()
 	else:
 		hit_type = HitType.HIT
 		selected_enemy.unit_data.set_damage(shooter.unit_data.weapon.damage, shooter.id)
 
-	effect_manager.shoot(shooter, selected_enemy, hit_type, cover_hit_pos)
+	effect_manager.shoot(shooter, selected_enemy, hit_type, cover_hit_pos, hitted_obs)
 
 
 func reload(unit_data: UnitData):
@@ -116,13 +128,12 @@ func reload(unit_data: UnitData):
 
 
 func get_hit_chance(shooter: Unit) -> float:
-	var distance := get_distance_to_enemy(shooter)
-	var weapon_accuracy: float = shooter.unit_data.unit_settings.weapon.accuracy.sample(distance / Globals.CURVE_X_METERS)
-	var cover_debaff: float = cover.shoot_debaf * weapon_accuracy if cover else 0.0
+	var weapon_accuracy: float = _get_weapon_accuracy(shooter)
+	var cover_debaff: float = cover.shoot_debaf if cover else 0.0
+	var obs_debaff: float = _calc_obs_debaff()
+	var chance: float = clamp(weapon_accuracy - (cover_debaff + obs_debaff), 0.0, 1.0)
 
-	var chance: float = clamp(weapon_accuracy - cover_debaff, 0.0, 1.0)
-
-	print("weapon_accuracy {0}, debaff {1}, result {2}".format([Globals.format_hit_chance(weapon_accuracy), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(chance)]))
+	print("weapon_accuracy {0}, cover debaff {1}, obs debaff {2}, result {3}".format([Globals.format_hit_chance(weapon_accuracy), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(obs_debaff), Globals.format_hit_chance(chance)]))
 
 	return chance
 
@@ -166,3 +177,21 @@ func _is_hitted(hit_chance) -> bool:
 	print("chance: {0}, hit random value: {1}".format([hit_chance, random_value]))
 
 	return random_value <= hit_chance
+
+
+func _get_weapon_accuracy(shooter: Unit) -> float:
+	var distance := get_distance_to_enemy(shooter)
+	var weapon_accuracy: float = shooter.unit_data.unit_settings.weapon.accuracy.sample(distance / Globals.CURVE_X_METERS)
+	return weapon_accuracy
+
+
+func _calc_obs_debaff() -> float:
+	if obstacles.size() == 0:
+		return 0.0
+
+	obstacles_sum_debaff = 0.0
+	for obs in obstacles:
+		obstacles_sum_debaff += obs.shoot_debaf
+
+	obstacles_sum_debaff = clampf(obstacles_sum_debaff, 0.0, MAX_OBSTACLE_DEBAFF)
+	return obstacles_sum_debaff

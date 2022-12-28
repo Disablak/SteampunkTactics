@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfebb6xmoyf4"]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/WalkableCell.tscn" id="1_djgji"]
+[ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="1_djgji"]
 [ext_resource type="Texture2D" uid="uid://davumrcro2bvc" path="res://content/sprites/walls/wall_5.png" id="2_7sp31"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1opo7"]

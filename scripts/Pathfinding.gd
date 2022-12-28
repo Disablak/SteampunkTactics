@@ -63,13 +63,13 @@ func _connect_walkable_cells():
 func _remove_wall_points():
 	for wall in node_with_walls.get_children():
 		var wall_cell := wall as CellObject
-		if wall_cell.cell_type != CellObject.CellType.WALL:
+		if wall_cell.cell_type != CellObject.CellType.WALL and wall_cell.cell_type != CellObject.CellType.OBSTACLE:
 			continue
 
 		obstacle_cells.push_back(wall_cell)
 		var wall_pos: Vector2 = wall_cell.position
 		var cell_id = astar.get_closest_point(wall_pos)
-		astar.remove_point(cell_id)
+		astar.set_point_disabled(cell_id, true)
 
 
 func _covers():
@@ -91,18 +91,33 @@ func _covers():
 
 func _on_cell_broke(cell: CellObject):
 	if cell.cell_type == CellObject.CellType.COVER:
-		var conected_cell: CellObject = cell.connected_cells[0]
+		_on_broke_cover(cell)
+	if cell.cell_type == CellObject.CellType.OBSTACLE:
+		_on_broke_obs(cell)
 
-		cells_cover.erase(cell)
-		cells_cover.erase(conected_cell)
 
-		var first_cell_id := get_cell_id_by_pos(cell.position)
-		var second_cell_id := get_cell_id_by_pos(cell.position + conected_cell.position)
+func _on_broke_cover(cell: CellObject):
+	var conected_cell: CellObject = cell.connected_cells[0]
 
-		astar.connect_points(first_cell_id, second_cell_id)
-		print("connected {0}, {1}".format([first_cell_id, second_cell_id]))
+	cells_cover.erase(cell)
+	cells_cover.erase(conected_cell)
 
-		cell.queue_free()
+	var first_cell_id := get_cell_id_by_pos(cell.position)
+	var second_cell_id := get_cell_id_by_pos(cell.position + conected_cell.position)
+
+	astar.connect_points(first_cell_id, second_cell_id)
+	print("connected {0}, {1}".format([first_cell_id, second_cell_id]))
+
+	cell.queue_free()
+
+
+func _on_broke_obs(cell: CellObject):
+	var cell_id = get_cell_id_by_pos(cell.position)
+	astar.set_point_disabled(cell_id, false)
+
+	obstacle_cells.erase(cell)
+
+	cell.queue_free()
 
 
 func get_path_to_point(from : Vector2i, to : Vector2i) -> PackedVector2Array:
@@ -195,7 +210,7 @@ func is_unit_in_cover(unit_pos: Vector2, cell_cover: CellObject) -> bool:
 func get_cell_id_by_pos(cell_pos: Vector2) -> int:
 	cell_pos = Globals.snap_to_cell_pos(cell_pos)
 
-	var cell_id := astar.get_closest_point(cell_pos)
+	var cell_id := astar.get_closest_point(cell_pos, true)
 	var cell_obj: CellObject = dict_id_and_cell[cell_id]
 
 	var rect: Rect2 = Rect2(cell_pos - Globals.CELL_OFFSET, Vector2.ONE * Globals.CELL_SIZE)

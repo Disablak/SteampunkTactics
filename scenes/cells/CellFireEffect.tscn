@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6xdyvup7cfys"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/WalkableCell.tscn" id="1_tj5ib"]
+[ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="1_tj5ib"]
 [ext_resource type="Texture2D" uid="uid://cv3401wef6ly2" path="res://content/sprites/effects/fire.png" id="2_vu75q"]
 
 [node name="WalkableCell" instance=ExtResource("1_tj5ib")]

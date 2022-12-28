@@ -4,11 +4,11 @@ extends Node2D
 
 @export var segment_shape_2d: SegmentShape2D
 
-const OBSTACLE_MASK = 16 #  0b0101 #5
-const COVER_MASK = 32
+const MASK_WALL = 16 #  0b0101 #5
+const MASK_OBSTACLE = 32
 
 
-func make_ray_check_covers(from, to) -> Array[CellObject]:
+func make_ray_get_obstacles(from, to) -> Array[CellObject]:
 	var covers: Array[CellObject]
 
 	var result: Array[Dictionary] = make_ray_intersections(from, to)
@@ -22,8 +22,13 @@ func make_ray_check_covers(from, to) -> Array[CellObject]:
 	return covers
 
 
+func make_ray_get_obs(from, to):
+	var result := make_ray_get_obstacles(from, to)
+	return Globals.get_cells_of_type(result, CellObject.CellType.OBSTACLE)
+
+
 func make_ray_check_no_obstacle(from, to) -> bool:
-	var result = make_ray(from, to, OBSTACLE_MASK)
+	var result = make_ray(from, to, MASK_WALL)
 	if not result.is_empty():
 		print("Colliding with {1}/{0}".format([result.collider.name, result.collider.get_parent().name]))
 
@@ -31,7 +36,7 @@ func make_ray_check_no_obstacle(from, to) -> bool:
 
 
 func make_ray_and_get_positions(pos_from: Vector2, pos_to: Vector2, show_line_to_obstacle = false) -> PackedVector2Array:
-	var ray_result = make_ray(pos_from, pos_to, OBSTACLE_MASK)
+	var ray_result = make_ray(pos_from, pos_to, MASK_WALL)
 
 	if ray_result.is_empty():
 		var result = PackedVector2Array()
@@ -71,6 +76,6 @@ func make_ray_intersections(from, to) -> Array[Dictionary]:
 #	shape_query_params.collide_with_bodies = true
 #	shape_query_params.collide_with_areas = true
 	shape_query_params.shape = segment_shape_2d
-	shape_query_params.collision_mask = COVER_MASK
+	shape_query_params.collision_mask = MASK_OBSTACLE
 
 	return space_state.intersect_shape(shape_query_params)

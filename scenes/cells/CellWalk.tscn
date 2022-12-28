@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="1_kbmvf"]
 [ext_resource type="Script" path="res://scripts/cells/CellObject.gd" id="2_k1pvc"]
 
-[node name="WalkableCell" type="Sprite2D"]
+[node name="CellWalk" type="Sprite2D"]
 texture = ExtResource("1_kbmvf")
 script = ExtResource("2_k1pvc")
 cell_type = 1

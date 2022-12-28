@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0yk41qcs7rg4"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/WalkableCell.tscn" id="1_7i2fm"]
+[ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="1_7i2fm"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_cv0db"]
 
 [node name="CellHovered" instance=ExtResource("1_7i2fm")]

@@ -8,6 +8,6 @@
 script = ExtResource("1")
 is_enemy = false
 max_health = 20.0
-walk_speed = 25
+walk_speed = 20
 weapon = ExtResource("2")
 granade = ExtResource("1_qcp8x")

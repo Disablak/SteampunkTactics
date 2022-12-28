@@ -54,5 +54,14 @@ static func snap_to_cell_pos(pos: Vector2) -> Vector2:
 	return Vector2(snappedi(pos.x, CELL_SIZE), snappedi(pos.y, CELL_SIZE))
 
 
+static func get_cells_of_type(cells: Array, cell_type: CellObject.CellType):
+	var result = []
+	for cell in cells:
+		if cell is CellObject and cell.cell_type == cell_type:
+			result.append(cell)
+
+	return result
+
+
 func create_timer_and_get_signal(time: float) -> Signal:
 	return get_tree().create_timer(time).timeout
