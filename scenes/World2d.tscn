@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cpha2nlyxqpg"]
+[gd_scene load_steps=41 format=3 uid="uid://csg7s6njsb3o0"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://scripts/visual/EffectManager.gd" id="11_cpn0u"]
 [ext_resource type="Script" path="res://scripts/CameraController.gd" id="11_sv5rh"]
 [ext_resource type="Shader" path="res://scripts/shaders/BlendTexture.gdshader" id="12_88j2a"]
-[ext_resource type="PackedScene" path="res://scenes/cells/HorizontalWall.tscn" id="12_g3143"]
+[ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/HorizontalWall.tscn" id="12_g3143"]
 [ext_resource type="Texture2D" uid="uid://3o6gsr36ur05" path="res://content/sprites/ground/tree_detal_1.png" id="12_niexs"]
 [ext_resource type="Script" path="res://scripts/Raycaster.gd" id="12_pdk27"]
 [ext_resource type="Texture2D" uid="uid://dbb4ktvlrhst5" path="res://content/sprites/ground/dithering.png" id="13_1p7bo"]
@@ -28,7 +28,7 @@
 [ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/ActionMove.tres" id="17_gjgab"]
 [ext_resource type="Resource" uid="uid://cogp64iiq2s6y" path="res://data/settings/utility ai/ActionReload.tres" id="18_8v7si"]
 [ext_resource type="PackedScene" uid="uid://ddpb4xv6nbkkc" path="res://scenes/cells/CellCover.tscn" id="18_a6tbn"]
-[ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellTreeNew.tscn" id="18_cpnrn"]
+[ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellTree.tscn" id="18_cpnrn"]
 [ext_resource type="PackedScene" path="res://scenes/cells/CellHovered.tscn" id="18_yo8ds"]
 [ext_resource type="Resource" uid="uid://cv0nsfwodcjy4" path="res://data/settings/utility ai/ActionShoot.tres" id="19_2d76o"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
@@ -43,6 +43,38 @@ shader_parameter/img_scale = 2.0
 shader_parameter/scale_factor = Vector2(40, 36)
 shader_parameter/img_texture = ExtResource("13_1p7bo")
 
+[sub_resource type="Shader" id="Shader_pvgnp"]
+code = "shader_type canvas_item;
+
+uniform sampler2D img_texture: filter_nearest, repeat_enable;
+uniform vec4 img_color: source_color;
+uniform float img_scale = 1.0;
+uniform vec2 scale_factor = vec2(1.0);
+
+
+void fragment(){
+	vec2 uv = UV * scale_factor / img_scale;
+	vec4 base_pixel = texture(TEXTURE, uv);
+	vec4 texture_pixel = texture(img_texture, uv);
+	
+	texture_pixel.rgb = vec3(img_color.rgb);
+	
+	COLOR.rgb = mix(base_pixel.rgb, texture_pixel.rgb, texture_pixel.a * img_color.a);
+}
+
+
+"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bikwy"]
+load_path = "res://.godot/imported/dithering.png-68705377a7ff6e705a07772292bfa533.s3tc.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qt0lk"]
+shader = SubResource("Shader_pvgnp")
+shader_parameter/img_color = Color(0.313726, 0.631373, 0.207843, 1)
+shader_parameter/img_scale = 2.0
+shader_parameter/scale_factor = Vector2(21, 12)
+shader_parameter/img_texture = SubResource("CompressedTexture2D_bikwy")
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_x8rd3"]
 
 [node name="World" type="Node2D"]
@@ -54,9 +86,10 @@ show_enemy_raycast = true
 units_data = [ExtResource("3_5rc2h"), ExtResource("4_8ur0q")]
 unit_objects = [NodePath("UnitObject0"), NodePath("UnitObject1")]
 
-[node name="Pathfinding" type="Node2D" parent="UnitsManager" node_paths=PackedStringArray("node_with_walk_cells", "node_with_walls")]
+[node name="Pathfinding" type="Node2D" parent="UnitsManager" node_paths=PackedStringArray("node_with_walk_hint_cells", "node_with_walk_cells", "node_with_walls")]
 script = ExtResource("3_0wwuy")
 walkable_hint_cell_scene = ExtResource("6_vdct5")
+node_with_walk_hint_cells = NodePath("CellsWalkHint")
 node_with_walk_cells = NodePath("CellsWalkable")
 node_with_walls = NodePath("WallsAndObstacles")
 
@@ -67,6 +100,11 @@ material = SubResource("ShaderMaterial_scqag")
 position = Vector2(944, 544)
 scale = Vector2(40, 36)
 metadata/_edit_lock_ = true
+
+[node name="Background2" parent="UnitsManager/Pathfinding/Visual" instance=ExtResource("11_a67h1")]
+material = SubResource("ShaderMaterial_qt0lk")
+position = Vector2(816, 448)
+scale = Vector2(21, 12)
 
 [node name="Grass" type="Sprite2D" parent="UnitsManager/Pathfinding/Visual"]
 texture_filter = 1
@@ -976,6 +1014,8 @@ position = Vector2(1120, 576)
 [node name="WalkableCell315" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 608)
 
+[node name="CellsWalkHint" type="Node2D" parent="UnitsManager/Pathfinding"]
+
 [node name="WallsAndObstacles" type="Node2D" parent="UnitsManager/Pathfinding"]
 
 [node name="VerticalWall3" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("11_6e4lp")]
@@ -983,6 +1023,9 @@ position = Vector2(800, 352)
 
 [node name="VerticalWall4" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("11_6e4lp")]
 position = Vector2(800, 320)
+
+[node name="VerticalWall5" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("11_6e4lp")]
+position = Vector2(800, 288)
 
 [node name="HorizontalWall" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("12_g3143")]
 position = Vector2(736, 512)
@@ -1001,9 +1044,6 @@ position = Vector2(736, 480)
 
 [node name="CellTreeNew" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("18_cpnrn")]
 position = Vector2(800, 384)
-
-[node name="CellTreeNew2" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("18_cpnrn")]
-position = Vector2(800, 416)
 
 [node name="CellTreeNew3" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("18_cpnrn")]
 position = Vector2(800, 448)
@@ -1055,8 +1095,8 @@ zoom = Vector2(4, 4)
 [node name="CameraBounds" type="Sprite2D" parent="InputSystem"]
 visible = false
 self_modulate = Color(1, 1, 1, 0.392157)
-position = Vector2(960, 544)
-scale = Vector2(32, 20)
+position = Vector2(816, 448)
+scale = Vector2(25, 16)
 texture = ExtResource("31_mf2ah")
 
 [connection signal="on_clicked_cell" from="UnitsManager/Pathfinding" to="UnitsManager" method="_on_pathfinding_on_clicked_cell"]

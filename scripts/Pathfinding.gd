@@ -8,6 +8,7 @@ signal on_clicked_cell(cell_info: CellInfo)
 @onready var cell_hint := get_node("CellHovered") as Node2D
 
 @export var walkable_hint_cell_scene: PackedScene
+@export var node_with_walk_hint_cells: Node2D
 @export var node_with_walk_cells: Node2D
 @export var node_with_walls: Node2D
 
@@ -16,7 +17,7 @@ const CELL_OFFSETS = [Vector2(-Globals.CELL_SIZE, 0), Vector2(Globals.CELL_SIZE,
 var astar : AStar2D = AStar2D.new()
 
 var dict_id_and_cell = {}
-var spawned_walking_tiles = Array()
+var spawned_walk_hints = Array()
 var obstacle_cells: Array[CellObject] = []
 var cells_cover: Array[CellObject] = []
 
@@ -185,16 +186,16 @@ func draw_walking_cells(walking_cells: PackedVector2Array):
 
 	for cell_pos in walking_cells:
 		var walkable: Node2D = walkable_hint_cell_scene.instantiate()
-		add_child(walkable)
-		spawned_walking_tiles.push_back(walkable)
+		node_with_walk_hint_cells.add_child(walkable)
+		spawned_walk_hints.push_back(walkable)
 		walkable.position = cell_pos
 
 
 func clear_walking_cells():
-	for tile in spawned_walking_tiles:
+	for tile in spawned_walk_hints:
 		tile.queue_free()
 
-	spawned_walking_tiles.clear()
+	spawned_walk_hints.clear()
 
 
 func is_unit_in_cover(unit_pos: Vector2, cell_cover: CellObject) -> bool:
