@@ -135,7 +135,7 @@ func get_path_to_point(from : Vector2i, to : Vector2i) -> PackedVector2Array:
 
 func is_point_walkable(cell_pos : Vector2i) -> bool:
 	var cell_obj: CellObject = get_cell_by_pos(cell_pos)
-	return cell_obj != null and cell_obj.cell_type == CellObject.CellType.GROUND
+	return cell_obj != null and (cell_obj.cell_type == CellObject.CellType.GROUND or cell_obj.cell_type == CellObject.CellType.COVER)
 
 
 func has_path(from: Vector2, to: Vector2) -> bool:
@@ -207,7 +207,7 @@ func is_unit_in_cover(unit_pos: Vector2, cell_cover: CellObject) -> bool:
 		printerr("cell is not cover!")
 		return false
 
-	return unit_pos == cell_cover.position or unit_pos == cell_cover.connected_cells[0].position
+	return unit_pos == cell_cover.position or unit_pos == cell_cover.connected_cells_pos[0]
 
 
 func get_cell_id_by_pos(cell_pos: Vector2) -> int:
