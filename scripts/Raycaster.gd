@@ -17,7 +17,7 @@ func make_ray_get_obstacles(from, to) -> Array[CellObject]:
 		if not res.is_empty():
 			if res.collider.get_parent() is CellObject:
 				covers.append(res.collider.get_parent())
-				printerr(res.collider.get_parent().name)
+				printerr("ray obstacle {0}".format([res.collider.get_parent().name]))
 
 	return covers
 

@@ -8,7 +8,9 @@ enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE}
 @export var health: int = -1
 @export_range(0.0, 0.5, 0.05) var shoot_debaf: float = 0.0
 
+var destroyed := false
 var connected_cells: Array[CellObject]
+var collsition_shape: CollisionShape2D
 
 
 func _ready() -> void:
@@ -17,18 +19,25 @@ func _ready() -> void:
 			connected_cells.append(child)
 			print("Child connected: {0}".format([child]))
 
+	collsition_shape = find_child("CollisionShape2D", true, false)
+
 
 func set_damage(damage: int = 1):
 	if health == -1:
 		return
 
 	health -= damage
-	if health <= 0:
-		_break_cell()
+	if health > 0:
+		return
+
+	destroyed = true
+	collsition_shape.disabled = true
+
+	GlobalBus.on_cell_broke.emit(self)
 
 
 func _break_cell():
-	GlobalBus.on_cell_broke.emit(self)
+
 	print("cell is broke")
 
 

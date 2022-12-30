@@ -35,26 +35,34 @@ func select_enemy(enemy: Unit):
 	selected_enemy = enemy
 
 	var cur_unit: Unit = GlobalUnits.get_cur_unit()
-	var unit_pos := cur_unit.unit_object.position
-	var enemy_pos := enemy.unit_object.position
 
-	var intersected_covers = raycaster.make_ray_get_obstacles(unit_pos, enemy_pos)
-	for cover in intersected_covers:
-		if pathfinding.is_unit_in_cover(enemy_pos, cover):
-			self.cover = cover
-			cover_hit_pos = raycaster.make_ray_and_get_collision_point(unit_pos, enemy_pos, Raycaster.MASK_OBSTACLE)
-			break
-
-	obstacles = raycaster.make_ray_get_obs(unit_pos, enemy_pos)
-
-	var hit_chance: float = get_hit_chance(cur_unit)
-	var str_hit_chance: String = Globals.format_hit_chance(hit_chance)
-	GlobalsUi.gui.show_tooltip(true, str_hit_chance, enemy_pos)
+	_detect_obstacles(cur_unit, enemy)
+	_show_hit_chance(cur_unit, enemy)
 
 	TurnManager.show_hint_spend_points(cur_unit.unit_data.weapon.use_price)
 
-	var positions = raycaster.make_ray_and_get_positions(unit_pos, enemy_pos, true)
+	var positions = raycaster.make_ray_and_get_positions(cur_unit.unit_object.position, enemy.unit_object.position, true)
 	line2d_manager.draw_ray(positions)
+
+
+func _detect_obstacles(cur_unit: Unit, enemy: Unit):
+	var unit_pos := cur_unit.unit_object.position
+	var enemy_pos := enemy.unit_object.position
+
+	var intersected_obs = raycaster.make_ray_get_obstacles(unit_pos, enemy_pos)
+	for obs in intersected_obs:
+		if obs.cell_type == CellObject.CellType.COVER and pathfinding.is_unit_in_cover(enemy_pos, obs):
+			self.cover = obs
+			cover_hit_pos = raycaster.make_ray_and_get_collision_point(unit_pos, enemy_pos, Raycaster.MASK_OBSTACLE)
+			break
+
+	obstacles = Globals.get_cells_of_type(intersected_obs, CellObject.CellType.OBSTACLE)
+
+
+func _show_hit_chance(cur_unit: Unit, enemy_unit: Unit):
+	var hit_chance: float = get_hit_chance(cur_unit)
+	var str_hit_chance: String = Globals.format_hit_chance(hit_chance)
+	GlobalsUi.gui.show_tooltip(true, str_hit_chance, enemy_unit.unit_object.position)
 
 
 func deselect_enemy():
@@ -112,6 +120,9 @@ func shoot(shooter: Unit):
 		selected_enemy.unit_data.set_damage(shooter.unit_data.weapon.damage, shooter.id)
 
 	effect_manager.shoot(shooter, selected_enemy, hit_type, cover_hit_pos, hitted_obs)
+
+	_detect_obstacles(shooter, selected_enemy)
+	_show_hit_chance(shooter, selected_enemy)
 
 
 func reload(unit_data: UnitData):
@@ -171,14 +182,6 @@ func throw_granade(unit: Unit, cell_pos: Vector2) -> bool:
 	return true
 
 
-func _is_hitted(hit_chance) -> bool:
-	var random_value = random_number_generator.randf()
-
-	print("chance: {0}, hit random value: {1}".format([hit_chance, random_value]))
-
-	return random_value <= hit_chance
-
-
 func _get_weapon_accuracy(shooter: Unit) -> float:
 	var distance := get_distance_to_enemy(shooter)
 	var weapon_accuracy: float = shooter.unit_data.unit_settings.weapon.accuracy.sample(distance / Globals.CURVE_X_METERS)
@@ -195,3 +198,4 @@ func _calc_obs_debaff() -> float:
 
 	obstacles_sum_debaff = clampf(obstacles_sum_debaff, 0.0, MAX_OBSTACLE_DEBAFF)
 	return obstacles_sum_debaff
+

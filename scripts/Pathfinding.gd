@@ -92,12 +92,12 @@ func _covers():
 
 func _on_cell_broke(cell: CellObject):
 	if cell.cell_type == CellObject.CellType.COVER:
-		_on_broke_cover(cell)
-	if cell.cell_type == CellObject.CellType.OBSTACLE:
-		_on_broke_obs(cell)
+		remove_cover(cell)
+	elif cell.cell_type == CellObject.CellType.OBSTACLE:
+		remove_obstacle(cell)
 
 
-func _on_broke_cover(cell: CellObject):
+func remove_cover(cell: CellObject):
 	var conected_cell: CellObject = cell.connected_cells[0]
 
 	cells_cover.erase(cell)
@@ -112,7 +112,7 @@ func _on_broke_cover(cell: CellObject):
 	cell.queue_free()
 
 
-func _on_broke_obs(cell: CellObject):
+func remove_obstacle(cell: CellObject):
 	var cell_id = get_cell_id_by_pos(cell.position)
 	astar.set_point_disabled(cell_id, false)
 
@@ -215,7 +215,7 @@ func get_cell_id_by_pos(cell_pos: Vector2) -> int:
 	var cell_obj: CellObject = dict_id_and_cell[cell_id]
 
 	var rect: Rect2 = Rect2(cell_pos - Globals.CELL_OFFSET, Vector2.ONE * Globals.CELL_SIZE)
-	if rect.has_point(cell_obj.position):
+	if not cell_obj.destroyed and rect.has_point(cell_obj.position):
 		return cell_id
 
 	return -1
