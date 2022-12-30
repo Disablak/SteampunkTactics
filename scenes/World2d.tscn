@@ -89,9 +89,9 @@ unit_objects = [NodePath("UnitObject0"), NodePath("UnitObject1")]
 [node name="Pathfinding" type="Node2D" parent="UnitsManager" node_paths=PackedStringArray("root_walk_hint", "root_walk_cells", "root_obs_cells")]
 script = ExtResource("3_0wwuy")
 walkable_hint_cell_scene = ExtResource("6_vdct5")
-root_walk_hint = NodePath("CellsWalkHint")
-root_walk_cells = NodePath("CellsWalkable")
-root_obs_cells = NodePath("WallsAndObstacles")
+root_walk_hint = NodePath("RootWalkHint")
+root_walk_cells = NodePath("RootWalkCells")
+root_obs_cells = NodePath("RootObsCells")
 
 [node name="Visual" type="Node2D" parent="UnitsManager/Pathfinding"]
 
@@ -352,709 +352,709 @@ texture_filter = 1
 position = Vector2(894, 560)
 texture = ExtResource("13_y1ge1")
 
-[node name="CellsWalkable" type="Node2D" parent="UnitsManager/Pathfinding"]
+[node name="RootWalkCells" type="Node2D" parent="UnitsManager/Pathfinding"]
 
-[node name="WalkableCell" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(512, 288)
 
-[node name="WalkableCell2" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell2" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(512, 320)
 
-[node name="WalkableCell3" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell3" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(512, 352)
 
-[node name="WalkableCell4" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell4" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(512, 384)
 
-[node name="WalkableCell5" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell5" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(512, 416)
 
-[node name="WalkableCell6" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell6" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(512, 448)
 
-[node name="WalkableCell7" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell7" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(512, 480)
 
-[node name="WalkableCell8" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell8" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(512, 512)
 
-[node name="WalkableCell9" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell9" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(512, 544)
 
-[node name="WalkableCell10" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell10" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(512, 576)
 
-[node name="WalkableCell11" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell11" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(512, 608)
 
-[node name="WalkableCell17" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell17" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(544, 288)
 
-[node name="WalkableCell18" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell18" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(544, 320)
 
-[node name="WalkableCell19" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell19" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(544, 352)
 
-[node name="WalkableCell20" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell20" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(544, 384)
 
-[node name="WalkableCell21" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell21" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(544, 416)
 
-[node name="WalkableCell22" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell22" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(544, 448)
 
-[node name="WalkableCell23" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell23" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(544, 480)
 
-[node name="WalkableCell24" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell24" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(544, 512)
 
-[node name="WalkableCell25" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell25" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(544, 544)
 
-[node name="WalkableCell26" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell26" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(544, 576)
 
-[node name="WalkableCell27" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell27" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(544, 608)
 
-[node name="WalkableCell33" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell33" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(576, 288)
 
-[node name="WalkableCell34" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell34" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(576, 320)
 
-[node name="WalkableCell35" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell35" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(576, 352)
 
-[node name="WalkableCell36" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell36" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(576, 384)
 
-[node name="WalkableCell37" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell37" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(576, 416)
 
-[node name="WalkableCell38" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell38" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(576, 448)
 
-[node name="WalkableCell39" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell39" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(576, 480)
 
-[node name="WalkableCell40" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell40" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(576, 512)
 
-[node name="WalkableCell41" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell41" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(576, 544)
 
-[node name="WalkableCell42" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell42" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(576, 576)
 
-[node name="WalkableCell43" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell43" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(576, 608)
 
-[node name="WalkableCell49" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell49" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(608, 288)
 
-[node name="WalkableCell50" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell50" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(608, 320)
 
-[node name="WalkableCell51" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell51" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(608, 352)
 
-[node name="WalkableCell52" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell52" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(608, 384)
 
-[node name="WalkableCell53" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell53" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(608, 416)
 
-[node name="WalkableCell54" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell54" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(608, 448)
 
-[node name="WalkableCell55" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell55" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(608, 480)
 
-[node name="WalkableCell56" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell56" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(608, 512)
 
-[node name="WalkableCell57" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell57" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(608, 544)
 
-[node name="WalkableCell58" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell58" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(608, 576)
 
-[node name="WalkableCell59" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell59" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(608, 608)
 
-[node name="WalkableCell65" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell65" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(640, 288)
 
-[node name="WalkableCell66" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell66" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(640, 320)
 
-[node name="WalkableCell67" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell67" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(640, 352)
 
-[node name="WalkableCell68" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell68" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(640, 384)
 
-[node name="WalkableCell69" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell69" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(640, 416)
 
-[node name="WalkableCell70" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell70" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(640, 448)
 
-[node name="WalkableCell71" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell71" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(640, 480)
 
-[node name="WalkableCell72" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell72" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(640, 512)
 
-[node name="WalkableCell73" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell73" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(640, 544)
 
-[node name="WalkableCell74" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell74" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(640, 576)
 
-[node name="WalkableCell75" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell75" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(640, 608)
 
-[node name="WalkableCell81" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell81" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(672, 288)
 
-[node name="WalkableCell82" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell82" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(672, 320)
 
-[node name="WalkableCell83" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell83" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(672, 352)
 
-[node name="WalkableCell84" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell84" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(672, 384)
 
-[node name="WalkableCell85" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell85" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(672, 416)
 
-[node name="WalkableCell86" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell86" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(672, 448)
 
-[node name="WalkableCell87" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell87" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(672, 480)
 
-[node name="WalkableCell88" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell88" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(672, 512)
 
-[node name="WalkableCell89" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell89" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(672, 544)
 
-[node name="WalkableCell90" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell90" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(672, 576)
 
-[node name="WalkableCell91" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell91" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(672, 608)
 
-[node name="WalkableCell97" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell97" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(704, 288)
 
-[node name="WalkableCell98" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell98" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(704, 320)
 
-[node name="WalkableCell99" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell99" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(704, 352)
 
-[node name="WalkableCell100" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell100" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(704, 384)
 
-[node name="WalkableCell101" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell101" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(704, 416)
 
-[node name="WalkableCell102" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell102" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(704, 448)
 
-[node name="WalkableCell103" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell103" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(704, 480)
 
-[node name="WalkableCell104" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell104" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(704, 512)
 
-[node name="WalkableCell105" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell105" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(704, 544)
 
-[node name="WalkableCell106" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell106" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(704, 576)
 
-[node name="WalkableCell107" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell107" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(704, 608)
 
-[node name="WalkableCell113" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell113" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(736, 288)
 
-[node name="WalkableCell114" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell114" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(736, 320)
 
-[node name="WalkableCell115" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell115" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(736, 352)
 
-[node name="WalkableCell116" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell116" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(736, 384)
 
-[node name="WalkableCell117" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell117" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(736, 416)
 
-[node name="WalkableCell118" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell118" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(736, 448)
 
-[node name="WalkableCell119" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell119" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(736, 480)
 
-[node name="WalkableCell120" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell120" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(736, 512)
 
-[node name="WalkableCell121" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell121" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(736, 544)
 
-[node name="WalkableCell122" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell122" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(736, 576)
 
-[node name="WalkableCell123" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell123" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(736, 608)
 
-[node name="WalkableCell129" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell129" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(768, 288)
 
-[node name="WalkableCell130" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell130" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(768, 320)
 
-[node name="WalkableCell131" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell131" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(768, 352)
 
-[node name="WalkableCell132" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell132" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(768, 384)
 
-[node name="WalkableCell133" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell133" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(768, 416)
 
-[node name="WalkableCell134" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell134" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(768, 448)
 
-[node name="WalkableCell135" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell135" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(768, 480)
 
-[node name="WalkableCell136" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell136" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(768, 512)
 
-[node name="WalkableCell137" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell137" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(768, 544)
 
-[node name="WalkableCell138" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell138" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(768, 576)
 
-[node name="WalkableCell139" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell139" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(768, 608)
 
-[node name="WalkableCell145" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell145" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(800, 288)
 
-[node name="WalkableCell146" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell146" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(800, 320)
 
-[node name="WalkableCell147" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell147" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(800, 352)
 
-[node name="WalkableCell148" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell148" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(800, 384)
 
-[node name="WalkableCell149" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell149" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(800, 416)
 
-[node name="WalkableCell150" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell150" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(800, 448)
 
-[node name="WalkableCell151" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell151" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(800, 480)
 
-[node name="WalkableCell152" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell152" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(800, 512)
 
-[node name="WalkableCell153" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell153" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(800, 544)
 
-[node name="WalkableCell154" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell154" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(800, 576)
 
-[node name="WalkableCell155" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell155" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(800, 608)
 
-[node name="WalkableCell161" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell161" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(832, 288)
 
-[node name="WalkableCell162" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell162" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(832, 320)
 
-[node name="WalkableCell163" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell163" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(832, 352)
 
-[node name="WalkableCell164" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell164" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(832, 384)
 
-[node name="WalkableCell165" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell165" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(832, 416)
 
-[node name="WalkableCell166" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell166" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(832, 448)
 
-[node name="WalkableCell167" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell167" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(832, 480)
 
-[node name="WalkableCell168" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell168" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(832, 512)
 
-[node name="WalkableCell169" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell169" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(832, 544)
 
-[node name="WalkableCell170" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell170" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(832, 576)
 
-[node name="WalkableCell171" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell171" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(832, 608)
 
-[node name="WalkableCell177" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell177" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(864, 288)
 
-[node name="WalkableCell178" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell178" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(864, 320)
 
-[node name="WalkableCell179" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell179" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(864, 352)
 
-[node name="WalkableCell180" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell180" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(864, 384)
 
-[node name="WalkableCell181" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell181" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(864, 416)
 
-[node name="WalkableCell182" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell182" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(864, 448)
 
-[node name="WalkableCell183" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell183" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(864, 480)
 
-[node name="WalkableCell184" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell184" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(864, 512)
 
-[node name="WalkableCell185" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell185" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(864, 544)
 
-[node name="WalkableCell186" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell186" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(864, 576)
 
-[node name="WalkableCell187" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell187" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(864, 608)
 
-[node name="WalkableCell193" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell193" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(896, 288)
 
-[node name="WalkableCell194" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell194" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(896, 320)
 
-[node name="WalkableCell195" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell195" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(896, 352)
 
-[node name="WalkableCell196" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell196" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(896, 384)
 
-[node name="WalkableCell197" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell197" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(896, 416)
 
-[node name="WalkableCell198" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell198" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(896, 448)
 
-[node name="WalkableCell199" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell199" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(896, 480)
 
-[node name="WalkableCell200" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell200" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(896, 512)
 
-[node name="WalkableCell201" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell201" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(896, 544)
 
-[node name="WalkableCell202" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell202" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(896, 576)
 
-[node name="WalkableCell203" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell203" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(896, 608)
 
-[node name="WalkableCell209" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell209" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(928, 288)
 
-[node name="WalkableCell210" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell210" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(928, 320)
 
-[node name="WalkableCell211" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell211" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(928, 352)
 
-[node name="WalkableCell212" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell212" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(928, 384)
 
-[node name="WalkableCell213" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell213" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(928, 416)
 
-[node name="WalkableCell214" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell214" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(928, 448)
 
-[node name="WalkableCell215" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell215" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(928, 480)
 
-[node name="WalkableCell216" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell216" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(928, 512)
 
-[node name="WalkableCell217" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell217" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(928, 544)
 
-[node name="WalkableCell218" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell218" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(928, 576)
 
-[node name="WalkableCell219" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell219" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(928, 608)
 
-[node name="WalkableCell225" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell225" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(960, 288)
 
-[node name="WalkableCell226" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell226" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(960, 320)
 
-[node name="WalkableCell227" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell227" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(960, 352)
 
-[node name="WalkableCell228" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell228" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(960, 384)
 
-[node name="WalkableCell229" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell229" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(960, 416)
 
-[node name="WalkableCell230" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell230" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(960, 448)
 
-[node name="WalkableCell231" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell231" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(960, 480)
 
-[node name="WalkableCell232" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell232" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(960, 512)
 
-[node name="WalkableCell233" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell233" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(960, 544)
 
-[node name="WalkableCell234" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell234" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(960, 576)
 
-[node name="WalkableCell235" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell235" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(960, 608)
 
-[node name="WalkableCell241" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell241" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(992, 288)
 
-[node name="WalkableCell242" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell242" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(992, 320)
 
-[node name="WalkableCell243" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell243" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(992, 352)
 
-[node name="WalkableCell244" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell244" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(992, 384)
 
-[node name="WalkableCell245" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell245" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(992, 416)
 
-[node name="WalkableCell246" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell246" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(992, 448)
 
-[node name="WalkableCell247" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell247" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(992, 480)
 
-[node name="WalkableCell248" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell248" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(992, 512)
 
-[node name="WalkableCell249" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell249" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(992, 544)
 
-[node name="WalkableCell250" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell250" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(992, 576)
 
-[node name="WalkableCell251" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell251" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(992, 608)
 
-[node name="WalkableCell257" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell257" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1024, 288)
 
-[node name="WalkableCell258" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell258" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1024, 320)
 
-[node name="WalkableCell259" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell259" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1024, 352)
 
-[node name="WalkableCell260" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell260" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1024, 384)
 
-[node name="WalkableCell261" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell261" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1024, 416)
 
-[node name="WalkableCell262" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell262" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1024, 448)
 
-[node name="WalkableCell263" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell263" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1024, 480)
 
-[node name="WalkableCell264" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell264" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1024, 512)
 
-[node name="WalkableCell265" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell265" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1024, 544)
 
-[node name="WalkableCell266" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell266" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1024, 576)
 
-[node name="WalkableCell267" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell267" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1024, 608)
 
-[node name="WalkableCell273" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell273" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1056, 288)
 
-[node name="WalkableCell274" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell274" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1056, 320)
 
-[node name="WalkableCell275" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell275" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1056, 352)
 
-[node name="WalkableCell276" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell276" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1056, 384)
 
-[node name="WalkableCell277" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell277" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1056, 416)
 
-[node name="WalkableCell278" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell278" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1056, 448)
 
-[node name="WalkableCell279" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell279" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1056, 480)
 
-[node name="WalkableCell280" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell280" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1056, 512)
 
-[node name="WalkableCell281" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell281" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1056, 544)
 
-[node name="WalkableCell282" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell282" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1056, 576)
 
-[node name="WalkableCell283" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell283" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1056, 608)
 
-[node name="WalkableCell289" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell289" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1088, 288)
 
-[node name="WalkableCell290" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell290" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1088, 320)
 
-[node name="WalkableCell291" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell291" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1088, 352)
 
-[node name="WalkableCell292" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell292" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1088, 384)
 
-[node name="WalkableCell293" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell293" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1088, 416)
 
-[node name="WalkableCell294" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell294" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1088, 448)
 
-[node name="WalkableCell295" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell295" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1088, 480)
 
-[node name="WalkableCell296" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell296" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1088, 512)
 
-[node name="WalkableCell297" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell297" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1088, 544)
 
-[node name="WalkableCell298" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell298" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1088, 576)
 
-[node name="WalkableCell299" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell299" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1088, 608)
 
-[node name="WalkableCell305" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell305" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 288)
 
-[node name="WalkableCell306" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell306" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 320)
 
-[node name="WalkableCell307" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell307" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 352)
 
-[node name="WalkableCell308" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell308" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 384)
 
-[node name="WalkableCell309" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell309" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 416)
 
-[node name="WalkableCell310" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell310" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 448)
 
-[node name="WalkableCell311" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell311" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 480)
 
-[node name="WalkableCell312" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell312" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 512)
 
-[node name="WalkableCell313" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell313" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 544)
 
-[node name="WalkableCell314" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell314" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 576)
 
-[node name="WalkableCell315" parent="UnitsManager/Pathfinding/CellsWalkable" instance=ExtResource("13_iafh6")]
+[node name="WalkableCell315" parent="UnitsManager/Pathfinding/RootWalkCells" instance=ExtResource("13_iafh6")]
 position = Vector2(1120, 608)
 
-[node name="CellsWalkHint" type="Node2D" parent="UnitsManager/Pathfinding"]
+[node name="RootWalkHint" type="Node2D" parent="UnitsManager/Pathfinding"]
 
-[node name="WallsAndObstacles" type="Node2D" parent="UnitsManager/Pathfinding"]
+[node name="RootObsCells" type="Node2D" parent="UnitsManager/Pathfinding"]
 
-[node name="VerticalWall3" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("11_6e4lp")]
+[node name="VerticalWall3" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("11_6e4lp")]
 position = Vector2(800, 352)
 
-[node name="VerticalWall4" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("11_6e4lp")]
+[node name="VerticalWall4" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("11_6e4lp")]
 position = Vector2(800, 320)
 
-[node name="VerticalWall5" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("11_6e4lp")]
+[node name="VerticalWall5" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("11_6e4lp")]
 position = Vector2(800, 288)
 
-[node name="HorizontalWall" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("12_g3143")]
+[node name="HorizontalWall" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("12_g3143")]
 position = Vector2(736, 512)
 
-[node name="HorizontalWall2" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("12_g3143")]
+[node name="HorizontalWall2" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("12_g3143")]
 position = Vector2(704, 512)
 
-[node name="HorizontalWall3" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("12_g3143")]
+[node name="HorizontalWall3" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("12_g3143")]
 position = Vector2(672, 512)
 
-[node name="HorizontalWall4" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("12_g3143")]
+[node name="HorizontalWall4" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("12_g3143")]
 position = Vector2(640, 512)
 
-[node name="Cover" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("18_a6tbn")]
+[node name="Cover" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_a6tbn")]
 position = Vector2(736, 480)
 
-[node name="CellTreeNew" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("18_cpnrn")]
+[node name="CellTreeNew" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
 position = Vector2(800, 384)
 
-[node name="CellTreeNew3" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("18_cpnrn")]
+[node name="CellTreeNew3" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
 position = Vector2(800, 448)
 
-[node name="CellTreeNew4" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("18_cpnrn")]
+[node name="CellTreeNew4" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
 position = Vector2(800, 416)
 
-[node name="CellTreeNew5" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("18_cpnrn")]
+[node name="CellTreeNew5" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
 position = Vector2(768, 416)
 
-[node name="CellTreeNew6" parent="UnitsManager/Pathfinding/WallsAndObstacles" instance=ExtResource("18_cpnrn")]
+[node name="CellTreeNew6" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
 position = Vector2(736, 416)
 
 [node name="CellHovered" parent="UnitsManager/Pathfinding" instance=ExtResource("18_yo8ds")]
