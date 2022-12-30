@@ -109,10 +109,10 @@ func shoot(shooter: Unit):
 
 	if random <= weapon_accuracy:
 		hit_type = HitType.MISS
-	elif random <= clamp(weapon_accuracy + cover_debaff, 0.0, 1.0):
+	elif cover_debaff != 0.0 and random <= clamp(weapon_accuracy + cover_debaff, 0.0, 1.0):
 		hit_type = HitType.HIT_IN_COVER
 		cover.set_damage()
-	elif random <= clamp(weapon_accuracy + cover_debaff + obs_debaff, 0.0, 1.0):
+	elif obs_debaff != 0.0 and random <= clamp(weapon_accuracy + cover_debaff + obs_debaff, 0.0, 1.0):
 		hit_type = HitType.HIT_IN_OBS
 		hitted_obs.set_damage()
 	else:

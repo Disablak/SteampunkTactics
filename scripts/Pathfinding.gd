@@ -8,18 +8,22 @@ signal on_clicked_cell(cell_info: CellInfo)
 @onready var cell_hint := get_node("CellHovered") as Node2D
 
 @export var walkable_hint_cell_scene: PackedScene
-@export var node_with_walk_hint_cells: Node2D
-@export var node_with_walk_cells: Node2D
-@export var node_with_walls: Node2D
+
+@export var root_walk_hint: Node2D
+@export var root_walk_cells: Node2D
+@export var root_obs_cells: Node2D
 
 const CELL_OFFSETS = [Vector2(-Globals.CELL_SIZE, 0), Vector2(Globals.CELL_SIZE, 0), Vector2(0, Globals.CELL_SIZE), Vector2(0, Globals.CELL_SIZE)]
 
 var astar : AStar2D = AStar2D.new()
 
-var dict_id_and_cell = {}
+var dict_id_and_cell_walk = {}
+var dict_pos_and_cell_walk = {}
+var dict_pos_and_cell_wall = {}
+var dict_pos_and_cell_obstacle = {}
+var dict_pos_and_cell_cover = {}
+
 var spawned_walk_hints = Array()
-var obstacle_cells: Array[CellObject] = []
-var cells_cover: Array[CellObject] = []
 
 var prev_hovered_cell_pos: Vector2 = Vector2.ZERO
 
@@ -28,21 +32,21 @@ func _ready() -> void:
 	GlobalBus.on_cell_broke.connect(_on_cell_broke)
 
 	_connect_walkable_cells()
-	_remove_wall_points()
-	_covers()
+	_add_obstacles()
 
 
 func _connect_walkable_cells():
-	for cell in node_with_walk_cells.get_children():
+	for cell in root_walk_cells.get_children():
 		var cell_pos: Vector2 = cell.position
 		var id = astar.get_available_point_id()
 
 		astar.add_point(id, cell_pos)
-		dict_id_and_cell[id] = cell
+		dict_id_and_cell_walk[id] = cell
+		dict_pos_and_cell_walk[cell_pos] = cell
 
-	node_with_walk_cells.visible = false
+	root_walk_cells.visible = false
 
-	for cell in dict_id_and_cell.values():
+	for cell in dict_id_and_cell_walk.values():
 		var cell_pos: Vector2 = cell.position
 		var cell_id = astar.get_closest_point(cell_pos)
 
@@ -50,7 +54,7 @@ func _connect_walkable_cells():
 			var potential_cell_pos : Vector2 = cell_pos + offset
 			var potential_cell_id = astar.get_closest_point(potential_cell_pos)
 			assert(potential_cell_id != -1, "cell id not found!" )
-			var potential_cell = dict_id_and_cell.get(potential_cell_id)
+			var potential_cell = dict_id_and_cell_walk.get(potential_cell_id)
 			assert(potential_cell != null, "cell not found!" )
 
 			if cell_id == potential_cell_id:
@@ -61,33 +65,33 @@ func _connect_walkable_cells():
 				#print("connected {0} and {1}".format([cell_id, potential_cell_id]))
 
 
-func _remove_wall_points():
-	for wall in node_with_walls.get_children():
-		var wall_cell := wall as CellObject
-		if wall_cell.cell_type != CellObject.CellType.WALL and wall_cell.cell_type != CellObject.CellType.OBSTACLE:
+func _add_obstacles():
+	for cell in root_obs_cells.get_children():
+		var cell_obj := cell as CellObject
+		var cell_pos: Vector2 = cell_obj.position
+
+		if cell_obj.cell_type == CellObject.CellType.WALL:
+			dict_pos_and_cell_wall[cell_pos] = cell_obj
+
+		if cell_obj.cell_type == CellObject.CellType.OBSTACLE:
+			dict_pos_and_cell_obstacle[cell_pos] = cell_obj
+
+		if cell_obj.cell_type == CellObject.CellType.COVER:
+			_add_cover(cell_obj)
 			continue
 
-		obstacle_cells.push_back(wall_cell)
-		var wall_pos: Vector2 = wall_cell.position
-		var cell_id = astar.get_closest_point(wall_pos)
-		astar.set_point_disabled(cell_id, true)
+		_enable_point_by_pos(cell_pos, false)
 
 
-func _covers():
-	for cell in node_with_walls.get_children():
-		if cell.cell_type != CellObject.CellType.COVER:
-			continue
+func _add_cover(cell_obj: CellObject):
+	dict_pos_and_cell_cover[cell_obj.position] = cell_obj
+	dict_pos_and_cell_cover[cell_obj.connected_cells_pos[0]] = cell_obj
 
-		var conected_cell: CellObject = cell.connected_cells[0]
+	var first_cell_id := get_cell_id_by_pos(cell_obj.position)
+	var second_cell_id := get_cell_id_by_pos(cell_obj.connected_cells_pos[0])
 
-		cells_cover.append(cell)
-		cells_cover.append(conected_cell)
-
-		var first_cell_id := get_cell_id_by_pos(cell.position)
-		var second_cell_id := get_cell_id_by_pos(cell.position + conected_cell.position)
-
-		astar.disconnect_points(first_cell_id, second_cell_id)
-		print("disconected {0}, {1}".format([first_cell_id, second_cell_id]))
+	astar.disconnect_points(first_cell_id, second_cell_id)
+	print("disconected {0}, {1}".format([first_cell_id, second_cell_id]))
 
 
 func _on_cell_broke(cell: CellObject):
@@ -100,8 +104,8 @@ func _on_cell_broke(cell: CellObject):
 func remove_cover(cell: CellObject):
 	var conected_cell: CellObject = cell.connected_cells[0]
 
-	cells_cover.erase(cell)
-	cells_cover.erase(conected_cell)
+	dict_pos_and_cell_cover.erase(cell.position)
+	dict_pos_and_cell_cover.erase(conected_cell.position)
 
 	var first_cell_id := get_cell_id_by_pos(cell.position)
 	var second_cell_id := get_cell_id_by_pos(cell.position + conected_cell.position)
@@ -113,10 +117,8 @@ func remove_cover(cell: CellObject):
 
 
 func remove_obstacle(cell: CellObject):
-	var cell_id = get_cell_id_by_pos(cell.position)
-	astar.set_point_disabled(cell_id, false)
-
-	obstacle_cells.erase(cell)
+	_enable_point_by_pos(cell.position, true)
+	dict_pos_and_cell_obstacle.erase(cell.position)
 
 	cell.queue_free()
 
@@ -186,7 +188,7 @@ func draw_walking_cells(walking_cells: PackedVector2Array):
 
 	for cell_pos in walking_cells:
 		var walkable: Node2D = walkable_hint_cell_scene.instantiate()
-		node_with_walk_hint_cells.add_child(walkable)
+		root_walk_hint.add_child(walkable)
 		spawned_walk_hints.push_back(walkable)
 		walkable.position = cell_pos
 
@@ -212,7 +214,7 @@ func get_cell_id_by_pos(cell_pos: Vector2) -> int:
 	cell_pos = Globals.snap_to_cell_pos(cell_pos)
 
 	var cell_id := astar.get_closest_point(cell_pos, true)
-	var cell_obj: CellObject = dict_id_and_cell[cell_id]
+	var cell_obj: CellObject = dict_id_and_cell_walk[cell_id]
 
 	var rect: Rect2 = Rect2(cell_pos - Globals.CELL_OFFSET, Vector2.ONE * Globals.CELL_SIZE)
 	if not cell_obj.destroyed and rect.has_point(cell_obj.position):
@@ -222,13 +224,17 @@ func get_cell_id_by_pos(cell_pos: Vector2) -> int:
 
 
 func get_cell_by_pos(cell_pos: Vector2) -> CellObject:
-	var cell_id = get_cell_id_by_pos(cell_pos)
-	if cell_id != -1:
-		return dict_id_and_cell[cell_id]
+	if dict_pos_and_cell_cover.has(cell_pos):
+		return dict_pos_and_cell_cover[cell_pos]
 
-	var cell_wall := _get_closest_wall(cell_pos)
-	if cell_pos.distance_to(cell_wall.position) < Globals.CELL_SIZE:
-		return cell_wall
+	if dict_pos_and_cell_obstacle.has(cell_pos):
+		return dict_pos_and_cell_obstacle[cell_pos]
+
+	if dict_pos_and_cell_wall.has(cell_pos):
+		return dict_pos_and_cell_wall[cell_pos]
+
+	if dict_pos_and_cell_walk.has(cell_pos):
+		return dict_pos_and_cell_walk[cell_pos]
 
 	return null
 
@@ -256,17 +262,9 @@ func _get_cell_info(cell_pos: Vector2) -> CellInfo:
 	return CellInfo.new(cell_pos, cell_obj, unit_id)
 
 
-func _get_closest_wall(pos: Vector2) -> CellObject:
-	var closest_wall: CellObject
-	var closest_distance
-
-	for wall in obstacle_cells:
-		var distance = pos.distance_squared_to(wall.position)
-		if closest_wall == null or distance < closest_distance:
-			closest_wall = wall
-			closest_distance = distance
-
-	return closest_wall
+func _enable_point_by_pos(cell_pos: Vector2, enable: bool):
+	var cell_id := get_cell_id_by_pos(cell_pos)
+	astar.set_point_disabled(cell_id, !enable)
 
 
 func _on_input_system_on_mouse_hover(cell_info: CellInfo) -> void:

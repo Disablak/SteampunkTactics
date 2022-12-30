@@ -57,7 +57,7 @@ static func snap_to_cell_pos(pos: Vector2) -> Vector2:
 static func get_cells_of_type(cells: Array, cell_type: CellObject.CellType):
 	var result = []
 	for cell in cells:
-		if cell is CellObject and cell.cell_type == cell_type:
+		if cell is CellObject and cell.cell_type == cell_type and not cell.destroyed:
 			result.append(cell)
 
 	return result

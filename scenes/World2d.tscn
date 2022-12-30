@@ -86,12 +86,12 @@ show_enemy_raycast = true
 units_data = [ExtResource("3_5rc2h"), ExtResource("4_8ur0q")]
 unit_objects = [NodePath("UnitObject0"), NodePath("UnitObject1")]
 
-[node name="Pathfinding" type="Node2D" parent="UnitsManager" node_paths=PackedStringArray("node_with_walk_hint_cells", "node_with_walk_cells", "node_with_walls")]
+[node name="Pathfinding" type="Node2D" parent="UnitsManager" node_paths=PackedStringArray("root_walk_hint", "root_walk_cells", "root_obs_cells")]
 script = ExtResource("3_0wwuy")
 walkable_hint_cell_scene = ExtResource("6_vdct5")
-node_with_walk_hint_cells = NodePath("CellsWalkHint")
-node_with_walk_cells = NodePath("CellsWalkable")
-node_with_walls = NodePath("WallsAndObstacles")
+root_walk_hint = NodePath("CellsWalkHint")
+root_walk_cells = NodePath("CellsWalkable")
+root_obs_cells = NodePath("WallsAndObstacles")
 
 [node name="Visual" type="Node2D" parent="UnitsManager/Pathfinding"]
 
