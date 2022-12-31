@@ -1045,17 +1045,11 @@ position = Vector2(736, 480)
 [node name="CellTreeNew" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
 position = Vector2(800, 384)
 
-[node name="CellTreeNew3" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
-position = Vector2(800, 448)
-
 [node name="CellTreeNew4" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
 position = Vector2(800, 416)
 
-[node name="CellTreeNew5" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
-position = Vector2(768, 416)
-
-[node name="CellTreeNew6" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
-position = Vector2(736, 416)
+[node name="CellTreeNew3" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
+position = Vector2(800, 448)
 
 [node name="CellHovered" parent="UnitsManager/Pathfinding" instance=ExtResource("18_yo8ds")]
 position = Vector2(320, -32)
@@ -1092,7 +1086,7 @@ available_actions = [ExtResource("17_gjgab"), ExtResource("18_8v7si"), ExtResour
 script = ExtResource("10_yja2f")
 
 [node name="CameraController" type="Node2D" parent="InputSystem"]
-position = Vector2(864, 448)
+position = Vector2(768, 448)
 script = ExtResource("11_sv5rh")
 focus_time = 0.5
 bounds_path = NodePath("../CameraBounds")

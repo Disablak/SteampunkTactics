@@ -7,6 +7,8 @@ signal on_clicked_cell(cell_info: CellInfo)
 
 @onready var cell_hint := get_node("CellHovered") as Node2D
 
+@export var is_debug := true
+
 @export var walkable_hint_cell_scene: PackedScene
 
 @export var root_walk_hint: Node2D
@@ -28,11 +30,32 @@ var spawned_walk_hints = Array()
 var prev_hovered_cell_pos: Vector2 = Vector2.ZERO
 
 
+func _draw() -> void:
+	if not is_debug:
+		return
+
+	for cell_id in dict_id_and_cell_walk:
+		var cell_walk = dict_id_and_cell_walk[cell_id]
+
+		if astar.is_point_disabled(cell_id):
+				continue
+
+		var connected_points = astar.get_point_connections(cell_id)
+		for conn_id in connected_points:
+			if astar.is_point_disabled(conn_id):
+				continue
+
+			var conn_cell = dict_id_and_cell_walk[conn_id]
+			DrawDebug.line2d(cell_walk.position, conn_cell.position)
+
+
 func _ready() -> void:
 	GlobalBus.on_cell_broke.connect(_on_cell_broke)
 
 	_connect_walkable_cells()
 	_add_obstacles()
+
+	_draw()
 
 
 func _connect_walkable_cells():
