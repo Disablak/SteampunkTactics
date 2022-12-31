@@ -37,7 +37,7 @@ func line2d(pos1: Vector2, pos2: Vector2, color = Color.WHITE_SMOKE) -> MeshInst
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.albedo_color = color
 
-	get_tree().get_root().add_child(mesh_instance)
+	get_tree().get_root().add_child.call_deferred(mesh_instance)
 
 	return mesh_instance
 

@@ -29,16 +29,21 @@ var spawned_walk_hints = Array()
 
 var prev_hovered_cell_pos: Vector2 = Vector2.ZERO
 
+var debug_lines = []
 
-func _draw() -> void:
+
+func _draw_debug() -> void:
 	if not is_debug:
 		return
+
+	for deb in debug_lines:
+		deb.queue_free()
 
 	for cell_id in dict_id_and_cell_walk:
 		var cell_walk = dict_id_and_cell_walk[cell_id]
 
 		if astar.is_point_disabled(cell_id):
-				continue
+			continue
 
 		var connected_points = astar.get_point_connections(cell_id)
 		for conn_id in connected_points:
@@ -46,7 +51,9 @@ func _draw() -> void:
 				continue
 
 			var conn_cell = dict_id_and_cell_walk[conn_id]
-			DrawDebug.line2d(cell_walk.position, conn_cell.position)
+			var line = DrawDebug.line2d(cell_walk.position, conn_cell.position)
+			debug_lines.append(line)
+
 
 
 func _ready() -> void:
@@ -55,7 +62,7 @@ func _ready() -> void:
 	_connect_walkable_cells()
 	_add_obstacles()
 
-	_draw()
+	_draw_debug()
 
 
 func _connect_walkable_cells():
@@ -128,19 +135,21 @@ func remove_cover(cell: CellObject):
 	var conected_cell: CellObject = cell.connected_cells[0]
 
 	dict_pos_and_cell_cover.erase(cell.position)
-	dict_pos_and_cell_cover.erase(conected_cell.position)
+	dict_pos_and_cell_cover.erase(cell.connected_cells_pos[0])
 
 	var first_cell_id := get_cell_id_by_pos(cell.position)
-	var second_cell_id := get_cell_id_by_pos(cell.position + conected_cell.position)
+	var second_cell_id := get_cell_id_by_pos(cell.connected_cells_pos[0])
 
 	astar.connect_points(first_cell_id, second_cell_id)
 	print("connected {0}, {1}".format([first_cell_id, second_cell_id]))
+
+	_draw_debug()
 
 	cell.queue_free()
 
 
 func remove_obstacle(cell: CellObject):
-	_enable_point_by_pos(cell.position, true)
+	_enable_point_by_pos(cell.position, true, true)
 	dict_pos_and_cell_obstacle.erase(cell.position)
 
 	cell.queue_free()
@@ -285,9 +294,12 @@ func _get_cell_info(cell_pos: Vector2) -> CellInfo:
 	return CellInfo.new(cell_pos, cell_obj, unit_id)
 
 
-func _enable_point_by_pos(cell_pos: Vector2, enable: bool):
+func _enable_point_by_pos(cell_pos: Vector2, enable: bool, update_debug: bool = false):
 	var cell_id := get_cell_id_by_pos(cell_pos)
 	astar.set_point_disabled(cell_id, !enable)
+
+	if update_debug:
+		_draw_debug()
 
 
 func _on_input_system_on_mouse_hover(cell_info: CellInfo) -> void:
