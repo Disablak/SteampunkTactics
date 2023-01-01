@@ -12,7 +12,7 @@ self_modulate = Color(1, 1, 1, 0.0784314)
 texture = ExtResource("2_b6gcb")
 cell_type = 3
 health = 1
-shoot_debaf = 0.35
+shoot_debaf = 0.15
 
 [node name="Sprite2DCell" type="Sprite2D" parent="." index="0"]
 self_modulate = Color(1, 1, 1, 0.0784314)

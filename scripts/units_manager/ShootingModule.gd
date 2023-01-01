@@ -4,8 +4,6 @@ extends Node2D
 
 enum HitType {NONE, HIT, HIT_IN_COVER, MISS, HIT_IN_OBS}
 
-const MAX_OBSTACLE_DEBAFF := 0.7
-
 var random_number_generator: RandomNumberGenerator = null
 var effect_manager: EffectManager
 var raycaster: Raycaster
@@ -61,9 +59,13 @@ func _detect_obstacles(cur_unit: Unit, enemy: Unit):
 
 
 func _show_hit_chance(cur_unit: Unit, enemy_unit: Unit):
-	var hit_chance: float = get_hit_chance(cur_unit)
-	var str_hit_chance: String = Globals.format_hit_chance(hit_chance)
-	GlobalsUi.gui.show_tooltip(true, str_hit_chance, enemy_unit.unit_object.position)
+	var hit_chance: float = _get_hit_chance(cur_unit)
+	var cover_debaff: float = cover.shoot_debaf if cover else 0.0
+	var obs_debaff: float = obstacles_sum_debaff
+	var weapon_accuracy: float = _get_weapon_accuracy(cur_unit)
+
+	var str_hit_chance: String = "Hit {0}\nHit in cover {1}\nHit in obstacle {2}\nMiss {3}".format([Globals.format_hit_chance(hit_chance), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(obs_debaff), Globals.format_hit_chance(1.0 - weapon_accuracy)])
+	GlobalsUi.gui.show_tooltip(true, str_hit_chance, enemy_unit.unit_object.position + Vector2(20, -10))
 
 
 func deselect_enemy():
@@ -100,27 +102,23 @@ func shoot(shooter: Unit):
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, shooter.unit_data.weapon.use_price)
 	shooter.unit_data.spend_weapon_ammo()
 
-	var weapon_accuracy: float = _get_weapon_accuracy(shooter)
-	var cover_debaff: float = cover.shoot_debaf if cover else 0.0
-	var obs_debaff: float = obstacles_sum_debaff
-
-	var random = randf()
-	var hit_type: HitType
+	var hit_type: HitType = _get_shoot_result(shooter)
 	var hitted_obs: CellObject = obstacles.pick_random() if obstacles.size() > 0 else null
 
-	if random <= weapon_accuracy:
-		hit_type = HitType.MISS
-	elif cover_debaff != 0.0 and random <= clamp(weapon_accuracy + cover_debaff, 0.0, 1.0):
-		hit_type = HitType.HIT_IN_COVER
-		cover.set_damage()
-	elif obs_debaff != 0.0 and random <= clamp(weapon_accuracy + cover_debaff + obs_debaff, 0.0, 1.0):
-		hit_type = HitType.HIT_IN_OBS
-		hitted_obs.set_damage()
-	else:
-		hit_type = HitType.HIT
-		selected_enemy.unit_data.set_damage(shooter.unit_data.weapon.damage, shooter.id)
+	match hit_type:
+		HitType.HIT:
+			selected_enemy.unit_data.set_damage(shooter.unit_data.weapon.damage, shooter.id)
+
+		HitType.HIT_IN_COVER:
+			cover.set_damage()
+
+		HitType.HIT_IN_OBS:
+			hitted_obs.set_damage()
 
 	effect_manager.shoot(shooter, selected_enemy, hit_type, cover_hit_pos, hitted_obs)
+
+	if selected_enemy.unit_data.cur_health <= 0:
+		return
 
 	_detect_obstacles(shooter, selected_enemy)
 	_show_hit_chance(shooter, selected_enemy)
@@ -139,7 +137,30 @@ func reload(unit_data: UnitData):
 	unit_data.reload_weapon()
 
 
-func get_hit_chance(shooter: Unit) -> float:
+func _get_shoot_result(shooter: Unit):
+	var chance_to_hit: float = _get_hit_chance(shooter)
+	var cover_debaff: float = cover.shoot_debaf if cover else 0.0
+	var obs_debaff: float = obstacles_sum_debaff
+
+	var rand_hit = randf()
+	print("rand_hit {0}".format([Globals.format_hit_chance(rand_hit)]))
+	if rand_hit > chance_to_hit:
+		return HitType.HIT
+
+	var rand_cover = randf()
+	print("rand_cover {0}".format([Globals.format_hit_chance(rand_cover)]))
+	if rand_cover < cover_debaff:
+		return HitType.HIT_IN_COVER
+
+	var rand_obs = randf()
+	print("rand_obs {0}".format([Globals.format_hit_chance(rand_obs)]))
+	if rand_obs < obs_debaff:
+		return HitType.HIT_IN_OBS
+
+	return HitType.MISS
+
+
+func _get_hit_chance(shooter: Unit) -> float:
 	var weapon_accuracy: float = _get_weapon_accuracy(shooter)
 	var cover_debaff: float = cover.shoot_debaf if cover else 0.0
 	var chance: float = clamp(weapon_accuracy - (cover_debaff + obstacles_sum_debaff), 0.0, 1.0)
@@ -197,6 +218,6 @@ func _calc_obs_debaff() -> float:
 	for obs in obstacles:
 		obstacles_sum_debaff += obs.shoot_debaf
 
-	obstacles_sum_debaff = clampf(obstacles_sum_debaff, 0.0, MAX_OBSTACLE_DEBAFF)
+	obstacles_sum_debaff = clampf(obstacles_sum_debaff, 0.0, 1.0)
 	return obstacles_sum_debaff
 

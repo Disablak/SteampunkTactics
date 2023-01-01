@@ -10,7 +10,7 @@ radius = 6.0
 self_modulate = Color(1, 1, 1, 0)
 cell_type = 4
 health = 1
-shoot_debaf = 0.25
+shoot_debaf = 0.1
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." index="0"]
 collision_layer = 32
