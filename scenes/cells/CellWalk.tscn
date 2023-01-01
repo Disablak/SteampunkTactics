@@ -7,3 +7,4 @@
 texture = ExtResource("1_kbmvf")
 script = ExtResource("2_k1pvc")
 cell_type = 1
+is_walkable = true

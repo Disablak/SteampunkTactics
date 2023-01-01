@@ -243,7 +243,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		clear_all_lines()
 		return
 
-	var is_clicked_on_ground = cell_info.cell_obj.cell_type == CellObject.CellType.GROUND or cell_info.cell_obj.cell_type == CellObject.CellType.COVER
+	var is_clicked_on_ground = cell_info.cell_obj.is_walkable
 	var is_granade_mode = cur_unit_action == Globals.UnitAction.GRANADE
 
 	if is_granade_mode and cell_info.cell_obj.cell_type != CellObject.CellType.WALL:
@@ -273,7 +273,7 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		clear_all_lines()
 		return
 
-	var is_hovered_on_ground = cell_info.cell_obj.cell_type == CellObject.CellType.GROUND or cell_info.cell_obj.cell_type == CellObject.CellType.COVER
+	var is_hovered_on_ground = cell_info.cell_obj.is_walkable
 	if not is_hovered_on_ground:
 		clear_all_lines()
 		return

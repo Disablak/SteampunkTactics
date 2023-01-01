@@ -1,23 +1,23 @@
-[gd_scene load_steps=41 format=3 uid="uid://csg7s6njsb3o0"]
+[gd_scene load_steps=41 format=3 uid="uid://dgyxvel8mm5hy"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
 [ext_resource type="Script" path="res://scripts/Pathfinding.gd" id="3_0wwuy"]
 [ext_resource type="Resource" uid="uid://ce4x8ilct2imn" path="res://data/settings/unit/unit_setting0.tres" id="3_5rc2h"]
 [ext_resource type="Resource" uid="uid://mn2771n5e5qo" path="res://data/settings/unit/unit_setting_enemy.tres" id="4_8ur0q"]
-[ext_resource type="PackedScene" path="res://scenes/cells/WalkableHintCell.tscn" id="6_vdct5"]
+[ext_resource type="PackedScene" uid="uid://cwx8drbr53vsv" path="res://scenes/cells/WalkableHintCell.tscn" id="6_vdct5"]
 [ext_resource type="PackedScene" uid="uid://2ikcthg31xdg" path="res://scenes/2d/UnitObject.tscn" id="8_u5vun"]
 [ext_resource type="Script" path="res://scripts/units_manager/WalkingModule.gd" id="9_42fdl"]
 [ext_resource type="Texture2D" uid="uid://c7asmn0oa7pdb" path="res://content/sprites/ground/tree_1.png" id="10_kmfi6"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="10_yja2f"]
 [ext_resource type="Script" path="res://scripts/units_manager/ShootingModule.gd" id="10_yumpn"]
 [ext_resource type="Texture2D" uid="uid://dof2jrvgqdrpv" path="res://content/sprites/ground/tree_detal_0.png" id="11_03jfb"]
-[ext_resource type="PackedScene" uid="uid://ctiecnj5p4261" path="res://scenes/cells/VerticalWall.tscn" id="11_6e4lp"]
+[ext_resource type="PackedScene" uid="uid://btsgjp8qovvak" path="res://scenes/cells/CellWallVert.tscn" id="11_6e4lp"]
 [ext_resource type="PackedScene" path="res://scenes/visual/TiledSprite.tscn" id="11_a67h1"]
 [ext_resource type="Script" path="res://scripts/visual/EffectManager.gd" id="11_cpn0u"]
 [ext_resource type="Script" path="res://scripts/CameraController.gd" id="11_sv5rh"]
 [ext_resource type="Shader" path="res://scripts/shaders/BlendTexture.gdshader" id="12_88j2a"]
-[ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/HorizontalWall.tscn" id="12_g3143"]
+[ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/CellWallHori.tscn" id="12_g3143"]
 [ext_resource type="Texture2D" uid="uid://3o6gsr36ur05" path="res://content/sprites/ground/tree_detal_1.png" id="12_niexs"]
 [ext_resource type="Script" path="res://scripts/Raycaster.gd" id="12_pdk27"]
 [ext_resource type="Texture2D" uid="uid://dbb4ktvlrhst5" path="res://content/sprites/ground/dithering.png" id="13_1p7bo"]
@@ -29,10 +29,10 @@
 [ext_resource type="Resource" uid="uid://cogp64iiq2s6y" path="res://data/settings/utility ai/ActionReload.tres" id="18_8v7si"]
 [ext_resource type="PackedScene" uid="uid://ddpb4xv6nbkkc" path="res://scenes/cells/CellCover.tscn" id="18_a6tbn"]
 [ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellTree.tscn" id="18_cpnrn"]
-[ext_resource type="PackedScene" path="res://scenes/cells/CellHovered.tscn" id="18_yo8ds"]
+[ext_resource type="PackedScene" uid="uid://fvlc1uhmwwsm" path="res://scenes/cells/CellHovered.tscn" id="18_yo8ds"]
 [ext_resource type="Resource" uid="uid://cv0nsfwodcjy4" path="res://data/settings/utility ai/ActionShoot.tres" id="19_2d76o"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
-[ext_resource type="PackedScene" path="res://scenes/cells/CellFireEffect.tscn" id="23_c5njg"]
+[ext_resource type="PackedScene" uid="uid://bc4ejgp0vrd7h" path="res://scenes/cells/CellFireEffect.tscn" id="23_c5njg"]
 [ext_resource type="PackedScene" uid="uid://b8lli71fdl17m" path="res://scenes/visual/Granede.tscn" id="24_2p2qp"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="31_mf2ah"]
 
@@ -1054,6 +1054,7 @@ position = Vector2(800, 448)
 
 [node name="CellHovered" parent="UnitsManager/Pathfinding" instance=ExtResource("18_yo8ds")]
 position = Vector2(320, -32)
+is_walkable = false
 
 [node name="UnitObject0" parent="UnitsManager" instance=ExtResource("8_u5vun")]
 position = Vector2(672, 416)

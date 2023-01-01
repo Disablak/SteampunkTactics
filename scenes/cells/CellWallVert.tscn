@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://btsgjp8qovvak"]
+
+[ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/CellWallHori.tscn" id="1_r4egv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fv1d0"]
+size = Vector2(6, 32)
+
+[node name="CellWallVertical" instance=ExtResource("1_r4egv")]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(16, 2.08165e-12)
+scale = Vector2(0.2, 1)
+
+[node name="CellAdd" parent="." index="1"]
+position = Vector2(32, 2.08165e-12)
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(16.0613, 0.0840201)
+shape = SubResource("RectangleShape2D_fv1d0")

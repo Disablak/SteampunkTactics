@@ -5,6 +5,7 @@ extends Node2D
 enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE}
 
 @export var cell_type: CellType = CellType.NONE
+@export var is_walkable := false
 @export var health: int = -1
 @export_range(0.0, 0.5, 0.05) var shoot_debaf: float = 0.0
 

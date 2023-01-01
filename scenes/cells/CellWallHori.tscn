@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://irpwfh27iodw"]
+
+[ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="1_djgji"]
+[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_2c1bw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1opo7"]
+size = Vector2(32, 6.32685)
+
+[node name="CellWallHorizontal" instance=ExtResource("1_djgji")]
+texture_filter = 1
+texture = null
+cell_type = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+self_modulate = Color(0.309804, 0.235294, 0.117647, 1)
+position = Vector2(2.08165e-12, 16)
+scale = Vector2(1, 0.2)
+texture = ExtResource("2_2c1bw")
+
+[node name="CellAdd" parent="." index="1" instance=ExtResource("1_djgji")]
+position = Vector2(2.08165e-12, 32)
+texture = null
+cell_type = 0
+
+[node name="Area2D" type="Area2D" parent="." index="2"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0.149074, 16.0288)
+shape = SubResource("RectangleShape2D_1opo7")

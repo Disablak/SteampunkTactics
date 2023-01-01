@@ -102,26 +102,16 @@ func _add_obstacles():
 
 		if cell_obj.cell_type == CellObject.CellType.WALL:
 			dict_pos_and_cell_wall[cell_pos] = cell_obj
+			_enable_connection(cell_obj, false)
 
 		if cell_obj.cell_type == CellObject.CellType.OBSTACLE:
 			dict_pos_and_cell_obstacle[cell_pos] = cell_obj
+			_enable_point_by_pos(cell_pos, false)
 
 		if cell_obj.cell_type == CellObject.CellType.COVER:
-			_add_cover(cell_obj)
-			continue
-
-		_enable_point_by_pos(cell_pos, false)
-
-
-func _add_cover(cell_obj: CellObject):
-	dict_pos_and_cell_cover[cell_obj.position] = cell_obj
-	dict_pos_and_cell_cover[cell_obj.connected_cells_pos[0]] = cell_obj
-
-	var first_cell_id := get_cell_id_by_pos(cell_obj.position)
-	var second_cell_id := get_cell_id_by_pos(cell_obj.connected_cells_pos[0])
-
-	astar.disconnect_points(first_cell_id, second_cell_id)
-	print("disconected {0}, {1}".format([first_cell_id, second_cell_id]))
+			dict_pos_and_cell_cover[cell_obj.position] = cell_obj
+			dict_pos_and_cell_cover[cell_obj.connected_cells_pos[0]] = cell_obj
+			_enable_connection(cell_obj, false)
 
 
 func _on_cell_broke(cell: CellObject):
@@ -132,18 +122,10 @@ func _on_cell_broke(cell: CellObject):
 
 
 func remove_cover(cell: CellObject):
-	var conected_cell: CellObject = cell.connected_cells[0]
-
 	dict_pos_and_cell_cover.erase(cell.position)
 	dict_pos_and_cell_cover.erase(cell.connected_cells_pos[0])
 
-	var first_cell_id := get_cell_id_by_pos(cell.position)
-	var second_cell_id := get_cell_id_by_pos(cell.connected_cells_pos[0])
-
-	astar.connect_points(first_cell_id, second_cell_id)
-	print("connected {0}, {1}".format([first_cell_id, second_cell_id]))
-
-	_draw_debug()
+	_enable_connection(cell, true, true)
 
 	cell.queue_free()
 
@@ -167,7 +149,7 @@ func get_path_to_point(from : Vector2i, to : Vector2i) -> PackedVector2Array:
 
 func is_point_walkable(cell_pos : Vector2i) -> bool:
 	var cell_obj: CellObject = get_cell_by_pos(cell_pos)
-	return cell_obj != null and (cell_obj.cell_type == CellObject.CellType.GROUND or cell_obj.cell_type == CellObject.CellType.COVER)
+	return cell_obj != null and cell_obj.is_walkable
 
 
 func has_path(from: Vector2, to: Vector2) -> bool:
@@ -297,6 +279,25 @@ func _get_cell_info(cell_pos: Vector2) -> CellInfo:
 func _enable_point_by_pos(cell_pos: Vector2, enable: bool, update_debug: bool = false):
 	var cell_id := get_cell_id_by_pos(cell_pos)
 	astar.set_point_disabled(cell_id, !enable)
+
+	if update_debug:
+		_draw_debug()
+
+
+func _enable_connection(cell: CellObject, enable, update_debug: bool = false):
+	if cell.connected_cells_pos.size() == 0:
+		printerr("cell not have connected cells {0}".format([cell.name]))
+		return
+
+	var first_cell_id := get_cell_id_by_pos(cell.position)
+	var second_cell_id := get_cell_id_by_pos(cell.connected_cells_pos[0])
+
+	if enable:
+		astar.connect_points(first_cell_id, second_cell_id)
+		print("connected {0}, {1}".format([first_cell_id, second_cell_id]))
+	else:
+		astar.disconnect_points(first_cell_id, second_cell_id)
+		print("disconected {0}, {1}".format([first_cell_id, second_cell_id]))
 
 	if update_debug:
 		_draw_debug()
