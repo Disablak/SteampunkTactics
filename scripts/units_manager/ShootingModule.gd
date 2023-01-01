@@ -62,9 +62,9 @@ func _show_hit_chance(cur_unit: Unit, enemy_unit: Unit):
 	var hit_chance: float = _get_hit_chance(cur_unit)
 	var cover_debaff: float = cover.shoot_debaf if cover else 0.0
 	var obs_debaff: float = obstacles_sum_debaff
-	var weapon_accuracy: float = _get_weapon_accuracy(cur_unit)
+	var miss: float = hit_chance - (cover_debaff + obs_debaff)
 
-	var str_hit_chance: String = "Hit {0}\nHit in cover {1}\nHit in obstacle {2}\nMiss {3}".format([Globals.format_hit_chance(hit_chance), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(obs_debaff), Globals.format_hit_chance(1.0 - weapon_accuracy)])
+	var str_hit_chance: String = "Hit {0}\nHit in cover {1}\nHit in obstacle {2}\nMiss {3}".format([Globals.format_hit_chance(hit_chance), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(obs_debaff), Globals.format_hit_chance(miss)])
 	GlobalsUi.gui.show_tooltip(true, str_hit_chance, enemy_unit.unit_object.position + Vector2(20, -10))
 
 

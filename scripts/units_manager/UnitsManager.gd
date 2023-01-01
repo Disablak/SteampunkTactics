@@ -226,25 +226,26 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		return
 
 	var is_clicked_on_unit = cell_info.unit_id != -1
-	var is_clicked_on_same_unit = is_clicked_on_unit and cell_info.unit_id == cur_unit_id
+	var is_clicked_on_cur_unit = is_clicked_on_unit and cell_info.unit_id == cur_unit_id
+	var is_granade_mode = cur_unit_action == Globals.UnitAction.GRANADE
 
-	if is_clicked_on_same_unit:
-		GlobalsUi.message("clicked on same unit")
+	if is_clicked_on_cur_unit:
+		GlobalsUi.message("clicked on cur unit")
 		return
 
 	var is_shoot_enemy_selected: bool = shooting.selected_enemy != null
 
-	if is_clicked_on_unit and cur_unit_action == Globals.UnitAction.SHOOT and not is_shoot_enemy_selected:
+	if is_clicked_on_unit and not is_granade_mode and cur_unit_action != Globals.UnitAction.SHOOT and not is_shoot_enemy_selected:
+		change_unit_action(Globals.UnitAction.SHOOT)
 		shooting.select_enemy(units[cell_info.unit_id])
 		return
 
-	if is_clicked_on_unit and cur_unit_action == Globals.UnitAction.SHOOT and is_shoot_enemy_selected:
+	if is_clicked_on_unit and not is_granade_mode and cur_unit_action == Globals.UnitAction.SHOOT and is_shoot_enemy_selected:
 		shooting.shoot(units[cur_unit_id])
 		clear_all_lines()
 		return
 
 	var is_clicked_on_ground = cell_info.cell_obj.is_walkable
-	var is_granade_mode = cur_unit_action == Globals.UnitAction.GRANADE
 
 	if is_granade_mode and cell_info.cell_obj.cell_type != CellObject.CellType.WALL:
 		if shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.cell_obj.position):

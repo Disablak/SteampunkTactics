@@ -1022,6 +1022,12 @@ position = Vector2(1120, 608)
 [node name="VerticalWall3" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("11_6e4lp")]
 position = Vector2(800, 352)
 
+[node name="VerticalWall6" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("11_6e4lp")]
+position = Vector2(608, 512)
+
+[node name="VerticalWall7" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("11_6e4lp")]
+position = Vector2(608, 480)
+
 [node name="VerticalWall4" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("11_6e4lp")]
 position = Vector2(800, 320)
 
@@ -1042,6 +1048,12 @@ position = Vector2(640, 512)
 
 [node name="Cover" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_a6tbn")]
 position = Vector2(736, 480)
+
+[node name="Cover3" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_a6tbn")]
+position = Vector2(736, 448)
+
+[node name="Cover2" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_a6tbn")]
+position = Vector2(736, 512)
 
 [node name="CellTreeNew" parent="UnitsManager/Pathfinding/RootObsCells" instance=ExtResource("18_cpnrn")]
 position = Vector2(800, 384)
