@@ -9,7 +9,7 @@ const MASK_OBSTACLE = 32
 
 
 func make_ray_get_obstacles(from, to) -> Array[CellObject]:
-	var covers: Array[CellObject]
+	var covers: Array[CellObject] = []
 
 	var result: Array[Dictionary] = make_ray_intersections(from, to)
 

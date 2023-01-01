@@ -256,7 +256,7 @@ func get_cell_by_pos(cell_pos: Vector2) -> CellObject:
 func get_cells_by_pattern(pos_center: Vector2, pattern_cells) -> Array[CellInfo]:
 	pos_center = Globals.snap_to_cell_pos(pos_center)
 
-	var result: Array[CellInfo]
+	var result: Array[CellInfo] = []
 
 	for cell_offset in pattern_cells:
 		var cell_pos = pos_center + cell_offset * Globals.CELL_SIZE
@@ -323,7 +323,6 @@ func _on_input_system_on_mouse_click(cell_info: CellInfo) -> void:
 		print("clicked nowhere")
 		return
 
-	var clicked_tile_id := astar.get_closest_point(info.cell_pos)
 	print("clicked on {0}".format([info.cell_obj.get_type_string()]))
 
 

@@ -62,7 +62,7 @@ func _show_hit_chance(cur_unit: Unit, enemy_unit: Unit):
 	var hit_chance: float = _get_hit_chance(cur_unit)
 	var cover_debaff: float = cover.shoot_debaf if cover else 0.0
 	var obs_debaff: float = obstacles_sum_debaff
-	var miss: float = hit_chance - (cover_debaff + obs_debaff)
+	var miss: float = (1.0 - hit_chance) - (cover_debaff + obs_debaff)
 
 	var str_hit_chance: String = "Hit {0}\nHit in cover {1}\nHit in obstacle {2}\nMiss {3}".format([Globals.format_hit_chance(hit_chance), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(obs_debaff), Globals.format_hit_chance(miss)])
 	GlobalsUi.gui.show_tooltip(true, str_hit_chance, enemy_unit.unit_object.position + Vector2(20, -10))
@@ -190,7 +190,6 @@ func throw_granade(unit: Unit, cell_pos: Vector2) -> bool:
 
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, unit.unit_data.granade.use_price)
 
-	var pattern = Globals.CELL_AREA_3x3
 	var damaged_cells = pathfinding.get_cells_by_pattern(cell_pos, Globals.CELL_AREA_3x3)
 
 	for cell_info in damaged_cells:

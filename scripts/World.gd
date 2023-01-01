@@ -36,15 +36,12 @@ func cur_unit_shoot_to_visible_enemy():
 
 	units_manager.shooting.select_enemy(cached_visible_enemy)
 	units_manager.change_unit_action(Globals.UnitAction.SHOOT)
-
-	await Globals.create_timer_and_get_signal(0.2)
+	await Globals.create_timer_and_get_signal(1.0)
 
 	units_manager.clear_all_lines()
-
 	await Globals.create_timer_and_get_signal(0.2)
 
 	units_manager.shooting.shoot(GlobalUnits.get_cur_unit())
-
 	await Globals.create_timer_and_get_signal(0.5)
 
 	units_manager.change_unit_action(Globals.UnitAction.NONE)
