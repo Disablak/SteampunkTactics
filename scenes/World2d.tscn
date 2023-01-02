@@ -88,6 +88,7 @@ unit_objects = [NodePath("UnitObject0"), NodePath("UnitObject1")]
 
 [node name="Pathfinding" type="Node2D" parent="UnitsManager" node_paths=PackedStringArray("root_walk_hint", "root_walk_cells", "root_obs_cells")]
 script = ExtResource("3_0wwuy")
+is_debug = false
 walkable_hint_cell_scene = ExtResource("6_vdct5")
 root_walk_hint = NodePath("RootWalkHint")
 root_walk_cells = NodePath("RootWalkCells")
