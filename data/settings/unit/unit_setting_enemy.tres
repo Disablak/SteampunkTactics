@@ -8,4 +8,5 @@ script = ExtResource("1")
 is_enemy = true
 max_health = 30.0
 walk_speed = 25
+initiative = 8
 weapon = ExtResource("2")

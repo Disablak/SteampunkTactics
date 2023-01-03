@@ -31,9 +31,11 @@ func _ready() -> void:
 	shooting.set_data(effect_manager, raycaster, pathfinding, line2d_manager)
 	effect_manager.inject_data(line2d_manager)
 
-	_init_units()
 	GlobalUnits.units_manager = self
 	GlobalMap.raycaster = raycaster
+
+	_init_units()
+	set_unit_control(TurnManager.get_cur_turn_unit_id(), true)
 
 
 func _init_units():
@@ -46,8 +48,7 @@ func _init_units():
 		GlobalUnits.units[all_units[i].id] = all_units[i]
 
 	units = GlobalUnits.units
-
-	set_unit_control(0, true)
+	TurnManager.set_units_order(units.values())
 
 
 func _on_unit_died(unit_id, unit_id_killer):
@@ -90,11 +91,7 @@ func _draw_enemy_visible_raycast(from_pos: Vector2):
 
 
 func next_turn():
-	var next_unit_id = cur_unit_id + 1
-	if not units.has(next_unit_id):
-		next_unit_id = 0
-
-	set_unit_control(next_unit_id)
+	set_unit_control(TurnManager.get_next_unit_id())
 
 
 func set_unit_control(unit_id, camera_focus_instantly: bool = false):
@@ -129,6 +126,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	walking.set_cur_unit(units[unit_id])
 
 	if cur_unit_data.unit_settings.is_enemy:
+		await get_tree().process_frame
 		brain_ai.decide_best_action_and_execute()
 
 	GlobalBus.on_unit_changed_control.emit(cur_unit_id, camera_focus_instantly)

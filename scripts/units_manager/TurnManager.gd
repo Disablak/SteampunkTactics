@@ -1,9 +1,6 @@
 extends Node
 
 
-var max_time_points := 100
-var cur_time_points := 100
-
 enum TypeSpendAction{
 	NONE,
 	RESTORE_TURN,
@@ -11,6 +8,44 @@ enum TypeSpendAction{
 	RELOADING,
 	WALKING
 }
+
+var order_unit_id: Array[int] = []
+var cur_unit_idx: int = 0
+
+var max_time_points := 100
+var cur_time_points := 100
+
+
+func set_units_order(units: Array):
+	var array_initiative = []
+	for unit in units:
+		array_initiative.append(unit.unit_data.unit_settings.initiative)
+
+	array_initiative.sort_custom(func(a, b): return a > b)
+
+	order_unit_id.clear()
+	for initiative in array_initiative:
+		for unit in units:
+			if unit.unit_data.unit_settings.initiative == initiative:
+				order_unit_id.append(unit.id)
+
+	cur_unit_idx = 0
+
+
+func get_cur_turn_unit_id() -> int:
+	return order_unit_id[clamp(cur_unit_idx, 0, order_unit_id.size() - 1)]
+
+
+func get_next_unit_id() -> int:
+	cur_unit_idx += 1
+	if cur_unit_idx > order_unit_id.size() - 1:
+		cur_unit_idx = 0
+
+	return get_cur_turn_unit_id()
+
+
+func remove_unit_from_order(unit_id: int):
+	order_unit_id.erase(unit_id)
 
 
 func can_spend_time_points(spend_points: int) -> bool:
