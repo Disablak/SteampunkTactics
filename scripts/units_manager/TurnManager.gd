@@ -48,6 +48,19 @@ func remove_unit_from_order(unit_id: int):
 	order_unit_id.erase(unit_id)
 
 
+func check_is_game_over() -> bool:
+	var winner_team: int = 0
+	for unit_id in order_unit_id:
+		var unit: Unit = GlobalUnits.units[unit_id]
+		var team_code: int = -1 if unit.unit_data.unit_settings.is_enemy else 1
+		if winner_team == 0:
+			winner_team = team_code
+		elif winner_team != team_code:
+			return false
+
+	return true
+
+
 func can_spend_time_points(spend_points: int) -> bool:
 	var enough = cur_time_points >= spend_points
 	#if not enough:

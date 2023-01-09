@@ -53,6 +53,10 @@ func _init_units():
 
 func _on_unit_died(unit_id, unit_id_killer):
 	GlobalUnits.remove_unit(unit_id)
+	TurnManager.remove_unit_from_order(unit_id)
+
+	if TurnManager.check_is_game_over():
+		GlobalsUi.message("Game is Over")
 
 
 func _on_finish_move() -> void:
