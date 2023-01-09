@@ -1107,7 +1107,7 @@ bounds_path = NodePath("../CameraBounds")
 
 [node name="Camera2d" type="Camera2D" parent="InputSystem/CameraController"]
 current = true
-zoom = Vector2(4, 4)
+zoom = Vector2(2, 2)
 
 [node name="CameraBounds" type="Sprite2D" parent="InputSystem"]
 visible = false
