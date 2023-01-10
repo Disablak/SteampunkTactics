@@ -39,13 +39,10 @@ func _ready() -> void:
 
 
 func _init_units():
-	var all_units = [
-			Unit.new(0, UnitData.new(units_data[0]), get_node(unit_objects[0])),
-			Unit.new(1, UnitData.new(units_data[1]), get_node(unit_objects[1]))
-		]
-
-	for i in all_units.size():
-		GlobalUnits.units[all_units[i].id] = all_units[i]
+	var units_count := mini(units_data.size(), unit_objects.size())
+	for unit_id in units_count:
+		var unit: Unit = Unit.new(unit_id, UnitData.new(units_data[unit_id]), get_node(unit_objects[unit_id]))
+		GlobalUnits.units[unit_id] = unit
 
 	units = GlobalUnits.units
 	TurnManager.set_units_order(units.values())

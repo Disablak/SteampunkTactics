@@ -1,11 +1,14 @@
-[gd_scene load_steps=41 format=3 uid="uid://dgyxvel8mm5hy"]
+[gd_scene load_steps=46 format=3 uid="uid://dgyxvel8mm5hy"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
 [ext_resource type="Script" path="res://scripts/Pathfinding.gd" id="3_0wwuy"]
 [ext_resource type="Resource" uid="uid://ce4x8ilct2imn" path="res://data/settings/unit/unit_setting0.tres" id="3_5rc2h"]
 [ext_resource type="Resource" uid="uid://mn2771n5e5qo" path="res://data/settings/unit/unit_setting_enemy.tres" id="4_8ur0q"]
+[ext_resource type="Resource" uid="uid://bpahwsjs2mhyg" path="res://data/settings/weapon/granade0.tres" id="5_x0ute"]
+[ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="6_l0dtu"]
 [ext_resource type="PackedScene" uid="uid://cwx8drbr53vsv" path="res://scenes/cells/WalkableHintCell.tscn" id="6_vdct5"]
+[ext_resource type="Resource" uid="uid://b4fh2mesn3mcf" path="res://data/settings/weapon/weapon0.tres" id="7_jedma"]
 [ext_resource type="PackedScene" uid="uid://2ikcthg31xdg" path="res://scenes/2d/UnitObject.tscn" id="8_u5vun"]
 [ext_resource type="Script" path="res://scripts/units_manager/WalkingModule.gd" id="9_42fdl"]
 [ext_resource type="Texture2D" uid="uid://c7asmn0oa7pdb" path="res://content/sprites/ground/tree_1.png" id="10_kmfi6"]
@@ -35,6 +38,23 @@
 [ext_resource type="PackedScene" uid="uid://bc4ejgp0vrd7h" path="res://scenes/cells/CellFireEffect.tscn" id="23_c5njg"]
 [ext_resource type="PackedScene" uid="uid://b8lli71fdl17m" path="res://scenes/visual/Granede.tscn" id="24_2p2qp"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="31_mf2ah"]
+
+[sub_resource type="Resource" id="Resource_6uwan"]
+script = ExtResource("6_l0dtu")
+is_enemy = false
+max_health = 10.0
+walk_speed = 20
+initiative = 7
+weapon = ExtResource("7_jedma")
+granade = ExtResource("5_x0ute")
+
+[sub_resource type="Resource" id="Resource_6urcu"]
+script = ExtResource("6_l0dtu")
+is_enemy = true
+max_health = 10.0
+walk_speed = 25
+initiative = 3
+weapon = ExtResource("7_jedma")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_scqag"]
 shader = ExtResource("12_88j2a")
@@ -83,8 +103,8 @@ script = ExtResource("1_vidxh")
 [node name="UnitsManager" type="Node2D" parent="."]
 script = ExtResource("2_1pgd0")
 show_enemy_raycast = true
-units_data = [ExtResource("3_5rc2h"), ExtResource("4_8ur0q")]
-unit_objects = [NodePath("UnitObject0"), NodePath("UnitObject1")]
+units_data = [ExtResource("3_5rc2h"), ExtResource("4_8ur0q"), SubResource("Resource_6uwan"), SubResource("Resource_6urcu")]
+unit_objects = [NodePath("UnitObject0"), NodePath("UnitObject1"), NodePath("UnitObject2"), NodePath("UnitObject3")]
 
 [node name="Pathfinding" type="Node2D" parent="UnitsManager" node_paths=PackedStringArray("root_walk_hint", "root_walk_cells", "root_obs_cells")]
 script = ExtResource("3_0wwuy")
@@ -1073,6 +1093,12 @@ position = Vector2(672, 416)
 
 [node name="UnitObject1" parent="UnitsManager" instance=ExtResource("8_u5vun")]
 position = Vector2(864, 416)
+
+[node name="UnitObject2" parent="UnitsManager" instance=ExtResource("8_u5vun")]
+position = Vector2(608, 480)
+
+[node name="UnitObject3" parent="UnitsManager" instance=ExtResource("8_u5vun")]
+position = Vector2(928, 512)
 
 [node name="WalkingModule" type="Node2D" parent="UnitsManager"]
 script = ExtResource("9_42fdl")

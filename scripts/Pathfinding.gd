@@ -189,10 +189,17 @@ func get_walkable_cells(unit_pos: Vector2, max_distance: int) -> PackedVector2Ar
 			if cell_pos == unit_pos:
 				continue
 
-			if is_point_walkable(cell_pos):
-				if has_path(unit_pos, cell_pos):
-					if get_path_to_point(unit_pos, cell_pos).size() <= max_distance:
-						walkable_cells.push_back(cell_pos)
+			if get_unit_on_cell(cell_pos) != null:
+				continue
+
+			if not is_point_walkable(cell_pos):
+				continue
+
+			if not has_path(unit_pos, cell_pos):
+				continue
+
+			if get_path_to_point(unit_pos, cell_pos).size() <= max_distance:
+				walkable_cells.push_back(cell_pos)
 
 	return walkable_cells
 
