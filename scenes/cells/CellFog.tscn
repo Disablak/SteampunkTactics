@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3fuon6h0o5qe"]
+
+[ext_resource type="Texture2D" uid="uid://dsu4eqwqkgbpr" path="res://content/sprites/fog texture.png" id="1_ya68h"]
+[ext_resource type="Script" path="res://scripts/pathfinding/CellFog.gd" id="2_nnqaf"]
+
+[node name="CellFog" type="Sprite2D"]
+z_index = 5
+texture = ExtResource("1_ya68h")
+script = ExtResource("2_nnqaf")

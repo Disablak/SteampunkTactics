@@ -6,6 +6,7 @@ signal on_hovered_cell(cell_info: CellInfo)
 signal on_clicked_cell(cell_info: CellInfo)
 
 @onready var cell_hint := get_node("CellHovered") as Node2D
+@onready var fog_of_war := get_node("FogOfWar") as FogOfWar
 
 @export var is_debug := true
 
@@ -64,6 +65,9 @@ func _ready() -> void:
 
 	_draw_debug()
 
+	await get_tree().process_frame
+	fog_of_war.make_visible_spot(GlobalUnits.units[0].unit_object.position, 3)
+
 
 func _connect_walkable_cells():
 	for cell in root_walk_cells.get_children():
@@ -73,6 +77,8 @@ func _connect_walkable_cells():
 		astar.add_point(id, cell_pos)
 		dict_id_and_cell_walk[id] = cell
 		dict_pos_and_cell_walk[cell_pos] = cell
+
+		fog_of_war.spawn_fog(cell_pos, 3)
 
 	root_walk_cells.visible = false
 
