@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dw4njm128t6yw"]
+[gd_scene load_steps=2 format=3 uid="uid://dw4njm128t6yw"]
+
+[ext_resource type="LabelSettings" uid="uid://b4khck6aka3sc" path="res://data/settings/ui/LabelSettings.tres" id="1_ig014"]
 
 [node name="Tooltip" type="Control"]
 layout_mode = 3
@@ -7,9 +9,11 @@ offset_right = 100.0
 offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Some text"
+label_settings = ExtResource("1_ig014")
