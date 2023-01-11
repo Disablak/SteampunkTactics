@@ -65,15 +65,6 @@ func _ready() -> void:
 
 	_draw_debug()
 
-	await get_tree().process_frame
-	var unit_pos = GlobalUnits.units[0].unit_object.position
-	var circle_points = fog_of_war.make_visible_spot(unit_pos, 5)
-	for pos in circle_points:
-		var from: Vector2 = unit_pos / Globals.CELL_SIZE
-		var to: Vector2 = pos / Globals.CELL_SIZE
-		for point in fog_of_war.bresenham_line_thick(from.x, from.y, to.x, to.y):
-			fog_of_war.update_visibility_on_cell(point * Globals.CELL_SIZE, 1)
-
 
 func _connect_walkable_cells():
 	for cell in root_walk_cells.get_children():

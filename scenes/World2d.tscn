@@ -47,6 +47,7 @@ is_enemy = false
 max_health = 10.0
 walk_speed = 20
 initiative = 7
+range_of_view = 5
 weapon = ExtResource("7_jedma")
 granade = ExtResource("5_x0ute")
 
@@ -56,6 +57,7 @@ is_enemy = true
 max_health = 10.0
 walk_speed = 25
 initiative = 3
+range_of_view = 5
 weapon = ExtResource("7_jedma")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_scqag"]

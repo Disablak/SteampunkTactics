@@ -9,6 +9,17 @@ enum CellVisibility {NONE, VISIBLE, HALF, NOTHING}
 var dict_pos_and_cell = {}
 
 
+func _enter_tree() -> void:
+	GlobalBus.on_unit_changed_control.connect(_on_unit_changed_control)
+
+
+func _on_unit_changed_control(unit_id, _istantly):
+	var unit: Unit = GlobalUnits.units[unit_id]
+
+	if not unit.unit_data.unit_settings.is_enemy:
+		update_unit_visibility_area(unit)
+
+
 func spawn_fog(pos: Vector2, cell_visibility: CellVisibility):
 	var spawned_fog: CellFog = cell_fog_scene.instantiate()
 	spawned_fog.update_visibility(cell_visibility)
@@ -16,6 +27,20 @@ func spawn_fog(pos: Vector2, cell_visibility: CellVisibility):
 	spawned_fog.position = pos
 
 	dict_pos_and_cell[pos] = spawned_fog
+
+
+func update_unit_visibility_area(unit: Unit):
+	var unit_pos = unit.unit_object.position
+	var circle_points = make_visible_spot(unit_pos, unit.unit_data.unit_settings.range_of_view)
+	for pos_on_circle in circle_points:
+		var from: Vector2 = unit_pos / Globals.CELL_SIZE
+		var to: Vector2 = pos_on_circle / Globals.CELL_SIZE
+
+		var ray_positions = GlobalMap.raycaster.make_ray_and_get_positions(unit_pos, pos_on_circle, true)
+		var formatted_end_pos = Globals.snap_to_cell_pos(ray_positions[1]) / Globals.CELL_SIZE
+
+		for point in bresenham_line_thick(from.x, from.y, formatted_end_pos.x, formatted_end_pos.y):
+			update_visibility_on_cell(point * Globals.CELL_SIZE, 1)
 
 
 func make_visible_spot(pos_center: Vector2, radius: int) -> Array[Vector2]:
@@ -62,9 +87,6 @@ func make_visible_spot(pos_center: Vector2, radius: int) -> Array[Vector2]:
 		all_points.append(Vector2(pos_center.x - y_formatted, pos_center.y + x_formatted))
 		all_points.append(Vector2(pos_center.x + y_formatted, pos_center.y - x_formatted))
 		all_points.append(Vector2(pos_center.x - y_formatted, pos_center.y - x_formatted))
-
-
-	update_visibility_on_cells(all_points, 1)
 
 	return all_points
 
