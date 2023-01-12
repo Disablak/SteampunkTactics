@@ -23,12 +23,16 @@ func _on_unit_changed_control(unit_id, _istantly):
 	if not unit.unit_data.unit_settings.is_enemy:
 		update_unit_visibility_area(unit)
 
+	_check_is_enemy_visible(unit)
+
 
 func _on_unit_moved(cell_pos: Vector2):
 	var unit: Unit = GlobalUnits.get_cur_unit()
 
 	if not unit.unit_data.unit_settings.is_enemy:
 		update_unit_visibility_area(unit)
+
+	_check_is_enemy_visible(unit)
 
 
 func spawn_fog(pos: Vector2, cell_visibility: CellVisibility):
@@ -42,21 +46,20 @@ func spawn_fog(pos: Vector2, cell_visibility: CellVisibility):
 
 func update_unit_visibility_area(unit: Unit):
 	var unit_pos = Globals.snap_to_cell_pos(unit.unit_object.position)
+	var grid_unit_pos: Vector2 = unit_pos / Globals.CELL_SIZE
 	if unit_pos == visibility_data.pos_last_check_visibility:
 		return
 
-	visibility_data.pos_last_check_visibility = unit_pos
-	visibility_data.circle_points = make_visible_spot(unit_pos, unit.unit_data.unit_settings.range_of_view)
-#	visibility_data.visible_points.clear()
+	visibility_data.pos_last_check_visibility = grid_unit_pos
+	visibility_data.circle_points = MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
+#
 	var new_visible_points: Array[Vector2]
 
-	for pos_on_circle in visibility_data.circle_points:
-		var from: Vector2 = unit_pos / Globals.CELL_SIZE
-		var to: Vector2 = pos_on_circle / Globals.CELL_SIZE
-
-		var ray_positions = GlobalMap.raycaster.make_ray_and_get_positions(unit_pos, pos_on_circle, true)
-		var formatted_end_pos = Globals.snap_to_cell_pos(ray_positions[1]) / Globals.CELL_SIZE
-		var line_points = bresenham_line_thick(from.x, from.y, formatted_end_pos.x, formatted_end_pos.y)
+	for grid_pos_on_circle in visibility_data.circle_points:
+		var circle_cell_pos = grid_pos_on_circle * Globals.CELL_SIZE
+		var ray_positions = GlobalMap.raycaster.make_ray_and_get_positions(unit_pos, circle_cell_pos, true)
+		var grid_end_pos = Globals.snap_to_cell_pos(ray_positions[1]) / Globals.CELL_SIZE
+		var line_points = MyMath.bresenham_line_thick(grid_unit_pos, grid_end_pos)
 
 		for point in line_points:
 			if new_visible_points.has(point):
@@ -85,138 +88,6 @@ func update_unit_visibility_area(unit: Unit):
 	update_visibility_on_cells(old_visible_points, 2, false)
 
 
-func make_visible_spot(pos_center: Vector2, radius: int) -> Array[Vector2]:
-	pos_center = Globals.snap_to_cell_pos(pos_center)
-
-	var x = radius
-	var y = 0
-
-	var all_points: Array[Vector2]
-
-	all_points.append(Vector2(pos_center.x + (x * Globals.CELL_SIZE), pos_center.y))
-
-	if radius > 0:
-		all_points.append(Vector2(pos_center.x - (x * Globals.CELL_SIZE), pos_center.y))
-		all_points.append(Vector2(pos_center.x, pos_center.y + (x * Globals.CELL_SIZE)))
-		all_points.append(Vector2(pos_center.x, pos_center.y - (x * Globals.CELL_SIZE)))
-
-	var p = 1 - radius
-
-	while x > y:
-		y += 1
-
-		if p <= 0:
-			p = p + 2 * y + 1
-		else:
-			x -= 1
-			p = p + 2 * y - 2 * x + 1;
-
-		if x < y:
-			break
-
-		var x_formatted = x * Globals.CELL_SIZE
-		var y_formatted = y * Globals.CELL_SIZE
-
-		all_points.append(Vector2(pos_center.x + x_formatted, pos_center.y + y_formatted))
-		all_points.append(Vector2(pos_center.x - x_formatted, pos_center.y + y_formatted))
-		all_points.append(Vector2(pos_center.x + x_formatted, pos_center.y - y_formatted))
-		all_points.append(Vector2(pos_center.x - x_formatted, pos_center.y - y_formatted))
-
-		if x == y:
-			continue
-
-		all_points.append(Vector2(pos_center.x + y_formatted, pos_center.y + x_formatted))
-		all_points.append(Vector2(pos_center.x - y_formatted, pos_center.y + x_formatted))
-		all_points.append(Vector2(pos_center.x + y_formatted, pos_center.y - x_formatted))
-		all_points.append(Vector2(pos_center.x - y_formatted, pos_center.y - x_formatted))
-
-	return all_points
-
-
-
-func bresenham_line(from:Vector2, to: Vector2):
-	var dx: int = abs(to.x - from.x)
-	var sx: int = 1 if from.x < to.x else -1
-	var dy: int = -abs(to.y - from.y)
-	var sy: int = 1 if from.y < to.y else -1
-
-	var error: int = dx + dy
-
-	var points: Array[Vector2]
-
-	while true:
-		points.append(Vector2(from.x, from.y))
-
-		if from.x == to.x && from.y == to.y:
-			break
-
-		var e2 = 2 * error
-		if e2 >= dy:
-			if from.x == to.x:
-				break
-
-			error += + dy
-			from.x += + sx
-
-		if e2 <= dx:
-			if from.y == to.y:
-				break
-
-			error += dx
-			from.y += sy
-
-	return points
-
-
-func bresenham_line_thick(ax, ay, bx, by):
-	var points: Array[Vector2]
-
-	var dx: int
-	var dy: int
-	var xinc: int
-	var yinc: int
-	var side: int
-	var i: int
-	var error: int
-
-	points.append(Vector2(ax, ay))
-
-	xinc = -1 if (bx < ax) else 1;
-	yinc = -1 if (by < ay) else 1;
-	dx   = xinc * (bx - ax);
-	dy   = yinc * (by - ay);
-
-	if dx == dy:
-		while dx > 0:
-			dx -= 1
-			ax += xinc
-			ay += yinc
-			points.append(Vector2(ax, ay))
-
-		return points
-
-	side = -1 * ((yinc if dx == 0 else xinc) - 1);
-
-	i     = dx + dy;
-	error = dx - dy;
-
-	dx *= 2;
-	dy *= 2;
-
-	while i > 0:
-		i -= 1
-		if error > 0 or error == side:
-			ax    += xinc;
-			error -= dy;
-		else:
-			ay    += yinc;
-			error += dx;
-
-		points.append(Vector2(ax, ay))
-
-	return points
-
-
 func update_visibility_on_cells(positions: Array[Vector2], visibility: CellVisibility, is_cell_pos: bool = true):
 	for cell_pos in positions:
 		update_visibility_on_cell(cell_pos, visibility, is_cell_pos)
@@ -227,3 +98,22 @@ func update_visibility_on_cell(cell_pos: Vector2, visibility: CellVisibility, is
 	if dict_pos_and_cell.has(cell_pos):
 		var cell_fog: CellFog = dict_pos_and_cell[cell_pos] as CellFog
 		cell_fog.update_visibility(visibility)
+
+
+func _check_is_enemy_visible(unit: Unit):
+	if unit.unit_data.unit_settings.is_enemy:
+		return
+
+	var all_units = GlobalUnits.units.values()
+	for cur_unit in all_units:
+		cur_unit.unit_object.set_visibility(true)
+
+	var enemies = GlobalUnits.get_units(not unit.unit_data.unit_settings.is_enemy)
+
+	for enemy in enemies:
+		var pos = enemy.unit_object.position
+		var fog_on_this_pos: CellFog = dict_pos_and_cell[pos]
+
+		var is_visible = fog_on_this_pos.visibility == CellVisibility.VISIBLE
+		enemy.unit_object.set_visibility(is_visible)
+

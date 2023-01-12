@@ -28,12 +28,16 @@ func _process(delta: float) -> void:
 			_delete_unit_ui(id)
 			return
 
-		var point = GlobalUnits.units[id].unit_object
-		if point == null:
+		var unit_object = GlobalUnits.units[id].unit_object
+		if unit_object == null:
 			_delete_unit_ui(id)
 			return
 
-		var position_in_ui = point.position
+		if not unit_object.is_visible:
+			_hide_unit_ui(id)
+			continue
+
+		var position_in_ui = unit_object.position
 		units_ui[id].position = position_in_ui + UI_OFFSET
 		units_ui[id].scale = Vector2.ONE / get_viewport().get_camera_2d().zoom
 
@@ -68,6 +72,10 @@ func _create_unit_ui(unit_id):
 func _delete_unit_ui(unit_id):
 	units_ui[unit_id].queue_free()
 	units_ui.erase(unit_id)
+
+
+func _hide_unit_ui(unit_id):
+	units_ui[unit_id].position = Vector2.ZERO
 
 
 func _get_unit_ui(unit_id):

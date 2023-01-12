@@ -6,6 +6,7 @@ class_name UnitObject
 
 var unit_id = -1
 var main_material: Material
+var is_visible := true
 
 
 
@@ -31,3 +32,9 @@ func _on_unit_died(unit_id, unit_id_killer):
 
 func mark_selected(is_selected: bool):
 	main_material.set_shader_parameter("line_thickness", 1.0 if is_selected else 0.0)
+
+
+func set_visibility(is_visible):
+	self.is_visible = is_visible
+	visible = is_visible
+

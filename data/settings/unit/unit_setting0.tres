@@ -10,6 +10,6 @@ is_enemy = false
 max_health = 20.0
 walk_speed = 20
 initiative = 10
-range_of_view = 10
+range_of_view = 5
 weapon = ExtResource("2")
 granade = ExtResource("1_qcp8x")
