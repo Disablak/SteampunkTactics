@@ -3,6 +3,7 @@ extends Node2D
 
 
 signal on_finished_move()
+signal on_moved_to_another_cell(cell_pos: Vector2)
 
 const ROTATION_SPEED = 10
 const MOVING_SPEED = 100
@@ -101,6 +102,8 @@ func _move_via_points(points: PackedVector2Array):
 		cur_target_id += 1
 
 		await tween_move.finished
+
+		on_moved_to_another_cell.emit(finish_point)
 
 
 func _on_unit_finished_move():

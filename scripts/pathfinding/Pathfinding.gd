@@ -75,7 +75,7 @@ func _connect_walkable_cells():
 		dict_id_and_cell_walk[id] = cell
 		dict_pos_and_cell_walk[cell_pos] = cell
 
-		fog_of_war.spawn_fog(cell_pos, 3)
+		fog_of_war.spawn_fog(cell_pos, 2)
 
 	root_walk_cells.visible = false
 
