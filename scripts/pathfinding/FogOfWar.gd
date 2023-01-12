@@ -47,45 +47,37 @@ func spawn_fog(pos: Vector2, cell_visibility: CellVisibility):
 func update_unit_visibility_area(unit: Unit):
 	var unit_pos = Globals.snap_to_cell_pos(unit.unit_object.position)
 	var grid_unit_pos: Vector2 = unit_pos / Globals.CELL_SIZE
-	if unit_pos == visibility_data.pos_last_check_visibility:
+	if grid_unit_pos == visibility_data.pos_last_check_visibility:
 		return
 
 	visibility_data.pos_last_check_visibility = grid_unit_pos
 	visibility_data.circle_points = MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
 #
 	var new_visible_points: Array[Vector2]
-
 	for grid_pos_on_circle in visibility_data.circle_points:
-		var circle_cell_pos = grid_pos_on_circle * Globals.CELL_SIZE
-		var ray_positions = GlobalMap.raycaster.make_ray_and_get_positions(unit_pos, circle_cell_pos, true)
-		var grid_end_pos = Globals.snap_to_cell_pos(ray_positions[1]) / Globals.CELL_SIZE
-		var line_points = MyMath.bresenham_line_thick(grid_unit_pos, grid_end_pos)
+		var line_points = _get_line_points(grid_unit_pos, grid_pos_on_circle)
+		new_visible_points = MyMath.arr_add_no_copy(new_visible_points, line_points)
 
-		for point in line_points:
-			if new_visible_points.has(point):
-				continue
+	var new_points: Array[Vector2] = MyMath.arr_except(new_visible_points, visibility_data.visible_points)
+	var old_points: Array[Vector2] = MyMath.arr_except(visibility_data.visible_points, new_visible_points)
 
-			new_visible_points.append(point)
-
-
-	var new_not_visible_points: Array[Vector2]
-	for point in new_visible_points:
-		if visibility_data.visible_points.has(point):
-			continue
-
-		new_not_visible_points.append(point)
-
-	var old_visible_points: Array[Vector2]
-	for point in visibility_data.visible_points:
-		if new_visible_points.has(point):
-			continue
-
-		old_visible_points.append(point)
+	update_visibility_on_cells(new_points, CellVisibility.VISIBLE, false)
+	update_visibility_on_cells(old_points, CellVisibility.HALF, false)
 
 	visibility_data.visible_points = new_visible_points
 
-	update_visibility_on_cells(new_not_visible_points, 1, false)
-	update_visibility_on_cells(old_visible_points, 2, false)
+
+func _get_line_points(grid_pos_from: Vector2, grid_pos_to: Vector2) -> Array[Vector2]:
+	var from_pos: Vector2 = grid_pos_from * Globals.CELL_SIZE
+	var to_pos: Vector2 = grid_pos_to * Globals.CELL_SIZE
+
+	var ray_positions = GlobalMap.raycaster.make_ray_and_get_positions(from_pos, to_pos, true)
+	var ray_dir = (ray_positions[1] - from_pos).normalized()
+	var shorter_ray = ray_dir * (from_pos.distance_to(ray_positions[1]) - Globals.CELL_QUAD_SIZE) + from_pos
+	var grid_end_pos = Globals.snap_to_cell_pos(shorter_ray) / Globals.CELL_SIZE
+	var line_points = MyMath.bresenham_line_thick(grid_pos_from, grid_end_pos)
+
+	return line_points
 
 
 func update_visibility_on_cells(positions: Array[Vector2], visibility: CellVisibility, is_cell_pos: bool = true):
@@ -104,8 +96,8 @@ func _check_is_enemy_visible(unit: Unit):
 	if unit.unit_data.unit_settings.is_enemy:
 		return
 
-	var all_units = GlobalUnits.units.values()
-	for cur_unit in all_units:
+	var my_team = GlobalUnits.get_units(unit.unit_data.unit_settings.is_enemy)
+	for cur_unit in my_team:
 		cur_unit.unit_object.set_visibility(true)
 
 	var enemies = GlobalUnits.get_units(not unit.unit_data.unit_settings.is_enemy)

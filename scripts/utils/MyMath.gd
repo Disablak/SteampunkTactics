@@ -2,6 +2,27 @@ class_name MyMath
 extends Node
 
 
+static func arr_add_no_copy(arr0: Array, arr1: Array) -> Array:
+	for element in arr1:
+		if arr0.has(element):
+			continue
+
+		arr0.append(element)
+
+	return arr0
+
+
+static func arr_except(arr0: Array, arr1: Array) -> Array:
+	var diff: Array
+	for element in arr0:
+		if arr1.has(element):
+			continue
+
+		diff.append(element)
+
+	return diff
+
+
 static func get_circle_points(center: Vector2, radius: int) -> Array[Vector2]:
 	var x := radius
 	var y := 0

@@ -87,6 +87,9 @@ func _draw_enemy_visible_raycast(from_pos: Vector2):
 
 	var enemies = GlobalUnits.get_units(!cur_unit_data.unit_settings.is_enemy)
 	for enemy in enemies:
+		if not enemy.unit_object.is_visible:
+			continue
+
 		var positions = raycaster.make_ray_and_get_positions(from_pos, enemy.unit_object.position)
 		line2d_manager.draw_ray(positions)
 
