@@ -13,7 +13,7 @@ var tween_move: Tween
 var bounds_min: Vector2
 var bounds_max: Vector2
 
-var prev_player_camera_pos: Vector2 = Vector2.ZERO
+var dict_id_and_prev_pos = {}
 
 
 func _ready() -> void:
@@ -27,13 +27,14 @@ func _ready() -> void:
 func focus_camera(unit_id, instantly):
 	var target_pos: Vector2
 
-	var unit : Unit = GlobalUnits.units[unit_id]
-	if unit.unit_data.unit_settings.is_enemy or prev_player_camera_pos == Vector2.ZERO:
-		prev_player_camera_pos = position
+	var unit: Unit = GlobalUnits.units[unit_id]
+
+	if dict_id_and_prev_pos.has(unit_id):
+		target_pos = dict_id_and_prev_pos[unit_id]
+	else:
+		dict_id_and_prev_pos[TurnManager.get_prev_unit_id()] = position
 		var unit_pos = unit.unit_object.position
 		target_pos = _clamp_pos_in_bounds(unit_pos)
-	else:
-		target_pos = prev_player_camera_pos
 
 	if instantly:
 		position = target_pos

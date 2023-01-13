@@ -44,6 +44,11 @@ func get_next_unit_id() -> int:
 	return get_cur_turn_unit_id()
 
 
+func get_prev_unit_id() -> int:
+	var prev_unit_idx = order_unit_id[wrapi(cur_unit_idx - 1, 0, order_unit_id.size() - 1)]
+	return prev_unit_idx
+
+
 func remove_unit_from_order(unit_id: int):
 	order_unit_id.erase(unit_id)
 
