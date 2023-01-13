@@ -74,7 +74,7 @@ func granade(cells: Array[CellInfo]):
 		var new_fire: Node2D = fire_effect_scene.instantiate()
 		add_child(new_fire)
 
-		new_fire.position = Globals.convert_to_cell_pos(cell_info.cell_pos)
+		new_fire.position = Globals.convert_to_cell_pos(cell_info.grid_pos)
 
 		var tween: Tween = create_tween()
 		tween.tween_property(

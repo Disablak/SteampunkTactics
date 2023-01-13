@@ -178,7 +178,7 @@ func get_distance_to_enemy(cur_unit: Unit) -> float:
 	return cur_unit.unit_object.position.distance_to(selected_enemy.unit_object.position)
 
 
-func throw_granade(unit: Unit, grid_pos: Vector2) -> bool:
+func throw_granade(unit: Unit, grid_pos: Vector2i) -> bool:
 	if not TurnManager.can_spend_time_points(unit.unit_data.granade.use_price):
 		GlobalsUi.message("Not enough time points!")
 		return false
@@ -191,7 +191,7 @@ func throw_granade(unit: Unit, grid_pos: Vector2) -> bool:
 
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, unit.unit_data.granade.use_price)
 
-	var damaged_cells = pathfinding.get_cells_by_pattern(grid_pos, Globals.CELL_AREA_3x3)
+	var damaged_cells := pathfinding.get_cells_by_pattern(grid_pos, Globals.CELL_AREA_3x3)
 
 	for cell_info in damaged_cells:
 		if cell_info.unit_id != -1:

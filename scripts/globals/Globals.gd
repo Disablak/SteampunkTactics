@@ -18,7 +18,7 @@ enum UnitAction{
 	GRANADE
 }
 
-const CELL_AREA_3x3: Array[Vector2i]= [
+var CELL_AREA_3x3: Array[Vector2i] = [
 	Vector2i.ZERO, Vector2i.LEFT, Vector2i.RIGHT,
 	Vector2i.UP, Vector2i.DOWN, Vector2i(1, 1),
 	Vector2i(-1, -1), Vector2i(-1, 1), Vector2i(1, -1)]

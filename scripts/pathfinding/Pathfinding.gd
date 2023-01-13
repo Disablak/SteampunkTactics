@@ -234,18 +234,6 @@ func get_cell_id_by_grid_pos(grid_pos: Vector2) -> int:
 	return cell_id
 
 
-func get_cell_id_by_pos(pos: Vector2) -> int:
-	var grid_pos = Globals.convert_to_grid_pos(pos)
-	var cell_id := astar.get_closest_point(grid_pos, true)
-	var cell_obj: CellObject = dict_id_and_cell_walk[cell_id]
-
-	var rect: Rect2 = Rect2(cell_obj.position - Globals.CELL_OFFSET, Vector2.ONE * Globals.CELL_SIZE)
-	if not cell_obj.destroyed and rect.has_point(pos):
-		return cell_id
-
-	return -1
-
-
 func get_cell_by_pos(grid_pos: Vector2i) -> CellObject:
 	if dict_pos_and_cell_cover.has(grid_pos):
 		return dict_pos_and_cell_cover[grid_pos]
