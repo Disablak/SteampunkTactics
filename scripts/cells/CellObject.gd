@@ -10,10 +10,10 @@ enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE}
 @export_range(0.0, 0.5, 0.05) var shoot_debaf: float = 0.0
 
 var destroyed := false
-var connected_cells_pos: Array[Vector2]
+var connected_cells_pos: Array[Vector2i]
 var collsition_shape: CollisionShape2D
 
-var grid_pos: Vector2:
+var grid_pos: Vector2i:
 	get:
 		return Globals.convert_to_grid_pos(position)
 

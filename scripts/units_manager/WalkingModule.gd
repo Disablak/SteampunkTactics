@@ -15,9 +15,9 @@ var tween_move: Tween
 var pathfinding: Pathfinding
 var callable_finish_move: Callable
 
-var prev_unit_pos: Vector2
-var cached_walking_cells: Array[Vector2]
-var cached_team_visibility: Array[Vector2]
+var prev_unit_pos: Vector2i
+var cached_walking_cells: Array[Vector2i]
+var cached_team_visibility: Array[Vector2i]
 
 
 func set_data(pathfinding: Pathfinding, callable_finish_move: Callable):
@@ -71,14 +71,15 @@ func get_move_price(path : PackedVector2Array) -> int:
 
 func draw_walking_cells(): # todo if unit change time points without moving, it will be a bug
 	var unit_pos := cur_unit_object.position
+	var unit_grid_pos := Globals.convert_to_grid_pos(unit_pos)
 	var max_move_distance : int = int(TurnManager.cur_time_points / cur_unit_data.unit_settings.walk_speed) + 1
 
-	if unit_pos != prev_unit_pos:
-		prev_unit_pos = unit_pos
-		cached_walking_cells = pathfinding.get_walkable_cells(unit_pos, max_move_distance)
+	if unit_grid_pos != prev_unit_pos:
+		prev_unit_pos = unit_grid_pos
+		cached_walking_cells = pathfinding.get_walkable_cells(unit_grid_pos, max_move_distance)
 		cached_team_visibility = pathfinding.fog_of_war.get_cur_team_visibility()
 
-	var allowed_walking_cells: Array[Vector2] = MyMath.arr_intersect(cached_walking_cells, cached_team_visibility)
+	var allowed_walking_cells: Array[Vector2i] = MyMath.arr_intersect(cached_walking_cells, cached_team_visibility)
 	pathfinding.draw_walking_cells(allowed_walking_cells)
 
 

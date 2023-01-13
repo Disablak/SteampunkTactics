@@ -2,16 +2,14 @@ class_name InputSystem
 extends Node2D
 
 
-signal on_mouse_hover(cell_info: CellInfo)
-signal on_mouse_click(cell_info: CellInfo)
+signal on_mouse_hover(mouse_pos: Vector2)
+signal on_mouse_click(mouse_pos: Vector2)
 signal on_drag(dir)
 signal on_pressed_esc()
 
 @onready var camera_controller := get_node("CameraController") as CameraController
 @onready var camera := get_node("CameraController/Camera2d") as Camera2D
 @onready var camera_bounds: Node2D = get_node("CameraBounds") as Node2D
-
-@onready var cell_info: = CellInfo.new(Vector2.ZERO, null, -1)
 
 const TIME_CLICK_MS = 200
 
@@ -63,9 +61,7 @@ func _mouse_click(event: InputEvent):
 
 			was_mouse_btn_pressed = false
 
-			cell_info.reset()
-			cell_info.cell_pos = formatted_position(event.position)
-			on_mouse_click.emit(cell_info)
+			on_mouse_click.emit(formatted_position(event.position))
 			return
 
 		if event.pressed:
@@ -78,9 +74,7 @@ func _mouse_hover(event: InputEvent):
 	if not (event is InputEventMouseMotion):
 		return
 
-	cell_info.reset()
-	cell_info.cell_pos = formatted_position(event.position)
-	on_mouse_hover.emit(cell_info)
+	on_mouse_hover.emit(formatted_position(event.position))
 
 
 func _click_escape(event: InputEvent):

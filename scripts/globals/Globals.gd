@@ -18,10 +18,10 @@ enum UnitAction{
 	GRANADE
 }
 
-const CELL_AREA_3x3: Array[Vector2]= [
-	Vector2.ZERO, Vector2.LEFT, Vector2.RIGHT,
-	Vector2.UP, Vector2.DOWN, Vector2(1, 1),
-	Vector2(-1, -1), Vector2(-1, 1), Vector2(1, -1)]
+const CELL_AREA_3x3: Array[Vector2i]= [
+	Vector2i.ZERO, Vector2i.LEFT, Vector2i.RIGHT,
+	Vector2i.UP, Vector2i.DOWN, Vector2i(1, 1),
+	Vector2i(-1, -1), Vector2i(-1, 1), Vector2i(1, -1)]
 
 const GRID_STEP = 1.0
 const CURVE_X_METERS = 3000
@@ -55,12 +55,12 @@ static func snap_to_cell_pos(pos: Vector2) -> Vector2:
 	return Vector2(snappedi(pos.x, CELL_SIZE), snappedi(pos.y, CELL_SIZE))
 
 
-static func convert_to_grid_pos(pos: Vector2) -> Vector2:
-	return snap_to_cell_pos(pos) / CELL_SIZE
+static func convert_to_grid_pos(pos: Vector2) -> Vector2i:
+	return Vector2i(snap_to_cell_pos(pos)) / CELL_SIZE
 
 
-static func convert_to_cell_pos(pos: Vector2) -> Vector2:
-	return pos * CELL_SIZE
+static func convert_to_cell_pos(grid_pos: Vector2i) -> Vector2:
+	return Vector2(grid_pos * CELL_SIZE)
 
 
 static func convert_grid_poses_to_cell_poses(points: Array[Vector2]) -> Array[Vector2]:

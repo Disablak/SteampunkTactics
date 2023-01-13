@@ -26,5 +26,5 @@ func _on_unit_changed_ammo(unit_id, cur_ammo, max_ammo):
 	label_ammo.text = "Ammo: {0}/{1}".format([cur_ammo, max_ammo])
 
 
-func _on_input_system_on_mouse_hover(hover_info) -> void:
-	pointer.position = hover_info.cell_pos
+func _on_input_system_on_mouse_hover(mouse_pos) -> void:
+	pointer.position = mouse_pos

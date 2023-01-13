@@ -252,7 +252,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	var is_clicked_on_ground = cell_info.cell_obj.is_walkable
 
 	if is_granade_mode and cell_info.cell_obj.cell_type != CellObject.CellType.WALL:
-		if shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.cell_pos):
+		if shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.grid_pos):
 			clear_all_lines()
 		return
 
@@ -261,7 +261,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		return
 
 	if is_clicked_on_ground and cur_unit_action == Globals.UnitAction.WALK and not is_clicked_on_unit:
-		var path: Array[Vector2] = _get_path_to_cell(cell_info.cell_pos)
+		var path: Array[Vector2] = _get_path_to_cell(cell_info.grid_pos)
 		walking.move_unit(path)
 		return
 
@@ -289,10 +289,10 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		return
 
 	if cur_unit_action == Globals.UnitAction.WALK and cell_info.unit_id == -1:
-		_draw_future_path(cell_info.cell_pos)
+		_draw_future_path(cell_info.grid_pos)
 
 	if cur_unit_action == Globals.UnitAction.GRANADE:
-		_draw_trejectory_granade(cell_info.cell_pos)
+		_draw_trejectory_granade(cell_info.grid_pos)
 
 
 func _on_input_system_on_pressed_esc() -> void:

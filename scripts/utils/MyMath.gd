@@ -33,18 +33,18 @@ static func arr_intersect(arr0: Array, arr1: Array) -> Array:
 	return result
 
 
-static func get_circle_points(center: Vector2, radius: int) -> Array[Vector2]:
+static func get_circle_points(center: Vector2i, radius: int) -> Array[Vector2i]:
 	var x := radius
 	var y := 0
 
-	var all_points: Array[Vector2]
+	var all_points: Array[Vector2i]
 
-	all_points.append(Vector2(center.x + x, center.y))
+	all_points.append(Vector2i(center.x + x, center.y))
 
 	if radius > 0:
-		all_points.append(Vector2(center.x - x, center.y))
-		all_points.append(Vector2(center.x, center.y + x))
-		all_points.append(Vector2(center.x, center.y - x))
+		all_points.append(Vector2i(center.x - x, center.y))
+		all_points.append(Vector2i(center.x, center.y + x))
+		all_points.append(Vector2i(center.x, center.y - x))
 
 	var p: int = 1 - radius
 
@@ -60,24 +60,24 @@ static func get_circle_points(center: Vector2, radius: int) -> Array[Vector2]:
 		if x < y:
 			break
 
-		all_points.append(Vector2(center.x + x, center.y + y))
-		all_points.append(Vector2(center.x - x, center.y + y))
-		all_points.append(Vector2(center.x + x, center.y - y))
-		all_points.append(Vector2(center.x - x, center.y - y))
+		all_points.append(Vector2i(center.x + x, center.y + y))
+		all_points.append(Vector2i(center.x - x, center.y + y))
+		all_points.append(Vector2i(center.x + x, center.y - y))
+		all_points.append(Vector2i(center.x - x, center.y - y))
 
 		if x == y:
 			continue
 
-		all_points.append(Vector2(center.x + y, center.y + x))
-		all_points.append(Vector2(center.x - y, center.y + x))
-		all_points.append(Vector2(center.x + y, center.y - x))
-		all_points.append(Vector2(center.x - y, center.y - x))
+		all_points.append(Vector2i(center.x + y, center.y + x))
+		all_points.append(Vector2i(center.x - y, center.y + x))
+		all_points.append(Vector2i(center.x + y, center.y - x))
+		all_points.append(Vector2i(center.x - y, center.y - x))
 
 	return all_points
 
 
 
-static func bresenham_line_perfect(from:Vector2, to: Vector2):
+static func bresenham_line_perfect(from:Vector2i, to: Vector2i):
 	var dx: int = abs(to.x - from.x)
 	var sx: int = 1 if from.x < to.x else -1
 	var dy: int = -abs(to.y - from.y)
@@ -85,10 +85,10 @@ static func bresenham_line_perfect(from:Vector2, to: Vector2):
 
 	var error: int = dx + dy
 
-	var points: Array[Vector2]
+	var points: Array[Vector2i]
 
 	while true:
-		points.append(Vector2(from.x, from.y))
+		points.append(Vector2i(from.x, from.y))
 
 		if from.x == to.x && from.y == to.y:
 			break
@@ -111,8 +111,8 @@ static func bresenham_line_perfect(from:Vector2, to: Vector2):
 	return points
 
 
-static func bresenham_line_thick(from:Vector2, to: Vector2):
-	var points: Array[Vector2]
+static func bresenham_line_thick(from:Vector2i, to: Vector2i):
+	var points: Array[Vector2i]
 
 	var xinc: int = -1 if (to.x < from.x) else 1;
 	var yinc: int = -1 if (to.y < from.y) else 1;
