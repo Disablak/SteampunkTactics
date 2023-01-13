@@ -1,6 +1,8 @@
 extends Control
 
 
+@onready var label_fps: Label = get_node("%LabelFPS")
+
 @onready var btn_next_turn: Button = get_node("%BtnNextTurn")
 @onready var label_ammo: Label = get_node("%LabelAmmo")
 @onready var pointer = get_node("%Pointer")
@@ -12,6 +14,10 @@ func _ready() -> void:
 	GlobalBus.on_unit_changed_control.connect(_update_unit_ammo)
 
 	_update_unit_ammo(-1, false)
+
+
+func _process(delta: float) -> void:
+	label_fps.text = "{0}".format([Engine.get_frames_per_second()])
 
 
 func _update_unit_ammo(unit_id, instantly):

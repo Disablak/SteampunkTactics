@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://lyn5khrmejve"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_p1tb3"]
-[ext_resource type="PackedScene" uid="uid://dgyxvel8mm5hy" path="res://scenes/World2d.tscn" id="2_bb7rw"]
+[ext_resource type="PackedScene" uid="uid://c11favptg3qfo" path="res://scenes/World2d.tscn" id="2_bb7rw"]
 [ext_resource type="Script" path="res://scripts/ui/BattleUI.gd" id="3_ur4ey"]
 [ext_resource type="Script" path="res://scripts/ui/GUI.gd" id="3_w0484"]
 [ext_resource type="Script" path="res://scripts/ui/UnitsUI.gd" id="4_bhut4"]
@@ -95,7 +95,6 @@ value = 20.0
 
 [node name="BtnNextTurn" type="Button" parent="GUI/BattleUI/AlwaysUI"]
 unique_name_in_owner = true
-anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -111,7 +110,6 @@ text = "Next Turn (T)"
 
 [node name="LabelAmmo" type="Label" parent="GUI/BattleUI/AlwaysUI"]
 unique_name_in_owner = true
-anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
@@ -121,6 +119,17 @@ offset_bottom = -36.0
 grow_vertical = 0
 text = "Ammo: 0/0"
 vertical_alignment = 2
+
+[node name="LabelFPS" type="Label" parent="GUI/BattleUI/AlwaysUI"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_bottom = 60.0
+grow_horizontal = 0
+text = "fps"
+horizontal_alignment = 2
 
 [node name="BtnMove" type="Button" parent="GUI/BattleUI/AlwaysUI"]
 unique_name_in_owner = true

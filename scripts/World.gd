@@ -4,7 +4,7 @@ extends Node2D
 
 @onready var units_manager: UnitsManager = $UnitsManager as UnitsManager
 
-var cached_visible_enemies: Array[Unit] = []
+var cached_visible_enemies: Array[Unit]
 
 
 func _ready() -> void:
@@ -14,8 +14,8 @@ func _ready() -> void:
 func try_find_visible_enemy(cur_unit: Unit) -> Array[Unit]:
 	var all_enemies = GlobalUnits.get_units(!cur_unit.unit_data.unit_settings.is_enemy)
 	var raycaster: Raycaster = GlobalMap.raycaster;
-	var visible_cells = cur_unit.unit_data.visibility_data.visible_points
 
+	var visible_points: Array[Vector2i] = GlobalUnits.units_manager.pathfinding.fog_of_war.get_team_visibility(cur_unit.unit_data.unit_settings.is_enemy)
 	cached_visible_enemies.clear()
 
 	for enemy in all_enemies:
@@ -23,7 +23,7 @@ func try_find_visible_enemy(cur_unit: Unit) -> Array[Unit]:
 		if not is_enemy_visible:
 			continue
 
-		if visible_cells.has(Globals.convert_to_grid_pos(enemy.unit_object.position)):
+		if visible_points.has(Globals.convert_to_grid_pos(enemy.unit_object.position)):
 			cached_visible_enemies.append(enemy)
 
 	return cached_visible_enemies
@@ -35,8 +35,8 @@ func cur_unit_shoot_to_visible_enemy():
 
 	await GlobalsUi.input_system.camera_controller.on_focused
 
-	units_manager.shooting.select_enemy(random_visible_unit)
 	units_manager.change_unit_action(Globals.UnitAction.SHOOT)
+	units_manager.shooting.select_enemy(random_visible_unit)
 	await Globals.create_timer_and_get_signal(1.0)
 
 	units_manager.clear_all_lines()

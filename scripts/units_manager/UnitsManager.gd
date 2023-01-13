@@ -219,6 +219,10 @@ func _draw_trejectory_granade(grid_pos: Vector2):
 
 
 func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
+	if cur_unit_data.unit_settings.is_enemy:
+		GlobalsUi.message("Ai's turn")
+		return
+
 	if _is_camera_moving():
 		GlobalsUi.message("camera is moving")
 		return
@@ -269,6 +273,9 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 
 
 func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
+	if cur_unit_data.unit_settings.is_enemy:
+		return
+
 	if _is_camera_moving():
 		return
 
@@ -298,5 +305,8 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 
 
 func _on_input_system_on_pressed_esc() -> void:
+	if cur_unit_data.unit_settings.is_enemy:
+		return
+
 	change_unit_action(Globals.UnitAction.NONE)
 

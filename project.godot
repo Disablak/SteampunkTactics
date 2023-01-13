@@ -275,10 +275,6 @@ TurnManager="*res://scripts/units_manager/TurnManager.gd"
 GlobalsUi="*res://scripts/globals/GlobalsUI.gd"
 DrawDebug="*res://scripts/utils/Draw3D.gd"
 
-[debug]
-
-settings/stdout/print_fps=true
-
 [display]
 
 window/size/viewport_width=960
