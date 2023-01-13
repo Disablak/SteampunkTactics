@@ -32,7 +32,7 @@ const CELL_OFFSET := Vector2(CELL_HALF_SIZE, CELL_HALF_SIZE)
 
 
 
-static func get_total_distance(points: PackedVector2Array) -> float:
+static func get_total_distance(points) -> float:
 	if points.size() <= 1:
 		return 0.0
 
@@ -63,7 +63,7 @@ static func convert_to_cell_pos(grid_pos: Vector2i) -> Vector2:
 	return Vector2(grid_pos * CELL_SIZE)
 
 
-static func convert_grid_poses_to_cell_poses(points: Array[Vector2]) -> Array[Vector2]:
+static func convert_grid_poses_to_cell_poses(points: Array[Vector2i]) -> Array[Vector2]:
 	var result = []
 	for pos in points:
 		result.append(convert_to_cell_pos(pos))

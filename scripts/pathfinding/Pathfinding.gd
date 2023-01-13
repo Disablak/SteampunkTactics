@@ -82,7 +82,7 @@ func _connect_walkable_cells():
 		var cell_id = astar.get_closest_point(cell.grid_pos)
 
 		for offset in CELL_OFFSETS:
-			var potential_grid_pos : Vector2 = cell.grid_pos + offset
+			var potential_grid_pos : Vector2i = cell.grid_pos + offset
 			var potential_cell_id = astar.get_closest_point(potential_grid_pos)
 			var potential_cell = dict_id_and_cell_walk.get(potential_cell_id)
 
@@ -135,7 +135,7 @@ func remove_obstacle(cell: CellObject):
 	cell.queue_free()
 
 
-func get_path_to_point(from : Vector2i, to : Vector2i) -> Array[Vector2]:
+func get_path_to_point(from : Vector2i, to : Vector2i) -> Array[Vector2i]:
 	if not is_point_walkable(to):
 		return []
 
@@ -150,8 +150,8 @@ func is_point_walkable(grid_pos : Vector2i) -> bool:
 	return cell_obj != null and cell_obj.is_walkable
 
 
-func has_path(from: Vector2, to: Vector2) -> bool:
-	var path: PackedVector2Array = get_path_to_point(from, to)
+func has_path(from: Vector2i, to: Vector2i) -> bool:
+	var path: Array[Vector2i] = get_path_to_point(from, to)
 	return path.size() > 0 and path[-1] == to
 
 

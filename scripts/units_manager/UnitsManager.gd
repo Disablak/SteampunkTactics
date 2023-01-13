@@ -65,7 +65,7 @@ func _draw_future_path(grid_pos):
 	if TurnManager.cur_time_points == 0:
 		return
 
-	var path: Array[Vector2] = _get_path_to_cell(grid_pos)
+	var path: Array[Vector2i] = _get_path_to_cell(grid_pos)
 	var distance = Globals.get_total_distance(path)
 	var move_price = cur_unit_data.get_move_price(distance)
 	var can_move = TurnManager.can_spend_time_points(move_price)
@@ -193,9 +193,9 @@ func try_move_unit_to_cell(cell_pos: Vector2):
 	walking.move_unit(_get_path_to_cell(cell_pos))
 
 
-func _get_path_to_cell(grid_pos: Vector2) -> Array[Vector2]:
-	var start_grid_pos: Vector2 = Globals.convert_to_grid_pos(cur_unit_object.position)
-	var path: Array[Vector2] = pathfinding.get_path_to_point(start_grid_pos, grid_pos)
+func _get_path_to_cell(grid_pos: Vector2i) -> Array[Vector2i]:
+	var start_grid_pos: Vector2i = Globals.convert_to_grid_pos(cur_unit_object.position)
+	var path: Array[Vector2i] = pathfinding.get_path_to_point(start_grid_pos, grid_pos)
 
 	return path
 
@@ -261,7 +261,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		return
 
 	if is_clicked_on_ground and cur_unit_action == Globals.UnitAction.WALK and not is_clicked_on_unit:
-		var path: Array[Vector2] = _get_path_to_cell(cell_info.grid_pos)
+		var path: Array[Vector2i] = _get_path_to_cell(cell_info.grid_pos)
 		walking.move_unit(path)
 		return
 

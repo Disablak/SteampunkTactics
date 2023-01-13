@@ -3,7 +3,7 @@ extends Node2D
 
 
 signal on_finished_move()
-signal on_moved_to_another_cell(cell_pos: Vector2)
+signal on_moved_to_another_cell(cell_pos: Vector2i)
 
 const ROTATION_SPEED = 10
 const MOVING_SPEED = 100
@@ -34,21 +34,7 @@ func is_unit_moving() -> bool:
 	return tween_move != null and tween_move.is_running()
 
 
-func try_move(raycast_result, input_event: InputEventMouseButton, cur_unit_action) -> bool:
-	if not (input_event.pressed and input_event.button_index == 2 and raycast_result.collider.is_in_group("pathable")):
-		return false
-
-	if raycast_result.position == Vector3.ZERO:
-		return false
-
-	if cur_unit_action != Globals.UnitAction.WALK:
-		return false
-
-	move_unit(raycast_result.position)
-	return true
-
-
-func move_unit(path: Array[Vector2]):
+func move_unit(path: Array[Vector2i]):
 	var price_time_points = get_move_price(path)
 	if not TurnManager.can_spend_time_points(price_time_points):
 		return
@@ -57,13 +43,7 @@ func move_unit(path: Array[Vector2]):
 	_move_via_points(path)
 
 
-func get_move_price_to_pos(pos : Vector2) -> int:
-	var path : PackedVector2Array = cur_unit_object.get_move_path(pos)
-	var price_time_points = get_move_price(path)
-	return price_time_points
-
-
-func get_move_price(path : PackedVector2Array) -> int:
+func get_move_price(path: Array[Vector2i]) -> int:
 	var distance = Globals.get_total_distance(path)
 	var price_time_points = cur_unit_data.get_move_price(distance)
 	return price_time_points
@@ -87,7 +67,7 @@ func clear_walking_cells():
 	pathfinding.clear_walking_cells()
 
 
-func _move_via_points(points: Array[Vector2]):
+func _move_via_points(points: Array[Vector2i]):
 	var converted_points := Globals.convert_grid_poses_to_cell_poses(points)
 	var cur_target_id = 0
 
@@ -97,8 +77,8 @@ func _move_via_points(points: Array[Vector2]):
 			on_finished_move.emit()
 			return
 
-		var start_point = converted_points[cur_target_id]
-		var finish_point = converted_points[cur_target_id + 1]
+		var start_point := converted_points[cur_target_id]
+		var finish_point := converted_points[cur_target_id + 1]
 		var time_move = start_point.distance_to(finish_point) / MOVING_SPEED
 
 		tween_move = get_tree().create_tween()
