@@ -7,6 +7,7 @@ extends Node2D
 const PATH_LINE_NAME = "path"
 const RAY_LINE_NAME = "ray"
 const LINE_TRAJECTORY_NAME = "trajectory"
+const SHOOT_RAY = "shoot_effect"
 
 const GRAVITY = -9.8
 const POINTS_IN_TRAJECTORY = 20
@@ -14,8 +15,16 @@ const POINTS_IN_TRAJECTORY = 20
 var line2d_trajectory: Line2D
 
 
+func draw_shoot_ray(points):
+	return draw_new_line(null, SHOOT_RAY, points, Color.YELLOW, 2)
+
+
+func clear_shoot_ray():
+	clear_line(SHOOT_RAY)
+
+
 func draw_path(points, can_move):
-	draw_new_line(PATH_LINE_NAME, points, Color.FOREST_GREEN if can_move else Color.RED)
+	draw_scrolling_new_line(PATH_LINE_NAME, points, Color.FOREST_GREEN if can_move else Color.RED)
 
 
 func clear_path():
@@ -23,7 +32,7 @@ func clear_path():
 
 
 func draw_ray(points):
-	draw_new_line(RAY_LINE_NAME, points, Color.DARK_RED)
+	draw_scrolling_new_line(RAY_LINE_NAME, points, Color.DARK_RED)
 
 
 func clear_ray():
@@ -32,7 +41,7 @@ func clear_ray():
 
 func draw_trajectory(start: Vector2, end: Vector2, enough_distance: bool):
 	if line2d_trajectory == null:
-		line2d_trajectory = draw_new_line(LINE_TRAJECTORY_NAME, [Vector2.ZERO], Color.ORANGE_RED)
+		line2d_trajectory = draw_scrolling_new_line(LINE_TRAJECTORY_NAME, [Vector2.ZERO], Color.ORANGE_RED)
 
 	_color_line(line2d_trajectory, Color.ORANGE_RED if enough_distance else Color.DARK_RED)
 	_draw_trajectory(line2d_trajectory, start, end)
@@ -42,24 +51,35 @@ func clear_trajectory():
 	clear_line(LINE_TRAJECTORY_NAME)
 
 
-func draw_new_line(name: String, points: PackedVector2Array, color: Color, width: int = 20) -> Line2D:
+func draw_new_line(scene: PackedScene, name: String, points: PackedVector2Array, color: Color, width: int = 20) -> Line2D:
 	if points.size() == 0:
 		return null
 
-	var new_line_2d = line_2d_scrolling.instantiate()
+	var new_line_2d: Line2D
+	if scene == null:
+		new_line_2d = Line2D.new() as Line2D
+	else:
+		new_line_2d = scene.instantiate() as Line2D
+
 	add_child(new_line_2d)
 
 	new_line_2d.name = name
 	new_line_2d.width = width
-	new_line_2d.material = new_line_2d.material.duplicate()
+	new_line_2d.default_color = color
 	new_line_2d.clear_points()
-
-	_color_line(new_line_2d, color)
 
 	for point in points:
 		new_line_2d.add_point(point)
 
 	return new_line_2d
+
+
+func draw_scrolling_new_line(name: String, points: PackedVector2Array, color: Color, width: int = 20) -> Line2D:
+	var line := draw_new_line(line_2d_scrolling, name, points, color, width)
+	line.material = line.material.duplicate()
+	_color_line(line, color)
+
+	return line
 
 
 func clear_line(name: String):

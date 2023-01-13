@@ -95,6 +95,7 @@ value = 20.0
 
 [node name="BtnNextTurn" type="Button" parent="GUI/BattleUI/AlwaysUI"]
 unique_name_in_owner = true
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -110,6 +111,7 @@ text = "Next Turn (T)"
 
 [node name="LabelAmmo" type="Label" parent="GUI/BattleUI/AlwaysUI"]
 unique_name_in_owner = true
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
@@ -122,6 +124,7 @@ vertical_alignment = 2
 
 [node name="LabelFPS" type="Label" parent="GUI/BattleUI/AlwaysUI"]
 unique_name_in_owner = true
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -200.0
