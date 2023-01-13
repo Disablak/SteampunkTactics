@@ -84,6 +84,16 @@ func create_timer_and_get_signal(time: float) -> Signal:
 	return get_tree().create_timer(time).timeout
 
 
+func wait_while(condition: Callable) -> Signal:
+	if condition.is_null():
+		return get_tree().process_frame
+
+	while condition.call() == true:
+		await get_tree().process_frame
+
+	return get_tree().process_frame
+
+
 # Note: passing a value for the type parameter causes a crash
 static func get_child_of_type(node: Node, child_type):
 	for i in range(node.get_child_count()):

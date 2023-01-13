@@ -76,6 +76,9 @@ func draw_new_line(scene: PackedScene, name: String, points: PackedVector2Array,
 
 func draw_scrolling_new_line(name: String, points: PackedVector2Array, color: Color, width: int = 20) -> Line2D:
 	var line := draw_new_line(line_2d_scrolling, name, points, color, width)
+	if line == null:
+		return null
+
 	line.material = line.material.duplicate()
 	_color_line(line, color)
 

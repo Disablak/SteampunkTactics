@@ -34,6 +34,8 @@ func shoot(from: Unit, to: Unit, hit_type: ShootingModule.HitType, cover_pos: Ve
 	elif hit_type == ShootingModule.HitType.MISS:
 		to_pos = from_pos + _get_little_wrong_shoot_direction(to_pos - from_pos)
 
+	await GlobalsUi.input_system.camera_controller.center_camera_between_two_units(from, to)
+
 	var points = PackedVector2Array([from_pos, to_pos])
 	var line = _line2d_manager.draw_shoot_ray(points)
 	await Globals.create_timer_and_get_signal(0.05)

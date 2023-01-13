@@ -33,7 +33,7 @@ func cur_unit_shoot_to_visible_enemy():
 	var random_visible_unit = cached_visible_enemies.pick_random()
 	print("shoot! to unit_id - {0}".format([random_visible_unit.id]))
 
-	await GlobalsUi.input_system.camera_controller.on_focused
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	units_manager.change_unit_action(Globals.UnitAction.SHOOT)
 	units_manager.shooting.select_enemy(random_visible_unit)
@@ -43,14 +43,14 @@ func cur_unit_shoot_to_visible_enemy():
 	await Globals.create_timer_and_get_signal(0.2)
 
 	units_manager.shooting.shoot(GlobalUnits.get_cur_unit())
-	await Globals.create_timer_and_get_signal(0.5)
+	await Globals.create_timer_and_get_signal(1.2)
 
 	units_manager.change_unit_action(Globals.UnitAction.NONE)
 	units_manager.next_turn()
 
 
 func walk_to_rand_cell():
-	await GlobalsUi.input_system.camera_controller.on_focused
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	var unit_walking : WalkingModule = units_manager.walking
 	unit_walking.draw_walking_cells()
