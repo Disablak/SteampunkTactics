@@ -60,6 +60,8 @@ func _update_health(unit_id, is_first_create = false):
 
 	if GlobalUnits.units_manager.cur_unit_id == unit_id:
 		unit_ui.set_action(GlobalUnits.units_manager.cur_unit_action)
+	else:
+		unit_ui.clear_action()
 
 
 func _create_unit_ui(unit_id):

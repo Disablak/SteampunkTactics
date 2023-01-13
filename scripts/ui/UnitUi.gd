@@ -11,3 +11,7 @@ func set_hp(cur, max):
 
 func set_action(action):
 	label_action.text = "Action: {0}".format([Globals.UnitAction.keys()[action]])
+
+
+func clear_action():
+	label_action.text = ""
