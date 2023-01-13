@@ -49,7 +49,7 @@ func set_damage(value: float, attacker_unit_id: int):
 
 
 func get_move_price(distance: float) -> int:
-	var result = (distance * unit_settings.walk_speed) / Globals.CELL_SIZE
+	var result = (distance * unit_settings.walk_speed)
 	return int(result)
 
 

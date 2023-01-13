@@ -63,6 +63,14 @@ static func convert_to_cell_pos(pos: Vector2) -> Vector2:
 	return pos * CELL_SIZE
 
 
+static func convert_grid_poses_to_cell_poses(points: Array[Vector2]) -> Array[Vector2]:
+	var result = []
+	for pos in points:
+		result.append(convert_to_cell_pos(pos))
+
+	return result
+
+
 static func get_cells_of_type(cells: Array, cell_type: CellObject.CellType):
 	var result = []
 	for cell in cells:

@@ -48,7 +48,7 @@ func try_move(raycast_result, input_event: InputEventMouseButton, cur_unit_actio
 	return true
 
 
-func move_unit(path: PackedVector2Array):
+func move_unit(path: Array[Vector2]):
 	var price_time_points = get_move_price(path)
 	if not TurnManager.can_spend_time_points(price_time_points):
 		return
@@ -86,17 +86,18 @@ func clear_walking_cells():
 	pathfinding.clear_walking_cells()
 
 
-func _move_via_points(points: PackedVector2Array):
+func _move_via_points(points: Array[Vector2]):
+	var converted_points := Globals.convert_grid_poses_to_cell_poses(points)
 	var cur_target_id = 0
 
-	for point in points:
-		if cur_target_id == points.size() - 1:
+	for point in converted_points:
+		if cur_target_id == converted_points.size() - 1:
 			_on_unit_finished_move()
 			on_finished_move.emit()
 			return
 
-		var start_point = points[cur_target_id]
-		var finish_point = points[cur_target_id + 1]
+		var start_point = converted_points[cur_target_id]
+		var finish_point = converted_points[cur_target_id + 1]
 		var time_move = start_point.distance_to(finish_point) / MOVING_SPEED
 
 		tween_move = get_tree().create_tween()

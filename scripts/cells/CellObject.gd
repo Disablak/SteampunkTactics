@@ -13,11 +13,15 @@ var destroyed := false
 var connected_cells_pos: Array[Vector2]
 var collsition_shape: CollisionShape2D
 
+var grid_pos: Vector2:
+	get:
+		return Globals.convert_to_grid_pos(position)
+
 
 func _ready() -> void:
 	for child in get_children():
 		if child is CellObject:
-			connected_cells_pos.append(Globals.snap_to_cell_pos(position + child.position))
+			connected_cells_pos.append(Globals.convert_to_grid_pos(position + child.position))
 
 	collsition_shape = find_child("CollisionShape2D", true, false)
 

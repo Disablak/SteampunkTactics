@@ -16,7 +16,7 @@ signal on_clicked_cell(cell_info: CellInfo)
 @export var root_walk_cells: Node2D
 @export var root_obs_cells: Node2D
 
-const CELL_OFFSETS = [Vector2(-Globals.CELL_SIZE, 0), Vector2(Globals.CELL_SIZE, 0), Vector2(0, Globals.CELL_SIZE), Vector2(0, Globals.CELL_SIZE)]
+const CELL_OFFSETS = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, 1), Vector2(0, 1)]
 
 var astar : AStar2D = AStar2D.new()
 
@@ -71,24 +71,21 @@ func _connect_walkable_cells():
 		var cell_pos: Vector2 = cell.position
 		var id = astar.get_available_point_id()
 
-		astar.add_point(id, cell_pos)
+		astar.add_point(id, cell.grid_pos)
 		dict_id_and_cell_walk[id] = cell
-		dict_pos_and_cell_walk[cell_pos] = cell
+		dict_pos_and_cell_walk[cell.grid_pos] = cell
 
 		fog_of_war.spawn_fog(cell_pos, 2)
 
 	root_walk_cells.visible = false
 
 	for cell in dict_id_and_cell_walk.values():
-		var cell_pos: Vector2 = cell.position
-		var cell_id = astar.get_closest_point(cell_pos)
+		var cell_id = astar.get_closest_point(cell.grid_pos)
 
 		for offset in CELL_OFFSETS:
-			var potential_cell_pos : Vector2 = cell_pos + offset
-			var potential_cell_id = astar.get_closest_point(potential_cell_pos)
-			assert(potential_cell_id != -1, "cell id not found!" )
+			var potential_grid_pos : Vector2 = cell.grid_pos + offset
+			var potential_cell_id = astar.get_closest_point(potential_grid_pos)
 			var potential_cell = dict_id_and_cell_walk.get(potential_cell_id)
-			assert(potential_cell != null, "cell not found!" )
 
 			if cell_id == potential_cell_id:
 				continue
@@ -101,18 +98,17 @@ func _connect_walkable_cells():
 func _add_obstacles():
 	for cell in root_obs_cells.get_children():
 		var cell_obj := cell as CellObject
-		var cell_pos: Vector2 = cell_obj.position
 
 		if cell_obj.cell_type == CellObject.CellType.WALL:
-			dict_pos_and_cell_wall[cell_pos] = cell_obj
+			dict_pos_and_cell_wall[cell_obj.grid_pos] = cell_obj
 			_enable_connection(cell_obj, false)
 
 		if cell_obj.cell_type == CellObject.CellType.OBSTACLE:
-			dict_pos_and_cell_obstacle[cell_pos] = cell_obj
-			_enable_point_by_pos(cell_pos, false)
+			dict_pos_and_cell_obstacle[cell_obj.grid_pos] = cell_obj
+			_enable_point_by_pos(cell_obj.grid_pos, false)
 
 		if cell_obj.cell_type == CellObject.CellType.COVER:
-			dict_pos_and_cell_cover[cell_obj.position] = cell_obj
+			dict_pos_and_cell_cover[cell_obj.grid_pos] = cell_obj
 			dict_pos_and_cell_cover[cell_obj.connected_cells_pos[0]] = cell_obj
 			_enable_connection(cell_obj, false)
 
@@ -125,7 +121,7 @@ func _on_cell_broke(cell: CellObject):
 
 
 func remove_cover(cell: CellObject):
-	dict_pos_and_cell_cover.erase(cell.position)
+	dict_pos_and_cell_cover.erase(cell.grid_pos)
 	dict_pos_and_cell_cover.erase(cell.connected_cells_pos[0])
 
 	_enable_connection(cell, true, true)
@@ -134,87 +130,87 @@ func remove_cover(cell: CellObject):
 
 
 func remove_obstacle(cell: CellObject):
-	_enable_point_by_pos(cell.position, true, true)
-	dict_pos_and_cell_obstacle.erase(cell.position)
+	_enable_point_by_pos(cell.grid_pos, true, true)
+	dict_pos_and_cell_obstacle.erase(cell.grid_pos)
 
 	cell.queue_free()
 
 
-func get_path_to_point(from : Vector2i, to : Vector2i) -> PackedVector2Array:
+func get_path_to_point(from : Vector2i, to : Vector2i) -> Array[Vector2]:
 	if not is_point_walkable(to):
-		return PackedVector2Array()
+		return []
 
 	var from_id = astar.get_closest_point(from)
 	var to_id = astar.get_closest_point(to)
 
-	return astar.get_point_path(from_id, to_id)
+	return Array(astar.get_point_path(from_id, to_id))
 
 
-func is_point_walkable(cell_pos : Vector2i) -> bool:
-	var cell_obj: CellObject = get_cell_by_pos(cell_pos)
+func is_point_walkable(grid_pos : Vector2i) -> bool:
+	var cell_obj: CellObject = get_cell_by_pos(grid_pos)
 	return cell_obj != null and cell_obj.is_walkable
 
 
 func has_path(from: Vector2, to: Vector2) -> bool:
 	var path: PackedVector2Array = get_path_to_point(from, to)
-	return path.size() > 0 and path[path.size() - 1] == to
+	return path.size() > 0 and path[-1] == to
 
 
-func get_unit_on_cell(cell_pos: Vector2) -> Unit:
+func get_unit_on_cell(grid_pos: Vector2) -> Unit:
 	var all_units = GlobalUnits.units
 
 	for unit in all_units.values():
 		var unit_obj: UnitObject = unit.unit_object
 		var unit_pos: Vector2 = unit_obj.position
 
-		if cell_pos.distance_to(unit_pos) < Globals.CELL_SIZE:
+		if Globals.convert_to_cell_pos(grid_pos).distance_to(unit_pos) < Globals.CELL_SIZE:
 			return unit
 
 	return null
 
 
-func get_walkable_cells(unit_pos: Vector2, max_distance: int) -> Array[Vector2]:
+func get_walkable_cells(unit_cell_pos: Vector2, max_distance: int) -> Array[Vector2]:
 	if max_distance == 1:
 		return []
 
-	unit_pos = Globals.convert_to_grid_pos(unit_pos)
+	var unit_grid_pos = Globals.convert_to_grid_pos(unit_cell_pos)
 
-	var from_x : int = unit_pos.x - max_distance
-	var to_x : int   = unit_pos.x + max_distance
-	var from_y : int = unit_pos.y - max_distance
-	var to_y : int   = unit_pos.y + max_distance
+	var from_x : int = unit_grid_pos.x - max_distance
+	var to_x : int   = unit_grid_pos.x + max_distance
+	var from_y : int = unit_grid_pos.y - max_distance
+	var to_y : int   = unit_grid_pos.y + max_distance
 
 	var walkable_cells: Array[Vector2]
 
 	for x in range(from_x, to_x + 1):
 		for y in range(from_y, to_y + 1):
-			var cell_pos = Vector2(x, y)
-			if cell_pos == unit_pos:
+			var grid_pos = Vector2(x, y)
+			if grid_pos == unit_grid_pos:
 				continue
 
-			if get_unit_on_cell(Globals.convert_to_cell_pos(cell_pos)) != null:
+			if get_unit_on_cell(grid_pos) != null:
 				continue
 
-			if not is_point_walkable(Globals.convert_to_cell_pos(cell_pos)):
+			if not is_point_walkable(grid_pos):
 				continue
 
-			if not has_path(Globals.convert_to_cell_pos(unit_pos), Globals.convert_to_cell_pos(cell_pos)):
+			if not has_path(unit_grid_pos, grid_pos):
 				continue
 
-			if get_path_to_point(Globals.convert_to_cell_pos(unit_pos), Globals.convert_to_cell_pos(cell_pos)).size() <= max_distance:
-				walkable_cells.push_back(cell_pos)
+			if get_path_to_point(unit_grid_pos, grid_pos).size() <= max_distance:
+				walkable_cells.push_back(grid_pos)
 
 	return walkable_cells
 
 
-func draw_walking_cells(walking_cells: Array[Vector2]):
+func draw_walking_cells(grid_poses: Array[Vector2]):
 	clear_walking_cells()
 
-	for cell_pos in walking_cells:
+	for grid_pos in grid_poses:
 		var walkable: Node2D = walkable_hint_cell_scene.instantiate()
 		root_walk_hint.add_child(walkable)
 		spawned_walk_hints.push_back(walkable)
-		walkable.position = Globals.convert_to_cell_pos(cell_pos)
+		walkable.position = Globals.convert_to_cell_pos(grid_pos)
 
 
 func clear_walking_cells():
@@ -225,82 +221,84 @@ func clear_walking_cells():
 
 
 func is_unit_in_cover(unit_pos: Vector2, cell_cover: CellObject) -> bool:
-	unit_pos = Globals.snap_to_cell_pos(unit_pos)
+	var unit_grid_pos = Globals.convert_to_grid_pos(unit_pos)
 
 	if cell_cover.cell_type != CellObject.CellType.COVER:
 		printerr("cell is not cover!")
 		return false
 
-	return unit_pos == cell_cover.position or unit_pos == cell_cover.connected_cells_pos[0]
+	return unit_grid_pos == cell_cover.grid_pos or unit_grid_pos == cell_cover.connected_cells_pos[0]
 
 
-func get_cell_id_by_pos(cell_pos: Vector2) -> int:
-	cell_pos = Globals.snap_to_cell_pos(cell_pos)
-
-	var cell_id := astar.get_closest_point(cell_pos, true)
+func get_cell_id_by_grid_pos(grid_pos: Vector2) -> int:
+	var cell_id := astar.get_closest_point(grid_pos, true)
 	var cell_obj: CellObject = dict_id_and_cell_walk[cell_id]
 
-	var rect: Rect2 = Rect2(cell_pos - Globals.CELL_OFFSET, Vector2.ONE * Globals.CELL_SIZE)
-	if not cell_obj.destroyed and rect.has_point(cell_obj.position):
+	return cell_id
+
+
+func get_cell_id_by_pos(pos: Vector2) -> int:
+	var grid_pos = Globals.convert_to_grid_pos(pos)
+	var cell_id := astar.get_closest_point(grid_pos, true)
+	var cell_obj: CellObject = dict_id_and_cell_walk[cell_id]
+
+	var rect: Rect2 = Rect2(cell_obj.position - Globals.CELL_OFFSET, Vector2.ONE * Globals.CELL_SIZE)
+	if not cell_obj.destroyed and rect.has_point(pos):
 		return cell_id
 
 	return -1
 
 
-func get_cell_by_pos(cell_pos: Vector2) -> CellObject:
-	if dict_pos_and_cell_cover.has(cell_pos):
-		return dict_pos_and_cell_cover[cell_pos]
+func get_cell_by_pos(grid_pos: Vector2) -> CellObject:
+	if dict_pos_and_cell_cover.has(grid_pos):
+		return dict_pos_and_cell_cover[grid_pos]
 
-	if dict_pos_and_cell_obstacle.has(cell_pos):
-		return dict_pos_and_cell_obstacle[cell_pos]
+	if dict_pos_and_cell_obstacle.has(grid_pos):
+		return dict_pos_and_cell_obstacle[grid_pos]
 
-	if dict_pos_and_cell_wall.has(cell_pos):
-		return dict_pos_and_cell_wall[cell_pos]
+	if dict_pos_and_cell_wall.has(grid_pos):
+		return dict_pos_and_cell_wall[grid_pos]
 
-	if dict_pos_and_cell_walk.has(cell_pos):
-		return dict_pos_and_cell_walk[cell_pos]
+	if dict_pos_and_cell_walk.has(grid_pos):
+		return dict_pos_and_cell_walk[grid_pos]
 
 	return null
 
 
-func get_cells_by_pattern(pos_center: Vector2, pattern_cells) -> Array[CellInfo]:
-	pos_center = Globals.snap_to_cell_pos(pos_center)
-
+func get_cells_by_pattern(grid_pos_center: Vector2, pattern_cells) -> Array[CellInfo]:
 	var result: Array[CellInfo] = []
 
 	for cell_offset in pattern_cells:
-		var cell_pos = pos_center + cell_offset * Globals.CELL_SIZE
-		var cell_info = _get_cell_info(cell_pos)
+		var grid_pos = grid_pos_center + cell_offset
+		var cell_info = _get_cell_info(grid_pos)
 		result.push_back(cell_info)
 
 	return result
 
 
-func _get_cell_info(cell_pos: Vector2) -> CellInfo:
-	cell_pos = Globals.snap_to_cell_pos(cell_pos)
-
-	var cell_obj := get_cell_by_pos(cell_pos)
-	var unit_on_cell: Unit = get_unit_on_cell(cell_pos)
+func _get_cell_info(grid_pos: Vector2) -> CellInfo:
+	var cell_obj := get_cell_by_pos(grid_pos)
+	var unit_on_cell: Unit = get_unit_on_cell(grid_pos)
 	var unit_id := unit_on_cell.id if unit_on_cell != null else -1
 
-	return CellInfo.new(cell_pos, cell_obj, unit_id)
+	return CellInfo.new(grid_pos, cell_obj, unit_id)
 
 
-func _enable_point_by_pos(cell_pos: Vector2, enable: bool, update_debug: bool = false):
-	var cell_id := get_cell_id_by_pos(cell_pos)
+func _enable_point_by_pos(grid_pos: Vector2, enable: bool, update_debug: bool = false):
+	var cell_id := get_cell_id_by_pos(grid_pos)
 	astar.set_point_disabled(cell_id, !enable)
 
 	if update_debug:
 		_draw_debug()
 
 
-func _enable_connection(cell: CellObject, enable, update_debug: bool = false):
+func _enable_connection(cell: CellObject, enable: bool, update_debug: bool = false):
 	if cell.connected_cells_pos.size() == 0:
 		printerr("cell not have connected cells {0}".format([cell.name]))
 		return
 
-	var first_cell_id := get_cell_id_by_pos(cell.position)
-	var second_cell_id := get_cell_id_by_pos(cell.connected_cells_pos[0])
+	var first_cell_id := get_cell_id_by_grid_pos(cell.grid_pos)
+	var second_cell_id := get_cell_id_by_grid_pos(cell.connected_cells_pos[0])
 
 	if enable:
 		astar.connect_points(first_cell_id, second_cell_id)
@@ -314,19 +312,21 @@ func _enable_connection(cell: CellObject, enable, update_debug: bool = false):
 
 
 func _on_input_system_on_mouse_hover(cell_info: CellInfo) -> void:
-	var info = _get_cell_info(cell_info.cell_pos)
+	var grid_pos = Globals.convert_to_grid_pos(cell_info.cell_pos)
+	var info = _get_cell_info(grid_pos)
 
 	if info.cell_obj != null and prev_hovered_cell_pos == info.cell_pos:
 		return
 
 	prev_hovered_cell_pos = info.cell_pos if info.cell_obj != null else Vector2.ZERO
-	cell_hint.position = prev_hovered_cell_pos
+	cell_hint.position = Globals.convert_to_cell_pos(prev_hovered_cell_pos)
 
 	on_hovered_cell.emit(info)
 
 
 func _on_input_system_on_mouse_click(cell_info: CellInfo) -> void:
-	var info = _get_cell_info(cell_info.cell_pos)
+	var grid_pos = Globals.convert_to_grid_pos(cell_info.cell_pos)
+	var info = _get_cell_info(grid_pos)
 	on_clicked_cell.emit(info)
 
 	if info.cell_obj == null:

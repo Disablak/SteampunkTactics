@@ -61,11 +61,11 @@ func _on_finish_move() -> void:
 	walking.draw_walking_cells()
 
 
-func _draw_future_path(mouse_pos):
+func _draw_future_path(grid_pos):
 	if TurnManager.cur_time_points == 0:
 		return
 
-	var path: PackedVector2Array = _get_path_to_cell(mouse_pos)
+	var path: Array[Vector2] = _get_path_to_cell(grid_pos)
 	var distance = Globals.get_total_distance(path)
 	var move_price = cur_unit_data.get_move_price(distance)
 	var can_move = TurnManager.can_spend_time_points(move_price)
@@ -77,11 +77,12 @@ func _draw_future_path(mouse_pos):
 
 	clear_all_lines()
 
-	line2d_manager.draw_path(path, can_move)
-	_draw_enemy_visible_raycast(mouse_pos)
+	var converted_poses = Globals.convert_grid_poses_to_cell_poses(path)
+	line2d_manager.draw_path(converted_poses, can_move)
+	_draw_enemy_visible_raycast(grid_pos)
 
 
-func _draw_enemy_visible_raycast(from_pos: Vector2):
+func _draw_enemy_visible_raycast(from_grid_pos: Vector2):
 	if not show_enemy_raycast:
 		return
 
@@ -90,7 +91,7 @@ func _draw_enemy_visible_raycast(from_pos: Vector2):
 		if not enemy.unit_object.is_visible:
 			continue
 
-		var positions = raycaster.make_ray_and_get_positions(from_pos, enemy.unit_object.position)
+		var positions = raycaster.make_ray_and_get_positions(Globals.convert_to_cell_pos(from_grid_pos), enemy.unit_object.position)
 		line2d_manager.draw_ray(positions)
 
 
@@ -192,9 +193,9 @@ func try_move_unit_to_cell(cell_pos: Vector2):
 	walking.move_unit(_get_path_to_cell(cell_pos))
 
 
-func _get_path_to_cell(cell_pos: Vector2) -> PackedVector2Array:
-	var unit_pos: Vector2 = cur_unit_object.position
-	var path: PackedVector2Array = pathfinding.get_path_to_point(unit_pos, cell_pos)
+func _get_path_to_cell(grid_pos: Vector2) -> Array[Vector2]:
+	var start_grid_pos: Vector2 = Globals.convert_to_grid_pos(cur_unit_object.position)
+	var path: Array[Vector2] = pathfinding.get_path_to_point(start_grid_pos, grid_pos)
 
 	return path
 
@@ -206,10 +207,11 @@ func _is_camera_moving() -> bool:
 	return GlobalsUi.input_system.camera_controller.is_camera_moving()
 
 
-func _draw_trejectory_granade(cell_pos: Vector2):
+func _draw_trejectory_granade(grid_pos: Vector2):
 	if cur_unit_data.granade == null:
 		return
 
+	var cell_pos = Globals.convert_to_cell_pos(grid_pos)
 	var distance := cur_unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
 	line2d_manager.draw_trajectory(cur_unit_object.position, cell_pos, distance <= cur_unit_data.granade.throw_distance)
 
@@ -250,7 +252,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	var is_clicked_on_ground = cell_info.cell_obj.is_walkable
 
 	if is_granade_mode and cell_info.cell_obj.cell_type != CellObject.CellType.WALL:
-		if shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.cell_obj.position):
+		if shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.cell_pos):
 			clear_all_lines()
 		return
 
@@ -259,7 +261,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		return
 
 	if is_clicked_on_ground and cur_unit_action == Globals.UnitAction.WALK and not is_clicked_on_unit:
-		var path : PackedVector2Array = _get_path_to_cell(cell_info.cell_pos)
+		var path: Array[Vector2] = _get_path_to_cell(cell_info.cell_pos)
 		walking.move_unit(path)
 		return
 
