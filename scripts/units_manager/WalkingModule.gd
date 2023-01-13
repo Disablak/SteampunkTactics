@@ -17,7 +17,6 @@ var callable_finish_move: Callable
 
 var prev_unit_pos: Vector2i
 var cached_walking_cells: Array[Vector2i]
-var cached_team_visibility: Array[Vector2i]
 
 
 func set_data(pathfinding: Pathfinding, callable_finish_move: Callable):
@@ -32,6 +31,10 @@ func set_cur_unit(unit: Unit):
 
 func is_unit_moving() -> bool:
 	return tween_move != null and tween_move.is_running()
+
+
+func can_move_here(grid_pos: Vector2i) -> bool:
+	return cached_walking_cells.has(grid_pos)
 
 
 func move_unit(path: Array[Vector2i]):
@@ -56,11 +59,11 @@ func draw_walking_cells(): # todo if unit change time points without moving, it 
 
 	if unit_grid_pos != prev_unit_pos:
 		prev_unit_pos = unit_grid_pos
-		cached_walking_cells = pathfinding.get_walkable_cells(unit_grid_pos, max_move_distance)
-		cached_team_visibility = pathfinding.fog_of_war.get_cur_team_visibility()
+		var path_walking_cells = pathfinding.get_walkable_cells(unit_grid_pos, max_move_distance)
+		var team_visibility_cells = pathfinding.fog_of_war.get_cur_team_visibility()
+		cached_walking_cells = MyMath.arr_intersect(path_walking_cells, team_visibility_cells)
 
-	var allowed_walking_cells: Array[Vector2i] = MyMath.arr_intersect(cached_walking_cells, cached_team_visibility)
-	pathfinding.draw_walking_cells(allowed_walking_cells)
+	pathfinding.draw_walking_cells(cached_walking_cells)
 
 
 func clear_walking_cells():

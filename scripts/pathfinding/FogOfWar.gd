@@ -20,14 +20,14 @@ func _on_unit_changed_control(unit_id, _istantly):
 	var unit: Unit = GlobalUnits.units[unit_id]
 
 	update_team_visibility_area(unit_id, unit.unit_data.unit_settings.is_enemy)
-	_check_is_enemy_visible(unit)
+	_update_units_visibility(unit)
 
 
 func _on_unit_moved(cell_pos: Vector2):
 	var unit: Unit = GlobalUnits.get_cur_unit()
 
 	update_team_visibility_area(unit.id, unit.unit_data.unit_settings.is_enemy)
-	_check_is_enemy_visible(unit)
+	_update_units_visibility(unit)
 
 
 func spawn_fog(grid_pos: Vector2i, cell_visibility: CellVisibility):
@@ -101,10 +101,7 @@ func update_visibility_on_cell(grid_pos: Vector2i, visibility: CellVisibility):
 		cell_fog.update_visibility(visibility)
 
 
-func _check_is_enemy_visible(unit: Unit):
-	if unit.unit_data.unit_settings.is_enemy:
-		return
-
+func _update_units_visibility(unit: Unit):
 	var my_team = GlobalUnits.get_units(unit.unit_data.unit_settings.is_enemy)
 	for cur_unit in my_team:
 		cur_unit.unit_object.set_visibility(true)
