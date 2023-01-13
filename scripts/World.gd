@@ -4,37 +4,38 @@ extends Node2D
 
 @onready var units_manager: UnitsManager = $UnitsManager as UnitsManager
 
-var cached_visible_enemy: Unit = null
+var cached_visible_enemies: Array[Unit] = []
 
 
 func _ready() -> void:
 	GlobalMap.world = self
 
 
-func try_find_any_visible_enemy(cur_unit: Unit) -> Unit:
-	var raycaster: Raycaster = GlobalMap.raycaster;
+func try_find_visible_enemy(cur_unit: Unit) -> Array[Unit]:
 	var all_enemies = GlobalUnits.get_units(!cur_unit.unit_data.unit_settings.is_enemy)
-	var nearest_enemy: Unit = null
-	var nearest_distance: float = 999_999_999
+	var raycaster: Raycaster = GlobalMap.raycaster;
+	var visible_cells = cur_unit.unit_data.visibility_data.visible_points
+
+	cached_visible_enemies.clear()
 
 	for enemy in all_enemies:
 		var is_enemy_visible := raycaster.make_ray_check_no_obstacle(cur_unit.unit_object.position, enemy.unit_object.position)
-		if is_enemy_visible:
-			var distance := cur_unit.unit_object.position.distance_squared_to(enemy.unit_object.position)
-			if distance <= nearest_distance:
-				nearest_enemy = enemy
-				nearest_distance = distance
+		if not is_enemy_visible:
+			continue
 
-	cached_visible_enemy = nearest_enemy
-	return cached_visible_enemy
+		if visible_cells.has(Globals.convert_to_grid_pos(enemy.unit_object.position)):
+			cached_visible_enemies.append(enemy)
+
+	return cached_visible_enemies
 
 
 func cur_unit_shoot_to_visible_enemy():
-	print("shoot! to unit_id - {0}".format([cached_visible_enemy.id]))
+	var random_visible_unit = cached_visible_enemies.pick_random()
+	print("shoot! to unit_id - {0}".format([random_visible_unit.id]))
 
 	await GlobalsUi.input_system.camera_controller.on_focused
 
-	units_manager.shooting.select_enemy(cached_visible_enemy)
+	units_manager.shooting.select_enemy(random_visible_unit)
 	units_manager.change_unit_action(Globals.UnitAction.SHOOT)
 	await Globals.create_timer_and_get_signal(1.0)
 

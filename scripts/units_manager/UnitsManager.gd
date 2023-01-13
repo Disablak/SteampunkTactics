@@ -132,11 +132,11 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 
 	walking.set_cur_unit(units[unit_id])
 
-	if cur_unit_data.unit_settings.is_enemy:
-		await get_tree().process_frame
-		brain_ai.decide_best_action_and_execute()
-
 	GlobalBus.on_unit_changed_control.emit(cur_unit_id, camera_focus_instantly)
+
+	if cur_unit_data.unit_settings.is_enemy:
+#		await get_tree().process_frame
+		brain_ai.decide_best_action_and_execute()
 
 
 func change_unit_action_with_enable(unit_action, enable):
