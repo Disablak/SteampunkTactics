@@ -173,48 +173,48 @@ func get_unit_on_cell(cell_pos: Vector2) -> Unit:
 	return null
 
 
-func get_walkable_cells(unit_pos: Vector2, max_distance: int) -> PackedVector2Array:
+func get_walkable_cells(unit_pos: Vector2, max_distance: int) -> Array[Vector2]:
 	if max_distance == 1:
-		return PackedVector2Array()
+		return []
 
-	unit_pos = Globals.snap_to_cell_pos(unit_pos)
+	unit_pos = Globals.convert_to_grid_pos(unit_pos)
 
-	var from_x : int = unit_pos.x - max_distance * Globals.CELL_SIZE
-	var to_x : int   = unit_pos.x + max_distance * Globals.CELL_SIZE
-	var from_y : int = unit_pos.y - max_distance * Globals.CELL_SIZE
-	var to_y : int   = unit_pos.y + max_distance * Globals.CELL_SIZE
+	var from_x : int = unit_pos.x - max_distance
+	var to_x : int   = unit_pos.x + max_distance
+	var from_y : int = unit_pos.y - max_distance
+	var to_y : int   = unit_pos.y + max_distance
 
-	var walkable_cells := PackedVector2Array()
+	var walkable_cells: Array[Vector2]
 
-	for x in range(from_x, to_x + Globals.CELL_SIZE, Globals.CELL_SIZE):
-		for y in range(from_y, to_y + Globals.CELL_SIZE, Globals.CELL_SIZE):
+	for x in range(from_x, to_x + 1):
+		for y in range(from_y, to_y + 1):
 			var cell_pos = Vector2(x, y)
 			if cell_pos == unit_pos:
 				continue
 
-			if get_unit_on_cell(cell_pos) != null:
+			if get_unit_on_cell(Globals.convert_to_cell_pos(cell_pos)) != null:
 				continue
 
-			if not is_point_walkable(cell_pos):
+			if not is_point_walkable(Globals.convert_to_cell_pos(cell_pos)):
 				continue
 
-			if not has_path(unit_pos, cell_pos):
+			if not has_path(Globals.convert_to_cell_pos(unit_pos), Globals.convert_to_cell_pos(cell_pos)):
 				continue
 
-			if get_path_to_point(unit_pos, cell_pos).size() <= max_distance:
+			if get_path_to_point(Globals.convert_to_cell_pos(unit_pos), Globals.convert_to_cell_pos(cell_pos)).size() <= max_distance:
 				walkable_cells.push_back(cell_pos)
 
 	return walkable_cells
 
 
-func draw_walking_cells(walking_cells: PackedVector2Array):
+func draw_walking_cells(walking_cells: Array[Vector2]):
 	clear_walking_cells()
 
 	for cell_pos in walking_cells:
 		var walkable: Node2D = walkable_hint_cell_scene.instantiate()
 		root_walk_hint.add_child(walkable)
 		spawned_walk_hints.push_back(walkable)
-		walkable.position = cell_pos
+		walkable.position = Globals.convert_to_cell_pos(cell_pos)
 
 
 func clear_walking_cells():

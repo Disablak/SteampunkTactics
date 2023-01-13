@@ -23,6 +23,16 @@ static func arr_except(arr0: Array, arr1: Array) -> Array:
 	return diff
 
 
+static func arr_intersect(arr0: Array, arr1: Array) -> Array:
+	var result: Array
+
+	for element in arr0:
+		if arr1.has(element):
+			result.append(element)
+
+	return result
+
+
 static func get_circle_points(center: Vector2, radius: int) -> Array[Vector2]:
 	var x := radius
 	var y := 0

@@ -55,6 +55,14 @@ static func snap_to_cell_pos(pos: Vector2) -> Vector2:
 	return Vector2(snappedi(pos.x, CELL_SIZE), snappedi(pos.y, CELL_SIZE))
 
 
+static func convert_to_grid_pos(pos: Vector2) -> Vector2:
+	return snap_to_cell_pos(pos) / CELL_SIZE
+
+
+static func convert_to_cell_pos(pos: Vector2) -> Vector2:
+	return pos * CELL_SIZE
+
+
 static func get_cells_of_type(cells: Array, cell_type: CellObject.CellType):
 	var result = []
 	for cell in cells:

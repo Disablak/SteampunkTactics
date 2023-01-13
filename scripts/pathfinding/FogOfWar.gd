@@ -42,12 +42,21 @@ func spawn_fog(pos: Vector2, cell_visibility: CellVisibility):
 func update_team_visibility_area(unit_id: int, is_enemy: bool):
 	_make_all_map_in_fog()
 
-	var visible_cells: Array[Vector2]
-	for unit in GlobalUnits.get_units(is_enemy):
-		update_unit_visibility(unit)
-		visible_cells.append_array(unit.unit_data.visibility_data.visible_points)
-
+	var visible_cells: Array[Vector2] = get_team_visibility(is_enemy)
 	update_visibility_on_cells(visible_cells, CellVisibility.VISIBLE, false)
+
+
+func get_cur_team_visibility() -> Array[Vector2]:
+	return get_team_visibility(GlobalUnits.get_cur_unit().unit_data.unit_settings.is_enemy)
+
+
+func get_team_visibility(enemy_team: bool) -> Array[Vector2]:
+	var visible_cells: Array[Vector2]
+	for unit in GlobalUnits.get_units(enemy_team):
+		update_unit_visibility(unit)
+		visible_cells = MyMath.arr_add_no_copy(visible_cells, unit.unit_data.visibility_data.visible_points)
+
+	return visible_cells
 
 
 func update_unit_visibility(unit: Unit):
