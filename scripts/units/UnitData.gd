@@ -11,6 +11,7 @@ var granade: GranadeData
 var cur_health: float
 var cur_weapon_ammo: int
 var enemy_data_ai : EnemyDataAI = null
+var visibility_data: VisibilityData = VisibilityData.new()
 
 
 

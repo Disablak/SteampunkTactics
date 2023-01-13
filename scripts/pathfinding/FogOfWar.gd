@@ -6,7 +6,6 @@ enum CellVisibility {NONE, VISIBLE, HALF, NOTHING}
 
 @export var cell_fog_scene: PackedScene
 
-var visibility_data: VisibilityData = VisibilityData.new()
 var dict_pos_and_cell = {}
 
 
@@ -20,18 +19,14 @@ func _ready() -> void:
 func _on_unit_changed_control(unit_id, _istantly):
 	var unit: Unit = GlobalUnits.units[unit_id]
 
-	if not unit.unit_data.unit_settings.is_enemy:
-		update_unit_visibility_area(unit)
-
+	update_team_visibility_area(unit_id, unit.unit_data.unit_settings.is_enemy)
 	_check_is_enemy_visible(unit)
 
 
 func _on_unit_moved(cell_pos: Vector2):
 	var unit: Unit = GlobalUnits.get_cur_unit()
 
-	if not unit.unit_data.unit_settings.is_enemy:
-		update_unit_visibility_area(unit)
-
+	update_team_visibility_area(unit.id, unit.unit_data.unit_settings.is_enemy)
 	_check_is_enemy_visible(unit)
 
 
@@ -44,9 +39,22 @@ func spawn_fog(pos: Vector2, cell_visibility: CellVisibility):
 	dict_pos_and_cell[pos] = spawned_fog
 
 
-func update_unit_visibility_area(unit: Unit):
+func update_team_visibility_area(unit_id: int, is_enemy: bool):
+	_make_all_map_in_fog()
+
+	var visible_cells: Array[Vector2]
+	for unit in GlobalUnits.get_units(is_enemy):
+		update_unit_visibility(unit)
+		visible_cells.append_array(unit.unit_data.visibility_data.visible_points)
+
+	update_visibility_on_cells(visible_cells, CellVisibility.VISIBLE, false)
+
+
+func update_unit_visibility(unit: Unit):
 	var unit_pos = Globals.snap_to_cell_pos(unit.unit_object.position)
 	var grid_unit_pos: Vector2 = unit_pos / Globals.CELL_SIZE
+	var visibility_data = unit.unit_data.visibility_data
+
 	if grid_unit_pos == visibility_data.pos_last_check_visibility:
 		return
 
@@ -57,12 +65,6 @@ func update_unit_visibility_area(unit: Unit):
 	for grid_pos_on_circle in visibility_data.circle_points:
 		var line_points = _get_line_points(grid_unit_pos, grid_pos_on_circle)
 		new_visible_points = MyMath.arr_add_no_copy(new_visible_points, line_points)
-
-	var new_points: Array[Vector2] = MyMath.arr_except(new_visible_points, visibility_data.visible_points)
-	var old_points: Array[Vector2] = MyMath.arr_except(visibility_data.visible_points, new_visible_points)
-
-	update_visibility_on_cells(new_points, CellVisibility.VISIBLE, false)
-	update_visibility_on_cells(old_points, CellVisibility.HALF, false)
 
 	visibility_data.visible_points = new_visible_points
 
@@ -109,3 +111,7 @@ func _check_is_enemy_visible(unit: Unit):
 		var is_visible = fog_on_this_pos.visibility == CellVisibility.VISIBLE
 		enemy.unit_object.set_visibility(is_visible)
 
+
+func _make_all_map_in_fog():
+	for fog in dict_pos_and_cell.values():
+		fog.update_visibility(CellVisibility.HALF)
