@@ -16,6 +16,7 @@ var pathfinding: Pathfinding
 var callable_finish_move: Callable
 
 var prev_unit_pos: Vector2i
+var prev_max_distance: int
 var cached_walking_cells: Array[Vector2i]
 
 
@@ -57,8 +58,10 @@ func draw_walking_cells(): # todo if unit change time points without moving, it 
 	var unit_grid_pos := Globals.convert_to_grid_pos(unit_pos)
 	var max_move_distance : int = int(TurnManager.cur_time_points / cur_unit_data.unit_settings.walk_speed) + 1
 
-	if unit_grid_pos != prev_unit_pos:
+	if unit_grid_pos != prev_unit_pos or prev_max_distance != max_move_distance:
 		prev_unit_pos = unit_grid_pos
+		prev_max_distance = max_move_distance
+
 		var path_walking_cells = pathfinding.get_walkable_cells(unit_grid_pos, max_move_distance)
 		var team_visibility_cells = pathfinding.fog_of_war.get_cur_team_visibility()
 		cached_walking_cells = MyMath.arr_intersect(path_walking_cells, team_visibility_cells)
