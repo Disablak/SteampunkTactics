@@ -52,6 +52,8 @@ func _on_unit_died(unit_id, unit_id_killer):
 	GlobalUnits.remove_unit(unit_id)
 	TurnManager.remove_unit_from_order(unit_id)
 
+	shooting.deselect_enemy()
+
 	if TurnManager.check_is_game_over():
 		GlobalsUi.message("Game is Over")
 
@@ -244,8 +246,8 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		return
 
 	var is_shoot_enemy_selected: bool = shooting.selected_enemy != null
-
-	if is_clicked_on_unit and not is_granade_mode and cur_unit_action != Globals.UnitAction.SHOOT and not is_shoot_enemy_selected:
+	var is_clicked_on_new_unit: bool = is_clicked_on_unit and not is_clicked_on_cur_unit and (not is_shoot_enemy_selected or shooting.selected_enemy.id != cell_info.unit_id)
+	if not is_granade_mode and is_clicked_on_new_unit:
 		change_unit_action(Globals.UnitAction.SHOOT)
 		shooting.select_enemy(units[cell_info.unit_id])
 		return

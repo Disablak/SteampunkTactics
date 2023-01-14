@@ -105,6 +105,8 @@ func shoot(shooter: Unit):
 	var hit_type: HitType = _get_shoot_result(shooter)
 	var hitted_obs: CellObject = obstacles.pick_random() if obstacles.size() > 0 else null
 
+	effect_manager.shoot(shooter, selected_enemy, hit_type, cover_hit_pos, hitted_obs)
+
 	match hit_type:
 		HitType.HIT:
 			selected_enemy.unit_data.set_damage(shooter.unit_data.weapon.damage, shooter.id)
@@ -115,9 +117,7 @@ func shoot(shooter: Unit):
 		HitType.HIT_IN_OBS:
 			hitted_obs.set_damage()
 
-	effect_manager.shoot(shooter, selected_enemy, hit_type, cover_hit_pos, hitted_obs)
-
-	if selected_enemy.unit_data.cur_health <= 0:
+	if selected_enemy == null or selected_enemy.unit_data.cur_health <= 0:
 		return
 
 	_detect_obstacles(shooter, selected_enemy)
