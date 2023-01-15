@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://ck586yev76nbj"]
 
 [ext_resource type="Script" path="res://scripts/ui/UnitUi.gd" id="1_vikxc"]
 
@@ -7,6 +7,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 100.0
 offset_bottom = 50.0
+mouse_filter = 1
 script = ExtResource("1_vikxc")
 
 [node name="LabelHp" type="Label" parent="."]

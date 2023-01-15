@@ -43,6 +43,7 @@
 
 [sub_resource type="Resource" id="Resource_6uwan"]
 script = ExtResource("6_l0dtu")
+unit_name = "MyUnit 1"
 is_enemy = false
 max_health = 10.0
 walk_speed = 20
@@ -53,6 +54,7 @@ granade = ExtResource("5_x0ute")
 
 [sub_resource type="Resource" id="Resource_6urcu"]
 script = ExtResource("6_l0dtu")
+unit_name = "EnemyUnit 1"
 is_enemy = true
 max_health = 10.0
 walk_speed = 25

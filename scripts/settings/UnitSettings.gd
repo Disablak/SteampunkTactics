@@ -2,6 +2,7 @@ class_name UnitSettings
 extends Resource
 
 
+@export var unit_name: String = "Unit"
 @export var is_enemy: bool = false
 @export var max_health: float = 20.0
 @export var walk_speed: int = 10 # price for 1 metr

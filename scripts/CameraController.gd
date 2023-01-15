@@ -2,7 +2,7 @@ class_name CameraController
 extends Node2D
 
 
-const PIXEL_TRASH_HOLD = 10
+const PIXEL_TRASH_HOLD = 3
 
 @export var focus_time = 0.2
 @export var drag_sensitive = 0.4
@@ -20,11 +20,14 @@ func camera_is_moving() -> bool:
 
 
 func _ready() -> void:
+	GlobalBus.on_unit_changed_control.connect(focus_camera)
+
 	var bounds: Node2D = get_node(bounds_path)
 	var camera_bound_rect = Rect2(bounds.position, bounds.scale * Globals.CELL_SIZE)
 	_calc_bounds(camera_bound_rect)
 
-	GlobalBus.on_unit_changed_control.connect(focus_camera)
+	var first_unit: Unit = GlobalUnits.get_cur_unit()
+	move_camera(first_unit.unit_object.position, 0.0)
 
 
 func center_camera_between_two_units(unit_first: Unit, unit_second: Unit) -> Signal:

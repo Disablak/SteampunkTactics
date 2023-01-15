@@ -169,6 +169,16 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://scripts/units_manager/ShootingModule.gd"
 }, {
+"base": "Control",
+"class": &"UiSelectedUnitInfo",
+"language": &"GDScript",
+"path": "res://scripts/ui/UiSelectedUnitInfo.gd"
+}, {
+"base": "Control",
+"class": &"UiUnitsList",
+"language": &"GDScript",
+"path": "res://scripts/ui/UiUnitList.gd"
+}, {
 "base": "Node",
 "class": &"Unit",
 "language": &"GDScript",
@@ -247,6 +257,8 @@ _global_script_class_icons={
 "Pathfinding": "",
 "Raycaster": "",
 "ShootingModule": "",
+"UiSelectedUnitInfo": "",
+"UiUnitsList": "",
 "Unit": "",
 "UnitData": "",
 "UnitObject": "",

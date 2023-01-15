@@ -5,8 +5,10 @@
 
 [resource]
 script = ExtResource("1")
+unit_name = "EnemyUnit 0"
 is_enemy = true
 max_health = 15.0
 walk_speed = 25
 initiative = 8
+range_of_view = 5
 weapon = ExtResource("2")

@@ -4,10 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://c11favptg3qfo" path="res://scenes/World2d.tscn" id="2_bb7rw"]
 [ext_resource type="Script" path="res://scripts/ui/BattleUI.gd" id="3_ur4ey"]
 [ext_resource type="Script" path="res://scripts/ui/GUI.gd" id="3_w0484"]
-[ext_resource type="Script" path="res://scripts/ui/UnitsUI.gd" id="4_bhut4"]
-[ext_resource type="PackedScene" path="res://scenes/2d/UnitUi.tscn" id="5_3w331"]
-[ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="5_8dsqb"]
 [ext_resource type="PackedScene" uid="uid://caqxce2hd6oam" path="res://scenes/2d/ui/MessageUI.tscn" id="5_8luf0"]
+[ext_resource type="PackedScene" uid="uid://d6qdqp0vqao0" path="res://scenes/2d/ui/UiUnitInfo.tscn" id="9_6qs1j"]
 [ext_resource type="Shortcut" uid="uid://wn8cqlrakbky" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="9_nq4bl"]
 [ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="10_1t6bt"]
 [ext_resource type="Shortcut" uid="uid://k6ew0hlgd6lf" path="res://data/settings/shortcuts/ShortcutShoot.tres" id="10_rso07"]
@@ -15,6 +13,8 @@
 [ext_resource type="Shortcut" uid="uid://b4ekl04mw6kx6" path="res://data/settings/shortcuts/ShortcutMove.tres" id="12_t2j8x"]
 [ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="12_yd8h8"]
 [ext_resource type="Shortcut" uid="uid://bwiu3ae8k4dfy" path="res://data/settings/shortcuts/ShortcutGranede.tres" id="13_oy2o1"]
+[ext_resource type="PackedScene" uid="uid://br8vyxjhv1p53" path="res://scenes/2d/ui/UiUnitsList.tscn" id="15_ld1lm"]
+[ext_resource type="PackedScene" uid="uid://b4u6fb473yrgx" path="res://scenes/2d/UiSelectedUnitInfo.tscn" id="16_2od7x"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p1tb3")
@@ -45,82 +45,127 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("3_ur4ey")
 
-[node name="UnitsUI" type="Control" parent="GUI/BattleUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-script = ExtResource("4_bhut4")
-unit_ui_scene = ExtResource("5_3w331")
-
 [node name="AlwaysUI" type="CanvasLayer" parent="GUI/BattleUI"]
 
-[node name="TimePointsUI" type="Control" parent="GUI/BattleUI/AlwaysUI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="ColorRectLeft" type="ColorRect" parent="GUI/BattleUI/AlwaysUI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -690.0
+offset_top = -370.0
+offset_right = -270.0
+offset_bottom = 430.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
-script = ExtResource("5_8dsqb")
+color = Color(0.196078, 0.196078, 0.196078, 1)
 
-[node name="ProgressBar" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
-modulate = Color(0.423529, 0.32549, 0.87451, 1)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+[node name="ColorRectRight" type="ColorRect" parent="GUI/BattleUI/AlwaysUI"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -27.0
-grow_horizontal = 2
-grow_vertical = 0
-value = 50.0
-show_percentage = false
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -370.0
+offset_right = 210.0
+offset_bottom = 430.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.196078, 0.196078, 0.196078, 1)
 
-[node name="ProgressBarHint" type="ProgressBar" parent="GUI/BattleUI/AlwaysUI/TimePointsUI"]
-modulate = Color(1, 1, 1, 0.54902)
+[node name="LeftSide" type="Control" parent="GUI/BattleUI/AlwaysUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 210.0
+offset_bottom = 540.0
+
+[node name="UnitInfo" parent="GUI/BattleUI/AlwaysUI/LeftSide" instance=ExtResource("9_6qs1j")]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -27.0
-grow_horizontal = 2
-grow_vertical = 0
-value = 20.0
 
-[node name="BtnNextTurn" type="Button" parent="GUI/BattleUI/AlwaysUI"]
+[node name="UnitAbils" type="ScrollContainer" parent="GUI/BattleUI/AlwaysUI/LeftSide"]
+layout_mode = 0
+offset_top = 220.0
+offset_right = 210.0
+offset_bottom = 540.0
+horizontal_scroll_mode = 0
+
+[node name="Control" type="Control" parent="GUI/BattleUI/AlwaysUI/LeftSide/UnitAbils"]
+layout_mode = 2
+
+[node name="BtnMove" type="Button" parent="GUI/BattleUI/AlwaysUI/LeftSide/UnitAbils/Control"]
 unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = 195.0
+offset_bottom = 45.0
+shortcut = ExtResource("12_t2j8x")
+text = "Move"
+
+[node name="BtnShoot" type="Button" parent="GUI/BattleUI/AlwaysUI/LeftSide/UnitAbils/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 60.0
+offset_right = 195.0
+offset_bottom = 95.0
+shortcut = ExtResource("10_rso07")
+text = "Shoot"
+
+[node name="BtnReload" type="Button" parent="GUI/BattleUI/AlwaysUI/LeftSide/UnitAbils/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 110.0
+offset_right = 195.0
+offset_bottom = 145.0
+shortcut = ExtResource("11_8go74")
+text = "Reload
+"
+
+[node name="BtnGranade" type="Button" parent="GUI/BattleUI/AlwaysUI/LeftSide/UnitAbils/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 160.0
+offset_right = 195.0
+offset_bottom = 195.0
+shortcut = ExtResource("13_oy2o1")
+text = "Granade"
+
+[node name="BtnNextTurn" type="Button" parent="GUI/BattleUI/AlwaysUI/LeftSide/UnitAbils/Control"]
+unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -120.0
-offset_top = -94.0
-offset_right = 1.0
-offset_bottom = -34.0
+offset_left = 15.0
+offset_top = 260.0
+offset_right = 195.0
+offset_bottom = 295.0
 grow_horizontal = 0
 grow_vertical = 0
 shortcut = ExtResource("9_nq4bl")
-text = "Next Turn (T)"
+text = "Next Turn"
 
-[node name="LabelAmmo" type="Label" parent="GUI/BattleUI/AlwaysUI"]
+[node name="RightSide" type="Control" parent="GUI/BattleUI/AlwaysUI"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -210.0
+offset_bottom = 540.0
+grow_horizontal = 0
+
+[node name="UnitsList" parent="GUI/BattleUI/AlwaysUI/RightSide" instance=ExtResource("15_ld1lm")]
 unique_name_in_owner = true
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = -96.0
-offset_right = 204.0
-offset_bottom = -36.0
-grow_vertical = 0
-text = "Ammo: 0/0"
-vertical_alignment = 2
+
+[node name="SelectedUnitInfo" parent="GUI/BattleUI/AlwaysUI/RightSide" instance=ExtResource("16_2od7x")]
+unique_name_in_owner = true
 
 [node name="LabelFPS" type="Label" parent="GUI/BattleUI/AlwaysUI"]
 unique_name_in_owner = true
@@ -133,43 +178,6 @@ grow_horizontal = 0
 text = "fps"
 horizontal_alignment = 2
 
-[node name="BtnMove" type="Button" parent="GUI/BattleUI/AlwaysUI"]
-unique_name_in_owner = true
-offset_left = 9.0
-offset_top = 10.0
-offset_right = 129.0
-offset_bottom = 70.0
-shortcut = ExtResource("12_t2j8x")
-text = "Move"
-
-[node name="BtnShoot" type="Button" parent="GUI/BattleUI/AlwaysUI"]
-unique_name_in_owner = true
-offset_left = 9.0
-offset_top = 82.0
-offset_right = 129.0
-offset_bottom = 142.0
-shortcut = ExtResource("10_rso07")
-text = "Shoot"
-
-[node name="BtnReload" type="Button" parent="GUI/BattleUI/AlwaysUI"]
-unique_name_in_owner = true
-offset_left = 9.0
-offset_top = 155.0
-offset_right = 129.0
-offset_bottom = 215.0
-shortcut = ExtResource("11_8go74")
-text = "Reload
-"
-
-[node name="BtnGranade" type="Button" parent="GUI/BattleUI/AlwaysUI"]
-unique_name_in_owner = true
-offset_left = 9.0
-offset_top = 227.0
-offset_right = 129.0
-offset_bottom = 287.0
-shortcut = ExtResource("13_oy2o1")
-text = "Granade"
-
 [node name="Pointer" type="Sprite2D" parent="GUI/BattleUI"]
 unique_name_in_owner = true
 modulate = Color(0, 0, 0, 1)
@@ -177,10 +185,10 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("10_1t6bt")
 
 [connection signal="on_mouse_hover" from="World/InputSystem" to="GUI/BattleUI" method="_on_input_system_on_mouse_hover"]
-[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnNextTurn" to="World" method="_on_btn_next_turn_button_down"]
-[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnMove" to="World" method="_on_btn_move_button_down"]
-[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnShoot" to="World" method="_on_btn_shoot_button_down"]
-[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnReload" to="World" method="_on_btn_reload_button_down"]
-[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/BtnGranade" to="World" method="_on_btn_granade_button_down"]
+[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/LeftSide/UnitAbils/Control/BtnMove" to="World" method="_on_btn_move_button_down"]
+[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/LeftSide/UnitAbils/Control/BtnShoot" to="World" method="_on_btn_shoot_button_down"]
+[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/LeftSide/UnitAbils/Control/BtnReload" to="World" method="_on_btn_reload_button_down"]
+[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/LeftSide/UnitAbils/Control/BtnGranade" to="World" method="_on_btn_granade_button_down"]
+[connection signal="button_down" from="GUI/BattleUI/AlwaysUI/LeftSide/UnitAbils/Control/BtnNextTurn" to="World" method="_on_btn_next_turn_button_down"]
 
 [editable path="World"]
