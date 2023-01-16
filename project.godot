@@ -298,7 +298,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/script-name-on-top/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/script-name-on-top/plugin.cfg", "res://addons/quick_script_change/plugin.cfg")
 
 [input]
 
