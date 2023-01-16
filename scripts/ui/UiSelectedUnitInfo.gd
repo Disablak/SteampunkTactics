@@ -15,7 +15,8 @@ func init():
 
 
 func set_text(text):
-	rich_text_label.text = text
+	clear()
+	rich_text_label.add_text(text)
 
 
 func clear():
