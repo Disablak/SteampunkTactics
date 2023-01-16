@@ -80,7 +80,9 @@ func drag(vector_move: Vector2) -> void:
 
 func _calc_bounds(camera_bound_rect: Rect2):
 	var half_bound_size := camera_bound_rect.size / 2
-	var half_camera_size := get_viewport_rect().size / get_viewport().get_camera_2d().zoom / 2
+	var viewport_height := get_viewport_rect().size.y
+	var square_viewport_size := Vector2(viewport_height, viewport_height)
+	var half_camera_size := square_viewport_size / get_viewport().get_camera_2d().zoom / 2
 
 	bounds_min.x = -half_bound_size.x + camera_bound_rect.position.x + half_camera_size.x
 	bounds_min.y = -half_bound_size.y + camera_bound_rect.position.y + half_camera_size.y
