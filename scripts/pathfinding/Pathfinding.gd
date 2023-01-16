@@ -1,3 +1,4 @@
+@tool
 class_name Pathfinding
 extends Node2D
 
@@ -15,6 +16,14 @@ signal on_clicked_cell(cell_info: CellInfo)
 @export var root_walk_hint: Node2D
 @export var root_walk_cells: Node2D
 @export var root_obs_cells: Node2D
+
+@export_group("Walking cells setting")
+@export var scene_walk_cell: PackedScene
+@export var offset_spawn_cells: Vector2i
+@export var walk_field_size: Vector2i
+@export var spawn: bool: set = _tool_spawn_walk_cells
+
+
 
 const CELL_OFFSETS = [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(0, 1)]
 
@@ -56,8 +65,28 @@ func _draw_debug() -> void:
 			debug_lines.append(line)
 
 
+func _tool_spawn_walk_cells(tmp):
+	if not Engine.is_editor_hint():
+		return
+
+	var root: Node2D = $RootWalkCells
+
+	for child in root.get_children():
+		child.queue_free()
+
+	for x in range(0, walk_field_size.x):
+		for y in range(0, walk_field_size.y):
+			var spawned: Node2D = scene_walk_cell.instantiate()
+			root.add_child(spawned)
+			spawned.set_owner(get_tree().edited_scene_root)
+
+			spawned.position = offset_spawn_cells + Vector2i(x, y) * Globals.CELL_SIZE
+
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
 	GlobalBus.on_cell_broke.connect(_on_cell_broke)
 
 	_connect_walkable_cells()
