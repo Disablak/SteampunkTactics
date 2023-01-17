@@ -21,9 +21,6 @@ func inject_data(line2d_manager: Line2dManager):
 
 
 func shoot(from: Unit, to: Unit, hit_type: ShootingModule.HitType, cover_pos: Vector2, random_obs: CellObject):
-	var new_instance: Node2D = bullet_scene.instantiate()
-	add_child(new_instance)
-
 	var from_pos: Vector2 = from.unit_object.position
 	var to_pos: Vector2 = to.unit_object.position
 
