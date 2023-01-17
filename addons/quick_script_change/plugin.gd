@@ -2,7 +2,7 @@
 extends EditorPlugin
 
 
-const scene_input: PackedScene = preload("res://addons/quick_script_change/QuickChangePopup.tscn")
+const scene_popup: PackedScene = preload("res://addons/quick_script_change/QuickChangePopup.tscn")
 const KEY_TO_CALL_POPUP = KEY_SHIFT
 const MS_DETECT_INPUT = 300
 const RECENTLY_SCRIPTS_COUNT = 10
@@ -21,7 +21,7 @@ var recently_scripts: Array[String]
 
 
 func _enter_tree() -> void:
-	popup = scene_input.instantiate()
+	popup = scene_popup.instantiate()
 	text_edit = popup.get_child(0).get_child(0) as LineEdit
 	scroll_container = popup.get_child(0).get_child(1).get_child(0) as Control
 
