@@ -11,12 +11,12 @@ var _dockUI : Dock
 class TodoCacheValue:
 	var todos: Array
 	var last_modified_time: int
-	
+
 	func _init(todos: Array, last_modified_time: int):
 		self.todos = todos
 		self.last_modified_time = last_modified_time
 
-var todo_cache : Dictionary # { key: script_path, value: TodoCacheValue } 
+var todo_cache : Dictionary # { key: script_path, value: TodoCacheValue }
 var remove_queue : Array
 var combined_pattern : String
 
@@ -26,7 +26,7 @@ var refresh_lock := false # makes sure _on_filesystem_changed only triggers once
 func _enter_tree() -> void:
 	_dockUI = DockScene.instantiate() as Control
 	add_control_to_bottom_panel(_dockUI, "TODO")
-	get_editor_interface().get_resource_filesystem().connect("filesystem_changed", 
+	get_editor_interface().get_resource_filesystem().connect("filesystem_changed",
 			_on_filesystem_changed)
 	get_editor_interface().get_file_system_dock().connect("file_removed", queue_remove)
 	get_editor_interface().get_script_editor().connect("editor_script_changed",
@@ -112,10 +112,10 @@ func create_todo_item(regex_results: Array[RegExMatch], text: String, script_pat
 					break
 			if should_break:
 				break
-			
+
 			new_todo.content += "\n" + lines[trailing_line]
 			trailing_line += 1
-		
+
 		last_line_number = new_todo.line_number
 		todo_item.todos.append(new_todo)
 	cache_todos(todo_item.todos, script_path)
@@ -138,7 +138,7 @@ func update_todo_item(todo_item: TodoItem, regex_results: Array[RegExMatch], tex
 					break
 			if should_break:
 				break
-			
+
 			new_todo.content += "\n" + lines[trailing_line]
 			trailing_line += 1
 		todo_item.todos.append(new_todo)
@@ -176,7 +176,7 @@ func find_scripts() -> Array[String]:
 		get_dir_contents(dir, scripts, directory_queue)
 	else:
 		printerr("TODO_Manager: There was an error during find_scripts() ### First Phase ###")
-	
+
 	### SECOND PHASE ###
 	while not directory_queue.is_empty():
 		if dir.change_dir(directory_queue[0]) == OK:
@@ -184,7 +184,7 @@ func find_scripts() -> Array[String]:
 		else:
 			printerr("TODO_Manager: There was an error at: " + directory_queue[0])
 		directory_queue.pop_front()
-	
+
 	return scripts
 
 
@@ -205,7 +205,7 @@ func get_dir_contents(dir: DirAccess, scripts: Array[String], directory_queue: A
 	dir.include_hidden = false
 	dir.list_dir_begin()
 	var file_name : String = dir.get_next()
-	
+
 	while file_name != "":
 		if dir.current_is_dir():
 			if file_name == ".import" or file_name == ".mono": # Skip .import folder which should never have scripts
@@ -245,7 +245,7 @@ func combine_patterns(patterns: Array[Array]) -> String:
 				pattern_string += "|" + patterns[i][0]
 		pattern_string += ")(?(2)[\\s\\S]*?\\*\\/|.*)"
 #			if i == 0:
-##				pattern_string = "#\\s*" + patterns[i][0] + ".*"		
+##				pattern_string = "#\\s*" + patterns[i][0] + ".*"
 #				pattern_string = "((\\/\\*)|(#|\\/\\/))\\s*" + patterns[i][0] + ".*" 		# (?(2)[\\s\\S]*?\\*\\/|.*)
 #			else:
 ##				pattern_string += "|" + "#\\s*" + patterns[i][0]  + ".*"
@@ -266,7 +266,7 @@ func create_todo(todo_string: String, script_path: String) -> Todo:
 				continue
 		else:
 			printerr("Error compiling " + pattern[0])
-	
+
 	todo.content = todo_string
 	todo.script_path = script_path
 	return todo
