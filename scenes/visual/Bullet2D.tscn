@@ -1,9 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bncbloimsnrob"]
+[gd_scene load_steps=3 format=3 uid="uid://bncbloimsnrob"]
 
-[ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="1_r3xoq"]
+[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="1_ndf2q"]
+[ext_resource type="PackedScene" uid="uid://6yx286e2ar0p" path="res://scenes/visual/Trail.tscn" id="2_23wh4"]
 
 [node name="Bullet2d" type="Sprite2D"]
-modulate = Color(1, 0.301961, 0.109804, 1)
+self_modulate = Color(1, 1, 1, 0)
 position = Vector2(409, 277.5)
-scale = Vector2(1, 0.2)
-texture = ExtResource("1_r3xoq")
+texture = ExtResource("1_ndf2q")
+
+[node name="Trail" parent="." instance=ExtResource("2_23wh4")]
+width = 3.0
+default_color = Color(1, 1, 0.572549, 1)
+length = 100

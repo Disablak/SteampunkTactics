@@ -8,7 +8,7 @@ extends Node2D
 
 signal on_moved_obj_to_points()
 
-const BULLET_SPEED = 1500
+const BULLET_SPEED = 2500
 const SHOOT_MISS_POS_LERP = [0.0, 0.1, 0.2, 0.3, 0.7, 0.8, 0.9, 1.0]
 const MISSED_BULLET_DISTANCE = 1000
 const MISS_MAX_BULLET_OFFSET = 5
@@ -33,11 +33,21 @@ func shoot(from: Unit, to: Unit, hit_type: ShootingModule.HitType, cover_pos: Ve
 
 	await GlobalsUi.input_system.camera_controller.center_camera_between_two_units(from, to)
 
-	var points = PackedVector2Array([from_pos, to_pos])
-	var line = _line2d_manager.draw_shoot_ray(points)
-	await Globals.create_timer_and_get_signal(0.05)
+	var new_instance: Node2D = bullet_scene.instantiate()
+	add_child(new_instance)
 
-	_line2d_manager.clear_shoot_ray()
+	new_instance.position = from_pos
+	new_instance.look_at(to_pos)
+
+	var distance = from_pos.distance_to(to_pos)
+	var time = distance / BULLET_SPEED
+
+	var tween: Tween = create_tween()
+	tween.tween_property(
+		new_instance, "position",
+		to_pos, time
+	)
+	tween.tween_callback(Callable(new_instance,"queue_free"))
 
 
 func _get_little_wrong_shoot_direction(shoot_vector: Vector2) -> Vector2:
