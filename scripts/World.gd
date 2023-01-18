@@ -35,7 +35,7 @@ func cur_unit_shoot_to_visible_enemy():
 
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
-	units_manager.change_unit_action(Globals.UnitAction.SHOOT)
+	units_manager.change_unit_action(UnitSettings.Abilities.SHOOT)
 	units_manager.shooting.select_enemy(random_visible_unit)
 	await Globals.create_timer_and_get_signal(1.0)
 
@@ -45,7 +45,7 @@ func cur_unit_shoot_to_visible_enemy():
 	units_manager.shooting.shoot(GlobalUnits.get_cur_unit())
 	await Globals.create_timer_and_get_signal(1.2)
 
-	units_manager.change_unit_action(Globals.UnitAction.NONE)
+	units_manager.change_unit_action(UnitSettings.Abilities.NONE)
 	units_manager.next_turn()
 
 
@@ -62,24 +62,24 @@ func walk_to_rand_cell():
 		printerr("No walking cells")
 	else:
 		var random_cell := walking_cells[randi_range(0, walking_cells.size() - 1)]
-		units_manager.change_unit_action(Globals.UnitAction.WALK)
+		units_manager.change_unit_action(UnitSettings.Abilities.WALK)
 		units_manager.try_move_unit_to_cell(random_cell)
 		await unit_walking.on_finished_move
 
-	units_manager.change_unit_action(Globals.UnitAction.NONE)
+	units_manager.change_unit_action(UnitSettings.Abilities.NONE)
 	units_manager.next_turn()
 
 
 func _on_btn_granade_button_down() -> void:
-	units_manager.change_unit_action_with_enable(Globals.UnitAction.GRANADE, true)
+	units_manager.change_unit_action_with_enable(UnitSettings.Abilities.GRENADE, true)
 
 
 func _on_btn_move_button_down() -> void:
-	units_manager.change_unit_action_with_enable(Globals.UnitAction.WALK, true)
+	units_manager.change_unit_action_with_enable(UnitSettings.Abilities.WALK, true)
 
 
 func _on_btn_shoot_button_down() -> void:
-	units_manager.change_unit_action_with_enable(Globals.UnitAction.SHOOT, true)
+	units_manager.change_unit_action_with_enable(UnitSettings.Abilities.SHOOT, true)
 
 
 func _on_btn_reload_button_down() -> void:

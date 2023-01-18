@@ -21,7 +21,7 @@ var cur_unit_id = -1
 var cur_unit_data: UnitData
 var cur_unit_object: UnitObject
 
-var cur_unit_action: Globals.UnitAction = Globals.UnitAction.NONE
+var cur_unit_action: UnitSettings.Abilities = UnitSettings.Abilities.NONE
 
 
 func _ready() -> void:
@@ -145,42 +145,48 @@ func change_unit_action_with_enable(unit_action, enable):
 	var future_action
 
 	if unit_action == cur_unit_action or not enable:
-		future_action = Globals.UnitAction.NONE;
+		future_action = UnitSettings.Abilities.NONE;
 	else:
 		future_action = unit_action
 
 	change_unit_action(future_action)
 
 
-func change_unit_action(unit_action: Globals.UnitAction):
+func change_unit_action(unit_action: UnitSettings.Abilities) -> bool:
+	if unit_action != UnitSettings.Abilities.NONE and not cur_unit_data.unit_settings.abilities.has(unit_action):
+		GlobalsUi.message("Unit dont have ability: {0}".format([unit_action]))
+		return false
+
 	cur_unit_action = unit_action
 
 	clear_all_lines()
 	walking.clear_walking_cells()
 
 	match unit_action:
-		Globals.UnitAction.NONE:
+		UnitSettings.Abilities.NONE:
 			TurnManager.show_hint_spend_points(0)
 
-		Globals.UnitAction.WALK:
+		UnitSettings.Abilities.WALK:
 			walking.draw_walking_cells()
 
-		Globals.UnitAction.SHOOT:
+		UnitSettings.Abilities.SHOOT:
 			pass
 
-		Globals.UnitAction.RELOAD:
+		UnitSettings.Abilities.RELOAD:
 			TurnManager.show_hint_spend_points(cur_unit_data.weapon.reload_price)
 
-		Globals.UnitAction.GRANADE:
+		UnitSettings.Abilities.GRENADE:
 			pass
 
 		_:
 			printerr("change unit action not implemented for {0}".format([unit_action]))
 
-	if cur_unit_action != Globals.UnitAction.SHOOT:
+	if cur_unit_action != UnitSettings.Abilities.SHOOT:
 		shooting.deselect_enemy()
 
 	GlobalBus.on_unit_changed_action.emit(cur_unit_id, unit_action)
+
+	return true
 
 
 func reload_weapon():
@@ -193,8 +199,8 @@ func clear_all_lines():
 	line2d_manager.clear_trajectory()
 
 
-func try_move_unit_to_cell(cell_pos: Vector2):
-	walking.move_unit(_get_path_to_cell(cell_pos))
+func try_move_unit_to_cell(grid_pos: Vector2):
+	walking.move_unit(_get_path_to_cell(grid_pos))
 
 
 func _get_path_to_cell(grid_pos: Vector2i) -> Array[Vector2i]:
@@ -239,7 +245,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 
 	var is_clicked_on_unit = cell_info.unit_id != -1
 	var is_clicked_on_cur_unit = is_clicked_on_unit and cell_info.unit_id == cur_unit_id
-	var is_granade_mode = cur_unit_action == Globals.UnitAction.GRANADE
+	var is_granade_mode = cur_unit_action == UnitSettings.Abilities.GRENADE
 
 	if is_clicked_on_cur_unit:
 		GlobalsUi.message("clicked on cur unit")
@@ -248,11 +254,11 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	var is_shoot_enemy_selected: bool = shooting.selected_enemy != null
 	var is_clicked_on_new_unit: bool = is_clicked_on_unit and not is_clicked_on_cur_unit and (not is_shoot_enemy_selected or shooting.selected_enemy.id != cell_info.unit_id)
 	if not is_granade_mode and is_clicked_on_new_unit:
-		change_unit_action(Globals.UnitAction.SHOOT)
-		shooting.select_enemy(units[cell_info.unit_id])
+		if change_unit_action(UnitSettings.Abilities.SHOOT):
+			shooting.select_enemy(units[cell_info.unit_id])
 		return
 
-	if is_clicked_on_unit and not is_granade_mode and cur_unit_action == Globals.UnitAction.SHOOT and is_shoot_enemy_selected:
+	if is_clicked_on_unit and not is_granade_mode and cur_unit_action == UnitSettings.Abilities.SHOOT and is_shoot_enemy_selected:
 		shooting.shoot(units[cur_unit_id])
 		clear_all_lines()
 		return
@@ -264,13 +270,12 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 			clear_all_lines()
 		return
 
-	if is_clicked_on_ground and cur_unit_action != Globals.UnitAction.WALK:
-		change_unit_action(Globals.UnitAction.WALK)
+	if is_clicked_on_ground and cur_unit_action != UnitSettings.Abilities.WALK:
+		change_unit_action(UnitSettings.Abilities.WALK)
 		return
 
-	if is_clicked_on_ground and cur_unit_action == Globals.UnitAction.WALK and not is_clicked_on_unit and walking.can_move_here(cell_info.grid_pos):
-		var path: Array[Vector2i] = _get_path_to_cell(cell_info.grid_pos)
-		walking.move_unit(path)
+	if is_clicked_on_ground and cur_unit_action == UnitSettings.Abilities.WALK and not is_clicked_on_unit and walking.can_move_here(cell_info.grid_pos):
+		try_move_unit_to_cell(cell_info.grid_pos)
 		return
 
 
@@ -299,10 +304,10 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		clear_all_lines()
 		return
 
-	if cur_unit_action == Globals.UnitAction.WALK and cell_info.unit_id == -1:
+	if cur_unit_action == UnitSettings.Abilities.WALK and cell_info.unit_id == -1:
 		_draw_future_path(cell_info.grid_pos)
 
-	if cur_unit_action == Globals.UnitAction.GRANADE:
+	if cur_unit_action == UnitSettings.Abilities.GRENADE:
 		_draw_trejectory_granade(cell_info.grid_pos)
 
 
@@ -310,5 +315,5 @@ func _on_input_system_on_pressed_esc() -> void:
 	if cur_unit_data.unit_settings.is_enemy:
 		return
 
-	change_unit_action(Globals.UnitAction.NONE)
+	change_unit_action(UnitSettings.Abilities.NONE)
 

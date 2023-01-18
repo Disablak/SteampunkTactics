@@ -1,23 +1,6 @@
 extends Node
 
 
-enum AnimationType{
-	NONE,
-	IDLE,
-	WALKING,
-	SHOOTING,
-	HIT,
-	RELOADING,
-}
-
-enum UnitAction{
-	NONE,
-	WALK,
-	SHOOT,
-	RELOAD,
-	GRANADE
-}
-
 var CELL_AREA_3x3: Array[Vector2i] = [
 	Vector2i.ZERO, Vector2i.LEFT, Vector2i.RIGHT,
 	Vector2i.UP, Vector2i.DOWN, Vector2i(1, 1),
