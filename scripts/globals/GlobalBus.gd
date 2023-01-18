@@ -14,3 +14,5 @@ signal on_changed_time_points(type_spend_action, cur_points, max_points)
 signal on_hint_time_points(cur_points, max_points)
 
 signal on_finished_turn()
+
+signal on_change_camera_zoom(zoom: float)

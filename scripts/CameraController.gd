@@ -10,6 +10,7 @@ const PIXEL_TRASH_HOLD = 3
 
 var tween_move: Tween
 
+var sensetive: float
 var bounds_min: Vector2
 var bounds_max: Vector2
 
@@ -21,10 +22,9 @@ func camera_is_moving() -> bool:
 
 func _ready() -> void:
 	GlobalBus.on_unit_changed_control.connect(focus_camera)
+	GlobalBus.on_change_camera_zoom.connect(_on_camera_zoom_changed)
 
-	var bounds: Node2D = get_node(bounds_path)
-	var camera_bound_rect = Rect2(bounds.position, bounds.scale * Globals.CELL_SIZE)
-	_calc_bounds(camera_bound_rect)
+	_calc_bounds()
 
 	var first_unit: Unit = GlobalUnits.get_cur_unit()
 	move_camera(first_unit.unit_object.position, 0.0)
@@ -74,15 +74,21 @@ func is_camera_moving() -> bool:
 
 
 func drag(vector_move: Vector2) -> void:
-	var new_pos = position + vector_move * drag_sensitive
+	var new_pos = position + vector_move * sensetive
 	position = _clamp_pos_in_bounds(new_pos)
 
 
-func _calc_bounds(camera_bound_rect: Rect2):
+func _calc_bounds():
+	var bounds: Node2D = get_node(bounds_path)
+	var camera_bound_rect := Rect2(bounds.position, bounds.scale * Globals.CELL_SIZE)
+
+	var zoom = get_viewport().get_camera_2d().zoom
+	sensetive = drag_sensitive / zoom.x
+
 	var half_bound_size := camera_bound_rect.size / 2
 	var viewport_height := get_viewport_rect().size.y
 	var square_viewport_size := Vector2(viewport_height, viewport_height)
-	var half_camera_size := square_viewport_size / get_viewport().get_camera_2d().zoom / 2
+	var half_camera_size := square_viewport_size / zoom / 2
 
 	bounds_min.x = -half_bound_size.x + camera_bound_rect.position.x + half_camera_size.x
 	bounds_min.y = -half_bound_size.y + camera_bound_rect.position.y + half_camera_size.y
@@ -93,4 +99,8 @@ func _calc_bounds(camera_bound_rect: Rect2):
 func _clamp_pos_in_bounds(pos: Vector2) -> Vector2:
 	return Vector2(clampf(pos.x, bounds_min.x, bounds_max.x), clampf(pos.y, bounds_min.y, bounds_max.y))
 
+
+func _on_camera_zoom_changed(zoom: float):
+	get_viewport().get_camera_2d().zoom = Vector2(zoom, zoom)
+	_calc_bounds()
 

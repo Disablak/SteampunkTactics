@@ -6,6 +6,10 @@ extends Control
 
 @onready var btn_shoot: Button = get_node("%BtnShoot")
 
+@onready var btn_zoom_100: Button = %BtnZoom100
+@onready var btn_zoom_150: Button = %BtnZoom150
+@onready var btn_zoom_200: Button = %BtnZoom200
+
 @onready var unit_abilities: UiUnitAbilities = get_node("%UnitAbils") as UiUnitAbilities
 @onready var units_list: UiUnitsList = get_node("%UnitsList") as UiUnitsList
 
@@ -13,6 +17,10 @@ extends Control
 func _ready() -> void:
 	GlobalBus.on_unit_changed_ammo.connect(_on_unit_changed_ammo)
 	GlobalBus.on_unit_changed_control.connect(_on_unit_change_control)
+
+	btn_zoom_100.pressed.connect(func(): _change_camera_zoom(2))
+	btn_zoom_150.pressed.connect(func(): _change_camera_zoom(1.5))
+	btn_zoom_200.pressed.connect(func(): _change_camera_zoom(1))
 
 
 func _process(delta: float) -> void:
@@ -24,6 +32,10 @@ func init():
 
 	unit_abilities.init(GlobalUnits.get_cur_unit().unit_data)
 	units_list.init(TurnManager.order_unit_id)
+
+
+func _change_camera_zoom(zoom: float):
+	GlobalBus.on_change_camera_zoom.emit(zoom)
 
 
 func _on_unit_change_control(unit_id, instantly):
