@@ -7,7 +7,7 @@ extends Control
 @export var path_message_spawn: NodePath
 
 @onready var battle_ui = get_node("BattleUI")
-@onready var selected_unit_info: UiSelectedUnitInfo = get_node("%SelectedUnitInfo")
+
 
 var tooltip: Control
 var message: Control
@@ -33,7 +33,6 @@ func _ready() -> void:
 
 func init():
 	battle_ui.init()
-	selected_unit_info.init()
 
 
 func _on_unit_died(unit_id: int, killer_id: int):

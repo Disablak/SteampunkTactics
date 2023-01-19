@@ -4,6 +4,8 @@ class_name UnitObject
 
 @onready var main_sprite := $Sprite2d as Sprite2D
 
+@export var unit_settings: UnitSettings
+
 var unit_id = -1
 var main_material: Material
 var is_visible := true

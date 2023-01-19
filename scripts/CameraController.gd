@@ -24,6 +24,8 @@ func _ready() -> void:
 	GlobalBus.on_unit_changed_control.connect(focus_camera)
 	GlobalBus.on_change_camera_zoom.connect(_on_camera_zoom_changed)
 
+
+func init():
 	_calc_bounds()
 
 	var first_unit: Unit = GlobalUnits.get_cur_unit()

@@ -1,0 +1,315 @@
+[gd_scene load_steps=13 format=3 uid="uid://qhv5ima0e20g"]
+
+[ext_resource type="PackedScene" uid="uid://dxtwt22vjkgto" path="res://scenes/2d/levels/BaseLevel.tscn" id="1_i4jgl"]
+[ext_resource type="Texture2D" uid="uid://c7asmn0oa7pdb" path="res://content/sprites/ground/tree_1.png" id="2_mkjro"]
+[ext_resource type="Texture2D" uid="uid://dof2jrvgqdrpv" path="res://content/sprites/ground/tree_detal_0.png" id="3_3ar03"]
+[ext_resource type="Texture2D" uid="uid://3o6gsr36ur05" path="res://content/sprites/ground/tree_detal_1.png" id="4_lr2js"]
+[ext_resource type="Texture2D" uid="uid://ddr608qbr4ykw" path="res://content/sprites/ground/tree_detal_2.png" id="5_31g11"]
+[ext_resource type="PackedScene" uid="uid://btsgjp8qovvak" path="res://scenes/cells/CellWallVert.tscn" id="6_xsflr"]
+[ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/CellWallHori.tscn" id="7_dg7v7"]
+[ext_resource type="PackedScene" uid="uid://ddpb4xv6nbkkc" path="res://scenes/cells/CellCover.tscn" id="8_7yt4i"]
+[ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellTree.tscn" id="9_n2dhw"]
+[ext_resource type="PackedScene" uid="uid://2ikcthg31xdg" path="res://scenes/2d/UnitObject.tscn" id="10_ddu4q"]
+[ext_resource type="Resource" uid="uid://ce4x8ilct2imn" path="res://data/settings/unit/unit_setting0.tres" id="11_q6y2d"]
+[ext_resource type="Resource" uid="uid://mn2771n5e5qo" path="res://data/settings/unit/unit_setting_enemy.tres" id="12_u34wp"]
+
+[node name="Playground" instance=ExtResource("1_i4jgl")]
+
+[node name="Visual@Grass" type="Sprite2D" parent="RootVisual" index="2"]
+texture_filter = 1
+position = Vector2(405, 349)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass2" type="Sprite2D" parent="RootVisual" index="3"]
+texture_filter = 1
+position = Vector2(414, 358)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass3" type="Sprite2D" parent="RootVisual" index="4"]
+texture_filter = 1
+position = Vector2(425, 366)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass4" type="Sprite2D" parent="RootVisual" index="5"]
+texture_filter = 1
+position = Vector2(415, 377)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass5" type="Sprite2D" parent="RootVisual" index="6"]
+texture_filter = 1
+position = Vector2(399, 369)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass6" type="Sprite2D" parent="RootVisual" index="7"]
+texture_filter = 1
+position = Vector2(389, 359)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass7" type="Sprite2D" parent="RootVisual" index="8"]
+texture_filter = 1
+position = Vector2(394, 351)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass8" type="Sprite2D" parent="RootVisual" index="9"]
+texture_filter = 1
+position = Vector2(427, 385)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass9" type="Sprite2D" parent="RootVisual" index="10"]
+texture_filter = 1
+position = Vector2(435, 396)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass10" type="Sprite2D" parent="RootVisual" index="11"]
+texture_filter = 1
+position = Vector2(441, 408)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass11" type="Sprite2D" parent="RootVisual" index="12"]
+texture_filter = 1
+position = Vector2(445, 400)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass12" type="Sprite2D" parent="RootVisual" index="13"]
+texture_filter = 1
+position = Vector2(442, 384)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass13" type="Sprite2D" parent="RootVisual" index="14"]
+texture_filter = 1
+position = Vector2(439, 377)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass14" type="Sprite2D" parent="RootVisual" index="15"]
+texture_filter = 1
+position = Vector2(433, 368)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass15" type="Sprite2D" parent="RootVisual" index="16"]
+texture_filter = 1
+position = Vector2(492, 535)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass16" type="Sprite2D" parent="RootVisual" index="17"]
+texture_filter = 1
+position = Vector2(496, 528)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass17" type="Sprite2D" parent="RootVisual" index="18"]
+texture_filter = 1
+position = Vector2(503, 519)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass18" type="Sprite2D" parent="RootVisual" index="19"]
+texture_filter = 1
+position = Vector2(516, 516)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass19" type="Sprite2D" parent="RootVisual" index="20"]
+texture_filter = 1
+position = Vector2(532, 517)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass20" type="Sprite2D" parent="RootVisual" index="21"]
+texture_filter = 1
+position = Vector2(550, 520)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass21" type="Sprite2D" parent="RootVisual" index="22"]
+texture_filter = 1
+position = Vector2(569, 518)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass22" type="Sprite2D" parent="RootVisual" index="23"]
+texture_filter = 1
+position = Vector2(587, 518)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass23" type="Sprite2D" parent="RootVisual" index="24"]
+texture_filter = 1
+position = Vector2(585, 529)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass24" type="Sprite2D" parent="RootVisual" index="25"]
+texture_filter = 1
+position = Vector2(572, 533)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass25" type="Sprite2D" parent="RootVisual" index="26"]
+texture_filter = 1
+position = Vector2(560, 537)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass26" type="Sprite2D" parent="RootVisual" index="27"]
+texture_filter = 1
+position = Vector2(546, 543)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass27" type="Sprite2D" parent="RootVisual" index="28"]
+texture_filter = 1
+position = Vector2(533, 550)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass28" type="Sprite2D" parent="RootVisual" index="29"]
+texture_filter = 1
+position = Vector2(518, 555)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass29" type="Sprite2D" parent="RootVisual" index="30"]
+texture_filter = 1
+position = Vector2(504, 563)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass30" type="Sprite2D" parent="RootVisual" index="31"]
+texture_filter = 1
+position = Vector2(489, 565)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass31" type="Sprite2D" parent="RootVisual" index="32"]
+texture_filter = 1
+position = Vector2(477, 565)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass32" type="Sprite2D" parent="RootVisual" index="33"]
+texture_filter = 1
+position = Vector2(471, 556)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass33" type="Sprite2D" parent="RootVisual" index="34"]
+texture_filter = 1
+position = Vector2(465, 544)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass34" type="Sprite2D" parent="RootVisual" index="35"]
+texture_filter = 1
+position = Vector2(458, 532)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass35" type="Sprite2D" parent="RootVisual" index="36"]
+texture_filter = 1
+position = Vector2(467, 525)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass36" type="Sprite2D" parent="RootVisual" index="37"]
+texture_filter = 1
+position = Vector2(480, 520)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass37" type="Sprite2D" parent="RootVisual" index="38"]
+texture_filter = 1
+position = Vector2(492, 520)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass38" type="Sprite2D" parent="RootVisual" index="39"]
+texture_filter = 1
+position = Vector2(481, 539)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass39" type="Sprite2D" parent="RootVisual" index="40"]
+texture_filter = 1
+position = Vector2(491, 549)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass40" type="Sprite2D" parent="RootVisual" index="41"]
+texture_filter = 1
+position = Vector2(511, 542)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass41" type="Sprite2D" parent="RootVisual" index="42"]
+texture_filter = 1
+position = Vector2(522, 533)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass42" type="Sprite2D" parent="RootVisual" index="43"]
+texture_filter = 1
+position = Vector2(539, 533)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Grass43" type="Sprite2D" parent="RootVisual" index="44"]
+texture_filter = 1
+position = Vector2(594, 522)
+texture = ExtResource("2_mkjro")
+
+[node name="Visual@Flower" type="Sprite2D" parent="RootVisual" index="45"]
+texture_filter = 1
+position = Vector2(389, 359)
+texture = ExtResource("3_3ar03")
+
+[node name="Visual@Flower2" type="Sprite2D" parent="RootVisual" index="46"]
+texture_filter = 1
+position = Vector2(386, 362)
+texture = ExtResource("4_lr2js")
+
+[node name="Visual@Flower3" type="Sprite2D" parent="RootVisual" index="47"]
+texture_filter = 1
+position = Vector2(462, 536)
+texture = ExtResource("4_lr2js")
+
+[node name="Visual@Flower4" type="Sprite2D" parent="RootVisual" index="48"]
+texture_filter = 1
+position = Vector2(464, 545)
+texture = ExtResource("4_lr2js")
+flip_h = true
+
+[node name="Visual@Flower5" type="Sprite2D" parent="RootVisual" index="49"]
+texture_filter = 1
+position = Vector2(468, 539)
+texture = ExtResource("5_31g11")
+
+[node name="Visual@Flower6" type="Sprite2D" parent="RootVisual" index="50"]
+texture_filter = 1
+position = Vector2(544, 541)
+texture = ExtResource("5_31g11")
+
+[node name="VerticalWall3" parent="RootObsCells" index="0" instance=ExtResource("6_xsflr")]
+position = Vector2(512, 384)
+
+[node name="VerticalWall6" parent="RootObsCells" index="1" instance=ExtResource("6_xsflr")]
+position = Vector2(512, 416)
+
+[node name="VerticalWall7" parent="RootObsCells" index="2" instance=ExtResource("6_xsflr")]
+position = Vector2(512, 512)
+
+[node name="VerticalWall4" parent="RootObsCells" index="3" instance=ExtResource("6_xsflr")]
+position = Vector2(512, 576)
+
+[node name="VerticalWall5" parent="RootObsCells" index="4" instance=ExtResource("6_xsflr")]
+position = Vector2(512, 320)
+
+[node name="HorizontalWall" parent="RootObsCells" index="5" instance=ExtResource("7_dg7v7")]
+position = Vector2(544, 576)
+
+[node name="HorizontalWall2" parent="RootObsCells" index="6" instance=ExtResource("7_dg7v7")]
+position = Vector2(512, 352)
+
+[node name="HorizontalWall3" parent="RootObsCells" index="7" instance=ExtResource("7_dg7v7")]
+position = Vector2(480, 352)
+
+[node name="HorizontalWall4" parent="RootObsCells" index="8" instance=ExtResource("7_dg7v7")]
+position = Vector2(544, 416)
+
+[node name="Cover" parent="RootObsCells" index="9" instance=ExtResource("8_7yt4i")]
+position = Vector2(512, 480)
+
+[node name="Cover3" parent="RootObsCells" index="10" instance=ExtResource("8_7yt4i")]
+position = Vector2(512, 544)
+
+[node name="Cover2" parent="RootObsCells" index="11" instance=ExtResource("8_7yt4i")]
+position = Vector2(416, 512)
+
+[node name="CellTreeNew" parent="RootObsCells" index="12" instance=ExtResource("9_n2dhw")]
+position = Vector2(544, 416)
+
+[node name="CellTreeNew4" parent="RootObsCells" index="13" instance=ExtResource("9_n2dhw")]
+position = Vector2(416, 352)
+
+[node name="CellTreeNew3" parent="RootObsCells" index="14" instance=ExtResource("9_n2dhw")]
+position = Vector2(576, 512)
+
+[node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("10_ddu4q")]
+position = Vector2(416, 448)
+unit_settings = ExtResource("11_q6y2d")
+
+[node name="UnitObject2" parent="RootUnits" index="1" instance=ExtResource("10_ddu4q")]
+position = Vector2(640, 448)
+unit_settings = ExtResource("12_u34wp")

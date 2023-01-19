@@ -10,8 +10,10 @@ extends Control
 @onready var btn_zoom_150: Button = %BtnZoom150
 @onready var btn_zoom_200: Button = %BtnZoom200
 
+@onready var unit_info: UiUnitInfo = get_node("%UnitInfo") as UiUnitInfo
 @onready var unit_abilities: UiUnitAbilities = get_node("%UnitAbils") as UiUnitAbilities
 @onready var units_list: UiUnitsList = get_node("%UnitsList") as UiUnitsList
+@onready var selected_unit_info: UiSelectedUnitInfo = get_node("%SelectedUnitInfo")
 
 
 func _ready() -> void:
@@ -30,8 +32,10 @@ func _process(delta: float) -> void:
 func init():
 	_on_unit_change_control(-1, false)
 
+	unit_info.init()
 	unit_abilities.init(GlobalUnits.get_cur_unit().unit_data)
 	units_list.init(TurnManager.order_unit_id)
+	selected_unit_info.init()
 
 
 func _change_camera_zoom(zoom: float):

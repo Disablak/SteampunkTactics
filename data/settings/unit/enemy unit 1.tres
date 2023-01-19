@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bjhp4p6cycksr"]
+
+[ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="1_tpaod"]
+[ext_resource type="Resource" uid="uid://b4fh2mesn3mcf" path="res://data/settings/weapon/weapon0.tres" id="2_yrq0r"]
+
+[resource]
+script = ExtResource("1_tpaod")
+unit_name = "EnemyUnit 1"
+is_enemy = true
+max_health = 10.0
+walk_speed = 25
+initiative = 3
+range_of_view = 5
+abilities = [1, 3, 4]
+weapon = ExtResource("2_yrq0r")

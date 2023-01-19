@@ -1,3 +1,4 @@
+class_name UiUnitInfo
 extends Control
 
 
@@ -9,7 +10,9 @@ func _ready() -> void:
 	GlobalBus.on_unit_changed_control.connect(on_change_unit)
 	GlobalBus.on_unit_change_health.connect(on_unit_change_health)
 
-	on_change_unit(GlobalUnits.cur_unit_id, null) #todo call on init
+
+func init():
+	on_change_unit(GlobalUnits.cur_unit_id, null)
 
 
 func on_change_unit(unit_id, tmp):

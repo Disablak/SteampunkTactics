@@ -66,7 +66,7 @@ func _show_hit_chance(cur_unit: Unit, enemy_unit: Unit):
 
 	var str_unit_info = "Health {0}/{1}\nDamage {2}\n\n".format([enemy_unit.unit_data.cur_health, enemy_unit.unit_data.unit_settings.max_health, enemy_unit.unit_data.weapon.damage])
 	var str_hit_chance: String = "Hit {0}\nHit in cover {1}\nHit in obstacle {2}\nMiss {3}".format([Globals.format_hit_chance(hit_chance), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(obs_debaff), Globals.format_hit_chance(miss)])
-	GlobalsUi.gui.selected_unit_info.set_text(str_unit_info + str_hit_chance)
+	GlobalsUi.gui.battle_ui.selected_unit_info.set_text(str_unit_info + str_hit_chance)
 
 
 func deselect_enemy():
@@ -76,7 +76,7 @@ func deselect_enemy():
 	cover = null
 	cover_hit_pos = Vector2.ZERO
 
-	GlobalsUi.gui.selected_unit_info.clear()
+	GlobalsUi.gui.battle_ui.selected_unit_info.clear()
 
 
 func shoot(shooter: Unit):

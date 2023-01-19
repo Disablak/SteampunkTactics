@@ -6,16 +6,11 @@ extends Node2D
 signal on_hovered_cell(cell_info: CellInfo)
 signal on_clicked_cell(cell_info: CellInfo)
 
-@onready var cell_hint := get_node("CellHovered") as Node2D
 @onready var fog_of_war := get_node("FogOfWar") as FogOfWar
+@onready var cell_hint := get_node("CellHovered") as Node2D
 
 @export var is_debug := true
-
 @export var walkable_hint_cell_scene: PackedScene
-
-@export var root_walk_hint: Node2D
-@export var root_walk_cells: Node2D
-@export var root_obs_cells: Node2D
 
 @export_group("Walking cells setting")
 @export var scene_walk_cell: PackedScene
@@ -23,6 +18,9 @@ signal on_clicked_cell(cell_info: CellInfo)
 @export var walk_field_size: Vector2i
 @export var spawn: bool: set = _tool_spawn_walk_cells
 
+var root_walk_hint: Node2D
+var root_walk_cells: Node2D
+var root_obs_cells: Node2D
 
 
 const CELL_OFFSETS = [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(0, 1)]
@@ -66,10 +64,12 @@ func _draw_debug() -> void:
 
 
 func _tool_spawn_walk_cells(tmp):
-	if not Engine.is_editor_hint():
+	if not Engine.is_editor_hint() or get_child_count() <= 2:
 		return
 
-	var root: Node2D = $RootWalkCells
+	var root: Node2D = get_child(0).get_node_or_null("RootWalkCells")
+	if root == null:
+		return
 
 	for child in root.get_children():
 		child.queue_free()
@@ -88,6 +88,12 @@ func _ready() -> void:
 		return
 
 	GlobalBus.on_cell_broke.connect(_on_cell_broke)
+
+
+func init() -> void:
+	root_walk_hint = get_child(0).get_node("RootWalkHint")
+	root_walk_cells = get_child(0).get_node("RootWalkCells")
+	root_obs_cells = get_child(0).get_node("RootObsCells")
 
 	_connect_walkable_cells()
 	_add_obstacles()

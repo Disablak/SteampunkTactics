@@ -3,8 +3,6 @@ extends Node2D
 
 
 @export var show_enemy_raycast: bool = false
-@export var units_data: Array = []
-@export var unit_objects: Array[NodePath]
 
 @onready var pathfinding: Pathfinding = $Pathfinding as Pathfinding
 @onready var walking: WalkingModule = $WalkingModule as WalkingModule
@@ -27,6 +25,10 @@ var cur_unit_action: UnitSettings.Abilities = UnitSettings.Abilities.NONE
 func _ready() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 
+
+func init():
+	pathfinding.init()
+
 	walking.set_data(pathfinding, _on_finish_move)
 	shooting.set_data(effect_manager, raycaster, pathfinding, line2d_manager)
 	effect_manager.inject_data(line2d_manager)
@@ -39,10 +41,13 @@ func _ready() -> void:
 
 
 func _init_units():
-	var units_count := mini(units_data.size(), unit_objects.size())
-	for unit_id in units_count:
-		var unit: Unit = Unit.new(unit_id, UnitData.new(units_data[unit_id]), get_node(unit_objects[unit_id]))
-		GlobalUnits.units[unit_id] = unit
+	var unit_objects = pathfinding.get_child(0).get_node("RootUnits").get_children()
+	var id = 0
+
+	for unit_object in unit_objects:
+		var unit: Unit = Unit.new(id, UnitData.new(unit_object.unit_settings), unit_object)
+		GlobalUnits.units[id] = unit
+		id += 1
 
 	units = GlobalUnits.units
 	TurnManager.set_units_order(units.values())
