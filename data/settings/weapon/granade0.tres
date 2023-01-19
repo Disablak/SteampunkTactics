@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_iqq5y")
 throw_distance = 4
+max_count = 1
 name = "Granade"
 use_price = 50
 damage = 10.0

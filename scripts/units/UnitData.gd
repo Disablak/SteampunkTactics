@@ -9,10 +9,8 @@ var weapon: WeaponData
 var granade: GranadeData
 
 var cur_health: float
-var cur_weapon_ammo: int
 var enemy_data_ai : EnemyDataAI = null
 var visibility_data: VisibilityData = VisibilityData.new()
-
 
 
 class EnemyDataAI:
@@ -25,10 +23,16 @@ func _init(unit_settings: UnitSettings):
 	self.granade = unit_settings.granade
 
 	cur_health = unit_settings.max_health
-	cur_weapon_ammo = weapon.ammo
 
 	if unit_settings.is_enemy:
 		enemy_data_ai = EnemyDataAI.new()
+
+	# todo make list and init
+	if weapon != null:
+		weapon.init_weapon()
+
+	if granade != null:
+		granade.init_weapon()
 
 
 func set_unit_id(id):
@@ -51,20 +55,3 @@ func set_damage(value: float, attacker_unit_id: int):
 func get_move_price(distance: float) -> int:
 	var result = (distance * unit_settings.walk_speed)
 	return int(result)
-
-
-func is_enough_ammo(count = 1) -> bool:
-	return cur_weapon_ammo >= count
-
-
-func reload_weapon():
-	_set_weapon_ammo(weapon.ammo)
-
-
-func spend_weapon_ammo(count = 1):
-	_set_weapon_ammo(cur_weapon_ammo - count)
-
-
-func _set_weapon_ammo(value):
-	cur_weapon_ammo = value
-	GlobalBus.on_unit_changed_ammo.emit(unit_id, cur_weapon_ammo, weapon.ammo)

@@ -88,7 +88,7 @@ func shoot(shooter: Unit):
 		GlobalsUi.message("Not enough time points!")
 		return
 
-	if not shooter.unit_data.is_enough_ammo():
+	if not shooter.unit_data.weapon.is_enough_ammo():
 		GlobalsUi.message("Not enough ammo!")
 		return
 
@@ -101,7 +101,7 @@ func shoot(shooter: Unit):
 		return
 
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, shooter.unit_data.weapon.use_price)
-	shooter.unit_data.spend_weapon_ammo()
+	shooter.unit_data.weapon.spend_weapon_ammo()
 
 	var hit_type: HitType = _get_shoot_result(shooter)
 	var hitted_obs: CellObject = obstacles.pick_random() if obstacles.size() > 0 else null
@@ -135,7 +135,7 @@ func reload(unit_data: UnitData):
 		return
 
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.RELOADING, unit_data.weapon.reload_price)
-	unit_data.reload_weapon()
+	unit_data.weapon.reload_weapon()
 
 
 func _get_shoot_result(shooter: Unit):
@@ -184,12 +184,17 @@ func throw_granade(unit: Unit, grid_pos: Vector2i) -> bool:
 		GlobalsUi.message("Not enough time points!")
 		return false
 
+	if not unit.unit_data.granade.is_enough_grenades():
+		GlobalsUi.message("Not enough grenades!")
+		return false
+
 	var cell_pos = Globals.convert_to_cell_pos(grid_pos)
 	var distance := unit.unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
 	if distance > unit.unit_data.granade.throw_distance:
 		GlobalsUi.message("Distance too long!")
 		return false
 
+	unit.unit_data.granade.spend_grenade()
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, unit.unit_data.granade.use_price)
 
 	var damaged_cells := pathfinding.get_cells_by_pattern(grid_pos, Globals.CELL_AREA_3x3)

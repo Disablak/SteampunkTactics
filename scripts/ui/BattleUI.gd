@@ -17,7 +17,7 @@ extends Control
 
 
 func _ready() -> void:
-	GlobalBus.on_unit_changed_ammo.connect(_on_unit_changed_ammo)
+	GlobalBus.on_unit_updated_weapon.connect(_on_unit_changed_ammo)
 	GlobalBus.on_unit_changed_control.connect(_on_unit_change_control)
 
 	btn_zoom_100.pressed.connect(func(): _change_camera_zoom(2))
@@ -44,16 +44,19 @@ func _change_camera_zoom(zoom: float):
 
 func _on_unit_change_control(unit_id, instantly):
 	var cur_unit_data: UnitData = GlobalUnits.get_cur_unit().unit_data
-	_on_unit_changed_ammo(cur_unit_data.unit_id, cur_unit_data.cur_weapon_ammo, cur_unit_data.weapon.ammo)
+	_on_unit_changed_ammo(cur_unit_data.unit_id, cur_unit_data.weapon)
 
 	unit_abilities.init(GlobalUnits.get_cur_unit().unit_data)
 
 
-func _on_unit_changed_ammo(unit_id, cur_ammo, max_ammo):
+func _on_unit_changed_ammo(unit_id, weapon):
 	if unit_id != GlobalUnits.cur_unit_id:
 		return
 
-	btn_shoot.text = "Shoot ({0}/{1})".format([cur_ammo, max_ammo])
+	if not weapon is WeaponData:
+		return
+
+	btn_shoot.text = "Shoot ({0}/{1})".format([weapon.cur_weapon_ammo, weapon.ammo])
 
 
 func _on_input_system_on_mouse_hover(mouse_pos) -> void:
