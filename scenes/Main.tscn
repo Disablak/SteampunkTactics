@@ -1,8 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://lyn5khrmejve"]
+[gd_scene load_steps=18 format=3 uid="uid://cekx5o721hgx4"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_p1tb3"]
-[ext_resource type="PackedScene" uid="uid://c11favptg3qfo" path="res://scenes/World2d.tscn" id="2_bb7rw"]
-[ext_resource type="PackedScene" uid="uid://qhv5ima0e20g" path="res://scenes/2d/levels/Playground.tscn" id="3_1afwx"]
+[ext_resource type="PackedScene" path="res://scenes/World.tscn" id="2_bb7rw"]
 [ext_resource type="Script" path="res://scripts/ui/BattleUI.gd" id="3_ur4ey"]
 [ext_resource type="Script" path="res://scripts/ui/GUI.gd" id="3_w0484"]
 [ext_resource type="PackedScene" uid="uid://caqxce2hd6oam" path="res://scenes/2d/ui/MessageUI.tscn" id="5_8luf0"]
@@ -17,13 +16,12 @@
 [ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="12_yd8h8"]
 [ext_resource type="Shortcut" uid="uid://bwiu3ae8k4dfy" path="res://data/settings/shortcuts/ShortcutGranede.tres" id="13_oy2o1"]
 [ext_resource type="PackedScene" uid="uid://br8vyxjhv1p53" path="res://scenes/2d/ui/UiUnitsList.tscn" id="15_ld1lm"]
-[ext_resource type="PackedScene" uid="uid://b4u6fb473yrgx" path="res://scenes/2d/UiSelectedUnitInfo.tscn" id="16_2od7x"]
+[ext_resource type="PackedScene" uid="uid://b4u6fb473yrgx" path="res://scenes/2d/ui/UiSelectedUnitInfo.tscn" id="16_2od7x"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p1tb3")
 
 [node name="World" parent="." instance=ExtResource("2_bb7rw")]
-level_scenes = [ExtResource("3_1afwx")]
 
 [node name="GUI" type="Control" parent="."]
 layout_direction = 1

@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://c11favptg3qfo"]
+[gd_scene load_steps=26 format=3]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
+[ext_resource type="PackedScene" path="res://scenes/levels/Playground.tscn" id="2_eiugl"]
 [ext_resource type="PackedScene" uid="uid://cwx8drbr53vsv" path="res://scenes/cells/WalkableHintCell.tscn" id="6_vdct5"]
 [ext_resource type="Script" path="res://scripts/pathfinding/Pathfinding.gd" id="8_ijmge"]
 [ext_resource type="Script" path="res://scripts/units_manager/WalkingModule.gd" id="9_42fdl"]
@@ -28,6 +29,7 @@
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_vidxh")
+level_scenes = [ExtResource("2_eiugl")]
 
 [node name="UnitsManager" type="Node2D" parent="."]
 script = ExtResource("2_1pgd0")
