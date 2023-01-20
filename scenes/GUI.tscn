@@ -137,6 +137,17 @@ text = "Granade"
 script = ExtResource("8_7jrsu")
 ability = 5
 
+[node name="BtnKnife" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 211.0
+offset_right = 195.0
+offset_bottom = 246.0
+shortcut = ExtResource("11_yeyco")
+text = "Knife"
+script = ExtResource("8_7jrsu")
+ability = 2
+
 [node name="BtnNextTurn" type="Button" parent="BattleUI/AlwaysUI/LeftSide"]
 unique_name_in_owner = true
 layout_mode = 2

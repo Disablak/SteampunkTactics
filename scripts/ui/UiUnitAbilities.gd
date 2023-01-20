@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func init(unit_data: UnitData):
 	_init_all_buttons(unit_data)
-	_on_unit_changed_ammo(unit_data.unit_id, unit_data.weapon)
+	_on_unit_changed_ammo(unit_data.unit_id, unit_data.unit_settings.riffle)
 
 
 func _init_all_buttons(unit_data: UnitData):
@@ -20,7 +20,7 @@ func _init_all_buttons(unit_data: UnitData):
 
 	for btn in get_child(0).get_children():
 		var button: Button = btn as Button
-		var is_btn_available = unit_data.unit_settings.abilities.has(button.ability)
+		var is_btn_available = unit_data.unit_settings.has_ability(button.ability)
 		button.pressed.connect(func(): _on_clicked_ability(btn))
 		button.visible = is_btn_available
 

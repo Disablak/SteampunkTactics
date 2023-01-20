@@ -11,6 +11,7 @@ signal on_clicked_cell(cell_info: CellInfo)
 
 @export var is_debug := true
 @export var walkable_hint_cell_scene: PackedScene
+@export var cell_damage_hint_scene: PackedScene
 
 @export_group("Walking cells setting")
 @export var scene_walk_cell: PackedScene
@@ -34,6 +35,7 @@ var dict_pos_and_cell_obstacle = {}
 var dict_pos_and_cell_cover = {}
 
 var spawned_walk_hints = Array()
+var spawned_damage_hints := []
 
 var prev_hovered_cell_pos: Vector2i = Vector2i.ZERO
 
@@ -239,10 +241,14 @@ func draw_walking_cells(grid_poses: Array[Vector2i]):
 	clear_walking_cells()
 
 	for grid_pos in grid_poses:
-		var walkable: Node2D = walkable_hint_cell_scene.instantiate()
-		root_walk_hint.add_child(walkable)
-		spawned_walk_hints.push_back(walkable)
-		walkable.position = Globals.convert_to_cell_pos(grid_pos)
+		spawned_walk_hints.append(_spawn_hint(walkable_hint_cell_scene, grid_pos))
+
+
+func draw_damage_hints(grid_poses: Array[Vector2i]):
+	clear_damage_hints()
+
+	for grid_pos in grid_poses:
+		spawned_damage_hints.append(_spawn_hint(cell_damage_hint_scene, grid_pos))
 
 
 func clear_walking_cells():
@@ -250,6 +256,21 @@ func clear_walking_cells():
 		tile.queue_free()
 
 	spawned_walk_hints.clear()
+
+
+func clear_damage_hints():
+	for hint in spawned_damage_hints:
+		hint.queue_free()
+
+	spawned_damage_hints.clear()
+
+
+func _spawn_hint(scene: PackedScene, grid_pos) -> Node2D:
+	var spawned: Node2D = scene.instantiate()
+	root_walk_hint.add_child(spawned)
+	spawned.position = Globals.convert_to_cell_pos(grid_pos)
+
+	return spawned
 
 
 func is_unit_in_cover(unit_pos: Vector2, cell_cover: CellObject) -> bool:
@@ -292,6 +313,14 @@ func get_cells_by_pattern(grid_pos_center: Vector2i, pattern_cells: Array[Vector
 		var grid_pos = grid_pos_center + cell_offset
 		var cell_info = _get_cell_info(grid_pos)
 		result.push_back(cell_info)
+
+	return result
+
+
+func get_grid_poses_by_pattern(grid_pos_center: Vector2i, pattern_cells: Array[Vector2i]) -> Array[Vector2i]:
+	var result: Array[Vector2i]
+	for cell in get_cells_by_pattern(grid_pos_center, pattern_cells):
+		result.append(cell.grid_pos)
 
 	return result
 

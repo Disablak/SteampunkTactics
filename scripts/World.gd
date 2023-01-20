@@ -42,13 +42,14 @@ func try_find_visible_enemy(cur_unit: Unit) -> Array[Unit]:
 
 
 func cur_unit_shoot_to_visible_enemy():
+	var cur_unit: Unit = GlobalUnits.get_cur_unit()
 	var random_visible_unit = cached_visible_enemies.pick_random()
 	print("shoot! to unit_id - {0}".format([random_visible_unit.id]))
 
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
-	units_manager.change_unit_action(UnitSettings.Abilities.SHOOT)
-	units_manager.shooting.select_enemy(random_visible_unit)
+	units_manager.change_unit_action(UnitSettings.Abilities.SHOOT) # todo it can return fallse and unit not shoot
+	units_manager.shooting.select_enemy(UnitSettings.Abilities.SHOOT, cur_unit, random_visible_unit)
 	await Globals.create_timer_and_get_signal(1.0)
 
 	units_manager.clear_all_lines()

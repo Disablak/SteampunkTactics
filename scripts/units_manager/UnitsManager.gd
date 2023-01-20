@@ -76,6 +76,7 @@ func _on_unit_died(unit_id, unit_id_killer):
 
 func _on_finish_move() -> void:
 	clear_all_lines()
+
 	walking.draw_walking_cells()
 
 
@@ -169,7 +170,7 @@ func change_unit_action_with_enable(unit_action, enable):
 
 
 func change_unit_action(unit_action: UnitSettings.Abilities) -> bool:
-	if unit_action != UnitSettings.Abilities.NONE and not cur_unit_data.unit_settings.abilities.has(unit_action):
+	if unit_action != UnitSettings.Abilities.NONE and not cur_unit_data.unit_settings.has_ability(unit_action):
 		GlobalsUi.message("Unit dont have ability: {0}".format([unit_action]))
 		return false
 
@@ -177,6 +178,7 @@ func change_unit_action(unit_action: UnitSettings.Abilities) -> bool:
 
 	clear_all_lines()
 	walking.clear_walking_cells()
+	shooting.clear_malee_attack_hints()
 
 	match unit_action:
 		UnitSettings.Abilities.NONE:
@@ -189,10 +191,14 @@ func change_unit_action(unit_action: UnitSettings.Abilities) -> bool:
 			pass
 
 		UnitSettings.Abilities.RELOAD:
-			TurnManager.show_hint_spend_points(cur_unit_data.weapon.reload_price)
+			TurnManager.show_hint_spend_points(cur_unit_data.unit_settings.riffle.reload_price)
 
 		UnitSettings.Abilities.GRENADE:
 			pass
+
+		UnitSettings.Abilities.MALEE_ATACK:
+			shooting.update_malee_cells(units[cur_unit_id])
+			shooting.show_malee_atack_cells(units[cur_unit_id])
 
 		_:
 			printerr("change unit action not implemented for {0}".format([unit_action]))
@@ -230,12 +236,12 @@ func _is_camera_moving() -> bool:
 
 
 func _draw_trejectory_granade(grid_pos: Vector2):
-	if cur_unit_data.granade == null:
+	if not cur_unit_data.unit_settings.has_ability(UnitSettings.Abilities.GRENADE):
 		return
 
 	var cell_pos = Globals.convert_to_cell_pos(grid_pos)
 	var distance := cur_unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
-	line2d_manager.draw_trajectory(cur_unit_object.position, cell_pos, distance <= cur_unit_data.granade.throw_distance)
+	line2d_manager.draw_trajectory(cur_unit_object.position, cell_pos, distance <= cur_unit_data.unit_settings.grenade.throw_distance)
 
 
 func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
@@ -257,30 +263,25 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 
 	var is_clicked_on_unit = cell_info.unit_id != -1
 	var is_clicked_on_cur_unit = is_clicked_on_unit and cell_info.unit_id == cur_unit_id
-	var is_granade_mode = cur_unit_action == UnitSettings.Abilities.GRENADE
 
 	if is_clicked_on_cur_unit:
 		GlobalsUi.message("clicked on cur unit")
 		return
 
-	var is_shoot_enemy_selected: bool = shooting.selected_enemy != null
-	var is_clicked_on_new_unit: bool = is_clicked_on_unit and not is_clicked_on_cur_unit and (not is_shoot_enemy_selected or shooting.selected_enemy.id != cell_info.unit_id)
-	if not is_granade_mode and is_clicked_on_new_unit:
-		if change_unit_action(UnitSettings.Abilities.SHOOT):
-			shooting.select_enemy(units[cell_info.unit_id])
-		return
-
-	if is_clicked_on_unit and not is_granade_mode and cur_unit_action == UnitSettings.Abilities.SHOOT and is_shoot_enemy_selected:
-		shooting.shoot(units[cur_unit_id])
-		clear_all_lines()
-		return
-
-	var is_clicked_on_ground = cell_info.cell_obj.is_walkable
-
+	var is_granade_mode = cur_unit_action == UnitSettings.Abilities.GRENADE
 	if is_granade_mode and cell_info.cell_obj.cell_type != CellObject.CellType.WALL:
 		if shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.grid_pos):
 			clear_all_lines()
 		return
+
+	if is_clicked_on_unit:
+		shooting.select_enemy(cur_unit_action, units[cur_unit_id], units[cell_info.unit_id])
+		return
+
+	var is_clicked_on_ground = cell_info.cell_obj.is_walkable
+
+	if is_clicked_on_ground:
+		shooting.deselect_enemy()
 
 	if is_clicked_on_ground and cur_unit_action != UnitSettings.Abilities.WALK:
 		change_unit_action(UnitSettings.Abilities.WALK)

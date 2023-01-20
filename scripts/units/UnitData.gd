@@ -5,8 +5,6 @@ class_name UnitData
 var unit_id = -1
 
 var unit_settings: UnitSettings
-var weapon: WeaponData
-var granade: GranadeData
 
 var cur_health: float
 var enemy_data_ai : EnemyDataAI = null
@@ -19,20 +17,13 @@ class EnemyDataAI:
 
 func _init(unit_settings: UnitSettings):
 	self.unit_settings = unit_settings
-	self.weapon = unit_settings.weapon
-	self.granade = unit_settings.granade
 
 	cur_health = unit_settings.max_health
 
 	if unit_settings.is_enemy:
 		enemy_data_ai = EnemyDataAI.new()
 
-	# todo make list and init
-	if weapon != null:
-		weapon.init_weapon()
-
-	if granade != null:
-		granade.init_weapon()
+	unit_settings.init_weapons()
 
 
 func set_unit_id(id):

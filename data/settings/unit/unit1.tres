@@ -11,5 +11,4 @@ max_health = 15.0
 walk_speed = 25
 initiative = 8
 range_of_view = 5
-abilities = [1, 3, 4]
-weapon = ExtResource("2")
+weapons = [ExtResource("2")]

@@ -1,10 +1,12 @@
 extends Node
 
 
-var CELL_AREA_3x3: Array[Vector2i] = [
-	Vector2i.ZERO, Vector2i.LEFT, Vector2i.RIGHT,
+var CELL_AREA_3x3_WITHOUR_CENTER: Array[Vector2i] = [
+	Vector2i.LEFT, Vector2i.RIGHT,
 	Vector2i.UP, Vector2i.DOWN, Vector2i(1, 1),
 	Vector2i(-1, -1), Vector2i(-1, 1), Vector2i(1, -1)]
+
+var CELL_AREA_3x3: Array[Vector2i] = CELL_AREA_3x3_WITHOUR_CENTER + [Vector2i.ZERO]
 
 const GRID_STEP = 1.0
 const CURVE_X_METERS = 3000

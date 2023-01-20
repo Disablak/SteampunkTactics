@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dmat47w3rnreo"]
+
+[ext_resource type="Script" path="res://scripts/settings/MaleeData.gd" id="1_e8kaa"]
+
+[resource]
+script = ExtResource("1_e8kaa")
+range = 1
+name = "Knife"
+use_price = 20
+damage = 10.0

@@ -10,6 +10,10 @@ var unit_id = -1
 var main_material: Material
 var is_visible := true
 
+var grid_pos: Vector2i:
+	get:
+		return Globals.convert_to_grid_pos(position)
+
 
 
 func init_unit(unit_id, unit_data) -> void:

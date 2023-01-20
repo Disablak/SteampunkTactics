@@ -10,8 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://ddpb4xv6nbkkc" path="res://scenes/cells/CellCover.tscn" id="8_7yt4i"]
 [ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellTree.tscn" id="9_n2dhw"]
 [ext_resource type="PackedScene" uid="uid://2ikcthg31xdg" path="res://scenes/2d/UnitObject.tscn" id="10_ddu4q"]
-[ext_resource type="Resource" uid="uid://ce4x8ilct2imn" path="res://data/settings/unit/unit_setting0.tres" id="11_q6y2d"]
-[ext_resource type="Resource" uid="uid://mn2771n5e5qo" path="res://data/settings/unit/unit_setting_enemy.tres" id="12_u34wp"]
+[ext_resource type="Resource" uid="uid://ce4x8ilct2imn" path="res://data/settings/unit/unit0.tres" id="11_q6y2d"]
+[ext_resource type="Resource" uid="uid://mn2771n5e5qo" path="res://data/settings/unit/unit1.tres" id="12_u34wp"]
 
 [node name="Playground" instance=ExtResource("1_i4jgl")]
 

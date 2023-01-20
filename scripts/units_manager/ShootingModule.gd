@@ -10,11 +10,13 @@ var raycaster: Raycaster
 var pathfinding: Pathfinding
 var line2d_manager: Line2dManager
 
+var prev_unit_ability: UnitSettings.Abilities
 var selected_enemy: Unit
 var obstacles: Array[CellObject]
 var obstacles_sum_debaff: float
 var cover: CellObject
 var cover_hit_pos: Vector2
+var malee_cells: Array[Vector2i]
 
 
 func _ready() -> void:
@@ -29,15 +31,51 @@ func set_data(effect_manager: EffectManager, raycaster: Raycaster, pathfinding: 
 	self.line2d_manager = line2d_manager
 
 
-func select_enemy(enemy: Unit):
+func select_enemy(cur_ability: UnitSettings.Abilities, cur_unit: Unit, enemy: Unit):
+	if prev_unit_ability == cur_ability and selected_enemy != null and selected_enemy.id == enemy.id:
+		match cur_ability:
+			UnitSettings.Abilities.SHOOT:
+				shoot(cur_unit)
+
+			UnitSettings.Abilities.MALEE_ATACK:
+				kick_unit(cur_unit, enemy)
+		return
+
+	deselect_enemy()
+	prev_unit_ability = cur_ability
 	selected_enemy = enemy
 
-	var cur_unit: Unit = GlobalUnits.get_cur_unit()
+	_show_selected_enemy_info(cur_ability, cur_unit, enemy)
 
+
+func deselect_enemy():
+	selected_enemy = null
+	obstacles = []
+	obstacles_sum_debaff = 0.0
+	cover = null
+	cover_hit_pos = Vector2.ZERO
+
+	GlobalsUi.gui.battle_ui.selected_unit_info.clear()
+
+
+func _show_selected_enemy_info(cur_ability: UnitSettings.Abilities, cur_unit: Unit, enemy: Unit):
+	match cur_ability:
+		UnitSettings.Abilities.SHOOT:
+			_show_shoot_info(cur_unit, enemy)
+
+		UnitSettings.Abilities.MALEE_ATACK:
+			var str_kick_info = "Damage {0}".format([cur_unit.unit_data.unit_settings.knife.damage])
+			GlobalsUi.gui.battle_ui.selected_unit_info.set_text(_get_str_unit_info(enemy) + str_kick_info)
+
+		_:
+			GlobalsUi.gui.battle_ui.selected_unit_info.set_text(_get_str_unit_info(enemy))
+
+
+func _show_shoot_info(cur_unit: Unit, enemy: Unit):
 	_detect_obstacles(cur_unit, enemy)
 	_show_hit_chance(cur_unit, enemy)
 
-	TurnManager.show_hint_spend_points(cur_unit.unit_data.weapon.use_price)
+	TurnManager.show_hint_spend_points(cur_unit.unit_data.unit_settings.riffle.use_price)
 
 	var positions = raycaster.make_ray_and_get_positions(cur_unit.unit_object.position, enemy.unit_object.position, true)
 	line2d_manager.draw_ray(positions)
@@ -64,19 +102,13 @@ func _show_hit_chance(cur_unit: Unit, enemy_unit: Unit):
 	var obs_debaff: float = obstacles_sum_debaff
 	var miss: float = (1.0 - hit_chance) - (cover_debaff + obs_debaff)
 
-	var str_unit_info = "Health {0}/{1}\nDamage {2}\n\n".format([enemy_unit.unit_data.cur_health, enemy_unit.unit_data.unit_settings.max_health, enemy_unit.unit_data.weapon.damage])
 	var str_hit_chance: String = "Hit {0}\nHit in cover {1}\nHit in obstacle {2}\nMiss {3}".format([Globals.format_hit_chance(hit_chance), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(obs_debaff), Globals.format_hit_chance(miss)])
-	GlobalsUi.gui.battle_ui.selected_unit_info.set_text(str_unit_info + str_hit_chance)
+	GlobalsUi.gui.battle_ui.selected_unit_info.set_text(_get_str_unit_info(enemy_unit) + str_hit_chance)
 
 
-func deselect_enemy():
-	selected_enemy = null
-	obstacles = []
-	obstacles_sum_debaff = 0.0
-	cover = null
-	cover_hit_pos = Vector2.ZERO
-
-	GlobalsUi.gui.battle_ui.selected_unit_info.clear()
+func _get_str_unit_info(unit: Unit): #todo add in constants
+	var str_unit_info = "Health {0}/{1}\nDamage {2}\n\n".format([unit.unit_data.cur_health, unit.unit_data.unit_settings.max_health, unit.unit_data.unit_settings.riffle.damage])
+	return str_unit_info
 
 
 func shoot(shooter: Unit):
@@ -84,11 +116,11 @@ func shoot(shooter: Unit):
 		GlobalsUi.message("Enemy unit not selected!")
 		return
 
-	if not TurnManager.can_spend_time_points(shooter.unit_data.weapon.use_price):
+	if not TurnManager.can_spend_time_points(shooter.unit_data.unit_settings.riffle.use_price):
 		GlobalsUi.message("Not enough time points!")
 		return
 
-	if not shooter.unit_data.weapon.is_enough_ammo():
+	if not shooter.unit_data.unit_settings.riffle.is_enough_ammo():
 		GlobalsUi.message("Not enough ammo!")
 		return
 
@@ -100,8 +132,8 @@ func shoot(shooter: Unit):
 		GlobalsUi.message("Obstacle!")
 		return
 
-	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, shooter.unit_data.weapon.use_price)
-	shooter.unit_data.weapon.spend_weapon_ammo()
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, shooter.unit_data.unit_settings.riffle.use_price)
+	shooter.unit_data.unit_settings.riffle.spend_weapon_ammo()
 
 	var hit_type: HitType = _get_shoot_result(shooter)
 	var hitted_obs: CellObject = obstacles.pick_random() if obstacles.size() > 0 else null
@@ -110,7 +142,7 @@ func shoot(shooter: Unit):
 
 	match hit_type:
 		HitType.HIT:
-			selected_enemy.unit_data.set_damage(shooter.unit_data.weapon.damage, shooter.id)
+			selected_enemy.unit_data.set_damage(shooter.unit_data.unit_settings.riffle.damage, shooter.id)
 
 		HitType.HIT_IN_COVER:
 			cover.set_damage()
@@ -126,16 +158,16 @@ func shoot(shooter: Unit):
 
 
 func reload(unit_data: UnitData):
-	if not TurnManager.can_spend_time_points(unit_data.weapon.reload_price):
+	if not TurnManager.can_spend_time_points(unit_data.unit_settings.riffle.reload_price):
 		GlobalsUi.message("Not enough time points!")
 		return
 
-	if unit_data.weapon.cur_weapon_ammo == unit_data.weapon.ammo:
+	if unit_data.unit_settings.riffle.cur_weapon_ammo == unit_data.unit_settings.riffle.ammo:
 		GlobalsUi.message("Ammo is full!")
 		return
 
-	TurnManager.spend_time_points(TurnManager.TypeSpendAction.RELOADING, unit_data.weapon.reload_price)
-	unit_data.weapon.reload_weapon()
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.RELOADING, unit_data.unit_settings.riffle.reload_price)
+	unit_data.unit_settings.riffle.reload_weapon()
 
 
 func _get_shoot_result(shooter: Unit):
@@ -180,38 +212,92 @@ func get_distance_to_enemy(cur_unit: Unit) -> float:
 
 
 func throw_granade(unit: Unit, grid_pos: Vector2i) -> bool:
-	if not TurnManager.can_spend_time_points(unit.unit_data.granade.use_price):
+	if not TurnManager.can_spend_time_points(unit.unit_data.unit_settings.grenade.use_price):
 		GlobalsUi.message("Not enough time points!")
 		return false
 
-	if not unit.unit_data.granade.is_enough_grenades():
+	if not unit.unit_data.unit_settings.grenade.is_enough_grenades():
 		GlobalsUi.message("Not enough grenades!")
 		return false
 
 	var cell_pos = Globals.convert_to_cell_pos(grid_pos)
 	var distance := unit.unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
-	if distance > unit.unit_data.granade.throw_distance:
+	if distance > unit.unit_data.unit_settings.grenade.throw_distance:
 		GlobalsUi.message("Distance too long!")
 		return false
 
-	unit.unit_data.granade.spend_grenade()
-	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, unit.unit_data.granade.use_price)
+	unit.unit_data.unit_settings.grenade.spend_grenade()
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, unit.unit_data.unit_settings.grenade.use_price)
 
 	var damaged_cells := pathfinding.get_cells_by_pattern(grid_pos, Globals.CELL_AREA_3x3)
 
 	for cell_info in damaged_cells:
 		if cell_info.unit_id != -1:
 			var unit_data: UnitData = GlobalUnits.units[cell_info.unit_id].unit_data
-			unit_data.set_damage(unit.unit_data.granade.damage, unit.id)
+			unit_data.set_damage(unit.unit_data.unit_settings.grenade.damage, unit.id)
 
 	effect_manager.granade(damaged_cells)
 
 	return true
 
 
+func update_malee_cells(unit: Unit):
+	malee_cells.clear()
+
+	var unit_grid_pos = Globals.convert_to_grid_pos(unit.unit_object.position)
+	var cells = pathfinding.get_cells_by_pattern(unit_grid_pos, Globals.CELL_AREA_3x3_WITHOUR_CENTER)
+
+	for cell in cells:
+		if cell.cell_obj.cell_type == CellObject.CellType.OBSTACLE:
+			continue
+
+		if raycaster.make_ray_check_no_obstacle(unit.unit_object.position, cell.cell_obj.position):
+			malee_cells.append(cell.grid_pos)
+
+
+func can_kick_unit(unit: Unit, another_unit: Unit) -> bool:
+	for grid_cell in malee_cells:
+		if another_unit.unit_object.grid_pos == grid_cell:
+			return true
+
+	return false
+
+
+func kick_unit(unit: Unit, another_unit: Unit) -> bool:
+	if not unit.unit_data.unit_settings.has_ability(UnitSettings.Abilities.MALEE_ATACK):
+		GlobalsUi.message("Enemy not have ability")
+		return false
+
+	if not can_kick_unit(unit, another_unit):
+		GlobalsUi.message("Enemy unit too far!")
+		return false
+
+	if not TurnManager.can_spend_time_points(unit.unit_data.unit_settings.knife.use_price):
+		GlobalsUi.message("Not enough time points!")
+		return false
+
+	another_unit.unit_data.set_damage(unit.unit_data.unit_settings.knife.damage, unit.id)
+
+	if selected_enemy != null and selected_enemy.unit_data.cur_health > 0:
+		_show_selected_enemy_info(prev_unit_ability, unit, another_unit)
+
+	return true
+
+
+func show_malee_atack_cells(unit: Unit):
+	if not unit.unit_data.unit_settings.has_ability(UnitSettings.Abilities.MALEE_ATACK):
+		return
+
+	pathfinding.draw_damage_hints(malee_cells)
+
+
+func clear_malee_attack_hints():
+	pathfinding.clear_damage_hints()
+
+
 func _get_weapon_accuracy(shooter: Unit) -> float:
 	var distance := get_distance_to_enemy(shooter)
-	var weapon_accuracy: float = shooter.unit_data.unit_settings.weapon.accuracy.sample(distance / Globals.CURVE_X_METERS)
+	var weapon_accuracy: float = shooter.unit_data.unit_settings.riffle.accuracy.sample(distance / Globals.CURVE_X_METERS)
 	return weapon_accuracy
 
 
