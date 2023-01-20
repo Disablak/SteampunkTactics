@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3]
+[gd_scene load_steps=26 format=3 uid="uid://db1abgdjcn1sf"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -100,3 +100,4 @@ texture = ExtResource("31_mf2ah")
 [connection signal="on_mouse_click" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_click"]
 [connection signal="on_mouse_hover" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_hover"]
 [connection signal="on_pressed_esc" from="InputSystem" to="UnitsManager" method="_on_input_system_on_pressed_esc"]
+[connection signal="on_pressed_rmc" from="InputSystem" to="UnitsManager" method="_on_input_system_on_pressed_rmc"]

@@ -6,6 +6,7 @@ signal on_mouse_hover(mouse_pos: Vector2)
 signal on_mouse_click(mouse_pos: Vector2)
 signal on_drag(dir)
 signal on_pressed_esc()
+signal on_pressed_rmc()
 
 @onready var camera_controller := get_node("CameraController") as CameraController
 @onready var camera := get_node("CameraController/Camera2d") as Camera2D
@@ -33,7 +34,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	_mouse_hover(event)
 	_mouse_click(event)
-	_click_escape(event)
+	_other_inputs(event)
 
 
 func _draging(event: InputEvent) -> bool:
@@ -54,7 +55,7 @@ func _draging(event: InputEvent) -> bool:
 
 
 func _mouse_click(event: InputEvent):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if was_mouse_btn_pressed && not event.pressed:
 			var time_released = Time.get_ticks_msec()
 			if time_released - time_pressed > TIME_CLICK_MS:
@@ -78,9 +79,12 @@ func _mouse_hover(event: InputEvent):
 	on_mouse_hover.emit(formatted_position(event.position))
 
 
-func _click_escape(event: InputEvent):
+func _other_inputs(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):
 		on_pressed_esc.emit()
+
+	if event.is_action_pressed("right_click"):
+		on_pressed_rmc.emit()
 
 
 func formatted_position(position: Vector2) -> Vector2:

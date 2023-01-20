@@ -329,3 +329,6 @@ func _on_input_system_on_pressed_esc() -> void:
 
 	change_unit_action(UnitSettings.Abilities.NONE)
 
+
+func _on_input_system_on_pressed_rmc() -> void:
+	_on_input_system_on_pressed_esc()
