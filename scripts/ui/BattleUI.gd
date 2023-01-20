@@ -4,7 +4,7 @@ extends Control
 @onready var label_fps: Label = get_node("%LabelFPS")
 @onready var pointer = get_node("%Pointer")
 
-@onready var btn_shoot: Button = get_node("%BtnShoot")
+@onready var btn_next_turn: Button = get_node("%BtnNextTurn")
 
 @onready var btn_zoom_100: Button = %BtnZoom100
 @onready var btn_zoom_150: Button = %BtnZoom150
@@ -17,12 +17,12 @@ extends Control
 
 
 func _ready() -> void:
-	GlobalBus.on_unit_updated_weapon.connect(_on_unit_changed_ammo)
 	GlobalBus.on_unit_changed_control.connect(_on_unit_change_control)
 
 	btn_zoom_100.pressed.connect(func(): _change_camera_zoom(2))
 	btn_zoom_150.pressed.connect(func(): _change_camera_zoom(1.5))
 	btn_zoom_200.pressed.connect(func(): _change_camera_zoom(1))
+	btn_next_turn.pressed.connect(func(): GlobalBus.on_clicked_next_turn.emit())
 
 
 func _process(delta: float) -> void:
@@ -43,20 +43,7 @@ func _change_camera_zoom(zoom: float):
 
 
 func _on_unit_change_control(unit_id, instantly):
-	var cur_unit_data: UnitData = GlobalUnits.get_cur_unit().unit_data
-	_on_unit_changed_ammo(cur_unit_data.unit_id, cur_unit_data.weapon)
-
 	unit_abilities.init(GlobalUnits.get_cur_unit().unit_data)
-
-
-func _on_unit_changed_ammo(unit_id, weapon):
-	if unit_id != GlobalUnits.cur_unit_id:
-		return
-
-	if not weapon is WeaponData:
-		return
-
-	btn_shoot.text = "Shoot ({0}/{1})".format([weapon.cur_weapon_ammo, weapon.ammo])
 
 
 func _on_input_system_on_mouse_hover(mouse_pos) -> void:

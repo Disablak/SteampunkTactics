@@ -24,6 +24,8 @@ var cur_unit_action: UnitSettings.Abilities = UnitSettings.Abilities.NONE
 
 func _ready() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
+	GlobalBus.on_clicked_ability.connect(_on_clicked_ability)
+	GlobalBus.on_clicked_next_turn.connect(next_turn)
 
 
 func init():
@@ -51,6 +53,15 @@ func _init_units():
 
 	units = GlobalUnits.units
 	TurnManager.set_units_order(units.values())
+
+
+func _on_clicked_ability(ability: UnitSettings.Abilities):
+	match ability:
+		UnitSettings.Abilities.RELOAD:
+			shooting.reload(cur_unit_data)
+			return
+
+	change_unit_action_with_enable(ability, true)
 
 
 func _on_unit_died(unit_id, unit_id_killer):
@@ -192,10 +203,6 @@ func change_unit_action(unit_action: UnitSettings.Abilities) -> bool:
 	GlobalBus.on_unit_changed_action.emit(cur_unit_id, unit_action)
 
 	return true
-
-
-func reload_weapon():
-	shooting.reload(cur_unit_data)
 
 
 func clear_all_lines():

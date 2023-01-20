@@ -80,23 +80,3 @@ func walk_to_rand_cell():
 
 	units_manager.change_unit_action(UnitSettings.Abilities.NONE)
 	units_manager.next_turn()
-
-
-func _on_btn_granade_button_down() -> void:
-	units_manager.change_unit_action_with_enable(UnitSettings.Abilities.GRENADE, true)
-
-
-func _on_btn_move_button_down() -> void:
-	units_manager.change_unit_action_with_enable(UnitSettings.Abilities.WALK, true)
-
-
-func _on_btn_shoot_button_down() -> void:
-	units_manager.change_unit_action_with_enable(UnitSettings.Abilities.SHOOT, true)
-
-
-func _on_btn_reload_button_down() -> void:
-	units_manager.reload_weapon()
-
-
-func _on_btn_next_turn_button_down() -> void:
-	units_manager.next_turn()

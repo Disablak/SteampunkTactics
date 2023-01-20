@@ -130,7 +130,7 @@ func reload(unit_data: UnitData):
 		GlobalsUi.message("Not enough time points!")
 		return
 
-	if unit_data.cur_weapon_ammo == unit_data.weapon.ammo:
+	if unit_data.weapon.cur_weapon_ammo == unit_data.weapon.ammo:
 		GlobalsUi.message("Ammo is full!")
 		return
 
