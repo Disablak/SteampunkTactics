@@ -7,6 +7,7 @@ var all_btns_ability = {}
 
 func _ready() -> void:
 	GlobalBus.on_unit_updated_weapon.connect(_on_unit_changed_ammo)
+	GlobalBus.on_unit_changed_action.connect(_on_changed_action)
 
 
 func init(unit_data: UnitData):
@@ -42,3 +43,11 @@ func _on_unit_changed_ammo(unit_id, weapon):
 		return
 
 	all_btns_ability[UnitSettings.Abilities.SHOOT].text = "Shoot ({0}/{1})".format([weapon.cur_weapon_ammo, weapon.ammo])
+
+
+func _on_changed_action(_id, action):
+	if action != UnitSettings.Abilities.NONE:
+		return
+
+	for btn in all_btns_ability.values():
+		btn.button_pressed = false

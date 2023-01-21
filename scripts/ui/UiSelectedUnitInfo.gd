@@ -7,7 +7,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	GlobalBus.on_unit_died.connect(func(unit_id): clear())
+	GlobalBus.on_unit_died.connect(func(unit_id, tmp): clear())
 
 
 func init():

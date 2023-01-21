@@ -61,7 +61,7 @@ func _on_clicked_ability(ability: UnitSettings.Abilities):
 			shooting.reload(cur_unit_data)
 			return
 
-	change_unit_action_with_enable(ability, true)
+	change_unit_action(ability)
 
 
 func _on_unit_died(unit_id, unit_id_killer):
@@ -156,17 +156,6 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	if cur_unit_data.unit_settings.is_enemy:
 #		await get_tree().process_frame
 		brain_ai.decide_best_action_and_execute()
-
-
-func change_unit_action_with_enable(unit_action, enable):
-	var future_action
-
-	if unit_action == cur_unit_action or not enable:
-		future_action = UnitSettings.Abilities.NONE;
-	else:
-		future_action = unit_action
-
-	change_unit_action(future_action)
 
 
 func change_unit_action(unit_action: UnitSettings.Abilities) -> bool:

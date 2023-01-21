@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c81lt0oloef08"]
+[gd_scene load_steps=23 format=3 uid="uid://c81lt0oloef08"]
 
 [ext_resource type="Script" path="res://scripts/ui/GUI.gd" id="1_vypfl"]
 [ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="2_8t721"]
@@ -6,15 +6,42 @@
 [ext_resource type="Script" path="res://scripts/ui/BattleUI.gd" id="4_4wdqw"]
 [ext_resource type="PackedScene" uid="uid://d6qdqp0vqao0" path="res://scenes/2d/ui/UiUnitInfo.tscn" id="5_10q7o"]
 [ext_resource type="Script" path="res://scripts/ui/UiUnitAbilities.gd" id="6_q18j3"]
-[ext_resource type="Shortcut" uid="uid://b4ekl04mw6kx6" path="res://data/settings/shortcuts/ShortcutMove.tres" id="7_r82u2"]
+[ext_resource type="ButtonGroup" uid="uid://bsrwr3ppmws16" path="res://data/settings/ui/ButtonGroup.tres" id="7_7jswe"]
 [ext_resource type="Script" path="res://scripts/ui/UiBtnAbility.gd" id="8_7jrsu"]
-[ext_resource type="Shortcut" uid="uid://k6ew0hlgd6lf" path="res://data/settings/shortcuts/ShortcutShoot.tres" id="9_eavmu"]
-[ext_resource type="Shortcut" uid="uid://c7527kmt3j7ss" path="res://data/settings/shortcuts/ShortcutReload.tres" id="10_yvdvu"]
-[ext_resource type="Shortcut" uid="uid://bwiu3ae8k4dfy" path="res://data/settings/shortcuts/ShortcutGranede.tres" id="11_yeyco"]
 [ext_resource type="Shortcut" uid="uid://wn8cqlrakbky" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="12_e4ykp"]
 [ext_resource type="PackedScene" uid="uid://br8vyxjhv1p53" path="res://scenes/2d/ui/UiUnitsList.tscn" id="13_iompt"]
 [ext_resource type="PackedScene" uid="uid://b4u6fb473yrgx" path="res://scenes/2d/ui/UiSelectedUnitInfo.tscn" id="14_nk3no"]
 [ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="15_1b8sg"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_gxohk"]
+keycode = 49
+
+[sub_resource type="Shortcut" id="Shortcut_b0hfn"]
+events = [SubResource("InputEventKey_gxohk")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_ldgbv"]
+keycode = 50
+
+[sub_resource type="Shortcut" id="Shortcut_xx4o5"]
+events = [SubResource("InputEventKey_ldgbv")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_iunw6"]
+keycode = 51
+
+[sub_resource type="Shortcut" id="Shortcut_5qic7"]
+events = [SubResource("InputEventKey_iunw6")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_o7cbd"]
+keycode = 52
+
+[sub_resource type="Shortcut" id="Shortcut_b30k4"]
+events = [SubResource("InputEventKey_o7cbd")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_4h2fk"]
+keycode = 53
+
+[sub_resource type="Shortcut" id="Shortcut_dewe6"]
+events = [SubResource("InputEventKey_4h2fk")]
 
 [node name="GUI" type="Control"]
 layout_direction = 1
@@ -85,65 +112,56 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_top = 220.0
 offset_right = 210.0
-offset_bottom = 540.0
+offset_bottom = 477.0
 horizontal_scroll_mode = 0
 script = ExtResource("6_q18j3")
 
-[node name="Container" type="Control" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils"]
+[node name="Container" type="VBoxContainer" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="BtnMove" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 10.0
-offset_right = 195.0
-offset_bottom = 45.0
-shortcut = ExtResource("7_r82u2")
+layout_mode = 2
+toggle_mode = true
+shortcut = SubResource("Shortcut_b0hfn")
+button_group = ExtResource("7_7jswe")
 text = "Move"
 script = ExtResource("8_7jrsu")
 ability = 1
 
 [node name="BtnShoot" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 60.0
-offset_right = 195.0
-offset_bottom = 95.0
-shortcut = ExtResource("9_eavmu")
+layout_mode = 2
+toggle_mode = true
+shortcut = SubResource("Shortcut_xx4o5")
+button_group = ExtResource("7_7jswe")
 text = "Shoot"
 script = ExtResource("8_7jrsu")
 ability = 3
 
 [node name="BtnReload" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 110.0
-offset_right = 195.0
-offset_bottom = 145.0
-shortcut = ExtResource("10_yvdvu")
+layout_mode = 2
+toggle_mode = true
+shortcut = SubResource("Shortcut_5qic7")
+button_group = ExtResource("7_7jswe")
 text = "Reload
 "
 script = ExtResource("8_7jrsu")
 ability = 4
 
 [node name="BtnGranade" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 160.0
-offset_right = 195.0
-offset_bottom = 195.0
-shortcut = ExtResource("11_yeyco")
+layout_mode = 2
+toggle_mode = true
+shortcut = SubResource("Shortcut_b30k4")
+button_group = ExtResource("7_7jswe")
 text = "Granade"
 script = ExtResource("8_7jrsu")
 ability = 5
 
 [node name="BtnKnife" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 211.0
-offset_right = 195.0
-offset_bottom = 246.0
-shortcut = ExtResource("11_yeyco")
+layout_mode = 2
+toggle_mode = true
+shortcut = SubResource("Shortcut_dewe6")
+button_group = ExtResource("7_7jswe")
 text = "Knife"
 script = ExtResource("8_7jrsu")
 ability = 2
