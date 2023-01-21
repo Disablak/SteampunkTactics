@@ -6,6 +6,7 @@ const PIXEL_TRASH_HOLD = 3
 
 @export var focus_time = 0.2
 @export var drag_sensitive = 0.4
+@export var save_prev_pos = true
 @export_node_path var bounds_path
 
 var tween_move: Tween
@@ -60,7 +61,7 @@ func move_camera(target_pos: Vector2, time: float) -> Signal:
 func focus_camera(unit_id, instantly) -> Signal:
 	var target_pos: Vector2
 
-	if dict_id_and_prev_pos.has(unit_id):
+	if save_prev_pos and dict_id_and_prev_pos.has(unit_id):
 		target_pos = dict_id_and_prev_pos[unit_id]
 	else:
 		dict_id_and_prev_pos[TurnManager.get_prev_unit_id()] = position

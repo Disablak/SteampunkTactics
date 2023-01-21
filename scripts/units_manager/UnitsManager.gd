@@ -203,7 +203,10 @@ func change_unit_action(unit_action: UnitSettings.Abilities) -> bool:
 	return true
 
 
-func clear_all_lines():
+func clear_all_lines(force_clear: bool = false):
+	if not force_clear and shooting.selected_enemy != null:
+		return
+
 	line2d_manager.clear_path()
 	line2d_manager.clear_ray()
 	line2d_manager.clear_trajectory()
@@ -270,7 +273,9 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		shooting.update_malee_cells(units[cur_unit_id])
 		var can_kick: bool = shooting.can_kick_unit(units[cur_unit_id], units[cell_info.unit_id])
 		change_unit_action(UnitSettings.Abilities.MALEE_ATACK if can_kick else UnitSettings.Abilities.SHOOT)
-		shooting.select_enemy(cur_unit_action, units[cur_unit_id], units[cell_info.unit_id])
+
+		if shooting.select_enemy(cur_unit_action, units[cur_unit_id], units[cell_info.unit_id]):
+			clear_all_lines(true)
 		return
 
 	var is_clicked_on_ground = cell_info.cell_obj.is_walkable

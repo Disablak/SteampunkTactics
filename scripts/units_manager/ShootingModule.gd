@@ -31,21 +31,23 @@ func set_data(effect_manager: EffectManager, raycaster: Raycaster, pathfinding: 
 	self.line2d_manager = line2d_manager
 
 
-func select_enemy(cur_ability: UnitSettings.Abilities, cur_unit: Unit, enemy: Unit):
+func select_enemy(cur_ability: UnitSettings.Abilities, cur_unit: Unit, enemy: Unit) -> bool:
 	if prev_unit_ability == cur_ability and selected_enemy != null and selected_enemy.id == enemy.id:
 		match cur_ability:
 			UnitSettings.Abilities.SHOOT:
-				shoot(cur_unit)
+				return _shoot(cur_unit)
 
 			UnitSettings.Abilities.MALEE_ATACK:
-				kick_unit(cur_unit, enemy)
-		return
+				return _kick_unit(cur_unit, enemy)
+		return false
 
 	deselect_enemy()
 	prev_unit_ability = cur_ability
 	selected_enemy = enemy
 
 	_show_selected_enemy_info(cur_ability, cur_unit, enemy)
+
+	return false
 
 
 func deselect_enemy():
@@ -111,26 +113,26 @@ func _get_str_unit_info(unit: Unit): #todo add in constants
 	return str_unit_info
 
 
-func shoot(shooter: Unit):
+func _shoot(shooter: Unit) -> bool:
 	if selected_enemy == null:
 		GlobalsUi.message("Enemy unit not selected!")
-		return
+		return false
 
 	if not TurnManager.can_spend_time_points(shooter.unit_data.unit_settings.riffle.use_price):
 		GlobalsUi.message("Not enough time points!")
-		return
+		return false
 
 	if not shooter.unit_data.unit_settings.riffle.is_enough_ammo():
 		GlobalsUi.message("Not enough ammo!")
-		return
+		return false
 
 	if shooter == selected_enemy:
 		GlobalsUi.message("Shoot same unit!")
-		return
+		return false
 
 	if not raycaster.make_ray_check_no_obstacle(shooter.unit_object.position, selected_enemy.unit_object.position):
 		GlobalsUi.message("Obstacle!")
-		return
+		return false
 
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, shooter.unit_data.unit_settings.riffle.use_price)
 	shooter.unit_data.unit_settings.riffle.spend_weapon_ammo()
@@ -151,10 +153,12 @@ func shoot(shooter: Unit):
 			hitted_obs.set_damage()
 
 	if selected_enemy == null or selected_enemy.unit_data.cur_health <= 0:
-		return
+		return true
 
 	_detect_obstacles(shooter, selected_enemy)
 	_show_hit_chance(shooter, selected_enemy)
+
+	return true
 
 
 func reload(unit_data: UnitData):
@@ -263,7 +267,7 @@ func can_kick_unit(unit: Unit, another_unit: Unit) -> bool:
 	return false
 
 
-func kick_unit(unit: Unit, another_unit: Unit) -> bool:
+func _kick_unit(unit: Unit, another_unit: Unit) -> bool:
 	if not unit.unit_data.unit_settings.has_ability(UnitSettings.Abilities.MALEE_ATACK):
 		GlobalsUi.message("Enemy not have ability")
 		return false
