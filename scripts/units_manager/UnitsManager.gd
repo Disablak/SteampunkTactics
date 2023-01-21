@@ -75,7 +75,7 @@ func _on_unit_died(unit_id, unit_id_killer):
 
 
 func _on_finish_move() -> void:
-	clear_all_lines()
+	clear_all_lines(true)
 
 	walking.draw_walking_cells()
 
@@ -170,7 +170,7 @@ func change_unit_action(unit_action: UnitSettings.Abilities) -> bool:
 
 	cur_unit_action = unit_action
 
-	clear_all_lines()
+	clear_all_lines(true)
 	walking.clear_walking_cells()
 	shooting.clear_malee_attack_hints()
 
@@ -269,7 +269,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	var is_granade_mode = cur_unit_action == UnitSettings.Abilities.GRENADE
 	if is_granade_mode and cell_info.cell_obj.cell_type != CellObject.CellType.WALL:
 		if shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.grid_pos):
-			clear_all_lines()
+			clear_all_lines(true)
 		return
 
 	if is_clicked_on_unit:
