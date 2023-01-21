@@ -7,6 +7,7 @@ const PIXEL_TRASH_HOLD = 3
 @export var focus_time = 0.2
 @export var drag_sensitive = 0.4
 @export var save_prev_pos = true
+@export var helper_size_of_full := 0.5
 @export_node_path var bounds_path
 
 var tween_move: Tween
@@ -14,6 +15,7 @@ var tween_move: Tween
 var sensetive: float
 var bounds_min: Vector2
 var bounds_max: Vector2
+var viewport_helper_size: Vector2
 
 var dict_id_and_prev_pos = {}
 
@@ -81,6 +83,21 @@ func drag(vector_move: Vector2) -> void:
 	position = _clamp_pos_in_bounds(new_pos)
 
 
+func try_to_move_in_helper_view(pos: Vector2):
+	if not is_pos_in_view_helper(pos):
+		var target_pos = get_clamped_pos_in_helper(pos)
+		move_camera(target_pos, focus_time)
+
+
+func is_pos_in_view_helper(pos: Vector2) -> bool:
+	var rect: Rect2 = Rect2(position - viewport_helper_size / 2, viewport_helper_size)
+	return rect.has_point(pos)
+
+
+func get_clamped_pos_in_helper(pos: Vector2) -> Vector2:
+	return clamp(pos, position - viewport_helper_size, position + viewport_helper_size)
+
+
 func _calc_bounds():
 	var bounds: Node2D = get_node(bounds_path)
 	var camera_bound_rect := Rect2(bounds.position, bounds.scale * Globals.CELL_SIZE)
@@ -97,6 +114,8 @@ func _calc_bounds():
 	bounds_min.y = -half_bound_size.y + camera_bound_rect.position.y + half_camera_size.y
 	bounds_max.x =  half_bound_size.x + camera_bound_rect.position.x - half_camera_size.x
 	bounds_max.y =  half_bound_size.y + camera_bound_rect.position.y - half_camera_size.y
+
+	viewport_helper_size = (square_viewport_size / zoom) * helper_size_of_full
 
 
 func _clamp_pos_in_bounds(pos: Vector2) -> Vector2:

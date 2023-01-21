@@ -79,6 +79,8 @@ func _on_finish_move() -> void:
 
 	walking.draw_walking_cells()
 
+	GlobalsUi.input_system.camera_controller.try_to_move_in_helper_view(cur_unit_object.position)
+
 
 func _draw_future_path(grid_pos):
 	if TurnManager.cur_time_points == 0:
@@ -210,6 +212,7 @@ func clear_all_lines(force_clear: bool = false):
 	line2d_manager.clear_path()
 	line2d_manager.clear_ray()
 	line2d_manager.clear_trajectory()
+	pathfinding.clear_damage_hints()
 
 
 func try_move_unit_to_cell(grid_pos: Vector2):

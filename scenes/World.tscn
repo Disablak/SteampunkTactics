@@ -85,6 +85,7 @@ script = ExtResource("11_sv5rh")
 focus_time = 0.5
 drag_sensitive = 0.8
 save_prev_pos = false
+helper_size_of_full = 0.4
 bounds_path = NodePath("../CameraBounds")
 
 [node name="Camera2d" type="Camera2D" parent="InputSystem/CameraController"]

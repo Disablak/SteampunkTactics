@@ -79,5 +79,7 @@ func walk_to_rand_cell():
 		units_manager.try_move_unit_to_cell(random_cell)
 		await unit_walking.on_finished_move
 
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+
 	units_manager.change_unit_action(UnitSettings.Abilities.NONE)
 	units_manager.next_turn()
