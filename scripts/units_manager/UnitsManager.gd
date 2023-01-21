@@ -11,6 +11,7 @@ extends Node2D
 @onready var effect_manager: EffectManager = $EffectManager as EffectManager
 @onready var raycaster: Raycaster = $Raycaster as Raycaster
 @onready var brain_ai: BrainAI = $BrainAI as BrainAI
+@onready var ai_world: AiWorld = $AiWorld as AiWorld
 
 
 var units = null
@@ -34,6 +35,7 @@ func init():
 	walking.set_data(pathfinding, _on_finish_move)
 	shooting.set_data(effect_manager, raycaster, pathfinding, line2d_manager)
 	effect_manager.inject_data(line2d_manager)
+	ai_world.init(self)
 
 	GlobalUnits.units_manager = self
 	GlobalMap.raycaster = raycaster
@@ -47,7 +49,10 @@ func _init_units():
 	var id = 0
 
 	for unit_object in unit_objects:
-		var unit: Unit = Unit.new(id, UnitData.new(unit_object.unit_settings), unit_object)
+		if not unit_object is UnitObject:
+			continue
+
+		var unit: Unit = Unit.new(id, UnitData.new(unit_object.unit_settings, unit_object.ai_settings), unit_object)
 		GlobalUnits.units[id] = unit
 		id += 1
 
@@ -109,7 +114,7 @@ func _draw_enemy_visible_raycast(from_grid_pos: Vector2):
 	if not show_enemy_raycast:
 		return
 
-	var enemies = GlobalUnits.get_units(!cur_unit_data.unit_settings.is_enemy)
+	var enemies = GlobalUnits.get_units(!cur_unit_data.is_enemy)
 	for enemy in enemies:
 		if not enemy.unit_object.is_visible:
 			continue
@@ -155,7 +160,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 
 	GlobalBus.on_unit_changed_control.emit(cur_unit_id, camera_focus_instantly)
 
-	if cur_unit_data.unit_settings.is_enemy:
+	if cur_unit_data.is_enemy:
 #		await get_tree().process_frame
 		brain_ai.decide_best_action_and_execute()
 
@@ -243,7 +248,7 @@ func _draw_trejectory_granade(grid_pos: Vector2):
 
 
 func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
-	if cur_unit_data.unit_settings.is_enemy:
+	if cur_unit_data.is_enemy:
 		GlobalsUi.message("Ai's turn")
 		return
 
@@ -296,7 +301,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 
 
 func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
-	if cur_unit_data.unit_settings.is_enemy:
+	if cur_unit_data.is_enemy:
 		return
 
 	if _is_camera_moving():
@@ -328,7 +333,7 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 
 
 func _on_input_system_on_pressed_esc() -> void:
-	if cur_unit_data.unit_settings.is_enemy:
+	if cur_unit_data.is_enemy:
 		return
 
 	change_unit_action(UnitSettings.Abilities.NONE)

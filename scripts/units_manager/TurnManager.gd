@@ -57,7 +57,7 @@ func check_is_game_over() -> bool:
 	var winner_team: int = 0
 	for unit_id in order_unit_id:
 		var unit: Unit = GlobalUnits.units[unit_id]
-		var team_code: int = -1 if unit.unit_data.unit_settings.is_enemy else 1
+		var team_code: int = -1 if unit.unit_data.is_enemy else 1
 		if winner_team == 0:
 			winner_team = team_code
 		elif winner_team != team_code:

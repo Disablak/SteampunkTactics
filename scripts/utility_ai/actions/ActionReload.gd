@@ -3,7 +3,7 @@ extends Action
 
 
 func execute_action():
-	GlobalUnits.units_manager.reload_weapon()
+	GlobalUnits.units_manager.shooting.reload()
 
 
 func calc_time_points_price() -> int:

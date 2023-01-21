@@ -3,25 +3,21 @@ extends RefCounted
 class_name UnitData
 
 var unit_id = -1
+var is_enemy: bool
 
 var unit_settings: UnitSettings
-
-var cur_health: float
-var enemy_data_ai : EnemyDataAI = null
+var ai_settings: AiSettings
 var visibility_data: VisibilityData = VisibilityData.new()
 
-
-class EnemyDataAI:
-	var cur_cover_data = null
+var cur_health: float
 
 
-func _init(unit_settings: UnitSettings):
+func _init(unit_settings: UnitSettings, ai_settings: AiSettings):
 	self.unit_settings = unit_settings
+	self.ai_settings = ai_settings
 
+	is_enemy = ai_settings != null
 	cur_health = unit_settings.max_health
-
-	if unit_settings.is_enemy:
-		enemy_data_ai = EnemyDataAI.new()
 
 	unit_settings.init_weapons()
 

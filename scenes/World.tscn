@@ -1,8 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://db1abgdjcn1sf"]
+[gd_scene load_steps=28 format=3 uid="uid://db1abgdjcn1sf"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
-[ext_resource type="PackedScene" path="res://scenes/levels/Playground.tscn" id="2_eiugl"]
+[ext_resource type="PackedScene" uid="uid://njyqypmtgh6d" path="res://scenes/levels/Playground.tscn" id="2_eiugl"]
 [ext_resource type="PackedScene" uid="uid://k27klyg28o74" path="res://scenes/cells/HintDamage.tscn" id="6_akxss"]
 [ext_resource type="PackedScene" uid="uid://cwx8drbr53vsv" path="res://scenes/cells/WalkableHintCell.tscn" id="6_vdct5"]
 [ext_resource type="Script" path="res://scripts/pathfinding/Pathfinding.gd" id="8_ijmge"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://scripts/pathfinding/FogOfWar.gd" id="22_hxmls"]
 [ext_resource type="PackedScene" uid="uid://bc4ejgp0vrd7h" path="res://scenes/cells/CellFireEffect.tscn" id="23_c5njg"]
 [ext_resource type="PackedScene" uid="uid://c3fuon6h0o5qe" path="res://scenes/cells/CellFog.tscn" id="23_p1e0f"]
+[ext_resource type="Script" path="res://scripts/utility_ai/AiWorld.gd" id="23_waclr"]
 [ext_resource type="PackedScene" uid="uid://b8lli71fdl17m" path="res://scenes/visual/Granede.tscn" id="24_2p2qp"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="31_mf2ah"]
 
@@ -75,6 +76,9 @@ script = ExtResource("15_y513k")
 available_actions = [ExtResource("17_gjgab"), ExtResource("18_8v7si"), ExtResource("19_2d76o")]
 
 [node name="Line2dManager" parent="UnitsManager" instance=ExtResource("20_syji7")]
+
+[node name="AiWorld" type="Node2D" parent="UnitsManager"]
+script = ExtResource("23_waclr")
 
 [node name="InputSystem" type="Node2D" parent="."]
 script = ExtResource("10_yja2f")

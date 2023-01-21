@@ -19,14 +19,14 @@ func _ready() -> void:
 func _on_unit_changed_control(unit_id, _istantly):
 	var unit: Unit = GlobalUnits.units[unit_id]
 
-	update_team_visibility_area(unit_id, unit.unit_data.unit_settings.is_enemy)
+	update_team_visibility_area(unit_id, unit.unit_data.is_enemy)
 	_update_units_visibility(unit)
 
 
 func _on_unit_moved(cell_pos: Vector2):
 	var unit: Unit = GlobalUnits.get_cur_unit()
 
-	update_team_visibility_area(unit.id, unit.unit_data.unit_settings.is_enemy)
+	update_team_visibility_area(unit.id, unit.unit_data.is_enemy)
 	_update_units_visibility(unit)
 
 
@@ -47,7 +47,7 @@ func update_team_visibility_area(unit_id: int, is_enemy: bool):
 
 
 func get_cur_team_visibility() -> Array[Vector2i]:
-	return get_team_visibility(GlobalUnits.get_cur_unit().unit_data.unit_settings.is_enemy)
+	return get_team_visibility(GlobalUnits.get_cur_unit().unit_data.is_enemy)
 
 
 func get_team_visibility(enemy_team: bool) -> Array[Vector2i]:
@@ -102,11 +102,11 @@ func update_visibility_on_cell(grid_pos: Vector2i, visibility: CellVisibility):
 
 
 func _update_units_visibility(unit: Unit):
-	var my_team = GlobalUnits.get_units(unit.unit_data.unit_settings.is_enemy)
+	var my_team = GlobalUnits.get_units(unit.unit_data.is_enemy)
 	for cur_unit in my_team:
 		cur_unit.unit_object.set_visibility(true)
 
-	var enemies = GlobalUnits.get_units(not unit.unit_data.unit_settings.is_enemy)
+	var enemies = GlobalUnits.get_units(not unit.unit_data.is_enemy)
 
 	for enemy in enemies:
 		var grid_pos := Globals.convert_to_grid_pos(enemy.unit_object.position)

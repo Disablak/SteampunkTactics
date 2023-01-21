@@ -16,7 +16,7 @@ func get_cur_unit() -> Unit:
 func get_units(enemies: bool) -> Array[Unit]:
 	var result: Array[Unit] = []
 	for unit in units.values():
-		if unit.unit_data.unit_settings.is_enemy == enemies:
+		if unit.unit_data.is_enemy == enemies:
 			result.push_back(unit)
 
 	return result

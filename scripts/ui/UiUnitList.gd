@@ -25,7 +25,7 @@ func init(units_ordered: Array[int]):
 
 		var unit: Unit = GlobalUnits.units[id]
 		btn.text = "{0} - {1}".format([unit.unit_data.unit_settings.initiative, unit.unit_data.unit_settings.unit_name])
-		if unit.unit_data.unit_settings.is_enemy:
+		if unit.unit_data.is_enemy:
 			btn.disabled = true
 		dict_id_and_btn[id] = btn
 

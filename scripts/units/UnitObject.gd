@@ -5,25 +5,41 @@ class_name UnitObject
 @onready var main_sprite := $Sprite2d as Sprite2D
 
 @export var unit_settings: UnitSettings
+@export var ai_settings: AiSettings
 
 var unit_id = -1
 var main_material: Material
 var is_visible := true
+var ai_zone_rect: Rect2i
 
 var grid_pos: Vector2i:
 	get: return Globals.convert_to_grid_pos(position)
-
 
 
 func init_unit(unit_id, unit_data) -> void:
 	self.unit_id = unit_id
 
 
+func _update_ai_settings():
+	if ai_settings == null:
+		return
+
+	var node_zone: Node2D = get_node(ai_settings.node_path)
+	node_zone.visible = false
+	ai_settings.init(node_zone)
+
+
+
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 
 	main_sprite.material = main_sprite.material.duplicate()
 	main_material = main_sprite.material
+
+	_update_ai_settings()
 
 	mark_selected(false)
 
