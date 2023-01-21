@@ -95,7 +95,7 @@ func is_pos_in_view_helper(pos: Vector2) -> bool:
 
 
 func get_clamped_pos_in_helper(pos: Vector2) -> Vector2:
-	return clamp(pos, position - viewport_helper_size, position + viewport_helper_size)
+	return Vector2(clampf(pos.x, position.x - viewport_helper_size.x, position.x + viewport_helper_size.x), clampf(pos.y, position.y - viewport_helper_size.y, position.y + viewport_helper_size.y))
 
 
 func _calc_bounds():

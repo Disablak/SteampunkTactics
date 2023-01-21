@@ -46,8 +46,8 @@ func _on_unit_changed_ammo(unit_id, weapon):
 
 
 func _on_changed_action(_id, action):
-	if action != UnitSettings.Abilities.NONE:
-		return
-
 	for btn in all_btns_ability.values():
-		btn.button_pressed = false
+		btn.set_pressed_no_signal(false)
+
+	if all_btns_ability.has(action):
+		all_btns_ability[action].set_pressed_no_signal(true)
