@@ -1,4 +1,0 @@
-res://scenes/2d/World2d.tscn
-res://data/settings/weapon/weapon0.tres
-res://data/settings/unit/unit_setting0.tres
-res://scripts/units_manager/WalkingModule.gd
