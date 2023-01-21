@@ -8,6 +8,14 @@ var CELL_AREA_3x3_WITHOUR_CENTER: Array[Vector2i] = [
 
 var CELL_AREA_3x3: Array[Vector2i] = CELL_AREA_3x3_WITHOUR_CENTER + [Vector2i.ZERO]
 
+var CELL_AREA_FOUR_DIR: Array[Vector2i] = [
+	Vector2i.LEFT, Vector2i.RIGHT,Vector2i.UP, Vector2i.DOWN
+]
+
+var CELL_AREA_FOUR_DIR_DIAGONAL: Array[Vector2i] = [
+	Vector2i(1, 1), Vector2i(-1, -1), Vector2i(-1, 1), Vector2i(1, -1)
+]
+
 const GRID_STEP = 1.0
 const CURVE_X_METERS = 3000
 const CELL_SIZE := 32

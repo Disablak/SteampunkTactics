@@ -148,12 +148,12 @@ text = "Reload
 script = ExtResource("8_7jrsu")
 ability = 4
 
-[node name="BtnGranade" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
+[node name="BtnGrenade" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
 layout_mode = 2
 toggle_mode = true
 shortcut = SubResource("Shortcut_b30k4")
 button_group = ExtResource("7_7jswe")
-text = "Granade"
+text = "Throw grenade"
 script = ExtResource("8_7jrsu")
 ability = 5
 
@@ -162,7 +162,7 @@ layout_mode = 2
 toggle_mode = true
 shortcut = SubResource("Shortcut_dewe6")
 button_group = ExtResource("7_7jswe")
-text = "Knife"
+text = "Kick"
 script = ExtResource("8_7jrsu")
 ability = 2
 

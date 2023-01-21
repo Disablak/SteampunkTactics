@@ -163,6 +163,9 @@ func change_unit_action(unit_action: UnitSettings.Abilities) -> bool:
 		GlobalsUi.message("Unit dont have ability: {0}".format([unit_action]))
 		return false
 
+	if unit_action == cur_unit_action:
+		return false
+
 	cur_unit_action = unit_action
 
 	clear_all_lines()
@@ -264,6 +267,9 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		return
 
 	if is_clicked_on_unit:
+		shooting.update_malee_cells(units[cur_unit_id])
+		var can_kick: bool = shooting.can_kick_unit(units[cur_unit_id], units[cell_info.unit_id])
+		change_unit_action(UnitSettings.Abilities.MALEE_ATACK if can_kick else UnitSettings.Abilities.SHOOT)
 		shooting.select_enemy(cur_unit_action, units[cur_unit_id], units[cell_info.unit_id])
 		return
 

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_e8kaa")
-range = 1
+type_attack = 0
 name = "Knife"
 use_price = 20
 damage = 10.0

@@ -245,7 +245,7 @@ func update_malee_cells(unit: Unit):
 	malee_cells.clear()
 
 	var unit_grid_pos = Globals.convert_to_grid_pos(unit.unit_object.position)
-	var cells = pathfinding.get_cells_by_pattern(unit_grid_pos, Globals.CELL_AREA_3x3_WITHOUR_CENTER)
+	var cells = pathfinding.get_cells_by_pattern(unit_grid_pos, unit.unit_data.unit_settings.knife.get_attack_cells())
 
 	for cell in cells:
 		if cell.cell_obj.cell_type == CellObject.CellType.OBSTACLE:
