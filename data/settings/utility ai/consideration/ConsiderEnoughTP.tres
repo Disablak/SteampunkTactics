@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bpghbsnp018k7"]
+
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="1_eardw"]
+
+[resource]
+script = ExtResource("1_eardw")
+price_type = 0

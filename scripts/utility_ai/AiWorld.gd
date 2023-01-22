@@ -3,7 +3,14 @@ extends Node2D
 
 
 var cached_visible_enemies: Array[Unit]
+var cached_walking_cell_target: Vector2i
+var cacned_walking_cell_price: int
+
 var units_manager: UnitsManager
+var brain_ai: BrainAI
+
+var _cur_unit: Unit:
+	get: return GlobalUnits.get_cur_unit()
 
 
 func _ready() -> void:
@@ -12,6 +19,7 @@ func _ready() -> void:
 
 func init(units_manager: UnitsManager):
 	self.units_manager = units_manager
+	self.brain_ai = units_manager.brain_ai
 
 
 func try_find_visible_enemy(cur_unit: Unit) -> Array[Unit]:
@@ -33,24 +41,41 @@ func try_find_visible_enemy(cur_unit: Unit) -> Array[Unit]:
 
 
 func cur_unit_shoot_to_visible_enemy():
-	var cur_unit: Unit = GlobalUnits.get_cur_unit()
 	var random_visible_unit = cached_visible_enemies.pick_random()
 	print("shoot! to unit_id - {0}".format([random_visible_unit.id]))
 
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	units_manager.change_unit_action(UnitSettings.Abilities.SHOOT) # todo it can return fallse and unit not shoot
-	units_manager.shooting.select_enemy(UnitSettings.Abilities.SHOOT, cur_unit, random_visible_unit)
+	units_manager.shooting.select_enemy(UnitSettings.Abilities.SHOOT, _cur_unit, random_visible_unit)
 	await Globals.create_timer_and_get_signal(1.0)
 
 	units_manager.clear_all_lines(true)
 	await Globals.create_timer_and_get_signal(0.2)
 
-	units_manager.shooting.select_enemy(UnitSettings.Abilities.SHOOT, cur_unit, random_visible_unit) # confirm shoot
+	units_manager.shooting.select_enemy(UnitSettings.Abilities.SHOOT, _cur_unit, random_visible_unit) # confirm shoot
 	await Globals.create_timer_and_get_signal(1.2)
 
 	units_manager.change_unit_action(UnitSettings.Abilities.NONE)
-	units_manager.next_turn()
+
+	brain_ai.decide_best_action_and_execute()
+
+
+func find_walk_cell_and_get_price() -> int:
+	var unit_walking: WalkingModule = units_manager.walking
+	unit_walking.update_walking_cells()
+
+	var walking_cells: Array[Vector2i] = MyMath.arr_intersect(unit_walking.cached_walking_cells, _cur_unit.unit_data.ai_settings.walking_zone_cells);
+	if walking_cells.size() != 0:
+		cached_walking_cell_target = walking_cells.pick_random()
+		var path := units_manager.get_path_to_cell(cached_walking_cell_target)
+		var price_move := unit_walking.get_move_price(path)
+		cacned_walking_cell_price = price_move
+	else:
+		cached_walking_cell_target = Vector2i.ZERO
+		cacned_walking_cell_price = 999
+
+	return cacned_walking_cell_price
 
 
 func walk_to_rand_cell():
@@ -61,17 +86,35 @@ func walk_to_rand_cell():
 
 	await Globals.create_timer_and_get_signal(0.2)
 
-	var cur_unit := GlobalUnits.get_cur_unit()
-	var walking_cells : PackedVector2Array = MyMath.arr_intersect(unit_walking.cached_walking_cells, cur_unit.unit_data.ai_settings.walking_zone_cells);
-	if walking_cells.size() == 0:
-		printerr("No walking cells")
-	else:
-		var random_cell := walking_cells[randi_range(0, walking_cells.size() - 1)]
-		units_manager.change_unit_action(UnitSettings.Abilities.WALK)
-		units_manager.try_move_unit_to_cell(random_cell)
-		await unit_walking.on_finished_move
+	units_manager.change_unit_action(UnitSettings.Abilities.WALK)
+	units_manager.try_move_unit_to_cell(cached_walking_cell_target)
+	await unit_walking.on_finished_move
 
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	units_manager.change_unit_action(UnitSettings.Abilities.NONE)
+
+	brain_ai.decide_best_action_and_execute()
+
+
+func reload():
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+
+	units_manager.shooting.reload(_cur_unit.unit_data)
+
+	await Globals.create_timer_and_get_signal(0.5)
+
+	brain_ai.decide_best_action_and_execute()
+
+
+func next_turn():
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+
 	units_manager.next_turn()
+
+
+
+
+
+
+

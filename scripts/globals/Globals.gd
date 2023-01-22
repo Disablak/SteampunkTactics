@@ -104,3 +104,6 @@ static func get_children_of_type(node: Node, child_type):
 			list.append(child)
 	return list
 
+
+static func print_ai(str):
+	print_rich("[color=purple][b]{0}[/b][/color]".format([str]))

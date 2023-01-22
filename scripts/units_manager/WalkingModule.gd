@@ -54,6 +54,11 @@ func get_move_price(path: Array[Vector2i]) -> int:
 
 
 func draw_walking_cells(): # todo if unit change time points without moving, it will be a bug
+	update_walking_cells()
+	pathfinding.draw_walking_cells(cached_walking_cells)
+
+
+func update_walking_cells():
 	var unit_pos := cur_unit_object.position
 	var unit_grid_pos := Globals.convert_to_grid_pos(unit_pos)
 	var max_move_distance : int = int(TurnManager.cur_time_points / cur_unit_data.unit_settings.walk_speed) + 1
@@ -65,8 +70,6 @@ func draw_walking_cells(): # todo if unit change time points without moving, it 
 		var path_walking_cells = pathfinding.get_walkable_cells(unit_grid_pos, max_move_distance)
 		var team_visibility_cells = pathfinding.fog_of_war.get_cur_team_visibility()
 		cached_walking_cells = MyMath.arr_intersect(path_walking_cells, team_visibility_cells)
-
-	pathfinding.draw_walking_cells(cached_walking_cells)
 
 
 func clear_walking_cells():

@@ -1,7 +1,7 @@
 extends Node
 
 
-var units_manager = null
+var units_manager: UnitsManager = null
 var units = {}
 var cur_unit_id: int = -1
 

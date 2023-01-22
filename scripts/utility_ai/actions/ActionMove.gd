@@ -4,7 +4,5 @@ extends Action
 
 func execute_action():
 	GlobalMap.ai_world.walk_to_rand_cell()
+	Globals.print_ai("Moving")
 
-
-func calc_time_points_price() -> int:
-	return 100

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dspu6yudbent1"]
+
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderFoundCellMove.gd" id="1_q3oyr"]
+
+[sub_resource type="Curve" id="Curve_ut8ce"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1_q3oyr")
+response_curve = SubResource("Curve_ut8ce")

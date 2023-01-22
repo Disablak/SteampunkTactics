@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://du37tccrd2rlv"]
+
+[ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionNextTurn.gd" id="1_cqs5r"]
+
+[resource]
+script = ExtResource("1_cqs5r")
+considerations = []

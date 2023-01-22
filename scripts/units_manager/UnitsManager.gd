@@ -91,7 +91,7 @@ func _draw_future_path(grid_pos):
 	if TurnManager.cur_time_points == 0:
 		return
 
-	var path: Array[Vector2i] = _get_path_to_cell(grid_pos)
+	var path: Array[Vector2i] = get_path_to_cell(grid_pos)
 	var distance = Globals.get_total_distance(path)
 	var move_price = cur_unit_data.get_move_price(distance)
 	var can_move = walking.can_move_here(grid_pos)
@@ -129,6 +129,7 @@ func next_turn():
 
 func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	if _is_camera_moving():
+		printerr("camera is moving")
 		return
 
 	if walking.is_unit_moving():
@@ -221,10 +222,10 @@ func clear_all_lines(force_clear: bool = false):
 
 
 func try_move_unit_to_cell(grid_pos: Vector2):
-	walking.move_unit(_get_path_to_cell(grid_pos))
+	walking.move_unit(get_path_to_cell(grid_pos))
 
 
-func _get_path_to_cell(grid_pos: Vector2i) -> Array[Vector2i]:
+func get_path_to_cell(grid_pos: Vector2i) -> Array[Vector2i]:
 	var start_grid_pos: Vector2i = Globals.convert_to_grid_pos(cur_unit_object.position)
 	var path: Array[Vector2i] = pathfinding.get_path_to_point(start_grid_pos, grid_pos)
 
