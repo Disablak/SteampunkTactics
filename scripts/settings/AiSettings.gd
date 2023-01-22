@@ -3,9 +3,9 @@ class_name AiSettings
 extends Resource
 
 
-@export var walking_zone_rect: Rect2i
 @export var node_path: NodePath
 
+var walking_zone_rect: Rect2i
 var walking_zone_cells: Array[Vector2i]
 
 

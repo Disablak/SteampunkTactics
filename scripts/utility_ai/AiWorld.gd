@@ -7,6 +7,7 @@ var cached_walking_cell_target: Vector2i
 var cacned_walking_cell_price: int
 
 var units_manager: UnitsManager
+var walking: WalkingModule
 var brain_ai: BrainAI
 
 var _cur_unit: Unit:
@@ -20,6 +21,7 @@ func _ready() -> void:
 func init(units_manager: UnitsManager):
 	self.units_manager = units_manager
 	self.brain_ai = units_manager.brain_ai
+	self.walking = units_manager.walking
 
 
 func try_find_visible_enemy(cur_unit: Unit) -> Array[Unit]:
@@ -62,14 +64,13 @@ func cur_unit_shoot_to_visible_enemy():
 
 
 func find_walk_cell_and_get_price() -> int:
-	var unit_walking: WalkingModule = units_manager.walking
-	unit_walking.update_walking_cells()
+	walking.update_walking_cells()
 
-	var walking_cells: Array[Vector2i] = MyMath.arr_intersect(unit_walking.cached_walking_cells, _cur_unit.unit_data.ai_settings.walking_zone_cells);
+	var walking_cells: Array[Vector2i] = _get_walking_cells()
 	if walking_cells.size() != 0:
 		cached_walking_cell_target = walking_cells.pick_random()
 		var path := units_manager.get_path_to_cell(cached_walking_cell_target)
-		var price_move := unit_walking.get_move_price(path)
+		var price_move := walking.get_move_price(path)
 		cacned_walking_cell_price = price_move
 	else:
 		cached_walking_cell_target = Vector2i.ZERO
@@ -78,17 +79,23 @@ func find_walk_cell_and_get_price() -> int:
 	return cacned_walking_cell_price
 
 
+func _get_walking_cells() -> Array[Vector2i]:
+	if _cur_unit.unit_data.ai_settings.walking_zone_cells.size() == 0:
+		return walking.cached_walking_cells
+	else:
+		return MyMath.arr_intersect(walking.cached_walking_cells, _cur_unit.unit_data.ai_settings.walking_zone_cells)
+
+
 func walk_to_rand_cell():
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
-	var unit_walking : WalkingModule = units_manager.walking
-	unit_walking.draw_walking_cells()
+	walking.draw_walking_cells()
 
 	await Globals.create_timer_and_get_signal(0.2)
 
 	units_manager.change_unit_action(UnitSettings.Abilities.WALK)
 	units_manager.try_move_unit_to_cell(cached_walking_cell_target)
-	await unit_walking.on_finished_move
+	await walking.on_finished_move
 
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 

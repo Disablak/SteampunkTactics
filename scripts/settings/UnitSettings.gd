@@ -19,6 +19,7 @@ enum Abilities {
 @export var range_of_view: int = 5
 
 @export var weapons: Array[WeaponBaseData]
+@export var additional_ai_actions: Array[Action]
 
 
 var riffle: WeaponData:

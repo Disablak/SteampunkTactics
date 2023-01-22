@@ -2,12 +2,21 @@ class_name BrainAI
 extends Node2D
 
 
-@export var available_actions: Array[Action]
+@export var default_actions: Array[Action]
 @export var next_turn_action: Action
+
+var available_actions: Array[Action]
+
+
+func set_actions(actions: Array[Action]):
+	available_actions.clear()
+	available_actions.append_array(default_actions)
+	available_actions.append_array(actions)
+	Globals.print_ai("Inited {0} actions!".format([available_actions.size()]))
 
 
 func decide_best_action_and_execute():
-	var best_action : Action = decide_best_action(available_actions)
+	var best_action : Action = _decide_best_action(available_actions)
 
 	if best_action != null:
 		best_action.execute_action()
@@ -16,19 +25,19 @@ func decide_best_action_and_execute():
 		print("no actions available, next turn!")
 
 
-func decide_best_action(actions) -> Action:
+func _decide_best_action(actions) -> Action:
 	var score: float = 0.0
 	var cur_best_action: Action = null
 
 	for cur_action in actions:
-		if score_action(cur_action) > score:
+		if _score_action(cur_action) > score:
 			cur_best_action = cur_action
 			score = cur_action.score
 
 	return cur_best_action
 
 
-func score_action(action: Action) -> float:
+func _score_action(action: Action) -> float:
 	var score: float = 1.0
 
 	for consideration in action.considerations:

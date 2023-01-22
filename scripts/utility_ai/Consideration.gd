@@ -12,5 +12,6 @@ func calc_score() -> float:
 
 
 func get_score() -> float:
-	score = clamp(response_curve.sample(calc_score()), 0.0, 1.0)
+	var raw_score := calc_score()
+	score = clamp(response_curve.sample(raw_score) if response_curve != null else raw_score, 0.0, 1.0)
 	return score

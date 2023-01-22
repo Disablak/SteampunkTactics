@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b4fh2mesn3mcf"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://b4fh2mesn3mcf"]
 
 [ext_resource type="Script" path="res://scripts/settings/WeaponData.gd" id="1"]
+[ext_resource type="Resource" uid="uid://4vlp6vtsvwcf" path="res://data/settings/utility ai/presets/PresetRifle.tres" id="1_dkrdk"]
 
 [sub_resource type="Curve" id="1"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0668842, 0.707207), 2.86353, 2.86353, 0, 0, Vector2(0.50571, 0.986487), 0.0, 0.0, 0, 0, Vector2(0.995106, 0.495496), 0.0, 0.0, 0, 0]
@@ -14,3 +15,4 @@ reload_price = 30
 name = "Winchester"
 use_price = 10
 damage = 5.0
+ai_preset = ExtResource("1_dkrdk")

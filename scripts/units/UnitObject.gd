@@ -24,6 +24,9 @@ func _update_ai_settings():
 	if ai_settings == null:
 		return
 
+	if ai_settings.node_path == null:
+		return
+
 	var node_zone: Node2D = get_node(ai_settings.node_path)
 	node_zone.visible = false
 	ai_settings.init(node_zone)

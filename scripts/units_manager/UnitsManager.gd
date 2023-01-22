@@ -10,7 +10,7 @@ extends Node2D
 @onready var line2d_manager: Line2dManager = $Line2dManager as Line2dManager
 @onready var effect_manager: EffectManager = $EffectManager as EffectManager
 @onready var raycaster: Raycaster = $Raycaster as Raycaster
-@onready var brain_ai: BrainAI = $BrainAI as BrainAI
+@onready var brain_ai: BrainAI = $AiBrain as BrainAI
 @onready var ai_world: AiWorld = $AiWorld as AiWorld
 
 
@@ -162,7 +162,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	GlobalBus.on_unit_changed_control.emit(cur_unit_id, camera_focus_instantly)
 
 	if cur_unit_data.is_enemy:
-#		await get_tree().process_frame
+		brain_ai.set_actions(cur_unit_data.ai_actions)
 		brain_ai.decide_best_action_and_execute()
 
 

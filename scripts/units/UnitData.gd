@@ -7,6 +7,7 @@ var is_enemy: bool
 
 var unit_settings: UnitSettings
 var ai_settings: AiSettings
+var ai_actions: Array[Action]
 var visibility_data: VisibilityData = VisibilityData.new()
 
 var cur_health: float
@@ -20,6 +21,7 @@ func _init(unit_settings: UnitSettings, ai_settings: AiSettings):
 	cur_health = unit_settings.max_health
 
 	unit_settings.init_weapons()
+	init_ai_actions()
 
 
 func set_unit_id(id):
@@ -42,3 +44,18 @@ func set_damage(value: float, attacker_unit_id: int):
 func get_move_price(distance: float) -> int:
 	var result = (distance * unit_settings.walk_speed)
 	return int(result)
+
+
+func init_ai_actions():
+	if not is_enemy:
+		return
+
+	if unit_settings.riffle != null:
+		if unit_settings.riffle.ai_preset != null:
+			ai_actions.append_array(unit_settings.riffle.ai_preset.ai_actions)
+		else:
+			printerr("Rifle not have ai_preset")
+
+	if unit_settings.additional_ai_actions != null:
+		ai_actions.append_array(unit_settings.additional_ai_actions)
+
