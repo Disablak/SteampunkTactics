@@ -86,6 +86,85 @@ func _get_walking_cells() -> Array[Vector2i]:
 		return MyMath.arr_intersect(walking.cached_walking_cells, _cur_unit.unit_data.ai_settings.walking_zone_cells)
 
 
+func find_path_to_near_enemy() -> int:
+	var visible_enemy = try_find_visible_enemy(_cur_unit)
+	var shortest_path: Array[Vector2i]
+	var nearest_unit_id: int = -1
+
+	for unit in visible_enemy:
+		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, unit.unit_object.grid_pos):
+			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, unit.unit_object.grid_pos)
+			if shortest_path.size() == 0 or shortest_path.size() > path.size():
+				shortest_path = path
+				nearest_unit_id = unit.id
+
+	if nearest_unit_id == -1:
+		printerr("not found visible unit")
+		return nearest_unit_id
+
+	var nearest_unit: Unit = GlobalUnits.units[nearest_unit_id]
+	var points_around_unit := units_manager.pathfinding.get_grid_poses_by_pattern(nearest_unit.unit_object.grid_pos, Globals.CELL_AREA_FOUR_DIR)
+
+	shortest_path.clear()
+	for grid_pos in points_around_unit:
+		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, grid_pos):
+			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, grid_pos)
+			if shortest_path.size() == 0 or shortest_path.size() > path.size():
+				shortest_path = path
+
+	if shortest_path == null:
+		printerr("not found path to unit")
+		return -1
+
+	_cur_unit.unit_data.ai_settings.shortest_path_to_enemy = shortest_path
+	_cur_unit.unit_data.ai_settings.nearest_enemy_id = nearest_unit_id
+
+	return nearest_unit_id
+
+
+func is_any_enemy_near_unit() -> bool:
+	var points_around_unit := units_manager.pathfinding.get_grid_poses_by_pattern(_cur_unit.unit_object.grid_pos, Globals.CELL_AREA_FOUR_DIR)
+
+	for grid_pos in points_around_unit:
+		var unit: Unit = units_manager.pathfinding.get_unit_on_cell(grid_pos)
+		if unit != null:
+			_cur_unit.unit_data.ai_settings.enemy_stand_near = unit.id
+			return true
+
+	_cur_unit.unit_data.ai_settings.enemy_stand_near = -1
+	return false
+
+
+func get_price_move_to_enemy() -> int:
+	var available_cells_to_walk: int = floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
+	if available_cells_to_walk == 0:
+		return 9999
+
+	var price = available_cells_to_walk * _cur_unit.unit_data.unit_settings.walk_speed
+	return price
+
+
+func walk_to_near_enemy():
+	if _cur_unit.unit_data.ai_settings.shortest_path_to_enemy == null:
+		printerr("path not found")
+		return
+
+	var available_cells_to_walk: int = floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
+	var idx = min(available_cells_to_walk, _cur_unit.unit_data.ai_settings.shortest_path_to_enemy.size() - 1)
+	var target_point: Vector2i = _cur_unit.unit_data.ai_settings.shortest_path_to_enemy[idx]
+
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+	walking.draw_walking_cells()
+	await Globals.create_timer_and_get_signal(0.2)
+	units_manager.change_unit_action(UnitSettings.Abilities.WALK)
+	units_manager.try_move_unit_to_cell(target_point)
+	await walking.on_finished_move
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+	units_manager.change_unit_action(UnitSettings.Abilities.NONE)
+
+	brain_ai.decide_best_action_and_execute()
+
+
 func walk_to_rand_cell():
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
@@ -112,6 +191,21 @@ func reload():
 	await Globals.create_timer_and_get_signal(0.5)
 
 	brain_ai.decide_best_action_and_execute()
+
+
+func kick_near_enemy():
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+	units_manager.change_unit_action(UnitSettings.Abilities.MALEE_ATACK) # todo it can return fallse and unit not shoot
+	var near_enemy: Unit = GlobalUnits.units[_cur_unit.unit_data.ai_settings.enemy_stand_near]
+	units_manager.shooting.select_enemy(UnitSettings.Abilities.MALEE_ATACK, _cur_unit, near_enemy)
+	await Globals.create_timer_and_get_signal(1.0)
+	units_manager.shooting.select_enemy(UnitSettings.Abilities.MALEE_ATACK, _cur_unit, near_enemy)
+	await Globals.create_timer_and_get_signal(1.2)
+
+	units_manager.change_unit_action(UnitSettings.Abilities.NONE)
+
+	brain_ai.decide_best_action_and_execute()
+
 
 
 func next_turn():

@@ -13,3 +13,4 @@ walk_speed = 20
 initiative = 10
 range_of_view = 5
 weapons = [ExtResource("2"), ExtResource("1_qcp8x"), ExtResource("4_t6i48")]
+additional_ai_actions = []

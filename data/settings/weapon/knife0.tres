@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dmat47w3rnreo"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dmat47w3rnreo"]
 
 [ext_resource type="Script" path="res://scripts/settings/MaleeData.gd" id="1_e8kaa"]
+[ext_resource type="Resource" uid="uid://dadl6tcfre3y4" path="res://data/settings/utility ai/presets/PresetKnife.tres" id="1_ujuec"]
 
 [resource]
 script = ExtResource("1_e8kaa")
@@ -8,3 +9,4 @@ type_attack = 0
 name = "Knife"
 use_price = 20
 damage = 10.0
+ai_preset = ExtResource("1_ujuec")

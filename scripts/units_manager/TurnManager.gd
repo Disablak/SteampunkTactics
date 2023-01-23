@@ -68,9 +68,6 @@ func check_is_game_over() -> bool:
 
 func can_spend_time_points(spend_points: int) -> bool:
 	var enough = cur_time_points >= spend_points
-	#if not enough:
-	#	print("Not enough time points {0}".format([spend_points]))
-
 	return enough
 
 

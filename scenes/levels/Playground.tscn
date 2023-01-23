@@ -17,7 +17,7 @@
 
 [sub_resource type="Resource" id="Resource_usf2t"]
 script = ExtResource("13_k4k2u")
-node_path = NodePath("../Zone0")
+node_path = NodePath("")
 metadata/_editor_prop_ptr_walking_zone_node = NodePath("../Zone0")
 metadata/_editor_prop_ptr_node_zone = NodePath("../Zone0")
 

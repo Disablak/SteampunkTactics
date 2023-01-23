@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://c3dg53qh2yvbi"]
+
+[ext_resource type="Resource" uid="uid://djf74ysd3h0e2" path="res://data/settings/utility ai/consideration/ConsiderEnemyNearUnit.tres" id="1_7uaq3"]
+[ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionKickEnemy.gd" id="1_316n4"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="2_hj05s"]
+
+[sub_resource type="Resource" id="Resource_r1kfg"]
+script = ExtResource("2_hj05s")
+price_type = 2
+invert = false
+
+[resource]
+script = ExtResource("1_316n4")
+considerations = [ExtResource("1_7uaq3"), SubResource("Resource_r1kfg")]

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://deqogk5qxjrmg"]
+
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyNearUnit.gd" id="1_te1ut"]
+
+[resource]
+script = ExtResource("1_te1ut")
+invert = true

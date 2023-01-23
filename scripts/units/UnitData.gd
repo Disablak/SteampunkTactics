@@ -50,11 +50,9 @@ func init_ai_actions():
 	if not is_enemy:
 		return
 
-	if unit_settings.riffle != null:
-		if unit_settings.riffle.ai_preset != null:
-			ai_actions.append_array(unit_settings.riffle.ai_preset.ai_actions)
-		else:
-			printerr("Rifle not have ai_preset")
+	for weapon in unit_settings.weapons:
+		if weapon.ai_preset != null:
+			ai_actions.append_array(weapon.ai_preset.ai_actions)
 
 	if unit_settings.additional_ai_actions != null:
 		ai_actions.append_array(unit_settings.additional_ai_actions)

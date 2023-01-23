@@ -24,7 +24,7 @@ func _update_ai_settings():
 	if ai_settings == null:
 		return
 
-	if ai_settings.node_path == null:
+	if ai_settings.node_path.is_empty():
 		return
 
 	var node_zone: Node2D = get_node(ai_settings.node_path)
