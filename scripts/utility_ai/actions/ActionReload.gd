@@ -4,5 +4,7 @@ extends Action
 
 func execute_action():
 	GlobalMap.ai_world.reload()
-	Globals.print_ai("Reload")
 
+
+func _to_string() -> String:
+	return "ActionReload"

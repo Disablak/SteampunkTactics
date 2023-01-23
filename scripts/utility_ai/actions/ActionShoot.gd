@@ -4,5 +4,7 @@ extends Action
 
 func execute_action():
 	GlobalMap.ai_world.cur_unit_shoot_to_visible_enemy()
-	Globals.print_ai("Shoot")
 
+
+func _to_string() -> String:
+	return "ActionShoot"

@@ -26,7 +26,11 @@ func get_price_by_type() -> int:
 			return GlobalMap.ai_world.find_walk_cell_and_get_price()
 
 		PriceType.MOVE_TO_ENEMY:
-			return GlobalMap.ai_world.get_price_move_to_enemy()
+			return GlobalMap.ai_world.get_max_price_move_to_enemy()
 		_:
 			printerr("Price not installed!")
 			return 9999
+
+
+func _to_string() -> String:
+	return super._to_string() + "ConsiderEnoughTP {0}".format([PriceType.keys()[price_type]])

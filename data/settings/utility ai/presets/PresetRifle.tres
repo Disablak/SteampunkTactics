@@ -15,6 +15,7 @@ point_count = 2
 [sub_resource type="Resource" id="Resource_6jld7"]
 script = ExtResource("1_bjuth")
 price_type = 1
+invert = false
 response_curve = SubResource("Curve_2n517")
 
 [sub_resource type="Curve" id="Curve_pptrn"]
@@ -23,10 +24,12 @@ point_count = 2
 
 [sub_resource type="Resource" id="Resource_baaxg"]
 script = ExtResource("2_3ej82")
+invert = false
 response_curve = SubResource("Curve_pptrn")
 
 [sub_resource type="Resource" id="Resource_le5fu"]
 script = ExtResource("3_i1x26")
+invert = false
 
 [sub_resource type="Resource" id="Resource_uanil"]
 script = ExtResource("4_63nvc")
@@ -35,6 +38,7 @@ considerations = [SubResource("Resource_6jld7"), SubResource("Resource_baaxg"), 
 [sub_resource type="Resource" id="Resource_jcvym"]
 script = ExtResource("1_bjuth")
 price_type = 3
+invert = false
 
 [sub_resource type="Curve" id="Curve_ylyje"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
@@ -42,6 +46,7 @@ point_count = 2
 
 [sub_resource type="Resource" id="Resource_gakw4"]
 script = ExtResource("5_lk5n5")
+invert = false
 response_curve = SubResource("Curve_ylyje")
 
 [sub_resource type="Resource" id="Resource_bvcn8"]

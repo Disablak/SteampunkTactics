@@ -23,6 +23,8 @@ const CELL_HALF_SIZE := CELL_SIZE / 2
 const CELL_QUAD_SIZE := CELL_HALF_SIZE / 2
 const CELL_OFFSET := Vector2(CELL_HALF_SIZE, CELL_HALF_SIZE)
 
+const DEBUG_AI = true
+
 
 
 static func get_total_distance(points) -> float:
@@ -105,5 +107,11 @@ static func get_children_of_type(node: Node, child_type):
 	return list
 
 
-static func print_ai(str):
-	print_rich("[color=purple][b]{0}[/b][/color]".format([str]))
+static func print_ai(str, bold: bool = false, color = "white"):
+	if not DEBUG_AI:
+		return
+
+	if bold:
+		print_rich("[color={0}][b]{1}[/b][/color]".format([color, str]))
+	else:
+		print_rich("[color={0}]{1}[/color]".format([color, str]))

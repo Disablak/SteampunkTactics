@@ -8,4 +8,5 @@ point_count = 2
 
 [resource]
 script = ExtResource("1_q3oyr")
+invert = false
 response_curve = SubResource("Curve_ut8ce")

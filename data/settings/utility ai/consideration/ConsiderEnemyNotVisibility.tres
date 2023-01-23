@@ -8,4 +8,5 @@ point_count = 2
 
 [resource]
 script = ExtResource("1")
+invert = false
 response_curve = SubResource("Curve_edduk")

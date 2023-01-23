@@ -20,4 +20,13 @@ func get_score() -> float:
 	var raw_score := 1.0 - calced_score if invert else calced_score
 
 	score = response_curve.sample(raw_score) if response_curve != null else raw_score
+	_consider_debug()
 	return score
+
+
+func _consider_debug():
+	Globals.print_ai("{0} score is {1}".format([to_string() , score]), false, "blue")
+
+
+func _to_string() -> String:
+	return "Not " if invert else ""

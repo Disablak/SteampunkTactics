@@ -70,7 +70,7 @@ func _get_walking_cells() -> Array[Vector2i]:
 		return MyMath.arr_intersect(walking.cached_walking_cells, _cur_unit.unit_data.ai_settings.walking_zone_cells)
 
 
-func find_path_to_near_enemy() -> int:
+func find_path_to_near_enemy() -> Array[Vector2i]:
 	var visible_enemy = try_find_visible_enemy(_cur_unit)
 	var shortest_path: Array[Vector2i]
 	var nearest_unit_id: int = -1
@@ -84,7 +84,7 @@ func find_path_to_near_enemy() -> int:
 
 	if nearest_unit_id == -1:
 		printerr("not found visible unit")
-		return nearest_unit_id
+		return []
 
 	var nearest_unit: Unit = GlobalUnits.units[nearest_unit_id]
 	var points_around_unit := units_manager.pathfinding.get_grid_poses_by_pattern(nearest_unit.unit_object.grid_pos, Globals.CELL_AREA_FOUR_DIR)
@@ -96,14 +96,14 @@ func find_path_to_near_enemy() -> int:
 			if shortest_path.size() == 0 or shortest_path.size() > path.size():
 				shortest_path = path
 
-	if shortest_path == null:
+	if shortest_path.size() == 0:
 		printerr("not found path to unit")
-		return -1
+		return []
 
 	_cur_unit.unit_data.ai_settings.shortest_path_to_enemy = shortest_path
 	_cur_unit.unit_data.ai_settings.nearest_enemy_id = nearest_unit_id
 
-	return nearest_unit_id
+	return shortest_path
 
 
 func is_any_enemy_near_unit() -> bool:
@@ -119,7 +119,7 @@ func is_any_enemy_near_unit() -> bool:
 	return false
 
 
-func get_price_move_to_enemy() -> int:
+func get_max_price_move_to_enemy() -> int:
 	var available_cells_to_walk: int = floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
 	if available_cells_to_walk == 0:
 		return 9999

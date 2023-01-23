@@ -20,9 +20,10 @@ func decide_best_action_and_execute():
 
 	if best_action != null:
 		best_action.execute_action()
+		Globals.print_ai("Execute {0}".format([best_action.to_string()]), true, "red")
 	else:
 		next_turn_action.execute_action()
-		print("no actions available, next turn!")
+		Globals.print_ai("No actions available, next turn!", true, "red")
 
 
 func _decide_best_action(actions) -> Action:
@@ -46,11 +47,13 @@ func _score_action(action: Action) -> float:
 
 		if score == 0:
 			action.score = 0
+			action.print_debug()
 			return action.score
 
 	var original_score = score
 	var mod_factor = 1 - (1 / action.considerations.size())
 	var make_up_value = (1 - original_score) * mod_factor
 	action.score = original_score + (make_up_value * original_score)
+	action.print_debug()
 
 	return action.score

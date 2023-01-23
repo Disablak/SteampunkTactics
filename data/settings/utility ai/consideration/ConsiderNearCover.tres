@@ -9,4 +9,5 @@ point_count = 2
 [resource]
 script = ExtResource("1_i5m1s")
 max_distance = 10.0
+invert = false
 response_curve = SubResource("Curve_ye57o")

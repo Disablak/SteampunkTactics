@@ -4,5 +4,7 @@ extends Action
 
 func execute_action():
 	GlobalMap.ai_world.next_turn()
-	Globals.print_ai("Next turn")
 
+
+func _to_string() -> String:
+	return "ActionNextTurn"
