@@ -42,7 +42,7 @@ func try_find_visible_enemy(cur_unit: Unit) -> Array[Unit]:
 	return cached_visible_enemies
 
 
-func cur_unit_shoot_to_visible_enemy():
+func shoot_in_random_enemy():
 	var random_visible_unit := cached_visible_enemies.pick_random()
 	attack_enemy(random_visible_unit, UnitSettings.Abilities.SHOOT)
 
@@ -68,6 +68,36 @@ func _get_walking_cells() -> Array[Vector2i]:
 		return walking.cached_walking_cells
 	else:
 		return MyMath.arr_intersect(walking.cached_walking_cells, _cur_unit.unit_data.ai_settings.walking_zone_cells)
+
+
+func _get_path_to_any_points(points: Array[Vector2i]) -> Array[Vector2i]:
+	points.shuffle()
+	for point in points:
+		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, point):
+			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, point)
+			return path
+
+	return []
+
+
+func is_unit_reched_patrul_zone():
+	var zone_cells := _cur_unit.unit_data.ai_settings.get_cur_target_patrul_zone_points()
+	return zone_cells.has(_cur_unit.unit_object.grid_pos)
+
+
+func find_path_to_patrul_zone() -> Vector2i:
+	if is_unit_reched_patrul_zone():
+		_cur_unit.unit_data.ai_settings.patrul_next_zone()
+
+	var path := _get_path_to_any_points(_cur_unit.unit_data.ai_settings.get_cur_target_patrul_zone_points())
+	if path.size() == 0:
+		return Vector2i.ZERO
+
+	var max_cells := _get_max_cells_to_walk()
+	var max_reached_point := path[min(max_cells, path.size() - 1)]
+
+	_cur_unit.unit_data.ai_settings.walk_pos_to_patrul_zone = max_reached_point
+	return max_reached_point
 
 
 func find_path_to_near_enemy() -> Array[Vector2i]:
@@ -119,13 +149,29 @@ func is_any_enemy_near_unit() -> bool:
 	return false
 
 
+func _get_max_cells_to_walk() -> int:
+	return floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
+
+
+func get_price_move_to_patrul_zone() -> int:
+	var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, _cur_unit.unit_data.ai_settings.walk_pos_to_patrul_zone)
+	if path.size() == 0:
+		return 9999
+
+	return (path.size() - 1) * _cur_unit.unit_data.unit_settings.walk_speed
+
+
 func get_max_price_move_to_enemy() -> int:
-	var available_cells_to_walk: int = floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
+	var available_cells_to_walk: int = _get_max_cells_to_walk()
 	if available_cells_to_walk == 0:
 		return 9999
 
 	var price = available_cells_to_walk * _cur_unit.unit_data.unit_settings.walk_speed
 	return price
+
+
+func walk_to_patrul_zone():
+	walk_to(_cur_unit.unit_data.ai_settings.walk_pos_to_patrul_zone)
 
 
 func walk_to_near_enemy():

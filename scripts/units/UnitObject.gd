@@ -24,12 +24,14 @@ func _update_ai_settings():
 	if ai_settings == null:
 		return
 
-	if ai_settings.node_path.is_empty():
-		return
+	var node_zone: Node2D = get_node_or_null(ai_settings.walking_zone_node_path)
 
-	var node_zone: Node2D = get_node(ai_settings.node_path)
-	node_zone.visible = false
-	ai_settings.init(node_zone)
+	var patrul_nodes: Array[Node2D]
+	for path in ai_settings.patrul_zones_paths:
+		var node = get_node(path)
+		patrul_nodes.append(node)
+
+	ai_settings.init(node_zone, patrul_nodes)
 
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://db1abgdjcn1sf"]
+[gd_scene load_steps=26 format=3 uid="uid://db1abgdjcn1sf"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="13_iafh6"]
 [ext_resource type="Script" path="res://scripts/utility_ai/BrainAI.gd" id="15_y513k"]
 [ext_resource type="PackedScene" uid="uid://bncbloimsnrob" path="res://scenes/visual/Bullet2D.tscn" id="16_n1bfs"]
-[ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/ActionMove.tres" id="17_gjgab"]
 [ext_resource type="PackedScene" uid="uid://fvlc1uhmwwsm" path="res://scenes/cells/CellHovered.tscn" id="18_yo8ds"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
 [ext_resource type="Resource" uid="uid://du37tccrd2rlv" path="res://data/settings/utility ai/ActionNextTurn.tres" id="22_eqob1"]
@@ -74,7 +73,7 @@ segment_shape_2d = SubResource("SegmentShape2D_x8rd3")
 
 [node name="AiBrain" type="Node2D" parent="UnitsManager"]
 script = ExtResource("15_y513k")
-default_actions = [ExtResource("17_gjgab")]
+default_actions = []
 next_turn_action = ExtResource("22_eqob1")
 
 [node name="AiWorld" type="Node2D" parent="UnitsManager"]

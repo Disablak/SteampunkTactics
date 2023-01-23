@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://jigld8imm568"]
+
+[ext_resource type="Resource" uid="uid://dmgltw4smqivq" path="res://data/settings/utility ai/consideration/ConsiderEnemyNotVisibility.tres" id="1_rgf1i"]
+[ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionMoveToPatrulZone.gd" id="1_y7udl"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderPathExist.gd" id="2_myxrn"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="3_teysf"]
+
+[sub_resource type="Resource" id="Resource_swffs"]
+script = ExtResource("2_myxrn")
+path_target = 2
+invert = false
+
+[sub_resource type="Resource" id="Resource_vqk3s"]
+script = ExtResource("3_teysf")
+price_type = 6
+invert = false
+
+[resource]
+script = ExtResource("1_y7udl")
+considerations = [ExtResource("1_rgf1i"), SubResource("Resource_swffs"), SubResource("Resource_vqk3s")]

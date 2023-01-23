@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://mn2771n5e5qo"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://mn2771n5e5qo"]
 
 [ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="1"]
+[ext_resource type="Resource" uid="uid://jigld8imm568" path="res://data/settings/utility ai/ActionMoveToPatrulZone.tres" id="1_skbwf"]
 [ext_resource type="Resource" uid="uid://dmat47w3rnreo" path="res://data/settings/weapon/knife0.tres" id="2_sv2ta"]
 
 [resource]
@@ -9,6 +10,6 @@ unit_name = "EnemyUnit 0"
 max_health = 15.0
 walk_speed = 25
 initiative = 8
-range_of_view = 8
+range_of_view = 5
 weapons = [ExtResource("2_sv2ta")]
-additional_ai_actions = []
+additional_ai_actions = [ExtResource("1_skbwf")]

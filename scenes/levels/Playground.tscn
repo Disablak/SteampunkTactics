@@ -17,7 +17,8 @@
 
 [sub_resource type="Resource" id="Resource_usf2t"]
 script = ExtResource("13_k4k2u")
-node_path = NodePath("")
+walking_zone_node_path = null
+patrul_zones_paths = [NodePath("../Zone0"), NodePath("../Zone1"), NodePath("../Zone2")]
 metadata/_editor_prop_ptr_walking_zone_node = NodePath("../Zone0")
 metadata/_editor_prop_ptr_node_zone = NodePath("../Zone0")
 
@@ -326,6 +327,20 @@ ai_settings = SubResource("Resource_usf2t")
 [node name="Zone0" type="Sprite2D" parent="RootUnits" index="2"]
 self_modulate = Color(1, 1, 1, 0.196078)
 position = Vector2(528, 304)
-scale = Vector2(5, 9)
+scale = Vector2(5, 2)
+texture = ExtResource("13_6mo5t")
+centered = false
+
+[node name="Zone1" type="Sprite2D" parent="RootUnits" index="3"]
+self_modulate = Color(1, 1, 1, 0.196078)
+position = Vector2(528, 528)
+scale = Vector2(5, 2)
+texture = ExtResource("13_6mo5t")
+centered = false
+
+[node name="Zone2" type="Sprite2D" parent="RootUnits" index="4"]
+self_modulate = Color(1, 1, 1, 0.196078)
+position = Vector2(816, 400)
+scale = Vector2(2, 2)
 texture = ExtResource("13_6mo5t")
 centered = false
