@@ -38,6 +38,7 @@ func _ready() -> void:
 		return
 
 	GlobalBus.on_unit_died.connect(_on_unit_died)
+	GlobalBus.on_unit_change_health.connect(_on_unit_changed_health)
 
 	main_sprite.material = main_sprite.material.duplicate()
 	main_material = main_sprite.material
@@ -62,6 +63,20 @@ func play_kick_anim(dir: Vector2):
 	var tween = create_tween()
 	tween.tween_property(main_sprite, "position", main_sprite.position + dir * KICK_DISTANCE, KICK_TIME)
 	tween.tween_property(main_sprite, "position", Vector2.ZERO, KICK_TIME)
+
+
+func play_damage_anim():
+	var tween = create_tween()
+	tween.tween_property(main_sprite, "position", Vector2.RIGHT * 5, 0.1)
+	tween.tween_property(main_sprite, "position", Vector2.ZERO, 0.1)
+	tween.set_trans(Tween.TRANS_BOUNCE)
+
+
+func _on_unit_changed_health(unit_id):
+	if self.unit_id != unit_id:
+		return
+
+	play_damage_anim()
 
 
 func _on_unit_died(unit_id, unit_id_killer):
