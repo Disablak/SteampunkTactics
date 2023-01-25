@@ -1,11 +1,11 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bpahwsjs2mhyg"]
+[gd_resource type="Resource" script_class="ThrowItemSettings" load_steps=2 format=3 uid="uid://b3cx06at4iy5h"]
 
-[ext_resource type="Script" path="res://scripts/settings/GranadeData.gd" id="1_iqq5y"]
+[ext_resource type="Script" path="res://scripts/settings/abilities/ThrowItemSettings.gd" id="1_4jnnd"]
 
 [resource]
-script = ExtResource("1_iqq5y")
-throw_distance = 4
+script = ExtResource("1_4jnnd")
+throw_distance = 5
 max_count = 1
-name = "Granade"
+ability_name = "Grenade"
 use_price = 50
 damage = 10.0

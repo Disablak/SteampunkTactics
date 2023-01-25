@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="UnitSettings" load_steps=3 format=3 uid="uid://7n3kbtcl06ir"]
+[gd_resource type="Resource" script_class="UnitSettings" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="2_8xfbw"]
-[ext_resource type="Resource" uid="uid://dpr05mthqfhup" path="res://data/settings/weapon/weapon0.tres" id="3_mkvpi"]
+[ext_resource type="Resource" path="res://data/settings/weapon/riffle0.tres" id="3_mkvpi"]
 
 [resource]
 script = ExtResource("2_8xfbw")

@@ -1,6 +1,14 @@
 extends RefCounted
-
 class_name UnitData
+
+enum Abilities {
+	NONE,
+	WALK,
+	MALEE_ATACK,
+	SHOOT,
+	RELOAD,
+	GRENADE,
+}
 
 var unit_id = -1
 var is_enemy: bool
@@ -9,6 +17,11 @@ var unit_settings: UnitSettings
 var ai_settings: AiSettings
 var ai_actions: Array[Action]
 var visibility_data: VisibilityData = VisibilityData.new()
+
+var all_abilities: Array[AbilityData]
+var riffle: RangedWeaponData
+var knife: MelleWeaponData
+var grenade: ThrowItemData
 
 var cur_health: float
 
@@ -20,7 +33,7 @@ func _init(unit_settings: UnitSettings, ai_settings: AiSettings):
 	is_enemy = ai_settings != null
 	cur_health = unit_settings.max_health
 
-	unit_settings.init_weapons()
+	init_abilities(unit_settings.abilities)
 	init_ai_actions()
 
 
@@ -46,14 +59,47 @@ func get_move_price(distance: float) -> int:
 	return int(result)
 
 
+func has_ability(ability: Abilities):
+	if ability == Abilities.SHOOT or ability == Abilities.RELOAD:
+		return riffle != null
+
+	if ability == Abilities.GRENADE:
+		return grenade != null
+
+	if ability == Abilities.MALEE_ATACK:
+		return knife != null
+
+	return true
+
+
 func init_ai_actions():
 	if not is_enemy:
 		return
 
-	for weapon in unit_settings.weapons:
-		if weapon.ai_preset != null:
-			ai_actions.append_array(weapon.ai_preset.ai_actions)
+	for ability in all_abilities:
+		if ability.settings.ai_preset != null:
+			ai_actions.append_array(ability.settings.ai_preset.ai_actions)
 
 	if unit_settings.additional_ai_actions != null:
 		ai_actions.append_array(unit_settings.additional_ai_actions)
 
+
+func init_abilities(abilities: Array[AbilitySettings]):
+	for setting in abilities:
+		if setting is RangedWeaponSettings:
+			riffle = RangedWeaponData.new()
+			riffle.settings = setting
+			all_abilities.append(riffle)
+
+		if setting is MelleWeaponSettings:
+			knife = MelleWeaponData.new()
+			knife.settings = setting
+			all_abilities.append(knife)
+
+		if setting is ThrowItemSettings:
+			grenade = ThrowItemData.new()
+			grenade.settings = setting
+			all_abilities.append(grenade)
+
+	for data in all_abilities:
+		data.init_weapon()

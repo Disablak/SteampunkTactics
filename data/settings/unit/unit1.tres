@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="UnitSettings" load_steps=3 format=3 uid="uid://mn2771n5e5qo"]
+[gd_resource type="Resource" script_class="UnitSettings" load_steps=3 format=3 uid="uid://brmbpg4yn8lll"]
 
 [ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="1"]
-[ext_resource type="Resource" uid="uid://dpr05mthqfhup" path="res://data/settings/weapon/weapon0.tres" id="2_58kj0"]
+[ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="1_meyno"]
 
 [resource]
 script = ExtResource("1")
@@ -10,5 +10,5 @@ max_health = 15.0
 walk_speed = 25
 initiative = 8
 range_of_view = 5
-weapons = [ExtResource("2_58kj0")]
+abilities = [ExtResource("1_meyno")]
 additional_ai_actions = []

@@ -223,26 +223,26 @@ func walk_to(grid_pos: Vector2i):
 	walking.draw_walking_cells()
 	await Globals.create_timer_and_get_signal(0.2)
 
-	units_manager.change_unit_action(UnitSettings.Abilities.WALK)
+	units_manager.change_unit_action(UnitData.Abilities.WALK)
 	units_manager.try_move_unit_to_cell(grid_pos)
 	await walking.on_finished_move
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
-	units_manager.change_unit_action(UnitSettings.Abilities.NONE)
+	units_manager.change_unit_action(UnitData.Abilities.NONE)
 	brain_ai.decide_best_action_and_execute()
 
 
 func shoot_in_random_enemy():
 	var random_visible_unit = _cur_unit.unit_data.ai_settings.visible_enemies.pick_random()
-	attack_enemy(random_visible_unit, UnitSettings.Abilities.SHOOT)
+	attack_enemy(random_visible_unit, UnitData.Abilities.SHOOT)
 
 
 func kick_near_enemy():
 	var near_enemy: Unit = GlobalUnits.units[_cur_unit.unit_data.ai_settings.enemy_stand_near]
-	attack_enemy(near_enemy, UnitSettings.Abilities.MALEE_ATACK)
+	attack_enemy(near_enemy, UnitData.Abilities.MALEE_ATACK)
 
 
-func attack_enemy(enemy: Unit, ability: UnitSettings.Abilities):
+func attack_enemy(enemy: Unit, ability: UnitData.Abilities):
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	units_manager.change_unit_action(ability)
@@ -252,7 +252,7 @@ func attack_enemy(enemy: Unit, ability: UnitSettings.Abilities):
 	units_manager.shooting.select_enemy(ability, _cur_unit, enemy)
 	await Globals.create_timer_and_get_signal(1.0)
 
-	units_manager.change_unit_action(UnitSettings.Abilities.NONE)
+	units_manager.change_unit_action(UnitData.Abilities.NONE)
 	brain_ai.decide_best_action_and_execute()
 
 

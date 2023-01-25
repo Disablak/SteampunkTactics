@@ -14,13 +14,13 @@ func calc_score() -> float:
 func get_price_by_type() -> int:
 	match price_type:
 		PriceType.SHOOT:
-			return GlobalUnits.get_cur_unit().unit_data.unit_settings.riffle.use_price
+			return GlobalUnits.get_cur_unit().unit_data.riffle.use_price
 
 		PriceType.KICK:
-			return GlobalUnits.get_cur_unit().unit_data.unit_settings.knife.use_price
+			return GlobalUnits.get_cur_unit().unit_data.knife.use_price
 
 		PriceType.RELOAD:
-			return GlobalUnits.get_cur_unit().unit_data.unit_settings.riffle.reload_price
+			return GlobalUnits.get_cur_unit().unit_data.riffle.reload_price
 
 		PriceType.MOVE_RAND:
 			return GlobalMap.ai_world.find_random_cell_and_get_price_walk()

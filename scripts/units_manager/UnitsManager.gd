@@ -20,7 +20,7 @@ var cur_unit_id = -1
 var cur_unit_data: UnitData
 var cur_unit_object: UnitObject
 
-var cur_unit_action: UnitSettings.Abilities = UnitSettings.Abilities.NONE
+var cur_unit_action: UnitData.Abilities = UnitData.Abilities.NONE
 
 
 func _ready() -> void:
@@ -60,9 +60,9 @@ func _init_units():
 	TurnManager.set_units_order(units.values())
 
 
-func _on_clicked_ability(ability: UnitSettings.Abilities):
+func _on_clicked_ability(ability: UnitData.Abilities):
 	match ability:
-		UnitSettings.Abilities.RELOAD:
+		UnitData.Abilities.RELOAD:
 			shooting.reload(cur_unit_data)
 			return
 
@@ -166,8 +166,8 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 		brain_ai.decide_best_action_and_execute()
 
 
-func change_unit_action(unit_action: UnitSettings.Abilities) -> bool:
-	if unit_action != UnitSettings.Abilities.NONE and not cur_unit_data.unit_settings.has_ability(unit_action):
+func change_unit_action(unit_action: UnitData.Abilities) -> bool:
+	if unit_action != UnitData.Abilities.NONE and not cur_unit_data.has_ability(unit_action):
 		GlobalsUi.message("Unit dont have ability: {0}".format([unit_action]))
 		return false
 
@@ -181,29 +181,29 @@ func change_unit_action(unit_action: UnitSettings.Abilities) -> bool:
 	shooting.clear_malee_attack_hints()
 
 	match unit_action:
-		UnitSettings.Abilities.NONE:
+		UnitData.Abilities.NONE:
 			TurnManager.show_hint_spend_points(0)
 
-		UnitSettings.Abilities.WALK:
+		UnitData.Abilities.WALK:
 			walking.draw_walking_cells()
 
-		UnitSettings.Abilities.SHOOT:
+		UnitData.Abilities.SHOOT:
 			pass
 
-		UnitSettings.Abilities.RELOAD:
-			TurnManager.show_hint_spend_points(cur_unit_data.unit_settings.riffle.reload_price)
+		UnitData.Abilities.RELOAD:
+			TurnManager.show_hint_spend_points(cur_unit_data.riffle.reload_price)
 
-		UnitSettings.Abilities.GRENADE:
+		UnitData.Abilities.GRENADE:
 			pass
 
-		UnitSettings.Abilities.MALEE_ATACK:
+		UnitData.Abilities.MALEE_ATACK:
 			shooting.update_malee_cells(units[cur_unit_id])
 			shooting.show_malee_atack_cells(units[cur_unit_id])
 
 		_:
 			printerr("change unit action not implemented for {0}".format([unit_action]))
 
-	if cur_unit_action != UnitSettings.Abilities.SHOOT:
+	if cur_unit_action != UnitData.Abilities.SHOOT:
 		shooting.deselect_enemy()
 
 	GlobalBus.on_unit_changed_action.emit(cur_unit_id, unit_action)
@@ -240,12 +240,12 @@ func _is_camera_moving() -> bool:
 
 
 func _draw_trejectory_granade(grid_pos: Vector2):
-	if not cur_unit_data.unit_settings.has_ability(UnitSettings.Abilities.GRENADE):
+	if not cur_unit_data.has_ability(UnitData.Abilities.GRENADE):
 		return
 
 	var cell_pos = Globals.convert_to_cell_pos(grid_pos)
 	var distance := cur_unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
-	line2d_manager.draw_trajectory(cur_unit_object.position, cell_pos, distance <= cur_unit_data.unit_settings.grenade.throw_distance)
+	line2d_manager.draw_trajectory(cur_unit_object.position, cell_pos, distance <= cur_unit_data.grenade.settings.throw_distance)
 
 
 func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
@@ -272,7 +272,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		GlobalsUi.message("clicked on cur unit")
 		return
 
-	var is_granade_mode = cur_unit_action == UnitSettings.Abilities.GRENADE
+	var is_granade_mode = cur_unit_action == UnitData.Abilities.GRENADE
 	if is_granade_mode and cell_info.cell_obj.cell_type != CellObject.CellType.WALL:
 		if shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.grid_pos):
 			clear_all_lines(true)
@@ -281,7 +281,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	if is_clicked_on_unit:
 		shooting.update_malee_cells(units[cur_unit_id])
 		var can_kick: bool = shooting.can_kick_unit(units[cur_unit_id], units[cell_info.unit_id])
-		change_unit_action(UnitSettings.Abilities.MALEE_ATACK if can_kick else UnitSettings.Abilities.SHOOT)
+		change_unit_action(UnitData.Abilities.MALEE_ATACK if can_kick else UnitData.Abilities.SHOOT)
 
 		if shooting.select_enemy(cur_unit_action, units[cur_unit_id], units[cell_info.unit_id]):
 			clear_all_lines(true)
@@ -292,11 +292,11 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	if is_clicked_on_ground:
 		shooting.deselect_enemy()
 
-	if is_clicked_on_ground and cur_unit_action != UnitSettings.Abilities.WALK:
-		change_unit_action(UnitSettings.Abilities.WALK)
+	if is_clicked_on_ground and cur_unit_action != UnitData.Abilities.WALK:
+		change_unit_action(UnitData.Abilities.WALK)
 		return
 
-	if is_clicked_on_ground and cur_unit_action == UnitSettings.Abilities.WALK and not is_clicked_on_unit and walking.can_move_here(cell_info.grid_pos):
+	if is_clicked_on_ground and cur_unit_action == UnitData.Abilities.WALK and not is_clicked_on_unit and walking.can_move_here(cell_info.grid_pos):
 		try_move_unit_to_cell(cell_info.grid_pos)
 		return
 
@@ -326,10 +326,10 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		clear_all_lines()
 		return
 
-	if cur_unit_action == UnitSettings.Abilities.WALK and cell_info.unit_id == -1:
+	if cur_unit_action == UnitData.Abilities.WALK and cell_info.unit_id == -1:
 		_draw_future_path(cell_info.grid_pos)
 
-	if cur_unit_action == UnitSettings.Abilities.GRENADE:
+	if cur_unit_action == UnitData.Abilities.GRENADE:
 		_draw_trejectory_granade(cell_info.grid_pos)
 
 
@@ -337,7 +337,7 @@ func _on_input_system_on_pressed_esc() -> void:
 	if cur_unit_data.is_enemy:
 		return
 
-	change_unit_action(UnitSettings.Abilities.NONE)
+	change_unit_action(UnitData.Abilities.NONE)
 
 
 func _on_input_system_on_pressed_rmc() -> void:
