@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://djoy06lst8nry"]
+[gd_resource type="Resource" script_class="ConsiderLowAmmo" load_steps=3 format=3 uid="uid://djoy06lst8nry"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderLowAmmo.gd" id="1"]
 

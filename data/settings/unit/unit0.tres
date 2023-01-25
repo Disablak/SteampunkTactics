@@ -1,16 +1,16 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://ce4x8ilct2imn"]
+[gd_resource type="Resource" script_class="UnitSettings" load_steps=5 format=3 uid="uid://cmb7gu7ajq5ex"]
 
 [ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="1"]
 [ext_resource type="Resource" uid="uid://bpahwsjs2mhyg" path="res://data/settings/weapon/granade0.tres" id="1_qcp8x"]
-[ext_resource type="Resource" uid="uid://b4fh2mesn3mcf" path="res://data/settings/weapon/weapon0.tres" id="2"]
-[ext_resource type="Resource" uid="uid://dmat47w3rnreo" path="res://data/settings/weapon/knife0.tres" id="4_t6i48"]
+[ext_resource type="Resource" uid="uid://dpr05mthqfhup" path="res://data/settings/weapon/weapon0.tres" id="2"]
+[ext_resource type="Resource" uid="uid://c86juoplv84y4" path="res://data/settings/weapon/knife0.tres" id="3_6fx62"]
 
 [resource]
 script = ExtResource("1")
 unit_name = "MyUnit 0"
 max_health = 20.0
-walk_speed = 20
+walk_speed = 10
 initiative = 10
-range_of_view = 8
-weapons = [ExtResource("2"), ExtResource("1_qcp8x"), ExtResource("4_t6i48")]
-additional_ai_actions = []
+range_of_view = 5
+weapons = [ExtResource("2"), ExtResource("3_6fx62"), ExtResource("1_qcp8x")]
+additional_ai_actions = null

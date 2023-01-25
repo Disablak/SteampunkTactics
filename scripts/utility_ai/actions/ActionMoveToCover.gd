@@ -3,7 +3,7 @@ extends Action
 
 
 func execute_action():
-	ai_world.move_to_cover()
+	ai_world.walk_to_cover()
 
 
 func _to_string() -> String:

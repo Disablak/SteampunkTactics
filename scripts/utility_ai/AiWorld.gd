@@ -2,7 +2,6 @@ class_name AiWorld
 extends Node2D
 
 
-var cached_visible_enemies: Array[Unit]
 var cached_walking_cell_target: Vector2i
 var cacned_walking_cell_price: int
 
@@ -14,6 +13,9 @@ class PathData:
 	var target_point: Vector2i
 	var path: Array[Vector2i]
 	var unit_id: int = -1
+
+	var is_empty: bool:
+		get: return path.size() == 0
 
 var _cur_unit: Unit:
 	get: return GlobalUnits.get_cur_unit()
@@ -35,7 +37,7 @@ func _get_visible_covers() -> Array[Vector2i]:
 	return visible_covers
 
 
-func _get_visible_enemies() -> Array[Unit]:
+func get_visible_enemies() -> Array[Unit]:
 	var visible_cells := _cur_unit.unit_data.visibility_data.visible_points
 	var all_enemies := GlobalUnits.get_units(!_cur_unit.unit_data.is_enemy)
 	var result: Array[Unit]
@@ -43,13 +45,14 @@ func _get_visible_enemies() -> Array[Unit]:
 		if visible_cells.has(enemy.unit_object.grid_pos):
 			result.append(enemy)
 
+	_cur_unit.unit_data.ai_settings.visible_enemies = result
 	return result
 
 
-func _get_near_target_can_walk(points: Array[Vector2i]) -> PathData:
+func _get_shortest_path_to_target(targets: Array[Vector2i]) -> PathData:
 	var path_data: PathData = PathData.new()
 
-	for point in points: # lambda not work!
+	for point in targets: # lambda not work!
 		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, point):
 			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, point)
 			if path_data.path.size() == 0 or path_data.path.size() > path.size():
@@ -61,7 +64,7 @@ func _get_near_target_can_walk(points: Array[Vector2i]) -> PathData:
 
 func _get_cover_that_cover_me_from_any_enemy() -> PathData:
 	var covers := _get_visible_covers()
-	var enemies := _get_visible_enemies()
+	var enemies := get_visible_enemies()
 	var path_data: PathData = PathData.new()
 
 	for cover_pos in covers:  # lambda not work!
@@ -85,30 +88,7 @@ func get_cover_that_help() -> PathData:
 	return path_data_cover
 
 
-func try_find_visible_enemy(cur_unit: Unit) -> Array[Unit]:
-	var all_enemies = GlobalUnits.get_units(!cur_unit.unit_data.is_enemy)
-	var raycaster: Raycaster = GlobalMap.raycaster;
-
-	var visible_points: Array[Vector2i] = GlobalUnits.units_manager.pathfinding.fog_of_war.get_team_visibility(cur_unit.unit_data.is_enemy)
-	cached_visible_enemies.clear()
-
-	for enemy in all_enemies:
-		var is_enemy_visible := raycaster.make_ray_check_no_obstacle(cur_unit.unit_object.position, enemy.unit_object.position)
-		if not is_enemy_visible:
-			continue
-
-		if visible_points.has(Globals.convert_to_grid_pos(enemy.unit_object.position)):
-			cached_visible_enemies.append(enemy)
-
-	return cached_visible_enemies
-
-
-func shoot_in_random_enemy():
-	var random_visible_unit := cached_visible_enemies.pick_random()
-	attack_enemy(random_visible_unit, UnitSettings.Abilities.SHOOT)
-
-
-func find_walk_cell_and_get_price() -> int:
+func find_random_cell_and_get_price_walk() -> int:
 	walking.update_walking_cells()
 
 	var walking_cells: Array[Vector2i] = _get_walking_cells()
@@ -166,40 +146,27 @@ func find_path_to_patrul_zone() -> Vector2i:
 	return max_reached_point
 
 
-func find_path_to_near_enemy() -> Array[Vector2i]:
-	var visible_enemy = try_find_visible_enemy(_cur_unit)
-	var shortest_path: Array[Vector2i]
-	var nearest_unit_id: int = -1
+func find_path_to_near_enemy() -> PathData:
+	var visible_enemy = get_visible_enemies()
+	var enemy_points: Array[Vector2i]
+	for enemy in visible_enemy: # todo need select!
+		enemy_points.append(enemy.unit_object.grid_pos)
 
-	for unit in visible_enemy:
-		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, unit.unit_object.grid_pos):
-			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, unit.unit_object.grid_pos)
-			if shortest_path.size() == 0 or shortest_path.size() > path.size():
-				shortest_path = path
-				nearest_unit_id = unit.id
-
-	if nearest_unit_id == -1:
-		printerr("not found visible unit")
-		return []
-
-	var nearest_unit: Unit = GlobalUnits.units[nearest_unit_id]
-	var points_around_unit := units_manager.pathfinding.get_grid_poses_by_pattern(nearest_unit.unit_object.grid_pos, Globals.CELL_AREA_FOUR_DIR)
-
-	shortest_path.clear()
-	for grid_pos in points_around_unit:
-		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, grid_pos):
-			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, grid_pos)
-			if shortest_path.size() == 0 or shortest_path.size() > path.size():
-				shortest_path = path
-
-	if shortest_path.size() == 0:
+	var enemy_path_data := _get_shortest_path_to_target(enemy_points)
+	if enemy_path_data.is_empty:
 		printerr("not found path to unit")
-		return []
+		return null
 
-	_cur_unit.unit_data.ai_settings.shortest_path_to_enemy = shortest_path
-	_cur_unit.unit_data.ai_settings.nearest_enemy_id = nearest_unit_id
+	var points_around_unit := units_manager.pathfinding.get_grid_poses_by_pattern(enemy_path_data.target_point, Globals.CELL_AREA_FOUR_DIR)
+	var enemy_side_path_data := _get_shortest_path_to_target(points_around_unit)
+	enemy_side_path_data.unit_id = units_manager.pathfinding.get_unit_on_cell(enemy_path_data.target_point).id
 
-	return shortest_path
+	if enemy_side_path_data.is_empty:
+		printerr("not found path to unit")
+		return null
+
+	_cur_unit.unit_data.ai_settings.shortest_path_to_enemy = enemy_side_path_data
+	return enemy_side_path_data
 
 
 func is_any_enemy_near_unit() -> bool:
@@ -219,37 +186,22 @@ func _get_max_cells_to_walk() -> int:
 	return floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
 
 
-func get_price_move_to_cover() -> int:
-	var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, _cur_unit.unit_data.ai_settings.cover_path_data.target_point)
-	if path.size() == 0:
-		return 9999
+func get_price_move():
+	if not TurnManager.can_spend_time_points(_cur_unit.unit_data.unit_settings.walk_speed):
+		return 999
 
-	return (path.size() - 1) * _cur_unit.unit_data.unit_settings.walk_speed
-
-
-func get_price_move_to_patrul_zone() -> int:
-	var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, _cur_unit.unit_data.ai_settings.walk_pos_to_patrul_zone)
-	if path.size() == 0:
-		return 9999
-
-	return (path.size() - 1) * _cur_unit.unit_data.unit_settings.walk_speed
+	return _get_max_cells_to_walk() * _cur_unit.unit_data.unit_settings.walk_speed
 
 
-func get_max_price_move_to_enemy() -> int:
-	var available_cells_to_walk: int = _get_max_cells_to_walk()
-	if available_cells_to_walk == 0:
-		return 9999
-
-	var price = available_cells_to_walk * _cur_unit.unit_data.unit_settings.walk_speed
-	return price
-
-
-func move_to_cover():
+func _get_max_point_to_walk(path: Array[Vector2i]) -> Vector2i:
 	var available_cells_to_walk: int = floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
-	var idx = min(available_cells_to_walk, _cur_unit.unit_data.ai_settings.cover_path_data.path.size() - 1)
-	var target_point: Vector2i = _cur_unit.unit_data.ai_settings.cover_path_data.path[idx]
+	var idx = min(available_cells_to_walk, path.size() - 1)
+	return path[idx]
 
-	walk_to(target_point)
+
+func walk_to_cover():
+	var point := _get_max_point_to_walk(_cur_unit.unit_data.ai_settings.cover_path_data.path)
+	walk_to(point)
 
 
 func walk_to_patrul_zone():
@@ -257,11 +209,8 @@ func walk_to_patrul_zone():
 
 
 func walk_to_near_enemy():
-	var available_cells_to_walk: int = floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
-	var idx = min(available_cells_to_walk, _cur_unit.unit_data.ai_settings.shortest_path_to_enemy.size() - 1)
-	var target_point: Vector2i = _cur_unit.unit_data.ai_settings.shortest_path_to_enemy[idx]
-
-	walk_to(target_point)
+	var point := _get_max_point_to_walk(_cur_unit.unit_data.ai_settings.shortest_path_to_enemy.path)
+	walk_to(point)
 
 
 func walk_to_rand_cell():
@@ -281,6 +230,16 @@ func walk_to(grid_pos: Vector2i):
 
 	units_manager.change_unit_action(UnitSettings.Abilities.NONE)
 	brain_ai.decide_best_action_and_execute()
+
+
+func shoot_in_random_enemy():
+	var random_visible_unit = _cur_unit.unit_data.ai_settings.visible_enemies.pick_random()
+	attack_enemy(random_visible_unit, UnitSettings.Abilities.SHOOT)
+
+
+func kick_near_enemy():
+	var near_enemy: Unit = GlobalUnits.units[_cur_unit.unit_data.ai_settings.enemy_stand_near]
+	attack_enemy(near_enemy, UnitSettings.Abilities.MALEE_ATACK)
 
 
 func attack_enemy(enemy: Unit, ability: UnitSettings.Abilities):
@@ -306,10 +265,6 @@ func reload():
 
 	brain_ai.decide_best_action_and_execute()
 
-
-func kick_near_enemy():
-	var near_enemy: Unit = GlobalUnits.units[_cur_unit.unit_data.ai_settings.enemy_stand_near]
-	attack_enemy(near_enemy, UnitSettings.Abilities.MALEE_ATACK)
 
 
 func next_turn():

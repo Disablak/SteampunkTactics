@@ -13,9 +13,9 @@ var cur_target_zone_id = 0
 var walk_pos_to_patrul_zone: Vector2i = Vector2i.ZERO
 
 var cover_path_data: AiWorld.PathData = null
+var visible_enemies: Array[Unit]
 
-var nearest_enemy_id: int = -1
-var shortest_path_to_enemy: Array[Vector2i]
+var shortest_path_to_enemy: AiWorld.PathData
 var enemy_stand_near: int = -1
 
 

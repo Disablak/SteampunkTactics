@@ -1,9 +1,0 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dadl6tcfre3y4"]
-
-[ext_resource type="Resource" uid="uid://b018l2uqo7tii" path="res://data/settings/utility ai/ActionMoveToEnemy.tres" id="1_epneq"]
-[ext_resource type="Script" path="res://scripts/utility_ai/AiPreset.gd" id="1_wvk10"]
-[ext_resource type="Resource" uid="uid://c3dg53qh2yvbi" path="res://data/settings/utility ai/ActionKickEnemy.tres" id="2_btr5h"]
-
-[resource]
-script = ExtResource("1_wvk10")
-ai_actions = [ExtResource("1_epneq"), ExtResource("2_btr5h")]

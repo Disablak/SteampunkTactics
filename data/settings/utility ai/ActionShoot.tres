@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://cv0nsfwodcjy4"]
+[gd_resource type="Resource" script_class="ActionShoot" load_steps=7 format=3 uid="uid://cv0nsfwodcjy4"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionShoot.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="1_e1106"]
@@ -12,6 +12,7 @@ point_count = 2
 [sub_resource type="Resource" id="Resource_dvfjy"]
 script = ExtResource("1_e1106")
 price_type = 1
+invert = false
 response_curve = SubResource("Curve_2mr83")
 
 [resource]

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cx6p5e3by1tm5"]
+[gd_resource type="Resource" script_class="ConsiderEnoughAmmoToShoot" load_steps=3 format=3 uid="uid://cx6p5e3by1tm5"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughAmmoToShoot.gd" id="1_30u01"]
 
@@ -8,4 +8,5 @@ point_count = 2
 
 [resource]
 script = ExtResource("1_30u01")
+invert = false
 response_curve = SubResource("Curve_iqlqr")

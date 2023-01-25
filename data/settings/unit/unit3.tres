@@ -1,14 +1,14 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bjhp4p6cycksr"]
+[gd_resource type="Resource" script_class="UnitSettings" load_steps=3 format=3 uid="uid://bjhp4p6cycksr"]
 
 [ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="1_tpaod"]
-[ext_resource type="Resource" uid="uid://b4fh2mesn3mcf" path="res://data/settings/weapon/weapon0.tres" id="2_yrq0r"]
+[ext_resource type="Resource" uid="uid://dpr05mthqfhup" path="res://data/settings/weapon/weapon0.tres" id="2_yrq0r"]
 
 [resource]
 script = ExtResource("1_tpaod")
 unit_name = "EnemyUnit 1"
-is_enemy = true
 max_health = 10.0
 walk_speed = 25
 initiative = 3
 range_of_view = 5
 weapons = [ExtResource("2_yrq0r")]
+additional_ai_actions = null

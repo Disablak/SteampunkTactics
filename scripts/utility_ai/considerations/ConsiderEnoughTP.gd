@@ -23,16 +23,10 @@ func get_price_by_type() -> int:
 			return GlobalUnits.get_cur_unit().unit_data.unit_settings.riffle.reload_price
 
 		PriceType.MOVE_RAND:
-			return GlobalMap.ai_world.find_walk_cell_and_get_price()
+			return GlobalMap.ai_world.find_random_cell_and_get_price_walk()
 
-		PriceType.MOVE_TO_ENEMY:
-			return GlobalMap.ai_world.get_max_price_move_to_enemy()
-
-		PriceType.MOVE_TO_PATRUL:
-			return GlobalMap.ai_world.get_price_move_to_patrul_zone()
-
-		PriceType.MOVE_TO_COVER:
-			return GlobalMap.ai_world.get_price_move_to_cover()
+		PriceType.MOVE_TO_ENEMY, PriceType.MOVE_TO_PATRUL, PriceType.MOVE_TO_COVER:
+			return GlobalMap.ai_world.get_price_move()
 
 		_:
 			printerr("Price not installed!")

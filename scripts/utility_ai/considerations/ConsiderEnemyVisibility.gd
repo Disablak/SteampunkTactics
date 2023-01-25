@@ -4,7 +4,7 @@ extends Consideration
 
 func calc_score() -> float:
 	var cur_unit : Unit = GlobalUnits.get_cur_unit()
-	var visible_enemies = GlobalMap.ai_world.try_find_visible_enemy(cur_unit)
+	var visible_enemies = GlobalMap.ai_world.get_visible_enemies()
 
 	return 1.0 if visible_enemies.size() > 0 else 0.0
 

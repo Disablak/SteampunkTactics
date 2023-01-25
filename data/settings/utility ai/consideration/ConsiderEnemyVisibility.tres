@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://otfvqk0wa3eh"]
+[gd_resource type="Resource" script_class="ConsiderEnemyVisibility" load_steps=3 format=3 uid="uid://otfvqk0wa3eh"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd" id="1"]
 

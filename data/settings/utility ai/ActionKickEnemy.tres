@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://c3dg53qh2yvbi"]
+[gd_resource type="Resource" script_class="ActionKickEnemy" load_steps=5 format=3 uid="uid://c3dg53qh2yvbi"]
 
 [ext_resource type="Resource" uid="uid://djf74ysd3h0e2" path="res://data/settings/utility ai/consideration/ConsiderEnemyNearUnit.tres" id="1_7uaq3"]
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionKickEnemy.gd" id="1_316n4"]

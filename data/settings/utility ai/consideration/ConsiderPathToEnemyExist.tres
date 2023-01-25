@@ -1,6 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bf3mg6x1brk7h"]
-
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderPathToEnemyExist.gd" id="1_7bur5"]
-
-[resource]
-script = ExtResource("1_7bur5")
