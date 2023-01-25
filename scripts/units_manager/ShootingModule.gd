@@ -231,7 +231,7 @@ func throw_granade(unit: Unit, grid_pos: Vector2i) -> bool:
 		return false
 
 	unit.unit_data.grenade.spend_grenade()
-	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, unit.unit_data.grenade.settings.use_price)
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.THROW_GRENADE, unit.unit_data.grenade.settings.use_price)
 
 	var damaged_cells := pathfinding.get_cells_by_pattern(grid_pos, Globals.CELL_AREA_3x3)
 
@@ -280,6 +280,7 @@ func _kick_unit(unit: Unit, another_unit: Unit) -> bool:
 		GlobalsUi.message("Not enough time points!")
 		return false
 
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.MELLE_ATTACK, unit.unit_data.knife.settings.use_price)
 	another_unit.unit_data.set_damage(unit.unit_data.knife.settings.damage, unit.id)
 
 	var dir = (another_unit.unit_object.position - unit.unit_object.position).normalized()

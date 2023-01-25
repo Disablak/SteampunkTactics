@@ -6,7 +6,9 @@ enum TypeSpendAction{
 	RESTORE_TURN,
 	SHOOTING,
 	RELOADING,
-	WALKING
+	WALKING,
+	MELLE_ATTACK,
+	THROW_GRENADE
 }
 
 var order_unit_id: Array[int] = []

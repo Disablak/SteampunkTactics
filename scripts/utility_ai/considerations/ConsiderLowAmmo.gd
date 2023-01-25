@@ -4,7 +4,7 @@ extends Consideration
 
 func calc_score() -> float:
 	var cur_unit_data := GlobalUnits.get_cur_unit().unit_data
-	var result: float = 1.0 - float(cur_unit_data.riffle.cur_weapon_ammo) / float(cur_unit_data.riffle.ammo)
+	var result: float = 1.0 - float(cur_unit_data.riffle.cur_weapon_ammo) / float(cur_unit_data.riffle.settings.max_ammo)
 	return result
 
 
