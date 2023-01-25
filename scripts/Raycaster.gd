@@ -4,7 +4,7 @@ extends Node2D
 
 @export var segment_shape_2d: SegmentShape2D
 
-const MASK_WALL = 16 #  0b0101 #5
+const MASK_WALL = 16
 const MASK_OBSTACLE = 32
 
 

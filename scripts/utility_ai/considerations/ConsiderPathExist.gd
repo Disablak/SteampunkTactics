@@ -2,7 +2,7 @@ class_name ConsiderPathExist
 extends Consideration
 
 
-enum PathTarget {NONE, NEAR_ENEMY, PATRUL_ZONE}
+enum PathTarget {NONE, NEAR_ENEMY, PATRUL_ZONE, NEAR_COVER}
 @export var path_target: PathTarget = PathTarget.NONE
 
 
@@ -23,6 +23,14 @@ func _get_score() -> float:
 		PathTarget.PATRUL_ZONE:
 			var point := ai_world.find_path_to_patrul_zone()
 			return 1.0 if point != Vector2i.ZERO else 0.0
+
+		PathTarget.NEAR_COVER:
+			var path_data = ai_world.get_cover_that_help()
+			if path_data.path.size() == 0:
+				return 0.0
+
+			var max_length_to_walk := TurnManager.cur_time_points / GlobalUnits.get_cur_unit().unit_data.unit_settings.walk_speed
+			return float(max_length_to_walk) / path_data.path.size()
 
 		_:
 			printerr("Not setted path target")

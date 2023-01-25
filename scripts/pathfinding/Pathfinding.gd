@@ -287,6 +287,23 @@ func is_unit_in_cover(unit_pos: Vector2, cell_cover: CellObject) -> bool:
 	return unit_grid_pos == cell_cover.grid_pos or unit_grid_pos == cell_cover.connected_cells_pos[0]
 
 
+func is_point_has_cover(grid_pos: Vector2i) -> bool:
+	var cell_object = get_cell_by_pos(grid_pos)
+	if cell_object == null:
+		return false
+
+	return cell_object.cell_type == CellObject.CellType.COVER
+
+
+func get_covers_in_points(points: Array[Vector2i]) -> Array[Vector2i]:
+	var result: Array[Vector2i]
+	for point in points:
+		if is_point_has_cover(point):
+			result.append(point)
+
+	return result
+
+
 func get_cell_id_by_grid_pos(grid_pos: Vector2) -> int:
 	var cell_id := astar.get_closest_point(grid_pos, true)
 	var cell_obj: CellObject = dict_id_and_cell_walk[cell_id]

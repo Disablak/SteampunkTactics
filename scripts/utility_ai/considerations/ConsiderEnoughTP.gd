@@ -2,7 +2,7 @@ class_name ConsiderEnoughTP
 extends Consideration
 
 
-enum PriceType {NONE, SHOOT, KICK, RELOAD, MOVE_RAND, MOVE_TO_ENEMY, MOVE_TO_PATRUL}
+enum PriceType {NONE, SHOOT, KICK, RELOAD, MOVE_RAND, MOVE_TO_ENEMY, MOVE_TO_PATRUL, MOVE_TO_COVER}
 
 @export var price_type: PriceType = PriceType.NONE
 
@@ -30,6 +30,9 @@ func get_price_by_type() -> int:
 
 		PriceType.MOVE_TO_PATRUL:
 			return GlobalMap.ai_world.get_price_move_to_patrul_zone()
+
+		PriceType.MOVE_TO_COVER:
+			return GlobalMap.ai_world.get_price_move_to_cover()
 
 		_:
 			printerr("Price not installed!")

@@ -10,6 +10,11 @@ var units_manager: UnitsManager
 var walking: WalkingModule
 var brain_ai: BrainAI
 
+class PathData:
+	var target_point: Vector2i
+	var path: Array[Vector2i]
+	var unit_id: int = -1
+
 var _cur_unit: Unit:
 	get: return GlobalUnits.get_cur_unit()
 
@@ -22,6 +27,62 @@ func init(units_manager: UnitsManager):
 	self.units_manager = units_manager
 	self.brain_ai = units_manager.brain_ai
 	self.walking = units_manager.walking
+
+
+func _get_visible_covers() -> Array[Vector2i]:
+	var visible_cells := _cur_unit.unit_data.visibility_data.visible_points
+	var visible_covers := units_manager.pathfinding.get_covers_in_points(visible_cells)
+	return visible_covers
+
+
+func _get_visible_enemies() -> Array[Unit]:
+	var visible_cells := _cur_unit.unit_data.visibility_data.visible_points
+	var all_enemies := GlobalUnits.get_units(!_cur_unit.unit_data.is_enemy)
+	var result: Array[Unit]
+	for enemy in all_enemies: # lambda not work!
+		if visible_cells.has(enemy.unit_object.grid_pos):
+			result.append(enemy)
+
+	return result
+
+
+func _get_near_target_can_walk(points: Array[Vector2i]) -> PathData:
+	var path_data: PathData = PathData.new()
+
+	for point in points: # lambda not work!
+		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, point):
+			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, point)
+			if path_data.path.size() == 0 or path_data.path.size() > path.size():
+				path_data.path = path
+				path_data.target_point = point
+
+	return path_data
+
+
+func _get_cover_that_cover_me_from_any_enemy() -> PathData:
+	var covers := _get_visible_covers()
+	var enemies := _get_visible_enemies()
+	var path_data: PathData = PathData.new()
+
+	for cover_pos in covers:  # lambda not work!
+		for enemy in enemies:
+			var intersected_obs := units_manager.raycaster.make_ray_get_obstacles(Globals.convert_to_cell_pos(cover_pos), Globals.convert_to_cell_pos(enemy.unit_object.grid_pos))
+			for cell_obj in intersected_obs:
+				if cell_obj.cell_type != CellObject.CellType.COVER:
+					continue
+
+				var path_to_cover = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, cover_pos)
+				if path_data.path.size() == 0 or path_data.path.size() > path_to_cover.size():
+					path_data.path = path_to_cover
+					path_data.target_point = cover_pos
+
+	return path_data
+
+
+func get_cover_that_help() -> PathData:
+	var path_data_cover = _get_cover_that_cover_me_from_any_enemy()
+	_cur_unit.unit_data.ai_settings.cover_path_data = path_data_cover
+	return path_data_cover
 
 
 func try_find_visible_enemy(cur_unit: Unit) -> Array[Unit]:
@@ -83,6 +144,11 @@ func _get_path_to_any_points(points: Array[Vector2i]) -> Array[Vector2i]:
 func is_unit_reched_patrul_zone():
 	var zone_cells := _cur_unit.unit_data.ai_settings.get_cur_target_patrul_zone_points()
 	return zone_cells.has(_cur_unit.unit_object.grid_pos)
+
+
+func is_unit_in_cover() -> bool:
+	var in_cover := units_manager.pathfinding.is_point_has_cover(_cur_unit.unit_object.grid_pos)
+	return in_cover
 
 
 func find_path_to_patrul_zone() -> Vector2i:
@@ -153,6 +219,14 @@ func _get_max_cells_to_walk() -> int:
 	return floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
 
 
+func get_price_move_to_cover() -> int:
+	var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, _cur_unit.unit_data.ai_settings.cover_path_data.target_point)
+	if path.size() == 0:
+		return 9999
+
+	return (path.size() - 1) * _cur_unit.unit_data.unit_settings.walk_speed
+
+
 func get_price_move_to_patrul_zone() -> int:
 	var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, _cur_unit.unit_data.ai_settings.walk_pos_to_patrul_zone)
 	if path.size() == 0:
@@ -168,6 +242,14 @@ func get_max_price_move_to_enemy() -> int:
 
 	var price = available_cells_to_walk * _cur_unit.unit_data.unit_settings.walk_speed
 	return price
+
+
+func move_to_cover():
+	var available_cells_to_walk: int = floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
+	var idx = min(available_cells_to_walk, _cur_unit.unit_data.ai_settings.cover_path_data.path.size() - 1)
+	var target_point: Vector2i = _cur_unit.unit_data.ai_settings.cover_path_data.path[idx]
+
+	walk_to(target_point)
 
 
 func walk_to_patrul_zone():
