@@ -17,8 +17,7 @@ func _get_score() -> float:
 			if path_data.path.size() == 0:
 				return 0.0
 
-			var max_length_to_walk := TurnManager.cur_time_points / GlobalUnits.get_cur_unit().unit_data.unit_settings.walk_speed
-			return float(max_length_to_walk) / path_data.path.size()
+			return _get_max_walk_cell() / (path_data.path.size() - 1)
 
 		PathTarget.PATRUL_ZONE:
 			var point := ai_world.find_path_to_patrul_zone()
@@ -29,8 +28,7 @@ func _get_score() -> float:
 			if path_data.path.size() == 0:
 				return 0.0
 
-			var max_length_to_walk := TurnManager.cur_time_points / GlobalUnits.get_cur_unit().unit_data.unit_settings.walk_speed
-			return float(max_length_to_walk) / path_data.path.size()
+			return _get_max_walk_cell() / (path_data.path.size() -1)
 
 		_:
 			printerr("Not setted path target")
@@ -39,3 +37,7 @@ func _get_score() -> float:
 
 func _to_string() -> String:
 	return super._to_string() + "ConsiderPathExist {0}".format([PathTarget.keys()[path_target]])
+
+
+func _get_max_walk_cell() -> float:
+	return float(floori(TurnManager.cur_time_points / GlobalUnits.get_cur_unit().unit_data.unit_settings.walk_speed))

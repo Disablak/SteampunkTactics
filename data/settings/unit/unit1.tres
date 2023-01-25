@@ -11,6 +11,6 @@ unit_name = "EnemyUnit 0"
 max_health = 15.0
 walk_speed = 25
 initiative = 8
-range_of_view = 5
+range_of_view = 8
 abilities = [ExtResource("1_meyno"), ExtResource("2_58kj0")]
 additional_ai_actions = [ExtResource("2_4gv4r")]

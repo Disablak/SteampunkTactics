@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AiPreset" load_steps=28 format=3 uid="uid://4vlp6vtsvwcf"]
+[gd_resource type="Resource" script_class="AiPreset" load_steps=29 format=3 uid="uid://4vlp6vtsvwcf"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="1_c5uen"]
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughAmmoToShoot.gd" id="2_g5ksa"]
@@ -73,10 +73,15 @@ invert = true
 script = ExtResource("3_jsmsr")
 invert = false
 
+[sub_resource type="Curve" id="Curve_vnq4l"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.98362, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Resource" id="Resource_j5b6t"]
 script = ExtResource("8_2v40n")
 path_target = 3
 invert = false
+response_curve = SubResource("Curve_vnq4l")
 
 [sub_resource type="Resource" id="Resource_qdvwh"]
 script = ExtResource("1_c5uen")
