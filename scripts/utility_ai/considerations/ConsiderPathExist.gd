@@ -13,12 +13,12 @@ func calc_score() -> float:
 func _get_score() -> float:
 	match path_target:
 		PathTarget.NEAR_ENEMY:
-			var path := ai_world.find_path_to_near_enemy()
-			if path.size() == 0:
+			var path_data := ai_world.find_path_to_near_enemy()
+			if path_data.path.size() == 0:
 				return 0.0
 
 			var max_length_to_walk := TurnManager.cur_time_points / GlobalUnits.get_cur_unit().unit_data.unit_settings.walk_speed
-			return float(max_length_to_walk) / path.size()
+			return float(max_length_to_walk) / path_data.path.size()
 
 		PathTarget.PATRUL_ZONE:
 			var point := ai_world.find_path_to_patrul_zone()

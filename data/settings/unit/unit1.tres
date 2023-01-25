@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="UnitSettings" load_steps=3 format=3 uid="uid://brmbpg4yn8lll"]
+[gd_resource type="Resource" script_class="UnitSettings" load_steps=4 format=3 uid="uid://brmbpg4yn8lll"]
 
 [ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="1"]
 [ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="1_meyno"]
+[ext_resource type="Resource" uid="uid://bko6rfue0rg42" path="res://data/settings/utility ai/presets/ActionMoveToPatrulZone.tres" id="2_4gv4r"]
 
 [resource]
 script = ExtResource("1")
@@ -11,4 +12,4 @@ walk_speed = 25
 initiative = 8
 range_of_view = 5
 abilities = [ExtResource("1_meyno")]
-additional_ai_actions = []
+additional_ai_actions = [ExtResource("2_4gv4r")]

@@ -181,7 +181,7 @@ func _get_shoot_result(shooter: Unit):
 
 	var rand_hit = randf()
 	print("rand_hit {0}".format([Globals.format_hit_chance(rand_hit)]))
-	if rand_hit > chance_to_hit:
+	if rand_hit < chance_to_hit:
 		return HitType.HIT
 
 	var rand_cover = randf()

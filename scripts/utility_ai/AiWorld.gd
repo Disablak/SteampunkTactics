@@ -158,7 +158,8 @@ func find_path_to_near_enemy() -> PathData:
 		return null
 
 	var points_around_unit := units_manager.pathfinding.get_grid_poses_by_pattern(enemy_path_data.target_point, Globals.CELL_AREA_FOUR_DIR)
-	var enemy_side_path_data := _get_shortest_path_to_target(points_around_unit)
+	var points_without_obs := _get_ray_pos_that_not_collide_obs(enemy_path_data.target_point, points_around_unit)
+	var enemy_side_path_data := _get_shortest_path_to_target(points_without_obs)
 	enemy_side_path_data.unit_id = units_manager.pathfinding.get_unit_on_cell(enemy_path_data.target_point).id
 
 	if enemy_side_path_data.is_empty:
@@ -167,6 +168,16 @@ func find_path_to_near_enemy() -> PathData:
 
 	_cur_unit.unit_data.ai_settings.shortest_path_to_enemy = enemy_side_path_data
 	return enemy_side_path_data
+
+
+func _get_ray_pos_that_not_collide_obs(ray_start_pos: Vector2i, target_points: Array[Vector2i]) -> Array[Vector2i]:
+	var result: Array[Vector2i]
+	for point in target_points:
+		var intersected_obs := units_manager.raycaster.make_ray_get_obstacles(Globals.convert_to_cell_pos(ray_start_pos), Globals.convert_to_cell_pos(point))
+		if intersected_obs.size() == 0:
+			result.append(point)
+
+	return result
 
 
 func is_any_enemy_near_unit() -> bool:
