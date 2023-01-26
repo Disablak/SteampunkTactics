@@ -316,11 +316,11 @@ position = Vector2(416, 352)
 position = Vector2(576, 512)
 
 [node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("10_ddu4q")]
-position = Vector2(416, 480)
+position = Vector2(384, 480)
 unit_settings = ExtResource("11_cetlj")
 
 [node name="UnitObject2" parent="RootUnits" index="1" instance=ExtResource("10_ddu4q")]
-position = Vector2(576, 480)
+position = Vector2(512, 480)
 unit_settings = ExtResource("12_u34wp")
 ai_settings = SubResource("Resource_usf2t")
 

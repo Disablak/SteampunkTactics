@@ -6,6 +6,9 @@ enum CellVisibility {NONE, VISIBLE, HALF, NOTHING}
 
 @export var cell_fog_scene: PackedScene
 
+const AI_CONUS_RADIUS := 120
+const HALF_RADIUS := AI_CONUS_RADIUS / 2
+
 var dict_pos_and_cell = {}
 
 
@@ -67,8 +70,13 @@ func update_unit_visibility(unit: Unit):
 		return
 
 	visibility_data.pos_last_check_visibility = grid_unit_pos
-	visibility_data.circle_points = MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
-#
+
+	var angle_look_deg = rad_to_deg(unit.unit_object.position.angle_to_point(GlobalUnits.units[1].unit_object.position))
+	var all_circle_points := MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
+	var sector_circle_points := MyMath.get_circle_sector_points(grid_unit_pos, all_circle_points, unit.unit_data.view_direction, HALF_RADIUS)
+
+	visibility_data.circle_points = sector_circle_points if unit.unit_data.is_enemy else all_circle_points
+
 	var new_visible_points: Array[Vector2i]
 	for grid_pos_on_circle in visibility_data.circle_points:
 		var line_points = _get_line_points(grid_unit_pos, grid_pos_on_circle)

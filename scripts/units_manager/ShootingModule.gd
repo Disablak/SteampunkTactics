@@ -212,7 +212,7 @@ func get_distance_to_enemy(cur_unit: Unit) -> float:
 		printerr("Enemy unit not selected!")
 		return 0.0
 
-	return cur_unit.unit_object.position.distance_to(selected_enemy.unit_object.position)
+	return cur_unit.unit_object.position.distance_to(selected_enemy.unit_object.position) / Globals.CELL_SIZE
 
 
 func throw_granade(unit: Unit, grid_pos: Vector2i) -> bool:

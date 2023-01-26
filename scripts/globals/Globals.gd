@@ -17,7 +17,7 @@ var CELL_AREA_FOUR_DIR_DIAGONAL: Array[Vector2i] = [
 ]
 
 const GRID_STEP = 1.0
-const CURVE_X_METERS = 3000
+const CURVE_X_METERS = 10
 const CELL_SIZE := 32
 const CELL_HALF_SIZE := CELL_SIZE / 2
 const CELL_QUAD_SIZE := CELL_HALF_SIZE / 2

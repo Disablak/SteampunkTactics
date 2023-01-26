@@ -4,8 +4,8 @@
 [ext_resource type="Resource" uid="uid://4vlp6vtsvwcf" path="res://data/settings/utility ai/presets/PresetRangeAttack.tres" id="1_nnelp"]
 
 [sub_resource type="Curve" id="Curve_o5b85"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(1, 1), 0.0, 0.0, 1, 0]
-point_count = 2
+_data = [Vector2(0, 0.655325), 0.0, 0.501907, 0, 1, Vector2(0.500611, 0.906585), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.187059, 0.0, 1, 0]
+point_count = 3
 
 [resource]
 script = ExtResource("1_32p5p")

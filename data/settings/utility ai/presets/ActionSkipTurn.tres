@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ActionNextTurn" load_steps=6 format=3 uid="uid://btyefmhj0flqm"]
+
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd" id="1_ckh0r"]
+[ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionNextTurn.gd" id="1_r43s0"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderRandom.gd" id="2_7htt6"]
+
+[sub_resource type="Resource" id="Resource_teq2i"]
+script = ExtResource("1_ckh0r")
+invert = true
+
+[sub_resource type="Resource" id="Resource_l3dvo"]
+script = ExtResource("2_7htt6")
+invert = false
+
+[resource]
+script = ExtResource("1_r43s0")
+considerations = [SubResource("Resource_teq2i"), SubResource("Resource_l3dvo")]

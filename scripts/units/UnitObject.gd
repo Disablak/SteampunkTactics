@@ -3,6 +3,8 @@ class_name UnitObject
 
 
 @onready var main_sprite := $Sprite2d as Sprite2D
+@onready var view_direction := $ViewDirection as Sprite2D
+
 
 @export var unit_settings: UnitSettings
 @export var ai_settings: AiSettings
@@ -18,6 +20,8 @@ var grid_pos: Vector2i:
 
 func init_unit(unit_id, unit_data) -> void:
 	self.unit_id = unit_id
+
+	view_direction.visible = unit_data.is_enemy
 
 
 func _update_ai_settings():
@@ -57,6 +61,10 @@ func mark_selected(is_selected: bool):
 func set_visibility(is_visible):
 	self.is_visible = is_visible
 	visible = is_visible
+
+
+func update_view_direction(angle):
+	view_direction.rotation_degrees = angle
 
 
 func play_kick_anim(dir: Vector2):

@@ -76,6 +76,21 @@ static func get_circle_points(center: Vector2i, radius: int) -> Array[Vector2i]:
 	return all_points
 
 
+static  func get_circle_sector_points(circle_center: Vector2, circle_points: Array[Vector2i], look_angle: int, half_of_radius: int) -> Array[Vector2i]:
+	var result: Array[Vector2i]
+	for point in circle_points:
+		var angle_rad = circle_center.angle_to_point(point)
+		var angle_deg = snappedi(rad_to_deg(angle_rad), 1.0) + 360
+		if angle_in_range(angle_deg, look_angle - half_of_radius, look_angle + half_of_radius):
+			result.append(point)
+
+	return result
+
+
+static func angle_in_range(alpha: int, lower: int, upper: int):
+	return (alpha - lower) % 360 <= (upper - lower) % 360
+
+
 
 static func bresenham_line_perfect(from:Vector2i, to: Vector2i):
 	var dx: int = abs(to.x - from.x)

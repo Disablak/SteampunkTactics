@@ -24,6 +24,7 @@ var knife: MelleWeaponData
 var grenade: ThrowItemData
 
 var cur_health: float
+var view_direction: int
 
 
 func _init(unit_settings: UnitSettings, ai_settings: AiSettings):
