@@ -8,6 +8,7 @@ class_name UnitObject
 
 @export var unit_settings: UnitSettings
 @export var ai_settings: AiSettings
+@export var start_view_dir: int = 0
 
 var unit_id = -1
 var main_material: Material
@@ -18,10 +19,11 @@ var grid_pos: Vector2i:
 	get: return Globals.convert_to_grid_pos(position)
 
 
-func init_unit(unit_id, unit_data) -> void:
+func init_unit(unit_id, unit_data: UnitData) -> void:
 	self.unit_id = unit_id
 
 	view_direction.visible = unit_data.is_enemy
+	unit_data.update_view_direction(start_view_dir)
 
 
 func _update_ai_settings():
@@ -38,13 +40,13 @@ func _update_ai_settings():
 	ai_settings.init(node_zone, patrul_nodes)
 
 
-
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 	GlobalBus.on_unit_change_health.connect(_on_unit_changed_health)
+	GlobalBus.on_unit_changed_view_direction.connect(_on_unit_changed_view_direction)
 
 	main_sprite.material = main_sprite.material.duplicate()
 	main_material = main_sprite.material
@@ -62,9 +64,6 @@ func set_visibility(is_visible):
 	self.is_visible = is_visible
 	visible = is_visible
 
-
-func update_view_direction(angle):
-	view_direction.rotation_degrees = angle
 
 
 func play_kick_anim(dir: Vector2):
@@ -94,3 +93,11 @@ func _on_unit_died(unit_id, unit_id_killer):
 		return
 
 	queue_free()
+
+
+func _on_unit_changed_view_direction(unit_id, angle, update_fog):
+	if self.unit_id != unit_id:
+		return
+
+	view_direction.rotation_degrees = angle
+

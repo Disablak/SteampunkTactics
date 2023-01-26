@@ -47,6 +47,9 @@ func select_enemy(cur_ability: UnitData.Abilities, cur_unit: Unit, enemy: Unit) 
 
 	_show_selected_enemy_info(cur_ability, cur_unit, enemy)
 
+	var dir_to_enemy: int = rad_to_deg(cur_unit.unit_object.position.angle_to_point(enemy.unit_object.position))
+	cur_unit.unit_data.update_view_direction(dir_to_enemy, true)
+
 	return false
 
 

@@ -104,3 +104,11 @@ func init_abilities(abilities: Array[AbilitySettings]):
 
 	for data in all_abilities:
 		data.init_weapon()
+
+
+func update_view_direction(angle: int, update_fog_of_war = false):
+	if view_direction == angle:
+		return
+
+	view_direction = angle
+	GlobalBus.on_unit_changed_view_direction.emit(unit_id, view_direction, update_fog_of_war)

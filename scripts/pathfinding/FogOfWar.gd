@@ -14,6 +14,7 @@ var dict_pos_and_cell = {}
 
 func _ready() -> void:
 	GlobalBus.on_unit_changed_control.connect(_on_unit_changed_control)
+	GlobalBus.on_unit_changed_view_direction.connect(_on_unit_changed_view_direction)
 
 	await get_tree().process_frame
 	GlobalUnits.units_manager.walking.on_moved_to_another_cell.connect(_on_unit_moved)
@@ -28,6 +29,18 @@ func _on_unit_changed_control(unit_id, _istantly):
 
 func _on_unit_moved(cell_pos: Vector2):
 	var unit: Unit = GlobalUnits.get_cur_unit()
+
+	update_team_visibility_area(unit.id, unit.unit_data.is_enemy)
+	_update_units_visibility(unit)
+
+
+func _on_unit_changed_view_direction(unit_id, _angle, update_fog_of_war):
+	if not update_fog_of_war:
+		return
+
+	var unit: Unit = GlobalUnits.units[unit_id]
+	if not unit.unit_data.is_enemy:
+		return
 
 	update_team_visibility_area(unit.id, unit.unit_data.is_enemy)
 	_update_units_visibility(unit)
@@ -64,14 +77,15 @@ func get_team_visibility(enemy_team: bool) -> Array[Vector2i]:
 
 func update_unit_visibility(unit: Unit):
 	var grid_unit_pos := Globals.convert_to_grid_pos(unit.unit_object.position)
+	var unit_view_direction := unit.unit_data.view_direction
 	var visibility_data = unit.unit_data.visibility_data
 
-	if grid_unit_pos == visibility_data.pos_last_check_visibility:
+	if grid_unit_pos == visibility_data.pos_last_check_visibility and unit_view_direction == visibility_data.prev_view_direction:
 		return
 
 	visibility_data.pos_last_check_visibility = grid_unit_pos
+	visibility_data.prev_view_direction = unit_view_direction
 
-	var angle_look_deg = rad_to_deg(unit.unit_object.position.angle_to_point(GlobalUnits.units[1].unit_object.position))
 	var all_circle_points := MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
 	var sector_circle_points := MyMath.get_circle_sector_points(grid_unit_pos, all_circle_points, unit.unit_data.view_direction, HALF_RADIUS)
 
