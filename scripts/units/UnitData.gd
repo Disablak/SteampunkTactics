@@ -10,8 +10,11 @@ enum Abilities {
 	GRENADE,
 }
 
-var unit_id = -1
+var unit_id := -1
 var is_enemy: bool
+var cur_health: float
+var view_direction: int
+var attention_direction: int = -1
 
 var unit_settings: UnitSettings
 var ai_settings: AiSettings
@@ -22,9 +25,6 @@ var all_abilities: Array[AbilityData]
 var riffle: RangedWeaponData
 var knife: MelleWeaponData
 var grenade: ThrowItemData
-
-var cur_health: float
-var view_direction: int
 
 
 func _init(unit_settings: UnitSettings, ai_settings: AiSettings):
@@ -49,6 +49,9 @@ func set_damage(value: float, attacker_unit_id: int):
 
 	cur_health -= value
 	GlobalBus.on_unit_change_health.emit(unit_id)
+
+	var attacker_object: UnitObject = GlobalUnits.units[attacker_unit_id].unit_object
+	update_attention_direction(attacker_object)
 
 	if cur_health <= 0:
 		GlobalBus.on_unit_died.emit(unit_id, attacker_unit_id)
@@ -112,3 +115,19 @@ func update_view_direction(angle: int, update_fog_of_war = false):
 
 	view_direction = angle
 	GlobalBus.on_unit_changed_view_direction.emit(unit_id, view_direction, update_fog_of_war)
+
+
+func update_attention_direction(object: Node2D):
+	if not object:
+		attention_direction = -1
+		return
+
+	var cur_unit_object: UnitObject = GlobalUnits.units[unit_id].unit_object
+	var angle: int = rad_to_deg(cur_unit_object.position.angle_to_point(object.position))
+	attention_direction = angle
+
+
+func rotate_to_attention_dir():
+	update_view_direction(attention_direction, true)
+	update_attention_direction(null)
+

@@ -193,6 +193,10 @@ func is_any_enemy_near_unit() -> bool:
 	return false
 
 
+func is_attention_dir_exist() -> bool:
+	return _cur_unit.unit_data.attention_direction != -1
+
+
 func _get_max_cells_to_walk() -> int:
 	return floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
 
@@ -208,6 +212,15 @@ func _get_max_point_to_walk(path: Array[Vector2i]) -> Vector2i:
 	var available_cells_to_walk: int = floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
 	var idx = min(available_cells_to_walk, path.size() - 1)
 	return path[idx]
+
+
+func rotate_to_attention_dir():
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+
+	_cur_unit.unit_data.rotate_to_attention_dir()
+	await Globals.create_timer_and_get_signal(1)
+
+	brain_ai.decide_best_action_and_execute()
 
 
 func walk_to_cover():

@@ -21,7 +21,7 @@ price_type = 6
 invert = false
 
 [sub_resource type="Curve" id="Curve_u3vrl"]
-_data = [Vector2(0.494607, 0.509137), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.148744, 0.801512), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Resource" id="Resource_5butv"]

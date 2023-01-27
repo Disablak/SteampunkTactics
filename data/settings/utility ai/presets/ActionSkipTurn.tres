@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ActionNextTurn" load_steps=6 format=3 uid="uid://btyefmhj0flqm"]
+[gd_resource type="Resource" script_class="ActionNextTurn" load_steps=7 format=3 uid="uid://btyefmhj0flqm"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd" id="1_ckh0r"]
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionNextTurn.gd" id="1_r43s0"]
@@ -8,9 +8,14 @@
 script = ExtResource("1_ckh0r")
 invert = true
 
+[sub_resource type="Curve" id="Curve_0p5f1"]
+_data = [Vector2(0, 0.513705), 0.0, 0.486295, 0, 1, Vector2(1, 1), 0.486295, 0.0, 1, 0]
+point_count = 2
+
 [sub_resource type="Resource" id="Resource_l3dvo"]
 script = ExtResource("2_7htt6")
 invert = false
+response_curve = SubResource("Curve_0p5f1")
 
 [resource]
 script = ExtResource("1_r43s0")

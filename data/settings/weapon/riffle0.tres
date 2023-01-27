@@ -14,5 +14,5 @@ max_ammo = 4
 reload_price = 50
 ability_name = "Winchester"
 use_price = 30
-damage = 10.0
+damage = 3.0
 ai_preset = ExtResource("1_nnelp")
