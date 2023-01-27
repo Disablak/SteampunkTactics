@@ -40,8 +40,23 @@ func set_damage(damage: int = 1):
 	GlobalBus.on_cell_broke.emit(self)
 
 
-func _break_cell():
+func get_cover_angle(pos: Vector2i) -> int:
+	if cell_type != CellType.COVER:
+		printerr("Its not cover")
+		return -1
 
+	# todo fix this hardcode!
+	if pos == grid_pos:
+		return 0
+	elif pos == connected_cells_pos[0]:
+		return 180
+	else:
+		printerr("pos is not cover!")
+		return -1
+
+
+
+func _break_cell():
 	print("cell is broke")
 
 

@@ -27,6 +27,10 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo) -> void:
 
 	var unit: Unit = GlobalUnits.units[cell_info.unit_id]
 
+	if unit == null:
+		_clear()
+		return
+
 	if not unit.unit_data.is_enemy:
 		_clear()
 		return

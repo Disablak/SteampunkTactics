@@ -236,9 +236,9 @@ func rotate_to_attention():
 		_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos = first_enemy_grid_pos
 		Globals.print_ai("unit {0} rotate to prev saw unit".format([_cur_unit.id]), false, "crimson")
 
-	await Globals.create_timer_and_get_signal(1)
-
+	await Globals.create_timer_and_get_signal(0.3)
 	brain_ai.decide_best_action_and_execute()
+
 
 
 func walk_to_attention_pos():
@@ -250,7 +250,20 @@ func walk_to_attention_pos():
 
 func walk_to_cover():
 	var point := _get_max_point_to_walk(_cur_unit.unit_data.ai_settings.cover_path_data.path)
-	walk_to(point)
+	walk_to(point, func(): try_rotate_to_cover(point))
+
+
+func try_rotate_to_cover(point: Vector2i):
+	if point != _cur_unit.unit_data.ai_settings.cover_path_data.path[-1]:
+		return
+
+	var cur_unit_pos := _cur_unit.unit_object.grid_pos
+	var cell := units_manager.pathfinding.get_cell_by_pos(cur_unit_pos)
+	if cell.cell_type != CellObject.CellType.COVER:
+		printerr("not cover!")
+
+	var angle: int = cell.get_cover_angle(cur_unit_pos)
+	_cur_unit.unit_data.update_view_direction(angle, true)
 
 
 func walk_to_patrul_zone():
@@ -266,7 +279,7 @@ func walk_to_rand_cell():
 	walk_to(cached_walking_cell_target)
 
 
-func walk_to(grid_pos: Vector2i):
+func walk_to(grid_pos: Vector2i, after_move_callable: Callable = null):
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	walking.draw_walking_cells()
@@ -274,12 +287,15 @@ func walk_to(grid_pos: Vector2i):
 
 	units_manager.change_unit_action(UnitData.Abilities.WALK)
 	units_manager.try_move_unit_to_cell(grid_pos)
-	walking.clear_walking_cells()
 	await walking.on_finished_move
 
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	units_manager.change_unit_action(UnitData.Abilities.NONE)
+
+	if after_move_callable != null:
+		after_move_callable.call()
+
 	brain_ai.decide_best_action_and_execute()
 
 
@@ -315,7 +331,6 @@ func reload():
 	await Globals.create_timer_and_get_signal(0.5)
 
 	brain_ai.decide_best_action_and_execute()
-
 
 
 func next_turn():
