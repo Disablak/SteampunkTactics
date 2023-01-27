@@ -6,6 +6,7 @@ extends Node2D
 @export var next_turn_action: Action
 
 var available_actions: Array[Action]
+var is_game_over: bool = false
 
 
 func set_actions(actions: Array[Action]):
@@ -16,6 +17,9 @@ func set_actions(actions: Array[Action]):
 
 
 func decide_best_action_and_execute():
+	if is_game_over:
+		return
+
 	var best_action : Action = _decide_best_action(available_actions)
 
 	if best_action != null:

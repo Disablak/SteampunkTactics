@@ -77,6 +77,9 @@ func _on_unit_died(unit_id, unit_id_killer):
 
 	if TurnManager.check_is_game_over():
 		GlobalsUi.message("Game is Over")
+		brain_ai.is_game_over = true
+		# todo send signal
+
 
 
 func _on_finish_move() -> void:

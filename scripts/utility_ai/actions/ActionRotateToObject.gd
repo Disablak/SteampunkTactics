@@ -3,7 +3,7 @@ extends Action
 
 
 func execute_action():
-	GlobalMap.ai_world.rotate_to_attention_dir()
+	GlobalMap.ai_world.rotate_to_attention()
 
 
 func _to_string() -> String:

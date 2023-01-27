@@ -2,7 +2,7 @@ class_name ActionMove
 extends Action
 
 
-enum MoveTo {NONE, RANDOM_CELL, PATRUL_ZONE, ENEMY, COVER}
+enum MoveTo {NONE, RANDOM_CELL, PATRUL_ZONE, ENEMY, COVER, ATTENTION}
 @export var move_to: MoveTo = MoveTo.NONE
 
 
@@ -19,6 +19,9 @@ func execute_action():
 
 		MoveTo.COVER:
 			ai_world.walk_to_cover()
+
+		MoveTo.ATTENTION:
+			ai_world.walk_to_attention_pos()
 
 
 func _to_string() -> String:

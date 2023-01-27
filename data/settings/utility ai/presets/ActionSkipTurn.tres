@@ -9,7 +9,7 @@ script = ExtResource("1_ckh0r")
 invert = true
 
 [sub_resource type="Curve" id="Curve_0p5f1"]
-_data = [Vector2(0, 0.513705), 0.0, 0.486295, 0, 1, Vector2(1, 1), 0.486295, 0.0, 1, 0]
+_data = [Vector2(0, 0), 0.0, 0.531979, 0, 1, Vector2(1, 0.531979), 0.531979, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Resource" id="Resource_l3dvo"]

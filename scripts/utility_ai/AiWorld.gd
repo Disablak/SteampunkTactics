@@ -194,13 +194,15 @@ func is_any_enemy_near_unit() -> bool:
 
 
 func is_attention_dir_exist() -> bool:
-	if _cur_unit.unit_data.attention_direction != -1:
-		return true
+	return _cur_unit.unit_data.attention_direction != -1
 
-	if _cur_unit.unit_data.visibility_data.enemies_saw.size() > 0:
-		return true
 
-	return false
+func is_attention_pos_exist() -> bool:
+	return _cur_unit.unit_data.visibility_data.enemies_saw.size() > 0
+
+
+func is_attention_pos_enemy_exist() -> bool:
+	return _cur_unit.unit_data.visibility_data.enemy_attention_grid_pos != Vector2i.ZERO
 
 
 func _get_max_cells_to_walk() -> int:
@@ -220,7 +222,7 @@ func _get_max_point_to_walk(path: Array[Vector2i]) -> Vector2i:
 	return path[idx]
 
 
-func rotate_to_attention_dir():
+func rotate_to_attention():
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	if _cur_unit.unit_data.attention_direction != -1:
@@ -231,11 +233,19 @@ func rotate_to_attention_dir():
 		var angle: int = rad_to_deg(_cur_unit.unit_object.position.angle_to_point(Globals.convert_to_cell_pos(first_enemy_grid_pos)))
 		_cur_unit.unit_data.update_view_direction(angle, true)
 		_cur_unit.unit_data.visibility_data.clear_enemies_saw()
+		_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos = first_enemy_grid_pos
 		Globals.print_ai("unit {0} rotate to prev saw unit".format([_cur_unit.id]), false, "crimson")
 
 	await Globals.create_timer_and_get_signal(1)
 
 	brain_ai.decide_best_action_and_execute()
+
+
+func walk_to_attention_pos():
+	var path_to_attention = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, _cur_unit.unit_data.visibility_data.enemy_attention_grid_pos)
+	var attention_pos: Vector2i = _get_max_point_to_walk(path_to_attention)
+	_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos = Vector2i.ZERO
+	walk_to(attention_pos)
 
 
 func walk_to_cover():
@@ -260,11 +270,13 @@ func walk_to(grid_pos: Vector2i):
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	walking.draw_walking_cells()
-	await Globals.create_timer_and_get_signal(0.2)
+	await Globals.create_timer_and_get_signal(0.5)
 
 	units_manager.change_unit_action(UnitData.Abilities.WALK)
 	units_manager.try_move_unit_to_cell(grid_pos)
+	walking.clear_walking_cells()
 	await walking.on_finished_move
+
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	units_manager.change_unit_action(UnitData.Abilities.NONE)

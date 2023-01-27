@@ -7,6 +7,7 @@ var prev_view_direction: int = -1
 var circle_points: Array[Vector2i]
 var visible_points: Array[Vector2i]
 var enemies_saw := {} # unit and last time saw pos
+var enemy_attention_grid_pos: Vector2i
 
 
 func unit_was_remembered(unit: Unit, last_time_saw_pos: Vector2i):
