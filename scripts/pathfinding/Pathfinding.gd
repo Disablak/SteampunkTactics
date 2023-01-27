@@ -100,6 +100,8 @@ func init() -> void:
 	_connect_walkable_cells()
 	_add_obstacles()
 
+	fog_of_war.init()
+
 	_draw_debug()
 
 

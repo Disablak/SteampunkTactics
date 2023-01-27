@@ -316,14 +316,14 @@ position = Vector2(416, 352)
 position = Vector2(576, 512)
 
 [node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("10_ddu4q")]
-position = Vector2(384, 448)
+position = Vector2(448, 448)
 unit_settings = ExtResource("11_cetlj")
 
 [node name="UnitObject2" parent="RootUnits" index="1" instance=ExtResource("10_ddu4q")]
 position = Vector2(640, 448)
 unit_settings = ExtResource("12_u34wp")
 ai_settings = SubResource("Resource_usf2t")
-start_view_dir = 90
+start_view_dir = 180
 
 [node name="Zone1" type="Sprite2D" parent="RootUnits" index="2"]
 self_modulate = Color(1, 1, 1, 0.196078)

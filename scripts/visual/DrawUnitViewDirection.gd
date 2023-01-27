@@ -22,19 +22,27 @@ func _draw() -> void:
 
 func _on_pathfinding_on_hovered_cell(cell_info: CellInfo) -> void:
 	if cell_info.unit_id == -1:
-		cur_unit = null
-		queue_redraw()
+		_clear()
 		return
 
-	if not GlobalUnits.units[cell_info.unit_id].unit_data.is_enemy:
-		cur_unit = null
-		queue_redraw()
+	var unit: Unit = GlobalUnits.units[cell_info.unit_id]
+
+	if not unit.unit_data.is_enemy:
+		_clear()
 		return
 
-	if cur_unit and cell_info.unit_id == cur_unit.id:
-		cur_unit = null
-		queue_redraw()
+	if cur_unit and unit.unit_id == cur_unit.id:
+		_clear()
 		return
 
-	cur_unit = GlobalUnits.units[cell_info.unit_id]
+	if not unit.unit_object.is_visible:
+		_clear()
+		return
+
+	cur_unit = unit
+	queue_redraw()
+
+
+func _clear():
+	cur_unit = null
 	queue_redraw()

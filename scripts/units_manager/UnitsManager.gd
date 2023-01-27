@@ -24,12 +24,16 @@ var cur_unit_action: UnitData.Abilities = UnitData.Abilities.NONE
 
 
 func _ready() -> void:
+	GlobalUnits.units_manager = self
+	GlobalMap.raycaster = raycaster
+
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 	GlobalBus.on_clicked_ability.connect(_on_clicked_ability)
 	GlobalBus.on_clicked_next_turn.connect(next_turn)
 
 
 func init():
+	_init_units()
 	pathfinding.init()
 
 	walking.set_data(pathfinding, _on_finish_move)
@@ -37,10 +41,6 @@ func init():
 	effect_manager.inject_data(line2d_manager)
 	ai_world.init(self)
 
-	GlobalUnits.units_manager = self
-	GlobalMap.raycaster = raycaster
-
-	_init_units()
 	set_unit_control(TurnManager.get_cur_turn_unit_id(), true)
 
 
@@ -148,6 +148,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 
 	if cur_unit_object != null:
 		cur_unit_object.mark_selected(false)
+		cur_unit_data.visibility_data.clear_enemies_saw()
 
 	GlobalUnits.cur_unit_id = unit_id
 	cur_unit_id = unit_id

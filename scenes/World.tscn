@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3]
+[gd_scene load_steps=27 format=3 uid="uid://daaa4wpe8k4g1"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -47,7 +47,7 @@ walk_field_size = Vector2i(30, 30)
 spawn = false
 
 [node name="CellHovered" parent="UnitsManager/Pathfinding" instance=ExtResource("18_yo8ds")]
-position = Vector2(320, -32)
+position = Vector2(2.08165e-12, 2.08165e-12)
 is_walkable = false
 
 [node name="FogOfWar" type="Node2D" parent="UnitsManager/Pathfinding"]
@@ -87,7 +87,7 @@ script = ExtResource("22_n7khr")
 script = ExtResource("10_yja2f")
 
 [node name="CameraController" type="Node2D" parent="InputSystem"]
-position = Vector2(480, 448)
+position = Vector2(247, 142)
 script = ExtResource("11_sv5rh")
 focus_time = 0.5
 drag_sensitive = 0.8
@@ -98,6 +98,7 @@ bounds_path = NodePath("../CameraBounds")
 [node name="Camera2d" type="Camera2D" parent="InputSystem/CameraController"]
 current = true
 zoom = Vector2(2, 2)
+metadata/_edit_lock_ = true
 
 [node name="CameraBounds" type="Sprite2D" parent="InputSystem"]
 visible = false

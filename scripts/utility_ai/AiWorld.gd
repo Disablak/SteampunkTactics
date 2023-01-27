@@ -194,7 +194,13 @@ func is_any_enemy_near_unit() -> bool:
 
 
 func is_attention_dir_exist() -> bool:
-	return _cur_unit.unit_data.attention_direction != -1
+	if _cur_unit.unit_data.attention_direction != -1:
+		return true
+
+	if _cur_unit.unit_data.visibility_data.enemies_saw.size() > 0:
+		return true
+
+	return false
 
 
 func _get_max_cells_to_walk() -> int:
@@ -217,7 +223,16 @@ func _get_max_point_to_walk(path: Array[Vector2i]) -> Vector2i:
 func rotate_to_attention_dir():
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
-	_cur_unit.unit_data.rotate_to_attention_dir()
+	if _cur_unit.unit_data.attention_direction != -1:
+		_cur_unit.unit_data.rotate_to_attention_dir()
+		Globals.print_ai("unit {0} rotate to damager".format([_cur_unit.id]), false, "crimson")
+	elif _cur_unit.unit_data.visibility_data.enemies_saw.size() > 0:
+		var first_enemy_grid_pos: Vector2i = _cur_unit.unit_data.visibility_data.enemies_saw.values().front()
+		var angle: int = rad_to_deg(_cur_unit.unit_object.position.angle_to_point(Globals.convert_to_cell_pos(first_enemy_grid_pos)))
+		_cur_unit.unit_data.update_view_direction(angle, true)
+		_cur_unit.unit_data.visibility_data.clear_enemies_saw()
+		Globals.print_ai("unit {0} rotate to prev saw unit".format([_cur_unit.id]), false, "crimson")
+
 	await Globals.create_timer_and_get_signal(1)
 
 	brain_ai.decide_best_action_and_execute()

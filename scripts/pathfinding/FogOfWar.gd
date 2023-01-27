@@ -21,15 +21,16 @@ func _ready() -> void:
 func _on_unit_changed_control(unit_id, _istantly):
 	var unit: Unit = GlobalUnits.units[unit_id]
 
-	update_team_visibility_area(unit_id, unit.unit_data.is_enemy)
-	_update_units_visibility(unit)
+	_update_team_visibility_area(unit_id, unit.unit_data.is_enemy)
+	_hide_units_in_fog(unit)
 
 
 func _on_unit_moved(unit_id: int, cell_pos: Vector2):
 	var unit: Unit = GlobalUnits.units[unit_id]
 
-	update_team_visibility_area(unit.id, unit.unit_data.is_enemy)
-	_update_units_visibility(unit)
+	_update_team_visibility_area(unit.id, unit.unit_data.is_enemy)
+	_enemies_trying_to_remember_unit(unit)
+	_hide_units_in_fog(unit)
 
 
 func _on_unit_changed_view_direction(unit_id, _angle, update_fog_of_war):
@@ -40,8 +41,13 @@ func _on_unit_changed_view_direction(unit_id, _angle, update_fog_of_war):
 	if not unit.unit_data.is_enemy:
 		return
 
-	update_team_visibility_area(unit.id, unit.unit_data.is_enemy)
-	_update_units_visibility(unit)
+	_update_team_visibility_area(unit.id, unit.unit_data.is_enemy)
+	_hide_units_in_fog(unit)
+
+
+func init():
+	for unit in GlobalUnits.units.values():
+		update_unit_visibility(unit)
 
 
 func spawn_fog(grid_pos: Vector2i, cell_visibility: CellVisibility):
@@ -53,7 +59,7 @@ func spawn_fog(grid_pos: Vector2i, cell_visibility: CellVisibility):
 	dict_pos_and_cell[grid_pos] = spawned_fog
 
 
-func update_team_visibility_area(unit_id: int, is_enemy: bool):
+func _update_team_visibility_area(unit_id: int, is_enemy: bool):
 	_make_all_map_in_fog()
 
 	var visible_cells: Array[Vector2i] = get_team_visibility(is_enemy)
@@ -121,7 +127,7 @@ func update_visibility_on_cell(grid_pos: Vector2i, visibility: CellVisibility):
 		cell_fog.update_visibility(visibility)
 
 
-func _update_units_visibility(unit: Unit):
+func _hide_units_in_fog(unit: Unit):
 	var my_team = GlobalUnits.get_units(unit.unit_data.is_enemy)
 	for cur_unit in my_team:
 		cur_unit.unit_object.set_visibility(true)
@@ -139,3 +145,13 @@ func _update_units_visibility(unit: Unit):
 func _make_all_map_in_fog():
 	for fog in dict_pos_and_cell.values():
 		fog.update_visibility(CellVisibility.HALF)
+
+
+func _enemies_trying_to_remember_unit(unit: Unit):
+	var enemies := GlobalUnits.get_units(not unit.unit_data.is_enemy)
+	for enemy in enemies:
+		var enemy_visibility_data := enemy.unit_data.visibility_data
+		if enemy_visibility_data.visible_points.has(unit.unit_object.grid_pos):
+			print("unit{0} saw unit{1}".format([enemy.id, unit.id]))
+			enemy_visibility_data.unit_was_remembered(unit, unit.unit_object.grid_pos)
+
