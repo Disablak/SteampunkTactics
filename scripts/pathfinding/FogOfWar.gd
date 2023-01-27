@@ -15,9 +15,7 @@ var dict_pos_and_cell = {}
 func _ready() -> void:
 	GlobalBus.on_unit_changed_control.connect(_on_unit_changed_control)
 	GlobalBus.on_unit_changed_view_direction.connect(_on_unit_changed_view_direction)
-
-	await get_tree().process_frame
-	GlobalUnits.units_manager.walking.on_moved_to_another_cell.connect(_on_unit_moved)
+	GlobalBus.on_unit_moved_to_another_cell.connect(_on_unit_moved)
 
 
 func _on_unit_changed_control(unit_id, _istantly):
@@ -27,8 +25,8 @@ func _on_unit_changed_control(unit_id, _istantly):
 	_update_units_visibility(unit)
 
 
-func _on_unit_moved(cell_pos: Vector2):
-	var unit: Unit = GlobalUnits.get_cur_unit()
+func _on_unit_moved(unit_id: int, cell_pos: Vector2):
+	var unit: Unit = GlobalUnits.units[unit_id]
 
 	update_team_visibility_area(unit.id, unit.unit_data.is_enemy)
 	_update_units_visibility(unit)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://1c4bpwvpf2tp"]
+[gd_scene load_steps=27 format=3]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -19,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://du37tccrd2rlv" path="res://data/settings/utility ai/presets/ActionNextTurn.tres" id="20_ak0ai"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
 [ext_resource type="Script" path="res://scripts/pathfinding/FogOfWar.gd" id="22_hxmls"]
+[ext_resource type="Script" path="res://scripts/visual/DrawUnitViewDirection.gd" id="22_n7khr"]
 [ext_resource type="PackedScene" uid="uid://bc4ejgp0vrd7h" path="res://scenes/cells/CellFireEffect.tscn" id="23_c5njg"]
 [ext_resource type="PackedScene" uid="uid://c3fuon6h0o5qe" path="res://scenes/cells/CellFog.tscn" id="23_p1e0f"]
 [ext_resource type="Script" path="res://scripts/utility_ai/AiWorld.gd" id="23_waclr"]
@@ -79,6 +80,9 @@ next_turn_action = ExtResource("20_ak0ai")
 [node name="AiWorld" type="Node2D" parent="UnitsManager"]
 script = ExtResource("23_waclr")
 
+[node name="DrawUnitVisibility" type="Node2D" parent="UnitsManager"]
+script = ExtResource("22_n7khr")
+
 [node name="InputSystem" type="Node2D" parent="."]
 script = ExtResource("10_yja2f")
 
@@ -104,6 +108,7 @@ texture = ExtResource("31_mf2ah")
 
 [connection signal="on_clicked_cell" from="UnitsManager/Pathfinding" to="UnitsManager" method="_on_pathfinding_on_clicked_cell"]
 [connection signal="on_hovered_cell" from="UnitsManager/Pathfinding" to="UnitsManager" method="_on_pathfinding_on_hovered_cell"]
+[connection signal="on_hovered_cell" from="UnitsManager/Pathfinding" to="UnitsManager/DrawUnitVisibility" method="_on_pathfinding_on_hovered_cell"]
 [connection signal="on_mouse_click" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_click"]
 [connection signal="on_mouse_hover" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_hover"]
 [connection signal="on_pressed_esc" from="InputSystem" to="UnitsManager" method="_on_input_system_on_pressed_esc"]

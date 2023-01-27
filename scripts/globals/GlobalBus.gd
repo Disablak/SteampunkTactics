@@ -3,7 +3,7 @@ extends Node
 
 signal on_unit_died(unit_id, unit_id_killer)
 signal on_unit_change_health(unit_id)
-signal on_unit_changed_walk_distance(unit_id)
+signal on_unit_moved_to_another_cell(unit_id: int, cell_pos: Vector2i)
 signal on_unit_changed_control(unit_id, instantly)
 signal on_unit_changed_action(unit_id, unit_action_type)
 signal on_unit_updated_weapon(unit_id: int, ability: AbilityData)

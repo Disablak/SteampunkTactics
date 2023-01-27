@@ -3,7 +3,6 @@ extends Node2D
 
 
 signal on_finished_move()
-signal on_moved_to_another_cell(cell_pos: Vector2i)
 
 const ROTATION_SPEED = 10
 const MOVING_SPEED = 100
@@ -105,7 +104,7 @@ func _move_via_points(points: Array[Vector2i]):
 
 		await tween_move.finished
 
-		on_moved_to_another_cell.emit(finish_point)
+		GlobalBus.on_unit_moved_to_another_cell.emit(cur_unit_data.unit_id, finish_point)
 
 
 func _on_unit_finished_move():
