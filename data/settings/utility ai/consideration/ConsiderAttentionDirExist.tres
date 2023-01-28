@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ConsiderAttentionDirExist" load_steps=2 format=3 uid="uid://dmi54jwmlg7sh"]
+
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderAttentionDirExist.gd" id="1_38npe"]
+
+[resource]
+script = ExtResource("1_38npe")
+attention_type = 0
+invert = false

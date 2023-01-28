@@ -8,6 +8,17 @@ enum PriceType {NONE, SHOOT, KICK, RELOAD, MOVE_RAND, MOVE_TO_ENEMY, MOVE_TO_PAT
 
 
 func calc_score() -> float:
+	if price_type == PriceType.MOVE_TO_ENEMY:
+		var price_kick := GlobalUnits.get_cur_unit().unit_data.knife.settings.use_price
+		print("price move to enemy {0}".format([ai_world.get_price_move_to_enemy()]))
+		var price_move_and_kick = price_kick + ai_world.get_price_move_to_enemy()
+		return float(TurnManager.cur_time_points) / price_move_and_kick
+
+	if price_type == PriceType.MOVE_TO_COVER:
+		var price_shoot := GlobalUnits.get_cur_unit().unit_data.riffle.settings.use_price;
+		var price_move_and_shoot = price_shoot + ai_world.get_price_move_to_cover()
+		return float(TurnManager.cur_time_points) / price_move_and_shoot
+
 	return 1.0 if TurnManager.can_spend_time_points(get_price_by_type()) else 0.0
 
 
@@ -25,7 +36,7 @@ func get_price_by_type() -> int:
 		PriceType.MOVE_RAND:
 			return GlobalMap.ai_world.find_random_cell_and_get_price_walk()
 
-		PriceType.MOVE_TO_ENEMY, PriceType.MOVE_TO_PATRUL, PriceType.MOVE_TO_COVER:
+		PriceType.MOVE_TO_PATRUL:
 			return GlobalMap.ai_world.get_price_move()
 
 		_:

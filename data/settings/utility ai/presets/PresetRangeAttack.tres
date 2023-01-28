@@ -35,7 +35,7 @@ script = ExtResource("3_jsmsr")
 invert = false
 
 [sub_resource type="Curve" id="Curve_31cxb"]
-_data = [Vector2(0, 0.509137), 0.0, 0.490863, 0, 1, Vector2(1, 1), 0.490863, 0.0, 1, 0]
+_data = [Vector2(0, 0.655325), 0.0, 0.344675, 0, 1, Vector2(1, 1), 0.344675, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Resource" id="Resource_pg6uv"]

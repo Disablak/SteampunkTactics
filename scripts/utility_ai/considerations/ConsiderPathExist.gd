@@ -14,10 +14,7 @@ func _get_score() -> float:
 	match path_target:
 		PathTarget.NEAR_ENEMY:
 			var path_data := ai_world.find_path_to_near_enemy()
-			if path_data.path.size() == 0:
-				return 0.0
-
-			return _get_max_walk_cell() / (path_data.path.size() - 1)
+			return 1.0 if path_data.path.size() != 0 else 0.0
 
 		PathTarget.PATRUL_ZONE:
 			var point := ai_world.find_path_to_patrul_zone()

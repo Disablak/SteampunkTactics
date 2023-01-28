@@ -209,6 +209,16 @@ func _get_max_cells_to_walk() -> int:
 	return floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
 
 
+func get_price_move_to_enemy() -> int:
+	var count_cells = _cur_unit.unit_data.ai_settings.shortest_path_to_enemy.path.size() - 1
+	return count_cells * _cur_unit.unit_data.unit_settings.walk_speed
+
+
+func get_price_move_to_cover() -> int:
+	var count_cells = _cur_unit.unit_data.ai_settings.cover_path_data.path.size() - 1
+	return count_cells * _cur_unit.unit_data.unit_settings.walk_speed
+
+
 func get_price_move():
 	if not TurnManager.can_spend_time_points(_cur_unit.unit_data.unit_settings.walk_speed):
 		return 999
@@ -279,7 +289,7 @@ func walk_to_rand_cell():
 	walk_to(cached_walking_cell_target)
 
 
-func walk_to(grid_pos: Vector2i, after_move_callable: Callable = null):
+func walk_to(grid_pos: Vector2i, after_move_callable = null):
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	walking.draw_walking_cells()
@@ -293,7 +303,7 @@ func walk_to(grid_pos: Vector2i, after_move_callable: Callable = null):
 
 	units_manager.change_unit_action(UnitData.Abilities.NONE)
 
-	if after_move_callable != null:
+	if after_move_callable != null and after_move_callable is Callable:
 		after_move_callable.call()
 
 	brain_ai.decide_best_action_and_execute()

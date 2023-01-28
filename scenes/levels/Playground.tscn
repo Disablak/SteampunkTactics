@@ -304,7 +304,7 @@ position = Vector2(512, 480)
 position = Vector2(512, 544)
 
 [node name="Cover2" parent="RootObsCells" index="11" instance=ExtResource("8_7yt4i")]
-position = Vector2(416, 512)
+position = Vector2(384, 640)
 
 [node name="CellTreeNew" parent="RootObsCells" index="12" instance=ExtResource("9_n2dhw")]
 position = Vector2(544, 416)
@@ -316,7 +316,7 @@ position = Vector2(416, 352)
 position = Vector2(576, 512)
 
 [node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("10_ddu4q")]
-position = Vector2(480, 448)
+position = Vector2(512, 448)
 unit_settings = ExtResource("11_cetlj")
 
 [node name="UnitObject2" parent="RootUnits" index="1" instance=ExtResource("10_ddu4q")]

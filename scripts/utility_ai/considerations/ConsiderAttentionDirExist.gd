@@ -19,6 +19,7 @@ func calc_score() -> float:
 
 		AttetntionType.ENEMY:
 			return 1.0 if ai_world.is_attention_pos_enemy_exist() else 0.0
+
 		_:
 			printerr("not installed AttentionType")
 			return 0.0

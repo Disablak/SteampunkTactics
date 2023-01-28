@@ -23,6 +23,10 @@ func execute_action():
 		MoveTo.ATTENTION:
 			ai_world.walk_to_attention_pos()
 
+		_:
+			printerr("not installed!")
+
+
 
 func _to_string() -> String:
 	return "ActionMove to {0}".format([MoveTo.keys()[move_to]])
