@@ -1,35 +1,8 @@
-[gd_resource type="Resource" script_class="ActionMove" load_steps=11 format=3 uid="uid://bko6rfue0rg42"]
+[gd_resource type="Resource" script_class="ActionMove" load_steps=2 format=3 uid="uid://bko6rfue0rg42"]
 
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd" id="1_4dtkk"]
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionMove.gd" id="1_8m8k8"]
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderPathExist.gd" id="2_6385j"]
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="3_w0x3q"]
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderRandom.gd" id="4_k60xj"]
-
-[sub_resource type="Resource" id="Resource_pvbd1"]
-script = ExtResource("1_4dtkk")
-invert = true
-
-[sub_resource type="Resource" id="Resource_f1bnn"]
-script = ExtResource("2_6385j")
-path_target = 2
-invert = false
-
-[sub_resource type="Resource" id="Resource_0ayv2"]
-script = ExtResource("3_w0x3q")
-price_type = 6
-invert = false
-
-[sub_resource type="Curve" id="Curve_u3vrl"]
-_data = [Vector2(0.148744, 0.801512), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Resource" id="Resource_5butv"]
-script = ExtResource("4_k60xj")
-invert = false
-response_curve = SubResource("Curve_u3vrl")
 
 [resource]
 script = ExtResource("1_8m8k8")
 move_to = 2
-considerations = [SubResource("Resource_pvbd1"), SubResource("Resource_f1bnn"), SubResource("Resource_0ayv2"), SubResource("Resource_5butv")]
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([])

@@ -6,7 +6,10 @@ var CELL_AREA_3x3_WITHOUR_CENTER: Array[Vector2i] = [
 	Vector2i.UP, Vector2i.DOWN, Vector2i(1, 1),
 	Vector2i(-1, -1), Vector2i(-1, 1), Vector2i(1, -1)]
 
-var CELL_AREA_3x3: Array[Vector2i] = CELL_AREA_3x3_WITHOUR_CENTER + [Vector2i.ZERO]
+var CELL_AREA_3x3: Array[Vector2i] = [
+	Vector2i.LEFT, Vector2i.RIGHT,
+	Vector2i.UP, Vector2i.DOWN, Vector2i(1, 1),
+	Vector2i(-1, -1), Vector2i(-1, 1), Vector2i(1, -1), Vector2i.ZERO]
 
 var CELL_AREA_FOUR_DIR: Array[Vector2i] = [
 	Vector2i.LEFT, Vector2i.RIGHT,Vector2i.UP, Vector2i.DOWN
@@ -59,15 +62,15 @@ static func convert_to_cell_pos(grid_pos: Vector2i) -> Vector2:
 
 
 static func convert_grid_poses_to_cell_poses(points: Array[Vector2i]) -> Array[Vector2]:
-	var result = []
+	var result: Array[Vector2]
 	for pos in points:
 		result.append(convert_to_cell_pos(pos))
 
 	return result
 
 
-static func get_cells_of_type(cells: Array, cell_type: CellObject.CellType):
-	var result = []
+static func get_cells_of_type(cells: Array, cell_type: CellObject.CellType) -> Array[CellObject]:
+	var result: Array[CellObject]
 	for cell in cells:
 		if cell is CellObject and cell.cell_type == cell_type and not cell.destroyed:
 			result.append(cell)

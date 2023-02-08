@@ -102,7 +102,7 @@ func _calc_bounds():
 	var bounds: Node2D = get_node(bounds_path)
 	var camera_bound_rect := Rect2(bounds.position, bounds.scale * Globals.CELL_SIZE)
 
-	var zoom = get_viewport().get_camera_2d().zoom
+	var zoom := get_viewport().get_camera_2d().zoom
 	sensetive = drag_sensitive / zoom.x
 
 	var half_bound_size := camera_bound_rect.size / 2

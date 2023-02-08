@@ -30,7 +30,7 @@
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_vidxh")
-level_scenes = [ExtResource("2_eiugl")]
+level_scenes = Array[PackedScene]([ExtResource("2_eiugl")])
 
 [node name="UnitsManager" type="Node2D" parent="."]
 script = ExtResource("2_1pgd0")
@@ -42,9 +42,7 @@ is_debug = false
 walkable_hint_cell_scene = ExtResource("6_vdct5")
 cell_damage_hint_scene = ExtResource("6_akxss")
 scene_walk_cell = ExtResource("13_iafh6")
-offset_spawn_cells = Vector2i(0, 0)
 walk_field_size = Vector2i(30, 30)
-spawn = false
 
 [node name="CellHovered" parent="UnitsManager/Pathfinding" instance=ExtResource("18_yo8ds")]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -74,7 +72,6 @@ segment_shape_2d = SubResource("SegmentShape2D_x8rd3")
 
 [node name="AiBrain" type="Node2D" parent="UnitsManager"]
 script = ExtResource("15_y513k")
-default_actions = []
 next_turn_action = ExtResource("20_ak0ai")
 
 [node name="AiWorld" type="Node2D" parent="UnitsManager"]
@@ -96,7 +93,6 @@ helper_size_of_full = 0.4
 bounds_path = NodePath("../CameraBounds")
 
 [node name="Camera2d" type="Camera2D" parent="InputSystem/CameraController"]
-current = true
 zoom = Vector2(2, 2)
 metadata/_edit_lock_ = true
 

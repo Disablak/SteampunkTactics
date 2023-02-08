@@ -281,6 +281,9 @@ func walk_to_patrul_zone():
 
 
 func walk_to_near_enemy():
+	var new_unit: Unit = GlobalUnits.units[GlobalUnits.cur_unit_id]
+	var cur_unit = _cur_unit
+	var path_to_enemy = cur_unit.unit_data.ai_settings.shortest_path_to_enemy
 	var point := _get_max_point_to_walk(_cur_unit.unit_data.ai_settings.shortest_path_to_enemy.path)
 	walk_to(point)
 

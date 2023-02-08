@@ -12,5 +12,5 @@ max_health = 20.0
 walk_speed = 10
 initiative = 10
 range_of_view = 8
-abilities = [ExtResource("1_musci"), ExtResource("2_8r6bi"), ExtResource("3_enr6e")]
+abilities = Array[Resource("res://scripts/settings/abilities/AbilitySettings.gd")]([ExtResource("1_musci"), ExtResource("2_8r6bi"), ExtResource("3_enr6e")])
 additional_ai_actions = null

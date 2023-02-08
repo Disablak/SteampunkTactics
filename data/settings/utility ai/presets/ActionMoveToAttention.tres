@@ -1,19 +1,8 @@
-[gd_resource type="Resource" script_class="ActionMove" load_steps=6 format=3 uid="uid://rgjnnmfp4ht3"]
+[gd_resource type="Resource" script_class="ActionMove" load_steps=2 format=3 uid="uid://rgjnnmfp4ht3"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionMove.gd" id="1_ojqvj"]
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd" id="1_x5vvv"]
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderAttentionDirExist.gd" id="2_ayuj4"]
-
-[sub_resource type="Resource" id="Resource_0pwve"]
-script = ExtResource("1_x5vvv")
-invert = true
-
-[sub_resource type="Resource" id="Resource_6lvq8"]
-script = ExtResource("2_ayuj4")
-attention_type = 4
-invert = false
 
 [resource]
 script = ExtResource("1_ojqvj")
 move_to = 5
-considerations = [SubResource("Resource_0pwve"), SubResource("Resource_6lvq8")]
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([])

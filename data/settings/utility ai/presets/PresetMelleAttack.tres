@@ -1,54 +1,18 @@
-[gd_resource type="Resource" script_class="AiPreset" load_steps=17 format=3 uid="uid://cxaeoi1gumnso"]
+[gd_resource type="Resource" script_class="AiPreset" load_steps=6 format=3 uid="uid://cxaeoi1gumnso"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/AiPreset.gd" id="1_dh2k0"]
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd" id="1_hspdm"]
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderPathExist.gd" id="2_rj026"]
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="3_v144r"]
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionMove.gd" id="4_caok5"]
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyNearUnit.gd" id="5_3128j"]
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionKickEnemy.gd" id="6_gxx87"]
-
-[sub_resource type="Resource" id="Resource_xdums"]
-script = ExtResource("1_hspdm")
-invert = false
-
-[sub_resource type="Resource" id="Resource_3ung1"]
-script = ExtResource("2_rj026")
-path_target = 1
-invert = false
-
-[sub_resource type="Resource" id="Resource_la3fn"]
-script = ExtResource("5_3128j")
-invert = true
-
-[sub_resource type="Curve" id="Curve_hkcoh"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 3.46692, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Resource" id="Resource_3xsu2"]
-script = ExtResource("3_v144r")
-price_type = 5
-invert = false
-response_curve = SubResource("Curve_hkcoh")
 
 [sub_resource type="Resource" id="Resource_fjx58"]
 script = ExtResource("4_caok5")
 move_to = 3
-considerations = [SubResource("Resource_xdums"), SubResource("Resource_3ung1"), SubResource("Resource_la3fn"), SubResource("Resource_3xsu2")]
-
-[sub_resource type="Resource" id="Resource_wk2yu"]
-script = ExtResource("5_3128j")
-invert = false
-
-[sub_resource type="Resource" id="Resource_aa26q"]
-script = ExtResource("3_v144r")
-price_type = 2
-invert = false
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([])
 
 [sub_resource type="Resource" id="Resource_2xj27"]
 script = ExtResource("6_gxx87")
-considerations = [SubResource("Resource_wk2yu"), SubResource("Resource_aa26q")]
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([])
 
 [resource]
 script = ExtResource("1_dh2k0")
-ai_actions = [SubResource("Resource_fjx58"), SubResource("Resource_2xj27")]
+ai_actions = Array[Resource("res://scripts/utility_ai/Action.gd")]([SubResource("Resource_fjx58"), SubResource("Resource_2xj27")])

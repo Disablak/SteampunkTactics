@@ -181,7 +181,8 @@ func get_path_to_point(from : Vector2i, to : Vector2i) -> Array[Vector2i]:
 	var from_id = astar.get_closest_point(from)
 	var to_id = astar.get_closest_point(to)
 
-	var path := Array(astar.get_point_path(from_id, to_id))
+	var path: Array[Vector2i]
+	path.assign(astar.get_point_path(from_id, to_id))
 	if path.size() == 1:
 		return []
 

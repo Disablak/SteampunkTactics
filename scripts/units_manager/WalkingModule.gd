@@ -66,9 +66,11 @@ func update_walking_cells():
 		prev_unit_pos = unit_grid_pos
 		prev_max_distance = max_move_distance
 
-		var path_walking_cells = pathfinding.get_walkable_cells(unit_grid_pos, max_move_distance)
-		var team_visibility_cells = pathfinding.fog_of_war.get_cur_team_visibility()
-		cached_walking_cells = path_walking_cells if cur_unit_data.is_enemy else MyMath.arr_intersect(path_walking_cells, team_visibility_cells)
+		var path_walking_cells := pathfinding.get_walkable_cells(unit_grid_pos, max_move_distance)
+		var team_visibility_cells := pathfinding.fog_of_war.get_cur_team_visibility()
+		var intersected_cells: Array[Vector2i]
+		intersected_cells.assign(MyMath.arr_intersect(path_walking_cells, team_visibility_cells))
+		cached_walking_cells = path_walking_cells if cur_unit_data.is_enemy else intersected_cells
 
 
 func clear_walking_cells():

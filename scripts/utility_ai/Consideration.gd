@@ -17,7 +17,7 @@ func calc_score() -> float:
 
 func get_score() -> float:
 	var calced_score = clampf(calc_score(), 0.0, 1.0)
-	var raw_score := 1.0 - calced_score if invert else calced_score
+	var raw_score = 1.0 - calced_score if invert else calced_score
 
 	score = response_curve.sample(raw_score) if response_curve != null else raw_score
 	_consider_debug()

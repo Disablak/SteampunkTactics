@@ -123,8 +123,8 @@ size_flags_horizontal = 3
 [node name="BtnMove" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
 layout_mode = 2
 toggle_mode = true
-shortcut = SubResource("Shortcut_b0hfn")
 button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_b0hfn")
 text = "Move"
 script = ExtResource("8_7jrsu")
 ability = 1
@@ -132,8 +132,8 @@ ability = 1
 [node name="BtnShoot" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
 layout_mode = 2
 toggle_mode = true
-shortcut = SubResource("Shortcut_xx4o5")
 button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_xx4o5")
 text = "Shoot"
 script = ExtResource("8_7jrsu")
 ability = 3
@@ -141,8 +141,8 @@ ability = 3
 [node name="BtnReload" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
 layout_mode = 2
 toggle_mode = true
-shortcut = SubResource("Shortcut_5qic7")
 button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_5qic7")
 text = "Reload
 "
 script = ExtResource("8_7jrsu")
@@ -151,8 +151,8 @@ ability = 4
 [node name="BtnGrenade" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
 layout_mode = 2
 toggle_mode = true
-shortcut = SubResource("Shortcut_b30k4")
 button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_b30k4")
 text = "Throw grenade"
 script = ExtResource("8_7jrsu")
 ability = 5
@@ -160,8 +160,8 @@ ability = 5
 [node name="BtnKnife" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
 layout_mode = 2
 toggle_mode = true
-shortcut = SubResource("Shortcut_dewe6")
 button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_dewe6")
 text = "Kick"
 script = ExtResource("8_7jrsu")
 ability = 2
