@@ -1,7 +1,17 @@
-[gd_resource type="Resource" script_class="ActionNextTurn" load_steps=2 format=3 uid="uid://btyefmhj0flqm"]
+[gd_resource type="Resource" script_class="ActionNextTurn" load_steps=5 format=3 uid="uid://btyefmhj0flqm"]
 
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderRandom.gd" id="1_jv6nv"]
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionNextTurn.gd" id="1_r43s0"]
+
+[sub_resource type="Curve" id="Curve_m0bjp"]
+_data = [Vector2(0.890572, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_vihvn"]
+script = ExtResource("1_jv6nv")
+invert = false
+response_curve = SubResource("Curve_m0bjp")
 
 [resource]
 script = ExtResource("1_r43s0")
-considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([])
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([SubResource("Resource_vihvn")])

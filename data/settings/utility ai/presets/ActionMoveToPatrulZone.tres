@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="ActionMove" load_steps=2 format=3 uid="uid://bko6rfue0rg42"]
+[gd_resource type="Resource" script_class="ActionMove" load_steps=4 format=3 uid="uid://bko6rfue0rg42"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionMove.gd" id="1_8m8k8"]
+[ext_resource type="Resource" uid="uid://dmgltw4smqivq" path="res://data/settings/utility ai/consideration/ConsiderEnemyNotVisibility.tres" id="1_an8wq"]
+[ext_resource type="Resource" uid="uid://c2r8e3xj6b7ol" path="res://data/settings/utility ai/consideration/ConsiderPatrulPathExist.tres" id="2_hovcs"]
 
 [resource]
 script = ExtResource("1_8m8k8")
 move_to = 2
-considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([])
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([ExtResource("1_an8wq"), ExtResource("2_hovcs")])

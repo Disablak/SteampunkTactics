@@ -17,4 +17,4 @@ response_curve = SubResource("Curve_5ivrq")
 [resource]
 script = ExtResource("3_vxdll")
 move_to = 1
-considerations = [ExtResource("1_ioavi"), SubResource("Resource_tguci")]
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([ExtResource("1_ioavi"), SubResource("Resource_tguci")])

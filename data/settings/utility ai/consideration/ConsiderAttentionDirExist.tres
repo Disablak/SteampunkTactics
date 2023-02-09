@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_38npe")
-attention_type = 0
+attention_type = 4
 invert = false
