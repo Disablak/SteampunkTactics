@@ -26,4 +26,4 @@ func calc_score() -> float:
 
 
 func _to_string() -> String:
-	return super._to_string() + "ConsiderAttentionDirExist"
+	return super._to_string() + "ConsiderAttentionDirExist to {0}".format([AttetntionType.keys()[attention_type]])
