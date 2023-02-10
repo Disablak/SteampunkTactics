@@ -20,7 +20,7 @@ mono_crash.*.json
 !/addons/go_decide
 /demos
 /test
-project.godot
+
 /default_env.tres
 /.vscode
 *.aseprite
