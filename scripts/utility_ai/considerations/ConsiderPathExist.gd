@@ -17,6 +17,9 @@ func _get_score() -> float:
 			return 1.0 if path_data.path.size() != 0 else 0.0
 
 		PathTarget.PATRUL_ZONE:
+			if GlobalUnits.get_cur_unit().unit_data.ai_settings.patrul_zones_id_and_cells.is_empty():
+				return 0.0
+
 			var point := ai_world.find_path_to_patrul_zone()
 			return 1.0 if point != Vector2i.ZERO else 0.0
 

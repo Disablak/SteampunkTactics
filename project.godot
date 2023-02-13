@@ -39,7 +39,7 @@ movie_writer/movie_file="/Users/disablak/Godot Projects/Godot Movies/test.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/script-name-on-top/plugin.cfg")
 
 [input]
 

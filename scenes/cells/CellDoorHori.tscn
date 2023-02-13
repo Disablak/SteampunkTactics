@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq43l8v8fckh0"]
+
+[ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/CellWallHori.tscn" id="1_ftijc"]
+
+[node name="CellDoorlHorizontal" instance=ExtResource("1_ftijc")]
+
+[node name="Area2D" parent="." index="2"]
+collision_layer = 17

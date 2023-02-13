@@ -136,6 +136,8 @@ func _connect_walkable_cells():
 func _add_obstacles():
 	for cell in root_obs_cells.get_children():
 		var cell_obj := cell as CellObject
+		cell_obj.on_click_obj.connect(_on_click_obj)
+		cell_obj.on_hover_obj.connect(_on_hover_obj)
 
 		if cell_obj.cell_type == CellObject.CellType.WALL:
 			dict_pos_and_cell_wall[cell_obj.grid_pos] = cell_obj
@@ -384,6 +386,18 @@ func _enable_connection(cell: CellObject, enable: bool, update_debug: bool = fal
 		_draw_debug()
 
 
+func _on_hover_obj(cell_obj: CellObject):
+	var cell_info = CellInfo.new(cell_obj.grid_pos, cell_obj, -1)
+	cell_info.not_cell = true
+	on_hovered_cell.emit(cell_info)
+
+
+func _on_click_obj(cell_obj: CellObject):
+	var cell_info = CellInfo.new(cell_obj.grid_pos, cell_obj, -1)
+	cell_info.not_cell = true
+	on_clicked_cell.emit(cell_info)
+
+
 func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 	var grid_pos := Globals.convert_to_grid_pos(mouse_pos)
 	var info := _get_cell_info(grid_pos)
@@ -407,6 +421,6 @@ func _on_input_system_on_mouse_click(mouse_pos: Vector2) -> void:
 		print("clicked nowhere")
 		return
 
-	print("clicked on {0}".format([info.cell_obj.get_type_string()]))
+	print("clicked on {0}".format([info.cell_obj]))
 
 

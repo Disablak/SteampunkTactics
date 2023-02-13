@@ -5,6 +5,7 @@ extends RefCounted
 var grid_pos: Vector2i
 var cell_obj: CellObject
 var unit_id: int
+var not_cell: bool = false
 
 
 func _init(grid_pos: Vector2i, cell_obj: CellObject, unit_id: int) -> void:
