@@ -3,6 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/CellWallHori.tscn" id="1_ftijc"]
 
 [node name="CellDoorlHorizontal" instance=ExtResource("1_ftijc")]
+cell_type = 5
+
+[node name="Sprite2D" parent="." index="0"]
+self_modulate = Color(0.309804, 0.235294, 0.647059, 1)
 
 [node name="Area2D" parent="." index="2"]
-collision_layer = 17
+collision_layer = 1

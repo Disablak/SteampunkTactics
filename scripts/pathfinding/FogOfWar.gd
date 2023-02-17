@@ -20,17 +20,12 @@ func _ready() -> void:
 
 func _on_unit_changed_control(unit_id, _istantly):
 	var unit: Unit = GlobalUnits.units[unit_id]
-
-	_update_team_visibility_area(unit_id, unit.unit_data.is_enemy)
-	_hide_units_in_fog(unit)
+	update_fog(unit)
 
 
 func _on_unit_moved(unit_id: int, cell_pos: Vector2):
 	var unit: Unit = GlobalUnits.units[unit_id]
-
-	_update_team_visibility_area(unit.id, unit.unit_data.is_enemy)
-	_enemies_trying_to_remember_unit(unit)
-	_hide_units_in_fog(unit)
+	update_fog(unit)
 
 
 func _on_unit_changed_view_direction(unit_id, _angle, update_fog_of_war):
@@ -41,8 +36,7 @@ func _on_unit_changed_view_direction(unit_id, _angle, update_fog_of_war):
 	if not unit.unit_data.is_enemy:
 		return
 
-	_update_team_visibility_area(unit.id, unit.unit_data.is_enemy)
-	_hide_units_in_fog(unit)
+	update_fog(unit)
 
 
 func init():
@@ -59,10 +53,16 @@ func spawn_fog(grid_pos: Vector2i, cell_visibility: CellVisibility):
 	dict_pos_and_cell[grid_pos] = spawned_fog
 
 
-func _update_team_visibility_area(unit_id: int, is_enemy: bool):
+func update_fog(cur_unit: Unit, force_update: bool = false):
+	_update_team_visibility_area(cur_unit, force_update)
+	_hide_units_in_fog(cur_unit)
+	_enemies_trying_to_remember_unit(cur_unit)
+
+
+func _update_team_visibility_area(unit: Unit, force_update: bool = false):
 	_make_all_map_in_fog()
 
-	var visible_cells: Array[Vector2i] = get_team_visibility(is_enemy)
+	var visible_cells: Array[Vector2i] = get_team_visibility(unit.unit_data.is_enemy, force_update)
 	update_visibility_on_cells(visible_cells, CellVisibility.VISIBLE)
 
 
@@ -70,21 +70,21 @@ func get_cur_team_visibility() -> Array[Vector2i]:
 	return get_team_visibility(GlobalUnits.get_cur_unit().unit_data.is_enemy)
 
 
-func get_team_visibility(enemy_team: bool) -> Array[Vector2i]:
+func get_team_visibility(enemy_team: bool, force_update: bool = false) -> Array[Vector2i]:
 	var visible_cells: Array[Vector2i]
 	for unit in GlobalUnits.get_units(enemy_team):
-		update_unit_visibility(unit)
+		update_unit_visibility(unit, force_update)
 		visible_cells = MyMath.arr_add_no_copy(visible_cells, unit.unit_data.visibility_data.visible_points)
 
 	return visible_cells
 
 
-func update_unit_visibility(unit: Unit):
+func update_unit_visibility(unit: Unit, force_update: bool = false):
 	var grid_unit_pos := Globals.convert_to_grid_pos(unit.unit_object.position)
 	var unit_view_direction := unit.unit_data.view_direction
 	var visibility_data = unit.unit_data.visibility_data
 
-	if grid_unit_pos == visibility_data.pos_last_check_visibility and unit_view_direction == visibility_data.prev_view_direction:
+	if not force_update and grid_unit_pos == visibility_data.pos_last_check_visibility and unit_view_direction == visibility_data.prev_view_direction:
 		return
 
 	visibility_data.pos_last_check_visibility = grid_unit_pos

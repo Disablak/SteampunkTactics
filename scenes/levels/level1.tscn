@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bo1gq224nifd8"]
+[gd_scene load_steps=17 format=3 uid="uid://bo1gq224nifd8"]
 
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="1_jsjw4"]
 [ext_resource type="PackedScene" path="res://scenes/visual/TiledSprite.tscn" id="2_kl4v8"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/CellWallHori.tscn" id="5_nu7lk"]
 [ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/unit0.tres" id="6_86x5o"]
 [ext_resource type="PackedScene" uid="uid://btsgjp8qovvak" path="res://scenes/cells/CellWallVert.tscn" id="6_k0ph6"]
+[ext_resource type="PackedScene" uid="uid://dq43l8v8fckh0" path="res://scenes/cells/CellDoorHori.tscn" id="7_26gau"]
 [ext_resource type="Resource" uid="uid://brmbpg4yn8lll" path="res://data/settings/unit/unit1.tres" id="7_b6osk"]
 [ext_resource type="Script" path="res://scripts/settings/AiSettings.gd" id="8_7hls0"]
 
@@ -55,7 +56,7 @@ script = ExtResource("8_7hls0")
 walking_zone_node_path = NodePath("")
 patrul_zones_paths = Array[NodePath]([])
 
-[node name="BaseLevel" type="Node2D"]
+[node name="Level1" type="Node2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 
 [node name="RootWalkCells" type="Node2D" parent="."]
@@ -2834,13 +2835,16 @@ position = Vector2(640, 192)
 [node name="CellWallVertical8" parent="RootObsCells" instance=ExtResource("6_k0ph6")]
 position = Vector2(640, 160)
 
+[node name="CellDoorlHorizontal" parent="RootObsCells" instance=ExtResource("7_26gau")]
+position = Vector2(576, 256)
+
 [node name="RootUnits" type="Node2D" parent="."]
 
 [node name="UnitObject" parent="RootUnits" instance=ExtResource("5_cf07x")]
-position = Vector2(384, 384)
+position = Vector2(576, 288)
 unit_settings = ExtResource("6_86x5o")
 
 [node name="UnitObject2" parent="RootUnits" instance=ExtResource("5_cf07x")]
-position = Vector2(512, 384)
+position = Vector2(880, 48)
 unit_settings = ExtResource("7_b6osk")
 ai_settings = SubResource("Resource_a6tp0")

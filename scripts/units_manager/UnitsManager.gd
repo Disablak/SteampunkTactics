@@ -269,6 +269,15 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		GlobalsUi.message("cell no data")
 		return
 
+	if cell_info.not_cell and cell_info.cell_obj.cell_type == CellObject.CellType.DOOR:
+		if pathfinding.can_open_door(cell_info.cell_obj, cur_unit_object):
+			var is_opened: bool = pathfinding.is_door_opened(cell_info.cell_obj)
+			pathfinding.open_door(cell_info.cell_obj, not is_opened)
+			print("door is opened {0}".format([not is_opened]))
+		else:
+			GlobalsUi.message("Too far from door")
+		return
+
 	var is_clicked_on_unit = cell_info.unit_id != -1
 	var is_clicked_on_cur_unit = is_clicked_on_unit and cell_info.unit_id == cur_unit_id
 

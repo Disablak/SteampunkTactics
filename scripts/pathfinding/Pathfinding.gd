@@ -351,6 +351,40 @@ func get_grid_poses_by_pattern(grid_pos_center: Vector2i, pattern_cells: Array[V
 	return result
 
 
+func can_open_door(cell: CellObject, unit_object: UnitObject) -> bool:
+	if cell.cell_type != CellObject.CellType.DOOR:
+		printerr("cell is not door!")
+		return false
+
+	return unit_object.grid_pos == cell.grid_pos or unit_object.grid_pos == cell.connected_cells_pos[0]
+
+
+func is_door_opened(cell: CellObject) -> bool:
+	if cell.cell_type != CellObject.CellType.DOOR:
+		printerr("its not door")
+		return false
+
+	var first_cell_id := get_cell_id_by_grid_pos(cell.grid_pos)
+	var second_cell_id := get_cell_id_by_grid_pos(cell.connected_cells_pos[0])
+
+	return astar.are_points_connected(first_cell_id, second_cell_id)
+
+
+func open_door(cell: CellObject, open: bool):
+	if cell.cell_type != CellObject.CellType.DOOR:
+		printerr("its not door")
+		return
+
+	_enable_connection(cell, open, true)
+	var wall_layer: int = 5
+	cell.area2d.set_collision_layer_value(wall_layer, not open)
+	update_fog()
+
+
+func update_fog():
+	fog_of_war.update_fog(GlobalUnits.get_cur_unit(), true)
+
+
 func _get_cell_info(grid_pos: Vector2i) -> CellInfo:
 	var cell_obj := get_cell_by_pos(grid_pos)
 	var unit_on_cell: Unit = get_unit_on_cell(grid_pos)
