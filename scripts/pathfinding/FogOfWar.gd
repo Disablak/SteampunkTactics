@@ -20,7 +20,7 @@ func _ready() -> void:
 
 func _on_unit_changed_control(unit_id, _istantly):
 	var unit: Unit = GlobalUnits.units[unit_id]
-	update_fog(unit)
+	update_fog(unit, true)
 
 
 func _on_unit_moved(unit_id: int, cell_pos: Vector2):
@@ -57,6 +57,13 @@ func update_fog(cur_unit: Unit, force_update: bool = false):
 	_update_team_visibility_area(cur_unit, force_update)
 	_hide_units_in_fog(cur_unit)
 	_enemies_trying_to_remember_unit(cur_unit)
+
+
+func update_fog_for_all(force_update: bool = false):
+	for unit in GlobalUnits.units.values():
+		update_fog(unit, force_update)
+
+	update_fog(GlobalUnits.get_cur_unit()) # TODO optimization, not update for same unit
 
 
 func _update_team_visibility_area(unit: Unit, force_update: bool = false):

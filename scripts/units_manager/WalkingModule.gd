@@ -57,12 +57,12 @@ func draw_walking_cells(): # todo if unit change time points without moving, it 
 	pathfinding.draw_walking_cells(cached_walking_cells)
 
 
-func update_walking_cells():
+func update_walking_cells(force_update: bool = false):
 	var unit_pos := cur_unit_object.position
 	var unit_grid_pos := Globals.convert_to_grid_pos(unit_pos)
 	var max_move_distance : int = int(TurnManager.cur_time_points / cur_unit_data.unit_settings.walk_speed) + 1
 
-	if unit_grid_pos != prev_unit_pos or prev_max_distance != max_move_distance:
+	if force_update or unit_grid_pos != prev_unit_pos or prev_max_distance != max_move_distance:
 		prev_unit_pos = unit_grid_pos
 		prev_max_distance = max_move_distance
 

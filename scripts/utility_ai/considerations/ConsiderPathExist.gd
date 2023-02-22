@@ -14,7 +14,7 @@ func _get_score() -> float:
 	match path_target:
 		PathTarget.NEAR_ENEMY:
 			var path_data := ai_world.find_path_to_near_enemy()
-			return 1.0 if path_data.path.size() != 0 else 0.0
+			return 1.0 if path_data != null and path_data.path.size() != 0 else 0.0
 
 		PathTarget.PATRUL_ZONE:
 			if GlobalUnits.get_cur_unit().unit_data.ai_settings.patrul_zones_id_and_cells.is_empty():

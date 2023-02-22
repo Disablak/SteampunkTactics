@@ -12,10 +12,10 @@ var patrul_zones_id_and_cells = {} # zone id and grir cells
 var cur_target_zone_id = 0
 var walk_pos_to_patrul_zone: Vector2i = Vector2i.ZERO
 
-var cover_path_data: AiWorld.PathData = null
+var cover_path_data: PathData = null
 var visible_enemies: Array[Unit]
 
-var shortest_path_to_enemy: AiWorld.PathData
+var shortest_path_to_enemy: PathData
 var enemy_stand_near: int = -1
 
 

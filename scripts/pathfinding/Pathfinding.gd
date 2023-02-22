@@ -33,11 +33,13 @@ var dict_pos_and_cell_walk = {}
 var dict_pos_and_cell_wall = {}
 var dict_pos_and_cell_obstacle = {}
 var dict_pos_and_cell_cover = {}
+var dict_pos_and_cell_door = {}
 
 var spawned_walk_hints = Array()
 var spawned_damage_hints := []
 
 var prev_hovered_cell_pos: Vector2i = Vector2i.ZERO
+var hovered_obj: CellObject
 
 var debug_lines = []
 
@@ -136,7 +138,6 @@ func _connect_walkable_cells():
 func _add_obstacles():
 	for cell in root_obs_cells.get_children():
 		var cell_obj := cell as CellObject
-		cell_obj.on_click_obj.connect(_on_click_obj)
 		cell_obj.on_hover_obj.connect(_on_hover_obj)
 
 		if cell_obj.cell_type == CellObject.CellType.WALL:
@@ -151,6 +152,10 @@ func _add_obstacles():
 			dict_pos_and_cell_cover[cell_obj.grid_pos] = cell_obj
 			dict_pos_and_cell_cover[cell_obj.connected_cells_pos[0]] = cell_obj
 			_enable_connection(cell_obj, false)
+
+		if cell_obj.cell_type == CellObject.CellType.DOOR:
+			dict_pos_and_cell_door[cell_obj.grid_pos] = cell_obj
+			dict_pos_and_cell_door[cell_obj.connected_cells_pos[0]] = cell_obj
 
 
 func _on_cell_broke(cell: CellObject):
@@ -176,19 +181,46 @@ func remove_obstacle(cell: CellObject):
 	cell.queue_free()
 
 
-func get_path_to_point(from : Vector2i, to : Vector2i) -> Array[Vector2i]:
+func get_path_to_point(from: Vector2i, to: Vector2i, open_doors: bool = false) -> PathData:
 	if not is_point_walkable(to):
-		return []
+		return null
 
 	var from_id = astar.get_closest_point(from)
 	var to_id = astar.get_closest_point(to)
 
-	var path: Array[Vector2i]
-	path.assign(astar.get_point_path(from_id, to_id))
-	if path.size() == 1:
-		return []
+	var opened_doors = null
+	if open_doors:
+		opened_doors = open_all_closest_door()
 
-	return path
+	var path_data = PathData.new()
+	path_data.path.assign(astar.get_point_path(from_id, to_id))
+
+	if open_doors:
+		close_doors(opened_doors)
+
+		for point in path_data.path:
+			if dict_pos_and_cell_door.has(point):
+				var door_cell_obj = dict_pos_and_cell_door[point]
+				if not is_door_opened(door_cell_obj) and not path_data.doors.values().has(door_cell_obj):
+					path_data.doors[point] = door_cell_obj
+
+	return path_data
+
+
+func open_all_closest_door() -> Array[CellObject]:
+	var opened_doors: Array[CellObject] = []
+
+	for door in dict_pos_and_cell_door.values():
+		if not is_door_opened(door):
+			open_door(door, true)
+			opened_doors.append(door)
+
+	return opened_doors
+
+
+func close_doors(doors: Array[CellObject]):
+	for door in doors:
+		open_door(door, false)
 
 
 func is_point_walkable(grid_pos : Vector2i) -> bool:
@@ -196,9 +228,9 @@ func is_point_walkable(grid_pos : Vector2i) -> bool:
 	return cell_obj != null and cell_obj.is_walkable
 
 
-func has_path(from: Vector2i, to: Vector2i) -> bool:
-	var path: Array[Vector2i] = get_path_to_point(from, to)
-	return path.size() > 0 and path[-1] == to
+func has_path(from: Vector2i, to: Vector2i, open_doors: bool = false) -> bool:
+	var path_data: PathData = get_path_to_point(from, to, open_doors)
+	return not path_data.is_empty and path_data.path[-1] == to
 
 
 func get_unit_on_cell(grid_pos: Vector2i) -> Unit:
@@ -240,7 +272,7 @@ func get_walkable_cells(unit_grid_pos: Vector2i, max_distance: int) -> Array[Vec
 			if not has_path(unit_grid_pos, grid_pos):
 				continue
 
-			if get_path_to_point(unit_grid_pos, grid_pos).size() <= max_distance:
+			if get_path_to_point(unit_grid_pos, grid_pos).path.size() <= max_distance:
 				walkable_cells.push_back(grid_pos)
 
 	return walkable_cells
@@ -311,8 +343,6 @@ func get_covers_in_points(points: Array[Vector2i]) -> Array[Vector2i]:
 
 func get_cell_id_by_grid_pos(grid_pos: Vector2) -> int:
 	var cell_id := astar.get_closest_point(grid_pos, true)
-	var cell_obj: CellObject = dict_id_and_cell_walk[cell_id]
-
 	return cell_id
 
 
@@ -378,11 +408,7 @@ func open_door(cell: CellObject, open: bool):
 	_enable_connection(cell, open, true)
 	var wall_layer: int = 5
 	cell.area2d.set_collision_layer_value(wall_layer, not open)
-	update_fog()
-
-
-func update_fog():
-	fog_of_war.update_fog(GlobalUnits.get_cur_unit(), true)
+	fog_of_war.update_fog_for_all(true)
 
 
 func _get_cell_info(grid_pos: Vector2i) -> CellInfo:
@@ -421,9 +447,11 @@ func _enable_connection(cell: CellObject, enable: bool, update_debug: bool = fal
 
 
 func _on_hover_obj(cell_obj: CellObject):
-	var cell_info = CellInfo.new(cell_obj.grid_pos, cell_obj, -1)
-	cell_info.not_cell = true
-	on_hovered_cell.emit(cell_info)
+	hovered_obj = cell_obj
+	if cell_obj:
+		cell_hint.position = Vector2i.ZERO
+
+	print("hovered cell obj {0}".format([cell_obj]))
 
 
 func _on_click_obj(cell_obj: CellObject):
@@ -439,7 +467,8 @@ func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 	if info.cell_obj != null and prev_hovered_cell_pos == info.grid_pos:
 		return
 
-	prev_hovered_cell_pos = info.grid_pos if info.cell_obj != null else Vector2.ZERO
+	var show_cell_hint = info.cell_obj != null and not hovered_obj
+	prev_hovered_cell_pos = info.grid_pos if show_cell_hint else Vector2.ZERO
 	cell_hint.position = Globals.convert_to_cell_pos(prev_hovered_cell_pos)
 
 	on_hovered_cell.emit(info)
@@ -448,6 +477,10 @@ func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 func _on_input_system_on_mouse_click(mouse_pos: Vector2) -> void:
 	var grid_pos := Globals.convert_to_grid_pos(mouse_pos)
 	var info := _get_cell_info(grid_pos)
+
+	if hovered_obj:
+		info.cell_obj = hovered_obj
+		info.not_cell = true
 
 	on_clicked_cell.emit(info)
 

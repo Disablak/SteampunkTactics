@@ -35,7 +35,7 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo) -> void:
 		_clear()
 		return
 
-	if cur_unit and unit.unit_id == cur_unit.id:
+	if cur_unit and unit.id == cur_unit.id:
 		_clear()
 		return
 

@@ -9,13 +9,6 @@ var units_manager: UnitsManager
 var walking: WalkingModule
 var brain_ai: BrainAI
 
-class PathData:
-	var target_point: Vector2i
-	var path: Array[Vector2i]
-	var unit_id: int = -1
-
-	var is_empty: bool:
-		get: return path.size() == 0
 
 var _cur_unit: Unit:
 	get: return GlobalUnits.get_cur_unit()
@@ -53,10 +46,10 @@ func _get_shortest_path_to_target(targets: Array[Vector2i]) -> PathData:
 	var path_data: PathData = PathData.new()
 
 	for point in targets: # lambda not work!
-		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, point):
-			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, point)
-			if path_data.path.size() == 0 or path_data.path.size() > path.size():
-				path_data.path = path
+		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, point, true):
+			var path_d := units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, point, true)
+			if path_data.is_empty or path_data.path.size() > path_d.path.size():
+				path_data = path_d
 				path_data.target_point = point
 
 	return path_data
@@ -74,7 +67,7 @@ func _get_cover_that_cover_me_from_any_enemy() -> PathData:
 				if cell_obj.cell_type != CellObject.CellType.COVER:
 					continue
 
-				var path_to_cover = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, cover_pos)
+				var path_to_cover = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, cover_pos).path
 				if path_data.path.size() == 0 or path_data.path.size() > path_to_cover.size():
 					path_data.path = path_to_cover
 					path_data.target_point = cover_pos
@@ -115,7 +108,7 @@ func _get_path_to_any_points(points: Array[Vector2i]) -> Array[Vector2i]:
 	points.shuffle()
 	for point in points:
 		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, point):
-			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, point)
+			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, point).path
 			return path
 
 	return []
@@ -148,7 +141,7 @@ func find_path_to_patrul_zone() -> Vector2i:
 
 func find_path_to_near_enemy() -> PathData:
 	var visible_enemy = get_visible_enemies()
-	var enemy_points: Array[Vector2i]
+	var enemy_points: Array[Vector2i] = []
 	for enemy in visible_enemy: # todo need select!
 		enemy_points.append(enemy.unit_object.grid_pos)
 
@@ -211,7 +204,8 @@ func _get_max_cells_to_walk() -> int:
 
 func get_price_move_to_enemy() -> int:
 	var count_cells = _cur_unit.unit_data.ai_settings.shortest_path_to_enemy.path.size() - 1
-	return count_cells * _cur_unit.unit_data.unit_settings.walk_speed
+	var doors_open_price = _cur_unit.unit_data.ai_settings.shortest_path_to_enemy.doors.size() * Globals.TP_TO_OPEN_DOOR
+	return count_cells * _cur_unit.unit_data.unit_settings.walk_speed + doors_open_price
 
 
 func get_price_move_to_cover() -> int:
@@ -250,17 +244,23 @@ func rotate_to_attention():
 	brain_ai.decide_best_action_and_execute()
 
 
+func try_to_split_path(path_data: PathData) -> Dictionary:
+	var dict_paths = {}
+	var doors_count = path_data.doors.size()
+	var start_idx := 0
 
-func walk_to_attention_pos():
-	var path_to_attention = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, _cur_unit.unit_data.visibility_data.enemy_attention_grid_pos)
-	var attention_pos: Vector2i = _get_max_point_to_walk(path_to_attention)
-	_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos = Vector2i.ZERO
-	walk_to(attention_pos)
+	for i in doors_count + 1:
+		var door_pos: Vector2i = -Vector2i.ONE if doors_count == 0 or i == doors_count else path_data.doors.keys()[i]
+		var path_to_door: Array[Vector2i]
+		for idx in range(start_idx, path_data.path.size()):
+			var point = path_data.path[idx]
+			path_to_door.append(point)
+			if point == door_pos or point == path_data.path[-1]:
+				dict_paths[i] = path_to_door
+				start_idx = idx
+				break
 
-
-func walk_to_cover():
-	var point := _get_max_point_to_walk(_cur_unit.unit_data.ai_settings.cover_path_data.path)
-	walk_to(point, func(): try_rotate_to_cover(point))
+	return dict_paths
 
 
 func try_rotate_to_cover(point: Vector2i):
@@ -276,40 +276,62 @@ func try_rotate_to_cover(point: Vector2i):
 	_cur_unit.unit_data.update_view_direction(angle, true)
 
 
+func walk_to_attention_pos():
+	var target_point = _cur_unit.unit_data.visibility_data.enemy_attention_grid_pos
+	_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos = Vector2i.ZERO
+
+	await ultimate_walk(target_point)
+	brain_ai.decide_best_action_and_execute()
+
+
+func walk_to_cover():
+	var point := _get_max_point_to_walk(_cur_unit.unit_data.ai_settings.cover_path_data.path)
+	await ultimate_walk(point)
+	try_rotate_to_cover(point)
+	brain_ai.decide_best_action_and_execute()
+
+
 func walk_to_patrul_zone():
-	walk_to(_cur_unit.unit_data.ai_settings.walk_pos_to_patrul_zone)
+	await ultimate_walk(_cur_unit.unit_data.ai_settings.walk_pos_to_patrul_zone)
+	brain_ai.decide_best_action_and_execute()
 
 
 func walk_to_near_enemy():
-	var new_unit: Unit = GlobalUnits.units[GlobalUnits.cur_unit_id]
-	var cur_unit = _cur_unit
-	var path_to_enemy = cur_unit.unit_data.ai_settings.shortest_path_to_enemy
+	var path_to_enemy = _cur_unit.unit_data.ai_settings.shortest_path_to_enemy
 	var point := _get_max_point_to_walk(_cur_unit.unit_data.ai_settings.shortest_path_to_enemy.path)
-	walk_to(point)
+
+	await ultimate_walk(point)
+	brain_ai.decide_best_action_and_execute()
 
 
 func walk_to_rand_cell():
-	walk_to(cached_walking_cell_target)
-
-
-func walk_to(grid_pos: Vector2i, after_move_callable = null):
-	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
-
-	walking.draw_walking_cells()
-	await Globals.create_timer_and_get_signal(0.5)
-
-	units_manager.change_unit_action(UnitData.Abilities.WALK)
-	units_manager.try_move_unit_to_cell(grid_pos)
-	await walking.on_finished_move
-
-	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
-
-	units_manager.change_unit_action(UnitData.Abilities.NONE)
-
-	if after_move_callable != null and after_move_callable is Callable:
-		after_move_callable.call()
-
+	await ultimate_walk(cached_walking_cell_target)
 	brain_ai.decide_best_action_and_execute()
+
+
+func ultimate_walk(target_pos: Vector2i):
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+
+	var path_data := units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, target_pos, true)
+	var splited_path := try_to_split_path(path_data) # if we have doors
+
+	for i in splited_path.size():
+		if splited_path[i].size() > 1:
+			var max_path_point := _get_max_point_to_walk(splited_path[i])
+			units_manager.walking.draw_walking_cells()
+			await Globals.create_timer_and_get_signal(0.5)
+
+			units_manager.change_unit_action(UnitData.Abilities.WALK)
+			units_manager.try_move_unit_to_cell(max_path_point)
+			await walking.on_finished_move
+			await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+			units_manager.change_unit_action(UnitData.Abilities.NONE)
+
+		if i == splited_path.size() - 1:
+			break
+
+		units_manager.pathfinding.open_door(path_data.doors.values()[i], true)
+		await Globals.create_timer_and_get_signal(0.5)
 
 
 func shoot_in_random_enemy():
@@ -350,10 +372,3 @@ func next_turn():
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	units_manager.next_turn()
-
-
-
-
-
-
-

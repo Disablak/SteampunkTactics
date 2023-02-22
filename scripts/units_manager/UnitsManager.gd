@@ -149,6 +149,10 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 
 	print("next turn, cur unit {0}".format([unit_id]))
 
+	clear_all_lines(true)
+	walking.clear_walking_cells()
+	shooting.clear_malee_attack_hints()
+
 	if cur_unit_object != null:
 		cur_unit_object.mark_selected(false)
 		cur_unit_data.visibility_data.clear_enemies_saw()
@@ -231,9 +235,9 @@ func try_move_unit_to_cell(grid_pos: Vector2):
 
 func get_path_to_cell(grid_pos: Vector2i) -> Array[Vector2i]:
 	var start_grid_pos: Vector2i = Globals.convert_to_grid_pos(cur_unit_object.position)
-	var path: Array[Vector2i] = pathfinding.get_path_to_point(start_grid_pos, grid_pos)
+	var path_data: PathData = pathfinding.get_path_to_point(start_grid_pos, grid_pos)
 
-	return path
+	return path_data.path
 
 
 func _is_camera_moving() -> bool:
@@ -273,6 +277,9 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		if pathfinding.can_open_door(cell_info.cell_obj, cur_unit_object):
 			var is_opened: bool = pathfinding.is_door_opened(cell_info.cell_obj)
 			pathfinding.open_door(cell_info.cell_obj, not is_opened)
+			walking.clear_walking_cells()
+			walking.update_walking_cells(true)
+			change_unit_action(UnitData.Abilities.NONE)
 			print("door is opened {0}".format([not is_opened]))
 		else:
 			GlobalsUi.message("Too far from door")

@@ -33,8 +33,8 @@ func _ready() -> void:
 	collsition_shape = find_child("CollisionShape2D", true, false)
 
 	if area2d:
-		area2d.input_event.connect(_on_mouse_click)
 		area2d.mouse_entered.connect(_on_mouse_hover)
+		area2d.mouse_exited.connect(_on_mouse_exit)
 
 
 func set_damage(damage: int = 1):
@@ -75,13 +75,12 @@ func _to_string() -> String:
 	return CellType.keys()[cell_type]
 
 
-func _on_mouse_click(viewport, event, id):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		if can_use:
-			on_click_obj.emit(self)
-
-
 func _on_mouse_hover():
 	if can_use:
 		on_hover_obj.emit(self)
+
+
+func _on_mouse_exit():
+	if can_use:
+		on_hover_obj.emit(null)
 

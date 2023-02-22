@@ -2841,10 +2841,11 @@ position = Vector2(576, 256)
 [node name="RootUnits" type="Node2D" parent="."]
 
 [node name="UnitObject" parent="RootUnits" instance=ExtResource("5_cf07x")]
-position = Vector2(576, 288)
+position = Vector2(512, 352)
 unit_settings = ExtResource("6_86x5o")
 
 [node name="UnitObject2" parent="RootUnits" instance=ExtResource("5_cf07x")]
-position = Vector2(880, 48)
+position = Vector2(576, 384)
 unit_settings = ExtResource("7_b6osk")
 ai_settings = SubResource("Resource_a6tp0")
+start_view_dir = 270
