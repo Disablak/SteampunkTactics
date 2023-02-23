@@ -256,6 +256,27 @@ func _draw_trejectory_granade(grid_pos: Vector2):
 	line2d_manager.draw_trajectory(cur_unit_object.position, cell_pos, distance <= cur_unit_data.grenade.settings.throw_distance)
 
 
+func interact_with_door(cell_obj: CellObject) -> bool:
+	if not pathfinding.can_open_door(cell_obj, cur_unit_object):
+		GlobalsUi.message("Too far from door")
+		return false
+
+	if not TurnManager.can_spend_time_points(Globals.TP_TO_OPEN_DOOR):
+		GlobalsUi.message("Not enough TP")
+		return false
+
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.OPEN_DOOR, Globals.TP_TO_OPEN_DOOR)
+
+	var is_opened: bool = pathfinding.is_door_opened(cell_obj)
+	pathfinding.open_door(cell_obj, not is_opened, true)
+	walking.clear_walking_cells()
+	walking.update_walking_cells(true)
+	change_unit_action(UnitData.Abilities.NONE)
+	GlobalsUi.message("door is opened {0}".format([not is_opened]))
+
+	return true
+
+
 func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	if cur_unit_data.is_enemy:
 		GlobalsUi.message("Ai's turn")
@@ -274,15 +295,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		return
 
 	if cell_info.not_cell and cell_info.cell_obj.cell_type == CellObject.CellType.DOOR:
-		if pathfinding.can_open_door(cell_info.cell_obj, cur_unit_object):
-			var is_opened: bool = pathfinding.is_door_opened(cell_info.cell_obj)
-			pathfinding.open_door(cell_info.cell_obj, not is_opened)
-			walking.clear_walking_cells()
-			walking.update_walking_cells(true)
-			change_unit_action(UnitData.Abilities.NONE)
-			print("door is opened {0}".format([not is_opened]))
-		else:
-			GlobalsUi.message("Too far from door")
+		interact_with_door(cell_info.cell_obj)
 		return
 
 	var is_clicked_on_unit = cell_info.unit_id != -1
@@ -335,6 +348,14 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 	if cell_info.cell_obj == null:
 		clear_all_lines()
 		return
+
+	GlobalsUi.gui.show_tooltip(false)
+	TurnManager.show_hint_spend_points(0)
+
+	if cell_info.not_cell:
+		var pos = cell_info.cell_obj.position + Vector2(-5, 10)
+		GlobalsUi.gui.show_tooltip(true, "Door", pos)
+		TurnManager.show_hint_spend_points(Globals.TP_TO_OPEN_DOOR)
 
 	var is_hovered_on_ground = cell_info.cell_obj.is_walkable
 	if not is_hovered_on_ground:

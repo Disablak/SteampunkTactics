@@ -8,7 +8,8 @@ enum TypeSpendAction{
 	RELOADING,
 	WALKING,
 	MELLE_ATTACK,
-	THROW_GRENADE
+	THROW_GRENADE,
+	OPEN_DOOR
 }
 
 var order_unit_id: Array[int] = []

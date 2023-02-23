@@ -37,7 +37,7 @@ func get_price_by_type() -> int:
 			return GlobalMap.ai_world.find_random_cell_and_get_price_walk()
 
 		PriceType.MOVE_TO_PATRUL:
-			return GlobalMap.ai_world.get_price_move()
+			return GlobalMap.ai_world.get_max_price_move()
 
 		_:
 			printerr("Price not installed!")

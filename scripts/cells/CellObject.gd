@@ -11,6 +11,7 @@ enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE, DOOR}
 @export var is_walkable := false
 @export var health: int = -1
 @export_range(0.0, 0.5, 0.05) var shoot_debaf: float = 0.0
+@export var opened: bool = false
 
 var destroyed := false
 var connected_cells_pos: Array[Vector2i]
@@ -20,8 +21,8 @@ var collsition_shape: CollisionShape2D
 var grid_pos: Vector2i:
 	get: return Globals.convert_to_grid_pos(position)
 
-var can_use: bool:
-	get: return cell_type == CellType.DOOR or cell_type == CellType.COVER or cell_type == CellType.OBSTACLE or cell_type == CellType.WALL
+var is_interactable: bool:
+	get: return cell_type == CellType.DOOR
 
 
 func _ready() -> void:
@@ -76,11 +77,11 @@ func _to_string() -> String:
 
 
 func _on_mouse_hover():
-	if can_use:
+	if is_interactable:
 		on_hover_obj.emit(self)
 
 
 func _on_mouse_exit():
-	if can_use:
+	if is_interactable:
 		on_hover_obj.emit(null)
 

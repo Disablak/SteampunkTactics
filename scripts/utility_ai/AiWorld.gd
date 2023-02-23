@@ -107,8 +107,8 @@ func _get_walking_cells() -> Array[Vector2i]:
 func _get_path_to_any_points(points: Array[Vector2i]) -> Array[Vector2i]:
 	points.shuffle()
 	for point in points:
-		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, point):
-			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, point).path
+		if units_manager.pathfinding.has_path(_cur_unit.unit_object.grid_pos, point, true):
+			var path = units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, point, true).path
 			return path
 
 	return []
@@ -179,8 +179,9 @@ func is_any_enemy_near_unit() -> bool:
 	for grid_pos in points_around_unit:
 		var unit: Unit = units_manager.pathfinding.get_unit_on_cell(grid_pos)
 		if unit != null:
-			_cur_unit.unit_data.ai_settings.enemy_stand_near = unit.id
-			return true
+			if GlobalMap.raycaster.make_ray_check_no_obstacle(_cur_unit.unit_object.position, unit.unit_object.position):
+				_cur_unit.unit_data.ai_settings.enemy_stand_near = unit.id
+				return true
 
 	_cur_unit.unit_data.ai_settings.enemy_stand_near = -1
 	return false
@@ -203,17 +204,20 @@ func _get_max_cells_to_walk() -> int:
 
 
 func get_price_move_to_enemy() -> int:
-	var count_cells = _cur_unit.unit_data.ai_settings.shortest_path_to_enemy.path.size() - 1
-	var doors_open_price = _cur_unit.unit_data.ai_settings.shortest_path_to_enemy.doors.size() * Globals.TP_TO_OPEN_DOOR
-	return count_cells * _cur_unit.unit_data.unit_settings.walk_speed + doors_open_price
+	return get_price_move_path(_cur_unit.unit_data.ai_settings.shortest_path_to_enemy)
 
 
 func get_price_move_to_cover() -> int:
-	var count_cells = _cur_unit.unit_data.ai_settings.cover_path_data.path.size() - 1
-	return count_cells * _cur_unit.unit_data.unit_settings.walk_speed
+	return get_price_move_path(_cur_unit.unit_data.ai_settings.cover_path_data)
 
 
-func get_price_move():
+func get_price_move_path(path_data: PathData) -> int:
+	var count_cells = path_data.path.size() - 1
+	var doors_open_price = path_data.doors.size() * Globals.TP_TO_OPEN_DOOR
+	return count_cells * _cur_unit.unit_data.unit_settings.walk_speed + doors_open_price
+
+
+func get_max_price_move():
 	if not TurnManager.can_spend_time_points(_cur_unit.unit_data.unit_settings.walk_speed):
 		return 999
 
@@ -221,27 +225,9 @@ func get_price_move():
 
 
 func _get_max_point_to_walk(path: Array[Vector2i]) -> Vector2i:
-	var available_cells_to_walk: int = floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
+	var available_cells_to_walk := _get_max_cells_to_walk()
 	var idx = min(available_cells_to_walk, path.size() - 1)
 	return path[idx]
-
-
-func rotate_to_attention():
-	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
-
-	if _cur_unit.unit_data.attention_direction != -1:
-		_cur_unit.unit_data.rotate_to_attention_dir()
-		Globals.print_ai("unit {0} rotate to damager".format([_cur_unit.id]), false, "crimson")
-	elif _cur_unit.unit_data.visibility_data.enemies_saw.size() > 0:
-		var first_enemy_grid_pos: Vector2i = _cur_unit.unit_data.visibility_data.enemies_saw.values().front()
-		var angle: int = rad_to_deg(_cur_unit.unit_object.position.angle_to_point(Globals.convert_to_cell_pos(first_enemy_grid_pos)))
-		_cur_unit.unit_data.update_view_direction(angle, true)
-		_cur_unit.unit_data.visibility_data.clear_enemies_saw()
-		_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos = first_enemy_grid_pos
-		Globals.print_ai("unit {0} rotate to prev saw unit".format([_cur_unit.id]), false, "crimson")
-
-	await Globals.create_timer_and_get_signal(0.3)
-	brain_ai.decide_best_action_and_execute()
 
 
 func try_to_split_path(path_data: PathData) -> Dictionary:
@@ -313,10 +299,16 @@ func ultimate_walk(target_pos: Vector2i):
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	var path_data := units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, target_pos, true)
+	if path_data.is_empty:
+		return
+
 	var splited_path := try_to_split_path(path_data) # if we have doors
 
 	for i in splited_path.size():
 		if splited_path[i].size() > 1:
+			if _get_max_cells_to_walk() == 0:
+				return
+
 			var max_path_point := _get_max_point_to_walk(splited_path[i])
 			units_manager.walking.draw_walking_cells()
 			await Globals.create_timer_and_get_signal(0.5)
@@ -328,10 +320,36 @@ func ultimate_walk(target_pos: Vector2i):
 			units_manager.change_unit_action(UnitData.Abilities.NONE)
 
 		if i == splited_path.size() - 1:
-			break
+			return
 
-		units_manager.pathfinding.open_door(path_data.doors.values()[i], true)
+		var door = path_data.doors.values()[i]
+		var can_interact: bool = units_manager.interact_with_door(door)
 		await Globals.create_timer_and_get_signal(0.5)
+
+		if not can_interact:
+			return
+
+
+func rotate_to_attention():
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+
+	if _cur_unit.unit_data.attention_direction != -1:
+		_cur_unit.unit_data.rotate_to_attention_dir()
+		Globals.print_ai("unit {0} rotate to damager".format([_cur_unit.id]), false, "crimson")
+	elif _cur_unit.unit_data.visibility_data.enemies_saw.size() > 0:
+		var first_enemy_grid_pos: Vector2i = _cur_unit.unit_data.visibility_data.enemies_saw.values().front()
+		var angle: int = rad_to_deg(_cur_unit.unit_object.position.angle_to_point(Globals.convert_to_cell_pos(first_enemy_grid_pos)))
+		_cur_unit.unit_data.update_view_direction(angle, true)
+		_cur_unit.unit_data.visibility_data.clear_enemies_saw()
+		_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos = first_enemy_grid_pos
+		Globals.print_ai("unit {0} rotate to prev saw unit".format([_cur_unit.id]), false, "crimson")
+
+	await Globals.create_timer_and_get_signal(0.3)
+	brain_ai.decide_best_action_and_execute()
+
+
+func look_around():
+	pass
 
 
 func shoot_in_random_enemy():
@@ -372,3 +390,4 @@ func next_turn():
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
 	units_manager.next_turn()
+

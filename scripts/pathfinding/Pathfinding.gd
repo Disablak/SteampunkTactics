@@ -156,6 +156,8 @@ func _add_obstacles():
 		if cell_obj.cell_type == CellObject.CellType.DOOR:
 			dict_pos_and_cell_door[cell_obj.grid_pos] = cell_obj
 			dict_pos_and_cell_door[cell_obj.connected_cells_pos[0]] = cell_obj
+			if not cell_obj.opened:
+				open_door(cell_obj, false)
 
 
 func _on_cell_broke(cell: CellObject):
@@ -400,7 +402,7 @@ func is_door_opened(cell: CellObject) -> bool:
 	return astar.are_points_connected(first_cell_id, second_cell_id)
 
 
-func open_door(cell: CellObject, open: bool):
+func open_door(cell: CellObject, open: bool, update_fog: bool = false):
 	if cell.cell_type != CellObject.CellType.DOOR:
 		printerr("its not door")
 		return
@@ -408,15 +410,22 @@ func open_door(cell: CellObject, open: bool):
 	_enable_connection(cell, open, true)
 	var wall_layer: int = 5
 	cell.area2d.set_collision_layer_value(wall_layer, not open)
-	fog_of_war.update_fog_for_all(true)
+
+	if update_fog:
+		fog_of_war.update_fog_for_all(true)
 
 
 func _get_cell_info(grid_pos: Vector2i) -> CellInfo:
 	var cell_obj := get_cell_by_pos(grid_pos)
 	var unit_on_cell: Unit = get_unit_on_cell(grid_pos)
 	var unit_id := unit_on_cell.id if unit_on_cell != null else -1
+	var info = CellInfo.new(grid_pos, cell_obj, unit_id)
 
-	return CellInfo.new(grid_pos, cell_obj, unit_id)
+	if hovered_obj:
+		info.cell_obj = hovered_obj
+		info.not_cell = true
+
+	return info
 
 
 func _enable_point_by_pos(grid_pos: Vector2i, enable: bool, update_debug: bool = false):
@@ -447,17 +456,11 @@ func _enable_connection(cell: CellObject, enable: bool, update_debug: bool = fal
 
 
 func _on_hover_obj(cell_obj: CellObject):
+	if (not hovered_obj and cell_obj) or (hovered_obj and not cell_obj): # it need for invoke hover event
+		prev_hovered_cell_pos = Vector2i.ZERO
+
 	hovered_obj = cell_obj
-	if cell_obj:
-		cell_hint.position = Vector2i.ZERO
-
 	print("hovered cell obj {0}".format([cell_obj]))
-
-
-func _on_click_obj(cell_obj: CellObject):
-	var cell_info = CellInfo.new(cell_obj.grid_pos, cell_obj, -1)
-	cell_info.not_cell = true
-	on_clicked_cell.emit(cell_info)
 
 
 func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
@@ -467,9 +470,11 @@ func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 	if info.cell_obj != null and prev_hovered_cell_pos == info.grid_pos:
 		return
 
-	var show_cell_hint = info.cell_obj != null and not hovered_obj
-	prev_hovered_cell_pos = info.grid_pos if show_cell_hint else Vector2.ZERO
+	prev_hovered_cell_pos = info.grid_pos if info.cell_obj != null else Vector2.ZERO
 	cell_hint.position = Globals.convert_to_cell_pos(prev_hovered_cell_pos)
+
+	if info.not_cell:
+		cell_hint.position = Vector2i.ZERO
 
 	on_hovered_cell.emit(info)
 
@@ -477,10 +482,6 @@ func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 func _on_input_system_on_mouse_click(mouse_pos: Vector2) -> void:
 	var grid_pos := Globals.convert_to_grid_pos(mouse_pos)
 	var info := _get_cell_info(grid_pos)
-
-	if hovered_obj:
-		info.cell_obj = hovered_obj
-		info.not_cell = true
 
 	on_clicked_cell.emit(info)
 
