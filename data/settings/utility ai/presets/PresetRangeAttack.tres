@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="AiPreset" load_steps=27 format=3 uid="uid://4vlp6vtsvwcf"]
+[gd_resource type="Resource" script_class="AiPreset" load_steps=26 format=3 uid="uid://4vlp6vtsvwcf"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd" id="1_fep5i"]
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyNearUnit.gd" id="2_r5cwd"]
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderLowAmmo.gd" id="3_kmjph"]
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughAmmoToShoot.gd" id="4_28qvo"]
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionShoot.gd" id="5_a1e8u"]
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderInCover.gd" id="5_v8138"]
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="7_16got"]
@@ -22,10 +21,11 @@ invert = true
 
 [sub_resource type="Resource" id="Resource_8epa4"]
 script = ExtResource("3_kmjph")
-invert = false
+invert = true
 
-[sub_resource type="Resource" id="Resource_kknkv"]
-script = ExtResource("4_28qvo")
+[sub_resource type="Resource" id="Resource_pgyiy"]
+script = ExtResource("7_16got")
+price_type = 1
 invert = false
 
 [sub_resource type="Curve" id="Curve_ktpn1"]
@@ -39,7 +39,7 @@ response_curve = SubResource("Curve_ktpn1")
 
 [sub_resource type="Resource" id="Resource_uanil"]
 script = ExtResource("5_a1e8u")
-considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([SubResource("Resource_3cx2p"), SubResource("Resource_64pxy"), SubResource("Resource_8epa4"), SubResource("Resource_kknkv"), SubResource("Resource_atqtx")])
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([SubResource("Resource_3cx2p"), SubResource("Resource_64pxy"), SubResource("Resource_8epa4"), SubResource("Resource_pgyiy"), SubResource("Resource_atqtx")])
 
 [sub_resource type="Resource" id="Resource_0ndou"]
 script = ExtResource("3_kmjph")

@@ -230,25 +230,6 @@ func _get_max_point_to_walk(path: Array[Vector2i]) -> Vector2i:
 	return path[idx]
 
 
-func try_to_split_path(path_data: PathData) -> Dictionary:
-	var dict_paths = {}
-	var doors_count = path_data.doors.size()
-	var start_idx := 0
-
-	for i in doors_count + 1:
-		var door_pos: Vector2i = -Vector2i.ONE if doors_count == 0 or i == doors_count else path_data.doors.keys()[i]
-		var path_to_door: Array[Vector2i]
-		for idx in range(start_idx, path_data.path.size()):
-			var point = path_data.path[idx]
-			path_to_door.append(point)
-			if point == door_pos or point == path_data.path[-1]:
-				dict_paths[i] = path_to_door
-				start_idx = idx
-				break
-
-	return dict_paths
-
-
 func try_rotate_to_cover(point: Vector2i):
 	if point != _cur_unit.unit_data.ai_settings.cover_path_data.path[-1]:
 		return
@@ -263,10 +244,12 @@ func try_rotate_to_cover(point: Vector2i):
 
 
 func walk_to_attention_pos():
-	var target_point = _cur_unit.unit_data.visibility_data.enemy_attention_grid_pos
-	_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos = Vector2i.ZERO
+	await ultimate_walk(_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos)
 
-	await ultimate_walk(target_point)
+	var see_enemy: bool = _cur_unit.unit_data.visibility_data.is_see_enemy()
+	if see_enemy or _cur_unit.unit_object.grid_pos == _cur_unit.unit_data.visibility_data.enemy_attention_grid_pos:
+		_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos = Vector2i.ZERO
+
 	brain_ai.decide_best_action_and_execute()
 
 
@@ -295,39 +278,50 @@ func walk_to_rand_cell():
 	brain_ai.decide_best_action_and_execute()
 
 
-func ultimate_walk(target_pos: Vector2i):
-	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+func move_and_open_door(path_data: PathData):
+	var first_door: CellObject = path_data.doors.values().front()
+	var door_pos: Vector2i = path_data.doors.keys().front()
+	var door_idx := path_data.path.find(door_pos)
+	var path_to_door := path_data.path.slice(0, door_idx + 1)
 
+	await move(path_to_door)
+	await interact_door(first_door)
+
+
+func ultimate_walk(target_pos: Vector2i):
 	var path_data := units_manager.pathfinding.get_path_to_point(_cur_unit.unit_object.grid_pos, target_pos, true)
 	if path_data.is_empty:
 		return
 
-	var splited_path := try_to_split_path(path_data) # if we have doors
+	if path_data.doors.is_empty():
+		await move(path_data.path)
+	else:
+		await move_and_open_door(path_data)
 
-	for i in splited_path.size():
-		if splited_path[i].size() > 1:
-			if _get_max_cells_to_walk() == 0:
-				return
 
-			var max_path_point := _get_max_point_to_walk(splited_path[i])
-			units_manager.walking.draw_walking_cells()
-			await Globals.create_timer_and_get_signal(0.5)
+func move(path: Array[Vector2i]):
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 
-			units_manager.change_unit_action(UnitData.Abilities.WALK)
-			units_manager.try_move_unit_to_cell(max_path_point)
-			await walking.on_finished_move
-			await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
-			units_manager.change_unit_action(UnitData.Abilities.NONE)
+	if _get_max_cells_to_walk() == 0:
+		return
 
-		if i == splited_path.size() - 1:
-			return
+	if path.size() <= 1:
+		return
 
-		var door = path_data.doors.values()[i]
-		var can_interact: bool = units_manager.interact_with_door(door)
-		await Globals.create_timer_and_get_signal(0.5)
+	var max_path_point := _get_max_point_to_walk(path)
+	units_manager.walking.draw_walking_cells()
+	await Globals.create_timer_and_get_signal(0.5)
 
-		if not can_interact:
-			return
+	units_manager.change_unit_action(UnitData.Abilities.WALK)
+	units_manager.try_move_unit_to_cell(max_path_point)
+	await walking.on_finished_move
+	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
+	units_manager.change_unit_action(UnitData.Abilities.NONE)
+
+
+func interact_door(door: CellObject):
+	units_manager.interact_with_door(door)
+	await Globals.create_timer_and_get_signal(0.5)
 
 
 func rotate_to_attention():
