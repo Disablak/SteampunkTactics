@@ -114,7 +114,7 @@ func update_view_direction(angle: int, update_fog_of_war = false):
 		return
 
 	view_direction = angle
-	GlobalBus.on_unit_changed_view_direction.emit(unit_id, view_direction, update_fog_of_war)
+	GlobalBus.on_unit_changed_view_direction.emit(unit_id, angle, update_fog_of_war)
 
 
 func update_attention_direction(object: Node2D):
@@ -130,4 +130,8 @@ func update_attention_direction(object: Node2D):
 func rotate_to_attention_dir():
 	update_view_direction(attention_direction, true)
 	update_attention_direction(null)
+
+
+func look_around():
+	update_view_direction(1000, true)
 

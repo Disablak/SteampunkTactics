@@ -88,7 +88,7 @@ func get_team_visibility(enemy_team: bool, force_update: bool = false) -> Array[
 	return visible_cells
 
 
-func update_unit_visibility(unit: Unit, force_update: bool = false, all_around: bool = false):
+func update_unit_visibility(unit: Unit, force_update: bool = false):
 	var grid_unit_pos := Globals.convert_to_grid_pos(unit.unit_object.position)
 	var unit_view_direction := unit.unit_data.view_direction
 	var visibility_data = unit.unit_data.visibility_data
@@ -102,7 +102,13 @@ func update_unit_visibility(unit: Unit, force_update: bool = false, all_around: 
 	var all_circle_points := MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
 	var sector_circle_points := MyMath.get_circle_sector_points(grid_unit_pos, all_circle_points, unit.unit_data.view_direction, HALF_RADIUS)
 
-	visibility_data.circle_points = sector_circle_points if unit.unit_data.is_enemy and not all_around else all_circle_points
+	const ALL_AROUND = 1000
+	if not unit.unit_data.is_enemy or unit.unit_data.view_direction == ALL_AROUND:
+		visibility_data.circle_points = all_circle_points
+		if unit.unit_data.view_direction == ALL_AROUND:
+			unit.unit_data.view_direction = -1
+	else:
+		visibility_data.circle_points = sector_circle_points
 
 	var new_visible_points: Array[Vector2i]
 	for grid_pos_on_circle in visibility_data.circle_points:

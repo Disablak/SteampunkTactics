@@ -247,8 +247,13 @@ func walk_to_attention_pos():
 	await ultimate_walk(_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos)
 
 	var see_enemy: bool = _cur_unit.unit_data.visibility_data.is_see_enemy()
-	if see_enemy or _cur_unit.unit_object.grid_pos == _cur_unit.unit_data.visibility_data.enemy_attention_grid_pos:
+	var attention_pos_reached := _cur_unit.unit_object.grid_pos == _cur_unit.unit_data.visibility_data.enemy_attention_grid_pos
+
+	if see_enemy or attention_pos_reached:
 		_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos = Vector2i.ZERO
+
+	if not see_enemy and attention_pos_reached:
+		await look_around()
 
 	brain_ai.decide_best_action_and_execute()
 
@@ -317,6 +322,7 @@ func move(path: Array[Vector2i]):
 	await walking.on_finished_move
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 	units_manager.change_unit_action(UnitData.Abilities.NONE)
+	await Globals.create_timer_and_get_signal(0.5)
 
 
 func interact_door(door: CellObject):
@@ -343,7 +349,8 @@ func rotate_to_attention():
 
 
 func look_around():
-	pass
+	_cur_unit.unit_data.look_around()
+	await Globals.create_timer_and_get_signal(1.5)
 
 
 func shoot_in_random_enemy():
