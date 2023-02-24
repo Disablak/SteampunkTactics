@@ -10,6 +10,7 @@ const AI_CONUS_RADIUS := 120
 const HALF_RADIUS := AI_CONUS_RADIUS / 2
 
 var dict_pos_and_cell = {}
+var dict_is_enemy_team_and_pos = {} # knew cells by team
 
 
 func _ready() -> void:
@@ -40,6 +41,9 @@ func _on_unit_changed_view_direction(unit_id, _angle, update_fog_of_war):
 
 
 func init():
+	dict_is_enemy_team_and_pos[false] = []
+	dict_is_enemy_team_and_pos[true] = []
+
 	for unit in GlobalUnits.units.values():
 		update_unit_visibility(unit)
 
@@ -116,6 +120,7 @@ func update_unit_visibility(unit: Unit, force_update: bool = false):
 		new_visible_points = MyMath.arr_add_no_copy(new_visible_points, line_points)
 
 	visibility_data.visible_points = new_visible_points
+	_know_new_cells(unit.unit_data.is_enemy, new_visible_points)
 
 
 func _get_line_points(grid_pos_from: Vector2i, grid_pos_to: Vector2i) -> Array[Vector2i]:
@@ -158,8 +163,15 @@ func _hide_units_in_fog(unit: Unit):
 
 
 func _make_all_map_in_fog():
+	var is_enemy = GlobalUnits.get_cur_unit().unit_data.is_enemy
+	var knew_cells = dict_is_enemy_team_and_pos[is_enemy]
+
 	for fog in dict_pos_and_cell.values():
-		fog.update_visibility(CellVisibility.HALF)
+		var grid_pos = Globals.convert_to_grid_pos(fog.position)
+		if knew_cells.has(grid_pos):
+			fog.update_visibility(CellVisibility.HALF)
+		else:
+			fog.update_visibility(CellVisibility.NOTHING)
 
 
 func _enemies_trying_to_remember_unit(unit: Unit):
@@ -169,4 +181,14 @@ func _enemies_trying_to_remember_unit(unit: Unit):
 		if enemy_visibility_data.visible_points.has(unit.unit_object.grid_pos):
 			print("unit{0} saw unit{1}".format([enemy.id, unit.id]))
 			enemy_visibility_data.unit_was_remembered(unit, unit.unit_object.grid_pos)
+
+
+func _know_new_cells(is_enemy, visible_points: Array[Vector2i]):
+	var prev_visible_points = dict_is_enemy_team_and_pos[is_enemy]
+	prev_visible_points = MyMath.arr_add_no_copy(prev_visible_points, visible_points)
+
+	dict_is_enemy_team_and_pos[is_enemy] = prev_visible_points
+
+
+
 
