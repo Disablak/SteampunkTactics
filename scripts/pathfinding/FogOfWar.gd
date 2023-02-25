@@ -180,7 +180,7 @@ func _make_all_map_in_fog():
 
 	for fog in dict_pos_and_cell.values():
 		var grid_pos = Globals.convert_to_grid_pos(fog.position)
-		if knew_cells.has(grid_pos):
+		if Globals.DEBUG_HIDE_FOG or knew_cells.has(grid_pos):
 			fog.update_visibility(CellVisibility.HALF)
 		else:
 			fog.update_visibility(CellVisibility.NOTHING)

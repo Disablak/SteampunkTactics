@@ -86,6 +86,14 @@ func _other_inputs(event: InputEvent):
 	if event.is_action_pressed("right_click"):
 		on_pressed_rmc.emit()
 
+	if event.is_action_pressed("cheat hide fog"):
+		Globals.DEBUG_HIDE_FOG = not Globals.DEBUG_HIDE_FOG
+		GlobalsUi.message("cheat DEBUG_HIDE_FOG activated {0}".format([Globals.DEBUG_HIDE_FOG]))
+
+	if event.is_action_pressed("cheat show enemy always"):
+		Globals.DEBUG_SHOW_ENEMY_ALWAYS = not Globals.DEBUG_SHOW_ENEMY_ALWAYS
+		GlobalsUi.message("cheat DEBUG_SHOW_ENEMY_ALWAYS activated {0}".format([Globals.DEBUG_SHOW_ENEMY_ALWAYS]))
+
 
 func formatted_position(position: Vector2) -> Vector2:
 	var view_size := camera.get_viewport_rect().size

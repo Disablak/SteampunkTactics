@@ -315,19 +315,19 @@ func move(path: Array[Vector2i]):
 
 	var max_path_point := _get_max_point_to_walk(path)
 	units_manager.walking.draw_walking_cells()
-	await Globals.create_timer_and_get_signal(0.5)
+	await make_delay(0.5)
 
 	units_manager.change_unit_action(UnitData.Abilities.WALK)
 	units_manager.try_move_unit_to_cell(max_path_point)
 	await walking.on_finished_move
 	await Globals.wait_while(GlobalsUi.input_system.camera_controller.camera_is_moving)
 	units_manager.change_unit_action(UnitData.Abilities.NONE)
-	await Globals.create_timer_and_get_signal(0.5)
+	await make_delay(0.5)
 
 
 func interact_door(door: CellObject):
 	units_manager.interact_with_door(door)
-	await Globals.create_timer_and_get_signal(0.5)
+	await make_delay(0.5)
 
 
 func rotate_to_attention():
@@ -344,13 +344,13 @@ func rotate_to_attention():
 		_cur_unit.unit_data.visibility_data.enemy_attention_grid_pos = first_enemy_grid_pos
 		Globals.print_ai("unit {0} rotate to prev saw unit".format([_cur_unit.id]), false, "crimson")
 
-	await Globals.create_timer_and_get_signal(0.3)
+	await make_delay(0.3)
 	brain_ai.decide_best_action_and_execute()
 
 
 func look_around():
 	_cur_unit.unit_data.look_around()
-	await Globals.create_timer_and_get_signal(1.5)
+	await make_delay(1.5)
 
 
 func shoot_in_random_enemy():
@@ -368,10 +368,10 @@ func attack_enemy(enemy: Unit, ability: UnitData.Abilities):
 
 	units_manager.change_unit_action(ability)
 	units_manager.shooting.select_enemy(ability, _cur_unit, enemy)
-	await Globals.create_timer_and_get_signal(0.5)
+	await make_delay(0.5)
 
 	units_manager.shooting.select_enemy(ability, _cur_unit, enemy)
-	await Globals.create_timer_and_get_signal(1.0)
+	await make_delay(1.0)
 
 	units_manager.change_unit_action(UnitData.Abilities.NONE)
 	brain_ai.decide_best_action_and_execute()
@@ -382,7 +382,7 @@ func reload():
 
 	units_manager.shooting.reload(_cur_unit.unit_data)
 
-	await Globals.create_timer_and_get_signal(0.5)
+	await make_delay(0.5)
 
 	brain_ai.decide_best_action_and_execute()
 
@@ -392,3 +392,9 @@ func next_turn():
 
 	units_manager.next_turn()
 
+
+func make_delay(time: float):
+	if not GlobalMap.can_show_cur_unit():
+		return
+
+	await Globals.create_timer_and_get_signal(time)

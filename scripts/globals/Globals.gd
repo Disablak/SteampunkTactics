@@ -29,6 +29,7 @@ const TP_TO_OPEN_DOOR := 10
 
 # debug
 const DEBUG_AI = true
+var DEBUG_HIDE_FOG := false
 var DEBUG_SHOW_ENEMY_ALWAYS := false
 
 

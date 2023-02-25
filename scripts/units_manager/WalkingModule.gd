@@ -92,6 +92,8 @@ func _move_via_points(points: Array[Vector2i]):
 		var start_point := converted_points[cur_target_id]
 		var finish_point := converted_points[cur_target_id + 1]
 		var time_move = start_point.distance_to(finish_point) / MOVING_SPEED
+		if not GlobalMap.can_show_cur_unit():
+			time_move = 0
 
 		var move_direction: int = rad_to_deg(start_point.angle_to_point(finish_point))
 		cur_unit_data.update_view_direction(move_direction)
