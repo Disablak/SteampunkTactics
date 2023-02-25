@@ -35,17 +35,17 @@ func init():
 	move_camera(first_unit.unit_object.position, 0.0)
 
 
-func center_camera_between_two_units(unit_first: Unit, unit_second: Unit) -> Signal:
+func center_camera_between_two_units(unit_first: Unit, unit_second: Unit):
 	var vector := unit_second.unit_object.position - unit_first.unit_object.position
 	var distance := unit_second.unit_object.position.distance_to(unit_first.unit_object.position)
 	var center_pos := (vector.normalized() * (distance / 2)) + unit_first.unit_object.position
 
 	var time_tween = 0.5 if center_pos.distance_to(position) > PIXEL_TRASH_HOLD else 0.0
 
-	return move_camera(center_pos, time_tween)
+	await move_camera(center_pos, time_tween)
 
 
-func move_camera(target_pos: Vector2, time: float) -> Signal:
+func move_camera(target_pos: Vector2, time: float):
 	target_pos = _clamp_pos_in_bounds(target_pos)
 
 	tween_move = create_tween()
@@ -57,10 +57,13 @@ func move_camera(target_pos: Vector2, time: float) -> Signal:
 		time
 	)
 
-	return tween_move.finished
+	await tween_move.finished
 
 
-func focus_camera(unit_id, instantly) -> Signal:
+func focus_camera(unit_id, instantly):
+	if not GlobalMap.can_show_cur_unit():
+		return
+
 	var target_pos: Vector2
 
 	if save_prev_pos and dict_id_and_prev_pos.has(unit_id):
@@ -71,7 +74,7 @@ func focus_camera(unit_id, instantly) -> Signal:
 		var unit_pos = unit.unit_object.position
 		target_pos = _clamp_pos_in_bounds(unit_pos)
 
-	return move_camera(target_pos, 0.0 if instantly else focus_time)
+	move_camera(target_pos, 0.0 if instantly else focus_time)
 
 
 func is_camera_moving() -> bool:
@@ -84,6 +87,9 @@ func drag(vector_move: Vector2) -> void:
 
 
 func try_to_move_in_helper_view(pos: Vector2):
+	if not GlobalMap.can_show_cur_unit():
+		return
+	
 	if not is_pos_in_view_helper(pos):
 		var target_pos = get_clamped_pos_in_helper(pos)
 		move_camera(target_pos, focus_time)

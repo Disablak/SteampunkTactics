@@ -33,6 +33,9 @@ func _on_clicked_ability(btn):
 
 
 func _on_unit_changed_ammo(unit_id, weapon):
+	if not GlobalMap.can_show_cur_unit():
+		return
+
 	if unit_id != GlobalUnits.cur_unit_id:
 		return
 
@@ -46,6 +49,9 @@ func _on_unit_changed_ammo(unit_id, weapon):
 
 
 func _on_changed_action(_id, action):
+	if not GlobalMap.can_show_cur_unit():
+		return
+
 	for btn in all_btns_ability.values():
 		btn.set_pressed_no_signal(false)
 

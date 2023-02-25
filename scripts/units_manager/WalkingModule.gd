@@ -54,7 +54,9 @@ func get_move_price(path: Array[Vector2i]) -> int:
 
 func draw_walking_cells(): # todo if unit change time points without moving, it will be a bug
 	update_walking_cells()
-	pathfinding.draw_walking_cells(cached_walking_cells)
+
+	if GlobalMap.can_show_cur_unit():
+		pathfinding.draw_walking_cells(cached_walking_cells)
 
 
 func update_walking_cells(force_update: bool = false):
@@ -68,7 +70,7 @@ func update_walking_cells(force_update: bool = false):
 
 		var path_walking_cells := pathfinding.get_walkable_cells(unit_grid_pos, max_move_distance)
 		var team_visibility_cells := pathfinding.fog_of_war.get_cur_team_visibility()
-		var intersected_cells: Array[Vector2i]
+		var intersected_cells: Array[Vector2i] = []
 		intersected_cells.assign(MyMath.arr_intersect(path_walking_cells, team_visibility_cells))
 		cached_walking_cells = path_walking_cells if cur_unit_data.is_enemy else intersected_cells
 
@@ -110,6 +112,4 @@ func _move_via_points(points: Array[Vector2i]):
 
 
 func _on_unit_finished_move():
-	#cur_unit_object.unit_animator.play_anim(Globals.AnimationType.IDLE)
-	#draw_walking_cells()
 	callable_finish_move.call()

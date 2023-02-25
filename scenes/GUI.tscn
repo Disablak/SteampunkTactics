@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c81lt0oloef08"]
+[gd_scene load_steps=25 format=3 uid="uid://c81lt0oloef08"]
 
 [ext_resource type="Script" path="res://scripts/ui/GUI.gd" id="1_vypfl"]
 [ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="2_8t721"]
@@ -9,6 +9,7 @@
 [ext_resource type="ButtonGroup" uid="uid://bsrwr3ppmws16" path="res://data/settings/ui/ButtonGroup.tres" id="7_7jswe"]
 [ext_resource type="Script" path="res://scripts/ui/UiBtnAbility.gd" id="8_7jrsu"]
 [ext_resource type="Shortcut" uid="uid://wn8cqlrakbky" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="12_e4ykp"]
+[ext_resource type="FontFile" uid="uid://cuq7uy43wcnc3" path="res://data/settings/ui/alagard.ttf" id="12_mbk3r"]
 [ext_resource type="PackedScene" uid="uid://br8vyxjhv1p53" path="res://scenes/2d/ui/UiUnitsList.tscn" id="13_iompt"]
 [ext_resource type="PackedScene" uid="uid://b4u6fb473yrgx" path="res://scenes/2d/ui/UiSelectedUnitInfo.tscn" id="14_nk3no"]
 [ext_resource type="Texture2D" uid="uid://dn8rq0ei6wxmt" path="res://content/sprites/ground/back_0.png" id="15_1b8sg"]
@@ -42,6 +43,10 @@ keycode = 53
 
 [sub_resource type="Shortcut" id="Shortcut_dewe6"]
 events = [SubResource("InputEventKey_4h2fk")]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y2ytp"]
+font = ExtResource("12_mbk3r")
+font_size = 40
 
 [node name="GUI" type="Control"]
 layout_direction = 1
@@ -232,6 +237,18 @@ offset_bottom = 60.0
 grow_horizontal = 0
 text = "fps"
 horizontal_alignment = 2
+
+[node name="LabelIsEnemyTurn" type="Label" parent="BattleUI/AlwaysUI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Is enemy turn"
+label_settings = SubResource("LabelSettings_y2ytp")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Pointer" type="Sprite2D" parent="BattleUI"]
 unique_name_in_owner = true

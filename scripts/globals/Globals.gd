@@ -27,7 +27,9 @@ const CELL_QUAD_SIZE := CELL_HALF_SIZE / 2
 const CELL_OFFSET := Vector2(CELL_HALF_SIZE, CELL_HALF_SIZE)
 const TP_TO_OPEN_DOOR := 10
 
+# debug
 const DEBUG_AI = true
+var DEBUG_SHOW_ENEMY_ALWAYS := false
 
 
 

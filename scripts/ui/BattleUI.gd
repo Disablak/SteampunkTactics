@@ -2,6 +2,7 @@ extends Control
 
 
 @onready var label_fps: Label = get_node("%LabelFPS")
+@onready var label_is_enemy_turn = $AlwaysUI/LabelIsEnemyTurn
 @onready var pointer = get_node("%Pointer")
 
 @onready var btn_next_turn: Button = get_node("%BtnNextTurn")
@@ -25,7 +26,7 @@ func _ready() -> void:
 	btn_next_turn.pressed.connect(func(): GlobalBus.on_clicked_next_turn.emit())
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	label_fps.text = "{0}".format([Engine.get_frames_per_second()])
 
 
@@ -42,8 +43,19 @@ func _change_camera_zoom(zoom: float):
 	GlobalBus.on_change_camera_zoom.emit(zoom)
 
 
-func _on_unit_change_control(unit_id, instantly):
-	unit_abilities.init(GlobalUnits.get_cur_unit().unit_data)
+func _on_unit_change_control(unit_id, _instantly):
+	var unit: Unit = GlobalUnits.get_cur_unit()
+	if not unit:
+		return
+
+	var can_show_cur_unit = GlobalMap.can_show_cur_unit()
+	var show_label_enemys_turn = unit.unit_data.is_enemy and not can_show_cur_unit
+	label_is_enemy_turn.visible = show_label_enemys_turn
+
+	if not can_show_cur_unit:
+		return
+
+	unit_abilities.init(unit.unit_data)
 
 
 func _on_input_system_on_mouse_hover(mouse_pos) -> void:

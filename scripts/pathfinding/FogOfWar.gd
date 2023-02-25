@@ -11,6 +11,7 @@ const HALF_RADIUS := AI_CONUS_RADIUS / 2
 
 var dict_pos_and_cell = {}
 var dict_is_enemy_team_and_pos = {} # knew cells by team
+var dict_is_enemy_and_visible_cells = {} # visible cells by team
 
 
 func _ready() -> void:
@@ -41,6 +42,9 @@ func _on_unit_changed_view_direction(unit_id, _angle, update_fog_of_war):
 
 
 func init():
+	dict_is_enemy_and_visible_cells[false] = []
+	dict_is_enemy_and_visible_cells[true] = []
+
 	dict_is_enemy_team_and_pos[false] = []
 	dict_is_enemy_team_and_pos[true] = []
 
@@ -58,8 +62,10 @@ func spawn_fog(grid_pos: Vector2i, cell_visibility: CellVisibility):
 
 
 func update_fog(cur_unit: Unit, force_update: bool = false):
-	_update_team_visibility_area(cur_unit, force_update)
-	_hide_units_in_fog(cur_unit)
+	if GlobalMap.can_show_cur_unit():
+		_update_team_visibility_area(cur_unit, force_update)
+		_hide_units_in_fog(cur_unit)
+
 	_enemies_trying_to_remember_unit(cur_unit)
 
 
@@ -72,11 +78,17 @@ func update_fog_for_all(force_update: bool = false):
 		update_fog(cur_unit) # TODO optimization, not update for same unit
 
 
+func is_unit_visible_to_enemy(unit: Unit):
+	var unit_pos_grid := unit.unit_object.grid_pos
+	return dict_is_enemy_and_visible_cells[not unit.unit_data.is_enemy].has(unit_pos_grid)
+
+
 func _update_team_visibility_area(unit: Unit, force_update: bool = false):
 	_make_all_map_in_fog()
 
 	var visible_cells: Array[Vector2i] = get_team_visibility(unit.unit_data.is_enemy, force_update)
 	update_visibility_on_cells(visible_cells, CellVisibility.VISIBLE)
+	dict_is_enemy_and_visible_cells[unit.unit_data.is_enemy] = visible_cells
 
 
 func get_cur_team_visibility() -> Array[Vector2i]:

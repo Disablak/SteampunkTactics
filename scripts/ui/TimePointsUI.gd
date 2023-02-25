@@ -14,8 +14,14 @@ func _ready() -> void:
 
 
 func _on_changed_time_points(type, cur_value, max_value):
+	if not GlobalMap.can_show_cur_unit():
+		return
+
 	progress_bar.value = cur_value
 
 
 func _on_hint_time_points(cur_value, max_value):
+	if not GlobalMap.can_show_cur_unit():
+		return
+
 	progress_bar_hint.value = cur_value

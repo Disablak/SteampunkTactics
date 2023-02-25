@@ -5,6 +5,11 @@ var units_manager: UnitsManager = null
 var units = {}
 var cur_unit_id: int = -1
 
+var cur_unit_is_enemy: bool:
+	get:
+		var unit = get_cur_unit()
+		return unit and unit.unit_data.is_enemy
+
 
 func get_cur_unit() -> Unit:
 	if not units.has(cur_unit_id):
