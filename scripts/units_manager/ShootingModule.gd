@@ -287,12 +287,19 @@ func _kick_unit(unit: Unit, another_unit: Unit) -> bool:
 	another_unit.unit_data.set_damage(unit.unit_data.knife.settings.damage, unit.id)
 
 	var dir = (another_unit.unit_object.position - unit.unit_object.position).normalized()
-	unit.unit_object.play_kick_anim(dir)
+	_kick_animation(unit, another_unit, dir)
 
 	if selected_enemy != null and selected_enemy.unit_data.cur_health > 0:
 		_show_selected_enemy_info(prev_unit_ability, unit, another_unit)
 
 	return true
+
+
+func _kick_animation(unit: Unit, another_unit: Unit, dir: Vector2):
+	await unit.unit_object.play_kick_anim(dir)
+
+	if another_unit.unit_object != null:
+		another_unit.unit_object.play_damage_anim()
 
 
 func show_malee_atack_cells(unit: Unit):
