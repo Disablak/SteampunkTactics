@@ -9,6 +9,9 @@ enum PriceType {NONE, SHOOT, KICK, RELOAD, MOVE_RAND, MOVE_TO_ENEMY, MOVE_TO_PAT
 
 func calc_score() -> float:
 	if price_type == PriceType.MOVE_TO_ENEMY:
+		if not TurnManager.can_spend_time_points(GlobalUnits.get_cur_unit().unit_data.unit_settings.walk_speed):
+			return 0
+
 		var price_kick := GlobalUnits.get_cur_unit().unit_data.knife.settings.use_price
 		print("price move to enemy {0}".format([ai_world.get_price_move_to_enemy()]))
 		var price_move_and_kick = price_kick + ai_world.get_price_move_to_enemy()

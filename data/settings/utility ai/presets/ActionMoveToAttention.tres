@@ -13,4 +13,4 @@ invert = false
 [resource]
 script = ExtResource("1_ojqvj")
 move_to = 5
-considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([ExtResource("1_gd5dn"), ExtResource("2_dass6"), SubResource("Resource_8rd6v")])
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([ExtResource("1_gd5dn"), SubResource("Resource_8rd6v"), ExtResource("2_dass6")])

@@ -170,7 +170,7 @@ func _hide_units_in_fog(unit: Unit):
 		var grid_pos := Globals.convert_to_grid_pos(enemy.unit_object.position)
 		var fog_on_this_pos: CellFog = dict_pos_and_cell[grid_pos]
 
-		var is_visible = fog_on_this_pos.visibility == CellVisibility.VISIBLE
+		var is_visible = fog_on_this_pos.visibility == CellVisibility.VISIBLE or Globals.DEBUG_SHOW_ENEMY_ALWAYS
 		enemy.unit_object.set_visibility(is_visible)
 
 
