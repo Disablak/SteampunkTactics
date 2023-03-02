@@ -8,12 +8,12 @@ class_name UnitObject
 @export var unit_settings: UnitSettings
 @export var ai_settings: AiSettings
 @export var start_view_dir: int = 0
-@export var origin_offset := 0
 
 var unit_id = -1
 var main_material: Material
 var is_visible := true
 var ai_zone_rect: Rect2i
+var origin_offset := 0
 
 var grid_pos: Vector2i:
 	get: return Globals.convert_to_grid_pos(position)
@@ -22,7 +22,7 @@ var visual_pos: Vector2:
 	get: return position + Globals.CELL_OFFSET
 
 var origin_pos: Vector2:
-	get: return position + Vector2(0, origin_offset)
+	get: return position + Vector2(8, origin_offset)
 
 var visual_ordering: int:
 	get: return main_sprite.z_index
@@ -34,6 +34,8 @@ func init_unit(unit_id, unit_data: UnitData) -> void:
 
 	view_direction.visible = unit_data.is_enemy
 	unit_data.update_view_direction(start_view_dir)
+
+	origin_offset = Globals.get_height_of_obj(main_sprite.texture.region) + main_sprite.offset.y
 
 
 func _update_ai_settings():

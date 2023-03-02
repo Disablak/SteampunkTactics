@@ -32,6 +32,22 @@ const DEBUG_AI = true
 var DEBUG_HIDE_FOG := false
 var DEBUG_SHOW_ENEMY_ALWAYS := false
 
+var main_atlas_image: Image
+
+
+func _ready() -> void:
+	main_atlas_image = Image.load_from_file("res://content/sprites/gothic/gothic_sheet_0.png")
+
+
+func get_height_of_obj(region: Rect2) -> int:
+	for y in range(region.end.y, region.position.y, -1):
+		for x in range(region.position.x, region.end.x):
+			var pixel = main_atlas_image.get_pixel(x, y - 1)
+			if pixel.a != 0:
+				return y - region.position.y
+
+	printerr("sprite is empty")
+	return -1
 
 
 static func get_total_distance(points) -> float:

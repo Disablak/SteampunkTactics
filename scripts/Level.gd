@@ -11,28 +11,34 @@ var prev_transparent_objs = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GlobalBus.on_unit_died.connect(_on_unit_died)
+
 	for child in root_obstacles.get_children():
 		all_sorted_objects.append(child)
 
 	for child in root_units.get_children():
 		all_sorted_objects.append(child)
 
-	update_ordering()
-	update_transparency()
+	await get_tree().process_frame
+	_update_visual()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	update()
+	if GlobalUnits.units_manager.walking.is_unit_moving():
+		_update_visual()
 
 
-func update():
-	update_ordering()
-	update_transparency()
+func _on_unit_died(id, killer):
+	_update_visual()
 
 
-func update_ordering():
-	all_sorted_objects.sort_custom(func(a, b): return a.origin_pos < b.origin_pos)
+func _update_visual():
+	_update_ordering()
+	_update_transparency()
+
+
+func _update_ordering():
+	all_sorted_objects.sort_custom(_sort_ascending)
 
 	var i = 1
 	for obj in all_sorted_objects:
@@ -40,7 +46,14 @@ func update_ordering():
 		i += 1
 
 
-func update_transparency():
+func _sort_ascending(a, b):
+	if not a or not b:
+		return false
+
+	return a.origin_pos < b.origin_pos
+
+
+func _update_transparency():
 	for prev in prev_transparent_objs:
 		prev.make_transparent(false)
 

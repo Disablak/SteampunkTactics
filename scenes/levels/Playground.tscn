@@ -418,7 +418,6 @@ position = Vector2(128, 96)
 
 [node name="CellWallVertical" parent="RootObsCells" index="5" instance=ExtResource("6_xsflr")]
 position = Vector2(128, 96)
-origin_offset = 0
 
 [node name="CellWallHorizontal" parent="RootObsCells" index="6" instance=ExtResource("7_dg7v7")]
 position = Vector2(96, 96)

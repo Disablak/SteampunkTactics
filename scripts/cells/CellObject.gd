@@ -14,18 +14,18 @@ enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE, DOOR}
 @export var health: int = -1
 @export_range(0.0, 0.5, 0.05) var shoot_debaf: float = 0.0
 @export var opened: bool = false
-@export var origin_offset := 0
 
 var destroyed := false
 var connected_cells_pos: Array[Vector2i]
 var area2d: Area2D = null
 var collsition_shape: CollisionShape2D
+var origin_offset := 0
 
 var grid_pos: Vector2i:
 	get: return Globals.convert_to_grid_pos(position)
 
 var origin_pos: Vector2:
-	get: return position + Vector2(0, origin_offset)
+	get: return position + Vector2(8, origin_offset)
 
 var visual_ordering: int:
 	get:
@@ -58,6 +58,11 @@ func _ready() -> void:
 	if area2d:
 		area2d.mouse_entered.connect(_on_mouse_hover)
 		area2d.mouse_exited.connect(_on_mouse_exit)
+
+	if not main_sprite:
+		return
+
+	origin_offset = Globals.get_height_of_obj(main_sprite.texture.region) + main_sprite.position.y + main_sprite.offset.y
 
 
 func set_damage(damage: int = 1):
