@@ -136,8 +136,8 @@ func update_unit_visibility(unit: Unit, force_update: bool = false):
 
 
 func _get_line_points(grid_pos_from: Vector2i, grid_pos_to: Vector2i) -> Array[Vector2i]:
-	var from_pos := Globals.convert_to_cell_pos(grid_pos_from)
-	var to_pos := Globals.convert_to_cell_pos(grid_pos_to)
+	var from_pos := Globals.convert_to_cell_pos(grid_pos_from) + Globals.CELL_OFFSET
+	var to_pos := Globals.convert_to_cell_pos(grid_pos_to) + Globals.CELL_OFFSET
 
 	var ray_positions = GlobalMap.raycaster.make_ray_and_get_positions(from_pos, to_pos, true)
 	var ray_dir = (ray_positions[1] - from_pos).normalized()

@@ -8,7 +8,7 @@ func _draw() -> void:
 	if not cur_unit:
 		return
 
-	var center = cur_unit.unit_object.position
+	var center = cur_unit.unit_object.visual_pos
 	var radius = cur_unit.unit_data.unit_settings.range_of_view * Globals.CELL_SIZE
 	var view_dir =  cur_unit.unit_data.view_direction
 	var angle_from = deg_to_rad(view_dir - FogOfWar.HALF_RADIUS)

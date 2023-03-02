@@ -6,7 +6,6 @@
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p1tb3")
-level_id = 1
 
 [node name="World" parent="." instance=ExtResource("2_bb7rw")]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dylewl2lgpsng"
-path.etc2="res://.godot/imported/white_box.png-80e325256f04487a597bc4b2c892ad79.etc2.ctex"
+uid="uid://ckut1xud7cht4"
+path.etc2="res://.godot/imported/gothic_sheet_0.png-4e3a7df1b9196a88a4a5ab67fc0578dd.etc2.ctex"
 metadata={
 "imported_formats": ["etc2_astc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://content/sprites/white_box.png"
-dest_files=["res://.godot/imported/white_box.png-80e325256f04487a597bc4b2c892ad79.etc2.ctex"]
+source_file="res://content/sprites/gothic/gothic_sheet_0.png"
+dest_files=["res://.godot/imported/gothic_sheet_0.png-4e3a7df1b9196a88a4a5ab67fc0578dd.etc2.ctex"]
 
 [params]
 

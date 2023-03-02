@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://fvlc1uhmwwsm"]
 
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="1_7i2fm"]
-[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_cv0db"]
+[ext_resource type="Texture2D" uid="uid://l6lwv6xefxwf" path="res://content/sprites/gothic/hovered.tres" id="2_glqyi"]
 
 [node name="CellHovered" instance=ExtResource("1_7i2fm")]
-modulate = Color(1, 1, 1, 0.196078)
-texture = ExtResource("2_cv0db")
+texture_filter = 1
+texture = ExtResource("2_glqyi")
 cell_type = 0

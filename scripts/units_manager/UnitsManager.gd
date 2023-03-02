@@ -164,8 +164,8 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	cur_unit_object.mark_selected(true)
 
 	TurnManager.restore_time_points()
-
 	walking.set_cur_unit(units[unit_id])
+	change_unit_action(UnitData.Abilities.NONE)
 
 	GlobalBus.on_unit_changed_control.emit(cur_unit_id, camera_focus_instantly)
 

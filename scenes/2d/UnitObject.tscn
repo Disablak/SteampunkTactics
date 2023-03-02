@@ -1,24 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://2ikcthg31xdg"]
+[gd_scene load_steps=5 format=3 uid="uid://2ikcthg31xdg"]
 
 [ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_a7ikt"]
-[ext_resource type="Shader" path="res://scripts/shaders/Outline.gdshader" id="2_e1f38"]
-[ext_resource type="Texture2D" uid="uid://bmjeh4ia33do8" path="res://content/sprites/unit_0.png" id="2_h7q2b"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_kmtyi"]
+[ext_resource type="Texture2D" uid="uid://cwvtjwrec6b0g" path="res://content/sprites/gothic/player.tres" id="2_t4swe"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="4_bpjp7"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkajc"]
-shader = ExtResource("2_e1f38")
-shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 1.0
 
 [node name="UnitObject" type="Node2D"]
 script = ExtResource("1_a7ikt")
 
-[node name="Sprite2d" type="Sprite2D" parent="."]
-texture_filter = 1
-material = SubResource("ShaderMaterial_lkajc")
-texture = ExtResource("2_h7q2b")
+[node name="VisualObject" parent="." instance=ExtResource("2_kmtyi")]
+texture = ExtResource("2_t4swe")
 
-[node name="ViewDirection" type="Sprite2D" parent="."]
+[node name="CenterPoint" type="Node2D" parent="."]
+position = Vector2(8, 8)
+
+[node name="ViewDirection" type="Sprite2D" parent="CenterPoint"]
+visible = false
 self_modulate = Color(0.301961, 0, 0.301961, 1)
 scale = Vector2(0.5, 0.092)
 texture = ExtResource("4_bpjp7")

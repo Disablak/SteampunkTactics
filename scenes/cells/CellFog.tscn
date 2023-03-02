@@ -1,10 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://c3fuon6h0o5qe"]
 
-[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="1_x7jj2"]
+[ext_resource type="Texture2D" uid="uid://cgye1wpyv4n7r" path="res://content/sprites/gothic/fog_full.tres" id="1_oba0c"]
 [ext_resource type="Script" path="res://scripts/pathfinding/CellFog.gd" id="2_nnqaf"]
 
 [node name="CellFog" type="Sprite2D"]
-self_modulate = Color(0.294118, 0.294118, 0.294118, 1)
-z_index = 5
-texture = ExtResource("1_x7jj2")
+z_index = 100
+texture_filter = 1
+texture = ExtResource("1_oba0c")
+centered = false
 script = ExtResource("2_nnqaf")

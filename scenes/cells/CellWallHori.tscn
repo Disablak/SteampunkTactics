@@ -1,31 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://irpwfh27iodw"]
+[gd_scene load_steps=5 format=3 uid="uid://irpwfh27iodw"]
 
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="1_djgji"]
-[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_2c1bw"]
+[ext_resource type="Texture2D" uid="uid://d3jo4mmqrcj3t" path="res://content/sprites/gothic/wall_hori_0.tres" id="2_8pnp6"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_l8etj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1opo7"]
-size = Vector2(32, 6.32685)
+size = Vector2(16.1491, 2)
 
 [node name="CellWallHorizontal" instance=ExtResource("1_djgji")]
 texture_filter = 1
 texture = null
 cell_type = 2
+origin_offset = 16
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
-self_modulate = Color(0.309804, 0.235294, 0.117647, 1)
+[node name="CellAdd" parent="." index="0" instance=ExtResource("1_djgji")]
 position = Vector2(2.08165e-12, 16)
-scale = Vector2(1, 0.2)
-texture = ExtResource("2_2c1bw")
-
-[node name="CellAdd" parent="." index="1" instance=ExtResource("1_djgji")]
-position = Vector2(2.08165e-12, 32)
 texture = null
 cell_type = 0
+
+[node name="VisualObject" parent="." index="1" instance=ExtResource("2_l8etj")]
+position = Vector2(2.08165e-12, 16)
+texture = ExtResource("2_8pnp6")
+offset = Vector2(2.08165e-12, -32)
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
 collision_layer = 16
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
-position = Vector2(0.149074, 16.0288)
+position = Vector2(8.07454, 15)
 shape = SubResource("RectangleShape2D_1opo7")

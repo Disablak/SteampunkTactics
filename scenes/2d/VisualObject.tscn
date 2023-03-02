@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://27ueyvgi0pfn"]
+
+[ext_resource type="Texture2D" uid="uid://cg1lvcqcw1ewn" path="res://content/sprites/gothic/ground.png" id="1_tefv2"]
+
+[node name="VisualObject" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_tefv2")
+centered = false

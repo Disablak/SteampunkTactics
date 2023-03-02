@@ -7,11 +7,14 @@ signal on_hover_obj(cell_obj: CellObject)
 
 enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE, DOOR}
 
+@onready var main_sprite := $VisualObject as Sprite2D
+
 @export var cell_type: CellType = CellType.NONE
 @export var is_walkable := false
 @export var health: int = -1
 @export_range(0.0, 0.5, 0.05) var shoot_debaf: float = 0.0
 @export var opened: bool = false
+@export var origin_offset := 0
 
 var destroyed := false
 var connected_cells_pos: Array[Vector2i]
@@ -21,8 +24,27 @@ var collsition_shape: CollisionShape2D
 var grid_pos: Vector2i:
 	get: return Globals.convert_to_grid_pos(position)
 
+var origin_pos: Vector2:
+	get: return position + Vector2(0, origin_offset)
+
+var visual_ordering: int:
+	get:
+		if main_sprite == null:
+			printerr("main sprite not found")
+			return -1
+
+		return main_sprite.z_index
+	set(value):
+		if main_sprite == null:
+			printerr("main sprite not found")
+			return
+
+		main_sprite.z_index = value
+
 var is_interactable: bool:
-	get: return cell_type == CellType.DOOR
+	get:
+
+		return cell_type == CellType.DOOR
 
 
 func _ready() -> void:

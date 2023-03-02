@@ -117,8 +117,6 @@ func _connect_walkable_cells():
 
 		fog_of_war.spawn_fog(cell.grid_pos, 2)
 
-	root_walk_cells.visible = false
-
 	for cell in dict_id_and_cell_walk.values():
 		var cell_id = astar.get_closest_point(cell.grid_pos)
 
@@ -232,7 +230,7 @@ func is_point_walkable(grid_pos : Vector2i) -> bool:
 
 func has_path(from: Vector2i, to: Vector2i, open_doors: bool = false) -> bool:
 	var path_data: PathData = get_path_to_point(from, to, open_doors)
-	return not path_data.is_empty and path_data.path[-1] == to
+	return path_data and not path_data.is_empty and path_data.path[-1] == to
 
 
 func get_unit_on_cell(grid_pos: Vector2i) -> Unit:
@@ -464,6 +462,7 @@ func _on_hover_obj(cell_obj: CellObject):
 
 
 func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
+	mouse_pos -= Vector2(Globals.CELL_HALF_SIZE, Globals.CELL_HALF_SIZE)
 	var grid_pos := Globals.convert_to_grid_pos(mouse_pos)
 	var info := _get_cell_info(grid_pos)
 
@@ -480,6 +479,7 @@ func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 
 
 func _on_input_system_on_mouse_click(mouse_pos: Vector2) -> void:
+	mouse_pos -= Vector2(Globals.CELL_HALF_SIZE, Globals.CELL_HALF_SIZE)
 	var grid_pos := Globals.convert_to_grid_pos(mouse_pos)
 	var info := _get_cell_info(grid_pos)
 

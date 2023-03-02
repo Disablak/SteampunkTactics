@@ -2,13 +2,13 @@ extends Node2D
 class_name UnitObject
 
 
-@onready var main_sprite := $Sprite2d as Sprite2D
-@onready var view_direction := $ViewDirection as Sprite2D
-
+@onready var main_sprite := $VisualObject as Sprite2D
+@onready var view_direction := $CenterPoint/ViewDirection as Sprite2D
 
 @export var unit_settings: UnitSettings
 @export var ai_settings: AiSettings
 @export var start_view_dir: int = 0
+@export var origin_offset := 0
 
 var unit_id = -1
 var main_material: Material
@@ -17,6 +17,16 @@ var ai_zone_rect: Rect2i
 
 var grid_pos: Vector2i:
 	get: return Globals.convert_to_grid_pos(position)
+
+var visual_pos: Vector2:
+	get: return position + Globals.CELL_OFFSET
+
+var origin_pos: Vector2:
+	get: return position + Vector2(0, origin_offset)
+
+var visual_ordering: int:
+	get: return main_sprite.z_index
+	set(value): main_sprite.z_index = value
 
 
 func init_unit(unit_id, unit_data: UnitData) -> void:
@@ -48,16 +58,14 @@ func _ready() -> void:
 	GlobalBus.on_unit_change_health.connect(_on_unit_changed_health)
 	GlobalBus.on_unit_changed_view_direction.connect(_on_unit_changed_view_direction)
 
-	main_sprite.material = main_sprite.material.duplicate()
-	main_material = main_sprite.material
-
 	_update_ai_settings()
 
 	mark_selected(false)
 
 
 func mark_selected(is_selected: bool):
-	main_material.set_shader_parameter("line_thickness", 1.0 if is_selected else 0.0)
+	#main_material.set_shader_parameter("line_thickness", 1.0 if is_selected else 0.0)
+	pass
 
 
 func set_visibility(is_visible):

@@ -3,7 +3,6 @@ extends Control
 
 @onready var label_fps: Label = get_node("%LabelFPS")
 @onready var label_is_enemy_turn = $AlwaysUI/LabelIsEnemyTurn
-@onready var pointer = get_node("%Pointer")
 
 @onready var btn_next_turn: Button = get_node("%BtnNextTurn")
 
@@ -57,6 +56,3 @@ func _on_unit_change_control(unit_id, _instantly):
 
 	unit_abilities.init(unit.unit_data)
 
-
-func _on_input_system_on_mouse_hover(mouse_pos) -> void:
-	pointer.position = mouse_pos

@@ -85,7 +85,7 @@ script = ExtResource("22_n7khr")
 script = ExtResource("10_yja2f")
 
 [node name="CameraController" type="Node2D" parent="InputSystem"]
-position = Vector2(247, 142)
+position = Vector2(248, 142)
 script = ExtResource("11_sv5rh")
 focus_time = 0.5
 drag_sensitive = 0.8
@@ -95,12 +95,11 @@ bounds_path = NodePath("../CameraBounds")
 
 [node name="Camera2d" type="Camera2D" parent="InputSystem/CameraController"]
 zoom = Vector2(2, 2)
-metadata/_edit_lock_ = true
 
 [node name="CameraBounds" type="Sprite2D" parent="InputSystem"]
 visible = false
 self_modulate = Color(1, 1, 1, 0.392157)
-position = Vector2(464, 464)
+position = Vector2(170, 94.9999)
 scale = Vector2(31, 31)
 texture = ExtResource("31_mf2ah")
 

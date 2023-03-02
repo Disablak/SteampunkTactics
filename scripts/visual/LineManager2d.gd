@@ -16,7 +16,7 @@ var line2d_trajectory: Line2D
 
 
 func draw_shoot_ray(points):
-	return draw_new_line(null, SHOOT_RAY, points, Color.YELLOW, 2)
+	return draw_new_line(null, SHOOT_RAY, _points_with_offset(points), Color.YELLOW, 2)
 
 
 func clear_shoot_ray():
@@ -24,7 +24,7 @@ func clear_shoot_ray():
 
 
 func draw_path(points, can_move):
-	draw_scrolling_new_line(PATH_LINE_NAME, points, Color.FOREST_GREEN if can_move else Color.RED)
+	draw_scrolling_new_line(PATH_LINE_NAME, _points_with_offset(points), Color.FOREST_GREEN if can_move else Color.RED)
 
 
 func clear_path():
@@ -32,7 +32,7 @@ func clear_path():
 
 
 func draw_ray(points):
-	draw_scrolling_new_line(RAY_LINE_NAME, points, Color.DARK_RED)
+	draw_scrolling_new_line(RAY_LINE_NAME, _points_with_offset(points), Color.DARK_RED)
 
 
 func clear_ray():
@@ -51,7 +51,7 @@ func clear_trajectory():
 	clear_line(LINE_TRAJECTORY_NAME)
 
 
-func draw_new_line(scene: PackedScene, name: String, points: PackedVector2Array, color: Color, width: int = 20) -> Line2D:
+func draw_new_line(scene: PackedScene, name: String, points: Array[Vector2], color: Color, width: int = 20) -> Line2D:
 	if points.size() == 0:
 		return null
 
@@ -74,7 +74,7 @@ func draw_new_line(scene: PackedScene, name: String, points: PackedVector2Array,
 	return new_line_2d
 
 
-func draw_scrolling_new_line(name: String, points: PackedVector2Array, color: Color, width: int = 20) -> Line2D:
+func draw_scrolling_new_line(name: String, points: Array[Vector2], color: Color, width: int = 20) -> Line2D:
 	var line := draw_new_line(line_2d_scrolling, name, points, color, width)
 	if line == null:
 		return null
@@ -124,3 +124,12 @@ func _draw_trajectory(line2d: Line2D, start: Vector2, end: Vector2): # magic is 
 
 		line2d.add_point(start + Vector2(dx, dy))
 
+
+func _points_with_offset(points) -> Array[Vector2]:
+	var result: Array[Vector2] = []
+
+	for point in points:
+		point += Globals.CELL_OFFSET
+		result.append(point)
+	
+	return result

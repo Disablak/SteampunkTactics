@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dk08unerfwfpc"]
+[gd_scene load_steps=5 format=3 uid="uid://dk08unerfwfpc"]
 
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="1_yrs35"]
-[ext_resource type="Texture2D" uid="uid://ymmbokucpl6n" path="res://content/sprites/objects/tree_0.png" id="2_t12i0"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_jcfo0"]
+[ext_resource type="Texture2D" uid="uid://bmq1pqw7gpyu6" path="res://content/sprites/gothic/tree_0.tres" id="2_lx12j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_43elr"]
-radius = 6.0
+radius = 5.0
 
 [node name="CellTree" instance=ExtResource("1_yrs35")]
 self_modulate = Color(1, 1, 1, 0)
@@ -12,15 +13,16 @@ cell_type = 4
 is_walkable = false
 health = 1
 shoot_debaf = 0.1
+origin_offset = 10
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." index="0"]
 collision_layer = 32
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
+position = Vector2(8, 8)
 shape = SubResource("CircleShape2D_43elr")
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
-texture_filter = 1
-position = Vector2(1, -21)
-texture = ExtResource("2_t12i0")
+[node name="VisualObject" parent="." index="1" instance=ExtResource("2_jcfo0")]
+position = Vector2(2.08165e-12, -16)
+texture = ExtResource("2_lx12j")
