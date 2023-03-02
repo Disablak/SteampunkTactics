@@ -89,6 +89,9 @@ func get_cover_angle(pos: Vector2i) -> int:
 		return -1
 
 
+func make_transparent(enable: bool):
+	main_sprite.modulate.a = 0.5 if enable else 1.0
+
 
 func _break_cell():
 	print("cell is broke")

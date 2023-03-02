@@ -17,7 +17,6 @@ walking_zone_node_path = NodePath("")
 patrul_zones_paths = Array[NodePath]([])
 
 [node name="Playground" instance=ExtResource("1_i4jgl")]
-y_sort_enabled = true
 
 [node name="CellWalk" parent="RootWalkCells" index="0" instance=ExtResource("2_ftjox")]
 
@@ -429,7 +428,7 @@ position = Vector2(48, 64)
 unit_settings = ExtResource("11_cetlj")
 
 [node name="UnitObject2" parent="RootUnits" index="1" instance=ExtResource("10_ddu4q")]
-position = Vector2(144, 48)
+position = Vector2(128, 96)
 unit_settings = ExtResource("12_u34wp")
 ai_settings = SubResource("Resource_276rh")
 

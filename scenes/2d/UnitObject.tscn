@@ -7,6 +7,7 @@
 
 [node name="UnitObject" type="Node2D"]
 script = ExtResource("1_a7ikt")
+origin_offset = 14
 
 [node name="VisualObject" parent="." instance=ExtResource("2_kmtyi")]
 texture = ExtResource("2_t4swe")
