@@ -1,12 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dq43l8v8fckh0"]
+[gd_scene load_steps=4 format=3 uid="uid://dq43l8v8fckh0"]
 
 [ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/CellWallHori.tscn" id="1_ftijc"]
+[ext_resource type="Texture2D" uid="uid://dbl7ecrvvnbk" path="res://content/sprites/gothic/door_hori_opened.tres" id="2_tsbao"]
+[ext_resource type="Texture2D" uid="uid://dr4u7p4syxy7j" path="res://content/sprites/gothic/door_hori.tres" id="2_y6qxb"]
 
 [node name="CellDoorlHorizontal" instance=ExtResource("1_ftijc")]
 cell_type = 5
+opened_texture = ExtResource("2_tsbao")
 
-[node name="Sprite2D" parent="." index="0"]
-self_modulate = Color(0.309804, 0.235294, 0.647059, 1)
+[node name="VisualObject" parent="." index="1"]
+texture = ExtResource("2_y6qxb")
 
 [node name="Area2D" parent="." index="2"]
 collision_layer = 1

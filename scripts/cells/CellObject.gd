@@ -13,13 +13,18 @@ enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE, DOOR}
 @export var is_walkable := false
 @export var health: int = -1
 @export_range(0.0, 0.5, 0.05) var shoot_debaf: float = 0.0
-@export var opened: bool = false
+@export var opened: bool = false:
+	set(value):
+		main_sprite.texture = opened_texture if value else original_texture
+
+@export var opened_texture: Texture2D
 
 var destroyed := false
 var connected_cells_pos: Array[Vector2i]
 var area2d: Area2D = null
 var collsition_shape: CollisionShape2D
 var origin_offset := 0
+var original_texture: Texture2D
 
 var grid_pos: Vector2i:
 	get: return Globals.convert_to_grid_pos(position)
@@ -43,7 +48,6 @@ var visual_ordering: int:
 
 var is_interactable: bool:
 	get:
-
 		return cell_type == CellType.DOOR
 
 
@@ -63,6 +67,7 @@ func _ready() -> void:
 		return
 
 	origin_offset = Globals.get_height_of_obj(main_sprite.texture.region) + main_sprite.position.y + main_sprite.offset.y
+	original_texture = main_sprite.texture
 
 
 func set_damage(damage: int = 1):

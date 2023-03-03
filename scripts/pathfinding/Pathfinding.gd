@@ -405,6 +405,7 @@ func open_door(cell: CellObject, open: bool, update_fog: bool = false):
 	_enable_connection(cell, open, true)
 	var wall_layer: int = 5
 	cell.area2d.set_collision_layer_value(wall_layer, not open)
+	cell.opened = open
 
 	if update_fog:
 		fog_of_war.update_fog_for_all(true)

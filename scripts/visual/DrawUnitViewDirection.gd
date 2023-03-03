@@ -4,6 +4,10 @@ extends Node2D
 var cur_unit: Unit
 
 
+func _ready() -> void:
+	GlobalBus.on_hovered_cell.connect(_on_pathfinding_on_hovered_cell)
+
+
 func _draw() -> void:
 	if not cur_unit:
 		return

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_l8etj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1opo7"]
-size = Vector2(16.1491, 2)
+size = Vector2(16, 2)
 
 [node name="CellWallHorizontal" instance=ExtResource("1_djgji")]
 texture_filter = 1
@@ -27,5 +27,5 @@ collision_layer = 16
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
-position = Vector2(8.07454, 15)
+position = Vector2(8, 15)
 shape = SubResource("RectangleShape2D_1opo7")

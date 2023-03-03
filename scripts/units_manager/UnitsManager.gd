@@ -370,8 +370,8 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		clear_all_lines()
 		return
 
-	if cur_unit_action == UnitData.Abilities.WALK and cell_info.unit_id == -1:
-		_draw_future_path(cell_info.grid_pos)
+	# if cur_unit_action == UnitData.Abilities.WALK and cell_info.unit_id == -1:
+	# 	_draw_future_path(cell_info.grid_pos)
 
 	if cur_unit_action == UnitData.Abilities.GRENADE:
 		_draw_trejectory_granade(cell_info.grid_pos)

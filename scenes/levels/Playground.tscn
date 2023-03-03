@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://njyqypmtgh6d"]
+[gd_scene load_steps=13 format=3 uid="uid://njyqypmtgh6d"]
 
 [ext_resource type="PackedScene" uid="uid://dxtwt22vjkgto" path="res://scenes/levels/BaseLevel.tscn" id="1_i4jgl"]
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="2_ftjox"]
 [ext_resource type="PackedScene" uid="uid://btsgjp8qovvak" path="res://scenes/cells/CellWallVert.tscn" id="6_xsflr"]
 [ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/CellWallHori.tscn" id="7_dg7v7"]
+[ext_resource type="PackedScene" uid="uid://dq43l8v8fckh0" path="res://scenes/cells/CellDoorHori.tscn" id="7_tp5gl"]
 [ext_resource type="PackedScene" uid="uid://ddpb4xv6nbkkc" path="res://scenes/cells/CellCover.tscn" id="8_7yt4i"]
 [ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellTree.tscn" id="9_n2dhw"]
 [ext_resource type="PackedScene" uid="uid://2ikcthg31xdg" path="res://scenes/2d/UnitObject.tscn" id="10_ddu4q"]
@@ -421,6 +422,9 @@ position = Vector2(128, 96)
 
 [node name="CellWallHorizontal" parent="RootObsCells" index="6" instance=ExtResource("7_dg7v7")]
 position = Vector2(96, 96)
+
+[node name="CellDoorlHorizontal" parent="RootObsCells" index="7" instance=ExtResource("7_tp5gl")]
+position = Vector2(80, 96)
 
 [node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("10_ddu4q")]
 position = Vector2(48, 64)
