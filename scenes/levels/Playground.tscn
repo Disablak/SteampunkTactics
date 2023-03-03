@@ -401,11 +401,11 @@ position = Vector2(224, 112)
 [node name="CellWalk128" parent="RootWalkCells" index="127" instance=ExtResource("2_ftjox")]
 position = Vector2(240, 112)
 
-[node name="Cover2" parent="RootObsCells" index="0" instance=ExtResource("8_7yt4i")]
-position = Vector2(112, 64)
-
-[node name="Cover" parent="RootObsCells" index="1" instance=ExtResource("8_7yt4i")]
+[node name="Cover" parent="RootObsCells" index="0" instance=ExtResource("8_7yt4i")]
 position = Vector2(112, 48)
+
+[node name="Cover2" parent="RootObsCells" index="1" instance=ExtResource("8_7yt4i")]
+position = Vector2(112, 64)
 
 [node name="CellTree" parent="RootObsCells" index="2" instance=ExtResource("9_n2dhw")]
 position = Vector2(48, 80)

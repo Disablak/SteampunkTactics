@@ -103,9 +103,6 @@ position = Vector2(170, 94.9999)
 scale = Vector2(31, 31)
 texture = ExtResource("31_mf2ah")
 
-[connection signal="on_clicked_cell" from="UnitsManager/Pathfinding" to="UnitsManager" method="_on_pathfinding_on_clicked_cell"]
-[connection signal="on_hovered_cell" from="UnitsManager/Pathfinding" to="UnitsManager" method="_on_pathfinding_on_hovered_cell"]
-[connection signal="on_hovered_cell" from="UnitsManager/Pathfinding" to="UnitsManager/DrawUnitVisibility" method="_on_pathfinding_on_hovered_cell"]
 [connection signal="on_mouse_click" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_click"]
 [connection signal="on_mouse_hover" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_hover"]
 [connection signal="on_pressed_esc" from="InputSystem" to="UnitsManager" method="_on_input_system_on_pressed_esc"]

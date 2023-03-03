@@ -19,3 +19,6 @@ signal on_finished_turn()
 signal on_change_camera_zoom(zoom: float)
 signal on_clicked_ability(ability: UnitData.Abilities)
 signal on_clicked_next_turn()
+
+signal on_clicked_cell(cell_info: CellInfo)
+signal on_hovered_cell(cell_info: CellInfo)

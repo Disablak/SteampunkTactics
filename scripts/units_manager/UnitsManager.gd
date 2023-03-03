@@ -30,6 +30,8 @@ func _ready() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 	GlobalBus.on_clicked_ability.connect(_on_clicked_ability)
 	GlobalBus.on_clicked_next_turn.connect(next_turn)
+	GlobalBus.on_clicked_cell.connect(_on_pathfinding_on_clicked_cell)
+	GlobalBus.on_hovered_cell.connect(_on_pathfinding_on_hovered_cell)
 
 
 func init():

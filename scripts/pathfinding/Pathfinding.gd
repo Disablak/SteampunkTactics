@@ -3,9 +3,6 @@ class_name Pathfinding
 extends Node2D
 
 
-signal on_hovered_cell(cell_info: CellInfo)
-signal on_clicked_cell(cell_info: CellInfo)
-
 @onready var fog_of_war := get_node("FogOfWar") as FogOfWar
 @onready var cell_hint := get_node("CellHovered") as Node2D
 
@@ -475,7 +472,7 @@ func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 	if info.not_cell:
 		cell_hint.position = Vector2i.ZERO
 
-	on_hovered_cell.emit(info)
+	GlobalBus.on_hovered_cell.emit(info)
 
 
 func _on_input_system_on_mouse_click(mouse_pos: Vector2) -> void:
@@ -483,7 +480,7 @@ func _on_input_system_on_mouse_click(mouse_pos: Vector2) -> void:
 	var grid_pos := Globals.convert_to_grid_pos(mouse_pos)
 	var info := _get_cell_info(grid_pos)
 
-	on_clicked_cell.emit(info)
+	GlobalBus.on_clicked_cell.emit(info)
 
 	if info.cell_obj == null:
 		print("clicked nowhere")

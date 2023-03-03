@@ -7,11 +7,13 @@ extends Node2D
 
 var all_sorted_objects = []
 var prev_transparent_objs = []
+var cur_pointer_cell_pos: Vector2
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
+	GlobalBus.on_hovered_cell.connect(_on_hovered_cell)
 
 	for child in root_obstacles.get_children():
 		all_sorted_objects.append(child)
@@ -65,14 +67,33 @@ func _update_transparency():
 			if obj is UnitObject:
 				continue
 
-			if obj.origin_pos.y < unit.unit_object.origin_pos.y:
+			if _can_hide(unit.unit_object.origin_pos, obj.origin_pos):
+				prev_transparent_objs.append(obj)
+				obj.make_transparent(true)
+
+	for obj in all_sorted_objects:
+		if obj is UnitObject:
 				continue
 
-			if abs(obj.origin_pos.y - unit.unit_object.origin_pos.y) > 16:
-				continue
-
-			if abs(obj.origin_pos.x - unit.unit_object.origin_pos.x) > 6:
-				continue
-
+		if _can_hide(cur_pointer_cell_pos, obj.origin_pos):
 			prev_transparent_objs.append(obj)
 			obj.make_transparent(true)
+
+
+func _can_hide(unit_pos: Vector2, obj_pos: Vector2) -> bool:
+	if obj_pos.y < unit_pos.y:
+		return false
+
+	if abs(obj_pos.y - unit_pos.y) > 16:
+		return false
+
+	if abs(obj_pos.x - unit_pos.x) > 6:
+		return false
+
+	return true
+
+
+func _on_hovered_cell(cell_info: CellInfo):
+	cur_pointer_cell_pos = Globals.convert_to_cell_pos(cell_info.grid_pos) + Globals.CELL_OFFSET
+	cur_pointer_cell_pos.y += 2
+	_update_transparency()
