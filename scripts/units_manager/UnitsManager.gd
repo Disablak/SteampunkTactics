@@ -356,7 +356,7 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 	TurnManager.show_hint_spend_points(0)
 
 	if cell_info.not_cell:
-		var pos = cell_info.cell_obj.position + Vector2(-5, 10)
+		var pos = cell_info.cell_obj.position + Vector2(0, 10)
 		GlobalsUi.gui.show_tooltip(true, "Door", pos)
 		TurnManager.show_hint_spend_points(Globals.TP_TO_OPEN_DOOR)
 
