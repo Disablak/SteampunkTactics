@@ -10,6 +10,7 @@ extends Node2D
 
 func _ready() -> void:
 	GlobalMap.world = self
+	GlobalMap.draw_debug = $DrawDebug
 
 
 func init(level_id: int):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://njyqypmtgh6d"]
+[gd_scene load_steps=14 format=3 uid="uid://njyqypmtgh6d"]
 
 [ext_resource type="PackedScene" uid="uid://dxtwt22vjkgto" path="res://scenes/levels/BaseLevel.tscn" id="1_i4jgl"]
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="2_ftjox"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://2ikcthg31xdg" path="res://scenes/2d/UnitObject.tscn" id="10_ddu4q"]
 [ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/unit0.tres" id="11_cetlj"]
 [ext_resource type="Resource" uid="uid://brmbpg4yn8lll" path="res://data/settings/unit/unit1.tres" id="12_u34wp"]
+[ext_resource type="Texture2D" uid="uid://b1h0pwlirgbvt" path="res://content/sprites/gothic/enemy0.tres" id="12_y7pv2"]
 [ext_resource type="Script" path="res://scripts/settings/AiSettings.gd" id="13_k4k2u"]
 
 [sub_resource type="Resource" id="Resource_276rh"]
@@ -402,37 +403,2806 @@ position = Vector2(224, 112)
 [node name="CellWalk128" parent="RootWalkCells" index="127" instance=ExtResource("2_ftjox")]
 position = Vector2(240, 112)
 
+[node name="CellWalk129" parent="RootWalkCells" index="128" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 128)
+
+[node name="CellWalk130" parent="RootWalkCells" index="129" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 128)
+
+[node name="CellWalk131" parent="RootWalkCells" index="130" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 128)
+
+[node name="CellWalk132" parent="RootWalkCells" index="131" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 128)
+
+[node name="CellWalk133" parent="RootWalkCells" index="132" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 128)
+
+[node name="CellWalk134" parent="RootWalkCells" index="133" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 128)
+
+[node name="CellWalk135" parent="RootWalkCells" index="134" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 128)
+
+[node name="CellWalk136" parent="RootWalkCells" index="135" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 128)
+
+[node name="CellWalk137" parent="RootWalkCells" index="136" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 128)
+
+[node name="CellWalk138" parent="RootWalkCells" index="137" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 128)
+
+[node name="CellWalk139" parent="RootWalkCells" index="138" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 128)
+
+[node name="CellWalk140" parent="RootWalkCells" index="139" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 128)
+
+[node name="CellWalk141" parent="RootWalkCells" index="140" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 128)
+
+[node name="CellWalk142" parent="RootWalkCells" index="141" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 128)
+
+[node name="CellWalk143" parent="RootWalkCells" index="142" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 128)
+
+[node name="CellWalk144" parent="RootWalkCells" index="143" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 128)
+
+[node name="CellWalk145" parent="RootWalkCells" index="144" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 144)
+
+[node name="CellWalk146" parent="RootWalkCells" index="145" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 144)
+
+[node name="CellWalk147" parent="RootWalkCells" index="146" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 144)
+
+[node name="CellWalk148" parent="RootWalkCells" index="147" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 144)
+
+[node name="CellWalk149" parent="RootWalkCells" index="148" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 144)
+
+[node name="CellWalk150" parent="RootWalkCells" index="149" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 144)
+
+[node name="CellWalk151" parent="RootWalkCells" index="150" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 144)
+
+[node name="CellWalk152" parent="RootWalkCells" index="151" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 144)
+
+[node name="CellWalk153" parent="RootWalkCells" index="152" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 144)
+
+[node name="CellWalk154" parent="RootWalkCells" index="153" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 144)
+
+[node name="CellWalk155" parent="RootWalkCells" index="154" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 144)
+
+[node name="CellWalk156" parent="RootWalkCells" index="155" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 144)
+
+[node name="CellWalk157" parent="RootWalkCells" index="156" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 144)
+
+[node name="CellWalk158" parent="RootWalkCells" index="157" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 144)
+
+[node name="CellWalk159" parent="RootWalkCells" index="158" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 144)
+
+[node name="CellWalk160" parent="RootWalkCells" index="159" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 144)
+
+[node name="CellWalk161" parent="RootWalkCells" index="160" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 160)
+
+[node name="CellWalk162" parent="RootWalkCells" index="161" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 160)
+
+[node name="CellWalk163" parent="RootWalkCells" index="162" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 160)
+
+[node name="CellWalk164" parent="RootWalkCells" index="163" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 160)
+
+[node name="CellWalk165" parent="RootWalkCells" index="164" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 160)
+
+[node name="CellWalk166" parent="RootWalkCells" index="165" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 160)
+
+[node name="CellWalk167" parent="RootWalkCells" index="166" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 160)
+
+[node name="CellWalk168" parent="RootWalkCells" index="167" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 160)
+
+[node name="CellWalk169" parent="RootWalkCells" index="168" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 160)
+
+[node name="CellWalk170" parent="RootWalkCells" index="169" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 160)
+
+[node name="CellWalk171" parent="RootWalkCells" index="170" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 160)
+
+[node name="CellWalk172" parent="RootWalkCells" index="171" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 160)
+
+[node name="CellWalk173" parent="RootWalkCells" index="172" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 160)
+
+[node name="CellWalk174" parent="RootWalkCells" index="173" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 160)
+
+[node name="CellWalk175" parent="RootWalkCells" index="174" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 160)
+
+[node name="CellWalk176" parent="RootWalkCells" index="175" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 160)
+
+[node name="CellWalk177" parent="RootWalkCells" index="176" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 176)
+
+[node name="CellWalk178" parent="RootWalkCells" index="177" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 176)
+
+[node name="CellWalk179" parent="RootWalkCells" index="178" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 176)
+
+[node name="CellWalk180" parent="RootWalkCells" index="179" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 176)
+
+[node name="CellWalk181" parent="RootWalkCells" index="180" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 176)
+
+[node name="CellWalk182" parent="RootWalkCells" index="181" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 176)
+
+[node name="CellWalk183" parent="RootWalkCells" index="182" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 176)
+
+[node name="CellWalk184" parent="RootWalkCells" index="183" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 176)
+
+[node name="CellWalk185" parent="RootWalkCells" index="184" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 176)
+
+[node name="CellWalk186" parent="RootWalkCells" index="185" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 176)
+
+[node name="CellWalk187" parent="RootWalkCells" index="186" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 176)
+
+[node name="CellWalk188" parent="RootWalkCells" index="187" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 176)
+
+[node name="CellWalk189" parent="RootWalkCells" index="188" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 176)
+
+[node name="CellWalk190" parent="RootWalkCells" index="189" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 176)
+
+[node name="CellWalk191" parent="RootWalkCells" index="190" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 176)
+
+[node name="CellWalk192" parent="RootWalkCells" index="191" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 176)
+
+[node name="CellWalk193" parent="RootWalkCells" index="192" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 192)
+
+[node name="CellWalk194" parent="RootWalkCells" index="193" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 192)
+
+[node name="CellWalk195" parent="RootWalkCells" index="194" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 192)
+
+[node name="CellWalk196" parent="RootWalkCells" index="195" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 192)
+
+[node name="CellWalk197" parent="RootWalkCells" index="196" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 192)
+
+[node name="CellWalk198" parent="RootWalkCells" index="197" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 192)
+
+[node name="CellWalk199" parent="RootWalkCells" index="198" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 192)
+
+[node name="CellWalk200" parent="RootWalkCells" index="199" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 192)
+
+[node name="CellWalk201" parent="RootWalkCells" index="200" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 192)
+
+[node name="CellWalk202" parent="RootWalkCells" index="201" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 192)
+
+[node name="CellWalk203" parent="RootWalkCells" index="202" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 192)
+
+[node name="CellWalk204" parent="RootWalkCells" index="203" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 192)
+
+[node name="CellWalk205" parent="RootWalkCells" index="204" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 192)
+
+[node name="CellWalk206" parent="RootWalkCells" index="205" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 192)
+
+[node name="CellWalk207" parent="RootWalkCells" index="206" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 192)
+
+[node name="CellWalk208" parent="RootWalkCells" index="207" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 192)
+
+[node name="CellWalk209" parent="RootWalkCells" index="208" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 208)
+
+[node name="CellWalk210" parent="RootWalkCells" index="209" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 208)
+
+[node name="CellWalk211" parent="RootWalkCells" index="210" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 208)
+
+[node name="CellWalk212" parent="RootWalkCells" index="211" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 208)
+
+[node name="CellWalk213" parent="RootWalkCells" index="212" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 208)
+
+[node name="CellWalk214" parent="RootWalkCells" index="213" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 208)
+
+[node name="CellWalk215" parent="RootWalkCells" index="214" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 208)
+
+[node name="CellWalk216" parent="RootWalkCells" index="215" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 208)
+
+[node name="CellWalk217" parent="RootWalkCells" index="216" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 208)
+
+[node name="CellWalk218" parent="RootWalkCells" index="217" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 208)
+
+[node name="CellWalk219" parent="RootWalkCells" index="218" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 208)
+
+[node name="CellWalk220" parent="RootWalkCells" index="219" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 208)
+
+[node name="CellWalk221" parent="RootWalkCells" index="220" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 208)
+
+[node name="CellWalk222" parent="RootWalkCells" index="221" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 208)
+
+[node name="CellWalk223" parent="RootWalkCells" index="222" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 208)
+
+[node name="CellWalk224" parent="RootWalkCells" index="223" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 208)
+
+[node name="CellWalk225" parent="RootWalkCells" index="224" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 224)
+
+[node name="CellWalk226" parent="RootWalkCells" index="225" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 224)
+
+[node name="CellWalk227" parent="RootWalkCells" index="226" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 224)
+
+[node name="CellWalk228" parent="RootWalkCells" index="227" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 224)
+
+[node name="CellWalk229" parent="RootWalkCells" index="228" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 224)
+
+[node name="CellWalk230" parent="RootWalkCells" index="229" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 224)
+
+[node name="CellWalk231" parent="RootWalkCells" index="230" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 224)
+
+[node name="CellWalk232" parent="RootWalkCells" index="231" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 224)
+
+[node name="CellWalk233" parent="RootWalkCells" index="232" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 224)
+
+[node name="CellWalk234" parent="RootWalkCells" index="233" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 224)
+
+[node name="CellWalk235" parent="RootWalkCells" index="234" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 224)
+
+[node name="CellWalk236" parent="RootWalkCells" index="235" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 224)
+
+[node name="CellWalk237" parent="RootWalkCells" index="236" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 224)
+
+[node name="CellWalk238" parent="RootWalkCells" index="237" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 224)
+
+[node name="CellWalk239" parent="RootWalkCells" index="238" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 224)
+
+[node name="CellWalk240" parent="RootWalkCells" index="239" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 224)
+
+[node name="CellWalk241" parent="RootWalkCells" index="240" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 240)
+
+[node name="CellWalk242" parent="RootWalkCells" index="241" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 240)
+
+[node name="CellWalk243" parent="RootWalkCells" index="242" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 240)
+
+[node name="CellWalk244" parent="RootWalkCells" index="243" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 240)
+
+[node name="CellWalk245" parent="RootWalkCells" index="244" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 240)
+
+[node name="CellWalk246" parent="RootWalkCells" index="245" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 240)
+
+[node name="CellWalk247" parent="RootWalkCells" index="246" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 240)
+
+[node name="CellWalk248" parent="RootWalkCells" index="247" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 240)
+
+[node name="CellWalk249" parent="RootWalkCells" index="248" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 240)
+
+[node name="CellWalk250" parent="RootWalkCells" index="249" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 240)
+
+[node name="CellWalk251" parent="RootWalkCells" index="250" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 240)
+
+[node name="CellWalk252" parent="RootWalkCells" index="251" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 240)
+
+[node name="CellWalk253" parent="RootWalkCells" index="252" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 240)
+
+[node name="CellWalk254" parent="RootWalkCells" index="253" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 240)
+
+[node name="CellWalk255" parent="RootWalkCells" index="254" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 240)
+
+[node name="CellWalk256" parent="RootWalkCells" index="255" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 240)
+
+[node name="CellWalk257" parent="RootWalkCells" index="256" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 0)
+
+[node name="CellWalk258" parent="RootWalkCells" index="257" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 0)
+
+[node name="CellWalk259" parent="RootWalkCells" index="258" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 0)
+
+[node name="CellWalk260" parent="RootWalkCells" index="259" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 0)
+
+[node name="CellWalk261" parent="RootWalkCells" index="260" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 0)
+
+[node name="CellWalk262" parent="RootWalkCells" index="261" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 0)
+
+[node name="CellWalk263" parent="RootWalkCells" index="262" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 0)
+
+[node name="CellWalk264" parent="RootWalkCells" index="263" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 0)
+
+[node name="CellWalk265" parent="RootWalkCells" index="264" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 0)
+
+[node name="CellWalk266" parent="RootWalkCells" index="265" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 0)
+
+[node name="CellWalk267" parent="RootWalkCells" index="266" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 0)
+
+[node name="CellWalk268" parent="RootWalkCells" index="267" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 0)
+
+[node name="CellWalk269" parent="RootWalkCells" index="268" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 0)
+
+[node name="CellWalk270" parent="RootWalkCells" index="269" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 0)
+
+[node name="CellWalk271" parent="RootWalkCells" index="270" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 0)
+
+[node name="CellWalk272" parent="RootWalkCells" index="271" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 0)
+
+[node name="CellWalk273" parent="RootWalkCells" index="272" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 16)
+
+[node name="CellWalk274" parent="RootWalkCells" index="273" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 16)
+
+[node name="CellWalk275" parent="RootWalkCells" index="274" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 16)
+
+[node name="CellWalk276" parent="RootWalkCells" index="275" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 16)
+
+[node name="CellWalk277" parent="RootWalkCells" index="276" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 16)
+
+[node name="CellWalk278" parent="RootWalkCells" index="277" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 16)
+
+[node name="CellWalk279" parent="RootWalkCells" index="278" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 16)
+
+[node name="CellWalk280" parent="RootWalkCells" index="279" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 16)
+
+[node name="CellWalk281" parent="RootWalkCells" index="280" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 16)
+
+[node name="CellWalk282" parent="RootWalkCells" index="281" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 16)
+
+[node name="CellWalk283" parent="RootWalkCells" index="282" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 16)
+
+[node name="CellWalk284" parent="RootWalkCells" index="283" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 16)
+
+[node name="CellWalk285" parent="RootWalkCells" index="284" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 16)
+
+[node name="CellWalk286" parent="RootWalkCells" index="285" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 16)
+
+[node name="CellWalk287" parent="RootWalkCells" index="286" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 16)
+
+[node name="CellWalk288" parent="RootWalkCells" index="287" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 16)
+
+[node name="CellWalk289" parent="RootWalkCells" index="288" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 32)
+
+[node name="CellWalk290" parent="RootWalkCells" index="289" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 32)
+
+[node name="CellWalk291" parent="RootWalkCells" index="290" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 32)
+
+[node name="CellWalk292" parent="RootWalkCells" index="291" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 32)
+
+[node name="CellWalk293" parent="RootWalkCells" index="292" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 32)
+
+[node name="CellWalk294" parent="RootWalkCells" index="293" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 32)
+
+[node name="CellWalk295" parent="RootWalkCells" index="294" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 32)
+
+[node name="CellWalk296" parent="RootWalkCells" index="295" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 32)
+
+[node name="CellWalk297" parent="RootWalkCells" index="296" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 32)
+
+[node name="CellWalk298" parent="RootWalkCells" index="297" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 32)
+
+[node name="CellWalk299" parent="RootWalkCells" index="298" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 32)
+
+[node name="CellWalk300" parent="RootWalkCells" index="299" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 32)
+
+[node name="CellWalk301" parent="RootWalkCells" index="300" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 32)
+
+[node name="CellWalk302" parent="RootWalkCells" index="301" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 32)
+
+[node name="CellWalk303" parent="RootWalkCells" index="302" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 32)
+
+[node name="CellWalk304" parent="RootWalkCells" index="303" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 32)
+
+[node name="CellWalk305" parent="RootWalkCells" index="304" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 48)
+
+[node name="CellWalk306" parent="RootWalkCells" index="305" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 48)
+
+[node name="CellWalk307" parent="RootWalkCells" index="306" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 48)
+
+[node name="CellWalk308" parent="RootWalkCells" index="307" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 48)
+
+[node name="CellWalk309" parent="RootWalkCells" index="308" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 48)
+
+[node name="CellWalk310" parent="RootWalkCells" index="309" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 48)
+
+[node name="CellWalk311" parent="RootWalkCells" index="310" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 48)
+
+[node name="CellWalk312" parent="RootWalkCells" index="311" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 48)
+
+[node name="CellWalk313" parent="RootWalkCells" index="312" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 48)
+
+[node name="CellWalk314" parent="RootWalkCells" index="313" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 48)
+
+[node name="CellWalk315" parent="RootWalkCells" index="314" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 48)
+
+[node name="CellWalk316" parent="RootWalkCells" index="315" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 48)
+
+[node name="CellWalk317" parent="RootWalkCells" index="316" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 48)
+
+[node name="CellWalk318" parent="RootWalkCells" index="317" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 48)
+
+[node name="CellWalk319" parent="RootWalkCells" index="318" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 48)
+
+[node name="CellWalk320" parent="RootWalkCells" index="319" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 48)
+
+[node name="CellWalk321" parent="RootWalkCells" index="320" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 64)
+
+[node name="CellWalk322" parent="RootWalkCells" index="321" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 64)
+
+[node name="CellWalk323" parent="RootWalkCells" index="322" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 64)
+
+[node name="CellWalk324" parent="RootWalkCells" index="323" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 64)
+
+[node name="CellWalk325" parent="RootWalkCells" index="324" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 64)
+
+[node name="CellWalk326" parent="RootWalkCells" index="325" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 64)
+
+[node name="CellWalk327" parent="RootWalkCells" index="326" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 64)
+
+[node name="CellWalk328" parent="RootWalkCells" index="327" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 64)
+
+[node name="CellWalk329" parent="RootWalkCells" index="328" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 64)
+
+[node name="CellWalk330" parent="RootWalkCells" index="329" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 64)
+
+[node name="CellWalk331" parent="RootWalkCells" index="330" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 64)
+
+[node name="CellWalk332" parent="RootWalkCells" index="331" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 64)
+
+[node name="CellWalk333" parent="RootWalkCells" index="332" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 64)
+
+[node name="CellWalk334" parent="RootWalkCells" index="333" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 64)
+
+[node name="CellWalk335" parent="RootWalkCells" index="334" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 64)
+
+[node name="CellWalk336" parent="RootWalkCells" index="335" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 64)
+
+[node name="CellWalk337" parent="RootWalkCells" index="336" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 80)
+
+[node name="CellWalk338" parent="RootWalkCells" index="337" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 80)
+
+[node name="CellWalk339" parent="RootWalkCells" index="338" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 80)
+
+[node name="CellWalk340" parent="RootWalkCells" index="339" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 80)
+
+[node name="CellWalk341" parent="RootWalkCells" index="340" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 80)
+
+[node name="CellWalk342" parent="RootWalkCells" index="341" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 80)
+
+[node name="CellWalk343" parent="RootWalkCells" index="342" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 80)
+
+[node name="CellWalk344" parent="RootWalkCells" index="343" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 80)
+
+[node name="CellWalk345" parent="RootWalkCells" index="344" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 80)
+
+[node name="CellWalk346" parent="RootWalkCells" index="345" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 80)
+
+[node name="CellWalk347" parent="RootWalkCells" index="346" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 80)
+
+[node name="CellWalk348" parent="RootWalkCells" index="347" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 80)
+
+[node name="CellWalk349" parent="RootWalkCells" index="348" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 80)
+
+[node name="CellWalk350" parent="RootWalkCells" index="349" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 80)
+
+[node name="CellWalk351" parent="RootWalkCells" index="350" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 80)
+
+[node name="CellWalk352" parent="RootWalkCells" index="351" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 80)
+
+[node name="CellWalk353" parent="RootWalkCells" index="352" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 96)
+
+[node name="CellWalk354" parent="RootWalkCells" index="353" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 96)
+
+[node name="CellWalk355" parent="RootWalkCells" index="354" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 96)
+
+[node name="CellWalk356" parent="RootWalkCells" index="355" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 96)
+
+[node name="CellWalk357" parent="RootWalkCells" index="356" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 96)
+
+[node name="CellWalk358" parent="RootWalkCells" index="357" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 96)
+
+[node name="CellWalk359" parent="RootWalkCells" index="358" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 96)
+
+[node name="CellWalk360" parent="RootWalkCells" index="359" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 96)
+
+[node name="CellWalk361" parent="RootWalkCells" index="360" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 96)
+
+[node name="CellWalk362" parent="RootWalkCells" index="361" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 96)
+
+[node name="CellWalk363" parent="RootWalkCells" index="362" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 96)
+
+[node name="CellWalk364" parent="RootWalkCells" index="363" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 96)
+
+[node name="CellWalk365" parent="RootWalkCells" index="364" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 96)
+
+[node name="CellWalk366" parent="RootWalkCells" index="365" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 96)
+
+[node name="CellWalk367" parent="RootWalkCells" index="366" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 96)
+
+[node name="CellWalk368" parent="RootWalkCells" index="367" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 96)
+
+[node name="CellWalk369" parent="RootWalkCells" index="368" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 112)
+
+[node name="CellWalk370" parent="RootWalkCells" index="369" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 112)
+
+[node name="CellWalk371" parent="RootWalkCells" index="370" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 112)
+
+[node name="CellWalk372" parent="RootWalkCells" index="371" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 112)
+
+[node name="CellWalk373" parent="RootWalkCells" index="372" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 112)
+
+[node name="CellWalk374" parent="RootWalkCells" index="373" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 112)
+
+[node name="CellWalk375" parent="RootWalkCells" index="374" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 112)
+
+[node name="CellWalk376" parent="RootWalkCells" index="375" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 112)
+
+[node name="CellWalk377" parent="RootWalkCells" index="376" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 112)
+
+[node name="CellWalk378" parent="RootWalkCells" index="377" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 112)
+
+[node name="CellWalk379" parent="RootWalkCells" index="378" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 112)
+
+[node name="CellWalk380" parent="RootWalkCells" index="379" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 112)
+
+[node name="CellWalk381" parent="RootWalkCells" index="380" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 112)
+
+[node name="CellWalk382" parent="RootWalkCells" index="381" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 112)
+
+[node name="CellWalk383" parent="RootWalkCells" index="382" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 112)
+
+[node name="CellWalk384" parent="RootWalkCells" index="383" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 112)
+
+[node name="CellWalk385" parent="RootWalkCells" index="384" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 128)
+
+[node name="CellWalk386" parent="RootWalkCells" index="385" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 128)
+
+[node name="CellWalk387" parent="RootWalkCells" index="386" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 128)
+
+[node name="CellWalk388" parent="RootWalkCells" index="387" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 128)
+
+[node name="CellWalk389" parent="RootWalkCells" index="388" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 128)
+
+[node name="CellWalk390" parent="RootWalkCells" index="389" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 128)
+
+[node name="CellWalk391" parent="RootWalkCells" index="390" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 128)
+
+[node name="CellWalk392" parent="RootWalkCells" index="391" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 128)
+
+[node name="CellWalk393" parent="RootWalkCells" index="392" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 128)
+
+[node name="CellWalk394" parent="RootWalkCells" index="393" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 128)
+
+[node name="CellWalk395" parent="RootWalkCells" index="394" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 128)
+
+[node name="CellWalk396" parent="RootWalkCells" index="395" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 128)
+
+[node name="CellWalk397" parent="RootWalkCells" index="396" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 128)
+
+[node name="CellWalk398" parent="RootWalkCells" index="397" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 128)
+
+[node name="CellWalk399" parent="RootWalkCells" index="398" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 128)
+
+[node name="CellWalk400" parent="RootWalkCells" index="399" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 128)
+
+[node name="CellWalk401" parent="RootWalkCells" index="400" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 144)
+
+[node name="CellWalk402" parent="RootWalkCells" index="401" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 144)
+
+[node name="CellWalk403" parent="RootWalkCells" index="402" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 144)
+
+[node name="CellWalk404" parent="RootWalkCells" index="403" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 144)
+
+[node name="CellWalk405" parent="RootWalkCells" index="404" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 144)
+
+[node name="CellWalk406" parent="RootWalkCells" index="405" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 144)
+
+[node name="CellWalk407" parent="RootWalkCells" index="406" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 144)
+
+[node name="CellWalk408" parent="RootWalkCells" index="407" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 144)
+
+[node name="CellWalk409" parent="RootWalkCells" index="408" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 144)
+
+[node name="CellWalk410" parent="RootWalkCells" index="409" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 144)
+
+[node name="CellWalk411" parent="RootWalkCells" index="410" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 144)
+
+[node name="CellWalk412" parent="RootWalkCells" index="411" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 144)
+
+[node name="CellWalk413" parent="RootWalkCells" index="412" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 144)
+
+[node name="CellWalk414" parent="RootWalkCells" index="413" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 144)
+
+[node name="CellWalk415" parent="RootWalkCells" index="414" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 144)
+
+[node name="CellWalk416" parent="RootWalkCells" index="415" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 144)
+
+[node name="CellWalk417" parent="RootWalkCells" index="416" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 160)
+
+[node name="CellWalk418" parent="RootWalkCells" index="417" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 160)
+
+[node name="CellWalk419" parent="RootWalkCells" index="418" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 160)
+
+[node name="CellWalk420" parent="RootWalkCells" index="419" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 160)
+
+[node name="CellWalk421" parent="RootWalkCells" index="420" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 160)
+
+[node name="CellWalk422" parent="RootWalkCells" index="421" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 160)
+
+[node name="CellWalk423" parent="RootWalkCells" index="422" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 160)
+
+[node name="CellWalk424" parent="RootWalkCells" index="423" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 160)
+
+[node name="CellWalk425" parent="RootWalkCells" index="424" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 160)
+
+[node name="CellWalk426" parent="RootWalkCells" index="425" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 160)
+
+[node name="CellWalk427" parent="RootWalkCells" index="426" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 160)
+
+[node name="CellWalk428" parent="RootWalkCells" index="427" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 160)
+
+[node name="CellWalk429" parent="RootWalkCells" index="428" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 160)
+
+[node name="CellWalk430" parent="RootWalkCells" index="429" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 160)
+
+[node name="CellWalk431" parent="RootWalkCells" index="430" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 160)
+
+[node name="CellWalk432" parent="RootWalkCells" index="431" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 160)
+
+[node name="CellWalk433" parent="RootWalkCells" index="432" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 176)
+
+[node name="CellWalk434" parent="RootWalkCells" index="433" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 176)
+
+[node name="CellWalk435" parent="RootWalkCells" index="434" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 176)
+
+[node name="CellWalk436" parent="RootWalkCells" index="435" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 176)
+
+[node name="CellWalk437" parent="RootWalkCells" index="436" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 176)
+
+[node name="CellWalk438" parent="RootWalkCells" index="437" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 176)
+
+[node name="CellWalk439" parent="RootWalkCells" index="438" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 176)
+
+[node name="CellWalk440" parent="RootWalkCells" index="439" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 176)
+
+[node name="CellWalk441" parent="RootWalkCells" index="440" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 176)
+
+[node name="CellWalk442" parent="RootWalkCells" index="441" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 176)
+
+[node name="CellWalk443" parent="RootWalkCells" index="442" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 176)
+
+[node name="CellWalk444" parent="RootWalkCells" index="443" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 176)
+
+[node name="CellWalk445" parent="RootWalkCells" index="444" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 176)
+
+[node name="CellWalk446" parent="RootWalkCells" index="445" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 176)
+
+[node name="CellWalk447" parent="RootWalkCells" index="446" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 176)
+
+[node name="CellWalk448" parent="RootWalkCells" index="447" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 176)
+
+[node name="CellWalk449" parent="RootWalkCells" index="448" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 192)
+
+[node name="CellWalk450" parent="RootWalkCells" index="449" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 192)
+
+[node name="CellWalk451" parent="RootWalkCells" index="450" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 192)
+
+[node name="CellWalk452" parent="RootWalkCells" index="451" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 192)
+
+[node name="CellWalk453" parent="RootWalkCells" index="452" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 192)
+
+[node name="CellWalk454" parent="RootWalkCells" index="453" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 192)
+
+[node name="CellWalk455" parent="RootWalkCells" index="454" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 192)
+
+[node name="CellWalk456" parent="RootWalkCells" index="455" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 192)
+
+[node name="CellWalk457" parent="RootWalkCells" index="456" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 192)
+
+[node name="CellWalk458" parent="RootWalkCells" index="457" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 192)
+
+[node name="CellWalk459" parent="RootWalkCells" index="458" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 192)
+
+[node name="CellWalk460" parent="RootWalkCells" index="459" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 192)
+
+[node name="CellWalk461" parent="RootWalkCells" index="460" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 192)
+
+[node name="CellWalk462" parent="RootWalkCells" index="461" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 192)
+
+[node name="CellWalk463" parent="RootWalkCells" index="462" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 192)
+
+[node name="CellWalk464" parent="RootWalkCells" index="463" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 192)
+
+[node name="CellWalk465" parent="RootWalkCells" index="464" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 208)
+
+[node name="CellWalk466" parent="RootWalkCells" index="465" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 208)
+
+[node name="CellWalk467" parent="RootWalkCells" index="466" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 208)
+
+[node name="CellWalk468" parent="RootWalkCells" index="467" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 208)
+
+[node name="CellWalk469" parent="RootWalkCells" index="468" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 208)
+
+[node name="CellWalk470" parent="RootWalkCells" index="469" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 208)
+
+[node name="CellWalk471" parent="RootWalkCells" index="470" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 208)
+
+[node name="CellWalk472" parent="RootWalkCells" index="471" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 208)
+
+[node name="CellWalk473" parent="RootWalkCells" index="472" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 208)
+
+[node name="CellWalk474" parent="RootWalkCells" index="473" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 208)
+
+[node name="CellWalk475" parent="RootWalkCells" index="474" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 208)
+
+[node name="CellWalk476" parent="RootWalkCells" index="475" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 208)
+
+[node name="CellWalk477" parent="RootWalkCells" index="476" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 208)
+
+[node name="CellWalk478" parent="RootWalkCells" index="477" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 208)
+
+[node name="CellWalk479" parent="RootWalkCells" index="478" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 208)
+
+[node name="CellWalk480" parent="RootWalkCells" index="479" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 208)
+
+[node name="CellWalk481" parent="RootWalkCells" index="480" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 224)
+
+[node name="CellWalk482" parent="RootWalkCells" index="481" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 224)
+
+[node name="CellWalk483" parent="RootWalkCells" index="482" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 224)
+
+[node name="CellWalk484" parent="RootWalkCells" index="483" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 224)
+
+[node name="CellWalk485" parent="RootWalkCells" index="484" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 224)
+
+[node name="CellWalk486" parent="RootWalkCells" index="485" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 224)
+
+[node name="CellWalk487" parent="RootWalkCells" index="486" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 224)
+
+[node name="CellWalk488" parent="RootWalkCells" index="487" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 224)
+
+[node name="CellWalk489" parent="RootWalkCells" index="488" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 224)
+
+[node name="CellWalk490" parent="RootWalkCells" index="489" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 224)
+
+[node name="CellWalk491" parent="RootWalkCells" index="490" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 224)
+
+[node name="CellWalk492" parent="RootWalkCells" index="491" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 224)
+
+[node name="CellWalk493" parent="RootWalkCells" index="492" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 224)
+
+[node name="CellWalk494" parent="RootWalkCells" index="493" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 224)
+
+[node name="CellWalk495" parent="RootWalkCells" index="494" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 224)
+
+[node name="CellWalk496" parent="RootWalkCells" index="495" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 224)
+
+[node name="CellWalk497" parent="RootWalkCells" index="496" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 240)
+
+[node name="CellWalk498" parent="RootWalkCells" index="497" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 240)
+
+[node name="CellWalk499" parent="RootWalkCells" index="498" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 240)
+
+[node name="CellWalk500" parent="RootWalkCells" index="499" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 240)
+
+[node name="CellWalk501" parent="RootWalkCells" index="500" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 240)
+
+[node name="CellWalk502" parent="RootWalkCells" index="501" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 240)
+
+[node name="CellWalk503" parent="RootWalkCells" index="502" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 240)
+
+[node name="CellWalk504" parent="RootWalkCells" index="503" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 240)
+
+[node name="CellWalk505" parent="RootWalkCells" index="504" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 240)
+
+[node name="CellWalk506" parent="RootWalkCells" index="505" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 240)
+
+[node name="CellWalk507" parent="RootWalkCells" index="506" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 240)
+
+[node name="CellWalk508" parent="RootWalkCells" index="507" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 240)
+
+[node name="CellWalk509" parent="RootWalkCells" index="508" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 240)
+
+[node name="CellWalk510" parent="RootWalkCells" index="509" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 240)
+
+[node name="CellWalk511" parent="RootWalkCells" index="510" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 240)
+
+[node name="CellWalk512" parent="RootWalkCells" index="511" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 240)
+
+[node name="CellWalk513" parent="RootWalkCells" index="512" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 256)
+
+[node name="CellWalk514" parent="RootWalkCells" index="513" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 256)
+
+[node name="CellWalk515" parent="RootWalkCells" index="514" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 256)
+
+[node name="CellWalk516" parent="RootWalkCells" index="515" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 256)
+
+[node name="CellWalk517" parent="RootWalkCells" index="516" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 256)
+
+[node name="CellWalk518" parent="RootWalkCells" index="517" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 256)
+
+[node name="CellWalk519" parent="RootWalkCells" index="518" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 256)
+
+[node name="CellWalk520" parent="RootWalkCells" index="519" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 256)
+
+[node name="CellWalk521" parent="RootWalkCells" index="520" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 256)
+
+[node name="CellWalk522" parent="RootWalkCells" index="521" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 256)
+
+[node name="CellWalk523" parent="RootWalkCells" index="522" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 256)
+
+[node name="CellWalk524" parent="RootWalkCells" index="523" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 256)
+
+[node name="CellWalk525" parent="RootWalkCells" index="524" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 256)
+
+[node name="CellWalk526" parent="RootWalkCells" index="525" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 256)
+
+[node name="CellWalk527" parent="RootWalkCells" index="526" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 256)
+
+[node name="CellWalk528" parent="RootWalkCells" index="527" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 256)
+
+[node name="CellWalk529" parent="RootWalkCells" index="528" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 272)
+
+[node name="CellWalk530" parent="RootWalkCells" index="529" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 272)
+
+[node name="CellWalk531" parent="RootWalkCells" index="530" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 272)
+
+[node name="CellWalk532" parent="RootWalkCells" index="531" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 272)
+
+[node name="CellWalk533" parent="RootWalkCells" index="532" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 272)
+
+[node name="CellWalk534" parent="RootWalkCells" index="533" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 272)
+
+[node name="CellWalk535" parent="RootWalkCells" index="534" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 272)
+
+[node name="CellWalk536" parent="RootWalkCells" index="535" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 272)
+
+[node name="CellWalk537" parent="RootWalkCells" index="536" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 272)
+
+[node name="CellWalk538" parent="RootWalkCells" index="537" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 272)
+
+[node name="CellWalk539" parent="RootWalkCells" index="538" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 272)
+
+[node name="CellWalk540" parent="RootWalkCells" index="539" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 272)
+
+[node name="CellWalk541" parent="RootWalkCells" index="540" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 272)
+
+[node name="CellWalk542" parent="RootWalkCells" index="541" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 272)
+
+[node name="CellWalk543" parent="RootWalkCells" index="542" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 272)
+
+[node name="CellWalk544" parent="RootWalkCells" index="543" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 272)
+
+[node name="CellWalk545" parent="RootWalkCells" index="544" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 288)
+
+[node name="CellWalk546" parent="RootWalkCells" index="545" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 288)
+
+[node name="CellWalk547" parent="RootWalkCells" index="546" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 288)
+
+[node name="CellWalk548" parent="RootWalkCells" index="547" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 288)
+
+[node name="CellWalk549" parent="RootWalkCells" index="548" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 288)
+
+[node name="CellWalk550" parent="RootWalkCells" index="549" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 288)
+
+[node name="CellWalk551" parent="RootWalkCells" index="550" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 288)
+
+[node name="CellWalk552" parent="RootWalkCells" index="551" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 288)
+
+[node name="CellWalk553" parent="RootWalkCells" index="552" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 288)
+
+[node name="CellWalk554" parent="RootWalkCells" index="553" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 288)
+
+[node name="CellWalk555" parent="RootWalkCells" index="554" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 288)
+
+[node name="CellWalk556" parent="RootWalkCells" index="555" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 288)
+
+[node name="CellWalk557" parent="RootWalkCells" index="556" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 288)
+
+[node name="CellWalk558" parent="RootWalkCells" index="557" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 288)
+
+[node name="CellWalk559" parent="RootWalkCells" index="558" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 288)
+
+[node name="CellWalk560" parent="RootWalkCells" index="559" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 288)
+
+[node name="CellWalk561" parent="RootWalkCells" index="560" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 304)
+
+[node name="CellWalk562" parent="RootWalkCells" index="561" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 304)
+
+[node name="CellWalk563" parent="RootWalkCells" index="562" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 304)
+
+[node name="CellWalk564" parent="RootWalkCells" index="563" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 304)
+
+[node name="CellWalk565" parent="RootWalkCells" index="564" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 304)
+
+[node name="CellWalk566" parent="RootWalkCells" index="565" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 304)
+
+[node name="CellWalk567" parent="RootWalkCells" index="566" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 304)
+
+[node name="CellWalk568" parent="RootWalkCells" index="567" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 304)
+
+[node name="CellWalk569" parent="RootWalkCells" index="568" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 304)
+
+[node name="CellWalk570" parent="RootWalkCells" index="569" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 304)
+
+[node name="CellWalk571" parent="RootWalkCells" index="570" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 304)
+
+[node name="CellWalk572" parent="RootWalkCells" index="571" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 304)
+
+[node name="CellWalk573" parent="RootWalkCells" index="572" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 304)
+
+[node name="CellWalk574" parent="RootWalkCells" index="573" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 304)
+
+[node name="CellWalk575" parent="RootWalkCells" index="574" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 304)
+
+[node name="CellWalk576" parent="RootWalkCells" index="575" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 304)
+
+[node name="CellWalk577" parent="RootWalkCells" index="576" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 320)
+
+[node name="CellWalk578" parent="RootWalkCells" index="577" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 320)
+
+[node name="CellWalk579" parent="RootWalkCells" index="578" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 320)
+
+[node name="CellWalk580" parent="RootWalkCells" index="579" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 320)
+
+[node name="CellWalk581" parent="RootWalkCells" index="580" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 320)
+
+[node name="CellWalk582" parent="RootWalkCells" index="581" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 320)
+
+[node name="CellWalk583" parent="RootWalkCells" index="582" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 320)
+
+[node name="CellWalk584" parent="RootWalkCells" index="583" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 320)
+
+[node name="CellWalk585" parent="RootWalkCells" index="584" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 320)
+
+[node name="CellWalk586" parent="RootWalkCells" index="585" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 320)
+
+[node name="CellWalk587" parent="RootWalkCells" index="586" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 320)
+
+[node name="CellWalk588" parent="RootWalkCells" index="587" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 320)
+
+[node name="CellWalk589" parent="RootWalkCells" index="588" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 320)
+
+[node name="CellWalk590" parent="RootWalkCells" index="589" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 320)
+
+[node name="CellWalk591" parent="RootWalkCells" index="590" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 320)
+
+[node name="CellWalk592" parent="RootWalkCells" index="591" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 320)
+
+[node name="CellWalk593" parent="RootWalkCells" index="592" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 336)
+
+[node name="CellWalk594" parent="RootWalkCells" index="593" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 336)
+
+[node name="CellWalk595" parent="RootWalkCells" index="594" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 336)
+
+[node name="CellWalk596" parent="RootWalkCells" index="595" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 336)
+
+[node name="CellWalk597" parent="RootWalkCells" index="596" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 336)
+
+[node name="CellWalk598" parent="RootWalkCells" index="597" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 336)
+
+[node name="CellWalk599" parent="RootWalkCells" index="598" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 336)
+
+[node name="CellWalk600" parent="RootWalkCells" index="599" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 336)
+
+[node name="CellWalk601" parent="RootWalkCells" index="600" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 336)
+
+[node name="CellWalk602" parent="RootWalkCells" index="601" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 336)
+
+[node name="CellWalk603" parent="RootWalkCells" index="602" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 336)
+
+[node name="CellWalk604" parent="RootWalkCells" index="603" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 336)
+
+[node name="CellWalk605" parent="RootWalkCells" index="604" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 336)
+
+[node name="CellWalk606" parent="RootWalkCells" index="605" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 336)
+
+[node name="CellWalk607" parent="RootWalkCells" index="606" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 336)
+
+[node name="CellWalk608" parent="RootWalkCells" index="607" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 336)
+
+[node name="CellWalk609" parent="RootWalkCells" index="608" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 352)
+
+[node name="CellWalk610" parent="RootWalkCells" index="609" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 352)
+
+[node name="CellWalk611" parent="RootWalkCells" index="610" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 352)
+
+[node name="CellWalk612" parent="RootWalkCells" index="611" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 352)
+
+[node name="CellWalk613" parent="RootWalkCells" index="612" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 352)
+
+[node name="CellWalk614" parent="RootWalkCells" index="613" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 352)
+
+[node name="CellWalk615" parent="RootWalkCells" index="614" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 352)
+
+[node name="CellWalk616" parent="RootWalkCells" index="615" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 352)
+
+[node name="CellWalk617" parent="RootWalkCells" index="616" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 352)
+
+[node name="CellWalk618" parent="RootWalkCells" index="617" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 352)
+
+[node name="CellWalk619" parent="RootWalkCells" index="618" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 352)
+
+[node name="CellWalk620" parent="RootWalkCells" index="619" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 352)
+
+[node name="CellWalk621" parent="RootWalkCells" index="620" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 352)
+
+[node name="CellWalk622" parent="RootWalkCells" index="621" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 352)
+
+[node name="CellWalk623" parent="RootWalkCells" index="622" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 352)
+
+[node name="CellWalk624" parent="RootWalkCells" index="623" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 352)
+
+[node name="CellWalk625" parent="RootWalkCells" index="624" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 368)
+
+[node name="CellWalk626" parent="RootWalkCells" index="625" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 368)
+
+[node name="CellWalk627" parent="RootWalkCells" index="626" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 368)
+
+[node name="CellWalk628" parent="RootWalkCells" index="627" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 368)
+
+[node name="CellWalk629" parent="RootWalkCells" index="628" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 368)
+
+[node name="CellWalk630" parent="RootWalkCells" index="629" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 368)
+
+[node name="CellWalk631" parent="RootWalkCells" index="630" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 368)
+
+[node name="CellWalk632" parent="RootWalkCells" index="631" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 368)
+
+[node name="CellWalk633" parent="RootWalkCells" index="632" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 368)
+
+[node name="CellWalk634" parent="RootWalkCells" index="633" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 368)
+
+[node name="CellWalk635" parent="RootWalkCells" index="634" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 368)
+
+[node name="CellWalk636" parent="RootWalkCells" index="635" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 368)
+
+[node name="CellWalk637" parent="RootWalkCells" index="636" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 368)
+
+[node name="CellWalk638" parent="RootWalkCells" index="637" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 368)
+
+[node name="CellWalk639" parent="RootWalkCells" index="638" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 368)
+
+[node name="CellWalk640" parent="RootWalkCells" index="639" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 368)
+
+[node name="CellWalk641" parent="RootWalkCells" index="640" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 384)
+
+[node name="CellWalk642" parent="RootWalkCells" index="641" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 384)
+
+[node name="CellWalk643" parent="RootWalkCells" index="642" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 384)
+
+[node name="CellWalk644" parent="RootWalkCells" index="643" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 384)
+
+[node name="CellWalk645" parent="RootWalkCells" index="644" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 384)
+
+[node name="CellWalk646" parent="RootWalkCells" index="645" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 384)
+
+[node name="CellWalk647" parent="RootWalkCells" index="646" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 384)
+
+[node name="CellWalk648" parent="RootWalkCells" index="647" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 384)
+
+[node name="CellWalk649" parent="RootWalkCells" index="648" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 384)
+
+[node name="CellWalk650" parent="RootWalkCells" index="649" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 384)
+
+[node name="CellWalk651" parent="RootWalkCells" index="650" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 384)
+
+[node name="CellWalk652" parent="RootWalkCells" index="651" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 384)
+
+[node name="CellWalk653" parent="RootWalkCells" index="652" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 384)
+
+[node name="CellWalk654" parent="RootWalkCells" index="653" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 384)
+
+[node name="CellWalk655" parent="RootWalkCells" index="654" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 384)
+
+[node name="CellWalk656" parent="RootWalkCells" index="655" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 384)
+
+[node name="CellWalk657" parent="RootWalkCells" index="656" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 400)
+
+[node name="CellWalk658" parent="RootWalkCells" index="657" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 400)
+
+[node name="CellWalk659" parent="RootWalkCells" index="658" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 400)
+
+[node name="CellWalk660" parent="RootWalkCells" index="659" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 400)
+
+[node name="CellWalk661" parent="RootWalkCells" index="660" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 400)
+
+[node name="CellWalk662" parent="RootWalkCells" index="661" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 400)
+
+[node name="CellWalk663" parent="RootWalkCells" index="662" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 400)
+
+[node name="CellWalk664" parent="RootWalkCells" index="663" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 400)
+
+[node name="CellWalk665" parent="RootWalkCells" index="664" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 400)
+
+[node name="CellWalk666" parent="RootWalkCells" index="665" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 400)
+
+[node name="CellWalk667" parent="RootWalkCells" index="666" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 400)
+
+[node name="CellWalk668" parent="RootWalkCells" index="667" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 400)
+
+[node name="CellWalk669" parent="RootWalkCells" index="668" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 400)
+
+[node name="CellWalk670" parent="RootWalkCells" index="669" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 400)
+
+[node name="CellWalk671" parent="RootWalkCells" index="670" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 400)
+
+[node name="CellWalk672" parent="RootWalkCells" index="671" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 400)
+
+[node name="CellWalk673" parent="RootWalkCells" index="672" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 416)
+
+[node name="CellWalk674" parent="RootWalkCells" index="673" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 416)
+
+[node name="CellWalk675" parent="RootWalkCells" index="674" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 416)
+
+[node name="CellWalk676" parent="RootWalkCells" index="675" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 416)
+
+[node name="CellWalk677" parent="RootWalkCells" index="676" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 416)
+
+[node name="CellWalk678" parent="RootWalkCells" index="677" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 416)
+
+[node name="CellWalk679" parent="RootWalkCells" index="678" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 416)
+
+[node name="CellWalk680" parent="RootWalkCells" index="679" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 416)
+
+[node name="CellWalk681" parent="RootWalkCells" index="680" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 416)
+
+[node name="CellWalk682" parent="RootWalkCells" index="681" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 416)
+
+[node name="CellWalk683" parent="RootWalkCells" index="682" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 416)
+
+[node name="CellWalk684" parent="RootWalkCells" index="683" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 416)
+
+[node name="CellWalk685" parent="RootWalkCells" index="684" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 416)
+
+[node name="CellWalk686" parent="RootWalkCells" index="685" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 416)
+
+[node name="CellWalk687" parent="RootWalkCells" index="686" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 416)
+
+[node name="CellWalk688" parent="RootWalkCells" index="687" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 416)
+
+[node name="CellWalk689" parent="RootWalkCells" index="688" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 432)
+
+[node name="CellWalk690" parent="RootWalkCells" index="689" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 432)
+
+[node name="CellWalk691" parent="RootWalkCells" index="690" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 432)
+
+[node name="CellWalk692" parent="RootWalkCells" index="691" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 432)
+
+[node name="CellWalk693" parent="RootWalkCells" index="692" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 432)
+
+[node name="CellWalk694" parent="RootWalkCells" index="693" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 432)
+
+[node name="CellWalk695" parent="RootWalkCells" index="694" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 432)
+
+[node name="CellWalk696" parent="RootWalkCells" index="695" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 432)
+
+[node name="CellWalk697" parent="RootWalkCells" index="696" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 432)
+
+[node name="CellWalk698" parent="RootWalkCells" index="697" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 432)
+
+[node name="CellWalk699" parent="RootWalkCells" index="698" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 432)
+
+[node name="CellWalk700" parent="RootWalkCells" index="699" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 432)
+
+[node name="CellWalk701" parent="RootWalkCells" index="700" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 432)
+
+[node name="CellWalk702" parent="RootWalkCells" index="701" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 432)
+
+[node name="CellWalk703" parent="RootWalkCells" index="702" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 432)
+
+[node name="CellWalk704" parent="RootWalkCells" index="703" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 432)
+
+[node name="CellWalk705" parent="RootWalkCells" index="704" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 448)
+
+[node name="CellWalk706" parent="RootWalkCells" index="705" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 448)
+
+[node name="CellWalk707" parent="RootWalkCells" index="706" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 448)
+
+[node name="CellWalk708" parent="RootWalkCells" index="707" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 448)
+
+[node name="CellWalk709" parent="RootWalkCells" index="708" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 448)
+
+[node name="CellWalk710" parent="RootWalkCells" index="709" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 448)
+
+[node name="CellWalk711" parent="RootWalkCells" index="710" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 448)
+
+[node name="CellWalk712" parent="RootWalkCells" index="711" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 448)
+
+[node name="CellWalk713" parent="RootWalkCells" index="712" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 448)
+
+[node name="CellWalk714" parent="RootWalkCells" index="713" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 448)
+
+[node name="CellWalk715" parent="RootWalkCells" index="714" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 448)
+
+[node name="CellWalk716" parent="RootWalkCells" index="715" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 448)
+
+[node name="CellWalk717" parent="RootWalkCells" index="716" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 448)
+
+[node name="CellWalk718" parent="RootWalkCells" index="717" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 448)
+
+[node name="CellWalk719" parent="RootWalkCells" index="718" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 448)
+
+[node name="CellWalk720" parent="RootWalkCells" index="719" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 448)
+
+[node name="CellWalk721" parent="RootWalkCells" index="720" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 464)
+
+[node name="CellWalk722" parent="RootWalkCells" index="721" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 464)
+
+[node name="CellWalk723" parent="RootWalkCells" index="722" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 464)
+
+[node name="CellWalk724" parent="RootWalkCells" index="723" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 464)
+
+[node name="CellWalk725" parent="RootWalkCells" index="724" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 464)
+
+[node name="CellWalk726" parent="RootWalkCells" index="725" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 464)
+
+[node name="CellWalk727" parent="RootWalkCells" index="726" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 464)
+
+[node name="CellWalk728" parent="RootWalkCells" index="727" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 464)
+
+[node name="CellWalk729" parent="RootWalkCells" index="728" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 464)
+
+[node name="CellWalk730" parent="RootWalkCells" index="729" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 464)
+
+[node name="CellWalk731" parent="RootWalkCells" index="730" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 464)
+
+[node name="CellWalk732" parent="RootWalkCells" index="731" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 464)
+
+[node name="CellWalk733" parent="RootWalkCells" index="732" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 464)
+
+[node name="CellWalk734" parent="RootWalkCells" index="733" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 464)
+
+[node name="CellWalk735" parent="RootWalkCells" index="734" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 464)
+
+[node name="CellWalk736" parent="RootWalkCells" index="735" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 464)
+
+[node name="CellWalk737" parent="RootWalkCells" index="736" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 480)
+
+[node name="CellWalk738" parent="RootWalkCells" index="737" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 480)
+
+[node name="CellWalk739" parent="RootWalkCells" index="738" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 480)
+
+[node name="CellWalk740" parent="RootWalkCells" index="739" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 480)
+
+[node name="CellWalk741" parent="RootWalkCells" index="740" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 480)
+
+[node name="CellWalk742" parent="RootWalkCells" index="741" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 480)
+
+[node name="CellWalk743" parent="RootWalkCells" index="742" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 480)
+
+[node name="CellWalk744" parent="RootWalkCells" index="743" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 480)
+
+[node name="CellWalk745" parent="RootWalkCells" index="744" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 480)
+
+[node name="CellWalk746" parent="RootWalkCells" index="745" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 480)
+
+[node name="CellWalk747" parent="RootWalkCells" index="746" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 480)
+
+[node name="CellWalk748" parent="RootWalkCells" index="747" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 480)
+
+[node name="CellWalk749" parent="RootWalkCells" index="748" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 480)
+
+[node name="CellWalk750" parent="RootWalkCells" index="749" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 480)
+
+[node name="CellWalk751" parent="RootWalkCells" index="750" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 480)
+
+[node name="CellWalk752" parent="RootWalkCells" index="751" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 480)
+
+[node name="CellWalk753" parent="RootWalkCells" index="752" instance=ExtResource("2_ftjox")]
+position = Vector2(0, 496)
+
+[node name="CellWalk754" parent="RootWalkCells" index="753" instance=ExtResource("2_ftjox")]
+position = Vector2(16, 496)
+
+[node name="CellWalk755" parent="RootWalkCells" index="754" instance=ExtResource("2_ftjox")]
+position = Vector2(32, 496)
+
+[node name="CellWalk756" parent="RootWalkCells" index="755" instance=ExtResource("2_ftjox")]
+position = Vector2(48, 496)
+
+[node name="CellWalk757" parent="RootWalkCells" index="756" instance=ExtResource("2_ftjox")]
+position = Vector2(64, 496)
+
+[node name="CellWalk758" parent="RootWalkCells" index="757" instance=ExtResource("2_ftjox")]
+position = Vector2(80, 496)
+
+[node name="CellWalk759" parent="RootWalkCells" index="758" instance=ExtResource("2_ftjox")]
+position = Vector2(96, 496)
+
+[node name="CellWalk760" parent="RootWalkCells" index="759" instance=ExtResource("2_ftjox")]
+position = Vector2(112, 496)
+
+[node name="CellWalk761" parent="RootWalkCells" index="760" instance=ExtResource("2_ftjox")]
+position = Vector2(128, 496)
+
+[node name="CellWalk762" parent="RootWalkCells" index="761" instance=ExtResource("2_ftjox")]
+position = Vector2(144, 496)
+
+[node name="CellWalk763" parent="RootWalkCells" index="762" instance=ExtResource("2_ftjox")]
+position = Vector2(160, 496)
+
+[node name="CellWalk764" parent="RootWalkCells" index="763" instance=ExtResource("2_ftjox")]
+position = Vector2(176, 496)
+
+[node name="CellWalk765" parent="RootWalkCells" index="764" instance=ExtResource("2_ftjox")]
+position = Vector2(192, 496)
+
+[node name="CellWalk766" parent="RootWalkCells" index="765" instance=ExtResource("2_ftjox")]
+position = Vector2(208, 496)
+
+[node name="CellWalk767" parent="RootWalkCells" index="766" instance=ExtResource("2_ftjox")]
+position = Vector2(224, 496)
+
+[node name="CellWalk768" parent="RootWalkCells" index="767" instance=ExtResource("2_ftjox")]
+position = Vector2(240, 496)
+
+[node name="CellWalk769" parent="RootWalkCells" index="768" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 256)
+
+[node name="CellWalk770" parent="RootWalkCells" index="769" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 256)
+
+[node name="CellWalk771" parent="RootWalkCells" index="770" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 256)
+
+[node name="CellWalk772" parent="RootWalkCells" index="771" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 256)
+
+[node name="CellWalk773" parent="RootWalkCells" index="772" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 256)
+
+[node name="CellWalk774" parent="RootWalkCells" index="773" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 256)
+
+[node name="CellWalk775" parent="RootWalkCells" index="774" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 256)
+
+[node name="CellWalk776" parent="RootWalkCells" index="775" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 256)
+
+[node name="CellWalk777" parent="RootWalkCells" index="776" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 256)
+
+[node name="CellWalk778" parent="RootWalkCells" index="777" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 256)
+
+[node name="CellWalk779" parent="RootWalkCells" index="778" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 256)
+
+[node name="CellWalk780" parent="RootWalkCells" index="779" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 256)
+
+[node name="CellWalk781" parent="RootWalkCells" index="780" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 256)
+
+[node name="CellWalk782" parent="RootWalkCells" index="781" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 256)
+
+[node name="CellWalk783" parent="RootWalkCells" index="782" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 256)
+
+[node name="CellWalk784" parent="RootWalkCells" index="783" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 256)
+
+[node name="CellWalk785" parent="RootWalkCells" index="784" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 272)
+
+[node name="CellWalk786" parent="RootWalkCells" index="785" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 272)
+
+[node name="CellWalk787" parent="RootWalkCells" index="786" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 272)
+
+[node name="CellWalk788" parent="RootWalkCells" index="787" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 272)
+
+[node name="CellWalk789" parent="RootWalkCells" index="788" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 272)
+
+[node name="CellWalk790" parent="RootWalkCells" index="789" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 272)
+
+[node name="CellWalk791" parent="RootWalkCells" index="790" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 272)
+
+[node name="CellWalk792" parent="RootWalkCells" index="791" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 272)
+
+[node name="CellWalk793" parent="RootWalkCells" index="792" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 272)
+
+[node name="CellWalk794" parent="RootWalkCells" index="793" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 272)
+
+[node name="CellWalk795" parent="RootWalkCells" index="794" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 272)
+
+[node name="CellWalk796" parent="RootWalkCells" index="795" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 272)
+
+[node name="CellWalk797" parent="RootWalkCells" index="796" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 272)
+
+[node name="CellWalk798" parent="RootWalkCells" index="797" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 272)
+
+[node name="CellWalk799" parent="RootWalkCells" index="798" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 272)
+
+[node name="CellWalk800" parent="RootWalkCells" index="799" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 272)
+
+[node name="CellWalk801" parent="RootWalkCells" index="800" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 288)
+
+[node name="CellWalk802" parent="RootWalkCells" index="801" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 288)
+
+[node name="CellWalk803" parent="RootWalkCells" index="802" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 288)
+
+[node name="CellWalk804" parent="RootWalkCells" index="803" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 288)
+
+[node name="CellWalk805" parent="RootWalkCells" index="804" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 288)
+
+[node name="CellWalk806" parent="RootWalkCells" index="805" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 288)
+
+[node name="CellWalk807" parent="RootWalkCells" index="806" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 288)
+
+[node name="CellWalk808" parent="RootWalkCells" index="807" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 288)
+
+[node name="CellWalk809" parent="RootWalkCells" index="808" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 288)
+
+[node name="CellWalk810" parent="RootWalkCells" index="809" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 288)
+
+[node name="CellWalk811" parent="RootWalkCells" index="810" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 288)
+
+[node name="CellWalk812" parent="RootWalkCells" index="811" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 288)
+
+[node name="CellWalk813" parent="RootWalkCells" index="812" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 288)
+
+[node name="CellWalk814" parent="RootWalkCells" index="813" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 288)
+
+[node name="CellWalk815" parent="RootWalkCells" index="814" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 288)
+
+[node name="CellWalk816" parent="RootWalkCells" index="815" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 288)
+
+[node name="CellWalk817" parent="RootWalkCells" index="816" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 304)
+
+[node name="CellWalk818" parent="RootWalkCells" index="817" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 304)
+
+[node name="CellWalk819" parent="RootWalkCells" index="818" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 304)
+
+[node name="CellWalk820" parent="RootWalkCells" index="819" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 304)
+
+[node name="CellWalk821" parent="RootWalkCells" index="820" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 304)
+
+[node name="CellWalk822" parent="RootWalkCells" index="821" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 304)
+
+[node name="CellWalk823" parent="RootWalkCells" index="822" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 304)
+
+[node name="CellWalk824" parent="RootWalkCells" index="823" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 304)
+
+[node name="CellWalk825" parent="RootWalkCells" index="824" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 304)
+
+[node name="CellWalk826" parent="RootWalkCells" index="825" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 304)
+
+[node name="CellWalk827" parent="RootWalkCells" index="826" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 304)
+
+[node name="CellWalk828" parent="RootWalkCells" index="827" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 304)
+
+[node name="CellWalk829" parent="RootWalkCells" index="828" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 304)
+
+[node name="CellWalk830" parent="RootWalkCells" index="829" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 304)
+
+[node name="CellWalk831" parent="RootWalkCells" index="830" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 304)
+
+[node name="CellWalk832" parent="RootWalkCells" index="831" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 304)
+
+[node name="CellWalk833" parent="RootWalkCells" index="832" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 320)
+
+[node name="CellWalk834" parent="RootWalkCells" index="833" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 320)
+
+[node name="CellWalk835" parent="RootWalkCells" index="834" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 320)
+
+[node name="CellWalk836" parent="RootWalkCells" index="835" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 320)
+
+[node name="CellWalk837" parent="RootWalkCells" index="836" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 320)
+
+[node name="CellWalk838" parent="RootWalkCells" index="837" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 320)
+
+[node name="CellWalk839" parent="RootWalkCells" index="838" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 320)
+
+[node name="CellWalk840" parent="RootWalkCells" index="839" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 320)
+
+[node name="CellWalk841" parent="RootWalkCells" index="840" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 320)
+
+[node name="CellWalk842" parent="RootWalkCells" index="841" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 320)
+
+[node name="CellWalk843" parent="RootWalkCells" index="842" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 320)
+
+[node name="CellWalk844" parent="RootWalkCells" index="843" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 320)
+
+[node name="CellWalk845" parent="RootWalkCells" index="844" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 320)
+
+[node name="CellWalk846" parent="RootWalkCells" index="845" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 320)
+
+[node name="CellWalk847" parent="RootWalkCells" index="846" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 320)
+
+[node name="CellWalk848" parent="RootWalkCells" index="847" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 320)
+
+[node name="CellWalk849" parent="RootWalkCells" index="848" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 336)
+
+[node name="CellWalk850" parent="RootWalkCells" index="849" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 336)
+
+[node name="CellWalk851" parent="RootWalkCells" index="850" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 336)
+
+[node name="CellWalk852" parent="RootWalkCells" index="851" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 336)
+
+[node name="CellWalk853" parent="RootWalkCells" index="852" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 336)
+
+[node name="CellWalk854" parent="RootWalkCells" index="853" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 336)
+
+[node name="CellWalk855" parent="RootWalkCells" index="854" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 336)
+
+[node name="CellWalk856" parent="RootWalkCells" index="855" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 336)
+
+[node name="CellWalk857" parent="RootWalkCells" index="856" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 336)
+
+[node name="CellWalk858" parent="RootWalkCells" index="857" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 336)
+
+[node name="CellWalk859" parent="RootWalkCells" index="858" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 336)
+
+[node name="CellWalk860" parent="RootWalkCells" index="859" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 336)
+
+[node name="CellWalk861" parent="RootWalkCells" index="860" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 336)
+
+[node name="CellWalk862" parent="RootWalkCells" index="861" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 336)
+
+[node name="CellWalk863" parent="RootWalkCells" index="862" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 336)
+
+[node name="CellWalk864" parent="RootWalkCells" index="863" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 336)
+
+[node name="CellWalk865" parent="RootWalkCells" index="864" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 352)
+
+[node name="CellWalk866" parent="RootWalkCells" index="865" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 352)
+
+[node name="CellWalk867" parent="RootWalkCells" index="866" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 352)
+
+[node name="CellWalk868" parent="RootWalkCells" index="867" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 352)
+
+[node name="CellWalk869" parent="RootWalkCells" index="868" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 352)
+
+[node name="CellWalk870" parent="RootWalkCells" index="869" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 352)
+
+[node name="CellWalk871" parent="RootWalkCells" index="870" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 352)
+
+[node name="CellWalk872" parent="RootWalkCells" index="871" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 352)
+
+[node name="CellWalk873" parent="RootWalkCells" index="872" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 352)
+
+[node name="CellWalk874" parent="RootWalkCells" index="873" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 352)
+
+[node name="CellWalk875" parent="RootWalkCells" index="874" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 352)
+
+[node name="CellWalk876" parent="RootWalkCells" index="875" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 352)
+
+[node name="CellWalk877" parent="RootWalkCells" index="876" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 352)
+
+[node name="CellWalk878" parent="RootWalkCells" index="877" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 352)
+
+[node name="CellWalk879" parent="RootWalkCells" index="878" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 352)
+
+[node name="CellWalk880" parent="RootWalkCells" index="879" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 352)
+
+[node name="CellWalk881" parent="RootWalkCells" index="880" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 368)
+
+[node name="CellWalk882" parent="RootWalkCells" index="881" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 368)
+
+[node name="CellWalk883" parent="RootWalkCells" index="882" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 368)
+
+[node name="CellWalk884" parent="RootWalkCells" index="883" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 368)
+
+[node name="CellWalk885" parent="RootWalkCells" index="884" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 368)
+
+[node name="CellWalk886" parent="RootWalkCells" index="885" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 368)
+
+[node name="CellWalk887" parent="RootWalkCells" index="886" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 368)
+
+[node name="CellWalk888" parent="RootWalkCells" index="887" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 368)
+
+[node name="CellWalk889" parent="RootWalkCells" index="888" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 368)
+
+[node name="CellWalk890" parent="RootWalkCells" index="889" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 368)
+
+[node name="CellWalk891" parent="RootWalkCells" index="890" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 368)
+
+[node name="CellWalk892" parent="RootWalkCells" index="891" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 368)
+
+[node name="CellWalk893" parent="RootWalkCells" index="892" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 368)
+
+[node name="CellWalk894" parent="RootWalkCells" index="893" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 368)
+
+[node name="CellWalk895" parent="RootWalkCells" index="894" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 368)
+
+[node name="CellWalk896" parent="RootWalkCells" index="895" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 368)
+
+[node name="CellWalk897" parent="RootWalkCells" index="896" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 384)
+
+[node name="CellWalk898" parent="RootWalkCells" index="897" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 384)
+
+[node name="CellWalk899" parent="RootWalkCells" index="898" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 384)
+
+[node name="CellWalk900" parent="RootWalkCells" index="899" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 384)
+
+[node name="CellWalk901" parent="RootWalkCells" index="900" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 384)
+
+[node name="CellWalk902" parent="RootWalkCells" index="901" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 384)
+
+[node name="CellWalk903" parent="RootWalkCells" index="902" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 384)
+
+[node name="CellWalk904" parent="RootWalkCells" index="903" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 384)
+
+[node name="CellWalk905" parent="RootWalkCells" index="904" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 384)
+
+[node name="CellWalk906" parent="RootWalkCells" index="905" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 384)
+
+[node name="CellWalk907" parent="RootWalkCells" index="906" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 384)
+
+[node name="CellWalk908" parent="RootWalkCells" index="907" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 384)
+
+[node name="CellWalk909" parent="RootWalkCells" index="908" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 384)
+
+[node name="CellWalk910" parent="RootWalkCells" index="909" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 384)
+
+[node name="CellWalk911" parent="RootWalkCells" index="910" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 384)
+
+[node name="CellWalk912" parent="RootWalkCells" index="911" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 384)
+
+[node name="CellWalk913" parent="RootWalkCells" index="912" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 400)
+
+[node name="CellWalk914" parent="RootWalkCells" index="913" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 400)
+
+[node name="CellWalk915" parent="RootWalkCells" index="914" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 400)
+
+[node name="CellWalk916" parent="RootWalkCells" index="915" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 400)
+
+[node name="CellWalk917" parent="RootWalkCells" index="916" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 400)
+
+[node name="CellWalk918" parent="RootWalkCells" index="917" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 400)
+
+[node name="CellWalk919" parent="RootWalkCells" index="918" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 400)
+
+[node name="CellWalk920" parent="RootWalkCells" index="919" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 400)
+
+[node name="CellWalk921" parent="RootWalkCells" index="920" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 400)
+
+[node name="CellWalk922" parent="RootWalkCells" index="921" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 400)
+
+[node name="CellWalk923" parent="RootWalkCells" index="922" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 400)
+
+[node name="CellWalk924" parent="RootWalkCells" index="923" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 400)
+
+[node name="CellWalk925" parent="RootWalkCells" index="924" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 400)
+
+[node name="CellWalk926" parent="RootWalkCells" index="925" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 400)
+
+[node name="CellWalk927" parent="RootWalkCells" index="926" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 400)
+
+[node name="CellWalk928" parent="RootWalkCells" index="927" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 400)
+
+[node name="CellWalk929" parent="RootWalkCells" index="928" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 416)
+
+[node name="CellWalk930" parent="RootWalkCells" index="929" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 416)
+
+[node name="CellWalk931" parent="RootWalkCells" index="930" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 416)
+
+[node name="CellWalk932" parent="RootWalkCells" index="931" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 416)
+
+[node name="CellWalk933" parent="RootWalkCells" index="932" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 416)
+
+[node name="CellWalk934" parent="RootWalkCells" index="933" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 416)
+
+[node name="CellWalk935" parent="RootWalkCells" index="934" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 416)
+
+[node name="CellWalk936" parent="RootWalkCells" index="935" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 416)
+
+[node name="CellWalk937" parent="RootWalkCells" index="936" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 416)
+
+[node name="CellWalk938" parent="RootWalkCells" index="937" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 416)
+
+[node name="CellWalk939" parent="RootWalkCells" index="938" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 416)
+
+[node name="CellWalk940" parent="RootWalkCells" index="939" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 416)
+
+[node name="CellWalk941" parent="RootWalkCells" index="940" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 416)
+
+[node name="CellWalk942" parent="RootWalkCells" index="941" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 416)
+
+[node name="CellWalk943" parent="RootWalkCells" index="942" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 416)
+
+[node name="CellWalk944" parent="RootWalkCells" index="943" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 416)
+
+[node name="CellWalk945" parent="RootWalkCells" index="944" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 432)
+
+[node name="CellWalk946" parent="RootWalkCells" index="945" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 432)
+
+[node name="CellWalk947" parent="RootWalkCells" index="946" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 432)
+
+[node name="CellWalk948" parent="RootWalkCells" index="947" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 432)
+
+[node name="CellWalk949" parent="RootWalkCells" index="948" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 432)
+
+[node name="CellWalk950" parent="RootWalkCells" index="949" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 432)
+
+[node name="CellWalk951" parent="RootWalkCells" index="950" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 432)
+
+[node name="CellWalk952" parent="RootWalkCells" index="951" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 432)
+
+[node name="CellWalk953" parent="RootWalkCells" index="952" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 432)
+
+[node name="CellWalk954" parent="RootWalkCells" index="953" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 432)
+
+[node name="CellWalk955" parent="RootWalkCells" index="954" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 432)
+
+[node name="CellWalk956" parent="RootWalkCells" index="955" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 432)
+
+[node name="CellWalk957" parent="RootWalkCells" index="956" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 432)
+
+[node name="CellWalk958" parent="RootWalkCells" index="957" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 432)
+
+[node name="CellWalk959" parent="RootWalkCells" index="958" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 432)
+
+[node name="CellWalk960" parent="RootWalkCells" index="959" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 432)
+
+[node name="CellWalk961" parent="RootWalkCells" index="960" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 448)
+
+[node name="CellWalk962" parent="RootWalkCells" index="961" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 448)
+
+[node name="CellWalk963" parent="RootWalkCells" index="962" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 448)
+
+[node name="CellWalk964" parent="RootWalkCells" index="963" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 448)
+
+[node name="CellWalk965" parent="RootWalkCells" index="964" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 448)
+
+[node name="CellWalk966" parent="RootWalkCells" index="965" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 448)
+
+[node name="CellWalk967" parent="RootWalkCells" index="966" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 448)
+
+[node name="CellWalk968" parent="RootWalkCells" index="967" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 448)
+
+[node name="CellWalk969" parent="RootWalkCells" index="968" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 448)
+
+[node name="CellWalk970" parent="RootWalkCells" index="969" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 448)
+
+[node name="CellWalk971" parent="RootWalkCells" index="970" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 448)
+
+[node name="CellWalk972" parent="RootWalkCells" index="971" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 448)
+
+[node name="CellWalk973" parent="RootWalkCells" index="972" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 448)
+
+[node name="CellWalk974" parent="RootWalkCells" index="973" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 448)
+
+[node name="CellWalk975" parent="RootWalkCells" index="974" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 448)
+
+[node name="CellWalk976" parent="RootWalkCells" index="975" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 448)
+
+[node name="CellWalk977" parent="RootWalkCells" index="976" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 464)
+
+[node name="CellWalk978" parent="RootWalkCells" index="977" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 464)
+
+[node name="CellWalk979" parent="RootWalkCells" index="978" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 464)
+
+[node name="CellWalk980" parent="RootWalkCells" index="979" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 464)
+
+[node name="CellWalk981" parent="RootWalkCells" index="980" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 464)
+
+[node name="CellWalk982" parent="RootWalkCells" index="981" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 464)
+
+[node name="CellWalk983" parent="RootWalkCells" index="982" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 464)
+
+[node name="CellWalk984" parent="RootWalkCells" index="983" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 464)
+
+[node name="CellWalk985" parent="RootWalkCells" index="984" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 464)
+
+[node name="CellWalk986" parent="RootWalkCells" index="985" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 464)
+
+[node name="CellWalk987" parent="RootWalkCells" index="986" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 464)
+
+[node name="CellWalk988" parent="RootWalkCells" index="987" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 464)
+
+[node name="CellWalk989" parent="RootWalkCells" index="988" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 464)
+
+[node name="CellWalk990" parent="RootWalkCells" index="989" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 464)
+
+[node name="CellWalk991" parent="RootWalkCells" index="990" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 464)
+
+[node name="CellWalk992" parent="RootWalkCells" index="991" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 464)
+
+[node name="CellWalk993" parent="RootWalkCells" index="992" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 480)
+
+[node name="CellWalk994" parent="RootWalkCells" index="993" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 480)
+
+[node name="CellWalk995" parent="RootWalkCells" index="994" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 480)
+
+[node name="CellWalk996" parent="RootWalkCells" index="995" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 480)
+
+[node name="CellWalk997" parent="RootWalkCells" index="996" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 480)
+
+[node name="CellWalk998" parent="RootWalkCells" index="997" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 480)
+
+[node name="CellWalk999" parent="RootWalkCells" index="998" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 480)
+
+[node name="CellWalk1000" parent="RootWalkCells" index="999" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 480)
+
+[node name="CellWalk1001" parent="RootWalkCells" index="1000" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 480)
+
+[node name="CellWalk1002" parent="RootWalkCells" index="1001" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 480)
+
+[node name="CellWalk1003" parent="RootWalkCells" index="1002" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 480)
+
+[node name="CellWalk1004" parent="RootWalkCells" index="1003" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 480)
+
+[node name="CellWalk1005" parent="RootWalkCells" index="1004" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 480)
+
+[node name="CellWalk1006" parent="RootWalkCells" index="1005" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 480)
+
+[node name="CellWalk1007" parent="RootWalkCells" index="1006" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 480)
+
+[node name="CellWalk1008" parent="RootWalkCells" index="1007" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 480)
+
+[node name="CellWalk1009" parent="RootWalkCells" index="1008" instance=ExtResource("2_ftjox")]
+position = Vector2(256, 496)
+
+[node name="CellWalk1010" parent="RootWalkCells" index="1009" instance=ExtResource("2_ftjox")]
+position = Vector2(272, 496)
+
+[node name="CellWalk1011" parent="RootWalkCells" index="1010" instance=ExtResource("2_ftjox")]
+position = Vector2(288, 496)
+
+[node name="CellWalk1012" parent="RootWalkCells" index="1011" instance=ExtResource("2_ftjox")]
+position = Vector2(304, 496)
+
+[node name="CellWalk1013" parent="RootWalkCells" index="1012" instance=ExtResource("2_ftjox")]
+position = Vector2(320, 496)
+
+[node name="CellWalk1014" parent="RootWalkCells" index="1013" instance=ExtResource("2_ftjox")]
+position = Vector2(336, 496)
+
+[node name="CellWalk1015" parent="RootWalkCells" index="1014" instance=ExtResource("2_ftjox")]
+position = Vector2(352, 496)
+
+[node name="CellWalk1016" parent="RootWalkCells" index="1015" instance=ExtResource("2_ftjox")]
+position = Vector2(368, 496)
+
+[node name="CellWalk1017" parent="RootWalkCells" index="1016" instance=ExtResource("2_ftjox")]
+position = Vector2(384, 496)
+
+[node name="CellWalk1018" parent="RootWalkCells" index="1017" instance=ExtResource("2_ftjox")]
+position = Vector2(400, 496)
+
+[node name="CellWalk1019" parent="RootWalkCells" index="1018" instance=ExtResource("2_ftjox")]
+position = Vector2(416, 496)
+
+[node name="CellWalk1020" parent="RootWalkCells" index="1019" instance=ExtResource("2_ftjox")]
+position = Vector2(432, 496)
+
+[node name="CellWalk1021" parent="RootWalkCells" index="1020" instance=ExtResource("2_ftjox")]
+position = Vector2(448, 496)
+
+[node name="CellWalk1022" parent="RootWalkCells" index="1021" instance=ExtResource("2_ftjox")]
+position = Vector2(464, 496)
+
+[node name="CellWalk1023" parent="RootWalkCells" index="1022" instance=ExtResource("2_ftjox")]
+position = Vector2(480, 496)
+
+[node name="CellWalk1024" parent="RootWalkCells" index="1023" instance=ExtResource("2_ftjox")]
+position = Vector2(496, 496)
+
+[node name="RootObsCells" parent="." index="3"]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
 [node name="Cover" parent="RootObsCells" index="0" instance=ExtResource("8_7yt4i")]
-position = Vector2(112, 48)
+position = Vector2(320, 112)
 
 [node name="Cover2" parent="RootObsCells" index="1" instance=ExtResource("8_7yt4i")]
-position = Vector2(112, 64)
+position = Vector2(320, 128)
 
 [node name="CellTree" parent="RootObsCells" index="2" instance=ExtResource("9_n2dhw")]
-position = Vector2(48, 80)
+position = Vector2(160, 96)
 
-[node name="CellWallHorizontal2" parent="RootObsCells" index="3" instance=ExtResource("7_dg7v7")]
-position = Vector2(112, 96)
+[node name="CellWallHorizontal8" parent="RootObsCells" index="3" instance=ExtResource("7_dg7v7")]
+position = Vector2(192, 128)
+wall_type = 3
 
-[node name="CellWallHorizontal3" parent="RootObsCells" index="4" instance=ExtResource("7_dg7v7")]
-position = Vector2(128, 96)
+[node name="CellWallHorizontal9" parent="RootObsCells" index="4" instance=ExtResource("7_dg7v7")]
+position = Vector2(208, 128)
+wall_type = 3
 
-[node name="CellWallVertical" parent="RootObsCells" index="5" instance=ExtResource("6_xsflr")]
-position = Vector2(128, 96)
+[node name="CellWallHorizontal7" parent="RootObsCells" index="5" instance=ExtResource("7_dg7v7")]
+position = Vector2(224, 128)
+wall_type = 3
 
-[node name="CellWallHorizontal" parent="RootObsCells" index="6" instance=ExtResource("7_dg7v7")]
-position = Vector2(96, 96)
+[node name="CellWallHorizontal5" parent="RootObsCells" index="6" instance=ExtResource("7_dg7v7")]
+position = Vector2(240, 128)
+wall_type = 3
 
-[node name="CellDoorlHorizontal" parent="RootObsCells" index="7" instance=ExtResource("7_tp5gl")]
-position = Vector2(80, 96)
+[node name="CellWallHorizontal6" parent="RootObsCells" index="7" instance=ExtResource("7_dg7v7")]
+position = Vector2(256, 128)
+wall_type = 3
+
+[node name="CellWallVertical4" parent="RootObsCells" index="8" instance=ExtResource("6_xsflr")]
+position = Vector2(192, 144)
+show_visual_if_front_visible = false
+wall_type = 1
+
+[node name="CellWallVertical5" parent="RootObsCells" index="9" instance=ExtResource("6_xsflr")]
+position = Vector2(192, 160)
+show_visual_if_front_visible = false
+wall_type = 1
+
+[node name="CellWallVertical6" parent="RootObsCells" index="10" instance=ExtResource("6_xsflr")]
+position = Vector2(192, 176)
+show_visual_if_front_visible = false
+wall_type = 1
+
+[node name="CellWallVertical3" parent="RootObsCells" index="11" instance=ExtResource("6_xsflr")]
+position = Vector2(272, 144)
+show_visual_if_front_visible = false
+wall_type = 2
+
+[node name="CellWallVertical2" parent="RootObsCells" index="12" instance=ExtResource("6_xsflr")]
+position = Vector2(272, 160)
+show_visual_if_front_visible = false
+wall_type = 2
+
+[node name="CellWallVertical" parent="RootObsCells" index="13" instance=ExtResource("6_xsflr")]
+position = Vector2(272, 176)
+show_visual_if_front_visible = false
+wall_type = 2
+
+[node name="CellWallVertical7" parent="RootObsCells" index="14" instance=ExtResource("6_xsflr")]
+position = Vector2(112, 144)
+show_visual_if_front_visible = false
+wall_type = 1
+
+[node name="CellWallVertical8" parent="RootObsCells" index="15" instance=ExtResource("6_xsflr")]
+position = Vector2(112, 160)
+show_visual_if_front_visible = false
+wall_type = 1
+
+[node name="CellWallVertical9" parent="RootObsCells" index="16" instance=ExtResource("6_xsflr")]
+position = Vector2(112, 176)
+show_visual_if_front_visible = false
+wall_type = 1
+
+[node name="CellWallHorizontal2" parent="RootObsCells" index="17" instance=ExtResource("7_dg7v7")]
+position = Vector2(240, 176)
+wall_type = 4
+
+[node name="CellWallHorizontal3" parent="RootObsCells" index="18" instance=ExtResource("7_dg7v7")]
+position = Vector2(256, 176)
+wall_type = 4
+
+[node name="CellWallHorizontal" parent="RootObsCells" index="19" instance=ExtResource("7_dg7v7")]
+position = Vector2(224, 176)
+wall_type = 4
+
+[node name="CellWallHorizontal4" parent="RootObsCells" index="20" instance=ExtResource("7_dg7v7")]
+position = Vector2(192, 176)
+wall_type = 4
+
+[node name="CellDoorlHorizontal" parent="RootObsCells" index="21" instance=ExtResource("7_tp5gl")]
+position = Vector2(208, 176)
+wall_type = 4
+
+[node name="RootUnits" parent="." index="4"]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("10_ddu4q")]
-position = Vector2(48, 64)
+position = Vector2(144, 112)
 unit_settings = ExtResource("11_cetlj")
 
 [node name="UnitObject2" parent="RootUnits" index="1" instance=ExtResource("10_ddu4q")]
-position = Vector2(128, 96)
+position = Vector2(320, 144)
 unit_settings = ExtResource("12_u34wp")
 ai_settings = SubResource("Resource_276rh")
+
+[node name="VisualObject" parent="RootUnits/UnitObject2" index="0"]
+texture = ExtResource("12_y7pv2")
 
 [editable path="RootUnits/UnitObject2"]

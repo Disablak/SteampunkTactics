@@ -4,6 +4,7 @@ extends Node
 var world : MyWorld
 var raycaster : Raycaster
 var ai_world: AiWorld
+var draw_debug: DrawDebug
 
 
 func can_show_cur_unit() -> bool:

@@ -12,6 +12,8 @@ const HALF_RADIUS := AI_CONUS_RADIUS / 2
 var dict_pos_and_cell = {}
 var dict_is_enemy_team_and_pos = {} # knew cells by team
 var dict_is_enemy_and_visible_cells = {} # visible cells by team
+var walls = {} # grid pos and cell object
+var pathfinding: Pathfinding
 
 
 func _ready() -> void:
@@ -41,12 +43,22 @@ func _on_unit_changed_view_direction(unit_id, _angle, update_fog_of_war):
 	update_fog(unit)
 
 
-func init():
+func init(pathfind):
+	self.pathfinding = pathfind
+
 	dict_is_enemy_and_visible_cells[false] = []
 	dict_is_enemy_and_visible_cells[true] = []
 
 	dict_is_enemy_team_and_pos[false] = []
 	dict_is_enemy_team_and_pos[true] = []
+
+	for cell_object in pathfinding.dict_pos_and_cell_wall.values():
+		if cell_object.wall_type != CellObject.WallType.NONE:
+			walls[cell_object.grid_pos] = cell_object
+
+	for cell_object in pathfinding.dict_pos_and_cell_door.values():
+		if cell_object.wall_type != CellObject.WallType.NONE:
+			walls[cell_object.grid_pos] = cell_object
 
 	for unit in GlobalUnits.units.values():
 		update_unit_visibility(unit)
@@ -126,6 +138,7 @@ func update_unit_visibility(unit: Unit, force_update: bool = false):
 	else:
 		visibility_data.circle_points = sector_circle_points
 
+	GlobalMap.draw_debug.clear_draw_vision_lines()
 	var new_visible_points: Array[Vector2i]
 	for grid_pos_on_circle in visibility_data.circle_points:
 		var line_points = _get_line_points(grid_unit_pos, grid_pos_on_circle)
@@ -144,6 +157,7 @@ func _get_line_points(grid_pos_from: Vector2i, grid_pos_to: Vector2i) -> Array[V
 	var shorter_ray = ray_dir * (from_pos.distance_to(ray_positions[1]) - Globals.CELL_QUAD_SIZE) + from_pos
 	var grid_end_pos = Globals.convert_to_grid_pos(shorter_ray)
 	var line_points = MyMath.bresenham_line_thick(grid_pos_from, grid_end_pos)
+	GlobalMap.draw_debug.draw_vision_lines([from_pos, shorter_ray])
 
 	return line_points
 
@@ -151,6 +165,59 @@ func _get_line_points(grid_pos_from: Vector2i, grid_pos_to: Vector2i) -> Array[V
 func update_visibility_on_cells(grid_poses: Array[Vector2i], visibility: CellVisibility):
 	for grid_pos in grid_poses:
 		update_visibility_on_cell(grid_pos, visibility)
+
+	_update_walls()
+
+
+func _update_walls():
+	for cell_object in walls.values():
+		if cell_object.wall_type == CellObject.WallType.BOT or cell_object.wall_type == CellObject.WallType.TOP:
+			_update_top_down_wall(cell_object)
+
+		if cell_object.wall_type == CellObject.WallType.LEFT or cell_object.wall_type == CellObject.WallType.RIGHT:
+			_update_side_wall(cell_object)
+
+
+func _update_top_down_wall(wall: CellObject):
+	var front_pos = wall.grid_pos + Vector2i(0, 1)
+	if dict_pos_and_cell.has(front_pos):
+		var cell_fog_front = dict_pos_and_cell[front_pos]
+		if cell_fog_front.visibility == CellVisibility.VISIBLE:
+			wall.is_cell_visible = true
+			dict_pos_and_cell[wall.grid_pos].update_visibility(CellVisibility.VISIBLE)
+		if cell_fog_front.visibility == CellVisibility.NOTHING:
+			wall.is_cell_visible = false
+
+
+func _update_side_wall(left_wall: CellObject):
+	var wall_type_side = left_wall.wall_type
+	var side_pos = left_wall.grid_pos + Vector2i(1, 0) if wall_type_side == CellObject.WallType.LEFT else left_wall.grid_pos + Vector2i(-1, 0)
+	if not dict_pos_and_cell.has(side_pos):
+		left_wall.is_cell_visible = true
+		return
+
+	var bot_pos = left_wall.grid_pos + Vector2i(0, 1)
+	if not walls.has(bot_pos):
+		left_wall.is_cell_visible = true
+		return
+
+	var bot_wall = walls[bot_pos]
+	if bot_wall.wall_type != wall_type_side:
+		left_wall.is_cell_visible = true
+		return
+
+	var top_pos = left_wall.grid_pos + Vector2i(0, -1)
+	if walls.has(top_pos):
+		var top_wall = walls[top_pos]
+		if top_wall.wall_type == wall_type_side:
+			left_wall.is_cell_visible = true
+			return
+
+	var cell_fog_right = dict_pos_and_cell[side_pos]
+	if cell_fog_right.visibility == CellVisibility.NOTHING:
+		left_wall.is_cell_visible = false
+	if cell_fog_right.visibility == CellVisibility.VISIBLE:
+		left_wall.is_cell_visible = true
 
 
 func update_visibility_on_cell(grid_pos: Vector2i, visibility: CellVisibility):
@@ -200,7 +267,4 @@ func _know_new_cells(is_enemy, visible_points: Array[Vector2i]):
 	prev_visible_points = MyMath.arr_add_no_copy(prev_visible_points, visible_points)
 
 	dict_is_enemy_team_and_pos[is_enemy] = prev_visible_points
-
-
-
 

@@ -64,7 +64,7 @@ func _update_transparency():
 	var units = GlobalUnits.units.values()
 	for unit in units:
 		for obj in all_sorted_objects:
-			if obj is UnitObject:
+			if obj == null or obj is UnitObject:
 				continue
 
 			if _can_hide(unit.unit_object.origin_pos, obj.origin_pos):

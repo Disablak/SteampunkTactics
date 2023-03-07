@@ -31,6 +31,7 @@ const TP_TO_OPEN_DOOR := 10
 const DEBUG_AI = true
 var DEBUG_HIDE_FOG := false
 var DEBUG_SHOW_ENEMY_ALWAYS := false
+var DEBUG_FOW_RAYCASTS := false
 
 var main_atlas_image: Image
 
@@ -74,7 +75,7 @@ static func snap_to_cell_pos(pos: Vector2) -> Vector2:
 
 
 static func convert_to_grid_pos(pos: Vector2) -> Vector2i:
-	return Vector2i(snap_to_cell_pos(pos)) / CELL_SIZE
+	return floor(pos / CELL_SIZE)
 
 
 static func convert_to_cell_pos(grid_pos: Vector2i) -> Vector2:

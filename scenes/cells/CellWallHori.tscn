@@ -11,6 +11,7 @@ size = Vector2(16, 2)
 texture_filter = 1
 texture = null
 cell_type = 2
+show_visual_if_front_visible = true
 
 [node name="CellAdd" parent="." index="0" instance=ExtResource("1_djgji")]
 position = Vector2(2.08165e-12, 16)

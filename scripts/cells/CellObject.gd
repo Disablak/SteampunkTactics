@@ -6,6 +6,7 @@ signal on_click_obj(cell_obj: CellObject)
 signal on_hover_obj(cell_obj: CellObject)
 
 enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE, DOOR}
+enum WallType {NONE, LEFT, RIGHT, TOP, BOT}
 
 @onready var main_sprite := $VisualObject as Sprite2D
 
@@ -15,9 +16,12 @@ enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE, DOOR}
 @export_range(0.0, 0.5, 0.05) var shoot_debaf: float = 0.0
 @export var opened: bool = false:
 	set(value):
-		main_sprite.texture = opened_texture if value else original_texture
+		if main_sprite:
+			main_sprite.texture = opened_texture if value else original_texture
 
 @export var opened_texture: Texture2D
+@export var show_visual_if_front_visible := false
+@export var wall_type: WallType = WallType.NONE
 
 var destroyed := false
 var connected_cells_pos: Array[Vector2i]
@@ -49,6 +53,14 @@ var visual_ordering: int:
 var is_interactable: bool:
 	get:
 		return cell_type == CellType.DOOR
+
+
+var is_cell_visible: bool = true:
+	get: return is_cell_visible
+	set(value):
+		is_cell_visible = value
+		if main_sprite:
+			main_sprite.visible = value
 
 
 func _ready() -> void:

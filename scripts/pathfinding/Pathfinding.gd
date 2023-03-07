@@ -99,7 +99,7 @@ func init() -> void:
 	_connect_walkable_cells()
 	_add_obstacles()
 
-	fog_of_war.init()
+	fog_of_war.init(self)
 
 	_draw_debug()
 
@@ -460,7 +460,6 @@ func _on_hover_obj(cell_obj: CellObject):
 
 
 func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
-	mouse_pos -= Vector2(Globals.CELL_HALF_SIZE, Globals.CELL_HALF_SIZE)
 	var grid_pos := Globals.convert_to_grid_pos(mouse_pos)
 	var info := _get_cell_info(grid_pos)
 
@@ -477,7 +476,6 @@ func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 
 
 func _on_input_system_on_mouse_click(mouse_pos: Vector2) -> void:
-	mouse_pos -= Vector2(Globals.CELL_HALF_SIZE, Globals.CELL_HALF_SIZE)
 	var grid_pos := Globals.convert_to_grid_pos(mouse_pos)
 	var info := _get_cell_info(grid_pos)
 

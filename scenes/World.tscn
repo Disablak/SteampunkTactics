@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://daaa4wpe8k4g1"]
+[gd_scene load_steps=29 format=3 uid="uid://daaa4wpe8k4g1"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://c3fuon6h0o5qe" path="res://scenes/cells/CellFog.tscn" id="23_p1e0f"]
 [ext_resource type="Script" path="res://scripts/utility_ai/AiWorld.gd" id="23_waclr"]
 [ext_resource type="PackedScene" uid="uid://b8lli71fdl17m" path="res://scenes/visual/Granede.tscn" id="24_2p2qp"]
+[ext_resource type="Script" path="res://scripts/utils/DrawDebug.gd" id="27_xmkd7"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="31_mf2ah"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_x8rd3"]
@@ -102,6 +103,9 @@ self_modulate = Color(1, 1, 1, 0.392157)
 position = Vector2(170, 94.9999)
 scale = Vector2(31, 31)
 texture = ExtResource("31_mf2ah")
+
+[node name="DrawDebug" type="Node2D" parent="."]
+script = ExtResource("27_xmkd7")
 
 [connection signal="on_mouse_click" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_click"]
 [connection signal="on_mouse_hover" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_hover"]
