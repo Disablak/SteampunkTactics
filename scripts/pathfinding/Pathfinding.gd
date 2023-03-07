@@ -127,13 +127,11 @@ func _connect_walkable_cells():
 
 			if not astar.are_points_connected(cell_id, potential_cell_id):
 				astar.connect_points(cell_id, potential_cell_id)
-				#print("connected {0} and {1}".format([cell_id, potential_cell_id]))
 
 
 func _add_obstacles():
 	for cell in root_obs_cells.get_children():
 		var cell_obj := cell as CellObject
-		cell_obj.on_hover_obj.connect(_on_hover_obj)
 
 		if cell_obj.cell_type == CellObject.CellType.WALL:
 			dict_pos_and_cell_wall[cell_obj.grid_pos] = cell_obj
@@ -145,14 +143,16 @@ func _add_obstacles():
 
 		if cell_obj.cell_type == CellObject.CellType.COVER:
 			dict_pos_and_cell_cover[cell_obj.grid_pos] = cell_obj
-			dict_pos_and_cell_cover[cell_obj.connected_cells_pos[0]] = cell_obj
+			dict_pos_and_cell_cover[cell_obj.comp_wall.get_connected_cell_pos()] = cell_obj
 			_enable_connection(cell_obj, false)
 
 		if cell_obj.cell_type == CellObject.CellType.DOOR:
 			dict_pos_and_cell_door[cell_obj.grid_pos] = cell_obj
-			dict_pos_and_cell_door[cell_obj.connected_cells_pos[0]] = cell_obj
-			if not cell_obj.opened:
-				open_door(cell_obj, false)
+			dict_pos_and_cell_door[cell_obj.comp_wall.get_connected_cell_pos()] = cell_obj
+			open_door(cell_obj, cell_obj.comp_visual.opened)
+
+		if cell_obj.comp_interactable:
+			cell_obj.on_hover_obj.connect(_on_hover_obj)
 
 
 func _on_cell_broke(cell: CellObject):
@@ -164,7 +164,7 @@ func _on_cell_broke(cell: CellObject):
 
 func remove_cover(cell: CellObject):
 	dict_pos_and_cell_cover.erase(cell.grid_pos)
-	dict_pos_and_cell_cover.erase(cell.connected_cells_pos[0])
+	dict_pos_and_cell_cover.erase(cell.comp_wall.get_connected_cell_pos())
 
 	_enable_connection(cell, true, true)
 
@@ -222,7 +222,7 @@ func close_doors(doors: Array[CellObject]):
 
 func is_point_walkable(grid_pos : Vector2i) -> bool:
 	var cell_obj: CellObject = get_cell_by_pos(grid_pos)
-	return cell_obj != null and cell_obj.is_walkable
+	return cell_obj != null and cell_obj.comp_walkable
 
 
 func has_path(from: Vector2i, to: Vector2i, open_doors: bool = false) -> bool:
@@ -235,9 +235,8 @@ func get_unit_on_cell(grid_pos: Vector2i) -> Unit:
 
 	for unit in all_units.values():
 		var unit_obj: UnitObject = unit.unit_object
-		var unit_pos: Vector2 = unit_obj.position
-
-		if Globals.convert_to_cell_pos(grid_pos).distance_to(unit_pos) < Globals.CELL_SIZE:
+		var unit_pos: Vector2i = unit_obj.grid_pos
+		if grid_pos == unit_pos:
 			return unit
 
 	return null
@@ -318,7 +317,7 @@ func is_unit_in_cover(unit_pos: Vector2, cell_cover: CellObject) -> bool:
 		printerr("cell is not cover!")
 		return false
 
-	return unit_grid_pos == cell_cover.grid_pos or unit_grid_pos == cell_cover.connected_cells_pos[0]
+	return unit_grid_pos == cell_cover.grid_pos or unit_grid_pos == cell_cover.comp_wall.get_connected_cell_pos()
 
 
 func is_point_has_cover(grid_pos: Vector2i) -> bool:
@@ -383,7 +382,7 @@ func can_open_door(cell: CellObject, unit_object: UnitObject) -> bool:
 		printerr("cell is not door!")
 		return false
 
-	return unit_object.grid_pos == cell.grid_pos or unit_object.grid_pos == cell.connected_cells_pos[0]
+	return unit_object.grid_pos == cell.grid_pos or unit_object.grid_pos == cell.comp_wall.get_connected_cell_pos()
 
 
 func is_door_opened(cell: CellObject) -> bool:
@@ -392,7 +391,7 @@ func is_door_opened(cell: CellObject) -> bool:
 		return false
 
 	var first_cell_id := get_cell_id_by_grid_pos(cell.grid_pos)
-	var second_cell_id := get_cell_id_by_grid_pos(cell.connected_cells_pos[0])
+	var second_cell_id := get_cell_id_by_grid_pos(cell.comp_wall.get_connected_cell_pos())
 
 	return astar.are_points_connected(first_cell_id, second_cell_id)
 
@@ -403,9 +402,8 @@ func open_door(cell: CellObject, open: bool, update_fog: bool = false):
 		return
 
 	_enable_connection(cell, open, true)
-	var wall_layer: int = 5
-	cell.area2d.set_collision_layer_value(wall_layer, not open)
-	cell.opened = open
+	cell.comp_visual.opened = open
+	cell.comp_wall.enable_wall_collision(not open)
 
 	if update_fog:
 		fog_of_war.update_fog_for_all(true)
@@ -433,12 +431,8 @@ func _enable_point_by_pos(grid_pos: Vector2i, enable: bool, update_debug: bool =
 
 
 func _enable_connection(cell: CellObject, enable: bool, update_debug: bool = false):
-	if cell.connected_cells_pos.size() == 0:
-		printerr("cell not have connected cells {0}".format([cell.name]))
-		return
-
 	var first_cell_id := get_cell_id_by_grid_pos(cell.grid_pos)
-	var second_cell_id := get_cell_id_by_grid_pos(cell.connected_cells_pos[0])
+	var second_cell_id := get_cell_id_by_grid_pos(cell.comp_wall.get_connected_cell_pos())
 
 	if enable:
 		astar.connect_points(first_cell_id, second_cell_id)

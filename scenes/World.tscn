@@ -48,7 +48,6 @@ walk_field_size = Vector2i(30, 30)
 
 [node name="CellHovered" parent="UnitsManager/Pathfinding" instance=ExtResource("18_yo8ds")]
 position = Vector2(2.08165e-12, 2.08165e-12)
-is_walkable = false
 
 [node name="FogOfWar" type="Node2D" parent="UnitsManager/Pathfinding"]
 script = ExtResource("22_hxmls")

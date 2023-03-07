@@ -53,11 +53,11 @@ func init(pathfind):
 	dict_is_enemy_team_and_pos[true] = []
 
 	for cell_object in pathfinding.dict_pos_and_cell_wall.values():
-		if cell_object.wall_type != CellObject.WallType.NONE:
+		if cell_object.comp_wall.wall_type != CellCompWall.WallType.NONE:
 			walls[cell_object.grid_pos] = cell_object
 
 	for cell_object in pathfinding.dict_pos_and_cell_door.values():
-		if cell_object.wall_type != CellObject.WallType.NONE:
+		if cell_object.comp_wall.wall_type != CellCompWall.WallType.NONE:
 			walls[cell_object.grid_pos] = cell_object
 
 	for unit in GlobalUnits.units.values():
@@ -171,10 +171,10 @@ func update_visibility_on_cells(grid_poses: Array[Vector2i], visibility: CellVis
 
 func _update_walls():
 	for cell_object in walls.values():
-		if cell_object.wall_type == CellObject.WallType.BOT or cell_object.wall_type == CellObject.WallType.TOP:
+		if cell_object.comp_wall.wall_type == CellCompWall.WallType.BOT or cell_object.comp_wall.wall_type == CellCompWall.WallType.TOP:
 			_update_top_down_wall(cell_object)
 
-		if cell_object.wall_type == CellObject.WallType.LEFT or cell_object.wall_type == CellObject.WallType.RIGHT:
+		if cell_object.comp_wall.wall_type == CellCompWall.WallType.LEFT or cell_object.comp_wall.wall_type == CellCompWall.WallType.RIGHT:
 			_update_side_wall(cell_object)
 
 
@@ -183,41 +183,41 @@ func _update_top_down_wall(wall: CellObject):
 	if dict_pos_and_cell.has(front_pos):
 		var cell_fog_front = dict_pos_and_cell[front_pos]
 		if cell_fog_front.visibility == CellVisibility.VISIBLE:
-			wall.is_cell_visible = true
+			wall.comp_visual.visible = true
 			dict_pos_and_cell[wall.grid_pos].update_visibility(CellVisibility.VISIBLE)
 		if cell_fog_front.visibility == CellVisibility.NOTHING:
-			wall.is_cell_visible = false
+			wall.comp_visual.visible = false
 
 
 func _update_side_wall(left_wall: CellObject):
-	var wall_type_side = left_wall.wall_type
-	var side_pos = left_wall.grid_pos + Vector2i(1, 0) if wall_type_side == CellObject.WallType.LEFT else left_wall.grid_pos + Vector2i(-1, 0)
+	var wall_type_side = left_wall.comp_wall.wall_type
+	var side_pos = left_wall.grid_pos + Vector2i(1, 0) if wall_type_side == CellCompWall.WallType.LEFT else left_wall.grid_pos + Vector2i(-1, 0)
 	if not dict_pos_and_cell.has(side_pos):
-		left_wall.is_cell_visible = true
+		left_wall.comp_visual.visible = true
 		return
 
 	var bot_pos = left_wall.grid_pos + Vector2i(0, 1)
 	if not walls.has(bot_pos):
-		left_wall.is_cell_visible = true
+		left_wall.comp_visual.visible = true
 		return
 
 	var bot_wall = walls[bot_pos]
-	if bot_wall.wall_type != wall_type_side:
-		left_wall.is_cell_visible = true
+	if bot_wall.comp_wall.wall_type != wall_type_side:
+		left_wall.comp_visual.visible = true
 		return
 
 	var top_pos = left_wall.grid_pos + Vector2i(0, -1)
 	if walls.has(top_pos):
 		var top_wall = walls[top_pos]
-		if top_wall.wall_type == wall_type_side:
-			left_wall.is_cell_visible = true
+		if top_wall.comp_wall.wall_type == wall_type_side:
+			left_wall.comp_visual.visible = true
 			return
 
 	var cell_fog_right = dict_pos_and_cell[side_pos]
 	if cell_fog_right.visibility == CellVisibility.NOTHING:
-		left_wall.is_cell_visible = false
+		left_wall.comp_visual.visible = false
 	if cell_fog_right.visibility == CellVisibility.VISIBLE:
-		left_wall.is_cell_visible = true
+		left_wall.comp_visual.visible = true
 
 
 func update_visibility_on_cell(grid_pos: Vector2i, visibility: CellVisibility):

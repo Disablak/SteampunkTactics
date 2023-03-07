@@ -5,11 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://dr4u7p4syxy7j" path="res://content/sprites/gothic/door_hori.tres" id="2_y6qxb"]
 
 [node name="CellDoorlHorizontal" instance=ExtResource("1_ftijc")]
-cell_type = 5
+
+[node name="CompVisual" parent="." index="1"]
+texture = ExtResource("2_y6qxb")
 opened_texture = ExtResource("2_tsbao")
 
-[node name="VisualObject" parent="." index="1"]
-texture = ExtResource("2_y6qxb")
+[node name="CompWall" parent="." index="2"]
+door = true
 
-[node name="Area2D" parent="." index="2"]
-collision_layer = 1
+[editable path="CompWall"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://blsm6l8yvu2vf"]
+
+[ext_resource type="Script" path="res://scripts/cells/components/CellCompWall.gd" id="1_7r7oh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1opo7"]
+size = Vector2(16, 2)
+
+[node name="CompWall" type="Area2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_7r7oh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, -1)
+shape = SubResource("RectangleShape2D_1opo7")

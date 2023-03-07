@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://wskuj41i0vmj"]
+
+[ext_resource type="Script" path="res://scripts/cells/components/CellCompInteractable.gd" id="1_aoq3j"]
+
+[node name="CompInteractable" type="Node2D"]
+script = ExtResource("1_aoq3j")

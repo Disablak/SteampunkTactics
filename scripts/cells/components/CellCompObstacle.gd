@@ -1,0 +1,3 @@
+class_name CellCompObstacle
+extends StaticBody2D
+

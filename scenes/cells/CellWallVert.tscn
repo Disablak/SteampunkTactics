@@ -3,18 +3,20 @@
 [ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/CellWallHori.tscn" id="1_r4egv"]
 [ext_resource type="Texture2D" uid="uid://vnc0yu22e66" path="res://content/sprites/gothic/wall_vert_0.tres" id="2_e5lf4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fv1d0"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dui0i"]
 size = Vector2(3, 16)
 
 [node name="CellWallVertical" instance=ExtResource("1_r4egv")]
 
-[node name="CellAdd" parent="." index="0"]
-position = Vector2(-16, 2.08165e-12)
-
-[node name="VisualObject" parent="." index="1"]
-position = Vector2(-3, 16)
+[node name="CompVisual" parent="." index="1"]
+position = Vector2(2.08165e-12, 16)
 texture = ExtResource("2_e5lf4")
 
-[node name="CollisionShape2D" parent="Area2D" index="0"]
-position = Vector2(-1.5, 8)
-shape = SubResource("RectangleShape2D_fv1d0")
+[node name="CompWall" parent="." index="2"]
+wall_type = 1
+
+[node name="CollisionShape2D" parent="CompWall" index="0"]
+position = Vector2(1.5, 8)
+shape = SubResource("RectangleShape2D_dui0i")
+
+[editable path="CompWall"]

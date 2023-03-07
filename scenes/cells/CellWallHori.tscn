@@ -1,32 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://irpwfh27iodw"]
+[gd_scene load_steps=4 format=3 uid="uid://irpwfh27iodw"]
 
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="1_djgji"]
-[ext_resource type="Texture2D" uid="uid://d3jo4mmqrcj3t" path="res://content/sprites/gothic/wall_hori_0.tres" id="2_8pnp6"]
-[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_l8etj"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1opo7"]
-size = Vector2(16, 2)
+[ext_resource type="PackedScene" uid="uid://crcpgha22kdrb" path="res://scenes/cells/components/CellCompVisual.tscn" id="2_ua3lm"]
+[ext_resource type="PackedScene" uid="uid://blsm6l8yvu2vf" path="res://scenes/cells/components/CellCompWall.tscn" id="4_uxram"]
 
 [node name="CellWallHorizontal" instance=ExtResource("1_djgji")]
 texture_filter = 1
 texture = null
-cell_type = 2
-show_visual_if_front_visible = true
 
-[node name="CellAdd" parent="." index="0" instance=ExtResource("1_djgji")]
-position = Vector2(2.08165e-12, 16)
-texture = null
-cell_type = 0
+[node name="CompVisual" parent="." index="1" instance=ExtResource("2_ua3lm")]
+position = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="VisualObject" parent="." index="1" instance=ExtResource("2_l8etj")]
-position = Vector2(2.08165e-12, 16)
-texture = ExtResource("2_8pnp6")
-offset = Vector2(2.08165e-12, -32)
+[node name="CompWall" parent="." index="2" instance=ExtResource("4_uxram")]
+wall_type = 4
 
-[node name="Area2D" type="Area2D" parent="." index="2"]
-collision_layer = 16
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
-position = Vector2(8, 15)
-shape = SubResource("RectangleShape2D_1opo7")
+[editable path="CompWall"]

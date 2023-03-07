@@ -323,7 +323,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 			clear_all_lines(true)
 		return
 
-	var is_clicked_on_ground = cell_info.cell_obj.is_walkable
+	var is_clicked_on_ground = cell_info.cell_obj.comp_walkable
 
 	if is_clicked_on_ground:
 		shooting.deselect_enemy()
@@ -360,7 +360,7 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		GlobalsUi.gui.show_tooltip(true, "Door", pos)
 		TurnManager.show_hint_spend_points(Globals.TP_TO_OPEN_DOOR)
 
-	var is_hovered_on_ground = cell_info.cell_obj.is_walkable
+	var is_hovered_on_ground = cell_info.cell_obj.comp_walkable
 	if not is_hovered_on_ground:
 		clear_all_lines()
 		return

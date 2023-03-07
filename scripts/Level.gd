@@ -44,7 +44,11 @@ func _update_ordering():
 
 	var i = 1
 	for obj in all_sorted_objects:
-		obj.visual_ordering = i
+		if obj is UnitObject:
+			obj.visual_ordering = i
+		else:
+			obj.comp_visual.visual_ordering = i
+
 		i += 1
 
 
@@ -57,7 +61,7 @@ func _sort_ascending(a, b):
 
 func _update_transparency():
 	for prev in prev_transparent_objs:
-		prev.make_transparent(false)
+		prev.comp_visual.make_transparent(false)
 
 	prev_transparent_objs.clear()
 
@@ -69,7 +73,7 @@ func _update_transparency():
 
 			if _can_hide(unit.unit_object.origin_pos, obj.origin_pos):
 				prev_transparent_objs.append(obj)
-				obj.make_transparent(true)
+				obj.comp_visual.make_transparent(true)
 
 	for obj in all_sorted_objects:
 		if obj is UnitObject:
@@ -77,7 +81,7 @@ func _update_transparency():
 
 		if _can_hide(cur_pointer_cell_pos, obj.origin_pos):
 			prev_transparent_objs.append(obj)
-			obj.make_transparent(true)
+			obj.comp_visual.make_transparent(true)
 
 
 func _can_hide(unit_pos: Vector2, obj_pos: Vector2) -> bool:

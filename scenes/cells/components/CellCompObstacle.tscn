@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwm8ykbcn4ftn"]
+
+[ext_resource type="Script" path="res://scripts/cells/components/CellCompObstacle.gd" id="1_fs1cn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_43elr"]
+radius = 5.0
+
+[node name="CompObstacle" type="StaticBody2D"]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_fs1cn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("CircleShape2D_43elr")

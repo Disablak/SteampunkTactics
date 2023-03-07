@@ -1,37 +1,28 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddpb4xv6nbkkc"]
+[gd_scene load_steps=6 format=3 uid="uid://ddpb4xv6nbkkc"]
 
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="1_dbqs1"]
-[ext_resource type="Texture2D" uid="uid://cg1lvcqcw1ewn" path="res://content/sprites/gothic/ground.png" id="2_6mvgr"]
-[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_yoe34"]
-[ext_resource type="Script" path="res://scripts/cells/CellObject.gd" id="3_jp4ru"]
+[ext_resource type="PackedScene" uid="uid://blsm6l8yvu2vf" path="res://scenes/cells/components/CellCompWall.tscn" id="2_4odjx"]
+[ext_resource type="PackedScene" uid="uid://crcpgha22kdrb" path="res://scenes/cells/components/CellCompVisual.tscn" id="3_sc5np"]
 [ext_resource type="Texture2D" uid="uid://dap6sghuh36j0" path="res://content/sprites/gothic/vertical_cover_0.tres" id="4_b7uwc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ukahi"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3nqq"]
 size = Vector2(3, 16)
 
 [node name="Cover" instance=ExtResource("1_dbqs1")]
 self_modulate = Color(1, 1, 1, 0.392157)
-cell_type = 3
-health = 1
-shoot_debaf = 0.15
-origin_offset = 16
 
-[node name="VisualObject" parent="." index="0" instance=ExtResource("2_yoe34")]
-position = Vector2(16, -16)
+[node name="CompWall" parent="." index="1" instance=ExtResource("2_4odjx")]
+collision_layer = 32
+wall_type = 1
+cover = true
+health = 50
+shoot_debaf = 0.2
+
+[node name="CollisionShape2D" parent="CompWall" index="0"]
+position = Vector2(1.5, 8)
+shape = SubResource("RectangleShape2D_m3nqq")
+
+[node name="CompVisual" parent="." index="2" instance=ExtResource("3_sc5np")]
 texture = ExtResource("4_b7uwc")
 
-[node name="Sprite2DCell" type="Sprite2D" parent="." index="1"]
-self_modulate = Color(1, 1, 1, 0.392157)
-position = Vector2(16, 2.08165e-12)
-texture = ExtResource("2_6mvgr")
-centered = false
-script = ExtResource("3_jp4ru")
-cell_type = 3
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." index="2"]
-collision_layer = 32
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
-position = Vector2(17.5, 8)
-shape = SubResource("RectangleShape2D_ukahi")
+[editable path="CompWall"]
