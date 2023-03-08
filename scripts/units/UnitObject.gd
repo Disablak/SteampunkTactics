@@ -98,6 +98,10 @@ func play_look_around():
 	tween.tween_property(view_direction, "rotation_degrees", 360, 1.0)
 
 
+func rotate_unit_visual(left):
+	main_sprite.flip_h = left
+
+
 func _on_unit_changed_health(unit_id):
 	if self.unit_id != unit_id:
 		return
@@ -118,6 +122,7 @@ func _on_unit_changed_view_direction(unit_id, angle, update_fog):
 		return
 
 	view_direction.rotation_degrees = angle
+	rotate_unit_visual(angle > 90 and angle < 270)
 
 	if angle == 1000: # TODO fix this!
 		play_look_around()

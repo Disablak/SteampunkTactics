@@ -1,14 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://2ikcthg31xdg"]
+[gd_scene load_steps=5 format=3 uid="uid://2ikcthg31xdg"]
 
 [ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_a7ikt"]
-[ext_resource type="Texture2D" uid="uid://dq6qe7gwy8262" path="res://content/sprites/test person.png" id="2_4vok8"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_kmtyi"]
 [ext_resource type="Texture2D" uid="uid://cwvtjwrec6b0g" path="res://content/sprites/gothic/player.tres" id="2_t4swe"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="4_bpjp7"]
 
 [node name="UnitObject" type="Node2D"]
 script = ExtResource("1_a7ikt")
-test = ExtResource("2_4vok8")
 
 [node name="VisualObject" parent="." instance=ExtResource("2_kmtyi")]
 texture = ExtResource("2_t4swe")

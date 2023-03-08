@@ -239,7 +239,7 @@ func try_rotate_to_cover(point: Vector2i):
 	if cell.cell_type != CellObject.CellType.COVER:
 		printerr("not cover!")
 
-	var angle: int = cell.get_cover_angle(cur_unit_pos)
+	var angle: int = cell.comp_wall.get_cover_angle(cur_unit_pos)
 	_cur_unit.unit_data.update_view_direction(angle, true)
 
 
