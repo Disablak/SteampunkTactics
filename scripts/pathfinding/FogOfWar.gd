@@ -179,12 +179,11 @@ func _update_walls():
 
 
 func _update_top_down_wall(wall: CellObject):
-	var front_pos = wall.grid_pos + Vector2i(0, 1)
-	if dict_pos_and_cell.has(front_pos):
-		var cell_fog_front = dict_pos_and_cell[front_pos]
+	if dict_pos_and_cell.has(wall.grid_pos):
+		var cell_fog_front = dict_pos_and_cell[wall.grid_pos]
 		if cell_fog_front.visibility == CellVisibility.VISIBLE:
 			wall.comp_visual.visible = true
-			dict_pos_and_cell[wall.grid_pos].update_visibility(CellVisibility.VISIBLE)
+			dict_pos_and_cell[wall.grid_pos + Vector2i(0, -1)].update_visibility(CellVisibility.VISIBLE)
 		if cell_fog_front.visibility == CellVisibility.NOTHING:
 			wall.comp_visual.visible = false
 

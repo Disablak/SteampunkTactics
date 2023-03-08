@@ -19,10 +19,10 @@ var cell_type: CellType:
 			return CellType.DOOR
 		if comp_wall:
 			return CellType.WALL
-		if comp_walkable:
-			return CellType.GROUND
 		if comp_obstacle:
 			return CellType.OBSTACLE
+		if comp_walkable:
+			return CellType.GROUND
 
 		return CellType.NONE
 

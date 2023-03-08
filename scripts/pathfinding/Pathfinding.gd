@@ -152,7 +152,7 @@ func _add_obstacles():
 			open_door(cell_obj, cell_obj.comp_visual.opened)
 
 		if cell_obj.comp_interactable:
-			cell_obj.on_hover_obj.connect(_on_hover_obj)
+			cell_obj.comp_interactable.on_hover_obj.connect(_on_hover_obj)
 
 
 func _on_cell_broke(cell: CellObject):

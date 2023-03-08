@@ -103,7 +103,7 @@ func _detect_obstacles(cur_unit: Unit, enemy: Unit):
 
 func _show_hit_chance(cur_unit: Unit, enemy_unit: Unit):
 	var hit_chance: float = _get_hit_chance(cur_unit)
-	var cover_debaff: float = cover.shoot_debaf if cover else 0.0
+	var cover_debaff: float = cover.comp_wall.shoot_debaf if cover else 0.0
 	var obs_debaff: float = obstacles_sum_debaff
 	var miss: float = (1.0 - hit_chance) - (cover_debaff + obs_debaff)
 
@@ -179,7 +179,7 @@ func reload(unit_data: UnitData):
 
 func _get_shoot_result(shooter: Unit):
 	var chance_to_hit: float = _get_hit_chance(shooter)
-	var cover_debaff: float = cover.shoot_debaf if cover else 0.0
+	var cover_debaff: float = cover.comp_wall.shoot_debaf if cover else 0.0
 	var obs_debaff: float = obstacles_sum_debaff
 
 	var rand_hit = randf()
@@ -202,7 +202,7 @@ func _get_shoot_result(shooter: Unit):
 
 func _get_hit_chance(shooter: Unit) -> float:
 	var weapon_accuracy: float = _get_weapon_accuracy(shooter)
-	var cover_debaff: float = cover.shoot_debaf if cover else 0.0
+	var cover_debaff: float = cover.comp_wall.shoot_debaf if cover else 0.0
 	var chance: float = clamp(weapon_accuracy - (cover_debaff + obstacles_sum_debaff), 0.0, 1.0)
 
 	print("weapon_accuracy {0}, cover debaff {1}, obs debaff {2}, result {3}".format([Globals.format_hit_chance(weapon_accuracy), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(obstacles_sum_debaff), Globals.format_hit_chance(chance)]))

@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://wskuj41i0vmj"]
+[gd_scene load_steps=3 format=3 uid="uid://wskuj41i0vmj"]
 
 [ext_resource type="Script" path="res://scripts/cells/components/CellCompInteractable.gd" id="1_aoq3j"]
 
-[node name="CompInteractable" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kb3gh"]
+size = Vector2(16, 8)
+
+[node name="CompInteractable" type="StaticBody2D"]
+input_pickable = true
 script = ExtResource("1_aoq3j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kb3gh")

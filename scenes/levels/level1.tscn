@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bo1gq224nifd8"]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="1_jsjw4"]
 [ext_resource type="PackedScene" path="res://scenes/visual/TiledSprite.tscn" id="2_kl4v8"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://2ikcthg31xdg" path="res://scenes/2d/UnitObject.tscn" id="5_cf07x"]
 [ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/CellWallHori.tscn" id="5_nu7lk"]
 [ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/unit0.tres" id="6_86x5o"]
-[ext_resource type="PackedScene" uid="uid://btsgjp8qovvak" path="res://scenes/cells/CellWallVert.tscn" id="6_k0ph6"]
+[ext_resource type="PackedScene" uid="uid://btsgjp8qovvak" path="res://scenes/cells/CellWallRight.tscn" id="6_k0ph6"]
 [ext_resource type="PackedScene" uid="uid://dq43l8v8fckh0" path="res://scenes/cells/CellDoorHori.tscn" id="7_26gau"]
 [ext_resource type="Resource" uid="uid://brmbpg4yn8lll" path="res://data/settings/unit/unit1.tres" id="7_b6osk"]
 [ext_resource type="Script" path="res://scripts/settings/AiSettings.gd" id="8_7hls0"]

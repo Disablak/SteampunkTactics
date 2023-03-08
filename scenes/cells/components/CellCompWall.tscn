@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1opo7"]
 size = Vector2(16, 2)
 
-[node name="CompWall" type="Area2D"]
+[node name="CompWall" type="StaticBody2D"]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_7r7oh")

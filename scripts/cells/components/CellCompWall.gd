@@ -1,5 +1,5 @@
 class_name CellCompWall
-extends Area2D
+extends StaticBody2D
 
 
 const WALL_LAYER: int = 5
@@ -32,7 +32,9 @@ func set_damage(damage: int = 1):
 
 
 func get_connected_cell_pos() -> Vector2i:
-	if wall_type == WallType.LEFT or wall_type == WallType.RIGHT:
+	if wall_type == WallType.LEFT:
+		return get_parent().grid_pos + Vector2i(1, 0)
+	elif wall_type == WallType.RIGHT:
 		return get_parent().grid_pos + Vector2i(-1, 0)
 	elif wall_type == WallType.TOP or wall_type == WallType.BOT:
 		return get_parent().grid_pos + Vector2i(0, -1)

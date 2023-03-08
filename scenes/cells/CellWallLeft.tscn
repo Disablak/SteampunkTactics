@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://psirlkb1a07b"]
+
+[ext_resource type="PackedScene" uid="uid://btsgjp8qovvak" path="res://scenes/cells/CellWallRight.tscn" id="1_tnb21"]
+
+[node name="CellWallVerticalLeft" instance=ExtResource("1_tnb21")]
+
+[node name="CompVisual" parent="." index="1"]
+position = Vector2(14, 16)
+
+[node name="CompWall" parent="." index="2"]
+wall_type = 1
+
+[node name="CollisionShape2D" parent="CompWall" index="0"]
+position = Vector2(15.5, 8)
+
+[editable path="CompWall"]
