@@ -14,10 +14,10 @@ func _ready() -> void:
 
 
 func init(level_id: int):
-	var new_level = level_scenes[level_id].instantiate()
+	var new_level = level_scenes[level_id].instantiate() as Level
 	units_manager.pathfinding.add_child(new_level)
 	units_manager.pathfinding.move_child(new_level, 0)
 
 	units_manager.init()
-	input_system.init()
+	input_system.init(new_level.map_size)
 

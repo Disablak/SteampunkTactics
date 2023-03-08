@@ -32,7 +32,7 @@ func clear_path():
 
 
 func draw_ray(points):
-	draw_scrolling_new_line(RAY_LINE_NAME, _points_with_offset(points), Color.DARK_RED)
+	draw_scrolling_new_line(RAY_LINE_NAME, points, Color.DARK_RED)
 
 
 func clear_ray():
@@ -131,5 +131,5 @@ func _points_with_offset(points) -> Array[Vector2]:
 	for point in points:
 		point += Globals.CELL_OFFSET
 		result.append(point)
-	
+
 	return result

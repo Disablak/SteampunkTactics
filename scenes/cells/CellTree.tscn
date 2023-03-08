@@ -1,14 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dk08unerfwfpc"]
+[gd_scene load_steps=6 format=3 uid="uid://dk08unerfwfpc"]
 
 [ext_resource type="PackedScene" uid="uid://crcpgha22kdrb" path="res://scenes/cells/components/CellCompVisual.tscn" id="2_86x6j"]
 [ext_resource type="Script" path="res://scripts/cells/CellObject.gd" id="2_705jx"]
 [ext_resource type="Texture2D" uid="uid://bmq1pqw7gpyu6" path="res://content/sprites/gothic/tree_0.tres" id="2_lx12j"]
+[ext_resource type="PackedScene" uid="uid://ni28vw8lfi3a" path="res://scenes/cells/components/CellCompHealth.tscn" id="5_3a811"]
 [ext_resource type="PackedScene" uid="uid://bwm8ykbcn4ftn" path="res://scenes/cells/components/CellCompObstacle.tscn" id="5_qqjd4"]
 
-[node name="CellTree" type="Node2D"]
+[node name="CellObstacle" type="Node2D"]
 script = ExtResource("2_705jx")
 
 [node name="CompVisual" parent="." instance=ExtResource("2_86x6j")]
 texture = ExtResource("2_lx12j")
 
 [node name="CompObstacle" parent="." instance=ExtResource("5_qqjd4")]
+shoot_debaf = 0.2
+
+[node name="CompHealth" parent="." node_paths=PackedStringArray("collision_to_disable_on_broke") instance=ExtResource("5_3a811")]
+collision_to_disable_on_broke = NodePath("../CompObstacle/CollisionShape2D")
+
+[editable path="CompObstacle"]

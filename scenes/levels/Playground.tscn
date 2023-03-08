@@ -1,18 +1,29 @@
-[gd_scene load_steps=15 format=3 uid="uid://c0pyifkwmrhb4"]
+[gd_scene load_steps=26 format=3 uid="uid://c0pyifkwmrhb4"]
 
 [ext_resource type="PackedScene" uid="uid://dxtwt22vjkgto" path="res://scenes/levels/BaseLevel.tscn" id="1_i4jgl"]
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="2_ftjox"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="3_eq4nf"]
+[ext_resource type="Texture2D" uid="uid://c7376pnl20umr" path="res://content/sprites/gothic/decor_0.tres" id="4_2b0yx"]
+[ext_resource type="Texture2D" uid="uid://bi30u8d3818t1" path="res://content/sprites/gothic/decor_1.tres" id="5_avaau"]
+[ext_resource type="Texture2D" uid="uid://dtdwf0iace6hi" path="res://content/sprites/gothic/decor_3.tres" id="6_remxb"]
 [ext_resource type="PackedScene" uid="uid://btsgjp8qovvak" path="res://scenes/cells/CellWallRight.tscn" id="6_xsflr"]
 [ext_resource type="PackedScene" uid="uid://irpwfh27iodw" path="res://scenes/cells/CellWallHori.tscn" id="7_dg7v7"]
+[ext_resource type="Texture2D" uid="uid://d1h6btgxf8cjh" path="res://content/sprites/gothic/decor_2.tres" id="7_pylvn"]
 [ext_resource type="PackedScene" uid="uid://dq43l8v8fckh0" path="res://scenes/cells/CellDoorHori.tscn" id="7_tp5gl"]
+[ext_resource type="Texture2D" uid="uid://cyno50wey6yt6" path="res://content/sprites/gothic/decor_5.tres" id="8_0vnw3"]
 [ext_resource type="PackedScene" uid="uid://ddpb4xv6nbkkc" path="res://scenes/cells/CellCover.tscn" id="8_7yt4i"]
 [ext_resource type="PackedScene" uid="uid://psirlkb1a07b" path="res://scenes/cells/CellWallLeft.tscn" id="8_uplod"]
+[ext_resource type="Texture2D" uid="uid://vpciq22vsff0" path="res://content/sprites/gothic/decor_4.tres" id="9_kb5wq"]
 [ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellTree.tscn" id="9_n2dhw"]
 [ext_resource type="PackedScene" uid="uid://2ikcthg31xdg" path="res://scenes/2d/UnitObject.tscn" id="10_ddu4q"]
 [ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/unit0.tres" id="11_cetlj"]
+[ext_resource type="Texture2D" uid="uid://cmnbxju4ntj5e" path="res://content/sprites/gothic/obstacle_0.tres" id="12_dk7yc"]
 [ext_resource type="Resource" uid="uid://brmbpg4yn8lll" path="res://data/settings/unit/unit1.tres" id="12_u34wp"]
 [ext_resource type="Texture2D" uid="uid://b1h0pwlirgbvt" path="res://content/sprites/gothic/enemy0.tres" id="12_y7pv2"]
+[ext_resource type="Texture2D" uid="uid://cn3k2tgq5nq8r" path="res://content/sprites/gothic/obstacle_1.tres" id="13_jsdr6"]
 [ext_resource type="Script" path="res://scripts/settings/AiSettings.gd" id="13_k4k2u"]
+[ext_resource type="Texture2D" uid="uid://bfbi6hcg0i7i3" path="res://content/sprites/gothic/obstacle_2.tres" id="14_ww02r"]
+[ext_resource type="Texture2D" uid="uid://d02gr26nfft06" path="res://content/sprites/gothic/obstacle_3.tres" id="15_xhxav"]
 
 [sub_resource type="Resource" id="Resource_276rh"]
 script = ExtResource("13_k4k2u")
@@ -20,6 +31,7 @@ walking_zone_node_path = NodePath("")
 patrul_zones_paths = Array[NodePath]([])
 
 [node name="Playground" instance=ExtResource("1_i4jgl")]
+map_size = Vector2(32, 32)
 
 [node name="CellWalk" parent="RootWalkCells" index="0" instance=ExtResource("2_ftjox")]
 
@@ -3092,81 +3104,148 @@ position = Vector2(480, 496)
 [node name="CellWalk1024" parent="RootWalkCells" index="1023" instance=ExtResource("2_ftjox")]
 position = Vector2(496, 496)
 
+[node name="VisualObject1" parent="RootVisual" index="0" instance=ExtResource("3_eq4nf")]
+position = Vector2(160, 288)
+texture = ExtResource("4_2b0yx")
+
+[node name="VisualObject2" parent="RootVisual" index="1" instance=ExtResource("3_eq4nf")]
+position = Vector2(256, 352)
+texture = ExtResource("5_avaau")
+
+[node name="VisualObject3" parent="RootVisual" index="2" instance=ExtResource("3_eq4nf")]
+position = Vector2(224, 336)
+texture = ExtResource("6_remxb")
+
+[node name="VisualObject4" parent="RootVisual" index="3" instance=ExtResource("3_eq4nf")]
+position = Vector2(304, 288)
+texture = ExtResource("7_pylvn")
+
+[node name="VisualObject5" parent="RootVisual" index="4" instance=ExtResource("3_eq4nf")]
+position = Vector2(256, 336)
+texture = ExtResource("8_0vnw3")
+
+[node name="VisualObject6" parent="RootVisual" index="5" instance=ExtResource("3_eq4nf")]
+position = Vector2(176, 288)
+texture = ExtResource("9_kb5wq")
+
 [node name="RootObsCells" parent="." index="3"]
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="Cover" parent="RootObsCells" index="0" instance=ExtResource("8_7yt4i")]
-position = Vector2(288, 80)
+position = Vector2(288, 336)
 
 [node name="Cover2" parent="RootObsCells" index="1" instance=ExtResource("8_7yt4i")]
-position = Vector2(288, 96)
+position = Vector2(368, 336)
 
-[node name="CellTree" parent="RootObsCells" index="2" instance=ExtResource("9_n2dhw")]
-position = Vector2(160, 96)
+[node name="CellObstacle" parent="RootObsCells" index="2" instance=ExtResource("9_n2dhw")]
+position = Vector2(240, 336)
 
-[node name="CellWallHorizontal8" parent="RootObsCells" index="3" instance=ExtResource("7_dg7v7")]
-position = Vector2(192, 144)
+[node name="CellObstacle2" parent="RootObsCells" index="3" instance=ExtResource("9_n2dhw")]
+position = Vector2(176, 352)
 
-[node name="CellWallHorizontal9" parent="RootObsCells" index="4" instance=ExtResource("7_dg7v7")]
-position = Vector2(208, 144)
+[node name="CompVisual" parent="RootObsCells/CellObstacle2" index="0"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("12_dk7yc")
+offset = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="CellWallHorizontal7" parent="RootObsCells" index="5" instance=ExtResource("7_dg7v7")]
-position = Vector2(224, 144)
+[node name="CellObstacle3" parent="RootObsCells" index="4" instance=ExtResource("9_n2dhw")]
+position = Vector2(160, 368)
 
-[node name="CellWallHorizontal5" parent="RootObsCells" index="6" instance=ExtResource("7_dg7v7")]
-position = Vector2(240, 144)
+[node name="CompVisual" parent="RootObsCells/CellObstacle3" index="0"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("13_jsdr6")
+offset = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="CellWallHorizontal6" parent="RootObsCells" index="7" instance=ExtResource("7_dg7v7")]
-position = Vector2(256, 144)
+[node name="CellObstacle4" parent="RootObsCells" index="5" instance=ExtResource("9_n2dhw")]
+position = Vector2(208, 272)
 
-[node name="CellWallVertical3" parent="RootObsCells" index="8" instance=ExtResource("6_xsflr")]
-position = Vector2(272, 144)
+[node name="CompVisual" parent="RootObsCells/CellObstacle4" index="0"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("14_ww02r")
+offset = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="CellWallVertical2" parent="RootObsCells" index="9" instance=ExtResource("6_xsflr")]
-position = Vector2(272, 160)
+[node name="CellObstacle5" parent="RootObsCells" index="6" instance=ExtResource("9_n2dhw")]
+position = Vector2(192, 256)
 
-[node name="CellWallVertical" parent="RootObsCells" index="10" instance=ExtResource("6_xsflr")]
-position = Vector2(272, 176)
+[node name="CompVisual" parent="RootObsCells/CellObstacle5" index="0"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("15_xhxav")
+offset = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="CellWallHorizontal2" parent="RootObsCells" index="11" instance=ExtResource("7_dg7v7")]
-position = Vector2(240, 192)
+[node name="CellWallHorizontal8" parent="RootObsCells" index="7" instance=ExtResource("7_dg7v7")]
+position = Vector2(224, 240)
 
-[node name="CellWallHorizontal3" parent="RootObsCells" index="12" instance=ExtResource("7_dg7v7")]
-position = Vector2(256, 192)
+[node name="CellWallHorizontal9" parent="RootObsCells" index="8" instance=ExtResource("7_dg7v7")]
+position = Vector2(240, 240)
 
-[node name="CellWallHorizontal" parent="RootObsCells" index="13" instance=ExtResource("7_dg7v7")]
-position = Vector2(224, 192)
+[node name="CellWallHorizontal7" parent="RootObsCells" index="9" instance=ExtResource("7_dg7v7")]
+position = Vector2(256, 240)
 
-[node name="CellWallHorizontal4" parent="RootObsCells" index="14" instance=ExtResource("7_dg7v7")]
-position = Vector2(192, 192)
+[node name="CellWallHorizontal5" parent="RootObsCells" index="10" instance=ExtResource("7_dg7v7")]
+position = Vector2(272, 240)
 
-[node name="CellDoorlHorizontal" parent="RootObsCells" index="15" instance=ExtResource("7_tp5gl")]
-position = Vector2(208, 192)
+[node name="CellWallHorizontal6" parent="RootObsCells" index="11" instance=ExtResource("7_dg7v7")]
+position = Vector2(288, 240)
 
-[node name="CellWallVerticalLeft" parent="RootObsCells" index="16" instance=ExtResource("8_uplod")]
-position = Vector2(176, 144)
+[node name="CellWallVertical3" parent="RootObsCells" index="12" instance=ExtResource("6_xsflr")]
+position = Vector2(304, 240)
 
-[node name="CellWallVerticalLeft2" parent="RootObsCells" index="17" instance=ExtResource("8_uplod")]
-position = Vector2(176, 160)
+[node name="CellWallVertical2" parent="RootObsCells" index="13" instance=ExtResource("6_xsflr")]
+position = Vector2(304, 256)
 
-[node name="CellWallVerticalLeft3" parent="RootObsCells" index="18" instance=ExtResource("8_uplod")]
-position = Vector2(176, 176)
+[node name="CellWallVertical" parent="RootObsCells" index="14" instance=ExtResource("6_xsflr")]
+position = Vector2(304, 272)
+
+[node name="CellWallHorizontal2" parent="RootObsCells" index="15" instance=ExtResource("7_dg7v7")]
+position = Vector2(272, 288)
+
+[node name="CellWallHorizontal3" parent="RootObsCells" index="16" instance=ExtResource("7_dg7v7")]
+position = Vector2(288, 288)
+
+[node name="CellWallHorizontal" parent="RootObsCells" index="17" instance=ExtResource("7_dg7v7")]
+position = Vector2(256, 288)
+
+[node name="CellWallHorizontal4" parent="RootObsCells" index="18" instance=ExtResource("7_dg7v7")]
+position = Vector2(224, 288)
+
+[node name="CellDoorlHorizontal" parent="RootObsCells" index="19" instance=ExtResource("7_tp5gl")]
+position = Vector2(240, 288)
+
+[node name="CellWallVerticalLeft" parent="RootObsCells" index="20" instance=ExtResource("8_uplod")]
+position = Vector2(208, 240)
+
+[node name="CellWallVerticalLeft2" parent="RootObsCells" index="21" instance=ExtResource("8_uplod")]
+position = Vector2(208, 256)
+
+[node name="CellWallVerticalLeft3" parent="RootObsCells" index="22" instance=ExtResource("8_uplod")]
+position = Vector2(208, 272)
 
 [node name="RootUnits" parent="." index="4"]
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("10_ddu4q")]
-position = Vector2(128, 144)
+position = Vector2(224, 336)
 unit_settings = ExtResource("11_cetlj")
 
 [node name="UnitObject2" parent="RootUnits" index="1" instance=ExtResource("10_ddu4q")]
-position = Vector2(288, 80)
+position = Vector2(288, 336)
 unit_settings = ExtResource("12_u34wp")
 ai_settings = SubResource("Resource_276rh")
 
 [node name="VisualObject" parent="RootUnits/UnitObject2" index="0"]
 texture = ExtResource("12_y7pv2")
 
+[node name="ViewDirection" parent="RootUnits/UnitObject2/CenterPoint" index="0"]
+visible = true
+
+[editable path="RootObsCells/CellObstacle2"]
+[editable path="RootObsCells/CellObstacle2/CompObstacle"]
+[editable path="RootObsCells/CellObstacle3"]
+[editable path="RootObsCells/CellObstacle3/CompObstacle"]
+[editable path="RootObsCells/CellObstacle4"]
+[editable path="RootObsCells/CellObstacle4/CompObstacle"]
+[editable path="RootObsCells/CellObstacle5"]
+[editable path="RootObsCells/CellObstacle5/CompObstacle"]
 [editable path="RootUnits/UnitObject2"]

@@ -1,8 +1,10 @@
+class_name Level
 extends Node2D
 
 
 @onready var root_obstacles = $RootObsCells
 @onready var root_units = $RootUnits
+@export var map_size: Vector2
 
 
 var all_sorted_objects = []
@@ -41,22 +43,26 @@ func _update_visual():
 
 func _update_ordering():
 	all_sorted_objects.sort_custom(_sort_ascending)
+	GlobalMap.draw_debug.clear_points_ordering()
 
 	var i = 1
+	var prev_obj
 	for obj in all_sorted_objects:
-		if obj is UnitObject:
-			obj.visual_ordering = i
-		else:
-			obj.comp_visual.visual_ordering = i
+		var same_origin_pos = prev_obj and prev_obj.origin_pos.y == obj.origin_pos.y
+		obj.visual_ordering = prev_obj.visual_ordering if same_origin_pos else i
+		prev_obj = obj
 
-		i += 1
+		if not same_origin_pos:
+			i += 1
+
+		GlobalMap.draw_debug.draw_object_order_point(obj.origin_pos, obj.visual_ordering)
 
 
 func _sort_ascending(a, b):
 	if not a or not b:
 		return false
 
-	return a.origin_pos < b.origin_pos
+	return a.origin_pos.y < b.origin_pos.y
 
 
 func _update_transparency():
@@ -76,7 +82,7 @@ func _update_transparency():
 				obj.comp_visual.make_transparent(true)
 
 	for obj in all_sorted_objects:
-		if obj is UnitObject:
+		if obj and obj is UnitObject:
 				continue
 
 		if _can_hide(cur_pointer_cell_pos, obj.origin_pos):

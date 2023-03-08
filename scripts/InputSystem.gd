@@ -23,9 +23,9 @@ var was_mouse_btn_pressed: bool = false
 var time_pressed: int
 
 
-func init() -> void:
+func init(map_size) -> void:
 	GlobalsUi.input_system = self
-	camera_controller.init()
+	camera_controller.init(map_size)
 
 
 func _unhandled_input(event: InputEvent) -> void:

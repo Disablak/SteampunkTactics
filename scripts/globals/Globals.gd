@@ -32,6 +32,7 @@ const DEBUG_AI = true
 var DEBUG_HIDE_FOG := false
 var DEBUG_SHOW_ENEMY_ALWAYS := false
 var DEBUG_FOW_RAYCASTS := false
+var DEBUG_OBJECTS_ORDERING := false
 
 var main_atlas_image: Image
 
@@ -93,7 +94,7 @@ static func convert_grid_poses_to_cell_poses(points: Array[Vector2i]) -> Array[V
 static func get_cells_of_type(cells: Array, cell_type: CellObject.CellType) -> Array[CellObject]:
 	var result: Array[CellObject]
 	for cell in cells:
-		if cell is CellObject and cell.cell_type == cell_type and not cell.destroyed:
+		if cell is CellObject and cell.cell_type == cell_type:
 			result.append(cell)
 
 	return result

@@ -82,13 +82,13 @@ func _show_shoot_info(cur_unit: Unit, enemy: Unit):
 
 	TurnManager.show_hint_spend_points(cur_unit.unit_data.riffle.settings.use_price)
 
-	var positions = raycaster.make_ray_and_get_positions(cur_unit.unit_object.position, enemy.unit_object.position, true)
+	var positions = raycaster.make_ray_and_get_positions(cur_unit.unit_object.visual_pos, enemy.unit_object.visual_pos, true)
 	line2d_manager.draw_ray(positions)
 
 
 func _detect_obstacles(cur_unit: Unit, enemy: Unit):
-	var unit_pos := cur_unit.unit_object.position
-	var enemy_pos := enemy.unit_object.position
+	var unit_pos := cur_unit.unit_object.visual_pos
+	var enemy_pos := enemy.unit_object.visual_pos
 
 	var intersected_obs = raycaster.make_ray_get_obstacles(unit_pos, enemy_pos)
 	for obs in intersected_obs:
@@ -103,7 +103,7 @@ func _detect_obstacles(cur_unit: Unit, enemy: Unit):
 
 func _show_hit_chance(cur_unit: Unit, enemy_unit: Unit):
 	var hit_chance: float = _get_hit_chance(cur_unit)
-	var cover_debaff: float = cover.comp_wall.shoot_debaf if cover else 0.0
+	var cover_debaff: float = cover.comp_obstacle.shoot_debaf if (cover and cover.comp_obstacle) else 0.0
 	var obs_debaff: float = obstacles_sum_debaff
 	var miss: float = (1.0 - hit_chance) - (cover_debaff + obs_debaff)
 
@@ -133,7 +133,7 @@ func _shoot(shooter: Unit) -> bool:
 		GlobalsUi.message("Shoot same unit!")
 		return false
 
-	if not raycaster.make_ray_check_no_obstacle(shooter.unit_object.position, selected_enemy.unit_object.position):
+	if not raycaster.make_ray_check_no_obstacle(shooter.unit_object.visual_pos, selected_enemy.unit_object.visual_pos):
 		GlobalsUi.message("Obstacle!")
 		return false
 
@@ -150,10 +150,11 @@ func _shoot(shooter: Unit) -> bool:
 			selected_enemy.unit_data.set_damage(shooter.unit_data.riffle.settings.damage, shooter.id)
 
 		HitType.HIT_IN_COVER:
-			cover.set_damage()
+			if cover.comp_health:
+				cover.comp_health.set_damage()
 
 		HitType.HIT_IN_OBS:
-			hitted_obs.set_damage()
+			hitted_obs.comp_health.set_damage()
 
 	if selected_enemy == null or selected_enemy.unit_data.cur_health <= 0:
 		return true
@@ -179,7 +180,7 @@ func reload(unit_data: UnitData):
 
 func _get_shoot_result(shooter: Unit):
 	var chance_to_hit: float = _get_hit_chance(shooter)
-	var cover_debaff: float = cover.comp_wall.shoot_debaf if cover else 0.0
+	var cover_debaff: float = cover.comp_obstacle.shoot_debaf if cover else 0.0
 	var obs_debaff: float = obstacles_sum_debaff
 
 	var rand_hit = randf()
@@ -202,7 +203,7 @@ func _get_shoot_result(shooter: Unit):
 
 func _get_hit_chance(shooter: Unit) -> float:
 	var weapon_accuracy: float = _get_weapon_accuracy(shooter)
-	var cover_debaff: float = cover.comp_wall.shoot_debaf if cover else 0.0
+	var cover_debaff: float = cover.comp_obstacle.shoot_debaf if (cover and cover.comp_obstacle) else 0.0
 	var chance: float = clamp(weapon_accuracy - (cover_debaff + obstacles_sum_debaff), 0.0, 1.0)
 
 	print("weapon_accuracy {0}, cover debaff {1}, obs debaff {2}, result {3}".format([Globals.format_hit_chance(weapon_accuracy), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(obstacles_sum_debaff), Globals.format_hit_chance(chance)]))
@@ -258,7 +259,7 @@ func update_malee_cells(unit: Unit):
 		if cell.cell_obj.cell_type == CellObject.CellType.OBSTACLE:
 			continue
 
-		if raycaster.make_ray_check_no_obstacle(unit.unit_object.position, cell.cell_obj.position):
+		if raycaster.make_ray_check_no_obstacle(unit.unit_object.visual_pos, cell.cell_obj.visual_pos):
 			malee_cells.append(cell.grid_pos)
 
 
@@ -326,7 +327,7 @@ func _calc_obs_debaff() -> float:
 
 	obstacles_sum_debaff = 0.0
 	for obs in obstacles:
-		obstacles_sum_debaff += obs.shoot_debaf
+		obstacles_sum_debaff += obs.comp_obstacle.shoot_debaf
 
 	obstacles_sum_debaff = clampf(obstacles_sum_debaff, 0.0, 1.0)
 	return obstacles_sum_debaff

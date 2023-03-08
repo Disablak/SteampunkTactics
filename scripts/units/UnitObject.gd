@@ -35,7 +35,7 @@ func init_unit(unit_id, unit_data: UnitData) -> void:
 	view_direction.visible = unit_data.is_enemy
 	unit_data.update_view_direction(start_view_dir)
 
-	origin_offset = Globals.get_height_of_obj(main_sprite.texture.region) + main_sprite.offset.y
+	origin_offset = Globals.get_height_of_obj(main_sprite.texture.region) + main_sprite.offset.y + main_sprite.position.y
 
 
 func _update_ai_settings():

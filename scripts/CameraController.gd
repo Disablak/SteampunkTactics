@@ -8,8 +8,8 @@ const PIXEL_TRASH_HOLD = 3
 @export var drag_sensitive = 0.4
 @export var save_prev_pos = true
 @export var helper_size_of_full := 0.5
-@export_node_path var bounds_path
 
+var map_size: Vector2
 var tween_move: Tween
 
 var sensetive: float
@@ -28,7 +28,9 @@ func _ready() -> void:
 	GlobalBus.on_change_camera_zoom.connect(_on_camera_zoom_changed)
 
 
-func init():
+func init(map_size: Vector2):
+	self.map_size = map_size
+
 	_calc_bounds()
 
 	var first_unit: Unit = GlobalUnits.get_cur_unit()
@@ -89,7 +91,7 @@ func drag(vector_move: Vector2) -> void:
 func try_to_move_in_helper_view(pos: Vector2):
 	if not GlobalMap.can_show_cur_unit():
 		return
-	
+
 	if not is_pos_in_view_helper(pos):
 		var target_pos = get_clamped_pos_in_helper(pos)
 		move_camera(target_pos, focus_time)
@@ -105,8 +107,8 @@ func get_clamped_pos_in_helper(pos: Vector2) -> Vector2:
 
 
 func _calc_bounds():
-	var bounds: Node2D = get_node(bounds_path)
-	var camera_bound_rect := Rect2(bounds.position, bounds.scale * Globals.CELL_SIZE)
+	var size = map_size * Globals.CELL_SIZE
+	var camera_bound_rect := Rect2(size / 2, size)
 
 	var zoom := get_viewport().get_camera_2d().zoom
 	sensetive = drag_sensitive / zoom.x

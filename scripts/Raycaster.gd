@@ -72,9 +72,7 @@ func make_ray_intersections(from, to) -> Array[Dictionary]:
 
 	var space_state = get_world_2d().direct_space_state
 	var shape_query_params := PhysicsShapeQueryParameters2D.new()
-#
-#	shape_query_params.collide_with_bodies = true
-#	shape_query_params.collide_with_areas = true
+
 	shape_query_params.shape = segment_shape_2d
 	shape_query_params.collision_mask = MASK_OBSTACLE
 

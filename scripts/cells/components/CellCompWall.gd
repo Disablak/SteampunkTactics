@@ -6,29 +6,8 @@ const WALL_LAYER: int = 5
 enum WallType {NONE, LEFT, RIGHT, TOP, BOT}
 
 @export var wall_type: WallType = WallType.NONE
-
-@export var cover := false
 @export var door := false
-@export var health: int = -1
-@export_range(0.0, 0.5, 0.05) var shoot_debaf: float = 0.0
-
-@onready var collsition_shape: CollisionShape2D = $CollisionShape2D
-
-var destroyed := false
-
-
-func set_damage(damage: int = 1):
-	if health == -1:
-		return
-
-	health -= damage
-	if health > 0:
-		return
-
-	destroyed = true
-	collsition_shape.disabled = true
-
-	GlobalBus.on_cell_broke.emit(get_parent())
+@export var cover := false
 
 
 func get_connected_cell_pos() -> Vector2i:

@@ -9,6 +9,7 @@ enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE, DOOR}
 @onready var comp_walkable: CellCompWalkable = $CompWalkable as CellCompWalkable
 @onready var comp_interactable: CellCompInteractable = $CompInteractable as CellCompInteractable
 @onready var comp_obstacle: CellCompObstacle = $CompObstacle as CellCompObstacle
+@onready var comp_health: CellCompHealth = $CompHealth as CellCompHealth
 
 
 var cell_type: CellType:
@@ -32,6 +33,18 @@ var grid_pos: Vector2i:
 
 var origin_pos: Vector2:
 	get: return comp_visual.origin_pos if comp_visual else Vector2.ZERO
+
+var visual_pos: Vector2:
+	get: return position + Globals.CELL_OFFSET
+
+var visual_ordering: int:
+	get:
+		if comp_visual:
+			return comp_visual.visual_ordering
+		return -1
+	set(value):
+		if comp_visual:
+			comp_visual.visual_ordering = value
 
 func _to_string() -> String:
 	return CellType.keys()[cell_type]
