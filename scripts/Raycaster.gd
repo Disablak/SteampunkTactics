@@ -35,18 +35,15 @@ func make_ray_check_no_obstacle(from, to) -> bool:
 	return result.is_empty()
 
 
-func make_ray_and_get_positions(pos_from: Vector2, pos_to: Vector2, show_line_to_obstacle = false) -> PackedVector2Array:
+func make_ray_and_get_positions(pos_from: Vector2, pos_to: Vector2, show_line_to_obstacle = false) -> Array[Vector2]:
 	var ray_result = make_ray(pos_from, pos_to, MASK_WALL)
 
 	if ray_result.is_empty():
-		var result = PackedVector2Array()
-		result.push_back(pos_from)
-		result.push_back(pos_to)
-		return result
+		return [pos_from, pos_to]
 	elif show_line_to_obstacle:
-		return PackedVector2Array([pos_from, ray_result.position])
+		return [pos_from, ray_result.position]
 	else:
-		return PackedVector2Array()
+		return []
 
 
 func make_ray_and_get_collision_point(pos_from: Vector2, pos_to: Vector2, collsion_mask) -> Vector2:

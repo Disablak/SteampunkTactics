@@ -82,7 +82,7 @@ func _update_transparency():
 				obj.comp_visual.make_transparent(true)
 
 	for obj in all_sorted_objects:
-		if obj and obj is UnitObject:
+		if obj == null or obj is UnitObject:
 				continue
 
 		if _can_hide(cur_pointer_cell_pos, obj.origin_pos):

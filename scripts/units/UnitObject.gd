@@ -14,6 +14,7 @@ var main_material: Material
 var is_visible := true
 var ai_zone_rect: Rect2i
 var origin_offset := 0
+var main_sprite_def_pos: Vector2
 
 var grid_pos: Vector2i:
 	get: return Globals.convert_to_grid_pos(position)
@@ -60,6 +61,8 @@ func _ready() -> void:
 	GlobalBus.on_unit_change_health.connect(_on_unit_changed_health)
 	GlobalBus.on_unit_changed_view_direction.connect(_on_unit_changed_view_direction)
 
+	main_sprite_def_pos = main_sprite.position
+
 	_update_ai_settings()
 
 	mark_selected(false)
@@ -80,15 +83,15 @@ func play_kick_anim(dir: Vector2):
 	const KICK_DISTANCE := Globals.CELL_HALF_SIZE
 	const KICK_TIME := 0.1
 	var tween = create_tween()
-	tween.tween_property(main_sprite, "position", main_sprite.position + dir * KICK_DISTANCE, KICK_TIME)
-	tween.tween_property(main_sprite, "position", Vector2.ZERO, KICK_TIME)
+	tween.tween_property(main_sprite, "position", main_sprite_def_pos + dir * KICK_DISTANCE, KICK_TIME)
+	tween.tween_property(main_sprite, "position", main_sprite_def_pos, KICK_TIME)
 	await tween.finished
 
 
 func play_damage_anim():
 	var tween = create_tween()
-	tween.tween_property(main_sprite, "position", Vector2.RIGHT * 5, 0.1)
-	tween.tween_property(main_sprite, "position", Vector2.ZERO, 0.1)
+	tween.tween_property(main_sprite, "position", main_sprite_def_pos + Vector2.RIGHT * 5, 0.1)
+	tween.tween_property(main_sprite, "position", main_sprite_def_pos, 0.1)
 	tween.set_trans(Tween.TRANS_BOUNCE)
 	await tween.finished
 
