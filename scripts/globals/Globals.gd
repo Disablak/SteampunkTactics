@@ -100,6 +100,19 @@ static func get_cells_of_type(cells: Array, cell_type: CellObject.CellType) -> A
 	return result
 
 
+
+
+static func get_cells_by_node2d(node: Node2D) -> Array[Vector2i]:
+	var zone_rect = Rect2i(Globals.convert_to_grid_pos(node.position), node.scale)
+	var result: Array[Vector2i]
+	for x in zone_rect.size.x:
+			for y in zone_rect.size.y:
+				result.append(zone_rect.position + Vector2i(x, y))
+
+	return result
+
+
+
 func create_timer_and_get_signal(time: float) -> Signal:
 	return get_tree().create_timer(time).timeout
 

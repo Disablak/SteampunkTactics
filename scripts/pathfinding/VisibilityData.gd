@@ -6,6 +6,7 @@ var pos_last_check_visibility: Vector2i = Vector2.ZERO
 var prev_view_direction: int = -1
 var circle_points: Array[Vector2i]
 var visible_points: Array[Vector2i]
+var roof_visible_points: Array[Vector2i]
 
 var enemies_saw := {} # unit and last time saw pos
 var enemy_attention_grid_pos: Vector2i

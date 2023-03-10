@@ -8,6 +8,7 @@ enum CellVisibility {NONE, VISIBLE, HALF, NOTHING}
 
 const AI_CONUS_RADIUS := 120
 const HALF_RADIUS := AI_CONUS_RADIUS / 2
+const RAY_ROOF_LENGTH := 4
 
 var dict_pos_and_cell = {}
 var dict_is_enemy_team_and_pos = {} # knew cells by team
@@ -117,7 +118,7 @@ func get_team_visibility(enemy_team: bool, force_update: bool = false) -> Array[
 
 
 func update_unit_visibility(unit: Unit, force_update: bool = false):
-	var grid_unit_pos := Globals.convert_to_grid_pos(unit.unit_object.position)
+	var grid_unit_pos := unit.unit_object.grid_pos
 	var unit_view_direction := unit.unit_data.view_direction
 	var visibility_data = unit.unit_data.visibility_data
 
@@ -128,6 +129,7 @@ func update_unit_visibility(unit: Unit, force_update: bool = false):
 	visibility_data.prev_view_direction = unit_view_direction
 
 	var all_circle_points := MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
+	var all_circle_points_roof := MyMath.get_circle_points(grid_unit_pos, RAY_ROOF_LENGTH)
 	var sector_circle_points := MyMath.get_circle_sector_points(grid_unit_pos, all_circle_points, unit.unit_data.view_direction, HALF_RADIUS)
 
 	const ALL_AROUND = 1000
@@ -144,13 +146,23 @@ func update_unit_visibility(unit: Unit, force_update: bool = false):
 		var line_points = _get_line_points(grid_unit_pos, grid_pos_on_circle)
 		new_visible_points = MyMath.arr_add_no_copy(new_visible_points, line_points)
 
+	var roof_visible_points: Array[Vector2i]
+	for grid_pos_on_circle in all_circle_points_roof:
+		var line_points = _get_line_points(grid_unit_pos, grid_pos_on_circle, false)
+		roof_visible_points = MyMath.arr_add_no_copy(roof_visible_points, line_points)
+
 	visibility_data.visible_points = new_visible_points
+	visibility_data.roof_visible_points = roof_visible_points
+
 	_know_new_cells(unit.unit_data.is_enemy, new_visible_points)
 
 
-func _get_line_points(grid_pos_from: Vector2i, grid_pos_to: Vector2i) -> Array[Vector2i]:
+func _get_line_points(grid_pos_from: Vector2i, grid_pos_to: Vector2i, raycast: bool = true) -> Array[Vector2i]:
 	var from_pos := Globals.convert_to_cell_pos(grid_pos_from) + Globals.CELL_OFFSET
 	var to_pos := Globals.convert_to_cell_pos(grid_pos_to) + Globals.CELL_OFFSET
+
+	if not raycast:
+		return MyMath.bresenham_line_thick(grid_pos_from, grid_pos_to)
 
 	var ray_positions = GlobalMap.raycaster.make_ray_and_get_positions(from_pos, to_pos, true)
 	var ray_dir = (ray_positions[1] - from_pos).normalized()
@@ -174,9 +186,6 @@ func _update_walls():
 		if cell_object.comp_wall.wall_type == CellCompWall.WallType.BOT or cell_object.comp_wall.wall_type == CellCompWall.WallType.TOP:
 			_update_top_down_wall(cell_object)
 
-		if cell_object.comp_wall.wall_type == CellCompWall.WallType.LEFT or cell_object.comp_wall.wall_type == CellCompWall.WallType.RIGHT:
-			_update_side_wall(cell_object)
-
 
 func _update_top_down_wall(wall: CellObject):
 	if dict_pos_and_cell.has(wall.grid_pos):
@@ -186,37 +195,6 @@ func _update_top_down_wall(wall: CellObject):
 			dict_pos_and_cell[wall.grid_pos + Vector2i(0, -1)].update_visibility(CellVisibility.VISIBLE)
 		if cell_fog_front.visibility == CellVisibility.NOTHING:
 			wall.comp_visual.visible = false
-
-
-func _update_side_wall(left_wall: CellObject):
-	var wall_type_side = left_wall.comp_wall.wall_type
-	var side_pos = left_wall.grid_pos + Vector2i(1, 0) if wall_type_side == CellCompWall.WallType.LEFT else left_wall.grid_pos + Vector2i(-1, 0)
-	if not dict_pos_and_cell.has(side_pos):
-		left_wall.comp_visual.visible = true
-		return
-
-	var bot_pos = left_wall.grid_pos + Vector2i(0, 1)
-	if not walls.has(bot_pos):
-		left_wall.comp_visual.visible = true
-		return
-
-	var bot_wall = walls[bot_pos]
-	if bot_wall.comp_wall.wall_type != wall_type_side:
-		left_wall.comp_visual.visible = true
-		return
-
-	var top_pos = left_wall.grid_pos + Vector2i(0, -1)
-	if walls.has(top_pos):
-		var top_wall = walls[top_pos]
-		if top_wall.comp_wall.wall_type == wall_type_side:
-			left_wall.comp_visual.visible = true
-			return
-
-	var cell_fog_right = dict_pos_and_cell[side_pos]
-	if cell_fog_right.visibility == CellVisibility.NOTHING:
-		left_wall.comp_visual.visible = false
-	if cell_fog_right.visibility == CellVisibility.VISIBLE:
-		left_wall.comp_visual.visible = true
 
 
 func update_visibility_on_cell(grid_pos: Vector2i, visibility: CellVisibility):

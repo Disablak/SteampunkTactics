@@ -44,6 +44,6 @@ func _draw_objects_ordering():
 		return
 
 	for point in point_ordering:
-		draw_circle(point, 1, Color.WHITE)
+		draw_circle(point, 1, Color.BLUE_VIOLET)
 		var ordering: String = str(point_ordering[point])
 		draw_string(ThemeDB.fallback_font, point, ordering, HORIZONTAL_ALIGNMENT_LEFT, -1, 5)

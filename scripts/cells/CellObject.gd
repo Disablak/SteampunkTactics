@@ -46,5 +46,11 @@ var visual_ordering: int:
 		if comp_visual:
 			comp_visual.visual_ordering = value
 
+
+func make_transparent(enable):
+	if comp_visual:
+		comp_visual.make_transparent(enable)
+
+
 func _to_string() -> String:
 	return CellType.keys()[cell_type]

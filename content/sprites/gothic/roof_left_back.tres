@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dg4r8kscgpuix"]
+
+[ext_resource type="Texture2D" uid="uid://ckut1xud7cht4" path="res://content/sprites/gothic/gothic_sheet_0.png" id="1_pfene"]
+
+[resource]
+atlas = ExtResource("1_pfene")
+region = Rect2(160, 32, 16, 16)

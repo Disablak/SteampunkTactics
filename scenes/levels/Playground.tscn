@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c0pyifkwmrhb4"]
+[gd_scene load_steps=36 format=3 uid="uid://c0pyifkwmrhb4"]
 
 [ext_resource type="PackedScene" uid="uid://dxtwt22vjkgto" path="res://scenes/levels/BaseLevel.tscn" id="1_i4jgl"]
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="2_ftjox"]
@@ -24,6 +24,16 @@
 [ext_resource type="Script" path="res://scripts/settings/AiSettings.gd" id="13_k4k2u"]
 [ext_resource type="Texture2D" uid="uid://bfbi6hcg0i7i3" path="res://content/sprites/gothic/obstacle_2.tres" id="14_ww02r"]
 [ext_resource type="Texture2D" uid="uid://d02gr26nfft06" path="res://content/sprites/gothic/obstacle_3.tres" id="15_xhxav"]
+[ext_resource type="PackedScene" uid="uid://cw3svbh7t86v0" path="res://scenes/cells/VisualRoof.tscn" id="25_gfgsb"]
+[ext_resource type="Texture2D" uid="uid://cnyixrfnxjkd7" path="res://content/sprites/gothic/roof_mid_front.tres" id="26_schc3"]
+[ext_resource type="Texture2D" uid="uid://mncb5f6qtf7s" path="res://content/sprites/gothic/roof_right_front.tres" id="27_ty243"]
+[ext_resource type="Texture2D" uid="uid://bpnkjj6qghqyg" path="res://content/sprites/gothic/roof_left_center.tres" id="28_52cas"]
+[ext_resource type="Texture2D" uid="uid://bkyltdfmhbgiq" path="res://content/sprites/gothic/roof_mid_center.tres" id="29_vivhv"]
+[ext_resource type="Texture2D" uid="uid://d4kbubwe4qv6s" path="res://content/sprites/gothic/roof_right_center.tres" id="30_g2hsc"]
+[ext_resource type="Texture2D" uid="uid://dg4r8kscgpuix" path="res://content/sprites/gothic/roof_left_back.tres" id="31_gadbk"]
+[ext_resource type="Texture2D" uid="uid://b4shm1t460i7i" path="res://content/sprites/gothic/roof_mid_back.tres" id="32_ixf3g"]
+[ext_resource type="Texture2D" uid="uid://cgcgi1yhx7ihd" path="res://content/sprites/gothic/roof_right_back.tres" id="33_0g1i2"]
+[ext_resource type="Texture2D" uid="uid://cg1lvcqcw1ewn" path="res://content/sprites/gothic/ground.png" id="34_jvxqi"]
 
 [sub_resource type="Resource" id="Resource_276rh"]
 script = ExtResource("13_k4k2u")
@@ -32,6 +42,9 @@ patrul_zones_paths = Array[NodePath]([])
 
 [node name="Playground" instance=ExtResource("1_i4jgl")]
 map_size = Vector2(32, 32)
+roof_zones_path = {
+NodePath("Roof/RoofZone0"): NodePath("Roof/Roof0")
+}
 
 [node name="CellWalk" parent="RootWalkCells" index="0" instance=ExtResource("2_ftjox")]
 
@@ -3226,7 +3239,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("10_ddu4q")]
-position = Vector2(224, 336)
+position = Vector2(208, 208)
 unit_settings = ExtResource("11_cetlj")
 
 [node name="UnitObject2" parent="RootUnits" index="1" instance=ExtResource("10_ddu4q")]
@@ -3239,6 +3252,97 @@ texture = ExtResource("12_y7pv2")
 
 [node name="ViewDirection" parent="RootUnits/UnitObject2/CenterPoint" index="0"]
 visible = true
+
+[node name="Roof" type="Node2D" parent="." index="5"]
+
+[node name="Roof0" type="Node2D" parent="Roof" index="0"]
+z_index = 50
+
+[node name="VisualRoof" parent="Roof/Roof0" index="0" instance=ExtResource("25_gfgsb")]
+position = Vector2(224, 256)
+
+[node name="VisualRoof2" parent="Roof/Roof0" index="1" instance=ExtResource("25_gfgsb")]
+position = Vector2(240, 256)
+texture = ExtResource("26_schc3")
+
+[node name="VisualRoof5" parent="Roof/Roof0" index="2" instance=ExtResource("25_gfgsb")]
+position = Vector2(288, 256)
+texture = ExtResource("27_ty243")
+
+[node name="VisualRoof6" parent="Roof/Roof0" index="3" instance=ExtResource("25_gfgsb")]
+position = Vector2(224, 240)
+texture = ExtResource("28_52cas")
+
+[node name="VisualRoof7" parent="Roof/Roof0" index="4" instance=ExtResource("25_gfgsb")]
+position = Vector2(240, 240)
+texture = ExtResource("29_vivhv")
+
+[node name="VisualRoof10" parent="Roof/Roof0" index="5" instance=ExtResource("25_gfgsb")]
+position = Vector2(288, 240)
+texture = ExtResource("30_g2hsc")
+
+[node name="VisualRoof11" parent="Roof/Roof0" index="6" instance=ExtResource("25_gfgsb")]
+position = Vector2(224, 224)
+texture = ExtResource("28_52cas")
+
+[node name="VisualRoof12" parent="Roof/Roof0" index="7" instance=ExtResource("25_gfgsb")]
+position = Vector2(240, 224)
+texture = ExtResource("29_vivhv")
+
+[node name="VisualRoof15" parent="Roof/Roof0" index="8" instance=ExtResource("25_gfgsb")]
+position = Vector2(288, 224)
+texture = ExtResource("30_g2hsc")
+
+[node name="VisualRoof16" parent="Roof/Roof0" index="9" instance=ExtResource("25_gfgsb")]
+position = Vector2(224, 208)
+texture = ExtResource("31_gadbk")
+
+[node name="VisualRoof17" parent="Roof/Roof0" index="10" instance=ExtResource("25_gfgsb")]
+position = Vector2(240, 208)
+texture = ExtResource("32_ixf3g")
+
+[node name="VisualRoof3" parent="Roof/Roof0" index="11" instance=ExtResource("25_gfgsb")]
+position = Vector2(256, 256)
+texture = ExtResource("26_schc3")
+
+[node name="VisualRoof8" parent="Roof/Roof0" index="12" instance=ExtResource("25_gfgsb")]
+position = Vector2(256, 240)
+texture = ExtResource("29_vivhv")
+
+[node name="VisualRoof13" parent="Roof/Roof0" index="13" instance=ExtResource("25_gfgsb")]
+position = Vector2(256, 224)
+texture = ExtResource("29_vivhv")
+
+[node name="VisualRoof18" parent="Roof/Roof0" index="14" instance=ExtResource("25_gfgsb")]
+position = Vector2(256, 208)
+texture = ExtResource("32_ixf3g")
+
+[node name="VisualRoof4" parent="Roof/Roof0" index="15" instance=ExtResource("25_gfgsb")]
+position = Vector2(272, 256)
+texture = ExtResource("26_schc3")
+
+[node name="VisualRoof9" parent="Roof/Roof0" index="16" instance=ExtResource("25_gfgsb")]
+position = Vector2(272, 240)
+texture = ExtResource("29_vivhv")
+
+[node name="VisualRoof14" parent="Roof/Roof0" index="17" instance=ExtResource("25_gfgsb")]
+position = Vector2(272, 224)
+texture = ExtResource("29_vivhv")
+
+[node name="VisualRoof19" parent="Roof/Roof0" index="18" instance=ExtResource("25_gfgsb")]
+position = Vector2(272, 208)
+texture = ExtResource("32_ixf3g")
+
+[node name="VisualRoof20" parent="Roof/Roof0" index="19" instance=ExtResource("25_gfgsb")]
+position = Vector2(288, 208)
+texture = ExtResource("33_0g1i2")
+
+[node name="RoofZone0" type="Sprite2D" parent="Roof" index="1"]
+self_modulate = Color(0, 0, 0, 0.329412)
+position = Vector2(224, 240)
+scale = Vector2(5, 3)
+texture = ExtResource("34_jvxqi")
+centered = false
 
 [editable path="RootObsCells/CellObstacle2"]
 [editable path="RootObsCells/CellObstacle2/CompObstacle"]
