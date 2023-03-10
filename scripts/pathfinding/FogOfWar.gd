@@ -8,7 +8,7 @@ enum CellVisibility {NONE, VISIBLE, HALF, NOTHING}
 
 const AI_CONUS_RADIUS := 120
 const HALF_RADIUS := AI_CONUS_RADIUS / 2
-const RAY_ROOF_LENGTH := 4
+const RAY_ROOF_LENGTH := 3
 
 var dict_pos_and_cell = {}
 var dict_is_enemy_team_and_pos = {} # knew cells by team
@@ -100,6 +100,7 @@ func _update_team_visibility_area(unit: Unit, force_update: bool = false):
 	_make_all_map_in_fog()
 
 	var visible_cells: Array[Vector2i] = get_team_visibility(unit.unit_data.is_enemy, force_update)
+	update_visibility_roof(unit.unit_data.visibility_data.roof_visible_points)
 	update_visibility_on_cells(visible_cells, CellVisibility.VISIBLE)
 	dict_is_enemy_and_visible_cells[unit.unit_data.is_enemy] = visible_cells
 
@@ -129,7 +130,7 @@ func update_unit_visibility(unit: Unit, force_update: bool = false):
 	visibility_data.prev_view_direction = unit_view_direction
 
 	var all_circle_points := MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
-	var all_circle_points_roof := MyMath.get_circle_points(grid_unit_pos, RAY_ROOF_LENGTH)
+	var all_circle_points_roof := MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
 	var sector_circle_points := MyMath.get_circle_sector_points(grid_unit_pos, all_circle_points, unit.unit_data.view_direction, HALF_RADIUS)
 
 	const ALL_AROUND = 1000
@@ -179,6 +180,14 @@ func update_visibility_on_cells(grid_poses: Array[Vector2i], visibility: CellVis
 		update_visibility_on_cell(grid_pos, visibility)
 
 	_update_walls()
+
+
+func update_visibility_roof(grid_poses: Array[Vector2i]):
+	var visible_roofs = grid_poses.filter(func(grid_pos): return pathfinding.level.is_roof_exist(grid_pos) and pathfinding.level.is_roof_visible(grid_pos))
+	for grid_pos in visible_roofs:
+		update_visibility_on_cell(grid_pos, CellVisibility.HALF)
+
+	_know_new_cells(GlobalUnits.cur_unit_is_enemy, visible_roofs)
 
 
 func _update_walls():

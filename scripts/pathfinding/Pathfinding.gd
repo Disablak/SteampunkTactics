@@ -16,6 +16,7 @@ extends Node2D
 @export var walk_field_size: Vector2i
 @export var spawn: bool: set = _tool_spawn_walk_cells
 
+var level: Level
 var root_walk_hint: Node2D
 var root_walk_cells: Node2D
 var root_obs_cells: Node2D
@@ -92,9 +93,10 @@ func _ready() -> void:
 
 
 func init() -> void:
-	root_walk_hint = get_child(0).get_node("RootWalkHint")
-	root_walk_cells = get_child(0).get_node("RootWalkCells")
-	root_obs_cells = get_child(0).get_node("RootObsCells")
+	level = get_child(0)
+	root_walk_hint = level.get_node("RootWalkHint")
+	root_walk_cells = level.get_node("RootWalkCells")
+	root_obs_cells = level.get_node("RootObsCells")
 
 	_connect_walkable_cells()
 	_add_obstacles()

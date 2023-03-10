@@ -12,6 +12,7 @@ var all_sorted_objects = []
 var prev_transparent_objs = []
 var cur_pointer_cell_pos: Vector2
 var dict_roof_pos_and_roof = {}
+var dict_pos_and_roof = {}
 
 
 func update_roof_visibility():
@@ -25,6 +26,14 @@ func update_roof_visibility():
 			var roof_object = dict_roof_pos_and_roof[roof_poses]
 			if roof_poses.has(unit_pos) and GlobalMap.can_show_unit(unit_id):
 				roof_object.visible = false
+
+
+func is_roof_exist(grid_pos) -> bool:
+	return dict_pos_and_roof.has(grid_pos)
+
+
+func is_roof_visible(grid_pos) -> bool:
+	return dict_pos_and_roof[grid_pos].is_visible_in_tree()
 
 
 # Called when the node enters the scene tree for the first time.
@@ -42,7 +51,11 @@ func _ready() -> void:
 	for roof_path in roof_zones_path:
 		var node_roof_zone = get_node(roof_path)
 		var cells_in_zone = Globals.get_cells_by_node2d(node_roof_zone)
-		dict_roof_pos_and_roof[cells_in_zone] = get_node(roof_zones_path[roof_path])
+		var parent_of_roofs = get_node(roof_zones_path[roof_path])
+		dict_roof_pos_and_roof[cells_in_zone] = parent_of_roofs
+
+		for roof in parent_of_roofs.get_children():
+			dict_pos_and_roof[Globals.convert_to_grid_pos(roof.position)] = roof
 
 
 	await get_tree().process_frame
@@ -112,6 +125,7 @@ func _update_transparency():
 				obj.make_transparent(true)
 
 		for roof_parent in dict_roof_pos_and_roof.values():
+			var root_node: Node2D = roof_parent as Node2D
 			for roof in roof_parent.get_children():
 				if unit.unit_object.origin_pos.distance_to(roof.origin_pos) <= 26: # todo magic number
 					prev_transparent_objs.append(roof)
