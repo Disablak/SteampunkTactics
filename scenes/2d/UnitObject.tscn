@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_a7ikt"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_kmtyi"]
-[ext_resource type="Texture2D" uid="uid://cwvtjwrec6b0g" path="res://content/sprites/gothic/player.tres" id="2_t4swe"]
+[ext_resource type="Texture2D" uid="uid://ciry2hpepxf06" path="res://content/sprites/gothic/player1.tres" id="3_5qwq0"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="4_bpjp7"]
 
 [node name="UnitObject" type="Node2D"]
@@ -10,7 +10,7 @@ script = ExtResource("1_a7ikt")
 
 [node name="VisualObject" parent="." instance=ExtResource("2_kmtyi")]
 position = Vector2(0, -5)
-texture = ExtResource("2_t4swe")
+texture = ExtResource("3_5qwq0")
 
 [node name="CenterPoint" type="Node2D" parent="."]
 position = Vector2(8, 8)

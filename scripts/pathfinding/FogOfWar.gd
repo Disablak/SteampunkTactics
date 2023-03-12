@@ -130,7 +130,7 @@ func update_unit_visibility(unit: Unit, force_update: bool = false):
 	visibility_data.prev_view_direction = unit_view_direction
 
 	var all_circle_points := MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
-	var all_circle_points_roof := MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
+	var all_circle_points_roof := MyMath.get_circle_points(grid_unit_pos, RAY_ROOF_LENGTH)
 	var sector_circle_points := MyMath.get_circle_sector_points(grid_unit_pos, all_circle_points, unit.unit_data.view_direction, HALF_RADIUS)
 
 	const ALL_AROUND = 1000
@@ -185,7 +185,7 @@ func update_visibility_on_cells(grid_poses: Array[Vector2i], visibility: CellVis
 func update_visibility_roof(grid_poses: Array[Vector2i]):
 	var visible_roofs = grid_poses.filter(func(grid_pos): return pathfinding.level.is_roof_exist(grid_pos) and pathfinding.level.is_roof_visible(grid_pos))
 	for grid_pos in visible_roofs:
-		update_visibility_on_cell(grid_pos, CellVisibility.HALF)
+		update_visibility_on_cell(grid_pos, CellVisibility.VISIBLE)
 
 	_know_new_cells(GlobalUnits.cur_unit_is_enemy, visible_roofs)
 
@@ -197,13 +197,13 @@ func _update_walls():
 
 
 func _update_top_down_wall(wall: CellObject):
-	if dict_pos_and_cell.has(wall.grid_pos):
-		var cell_fog_front = dict_pos_and_cell[wall.grid_pos]
-		if cell_fog_front.visibility == CellVisibility.VISIBLE:
-			wall.comp_visual.visible = true
-			dict_pos_and_cell[wall.grid_pos + Vector2i(0, -1)].update_visibility(CellVisibility.VISIBLE)
-		if cell_fog_front.visibility == CellVisibility.NOTHING:
-			wall.comp_visual.visible = false
+	if not dict_pos_and_cell.has(wall.grid_pos):
+		return
+
+	var cell_fog_front = dict_pos_and_cell[wall.grid_pos]
+	if cell_fog_front.visibility == CellVisibility.VISIBLE or cell_fog_front.visibility == CellVisibility.HALF:
+		dict_pos_and_cell[wall.grid_pos + Vector2i(0, -1)].update_visibility(cell_fog_front.visibility)
+		_know_new_cells(GlobalUnits.get_cur_unit().unit_data.is_enemy, [wall.grid_pos])
 
 
 func update_visibility_on_cell(grid_pos: Vector2i, visibility: CellVisibility):
