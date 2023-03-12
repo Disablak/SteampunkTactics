@@ -10,7 +10,7 @@ const AI_CONUS_RADIUS := 120
 const HALF_RADIUS := AI_CONUS_RADIUS / 2
 const RAY_ROOF_LENGTH := 3
 
-var dict_pos_and_cell = {}
+var dict_pos_and_cell = {} # pos and cell fog
 var dict_is_enemy_team_and_pos = {} # knew cells by team
 var dict_is_enemy_and_visible_cells = {} # visible cells by team
 var walls = {} # grid pos and cell object
@@ -62,7 +62,7 @@ func init(pathfind):
 			walls[cell_object.grid_pos] = cell_object
 
 	for unit in GlobalUnits.units.values():
-		update_unit_visibility(unit)
+		_update_unit_visibility(unit)
 
 
 func spawn_fog(grid_pos: Vector2i, cell_visibility: CellVisibility):
@@ -75,8 +75,10 @@ func spawn_fog(grid_pos: Vector2i, cell_visibility: CellVisibility):
 
 
 func update_fog(cur_unit: Unit, force_update: bool = false):
+	_make_all_map_in_fog()
+
 	if GlobalMap.can_show_cur_unit():
-		_update_team_visibility_area(cur_unit, force_update)
+		_update_visibility(cur_unit, force_update)
 		_hide_units_in_fog(cur_unit)
 
 	_enemies_trying_to_remember_unit(cur_unit)
@@ -88,7 +90,7 @@ func update_fog_for_all(force_update: bool = false):
 
 	var cur_unit = GlobalUnits.get_cur_unit()
 	if cur_unit:
-		update_fog(cur_unit) # TODO optimization, not update for same unit
+		update_fog(cur_unit, force_update) # TODO optimization, not update for same unit
 
 
 func is_unit_visible_to_enemy(unit: Unit):
@@ -96,29 +98,33 @@ func is_unit_visible_to_enemy(unit: Unit):
 	return dict_is_enemy_and_visible_cells[not unit.unit_data.is_enemy].has(unit_pos_grid)
 
 
-func _update_team_visibility_area(unit: Unit, force_update: bool = false):
-	_make_all_map_in_fog()
-
-	var visible_cells: Array[Vector2i] = get_team_visibility(unit.unit_data.is_enemy, force_update)
-	update_visibility_roof(unit.unit_data.visibility_data.roof_visible_points)
-	update_visibility_on_cells(visible_cells, CellVisibility.VISIBLE)
+func _update_visibility(unit: Unit, force_update: bool = false):
+	_update_team_visibility(unit.unit_data.is_enemy, force_update)
+	var visible_cells: Array[Vector2i] = _get_team_visibility(unit.unit_data.is_enemy)
 	dict_is_enemy_and_visible_cells[unit.unit_data.is_enemy] = visible_cells
+	_update_visibility_roof(unit.unit_data.visibility_data.roof_visible_points)
+	_update_visibility_on_cells(visible_cells, CellVisibility.VISIBLE)
 
 
-func get_cur_team_visibility() -> Array[Vector2i]:
-	return get_team_visibility(GlobalUnits.get_cur_unit().unit_data.is_enemy)
+func update_and_get_cur_team_visibility() -> Array[Vector2i]:
+	_update_team_visibility(GlobalUnits.get_cur_unit().unit_data.is_enemy)
+	return _get_team_visibility(GlobalUnits.get_cur_unit().unit_data.is_enemy)
 
 
-func get_team_visibility(enemy_team: bool, force_update: bool = false) -> Array[Vector2i]:
+func _get_team_visibility(enemy_team: bool) -> Array[Vector2i]:
 	var visible_cells: Array[Vector2i]
 	for unit in GlobalUnits.get_units(enemy_team):
-		update_unit_visibility(unit, force_update)
 		visible_cells = MyMath.arr_add_no_copy(visible_cells, unit.unit_data.visibility_data.visible_points)
 
 	return visible_cells
 
 
-func update_unit_visibility(unit: Unit, force_update: bool = false):
+func _update_team_visibility(enemy_team: bool, force_update: bool = false):
+	for unit in GlobalUnits.get_units(enemy_team):
+		_update_unit_visibility(unit, force_update)
+
+
+func _update_unit_visibility(unit: Unit, force_update: bool = false):
 	var grid_unit_pos := unit.unit_object.grid_pos
 	var unit_view_direction := unit.unit_data.view_direction
 	var visibility_data = unit.unit_data.visibility_data
@@ -142,20 +148,23 @@ func update_unit_visibility(unit: Unit, force_update: bool = false):
 		visibility_data.circle_points = sector_circle_points
 
 	GlobalMap.draw_debug.clear_draw_vision_lines()
-	var new_visible_points: Array[Vector2i]
-	for grid_pos_on_circle in visibility_data.circle_points:
-		var line_points = _get_line_points(grid_unit_pos, grid_pos_on_circle)
-		new_visible_points = MyMath.arr_add_no_copy(new_visible_points, line_points)
 
-	var roof_visible_points: Array[Vector2i]
-	for grid_pos_on_circle in all_circle_points_roof:
-		var line_points = _get_line_points(grid_unit_pos, grid_pos_on_circle, false)
-		roof_visible_points = MyMath.arr_add_no_copy(roof_visible_points, line_points)
+	var new_visible_points: Array[Vector2i] = _get_filled_circle_points(grid_unit_pos, visibility_data.circle_points)
+	var roof_visible_points: Array[Vector2i] = _get_filled_circle_points(grid_unit_pos, all_circle_points_roof, false)
 
 	visibility_data.visible_points = new_visible_points
 	visibility_data.roof_visible_points = roof_visible_points
 
 	_know_new_cells(unit.unit_data.is_enemy, new_visible_points)
+
+
+func _get_filled_circle_points(unit_pos: Vector2i, circle_points: Array[Vector2i], raycast: bool = true) -> Array[Vector2i]:
+	var result: Array[Vector2i]
+	for grid_pos_on_circle in circle_points:
+		var line_points = _get_line_points(unit_pos, grid_pos_on_circle, raycast)
+		result = MyMath.arr_add_no_copy(result, line_points)
+
+	return result
 
 
 func _get_line_points(grid_pos_from: Vector2i, grid_pos_to: Vector2i, raycast: bool = true) -> Array[Vector2i]:
@@ -175,17 +184,17 @@ func _get_line_points(grid_pos_from: Vector2i, grid_pos_to: Vector2i, raycast: b
 	return line_points
 
 
-func update_visibility_on_cells(grid_poses: Array[Vector2i], visibility: CellVisibility):
+func _update_visibility_on_cells(grid_poses: Array[Vector2i], visibility: CellVisibility):
 	for grid_pos in grid_poses:
-		update_visibility_on_cell(grid_pos, visibility)
+		_update_visibility_on_cell(grid_pos, visibility)
 
 	_update_walls()
 
 
-func update_visibility_roof(grid_poses: Array[Vector2i]):
-	var visible_roofs = grid_poses.filter(func(grid_pos): return pathfinding.level.is_roof_exist(grid_pos) and pathfinding.level.is_roof_visible(grid_pos))
+func _update_visibility_roof(grid_poses: Array[Vector2i]):
+	var visible_roofs = grid_poses.filter(func(grid_pos): return pathfinding.level.is_roof_exist_and_visible(grid_pos))
 	for grid_pos in visible_roofs:
-		update_visibility_on_cell(grid_pos, CellVisibility.VISIBLE)
+		_update_visibility_on_cell(grid_pos, CellVisibility.VISIBLE)
 
 	_know_new_cells(GlobalUnits.cur_unit_is_enemy, visible_roofs)
 
@@ -206,7 +215,7 @@ func _update_top_down_wall(wall: CellObject):
 		_know_new_cells(GlobalUnits.get_cur_unit().unit_data.is_enemy, [wall.grid_pos])
 
 
-func update_visibility_on_cell(grid_pos: Vector2i, visibility: CellVisibility):
+func _update_visibility_on_cell(grid_pos: Vector2i, visibility: CellVisibility):
 	if dict_pos_and_cell.has(grid_pos):
 		var cell_fog: CellFog = dict_pos_and_cell[grid_pos] as CellFog
 		cell_fog.update_visibility(visibility)

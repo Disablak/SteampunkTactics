@@ -28,12 +28,8 @@ func update_roof_visibility():
 				roof_object.visible = false
 
 
-func is_roof_exist(grid_pos) -> bool:
-	return dict_pos_and_roof.has(grid_pos)
-
-
-func is_roof_visible(grid_pos) -> bool:
-	return dict_pos_and_roof[grid_pos].is_visible_in_tree()
+func is_roof_exist_and_visible(grid_pos) -> bool:
+	return dict_pos_and_roof.has(grid_pos) and dict_pos_and_roof[grid_pos].is_visible_in_tree()
 
 
 # Called when the node enters the scene tree for the first time.
