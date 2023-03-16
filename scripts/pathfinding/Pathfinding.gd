@@ -354,6 +354,10 @@ func get_cell_by_pos(grid_pos: Vector2i) -> CellObject:
 	if dict_pos_and_cell_wall.has(grid_pos):
 		return dict_pos_and_cell_wall[grid_pos]
 
+	return get_walk_cell_by_pos(grid_pos)
+
+
+func get_walk_cell_by_pos(grid_pos: Vector2i) -> CellObject:
 	if dict_pos_and_cell_walk.has(grid_pos):
 		return dict_pos_and_cell_walk[grid_pos]
 
@@ -375,6 +379,16 @@ func get_grid_poses_by_pattern(grid_pos_center: Vector2i, pattern_cells: Array[V
 	var result: Array[Vector2i]
 	for cell in get_cells_by_pattern(grid_pos_center, pattern_cells):
 		result.append(cell.grid_pos)
+
+	return result
+
+
+func get_walk_cells_by_patern(grid_pos_center: Vector2i, pattern_cells: Array[Vector2i]) -> Array[CellObject]:
+	var result: Array[CellObject]
+	for cell in get_cells_by_pattern(grid_pos_center, pattern_cells):
+		var walk_cell := get_walk_cell_by_pos(cell.grid_pos)
+		if walk_cell:
+			result.append(walk_cell)
 
 	return result
 

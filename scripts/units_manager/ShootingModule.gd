@@ -249,18 +249,28 @@ func throw_granade(unit: Unit, grid_pos: Vector2i) -> bool:
 	return true
 
 
-func update_malee_cells(unit: Unit):
+func update_malee_cells(unit: Unit) -> Array[Vector2i]:
+	GlobalMap.draw_debug.clear_malee_raycast_lines()
+
 	malee_cells.clear()
 
 	var unit_grid_pos = Globals.convert_to_grid_pos(unit.unit_object.position)
-	var cells = pathfinding.get_cells_by_pattern(unit_grid_pos, unit.unit_data.knife.get_attack_cells())
+	var cells = pathfinding.get_walk_cells_by_patern(unit_grid_pos, unit.unit_data.knife.get_attack_cells())
 
 	for cell in cells:
-		if cell.cell_obj.cell_type == CellObject.CellType.OBSTACLE:
+		if cell.cell_type == CellObject.CellType.OBSTACLE:
 			continue
 
-		if raycaster.make_ray_check_no_obstacle(unit.unit_object.visual_pos, cell.cell_obj.visual_pos):
-			malee_cells.append(cell.grid_pos)
+		if not raycaster.make_ray_check_no_obstacle(unit.unit_object.visual_pos, cell.visual_pos, raycaster.MASK_WALL):
+			continue
+
+		if not raycaster.make_ray_check_no_obstacle(unit.unit_object.visual_pos, cell.visual_pos, raycaster.MASK_OBSTACLE):
+			continue
+
+		GlobalMap.draw_debug.draw_malee_raycast([unit.unit_object.visual_pos, cell.visual_pos])
+		malee_cells.append(cell.grid_pos)
+
+	return malee_cells
 
 
 func can_kick_unit(unit: Unit, another_unit: Unit) -> bool:

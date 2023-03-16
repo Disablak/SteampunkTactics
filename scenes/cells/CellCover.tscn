@@ -14,8 +14,10 @@ size = Vector2(3, 16)
 
 [node name="Cover" instance=ExtResource("1_dbqs1")]
 self_modulate = Color(1, 1, 1, 0.392157)
+texture = null
 
 [node name="CompWall" parent="." index="1" instance=ExtResource("2_4odjx")]
+position = Vector2(16, 2.08165e-12)
 collision_layer = 0
 wall_type = 1
 cover = true
@@ -26,9 +28,11 @@ shape = SubResource("RectangleShape2D_m3nqq")
 disabled = true
 
 [node name="CompVisual" parent="." index="2" instance=ExtResource("3_sc5np")]
+position = Vector2(16, 16)
 texture = ExtResource("4_b7uwc")
 
 [node name="CompObstacle" parent="." index="3" instance=ExtResource("5_ndxvx")]
+position = Vector2(16, 2.08165e-12)
 shoot_debaf = 0.3
 
 [node name="CollisionShape2D" parent="CompObstacle" index="0"]

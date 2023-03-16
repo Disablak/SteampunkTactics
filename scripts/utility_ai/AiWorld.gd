@@ -24,6 +24,16 @@ func init(units_manager: UnitsManager):
 	self.walking = units_manager.walking
 
 
+func can_kick_any_near_enemy() -> bool:
+	units_manager.shooting.update_malee_cells(_cur_unit)
+
+	for unit in GlobalUnits.get_units(not _cur_unit.unit_data.is_enemy):
+		if units_manager.shooting.can_kick_unit(_cur_unit, unit):
+			return true
+
+	return false
+
+
 func _get_visible_covers() -> Array[Vector2i]:
 	var visible_cells := _cur_unit.unit_data.visibility_data.visible_points
 	var visible_covers := units_manager.pathfinding.get_covers_in_points(visible_cells)
@@ -141,18 +151,20 @@ func find_path_to_patrul_zone() -> Vector2i:
 
 func find_path_to_near_enemy() -> PathData:
 	var visible_enemy = get_visible_enemies()
-	var enemy_points: Array[Vector2i] = []
+	var enemy_points = {} # id and grid pos
 	for enemy in visible_enemy: # todo need select!
-		enemy_points.append(enemy.unit_object.grid_pos)
+		enemy_points[enemy.id] = enemy.unit_object.grid_pos
 
-	var enemy_path_data := _get_shortest_path_to_target(enemy_points)
+	var points: Array[Vector2i]
+	points.assign(enemy_points.values())
+	var enemy_path_data := _get_shortest_path_to_target(points)
 	if enemy_path_data.is_empty:
 		printerr("not found path to unit")
 		return null
 
-	var points_around_unit := units_manager.pathfinding.get_grid_poses_by_pattern(enemy_path_data.target_point, Globals.CELL_AREA_FOUR_DIR)
-	var points_without_obs := _get_ray_pos_that_not_collide_obs(enemy_path_data.target_point, points_around_unit)
-	var enemy_side_path_data := _get_shortest_path_to_target(points_without_obs)
+	var nearest_enemy_unit: Unit = GlobalUnits.units[enemy_points.find_key(enemy_path_data.target_point)]
+	var cells_around_enemy: Array[Vector2i] = units_manager.shooting.update_malee_cells(nearest_enemy_unit)
+	var enemy_side_path_data := _get_shortest_path_to_target(cells_around_enemy)
 	enemy_side_path_data.unit_id = units_manager.pathfinding.get_unit_on_cell(enemy_path_data.target_point).id
 
 	if enemy_side_path_data.is_empty:
@@ -163,25 +175,14 @@ func find_path_to_near_enemy() -> PathData:
 	return enemy_side_path_data
 
 
-func _get_ray_pos_that_not_collide_obs(ray_start_pos: Vector2i, target_points: Array[Vector2i]) -> Array[Vector2i]:
-	var result: Array[Vector2i]
-	for point in target_points:
-		var intersected_obs := units_manager.raycaster.make_ray_get_obstacles(Globals.convert_to_cell_pos(ray_start_pos), Globals.convert_to_cell_pos(point))
-		if intersected_obs.size() == 0:
-			result.append(point)
-
-	return result
-
-
 func is_any_enemy_near_unit() -> bool:
-	var points_around_unit := units_manager.pathfinding.get_grid_poses_by_pattern(_cur_unit.unit_object.grid_pos, Globals.CELL_AREA_FOUR_DIR)
+	var points_around_unit: Array[Vector2i] = units_manager.shooting.update_malee_cells(_cur_unit)
 
 	for grid_pos in points_around_unit:
 		var unit: Unit = units_manager.pathfinding.get_unit_on_cell(grid_pos)
 		if unit != null:
-			if GlobalMap.raycaster.make_ray_check_no_obstacle(_cur_unit.unit_object.position, unit.unit_object.position):
-				_cur_unit.unit_data.ai_settings.enemy_stand_near = unit.id
-				return true
+			_cur_unit.unit_data.ai_settings.enemy_stand_near = unit.id
+			return true
 
 	_cur_unit.unit_data.ai_settings.enemy_stand_near = -1
 	return false

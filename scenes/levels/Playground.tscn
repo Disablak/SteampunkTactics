@@ -3146,7 +3146,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="Cover" parent="RootObsCells" index="0" instance=ExtResource("8_7yt4i")]
-position = Vector2(288, 336)
+position = Vector2(272, 336)
 
 [node name="Cover2" parent="RootObsCells" index="1" instance=ExtResource("8_7yt4i")]
 position = Vector2(368, 336)
@@ -3338,6 +3338,7 @@ position = Vector2(288, 208)
 texture = ExtResource("33_0g1i2")
 
 [node name="RoofZone0" type="Sprite2D" parent="Roof" index="1"]
+visible = false
 self_modulate = Color(0, 0, 0, 0.329412)
 position = Vector2(224, 240)
 scale = Vector2(5, 3)

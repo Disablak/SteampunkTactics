@@ -33,6 +33,7 @@ var DEBUG_HIDE_FOG := false
 var DEBUG_SHOW_ENEMY_ALWAYS := false
 var DEBUG_FOW_RAYCASTS := false
 var DEBUG_OBJECTS_ORDERING := false
+var DEBUG_MALEE_ATACK_RAYS := false
 
 var main_atlas_image: Image
 

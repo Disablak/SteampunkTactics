@@ -3,16 +3,17 @@ extends Node2D
 
 
 var lines: Array[Array]
+var lines_malee_raycast: Array[Array]
 var point_ordering = {} # pos and ordering
-
-
-func clear_draw_vision_lines():
-	lines.clear()
-	queue_redraw()
 
 
 func draw_vision_lines(line: Array):
 	lines.append(line)
+	queue_redraw()
+
+
+func clear_draw_vision_lines():
+	lines.clear()
 	queue_redraw()
 
 
@@ -26,9 +27,20 @@ func clear_points_ordering():
 	queue_redraw()
 
 
+func draw_malee_raycast(line: Array):
+	lines_malee_raycast.append(line)
+	queue_redraw()
+
+
+func clear_malee_raycast_lines():
+	lines_malee_raycast.clear()
+	queue_redraw()
+
+
 func _draw() -> void:
 	_draw_fog_of_war_raycast()
 	_draw_objects_ordering()
+	_draw_malee_raycast()
 
 
 func _draw_fog_of_war_raycast():
@@ -36,6 +48,14 @@ func _draw_fog_of_war_raycast():
 		return
 
 	for line in lines:
+		draw_line(line[0], line[1], Color.WHITE)
+
+
+func _draw_malee_raycast():
+	if not Globals or not Globals.DEBUG_MALEE_ATACK_RAYS:
+		return
+
+	for line in lines_malee_raycast:
 		draw_line(line[0], line[1], Color.WHITE)
 
 

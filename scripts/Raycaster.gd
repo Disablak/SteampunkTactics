@@ -27,8 +27,8 @@ func make_ray_get_obs(from, to):
 	return Globals.get_cells_of_type(result, CellObject.CellType.OBSTACLE)
 
 
-func make_ray_check_no_obstacle(from, to) -> bool:
-	var result = make_ray(from, to, MASK_WALL)
+func make_ray_check_no_obstacle(from, to, mask: int = MASK_WALL) -> bool:
+	var result = make_ray(from, to, mask)
 	if not result.is_empty():
 		print("Colliding with {1}/{0}".format([result.collider.name, result.collider.get_parent().name]))
 

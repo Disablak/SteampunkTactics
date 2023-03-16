@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AiPreset" load_steps=16 format=3 uid="uid://cxaeoi1gumnso"]
+[gd_resource type="Resource" script_class="AiPreset" load_steps=18 format=3 uid="uid://cxaeoi1gumnso"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/AiPreset.gd" id="1_dh2k0"]
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd" id="1_emkbc"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionMove.gd" id="4_caok5"]
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="4_xcasm"]
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionKickEnemy.gd" id="6_gxx87"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderCanKickNearEnemy.gd" id="6_y3qni"]
 
 [sub_resource type="Resource" id="Resource_dwvle"]
 script = ExtResource("1_emkbc")
@@ -40,9 +41,13 @@ invert = false
 script = ExtResource("2_5hrt2")
 invert = false
 
+[sub_resource type="Resource" id="Resource_trrjp"]
+script = ExtResource("6_y3qni")
+invert = false
+
 [sub_resource type="Resource" id="Resource_2xj27"]
 script = ExtResource("6_gxx87")
-considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([SubResource("Resource_f4kql"), SubResource("Resource_8rynn")])
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([SubResource("Resource_f4kql"), SubResource("Resource_8rynn"), SubResource("Resource_trrjp")])
 
 [resource]
 script = ExtResource("1_dh2k0")
