@@ -47,9 +47,13 @@ func move_unit(path: Array[Vector2i]):
 
 
 func get_move_price(path: Array[Vector2i]) -> int:
-	var distance = Globals.get_total_distance(path)
-	var price_time_points = cur_unit_data.get_move_price(distance)
+	var price_time_points = cur_unit_data.get_move_price(path.size() - 1)
 	return price_time_points
+
+
+func can_move_one_cell() -> bool:
+	var result := TurnManager.can_spend_time_points(cur_unit_data.unit_settings.walk_speed)
+	return result
 
 
 func draw_walking_cells(): # todo if unit change time points without moving, it will be a bug

@@ -233,7 +233,8 @@ func clear_all_lines(force_clear: bool = false):
 
 
 func try_move_unit_to_cell(grid_pos: Vector2):
-	walking.move_unit(get_path_to_cell(grid_pos))
+	if walking.can_move_one_cell():
+		walking.move_unit(get_path_to_cell(grid_pos))
 
 
 func get_path_to_cell(grid_pos: Vector2i) -> Array[Vector2i]:
@@ -324,11 +325,15 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		return
 
 	var is_clicked_on_ground = cell_info.cell_obj.comp_walkable
+	var can_move_one_cell = walking.can_move_one_cell()
 
 	if is_clicked_on_ground:
 		shooting.deselect_enemy()
 
-	if is_clicked_on_ground and cur_unit_action != UnitData.Abilities.WALK:
+	if is_clicked_on_ground and cur_unit_action == UnitData.Abilities.WALK and not can_move_one_cell:
+		GlobalsUi.message("Not enough points")
+
+	if is_clicked_on_ground and cur_unit_action != UnitData.Abilities.WALK and can_move_one_cell:
 		change_unit_action(UnitData.Abilities.WALK)
 		return
 

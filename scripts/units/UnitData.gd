@@ -58,9 +58,8 @@ func set_damage(value: float, attacker_unit_id: int):
 		print_debug("unit_died ", unit_id)
 
 
-func get_move_price(distance: float) -> int:
-	var result = (distance * unit_settings.walk_speed)
-	return int(result)
+func get_move_price(count_cells: int) -> int:
+	return count_cells * unit_settings.walk_speed
 
 
 func has_ability(ability: Abilities):
