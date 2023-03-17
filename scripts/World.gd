@@ -19,5 +19,6 @@ func init(level_id: int):
 	units_manager.pathfinding.move_child(new_level, 0)
 
 	units_manager.init()
+
 	input_system.init(new_level.map_size)
 

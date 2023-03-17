@@ -3,7 +3,7 @@ extends Action
 
 
 func execute_action():
-	GlobalMap.ai_world.shoot_in_random_enemy()
+	ai_world.shoot_in_random_enemy()
 
 
 func _to_string() -> String:

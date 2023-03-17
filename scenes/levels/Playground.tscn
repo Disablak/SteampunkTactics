@@ -3146,7 +3146,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="Cover" parent="RootObsCells" index="0" instance=ExtResource("8_7yt4i")]
-position = Vector2(272, 336)
+position = Vector2(160, 320)
 
 [node name="Cover2" parent="RootObsCells" index="1" instance=ExtResource("8_7yt4i")]
 position = Vector2(368, 336)
@@ -3239,11 +3239,11 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("10_ddu4q")]
-position = Vector2(224, 288)
+position = Vector2(304, 272)
 unit_settings = ExtResource("11_cetlj")
 
 [node name="UnitObject2" parent="RootUnits" index="1" instance=ExtResource("10_ddu4q")]
-position = Vector2(288, 336)
+position = Vector2(272, 304)
 unit_settings = ExtResource("12_u34wp")
 ai_settings = SubResource("Resource_276rh")
 

@@ -52,6 +52,16 @@ func get_visible_enemies() -> Array[Unit]:
 	return result
 
 
+func get_shootable_enemies() -> Array[Unit]:
+	var result: Array[Unit]
+	for enemy in _cur_unit.unit_data.ai_settings.visible_enemies:
+		if GlobalMap.raycaster.make_ray_check_no_obstacle(_cur_unit.unit_object.visual_pos, enemy.unit_object.visual_pos):
+			result.append(enemy)
+
+	_cur_unit.unit_data.ai_settings.visible_enemies = result
+	return result
+
+
 func _get_shortest_path_to_target(targets: Array[Vector2i]) -> PathData:
 	var path_data: PathData = PathData.new()
 
@@ -72,7 +82,8 @@ func _get_cover_that_cover_me_from_any_enemy() -> PathData:
 
 	for cover_pos in covers:  # lambda not work!
 		for enemy in enemies:
-			var intersected_obs := units_manager.raycaster.make_ray_get_obstacles(Globals.convert_to_cell_pos(cover_pos), Globals.convert_to_cell_pos(enemy.unit_object.grid_pos))
+			var cover_visual_pos = Globals.convert_to_cell_pos(cover_pos) + Globals.CELL_OFFSET
+			var intersected_obs := units_manager.raycaster.make_ray_get_obstacles(cover_visual_pos, enemy.unit_object.visual_pos)
 			for cell_obj in intersected_obs:
 				if cell_obj.cell_type != CellObject.CellType.COVER:
 					continue

@@ -41,6 +41,7 @@ func _draw() -> void:
 	_draw_fog_of_war_raycast()
 	_draw_objects_ordering()
 	_draw_malee_raycast()
+	_draw_grid_pos()
 
 
 func _draw_fog_of_war_raycast():
@@ -67,3 +68,11 @@ func _draw_objects_ordering():
 		draw_circle(point, 1, Color.BLUE_VIOLET)
 		var ordering: String = str(point_ordering[point])
 		draw_string(ThemeDB.fallback_font, point, ordering, HORIZONTAL_ALIGNMENT_LEFT, -1, 5)
+
+
+func _draw_grid_pos():
+	if not Globals.DEBUG_GRID_POS:
+		return
+
+	for cell_obj in GlobalUnits.units_manager.pathfinding.dict_pos_and_cell_walk.values():
+		draw_string(ThemeDB.fallback_font, cell_obj.visual_pos, str(cell_obj.grid_pos), HORIZONTAL_ALIGNMENT_LEFT, -1, 3)

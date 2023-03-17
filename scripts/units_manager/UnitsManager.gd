@@ -391,3 +391,4 @@ func _on_input_system_on_pressed_esc() -> void:
 
 func _on_input_system_on_pressed_rmc() -> void:
 	_on_input_system_on_pressed_esc()
+
