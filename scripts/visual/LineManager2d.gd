@@ -15,16 +15,8 @@ const POINTS_IN_TRAJECTORY = 20
 var line2d_trajectory: Line2D
 
 
-func draw_shoot_ray(points):
-	return draw_new_line(null, SHOOT_RAY, _points_with_offset(points), Color.YELLOW, 2)
-
-
-func clear_shoot_ray():
-	clear_line(SHOOT_RAY)
-
-
 func draw_path(points, can_move):
-	draw_scrolling_new_line(PATH_LINE_NAME, _points_with_offset(points), Color.FOREST_GREEN if can_move else Color.RED)
+	draw_scrolling_new_line(PATH_LINE_NAME, _points_with_offset(points), Globals.COLOR_5 if can_move else Globals.COLOR_1)
 
 
 func clear_path():
@@ -32,7 +24,7 @@ func clear_path():
 
 
 func draw_ray(points):
-	draw_scrolling_new_line(RAY_LINE_NAME, points, Color.DARK_RED)
+	draw_scrolling_new_line(RAY_LINE_NAME, points, Globals.COLOR_5)
 
 
 func clear_ray():
@@ -43,7 +35,7 @@ func draw_trajectory(start: Vector2, end: Vector2, enough_distance: bool):
 	if line2d_trajectory == null:
 		line2d_trajectory = draw_scrolling_new_line(LINE_TRAJECTORY_NAME, [Vector2.ZERO], Color.ORANGE_RED)
 
-	_color_line(line2d_trajectory, Color.ORANGE_RED if enough_distance else Color.DARK_RED)
+	_color_line(line2d_trajectory, Globals.COLOR_5 if enough_distance else Globals.COLOR_1)
 	_draw_trajectory(line2d_trajectory, start, end)
 
 

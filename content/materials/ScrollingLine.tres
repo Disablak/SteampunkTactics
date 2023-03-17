@@ -4,5 +4,5 @@
 
 [resource]
 shader = ExtResource("1_h6msg")
-shader_parameter/color = Color(0, 0.592157, 0, 1)
-shader_parameter/scrolling_speed = 2.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/scrolling_speed = 0.5

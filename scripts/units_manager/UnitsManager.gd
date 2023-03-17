@@ -251,14 +251,6 @@ func _is_camera_moving() -> bool:
 	return GlobalsUi.input_system.camera_controller.is_camera_moving()
 
 
-func _draw_trejectory_granade(grid_pos: Vector2):
-	if not cur_unit_data.has_ability(UnitData.Abilities.GRENADE):
-		return
-
-	var cell_pos = Globals.convert_to_cell_pos(grid_pos)
-	var distance := cur_unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
-	line2d_manager.draw_trajectory(cur_unit_object.position, cell_pos, distance <= cur_unit_data.grenade.settings.throw_distance)
-
 
 func interact_with_door(cell_obj: CellObject) -> bool:
 	if not pathfinding.can_open_door(cell_obj, cur_unit_object):
@@ -309,8 +301,9 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		GlobalsUi.message("clicked on cur unit")
 		return
 
+	var is_clicked_on_ground = cell_info.cell_obj.comp_walkable != null
 	var is_granade_mode = cur_unit_action == UnitData.Abilities.GRENADE
-	if is_granade_mode and cell_info.cell_obj.cell_type != CellObject.CellType.WALL:
+	if is_granade_mode and is_clicked_on_ground:
 		if shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.grid_pos):
 			clear_all_lines(true)
 		return
@@ -324,7 +317,6 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 			clear_all_lines(true)
 		return
 
-	var is_clicked_on_ground = cell_info.cell_obj.comp_walkable
 	var can_move_one_cell = walking.can_move_one_cell()
 
 	if is_clicked_on_ground:
@@ -379,7 +371,7 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 	# 	_draw_future_path(cell_info.grid_pos)
 
 	if cur_unit_action == UnitData.Abilities.GRENADE:
-		_draw_trejectory_granade(cell_info.grid_pos)
+		shooting.draw_trejectory_granade(cell_info.grid_pos)
 
 
 func _on_input_system_on_pressed_esc() -> void:

@@ -219,6 +219,22 @@ func get_distance_to_enemy(cur_unit: Unit) -> float:
 	return cur_unit.unit_object.position.distance_to(selected_enemy.unit_object.position) / Globals.CELL_SIZE
 
 
+func draw_trejectory_granade(grid_pos: Vector2i):
+	var cur_unit: Unit = GlobalUnits.get_cur_unit()
+
+	if not cur_unit.unit_data.has_ability(UnitData.Abilities.GRENADE):
+		line2d_manager.clear_trajectory()
+		return
+
+	if not cur_unit.unit_data.visibility_data.visible_points.has(grid_pos):
+		line2d_manager.clear_trajectory()
+		return
+
+	var cell_pos = Globals.convert_to_cell_pos(grid_pos) + Globals.CELL_OFFSET
+	var distance := cur_unit.unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
+	line2d_manager.draw_trajectory(cur_unit.unit_object.visual_pos, cell_pos, distance <= cur_unit.unit_data.grenade.settings.throw_distance)
+
+
 func throw_granade(unit: Unit, grid_pos: Vector2i) -> bool:
 	if not TurnManager.can_spend_time_points(unit.unit_data.grenade.settings.use_price):
 		GlobalsUi.message("Not enough time points!")
@@ -237,12 +253,20 @@ func throw_granade(unit: Unit, grid_pos: Vector2i) -> bool:
 	unit.unit_data.grenade.spend_grenade()
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.THROW_GRENADE, unit.unit_data.grenade.settings.use_price)
 
-	var damaged_cells := pathfinding.get_cells_by_pattern(grid_pos, Globals.CELL_AREA_3x3)
+	var cells_by_pattern := pathfinding.get_cells_by_pattern(grid_pos, Globals.CELL_AREA_3x3)
+	var damaged_cells: Array[CellInfo]
+	for cell_info in cells_by_pattern:
+		var center_pos = Globals.convert_to_cell_pos(grid_pos) + Globals.CELL_OFFSET
+		if not raycaster.make_ray_check_no_obstacle(center_pos, cell_info.cell_obj.visual_pos):
+			continue
 
-	for cell_info in damaged_cells:
-		if cell_info.unit_id != -1:
-			var unit_data: UnitData = GlobalUnits.units[cell_info.unit_id].unit_data
-			unit_data.set_damage(unit.unit_data.grenade.settings.damage, unit.id)
+		damaged_cells.append(cell_info)
+
+		if cell_info.unit_id == -1:
+			continue
+
+		var unit_data: UnitData = GlobalUnits.units[cell_info.unit_id].unit_data
+		unit_data.set_damage(unit.unit_data.grenade.settings.damage, unit.id)
 
 	effect_manager.granade(damaged_cells)
 

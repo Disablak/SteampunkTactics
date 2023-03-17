@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_4jnnd")
 throw_distance = 5
-max_count = 1
+max_count = 5
 ability_name = "Grenade"
-use_price = 50
+use_price = 10
 damage = 10.0

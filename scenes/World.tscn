@@ -16,12 +16,12 @@
 [ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="13_iafh6"]
 [ext_resource type="Script" path="res://scripts/utility_ai/BrainAI.gd" id="15_y513k"]
 [ext_resource type="PackedScene" uid="uid://bncbloimsnrob" path="res://scenes/visual/Bullet2D.tscn" id="16_n1bfs"]
+[ext_resource type="PackedScene" uid="uid://ctqyarns181x0" path="res://scenes/visual/FireEffect.tscn" id="17_e35id"]
 [ext_resource type="PackedScene" uid="uid://fvlc1uhmwwsm" path="res://scenes/cells/CellHovered.tscn" id="18_yo8ds"]
 [ext_resource type="Resource" uid="uid://du37tccrd2rlv" path="res://data/settings/utility ai/presets/ActionNextTurn.tres" id="20_ak0ai"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
 [ext_resource type="Script" path="res://scripts/pathfinding/FogOfWar.gd" id="22_hxmls"]
 [ext_resource type="Script" path="res://scripts/visual/DrawUnitViewDirection.gd" id="22_n7khr"]
-[ext_resource type="PackedScene" uid="uid://bc4ejgp0vrd7h" path="res://scenes/cells/CellFireEffect.tscn" id="23_c5njg"]
 [ext_resource type="PackedScene" uid="uid://c3fuon6h0o5qe" path="res://scenes/cells/CellFog.tscn" id="23_p1e0f"]
 [ext_resource type="Script" path="res://scripts/utility_ai/AiWorld.gd" id="23_waclr"]
 [ext_resource type="PackedScene" uid="uid://b8lli71fdl17m" path="res://scenes/visual/Granede.tscn" id="24_2p2qp"]
@@ -62,7 +62,7 @@ script = ExtResource("10_yumpn")
 script = ExtResource("11_cpn0u")
 bullet_scene = ExtResource("16_n1bfs")
 granede_scene = ExtResource("24_2p2qp")
-fire_effect_scene = ExtResource("23_c5njg")
+fire_effect_scene = ExtResource("17_e35id")
 
 [node name="Raycaster" type="Node2D" parent="UnitsManager"]
 script = ExtResource("12_pdk27")

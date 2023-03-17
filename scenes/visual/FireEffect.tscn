@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctqyarns181x0"]
+
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="1_gob3f"]
+[ext_resource type="Texture2D" uid="uid://blpvf4s12nr6p" path="res://content/sprites/gothic/FireEffect.tres" id="2_hkp0o"]
+
+[node name="VisualObject" instance=ExtResource("1_gob3f")]
+texture = ExtResource("2_hkp0o")
+centered = true

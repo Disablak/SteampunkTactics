@@ -83,6 +83,9 @@ func _update_ordering():
 	var i = 1
 	var prev_obj
 	for obj in all_sorted_objects:
+		if not obj:
+			continue
+
 		var same_origin_pos = prev_obj and prev_obj.origin_pos.y == obj.origin_pos.y
 		obj.visual_ordering = prev_obj.visual_ordering if same_origin_pos else i
 		prev_obj = obj

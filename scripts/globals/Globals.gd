@@ -27,6 +27,16 @@ const CELL_QUAD_SIZE := CELL_HALF_SIZE / 2
 const CELL_OFFSET := Vector2(CELL_HALF_SIZE, CELL_HALF_SIZE)
 const TP_TO_OPEN_DOOR := 10
 
+# colors
+const COLOR_0 = Color("#0e0e12")
+const COLOR_1 = Color("#1a1a24")
+const COLOR_2 = Color("#333346")
+const COLOR_3 = Color("#535373")
+const COLOR_4 = Color("#8080a4")
+const COLOR_5 = Color("#a6a6bf")
+const COLOR_6 = Color("#c1c1d2")
+const COLOR_7 = Color("#e6e6ec")
+
 # debug
 const DEBUG_AI = true
 var DEBUG_HIDE_FOG := false
