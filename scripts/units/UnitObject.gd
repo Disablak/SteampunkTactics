@@ -4,6 +4,7 @@ class_name UnitObject
 
 @onready var main_sprite := $VisualObject as Sprite2D
 @onready var view_direction := $CenterPoint/ViewDirection as Sprite2D
+@onready var noticed_icon := $NoticedIcon as Sprite2D
 
 @export var unit_settings: UnitSettings
 @export var ai_settings: AiSettings
@@ -28,6 +29,9 @@ var origin_pos: Vector2:
 var visual_ordering: int:
 	get: return main_sprite.z_index
 	set(value): main_sprite.z_index = value
+
+var is_enemy: bool:
+	get: return ai_settings != null
 
 
 func init_unit(unit_id, unit_data: UnitData) -> void:
@@ -66,6 +70,7 @@ func _ready() -> void:
 	_update_ai_settings()
 
 	mark_selected(false)
+	show_noticed_icon(false)
 
 
 func mark_selected(is_selected: bool):
@@ -103,6 +108,13 @@ func play_look_around():
 
 func rotate_unit_visual(left):
 	main_sprite.flip_h = left
+
+
+func show_noticed_icon(show: bool):
+	if not is_enemy:
+		return
+
+	noticed_icon.visible = show
 
 
 func _on_unit_changed_health(unit_id):

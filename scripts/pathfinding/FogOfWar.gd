@@ -255,6 +255,7 @@ func _enemies_trying_to_remember_unit(unit: Unit):
 		if enemy_visibility_data.visible_points.has(unit.unit_object.grid_pos):
 			print("unit{0} saw unit{1}".format([enemy.id, unit.id]))
 			enemy_visibility_data.unit_was_remembered(unit, unit.unit_object.grid_pos)
+			enemy.unit_object.show_noticed_icon(true)
 
 
 func _know_new_cells(is_enemy, visible_points: Array[Vector2i]):

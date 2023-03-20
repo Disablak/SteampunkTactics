@@ -3239,11 +3239,11 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("10_ddu4q")]
-position = Vector2(320, 304)
+position = Vector2(192, 272)
 unit_settings = ExtResource("11_cetlj")
 
 [node name="UnitObject2" parent="RootUnits" index="1" instance=ExtResource("10_ddu4q")]
-position = Vector2(160, 352)
+position = Vector2(240, 320)
 unit_settings = ExtResource("12_u34wp")
 ai_settings = SubResource("Resource_276rh")
 

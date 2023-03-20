@@ -21,6 +21,12 @@ func clear_enemies_saw():
 	enemies_saw.clear()
 
 
+func is_enemy_was_noticed(unit: Unit):
+	for enemy in enemies_saw:
+		if enemy.id == unit.id:
+			return true
+
+
 func is_see_enemy() -> bool:
 	for pos in visible_points:
 		for unit in GlobalUnits.get_units(not GlobalUnits.get_cur_unit().unit_data.is_enemy):

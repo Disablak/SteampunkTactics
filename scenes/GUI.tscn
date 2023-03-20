@@ -60,6 +60,7 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_vypfl")
 tooltip_scene = ExtResource("2_8t721")
+flying_tooltip_scene = ExtResource("2_8t721")
 message_scene = ExtResource("3_ouymi")
 path_message_spawn = NodePath("BattleUI/AlwaysUI")
 

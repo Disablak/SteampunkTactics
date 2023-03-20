@@ -3,6 +3,7 @@ extends Control
 
 
 @export var tooltip_scene: PackedScene
+@export var flying_tooltip_scene: PackedScene
 @export var message_scene: PackedScene
 @export var path_message_spawn: NodePath
 
@@ -10,10 +11,12 @@ extends Control
 
 
 var tooltip: Control
+var flying_tooltip: Control
 var message: Control
 var default_pos_message: Vector2
 
 var tween: Tween
+var flying_tooltip_tween: Tween
 
 
 func _ready() -> void:
@@ -24,6 +27,10 @@ func _ready() -> void:
 	tooltip = tooltip_scene.instantiate()
 	tooltip.visible = false
 	add_child(tooltip)
+
+	flying_tooltip = flying_tooltip_scene.instantiate()
+	flying_tooltip.visible = false
+	add_child(flying_tooltip)
 
 	message = message_scene.instantiate()
 	message.visible = false
@@ -48,6 +55,25 @@ func show_tooltip(show: bool, text: String = "", position: Vector2 = Vector2.ZER
 	tooltip.position = position
 	tooltip.scale = Vector2.ONE / get_viewport().get_camera_2d().zoom
 	tooltip.get_node("Label").text = text
+
+
+func show_flying_tooltip(text: String, position: Vector2 = Vector2.ZERO):
+	if flying_tooltip_tween:
+		flying_tooltip_tween.kill()
+		hide_flying_tooltip()
+
+	flying_tooltip_tween = create_tween()
+	flying_tooltip_tween.tween_property(flying_tooltip, "position", position + Vector2(0, -20), 1.0).from(position).set_trans(Tween.TRANS_QUAD)
+	flying_tooltip_tween.tween_property(flying_tooltip, "modulate", Color(Color.WHITE, 0.0), 0.5)
+	flying_tooltip_tween.tween_callback(hide_flying_tooltip)
+
+	flying_tooltip.visible = true
+	flying_tooltip.get_node("Label").text = text
+
+
+func hide_flying_tooltip():
+	flying_tooltip.visible = false
+	flying_tooltip.modulate.a = 1.0
 
 
 func show_message(text: String):

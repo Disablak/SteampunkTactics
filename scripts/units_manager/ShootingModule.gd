@@ -147,7 +147,7 @@ func _shoot(shooter: Unit) -> bool:
 
 	match hit_type:
 		HitType.HIT:
-			selected_enemy.unit_data.set_damage(shooter.unit_data.riffle.settings.damage, shooter.id)
+			_set_unit_damage(selected_enemy, shooter, shooter.unit_data.riffle)
 
 		HitType.HIT_IN_COVER:
 			if cover.comp_health:
@@ -265,8 +265,8 @@ func throw_granade(unit: Unit, grid_pos: Vector2i) -> bool:
 		if cell_info.unit_id == -1:
 			continue
 
-		var unit_data: UnitData = GlobalUnits.units[cell_info.unit_id].unit_data
-		unit_data.set_damage(unit.unit_data.grenade.settings.damage, unit.id)
+		var cell_unit: Unit = GlobalUnits.units[cell_info.unit_id]
+		_set_unit_damage(cell_unit, unit, unit.unit_data.grenade)
 
 	effect_manager.granade(damaged_cells)
 
@@ -319,7 +319,7 @@ func _kick_unit(unit: Unit, another_unit: Unit) -> bool:
 		return false
 
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.MELLE_ATTACK, unit.unit_data.knife.settings.use_price)
-	another_unit.unit_data.set_damage(unit.unit_data.knife.settings.damage, unit.id)
+	_set_unit_damage(another_unit, unit, unit.unit_data.knife)
 
 	var dir = (another_unit.unit_object.position - unit.unit_object.position).normalized()
 	_kick_animation(unit, another_unit, dir)
@@ -366,3 +366,12 @@ func _calc_obs_debaff() -> float:
 	obstacles_sum_debaff = clampf(obstacles_sum_debaff, 0.0, 1.0)
 	return obstacles_sum_debaff
 
+
+func _set_unit_damage(unit: Unit, atacker: Unit, ability_data: AbilityData):
+	var damage_multiplier = 1.0
+	if ability_data.settings.can_stealth_attack:
+		if not unit.unit_data.visibility_data.is_enemy_was_noticed(atacker):
+			damage_multiplier = 2.0
+			GlobalsUi.gui.show_flying_tooltip("stealth", atacker.unit_object.position)
+
+	unit.unit_data.set_damage(ability_data.settings.damage * damage_multiplier, atacker.id)

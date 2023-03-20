@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AiPreset" load_steps=18 format=3 uid="uid://cxaeoi1gumnso"]
+[gd_resource type="Resource" script_class="AiPreset" load_steps=19 format=3 uid="uid://cxaeoi1gumnso"]
 
 [ext_resource type="Script" path="res://scripts/utility_ai/AiPreset.gd" id="1_dh2k0"]
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd" id="1_emkbc"]
@@ -22,10 +22,15 @@ script = ExtResource("3_kmbxu")
 path_target = 1
 invert = false
 
+[sub_resource type="Curve" id="Curve_epbyj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.85747, 0.614209), 1.30532, 1.30532, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="Resource" id="Resource_gbnk1"]
 script = ExtResource("4_xcasm")
 price_type = 5
 invert = false
+response_curve = SubResource("Curve_epbyj")
 
 [sub_resource type="Resource" id="Resource_fjx58"]
 script = ExtResource("4_caok5")

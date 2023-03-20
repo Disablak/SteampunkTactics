@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://2ikcthg31xdg"]
+[gd_scene load_steps=6 format=3 uid="uid://2ikcthg31xdg"]
 
 [ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_a7ikt"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_kmtyi"]
 [ext_resource type="Texture2D" uid="uid://ciry2hpepxf06" path="res://content/sprites/gothic/player1.tres" id="3_5qwq0"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="4_bpjp7"]
+[ext_resource type="Texture2D" uid="uid://b6e5yn1juhul0" path="res://content/sprites/gothic/noticed_icon.tres" id="5_qingj"]
 
 [node name="UnitObject" type="Node2D"]
 script = ExtResource("1_a7ikt")
@@ -22,3 +23,8 @@ scale = Vector2(0.1, 0.03)
 texture = ExtResource("4_bpjp7")
 centered = false
 offset = Vector2(70, -16)
+
+[node name="NoticedIcon" parent="." instance=ExtResource("2_kmtyi")]
+visible = false
+position = Vector2(1, -19)
+texture = ExtResource("5_qingj")

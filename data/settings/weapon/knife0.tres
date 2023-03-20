@@ -9,4 +9,5 @@ type_attack = 2
 ability_name = "Dagger"
 use_price = 20
 damage = 5.0
+can_stealth_attack = true
 ai_preset = ExtResource("1_306da")

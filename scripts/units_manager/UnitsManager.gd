@@ -157,6 +157,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 
 	if cur_unit_object != null:
 		cur_unit_object.mark_selected(false)
+		cur_unit_object.show_noticed_icon(false)
 		cur_unit_data.visibility_data.clear_enemies_saw()
 
 	GlobalUnits.cur_unit_id = unit_id

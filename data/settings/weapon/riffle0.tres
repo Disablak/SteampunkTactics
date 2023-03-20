@@ -15,4 +15,5 @@ reload_price = 50
 ability_name = "Winchester"
 use_price = 30
 damage = 3.0
+can_stealth_attack = false
 ai_preset = ExtResource("1_nnelp")
