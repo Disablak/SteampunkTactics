@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cbi4jqkvke8td"]
+
+[ext_resource type="Texture2D" uid="uid://ufn443cv2f31" path="res://content/sprites/ui/ui_button_hovered_1.tres" id="1_2p1c7"]
+
+[resource]
+texture = ExtResource("1_2p1c7")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0

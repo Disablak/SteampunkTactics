@@ -114,16 +114,15 @@ func _calc_bounds():
 	sensetive = drag_sensitive / zoom.x
 
 	var half_bound_size := camera_bound_rect.size / 2
-	var viewport_height := get_viewport_rect().size.y
-	var square_viewport_size := Vector2(viewport_height, viewport_height)
-	var half_camera_size := square_viewport_size / zoom / 2
+	var viewport_size := get_viewport_rect().size
+	var half_camera_size := viewport_size / zoom / 2
 
 	bounds_min.x = -half_bound_size.x + camera_bound_rect.position.x + half_camera_size.x
 	bounds_min.y = -half_bound_size.y + camera_bound_rect.position.y + half_camera_size.y
 	bounds_max.x =  half_bound_size.x + camera_bound_rect.position.x - half_camera_size.x
 	bounds_max.y =  half_bound_size.y + camera_bound_rect.position.y - half_camera_size.y
 
-	viewport_helper_size = (square_viewport_size / zoom) * helper_size_of_full
+	viewport_helper_size = (viewport_size / zoom) * helper_size_of_full
 
 
 func _clamp_pos_in_bounds(pos: Vector2) -> Vector2:

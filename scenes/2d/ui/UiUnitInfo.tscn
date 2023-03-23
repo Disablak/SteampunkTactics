@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d6qdqp0vqao0"]
+[gd_scene load_steps=5 format=3 uid="uid://d6qdqp0vqao0"]
 
 [ext_resource type="Script" path="res://scripts/ui/UiUnitInfo.gd" id="1_4qew3"]
 [ext_resource type="Texture2D" uid="uid://drgerldkg8o4r" path="res://content/sprites/unit_portrait.png" id="2_fq5jh"]
+[ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="3_3bh8n"]
 [ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="3_cpyj2"]
 
 [node name="UnitInfo" type="Control"]
@@ -28,11 +29,13 @@ grow_horizontal = 2
 texture = ExtResource("2_fq5jh")
 
 [node name="LabelHealth" type="Label" parent="."]
+texture_filter = 1
 layout_mode = 2
 offset_left = 15.0
 offset_top = 140.0
 offset_right = 195.0
 offset_bottom = 170.0
+theme = ExtResource("3_3bh8n")
 text = "Health: 100/100"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -45,29 +48,30 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 15.0
-offset_top = -40.0
+offset_top = -44.0
 offset_right = -15.0
-offset_bottom = -10.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 1
 script = ExtResource("3_cpyj2")
 
 [node name="ProgressBar" type="ProgressBar" parent="TimePointsUI"]
-modulate = Color(0.423529, 0.32549, 0.87451, 1)
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -27.0
+offset_top = -38.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("3_3bh8n")
 value = 50.0
 show_percentage = false
 
 [node name="ProgressBarHint" type="ProgressBar" parent="TimePointsUI"]
-modulate = Color(1, 1, 1, 0.54902)
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -76,4 +80,5 @@ anchor_bottom = 1.0
 offset_top = -27.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("3_3bh8n")
 value = 20.0

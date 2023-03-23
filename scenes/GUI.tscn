@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c81lt0oloef08"]
+[gd_scene load_steps=26 format=3 uid="uid://d4avb1r3ohetp"]
 
 [ext_resource type="Script" path="res://scripts/ui/GUI.gd" id="1_vypfl"]
 [ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="2_8t721"]
@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://d6qdqp0vqao0" path="res://scenes/2d/ui/UiUnitInfo.tscn" id="5_10q7o"]
 [ext_resource type="Script" path="res://scripts/ui/UiUnitAbilities.gd" id="6_q18j3"]
 [ext_resource type="ButtonGroup" uid="uid://bsrwr3ppmws16" path="res://data/settings/ui/ButtonGroup.tres" id="7_7jswe"]
+[ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="7_omlrh"]
 [ext_resource type="Script" path="res://scripts/ui/UiBtnAbility.gd" id="8_7jrsu"]
+[ext_resource type="Theme" path="res://data/settings/ui/gothic_ui_theme_1.tres" id="10_gtirj"]
 [ext_resource type="Shortcut" uid="uid://wn8cqlrakbky" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="12_e4ykp"]
 [ext_resource type="FontFile" uid="uid://cuq7uy43wcnc3" path="res://data/settings/ui/alagard.ttf" id="12_mbk3r"]
 [ext_resource type="PackedScene" uid="uid://br8vyxjhv1p53" path="res://scenes/2d/ui/UiUnitsList.tscn" id="13_iompt"]
@@ -79,6 +81,7 @@ script = ExtResource("4_4wdqw")
 [node name="AlwaysUI" type="CanvasLayer" parent="BattleUI"]
 
 [node name="ColorRectLeft" type="ColorRect" parent="BattleUI/AlwaysUI"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -93,6 +96,7 @@ grow_vertical = 2
 color = Color(0.196078, 0.196078, 0.196078, 1)
 
 [node name="ColorRectRight" type="ColorRect" parent="BattleUI/AlwaysUI"]
+visible = false
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -119,18 +123,29 @@ layout_mode = 1
 [node name="UnitAbils" type="ScrollContainer" parent="BattleUI/AlwaysUI/LeftSide"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_top = 220.0
-offset_right = 210.0
-offset_bottom = 477.0
+offset_left = 13.0
+offset_top = 219.0
+offset_right = 195.0
+offset_bottom = 476.0
 horizontal_scroll_mode = 0
 script = ExtResource("6_q18j3")
 
-[node name="Container" type="VBoxContainer" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils"]
+[node name="MarginContainer" type="MarginContainer" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Container" type="VBoxContainer" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BtnMove" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
+[node name="BtnMove" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/MarginContainer/Container"]
+texture_filter = 1
 layout_mode = 2
+theme = ExtResource("7_omlrh")
 toggle_mode = true
 button_group = ExtResource("7_7jswe")
 shortcut = SubResource("Shortcut_b0hfn")
@@ -138,8 +153,10 @@ text = "Move"
 script = ExtResource("8_7jrsu")
 ability = 1
 
-[node name="BtnShoot" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
+[node name="BtnShoot" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/MarginContainer/Container"]
+texture_filter = 1
 layout_mode = 2
+theme = ExtResource("7_omlrh")
 toggle_mode = true
 button_group = ExtResource("7_7jswe")
 shortcut = SubResource("Shortcut_xx4o5")
@@ -147,8 +164,10 @@ text = "Shoot"
 script = ExtResource("8_7jrsu")
 ability = 3
 
-[node name="BtnReload" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
+[node name="BtnReload" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/MarginContainer/Container"]
+texture_filter = 1
 layout_mode = 2
+theme = ExtResource("7_omlrh")
 toggle_mode = true
 button_group = ExtResource("7_7jswe")
 shortcut = SubResource("Shortcut_5qic7")
@@ -157,8 +176,10 @@ text = "Reload
 script = ExtResource("8_7jrsu")
 ability = 4
 
-[node name="BtnGrenade" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
+[node name="BtnGrenade" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/MarginContainer/Container"]
+texture_filter = 1
 layout_mode = 2
+theme = ExtResource("7_omlrh")
 toggle_mode = true
 button_group = ExtResource("7_7jswe")
 shortcut = SubResource("Shortcut_b30k4")
@@ -166,8 +187,10 @@ text = "Throw grenade"
 script = ExtResource("8_7jrsu")
 ability = 5
 
-[node name="BtnKnife" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/Container"]
+[node name="BtnKnife" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/MarginContainer/Container"]
+texture_filter = 1
 layout_mode = 2
+theme = ExtResource("7_omlrh")
 toggle_mode = true
 button_group = ExtResource("7_7jswe")
 shortcut = SubResource("Shortcut_dewe6")
@@ -177,6 +200,7 @@ ability = 2
 
 [node name="BtnNextTurn" type="Button" parent="BattleUI/AlwaysUI/LeftSide"]
 unique_name_in_owner = true
+texture_filter = 1
 layout_mode = 2
 offset_left = 17.0
 offset_top = 487.0
@@ -184,6 +208,7 @@ offset_right = 191.0
 offset_bottom = 528.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("10_gtirj")
 shortcut = ExtResource("12_e4ykp")
 text = "Next Turn"
 
@@ -204,29 +229,38 @@ unique_name_in_owner = true
 
 [node name="BtnZoom100" type="Button" parent="BattleUI/AlwaysUI/RightSide"]
 unique_name_in_owner = true
+visible = false
+texture_filter = 1
 layout_mode = 0
 offset_left = 1.0
 offset_top = 509.0
 offset_right = 51.0
 offset_bottom = 540.0
+theme = ExtResource("7_omlrh")
 text = "100%"
 
 [node name="BtnZoom150" type="Button" parent="BattleUI/AlwaysUI/RightSide"]
 unique_name_in_owner = true
+visible = false
+texture_filter = 1
 layout_mode = 0
 offset_left = 54.0
 offset_top = 509.0
 offset_right = 104.0
 offset_bottom = 540.0
+theme = ExtResource("7_omlrh")
 text = "75%"
 
 [node name="BtnZoom200" type="Button" parent="BattleUI/AlwaysUI/RightSide"]
 unique_name_in_owner = true
+visible = false
+texture_filter = 1
 layout_mode = 0
 offset_left = 108.0
 offset_top = 509.0
 offset_right = 158.0
 offset_bottom = 540.0
+theme = ExtResource("7_omlrh")
 text = "50%"
 
 [node name="LabelFPS" type="Label" parent="BattleUI/AlwaysUI"]

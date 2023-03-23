@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4u6fb473yrgx"]
+[gd_scene load_steps=3 format=3 uid="uid://b4u6fb473yrgx"]
 
 [ext_resource type="Script" path="res://scripts/ui/UiSelectedUnitInfo.gd" id="1_8s4iw"]
+[ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="2_g0srs"]
 
 [node name="SelectedUnitInfo" type="Control"]
 layout_mode = 3
@@ -19,4 +20,5 @@ offset_left = 15.0
 offset_right = -15.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_g0srs")
 text = "Unit info"

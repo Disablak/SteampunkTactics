@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://djt74fa5fqh1"]
+
+[ext_resource type="Texture2D" uid="uid://fau0cbrfp20a" path="res://content/sprites/ui/gothic_ui_tile.png" id="1_pcg4m"]
+
+[resource]
+atlas = ExtResource("1_pcg4m")
+region = Rect2(32, 0, 32, 32)

@@ -19,7 +19,7 @@ func _init_all_buttons(unit_data: UnitData):
 	if all_btns_ability.size() != 0:
 		return
 
-	for btn in get_child(0).get_children():
+	for btn in get_child(0).get_child(0).get_children():
 		var button: Button = btn as Button
 		var is_btn_available = unit_data.has_ability(button.ability)
 		button.pressed.connect(func(): _on_clicked_ability(btn))

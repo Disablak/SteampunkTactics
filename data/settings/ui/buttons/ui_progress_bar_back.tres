@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://bgqk1fja720is"]
+
+[ext_resource type="Texture2D" uid="uid://b1hixuxad24dy" path="res://content/sprites/ui/ui_progress_bar_back.tres" id="1_fikrc"]
+
+[resource]
+texture = ExtResource("1_fikrc")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
