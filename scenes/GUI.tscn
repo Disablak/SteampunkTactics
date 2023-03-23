@@ -48,6 +48,8 @@ font = ExtResource("12_mbk3r")
 font_size = 40
 
 [node name="GUI" type="Control"]
+top_level = true
+z_index = 110
 layout_direction = 1
 layout_mode = 3
 anchors_preset = 15

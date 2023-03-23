@@ -22,7 +22,7 @@ pivot_offset = Vector2(200, 50)
 mouse_filter = 1
 
 [node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -31,7 +31,7 @@ mouse_filter = 1
 color = Color(1, 1, 1, 0.196078)
 
 [node name="Label" type="Label" parent="."]
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
