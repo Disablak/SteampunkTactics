@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dmlr2ehopfsf3"]
 
 [ext_resource type="FontFile" uid="uid://cuq7uy43wcnc3" path="res://data/settings/ui/alagard.ttf" id="1_5ldxu"]
 [ext_resource type="StyleBox" uid="uid://cbi4jqkvke8td" path="res://data/settings/ui/buttons/ui_button_hovered_1.tres" id="2_2uyd7"]

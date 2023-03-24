@@ -9,7 +9,7 @@
 [ext_resource type="ButtonGroup" uid="uid://bsrwr3ppmws16" path="res://data/settings/ui/ButtonGroup.tres" id="7_7jswe"]
 [ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="7_omlrh"]
 [ext_resource type="Script" path="res://scripts/ui/UiBtnAbility.gd" id="8_7jrsu"]
-[ext_resource type="Theme" path="res://data/settings/ui/gothic_ui_theme_1.tres" id="10_gtirj"]
+[ext_resource type="Theme" uid="uid://dmlr2ehopfsf3" path="res://data/settings/ui/gothic_ui_theme_1.tres" id="10_gtirj"]
 [ext_resource type="Shortcut" uid="uid://wn8cqlrakbky" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="12_e4ykp"]
 [ext_resource type="FontFile" uid="uid://cuq7uy43wcnc3" path="res://data/settings/ui/alagard.ttf" id="12_mbk3r"]
 [ext_resource type="PackedScene" uid="uid://br8vyxjhv1p53" path="res://scenes/2d/ui/UiUnitsList.tscn" id="13_iompt"]
