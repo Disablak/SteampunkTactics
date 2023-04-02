@@ -222,6 +222,10 @@ func get_distance_to_enemy(cur_unit: Unit) -> float:
 func draw_trejectory_granade(grid_pos: Vector2i):
 	var cur_unit: Unit = GlobalUnits.get_cur_unit()
 
+	if not cur_unit:
+		line2d_manager.clear_trajectory()
+		return
+
 	if not cur_unit.unit_data.has_ability(UnitData.Abilities.GRENADE):
 		line2d_manager.clear_trajectory()
 		return
