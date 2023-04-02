@@ -5,6 +5,7 @@ extends Node2D
 @export var bullet_scene: PackedScene
 @export var granede_scene: PackedScene
 @export var fire_effect_scene: PackedScene
+@export var unit_death_effect_scene: PackedScene
 
 signal on_moved_obj_to_points()
 
@@ -51,7 +52,7 @@ func shoot(from: Unit, to: Unit, hit_type: ShootingModule.HitType, cover_pos: Ve
 
 	await tween.finished
 	if hit_type == ShootingModule.HitType.HIT:
-		if to.unit_object:
+		if to.unit_object != null:
 			to.unit_object.play_damage_anim()
 
 
@@ -115,4 +116,15 @@ func _move_obj_to_points(object: Node2D, points: Array[Vector2], speed: int):
 		cur_target_id += 1
 
 		await tween_move.finished
+
+
+func death_effect(pos: Vector2, unit_texture_region):
+	var effect = unit_death_effect_scene.instantiate()
+	add_child(effect)
+	effect.position = pos
+
+	effect.play_effect(unit_texture_region)
+
+
+
 

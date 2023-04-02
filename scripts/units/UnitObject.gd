@@ -61,7 +61,6 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	GlobalBus.on_unit_died.connect(_on_unit_died)
 	GlobalBus.on_unit_change_health.connect(_on_unit_changed_health)
 	GlobalBus.on_unit_changed_view_direction.connect(_on_unit_changed_view_direction)
 
@@ -123,13 +122,6 @@ func _on_unit_changed_health(unit_id):
 
 	pass
 	#play_damage_anim()
-
-
-func _on_unit_died(unit_id, unit_id_killer):
-	if self.unit_id != unit_id:
-		return
-
-	queue_free()
 
 
 func _on_unit_changed_view_direction(unit_id, angle, update_fog):

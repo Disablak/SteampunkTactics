@@ -72,6 +72,10 @@ func _on_clicked_ability(ability: UnitData.Abilities):
 
 
 func _on_unit_died(unit_id, unit_id_killer):
+	var unit_object: UnitObject = GlobalUnits.units[unit_id].unit_object
+	effect_manager.death_effect(unit_object.position, unit_object.main_sprite.texture.region)
+	unit_object.queue_free()
+
 	GlobalUnits.remove_unit(unit_id)
 	TurnManager.remove_unit_from_order(unit_id)
 

@@ -1,8 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://daaa4wpe8k4g1"]
+[gd_scene load_steps=29 format=3 uid="uid://daaa4wpe8k4g1"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
-[ext_resource type="PackedScene" uid="uid://c0pyifkwmrhb4" path="res://scenes/levels/Playground.tscn" id="2_eiugl"]
+[ext_resource type="PackedScene" uid="uid://ds3bbbe5vaaqk" path="res://scenes/levels/Playground.tscn" id="2_eiugl"]
 [ext_resource type="PackedScene" path="res://scenes/levels/level1.tscn" id="3_rlpdy"]
 [ext_resource type="PackedScene" uid="uid://k27klyg28o74" path="res://scenes/cells/HintDamage.tscn" id="6_akxss"]
 [ext_resource type="PackedScene" uid="uid://cwx8drbr53vsv" path="res://scenes/cells/WalkableHintCell.tscn" id="6_vdct5"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://scripts/utility_ai/BrainAI.gd" id="15_y513k"]
 [ext_resource type="PackedScene" uid="uid://bncbloimsnrob" path="res://scenes/visual/Bullet2D.tscn" id="16_n1bfs"]
 [ext_resource type="PackedScene" uid="uid://ctqyarns181x0" path="res://scenes/visual/FireEffect.tscn" id="17_e35id"]
+[ext_resource type="PackedScene" uid="uid://b1wf7wwvwi86x" path="res://scenes/visual/UnitDeathEffect.tscn" id="18_r4ev8"]
 [ext_resource type="PackedScene" uid="uid://fvlc1uhmwwsm" path="res://scenes/cells/CellHovered.tscn" id="18_yo8ds"]
 [ext_resource type="Resource" uid="uid://du37tccrd2rlv" path="res://data/settings/utility ai/presets/ActionNextTurn.tres" id="20_ak0ai"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
@@ -63,6 +64,7 @@ script = ExtResource("11_cpn0u")
 bullet_scene = ExtResource("16_n1bfs")
 granede_scene = ExtResource("24_2p2qp")
 fire_effect_scene = ExtResource("17_e35id")
+unit_death_effect_scene = ExtResource("18_r4ev8")
 
 [node name="Raycaster" type="Node2D" parent="UnitsManager"]
 script = ExtResource("12_pdk27")
