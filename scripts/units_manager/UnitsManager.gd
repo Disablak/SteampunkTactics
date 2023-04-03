@@ -145,9 +145,9 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 		printerr("unit {0} is moving now".format([unit_id]))
 		return
 
-	if cur_unit_id == unit_id:
-		printerr("its same unit {0}".format([unit_id]))
-		return
+#	if cur_unit_id == unit_id:
+#		printerr("its same unit {0}".format([unit_id]))
+#		return
 
 	if not units.has(unit_id):
 		printerr("there are no unit with id {0}".format([unit_id]))
@@ -291,7 +291,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		GlobalsUi.message("unit walking")
 		return
 
-	if cell_info.cell_obj == null:
+	if not cell_info.is_ground and not cell_info.cell_obj:
 		GlobalsUi.message("cell no data")
 		return
 
@@ -306,7 +306,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		GlobalsUi.message("clicked on cur unit")
 		return
 
-	var is_clicked_on_ground = cell_info.cell_obj.comp_walkable != null
+	var is_clicked_on_ground = cell_info.is_ground
 	var is_granade_mode = cur_unit_action == UnitData.Abilities.GRENADE
 	if is_granade_mode and is_clicked_on_ground:
 		if shooting.throw_granade(GlobalUnits.units[cur_unit_id], cell_info.grid_pos):
@@ -350,7 +350,7 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		clear_all_lines()
 		return
 
-	if cell_info.cell_obj == null:
+	if not cell_info.is_ground and not cell_info.cell_obj:
 		clear_all_lines()
 		return
 
@@ -362,7 +362,7 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
 		GlobalsUi.gui.show_tooltip(true, "OPEN", pos)
 		TurnManager.show_hint_spend_points(Globals.TP_TO_OPEN_DOOR)
 
-	var is_hovered_on_ground = cell_info.cell_obj.comp_walkable
+	var is_hovered_on_ground = cell_info.is_ground
 	if not is_hovered_on_ground:
 		clear_all_lines()
 		return

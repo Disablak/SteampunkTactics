@@ -283,20 +283,19 @@ func update_malee_cells(unit: Unit) -> Array[Vector2i]:
 	malee_cells.clear()
 
 	var unit_grid_pos = Globals.convert_to_grid_pos(unit.unit_object.position)
-	var cells = pathfinding.get_walk_cells_by_patern(unit_grid_pos, unit.unit_data.knife.get_attack_cells())
+	var grid_poses = pathfinding.get_grid_poses_by_pattern(unit_grid_pos, unit.unit_data.knife.get_attack_cells())
 
-	for cell in cells:
-		if cell.cell_type == CellObject.CellType.OBSTACLE:
+	for pos in grid_poses:
+		var visual_pos = Globals.convert_to_visual_pos(pos)
+
+		if not raycaster.make_ray_check_no_obstacle(unit.unit_object.visual_pos, visual_pos, raycaster.MASK_WALL):
 			continue
 
-		if not raycaster.make_ray_check_no_obstacle(unit.unit_object.visual_pos, cell.visual_pos, raycaster.MASK_WALL):
+		if not raycaster.make_ray_check_no_obstacle(unit.unit_object.visual_pos, visual_pos, raycaster.MASK_OBSTACLE):
 			continue
 
-		if not raycaster.make_ray_check_no_obstacle(unit.unit_object.visual_pos, cell.visual_pos, raycaster.MASK_OBSTACLE):
-			continue
-
-		GlobalMap.draw_debug.draw_malee_raycast([unit.unit_object.visual_pos, cell.visual_pos])
-		malee_cells.append(cell.grid_pos)
+		GlobalMap.draw_debug.draw_malee_raycast([unit.unit_object.visual_pos, visual_pos])
+		malee_cells.append(pos)
 
 	return malee_cells
 

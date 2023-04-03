@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_p1tb3"]
 [ext_resource type="PackedScene" uid="uid://daaa4wpe8k4g1" path="res://scenes/World.tscn" id="2_bb7rw"]
-[ext_resource type="PackedScene" uid="uid://c81lt0oloef08" path="res://scenes/GUI.tscn" id="3_m8362"]
+[ext_resource type="PackedScene" uid="uid://d4avb1r3ohetp" path="res://scenes/GUI.tscn" id="3_m8362"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p1tb3")
+level_id = 1
 
 [node name="World" parent="." instance=ExtResource("2_bb7rw")]
 

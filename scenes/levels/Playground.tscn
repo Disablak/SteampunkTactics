@@ -43,7 +43,7 @@ patrul_zones_paths = Array[NodePath]([])
 [node name="Playground" instance=ExtResource("1_i4jgl")]
 map_size = Vector2(32, 32)
 roof_zones_path = {
-NodePath("Roof/RoofZone0"): NodePath("Roof/Roof0")
+NodePath("RootRoof/RoofZone0"): NodePath("RootRoof/Roof0")
 }
 
 [node name="CellWalk" parent="RootWalkCells" index="0" instance=ExtResource("2_ftjox")]
@@ -3253,91 +3253,89 @@ texture = ExtResource("24_ioijk")
 [node name="ViewDirection" parent="RootUnits/UnitObject2/CenterPoint" index="0"]
 visible = true
 
-[node name="Roof" type="Node2D" parent="." index="5"]
-
-[node name="Roof0" type="Node2D" parent="Roof" index="0"]
+[node name="Roof0" type="Node2D" parent="RootRoof" index="0"]
 z_index = 50
 
-[node name="VisualRoof" parent="Roof/Roof0" index="0" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof" parent="RootRoof/Roof0" index="0" instance=ExtResource("25_gfgsb")]
 position = Vector2(224, 256)
 
-[node name="VisualRoof2" parent="Roof/Roof0" index="1" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof2" parent="RootRoof/Roof0" index="1" instance=ExtResource("25_gfgsb")]
 position = Vector2(240, 256)
 texture = ExtResource("26_schc3")
 
-[node name="VisualRoof5" parent="Roof/Roof0" index="2" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof5" parent="RootRoof/Roof0" index="2" instance=ExtResource("25_gfgsb")]
 position = Vector2(288, 256)
 texture = ExtResource("27_ty243")
 
-[node name="VisualRoof6" parent="Roof/Roof0" index="3" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof6" parent="RootRoof/Roof0" index="3" instance=ExtResource("25_gfgsb")]
 position = Vector2(224, 240)
 texture = ExtResource("28_52cas")
 
-[node name="VisualRoof7" parent="Roof/Roof0" index="4" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof7" parent="RootRoof/Roof0" index="4" instance=ExtResource("25_gfgsb")]
 position = Vector2(240, 240)
 texture = ExtResource("29_vivhv")
 
-[node name="VisualRoof10" parent="Roof/Roof0" index="5" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof10" parent="RootRoof/Roof0" index="5" instance=ExtResource("25_gfgsb")]
 position = Vector2(288, 240)
 texture = ExtResource("30_g2hsc")
 
-[node name="VisualRoof11" parent="Roof/Roof0" index="6" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof11" parent="RootRoof/Roof0" index="6" instance=ExtResource("25_gfgsb")]
 position = Vector2(224, 224)
 texture = ExtResource("28_52cas")
 
-[node name="VisualRoof12" parent="Roof/Roof0" index="7" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof12" parent="RootRoof/Roof0" index="7" instance=ExtResource("25_gfgsb")]
 position = Vector2(240, 224)
 texture = ExtResource("29_vivhv")
 
-[node name="VisualRoof15" parent="Roof/Roof0" index="8" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof15" parent="RootRoof/Roof0" index="8" instance=ExtResource("25_gfgsb")]
 position = Vector2(288, 224)
 texture = ExtResource("30_g2hsc")
 
-[node name="VisualRoof16" parent="Roof/Roof0" index="9" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof16" parent="RootRoof/Roof0" index="9" instance=ExtResource("25_gfgsb")]
 position = Vector2(224, 208)
 texture = ExtResource("31_gadbk")
 
-[node name="VisualRoof17" parent="Roof/Roof0" index="10" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof17" parent="RootRoof/Roof0" index="10" instance=ExtResource("25_gfgsb")]
 position = Vector2(240, 208)
 texture = ExtResource("32_ixf3g")
 
-[node name="VisualRoof3" parent="Roof/Roof0" index="11" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof3" parent="RootRoof/Roof0" index="11" instance=ExtResource("25_gfgsb")]
 position = Vector2(256, 256)
 texture = ExtResource("26_schc3")
 
-[node name="VisualRoof8" parent="Roof/Roof0" index="12" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof8" parent="RootRoof/Roof0" index="12" instance=ExtResource("25_gfgsb")]
 position = Vector2(256, 240)
 texture = ExtResource("29_vivhv")
 
-[node name="VisualRoof13" parent="Roof/Roof0" index="13" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof13" parent="RootRoof/Roof0" index="13" instance=ExtResource("25_gfgsb")]
 position = Vector2(256, 224)
 texture = ExtResource("29_vivhv")
 
-[node name="VisualRoof18" parent="Roof/Roof0" index="14" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof18" parent="RootRoof/Roof0" index="14" instance=ExtResource("25_gfgsb")]
 position = Vector2(256, 208)
 texture = ExtResource("32_ixf3g")
 
-[node name="VisualRoof4" parent="Roof/Roof0" index="15" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof4" parent="RootRoof/Roof0" index="15" instance=ExtResource("25_gfgsb")]
 position = Vector2(272, 256)
 texture = ExtResource("26_schc3")
 
-[node name="VisualRoof9" parent="Roof/Roof0" index="16" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof9" parent="RootRoof/Roof0" index="16" instance=ExtResource("25_gfgsb")]
 position = Vector2(272, 240)
 texture = ExtResource("29_vivhv")
 
-[node name="VisualRoof14" parent="Roof/Roof0" index="17" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof14" parent="RootRoof/Roof0" index="17" instance=ExtResource("25_gfgsb")]
 position = Vector2(272, 224)
 texture = ExtResource("29_vivhv")
 
-[node name="VisualRoof19" parent="Roof/Roof0" index="18" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof19" parent="RootRoof/Roof0" index="18" instance=ExtResource("25_gfgsb")]
 position = Vector2(272, 208)
 texture = ExtResource("32_ixf3g")
 
-[node name="VisualRoof20" parent="Roof/Roof0" index="19" instance=ExtResource("25_gfgsb")]
+[node name="VisualRoof20" parent="RootRoof/Roof0" index="19" instance=ExtResource("25_gfgsb")]
 position = Vector2(288, 208)
 texture = ExtResource("33_0g1i2")
 
-[node name="RoofZone0" type="Sprite2D" parent="Roof" index="1"]
+[node name="RoofZone0" type="Sprite2D" parent="RootRoof" index="1"]
 visible = false
 self_modulate = Color(0, 0, 0, 0.329412)
 position = Vector2(224, 240)

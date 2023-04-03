@@ -4,6 +4,7 @@ extends RefCounted
 
 var grid_pos: Vector2i
 var cell_obj: CellObject
+var is_ground: bool = false
 var unit_id: int
 var not_cell: bool = false
 

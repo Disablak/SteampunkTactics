@@ -16,3 +16,5 @@ metadata/_edit_lock_ = true
 [node name="RootObsCells" type="Node2D" parent="."]
 
 [node name="RootUnits" type="Node2D" parent="."]
+
+[node name="RootRoof" type="Node2D" parent="."]

@@ -18,7 +18,6 @@ extends Node2D
 
 var level: Level
 var root_walk_hint: Node2D
-var root_walk_cells: Node2D
 var root_obs_cells: Node2D
 
 
@@ -26,8 +25,8 @@ const CELL_OFFSETS = [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(
 
 var astar : AStar2D = AStar2D.new()
 
-var dict_id_and_cell_walk = {}
-var dict_pos_and_cell_walk = {}
+var walk_grid_poses: Array[Vector2i]
+var dict_id_and_walk_pos = {}
 var dict_pos_and_cell_wall = {}
 var dict_pos_and_cell_obstacle = {}
 var dict_pos_and_cell_cover = {}
@@ -49,8 +48,8 @@ func _draw_debug() -> void:
 	for deb in debug_lines:
 		deb.queue_free()
 
-	for cell_id in dict_id_and_cell_walk:
-		var cell_walk = dict_id_and_cell_walk[cell_id]
+	for cell_id in dict_id_and_walk_pos:
+		var cell_walk = dict_id_and_walk_pos[cell_id]
 
 		if astar.is_point_disabled(cell_id):
 			continue
@@ -60,7 +59,7 @@ func _draw_debug() -> void:
 			if astar.is_point_disabled(conn_id):
 				continue
 
-			var conn_cell = dict_id_and_cell_walk[conn_id]
+			var conn_cell = dict_id_and_walk_pos[conn_id]
 			var line = DrawDebug.line2d(cell_walk.position, conn_cell.position)
 			debug_lines.append(line)
 
@@ -95,7 +94,6 @@ func _ready() -> void:
 func init() -> void:
 	level = get_child(0)
 	root_walk_hint = level.get_node("RootWalkHint")
-	root_walk_cells = level.get_node("RootWalkCells")
 	root_obs_cells = level.get_node("RootObsCells")
 
 	_connect_walkable_cells()
@@ -107,22 +105,25 @@ func init() -> void:
 
 
 func _connect_walkable_cells():
-	for cell in root_walk_cells.get_children():
-		var id = astar.get_available_point_id()
+	for x in level.map_size.x:
+		for y in level.map_size.y:
+			var id = astar.get_available_point_id()
+			var grid_pos = Vector2i(x, y)
 
-		astar.add_point(id, cell.grid_pos)
-		dict_id_and_cell_walk[id] = cell
-		dict_pos_and_cell_walk[cell.grid_pos] = cell
+			astar.add_point(id, grid_pos)
+			dict_id_and_walk_pos[id] = grid_pos
+			walk_grid_poses.append(grid_pos)
 
-		fog_of_war.spawn_fog(cell.grid_pos, 2)
+			fog_of_war.spawn_fog(grid_pos, 2)
 
-	for cell in dict_id_and_cell_walk.values():
-		var cell_id = astar.get_closest_point(cell.grid_pos)
+
+	for walk_pos in dict_id_and_walk_pos.values():
+		var cell_id = astar.get_closest_point(walk_pos)
 
 		for offset in CELL_OFFSETS:
-			var potential_grid_pos : Vector2i = cell.grid_pos + offset
+			var potential_grid_pos : Vector2i = walk_pos + offset
 			var potential_cell_id = astar.get_closest_point(potential_grid_pos)
-			var potential_cell = dict_id_and_cell_walk.get(potential_cell_id)
+			var potential_cell = dict_id_and_walk_pos.get(potential_cell_id)
 
 			if cell_id == potential_cell_id:
 				continue
@@ -224,7 +225,8 @@ func close_doors(doors: Array[CellObject]):
 
 func is_point_walkable(grid_pos : Vector2i) -> bool:
 	var cell_obj: CellObject = get_cell_by_pos(grid_pos)
-	return cell_obj != null and cell_obj.comp_walkable
+	var is_cell_walk = is_pos_walk(grid_pos)
+	return (is_cell_walk and cell_obj == null) or (is_cell_walk and cell_obj and cell_obj.comp_walkable)
 
 
 func has_path(from: Vector2i, to: Vector2i, open_doors: bool = false) -> bool:
@@ -354,14 +356,11 @@ func get_cell_by_pos(grid_pos: Vector2i) -> CellObject:
 	if dict_pos_and_cell_wall.has(grid_pos):
 		return dict_pos_and_cell_wall[grid_pos]
 
-	return get_walk_cell_by_pos(grid_pos)
-
-
-func get_walk_cell_by_pos(grid_pos: Vector2i) -> CellObject:
-	if dict_pos_and_cell_walk.has(grid_pos):
-		return dict_pos_and_cell_walk[grid_pos]
-
 	return null
+
+
+func is_pos_walk(grid_pos: Vector2i) -> bool:
+	return walk_grid_poses.has(grid_pos)
 
 
 func get_cells_by_pattern(grid_pos_center: Vector2i, pattern_cells: Array[Vector2i]) -> Array[CellInfo]:
@@ -379,16 +378,6 @@ func get_grid_poses_by_pattern(grid_pos_center: Vector2i, pattern_cells: Array[V
 	var result: Array[Vector2i]
 	for cell in get_cells_by_pattern(grid_pos_center, pattern_cells):
 		result.append(cell.grid_pos)
-
-	return result
-
-
-func get_walk_cells_by_patern(grid_pos_center: Vector2i, pattern_cells: Array[Vector2i]) -> Array[CellObject]:
-	var result: Array[CellObject]
-	for cell in get_cells_by_pattern(grid_pos_center, pattern_cells):
-		var walk_cell := get_walk_cell_by_pos(cell.grid_pos)
-		if walk_cell:
-			result.append(walk_cell)
 
 	return result
 
@@ -435,6 +424,9 @@ func _get_cell_info(grid_pos: Vector2i) -> CellInfo:
 		info.cell_obj = hovered_obj
 		info.not_cell = true
 
+	if is_pos_walk(grid_pos):
+		info.is_ground = true
+
 	return info
 
 
@@ -476,7 +468,7 @@ func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 	if info.cell_obj != null and prev_hovered_cell_pos == info.grid_pos:
 		return
 
-	prev_hovered_cell_pos = info.grid_pos if info.cell_obj != null else Vector2.ZERO
+	prev_hovered_cell_pos = info.grid_pos if info.is_ground or info.cell_obj else Vector2.ZERO
 	cell_hint.position = Globals.convert_to_cell_pos(prev_hovered_cell_pos)
 
 	if info.not_cell:

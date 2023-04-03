@@ -95,6 +95,10 @@ static func convert_to_cell_pos(grid_pos: Vector2i) -> Vector2:
 	return Vector2(grid_pos * CELL_SIZE)
 
 
+static func convert_to_visual_pos(grid_pos: Vector2i) -> Vector2:
+	return convert_to_cell_pos(grid_pos) + CELL_OFFSET
+
+
 static func convert_grid_poses_to_cell_poses(points: Array[Vector2i]) -> Array[Vector2]:
 	var result: Array[Vector2]
 	for pos in points:

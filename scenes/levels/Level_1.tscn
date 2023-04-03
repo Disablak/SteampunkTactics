@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp1xmosbbks0b"]
+
+[ext_resource type="PackedScene" uid="uid://dxtwt22vjkgto" path="res://scenes/levels/BaseLevel.tscn" id="1_6s7x3"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_2e1o5"]
+[ext_resource type="PackedScene" uid="uid://dx662ah4gwa8x" path="res://scenes/2d/UnitObject.tscn" id="3_s8jjc"]
+[ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/unit0.tres" id="4_cgnvw"]
+
+[node name="Level_1" instance=ExtResource("1_6s7x3")]
+map_size = Vector2(96, 64)
+
+[node name="Ground" parent="RootWalkCells" index="0" instance=ExtResource("2_2e1o5")]
+scale = Vector2(96, 64)
+
+[node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("3_s8jjc")]
+position = Vector2(256, 256)
+unit_settings = ExtResource("4_cgnvw")
