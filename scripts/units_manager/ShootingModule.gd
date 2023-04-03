@@ -257,13 +257,15 @@ func throw_granade(unit: Unit, grid_pos: Vector2i) -> bool:
 	unit.unit_data.grenade.spend_grenade()
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.THROW_GRENADE, unit.unit_data.grenade.settings.use_price)
 
-	var cells_by_pattern := pathfinding.get_cells_by_pattern(grid_pos, Globals.CELL_AREA_3x3)
+	var grid_poses_by_pattern := pathfinding.get_grid_poses_by_pattern(grid_pos, Globals.CELL_AREA_3x3)
 	var damaged_cells: Array[CellInfo]
-	for cell_info in cells_by_pattern:
-		var center_pos = Globals.convert_to_cell_pos(grid_pos) + Globals.CELL_OFFSET
-		if not raycaster.make_ray_check_no_obstacle(center_pos, cell_info.cell_obj.visual_pos):
+	for pos in grid_poses_by_pattern:
+		var center_pos = Globals.convert_to_visual_pos(grid_pos)
+		var cell_visual_pos = Globals.convert_to_visual_pos(pos)
+		if not raycaster.make_ray_check_no_obstacle(center_pos, cell_visual_pos):
 			continue
 
+		var cell_info = pathfinding.get_cell_info(pos)
 		damaged_cells.append(cell_info)
 
 		if cell_info.unit_id == -1:

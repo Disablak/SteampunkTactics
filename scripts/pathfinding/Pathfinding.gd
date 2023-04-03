@@ -368,7 +368,7 @@ func get_cells_by_pattern(grid_pos_center: Vector2i, pattern_cells: Array[Vector
 
 	for cell_offset in pattern_cells:
 		var grid_pos = grid_pos_center + cell_offset
-		var cell_info = _get_cell_info(grid_pos)
+		var cell_info = get_cell_info(grid_pos)
 		result.push_back(cell_info)
 
 	return result
@@ -414,7 +414,7 @@ func open_door(cell: CellObject, open: bool, update_fog: bool = false):
 		fog_of_war.update_fog_for_all(true)
 
 
-func _get_cell_info(grid_pos: Vector2i) -> CellInfo:
+func get_cell_info(grid_pos: Vector2i) -> CellInfo:
 	var cell_obj := get_cell_by_pos(grid_pos)
 	var unit_on_cell: Unit = get_unit_on_cell(grid_pos)
 	var unit_id := unit_on_cell.id if unit_on_cell != null else -1
@@ -463,7 +463,7 @@ func _on_hover_obj(cell_obj: CellObject):
 
 func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 	var grid_pos := Globals.convert_to_grid_pos(mouse_pos)
-	var info := _get_cell_info(grid_pos)
+	var info := get_cell_info(grid_pos)
 
 	if info.cell_obj != null and prev_hovered_cell_pos == info.grid_pos:
 		return
@@ -479,7 +479,7 @@ func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 
 func _on_input_system_on_mouse_click(mouse_pos: Vector2) -> void:
 	var grid_pos := Globals.convert_to_grid_pos(mouse_pos)
-	var info := _get_cell_info(grid_pos)
+	var info := get_cell_info(grid_pos)
 
 	GlobalBus.on_clicked_cell.emit(info)
 

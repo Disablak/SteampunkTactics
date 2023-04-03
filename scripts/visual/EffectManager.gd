@@ -76,7 +76,7 @@ func granade(cells: Array[CellInfo]):
 	granede_instance.queue_free()
 
 	for cell_info in cells:
-		if cell_info.cell_obj == null or cell_info.cell_obj.cell_type == CellObject.CellType.OBSTACLE:
+		if (not cell_info.is_ground and not cell_info.cell_obj) or (cell_info.cell_obj and cell_info.cell_obj.cell_type == CellObject.CellType.OBSTACLE):
 			continue
 
 		var new_fire: Node2D = fire_effect_scene.instantiate()

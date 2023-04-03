@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource("1")
-unit_name = "MyUnit 0"
+unit_name = "Ann"
 max_health = 20.0
 walk_speed = 20
 initiative = 10
