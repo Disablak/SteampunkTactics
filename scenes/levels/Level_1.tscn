@@ -1,15 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://dp1xmosbbks0b"]
+[gd_scene load_steps=7 format=3 uid="uid://dp1xmosbbks0b"]
 
 [ext_resource type="PackedScene" uid="uid://dxtwt22vjkgto" path="res://scenes/levels/BaseLevel.tscn" id="1_6s7x3"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_2e1o5"]
+[ext_resource type="Texture2D" uid="uid://blpvf4s12nr6p" path="res://content/sprites/gothic/FireEffect.tres" id="3_01jho"]
+[ext_resource type="Texture2D" uid="uid://cgye1wpyv4n7r" path="res://content/sprites/gothic/fog_full.tres" id="3_erulp"]
 [ext_resource type="PackedScene" uid="uid://dx662ah4gwa8x" path="res://scenes/2d/UnitObject.tscn" id="3_s8jjc"]
 [ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/unit0.tres" id="4_cgnvw"]
 
 [node name="Level_1" instance=ExtResource("1_6s7x3")]
-map_size = Vector2(96, 64)
+map_size = Vector2(64, 48)
 
-[node name="Ground" parent="RootWalkCells" index="0" instance=ExtResource("2_2e1o5")]
-scale = Vector2(96, 64)
+[node name="BackGround" parent="RootWalkCells" index="0" instance=ExtResource("2_2e1o5")]
+position = Vector2(-256, -192)
+scale = Vector2(96, 72)
+texture = ExtResource("3_erulp")
+
+[node name="Ground" parent="RootWalkCells" index="1" instance=ExtResource("2_2e1o5")]
+scale = Vector2(64, 48)
+
+[node name="VisualObject" parent="RootVisual" index="0" instance=ExtResource("2_2e1o5")]
+texture = ExtResource("3_01jho")
+
+[node name="VisualObject2" parent="RootVisual" index="1" instance=ExtResource("2_2e1o5")]
+position = Vector2(1008, 0)
+texture = ExtResource("3_01jho")
 
 [node name="UnitObject" parent="RootUnits" index="0" instance=ExtResource("3_s8jjc")]
 position = Vector2(256, 256)

@@ -8,6 +8,7 @@ const PIXEL_TRASH_HOLD = 3
 @export var drag_sensitive = 0.4
 @export var save_prev_pos = true
 @export var helper_size_of_full := 0.5
+@export var map_camera_offset_cells = 8
 
 var map_size: Vector2
 var tween_move: Tween
@@ -108,7 +109,8 @@ func get_clamped_pos_in_helper(pos: Vector2) -> Vector2:
 
 func _calc_bounds():
 	var size = map_size * Globals.CELL_SIZE
-	var camera_bound_rect := Rect2(size / 2, size)
+	var camera_bound_rect := Rect2(size/2, size)
+
 
 	var zoom := get_viewport().get_camera_2d().zoom
 	sensetive = drag_sensitive / zoom.x
@@ -116,11 +118,12 @@ func _calc_bounds():
 	var half_bound_size := camera_bound_rect.size / 2
 	var viewport_size := get_viewport_rect().size
 	var half_camera_size := viewport_size / zoom / 2
+	var bound_offset_size = (map_camera_offset_cells * Globals.CELL_SIZE)
 
-	bounds_min.x = -half_bound_size.x + camera_bound_rect.position.x + half_camera_size.x
-	bounds_min.y = -half_bound_size.y + camera_bound_rect.position.y + half_camera_size.y
-	bounds_max.x =  half_bound_size.x + camera_bound_rect.position.x - half_camera_size.x
-	bounds_max.y =  half_bound_size.y + camera_bound_rect.position.y - half_camera_size.y
+	bounds_min.x = -half_bound_size.x + camera_bound_rect.position.x + half_camera_size.x - bound_offset_size
+	bounds_min.y = -half_bound_size.y + camera_bound_rect.position.y + half_camera_size.y - bound_offset_size
+	bounds_max.x =  half_bound_size.x + camera_bound_rect.position.x - half_camera_size.x + bound_offset_size
+	bounds_max.y =  half_bound_size.y + camera_bound_rect.position.y - half_camera_size.y + bound_offset_size
 
 	viewport_helper_size = (viewport_size / zoom) * helper_size_of_full
 
