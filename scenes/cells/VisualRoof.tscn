@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cw3svbh7t86v0"]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="1_ly3ow"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/Zone1.tscn" id="1_ly3ow"]
 [ext_resource type="Texture2D" uid="uid://c7ntfnjr8lfkq" path="res://content/sprites/gothic/roof_left_front.tres" id="2_g85l3"]
 [ext_resource type="Script" path="res://scripts/cells/CellRoof.gd" id="3_kuxnq"]
 

@@ -285,7 +285,8 @@ func update_malee_cells(unit: Unit) -> Array[Vector2i]:
 	malee_cells.clear()
 
 	var unit_grid_pos = Globals.convert_to_grid_pos(unit.unit_object.position)
-	var grid_poses = pathfinding.get_grid_poses_by_pattern(unit_grid_pos, unit.unit_data.knife.get_attack_cells())
+	var pattern_cells = unit.unit_data.knife.get_attack_cells() if unit.unit_data.knife else Globals.CELL_AREA_3x3_WITHOUR_CENTER
+	var grid_poses = pathfinding.get_grid_poses_by_pattern(unit_grid_pos, pattern_cells)
 
 	for pos in grid_poses:
 		var visual_pos = Globals.convert_to_visual_pos(pos)

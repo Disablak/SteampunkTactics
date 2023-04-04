@@ -11,6 +11,6 @@ unit_name = "Ann"
 max_health = 20.0
 walk_speed = 20
 initiative = 10
-range_of_view = 5
+range_of_view = 8
 abilities = Array[Resource("res://scripts/settings/abilities/AbilitySettings.gd")]([ExtResource("1_musci"), ExtResource("2_8r6bi"), ExtResource("3_enr6e")])
 additional_ai_actions = null

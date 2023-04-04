@@ -122,7 +122,10 @@ func _get_walking_cells() -> Array[Vector2i]:
 	if _cur_unit.unit_data.ai_settings.walking_zone_cells.size() == 0:
 		return walking.cached_walking_cells
 	else:
-		return MyMath.arr_intersect(walking.cached_walking_cells, _cur_unit.unit_data.ai_settings.walking_zone_cells)
+		var intersect = MyMath.arr_intersect(walking.cached_walking_cells, _cur_unit.unit_data.ai_settings.walking_zone_cells)
+		var result: Array[Vector2i]
+		result.assign(intersect)
+		return result
 
 
 func _get_path_to_any_points(points: Array[Vector2i]) -> Array[Vector2i]:

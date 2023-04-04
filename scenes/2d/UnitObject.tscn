@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dx662ah4gwa8x"]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_a7ikt"]
-[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_kmtyi"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/Zone1.tscn" id="2_kmtyi"]
 [ext_resource type="Texture2D" uid="uid://ciry2hpepxf06" path="res://content/sprites/gothic/units/player1.tres" id="3_dfa2p"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="4_bpjp7"]
 [ext_resource type="Texture2D" uid="uid://b6e5yn1juhul0" path="res://content/sprites/gothic/noticed_icon.tres" id="5_qingj"]

@@ -39,8 +39,8 @@ const COLOR_7 = Color("#e6e6ec")
 
 # debug
 const DEBUG_AI = true
-var DEBUG_HIDE_FOG := false
-var DEBUG_SHOW_ENEMY_ALWAYS := false
+var DEBUG_HIDE_FOG := true
+var DEBUG_SHOW_ENEMY_ALWAYS := true
 var DEBUG_FOW_RAYCASTS := false
 var DEBUG_OBJECTS_ORDERING := false
 var DEBUG_MALEE_ATACK_RAYS := false

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UnitSettings" load_steps=6 format=3 uid="uid://5so5kod1l1iu"]
+
+[ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="1_tjotu"]
+[ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/presets/ActionMoveToRandom.tres" id="4_18y2f"]
+[ext_resource type="Resource" uid="uid://bs7cu3di3wnxa" path="res://data/settings/utility ai/presets/ActionRotateToObject.tres" id="4_67yny"]
+[ext_resource type="Resource" uid="uid://rgjnnmfp4ht3" path="res://data/settings/utility ai/presets/ActionMoveToAttention.tres" id="5_kekbl"]
+[ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="6_dd0b7"]
+
+[resource]
+script = ExtResource("6_dd0b7")
+unit_name = "Werewolf"
+max_health = 15.0
+walk_speed = 10
+initiative = 9
+range_of_view = 6
+abilities = Array[Resource("res://scripts/settings/abilities/AbilitySettings.gd")]([ExtResource("1_tjotu")])
+additional_ai_actions = Array[Resource("res://scripts/utility_ai/Action.gd")]([ExtResource("4_67yny"), ExtResource("5_kekbl"), ExtResource("4_18y2f")])
