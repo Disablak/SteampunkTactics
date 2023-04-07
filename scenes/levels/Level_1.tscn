@@ -48,7 +48,7 @@ position = Vector2(752, 0)
 texture = ExtResource("3_01jho")
 
 [node name="Player" parent="RootUnits" index="0" instance=ExtResource("3_s8jjc")]
-position = Vector2(128, 256)
+position = Vector2(64, 416)
 unit_settings = ExtResource("4_cgnvw")
 
 [node name="Enemy0" parent="RootUnits" index="1" instance=ExtResource("3_s8jjc")]

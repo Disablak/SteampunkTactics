@@ -121,7 +121,7 @@ func _move_obj_to_points(object: Node2D, points: Array[Vector2], speed: int):
 func death_effect(pos: Vector2, unit_texture_region):
 	var effect = unit_death_effect_scene.instantiate()
 	add_child(effect)
-	effect.position = pos
+	effect.position = pos + Globals.CELL_OFFSET
 
 	effect.play_effect(unit_texture_region)
 

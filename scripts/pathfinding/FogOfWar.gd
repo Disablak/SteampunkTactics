@@ -75,11 +75,11 @@ func spawn_fog(grid_pos: Vector2i, cell_visibility: CellVisibility):
 
 
 func update_fog(cur_unit: Unit, force_update: bool = false):
-	_make_all_map_in_fog()
+	if not cur_unit.unit_data.is_enemy:
+		_make_all_map_in_fog()
 
-	if GlobalMap.can_show_cur_unit():
-		_update_visibility(cur_unit, force_update)
-		_hide_units_in_fog(cur_unit)
+	_update_visibility(cur_unit, force_update)
+	_hide_units_in_fog(cur_unit)
 
 	_enemies_trying_to_remember_unit(cur_unit)
 
@@ -102,6 +102,10 @@ func _update_visibility(unit: Unit, force_update: bool = false):
 	_update_team_visibility(unit.unit_data.is_enemy, force_update)
 	var visible_cells: Array[Vector2i] = _get_team_visibility(unit.unit_data.is_enemy)
 	dict_is_enemy_and_visible_cells[unit.unit_data.is_enemy] = visible_cells
+
+	if unit.unit_data.is_enemy and not Globals.DEBUG_SHOW_ENEMY_ALWAYS:
+		return
+
 	_update_visibility_roof(unit.unit_data.visibility_data.roof_visible_points)
 	_update_visibility_on_cells(visible_cells, CellVisibility.VISIBLE)
 
@@ -239,10 +243,11 @@ func _hide_units_in_fog(unit: Unit):
 func _make_all_map_in_fog():
 	var is_enemy = GlobalUnits.get_cur_unit().unit_data.is_enemy
 	var knew_cells = dict_is_enemy_team_and_pos[is_enemy]
+	var can_show_visibility = GlobalMap.can_show_cur_unit()
 
 	for fog in dict_pos_and_cell.values():
 		var grid_pos = Globals.convert_to_grid_pos(fog.position)
-		if Globals.DEBUG_HIDE_FOG or knew_cells.has(grid_pos):
+		if Globals.DEBUG_HIDE_FOG and can_show_visibility and knew_cells.has(grid_pos):
 			fog.update_visibility(CellVisibility.HALF)
 		else:
 			fog.update_visibility(CellVisibility.NOTHING)
