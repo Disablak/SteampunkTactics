@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="1_54eh1"]
 
 [node name="UiBtnUnit" type="Button"]
+texture_filter = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0

@@ -3,9 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ui/UiUnitList.gd" id="1_7fuo6"]
 [ext_resource type="PackedScene" uid="uid://dj1yoladqn18w" path="res://scenes/2d/ui/UiBtnUnit.tscn" id="2_snqax"]
 
-[node name="UnitsList" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="UnitsList" type="VBoxContainer"]
 offset_right = 210.0
 offset_bottom = 250.0
 script = ExtResource("1_7fuo6")
