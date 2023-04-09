@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://daaa4wpe8k4g1"]
+[gd_scene load_steps=28 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -18,8 +18,8 @@
 [ext_resource type="PackedScene" path="res://scenes/visual/FireEffect.tscn" id="17_e35id"]
 [ext_resource type="PackedScene" path="res://scenes/visual/UnitDeathEffect.tscn" id="18_r4ev8"]
 [ext_resource type="PackedScene" uid="uid://fvlc1uhmwwsm" path="res://scenes/cells/CellHovered.tscn" id="18_yo8ds"]
-[ext_resource type="Resource" uid="uid://du37tccrd2rlv" path="res://data/settings/utility ai/presets/ActionNextTurn.tres" id="20_ak0ai"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
+[ext_resource type="Resource" uid="uid://du37tccrd2rlv" path="res://data/settings/utility ai/actions/ActionNextTurn.tres" id="21_5e2k3"]
 [ext_resource type="Script" path="res://scripts/pathfinding/FogOfWar.gd" id="22_hxmls"]
 [ext_resource type="Script" path="res://scripts/visual/DrawUnitViewDirection.gd" id="22_n7khr"]
 [ext_resource type="PackedScene" uid="uid://c3fuon6h0o5qe" path="res://scenes/cells/CellFog.tscn" id="23_p1e0f"]
@@ -71,7 +71,7 @@ segment_shape_2d = SubResource("SegmentShape2D_x8rd3")
 
 [node name="AiBrain" type="Node2D" parent="UnitsManager"]
 script = ExtResource("15_y513k")
-next_turn_action = ExtResource("20_ak0ai")
+next_turn_action = ExtResource("21_5e2k3")
 
 [node name="AiWorld" type="Node2D" parent="UnitsManager"]
 script = ExtResource("23_waclr")

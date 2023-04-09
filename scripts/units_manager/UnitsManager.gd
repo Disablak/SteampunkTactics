@@ -37,6 +37,7 @@ func _ready() -> void:
 func init():
 	_init_units()
 	pathfinding.init()
+	brain_ai.init()
 
 	walking.set_data(pathfinding, _on_finish_move)
 	shooting.set_data(effect_manager, raycaster, pathfinding, line2d_manager)
@@ -178,8 +179,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 
 	if cur_unit_data.is_enemy:
 		await Globals.create_timer_and_get_signal(1.0)
-		brain_ai.set_actions(cur_unit_data.ai_actions)
-		brain_ai.decide_best_action_and_execute()
+		brain_ai.start_ai(units[cur_unit_id])
 
 
 func change_unit_action(unit_action: UnitData.Abilities) -> bool:

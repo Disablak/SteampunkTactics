@@ -18,10 +18,20 @@ var visible_enemies: Array[Unit]
 var shortest_path_to_enemy: PathData
 var enemy_stand_near: int = -1
 
+enum AiState {PASSIVE, ACTIVE}
+var ai_state: AiState = AiState.PASSIVE
+
 
 func init(node_zone, patrul_zones: Array[Node2D]):
 	_init_walking_zone(node_zone)
 	_init_patrul_zones(patrul_zones)
+
+
+func change_state_to_active():
+	if ai_state == AiState.ACTIVE:
+		return
+
+	ai_state = AiState.ACTIVE
 
 
 func get_cur_target_patrul_zone_points() -> Array[Vector2i]:

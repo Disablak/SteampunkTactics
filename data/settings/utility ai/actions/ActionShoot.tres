@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="ActionShoot" load_steps=14 format=3 uid="uid://s5ie0dxr4drx"]
+
+[ext_resource type="Resource" uid="uid://dlfsvqeorybxe" path="res://data/settings/utility ai/consideration/ConsiderUnitStateActive.tres" id="1_3b5wj"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyNearUnit.gd" id="2_ecln1"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderLowAmmo.gd" id="3_km3sg"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="4_vj78x"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderRayShootNoObstacles.gd" id="5_ry3tg"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderInCover.gd" id="6_ix5h6"]
+[ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionShoot.gd" id="7_khibc"]
+
+[sub_resource type="Resource" id="Resource_64pxy"]
+script = ExtResource("2_ecln1")
+invert = true
+
+[sub_resource type="Resource" id="Resource_8epa4"]
+script = ExtResource("3_km3sg")
+invert = true
+
+[sub_resource type="Resource" id="Resource_pgyiy"]
+script = ExtResource("4_vj78x")
+price_type = 1
+invert = false
+
+[sub_resource type="Resource" id="Resource_anm0t"]
+script = ExtResource("5_ry3tg")
+invert = false
+
+[sub_resource type="Curve" id="Curve_ktpn1"]
+_data = [Vector2(0, 0.728418), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_atqtx"]
+script = ExtResource("6_ix5h6")
+invert = false
+response_curve = SubResource("Curve_ktpn1")
+
+[resource]
+script = ExtResource("7_khibc")
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([ExtResource("1_3b5wj"), SubResource("Resource_64pxy"), SubResource("Resource_8epa4"), SubResource("Resource_pgyiy"), SubResource("Resource_anm0t"), SubResource("Resource_atqtx")])

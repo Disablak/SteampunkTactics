@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ActionMove" load_steps=9 format=3 uid="uid://wv2phnmthw15"]
+
+[ext_resource type="Resource" uid="uid://dlfsvqeorybxe" path="res://data/settings/utility ai/consideration/ConsiderUnitStateActive.tres" id="1_dxr8o"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderInCover.gd" id="2_nrcki"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderPathExist.gd" id="3_mawwo"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="4_vdo0x"]
+[ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionMove.gd" id="5_henem"]
+
+[sub_resource type="Resource" id="Resource_luesh"]
+script = ExtResource("2_nrcki")
+invert = true
+
+[sub_resource type="Resource" id="Resource_20jta"]
+script = ExtResource("3_mawwo")
+path_target = 3
+invert = false
+
+[sub_resource type="Resource" id="Resource_husr6"]
+script = ExtResource("4_vdo0x")
+price_type = 7
+invert = false
+
+[resource]
+script = ExtResource("5_henem")
+move_to = 4
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([ExtResource("1_dxr8o"), SubResource("Resource_luesh"), SubResource("Resource_20jta"), SubResource("Resource_husr6")])

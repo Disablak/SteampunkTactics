@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ActionKickEnemy" load_steps=8 format=3 uid="uid://fubcetyf0t05"]
+
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="1_inmwj"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyNearUnit.gd" id="2_2s7vp"]
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderCanKickNearEnemy.gd" id="3_bxfro"]
+[ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionKickEnemy.gd" id="4_ls3m6"]
+
+[sub_resource type="Resource" id="Resource_f4kql"]
+script = ExtResource("1_inmwj")
+price_type = 2
+invert = false
+
+[sub_resource type="Resource" id="Resource_8rynn"]
+script = ExtResource("2_2s7vp")
+invert = false
+
+[sub_resource type="Resource" id="Resource_trrjp"]
+script = ExtResource("3_bxfro")
+invert = false
+
+[resource]
+script = ExtResource("4_ls3m6")
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([SubResource("Resource_f4kql"), SubResource("Resource_8rynn"), SubResource("Resource_trrjp")])

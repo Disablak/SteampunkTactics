@@ -9,7 +9,25 @@ var available_actions: Array[Action]
 var is_game_over: bool = false
 
 
-func set_actions(actions: Array[Action]):
+func init():
+	GlobalBus.on_unit_moved_to_another_cell.connect(_on_unit_moved)
+
+
+func start_ai(unit: Unit):
+	_set_actions(unit.unit_data.ai_actions)
+	decide_best_action_and_execute()
+
+
+func _on_unit_moved(unit_id: int, cell_pos: Vector2):
+	var unit: Unit = GlobalUnits.units[unit_id]
+	if unit.unit_data.is_enemy:
+		return
+
+	for enemy in GlobalUnits.get_enemies_in_range(unit):
+		enemy.unit_data.ai_settings.change_state_to_active()
+
+
+func _set_actions(actions: Array[Action]):
 	available_actions.clear()
 	available_actions.append_array(default_actions)
 	available_actions.append_array(actions)

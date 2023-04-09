@@ -41,23 +41,20 @@ func _get_visible_covers() -> Array[Vector2i]:
 
 
 func get_visible_enemies() -> Array[Unit]:
-	var visible_cells := _cur_unit.unit_data.visibility_data.visible_points
-	var all_enemies := GlobalUnits.get_units(!_cur_unit.unit_data.is_enemy)
-	var result: Array[Unit]
-	for enemy in all_enemies: # lambda not work!
-		if visible_cells.has(enemy.unit_object.grid_pos):
-			result.append(enemy)
-
-	_cur_unit.unit_data.ai_settings.visible_enemies = result
-	return result
+	_cur_unit.unit_data.ai_settings.visible_enemies = GlobalUnits.get_enemies_in_range(_cur_unit)
+	return _cur_unit.unit_data.ai_settings.visible_enemies
 
 
 func get_shootable_enemies() -> Array[Unit]:
 	var result: Array[Unit]
-	for enemy in _cur_unit.unit_data.ai_settings.visible_enemies:
+	for enemy in GlobalUnits.get_units(not _cur_unit.unit_data.is_enemy):
 		if GlobalMap.raycaster.make_ray_check_no_obstacle(_cur_unit.unit_object.visual_pos, enemy.unit_object.visual_pos):
 			result.append(enemy)
 
+	if result.size() == 0:
+		printerr("there are no shootable enemies")
+
+	var unit = _cur_unit
 	_cur_unit.unit_data.ai_settings.visible_enemies = result
 	return result
 

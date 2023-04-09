@@ -4,9 +4,11 @@ extends Node2D
 
 @onready var root_obstacles = $RootObsCells
 @onready var root_units = $RootUnits
-@export var map_size: Vector2
 @export var roof_zones_path = {} # node path zone / node path parent of root cells
 
+
+var map_size: Vector2:
+	get: return get_node("RootWalkCells").get_node("Ground").scale
 
 var all_sorted_objects = []
 var prev_transparent_objs = []

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ConsiderUnitState" load_steps=2 format=3 uid="uid://dxdq0orhguftq"]
+
+[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderUnitState.gd" id="1_0ysno"]
+
+[resource]
+script = ExtResource("1_0ysno")
+unit_ai_state = 0
+invert = false

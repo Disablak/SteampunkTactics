@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ActionNextTurn" load_steps=5 format=3 uid="uid://btyefmhj0flqm"]
+[gd_resource type="Resource" script_class="ActionNextTurn" load_steps=6 format=3 uid="uid://btyefmhj0flqm"]
 
+[ext_resource type="Resource" uid="uid://dxdq0orhguftq" path="res://data/settings/utility ai/consideration/ConsiderUnitStatePassive.tres" id="1_ce2w0"]
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderRandom.gd" id="1_jv6nv"]
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionNextTurn.gd" id="1_r43s0"]
 
@@ -14,4 +15,4 @@ response_curve = SubResource("Curve_m0bjp")
 
 [resource]
 script = ExtResource("1_r43s0")
-considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([SubResource("Resource_vihvn")])
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([ExtResource("1_ce2w0"), SubResource("Resource_vihvn")])

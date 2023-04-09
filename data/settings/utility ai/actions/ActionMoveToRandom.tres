@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ActionMove" load_steps=6 format=3 uid="uid://bvwkx08fi3j4f"]
 
-[ext_resource type="Resource" uid="uid://dmgltw4smqivq" path="res://data/settings/utility ai/consideration/ConsiderEnemyNotVisibility.tres" id="1_ioavi"]
+[ext_resource type="Resource" uid="uid://dxdq0orhguftq" path="res://data/settings/utility ai/consideration/ConsiderUnitStatePassive.tres" id="1_qv78r"]
 [ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnoughTP.gd" id="2_ju8av"]
 [ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionMove.gd" id="3_vxdll"]
 
@@ -17,4 +17,4 @@ response_curve = SubResource("Curve_5ivrq")
 [resource]
 script = ExtResource("3_vxdll")
 move_to = 1
-considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([ExtResource("1_ioavi"), SubResource("Resource_tguci")])
+considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([ExtResource("1_qv78r"), SubResource("Resource_tguci")])

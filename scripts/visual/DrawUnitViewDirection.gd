@@ -14,19 +14,12 @@ func _draw() -> void:
 
 	var center = cur_unit.unit_object.visual_pos
 	var radius = cur_unit.unit_data.unit_settings.range_of_view * Globals.CELL_SIZE
-	var view_dir =  cur_unit.unit_data.view_direction
-	var angle_from = deg_to_rad(view_dir - FogOfWar.HALF_RADIUS)
-	var angle_to = deg_to_rad(view_dir + FogOfWar.HALF_RADIUS)
 	var color = Color.WHITE
 
-	draw_arc(center, radius, angle_from, angle_to, 32, color)
-	draw_line(center, center + Vector2(cos(angle_from), sin(angle_from)) * radius, color)
-	draw_line(center, center + Vector2(cos(angle_to), sin(angle_to)) * radius, color)
+	draw_arc(center, radius, 0, TAU, 32, color)
 
 
 func _on_pathfinding_on_hovered_cell(cell_info: CellInfo) -> void:
-	return
-
 	if cell_info.unit_id == -1:
 		_clear()
 		return
@@ -42,7 +35,6 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo) -> void:
 		return
 
 	if cur_unit and unit.id == cur_unit.id:
-		_clear()
 		return
 
 	if not unit.unit_object.is_visible:
