@@ -1,8 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://dlesfgwb7o2s1"]
+[gd_scene load_steps=15 format=3 uid="uid://dlesfgwb7o2s1"]
 
 [ext_resource type="PackedScene" uid="uid://dxtwt22vjkgto" path="res://scenes/levels/BaseLevel.tscn" id="1_6s7x3"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/Zone1.tscn" id="2_2e1o5"]
-[ext_resource type="Texture2D" uid="uid://blpvf4s12nr6p" path="res://content/sprites/gothic/FireEffect.tres" id="3_01jho"]
 [ext_resource type="Texture2D" uid="uid://cgye1wpyv4n7r" path="res://content/sprites/gothic/fog_full.tres" id="3_erulp"]
 [ext_resource type="PackedScene" path="res://scenes/2d/UnitObject.tscn" id="3_s8jjc"]
 [ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/unit0.tres" id="4_cgnvw"]
@@ -11,26 +10,25 @@
 [ext_resource type="Script" path="res://scripts/settings/AiSettings.gd" id="9_1u5t2"]
 [ext_resource type="Resource" uid="uid://c1bcmnnpxp44p" path="res://data/settings/unit/level1/lvl1_unit1.tres" id="10_cmafy"]
 [ext_resource type="Texture2D" uid="uid://cwni0rwde87bc" path="res://content/sprites/gothic/units/enemy1.tres" id="10_yujf1"]
-[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="11_3ujsq"]
 [ext_resource type="Resource" uid="uid://5so5kod1l1iu" path="res://data/settings/unit/level1/lvl1_unit2.tres" id="12_bm1kq"]
 
 [sub_resource type="Resource" id="Resource_sqpsk"]
 script = ExtResource("9_1u5t2")
 walking_zone_node_path = NodePath("")
-patrul_zones_paths = Array[NodePath]([NodePath("../../Zone0_0"), NodePath("../../Zone0_1")])
+patrul_zones_paths = Array[NodePath]([])
 
 [sub_resource type="Resource" id="Resource_qguqj"]
 script = ExtResource("9_1u5t2")
-walking_zone_node_path = NodePath("../../Zone1")
+walking_zone_node_path = NodePath("")
 patrul_zones_paths = Array[NodePath]([])
 
 [sub_resource type="Resource" id="Resource_mtv65"]
 script = ExtResource("9_1u5t2")
-walking_zone_node_path = NodePath("../../Zone2")
+walking_zone_node_path = NodePath("")
 patrul_zones_paths = Array[NodePath]([])
 
 [node name="Level_1" instance=ExtResource("1_6s7x3")]
-map_size = Vector2(48, 32)
+map_size = Vector2(24, 16)
 
 [node name="BackGround" parent="RootWalkCells" index="0" instance=ExtResource("2_2e1o5")]
 position = Vector2(-256, -192)
@@ -38,21 +36,14 @@ scale = Vector2(96, 72)
 texture = ExtResource("3_erulp")
 
 [node name="Ground" parent="RootWalkCells" index="1" instance=ExtResource("2_2e1o5")]
-scale = Vector2(48, 32)
-
-[node name="VisualObject" parent="RootVisual" index="0" instance=ExtResource("2_2e1o5")]
-texture = ExtResource("3_01jho")
-
-[node name="VisualObject2" parent="RootVisual" index="1" instance=ExtResource("2_2e1o5")]
-position = Vector2(752, 0)
-texture = ExtResource("3_01jho")
+scale = Vector2(24, 16)
 
 [node name="Player" parent="RootUnits" index="0" instance=ExtResource("3_s8jjc")]
-position = Vector2(64, 416)
+position = Vector2(48, 48)
 unit_settings = ExtResource("4_cgnvw")
 
 [node name="Enemy0" parent="RootUnits" index="1" instance=ExtResource("3_s8jjc")]
-position = Vector2(64, 496)
+position = Vector2(128, 128)
 unit_settings = ExtResource("7_a6u54")
 ai_settings = SubResource("Resource_sqpsk")
 
@@ -60,7 +51,7 @@ ai_settings = SubResource("Resource_sqpsk")
 texture = ExtResource("7_y1x2u")
 
 [node name="Enemy1" parent="RootUnits" index="2" instance=ExtResource("3_s8jjc")]
-position = Vector2(368, 240)
+position = Vector2(320, 48)
 unit_settings = ExtResource("10_cmafy")
 ai_settings = SubResource("Resource_qguqj")
 
@@ -68,35 +59,12 @@ ai_settings = SubResource("Resource_qguqj")
 texture = ExtResource("10_yujf1")
 
 [node name="Enemy2" parent="RootUnits" index="3" instance=ExtResource("3_s8jjc")]
-position = Vector2(704, 448)
+position = Vector2(336, 224)
 unit_settings = ExtResource("12_bm1kq")
 ai_settings = SubResource("Resource_mtv65")
 
 [node name="VisualObject" parent="RootUnits/Enemy2" index="0"]
 texture = ExtResource("7_y1x2u")
-
-[node name="Zone0_0" parent="." index="6" instance=ExtResource("2_2e1o5")]
-self_modulate = Color(1, 1, 1, 0.054902)
-scale = Vector2(8, 3)
-texture = ExtResource("11_3ujsq")
-
-[node name="Zone0_1" parent="." index="7" instance=ExtResource("2_2e1o5")]
-self_modulate = Color(1, 1, 1, 0.054902)
-position = Vector2(0, 464)
-scale = Vector2(8, 3)
-texture = ExtResource("11_3ujsq")
-
-[node name="Zone1" parent="." index="8" instance=ExtResource("2_2e1o5")]
-self_modulate = Color(1, 1, 1, 0.054902)
-position = Vector2(256, 64)
-scale = Vector2(16, 16)
-texture = ExtResource("11_3ujsq")
-
-[node name="Zone2" parent="." index="9" instance=ExtResource("2_2e1o5")]
-self_modulate = Color(1, 1, 1, 0.054902)
-position = Vector2(608, 352)
-scale = Vector2(10, 10)
-texture = ExtResource("11_3ujsq")
 
 [editable path="RootUnits/Enemy0"]
 [editable path="RootUnits/Enemy1"]

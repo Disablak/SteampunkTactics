@@ -18,6 +18,7 @@ var pathfinding: Pathfinding
 
 
 func _ready() -> void:
+	return
 	GlobalBus.on_unit_changed_control.connect(_on_unit_changed_control)
 	GlobalBus.on_unit_changed_view_direction.connect(_on_unit_changed_view_direction)
 	GlobalBus.on_unit_moved_to_another_cell.connect(_on_unit_moved)
@@ -94,6 +95,8 @@ func update_fog_for_all(force_update: bool = false):
 
 
 func is_unit_visible_to_enemy(unit: Unit):
+	return true
+
 	var unit_pos_grid := unit.unit_object.grid_pos
 	return dict_is_enemy_and_visible_cells[not unit.unit_data.is_enemy].has(unit_pos_grid)
 

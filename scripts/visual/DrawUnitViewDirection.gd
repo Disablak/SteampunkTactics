@@ -25,6 +25,8 @@ func _draw() -> void:
 
 
 func _on_pathfinding_on_hovered_cell(cell_info: CellInfo) -> void:
+	return
+
 	if cell_info.unit_id == -1:
 		_clear()
 		return

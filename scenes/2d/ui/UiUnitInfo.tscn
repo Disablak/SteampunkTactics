@@ -11,11 +11,12 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -210.0
-offset_bottom = 210.0
+offset_bottom = 102.0
 grow_horizontal = 0
 script = ExtResource("1_4qew3")
 
 [node name="TextureRectPortrait" type="TextureRect" parent="."]
+visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 5
@@ -30,11 +31,11 @@ texture = ExtResource("2_fq5jh")
 
 [node name="LabelHealth" type="Label" parent="."]
 texture_filter = 1
-layout_mode = 2
-offset_left = 15.0
-offset_top = 140.0
-offset_right = 195.0
-offset_bottom = 170.0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 61.0
+grow_horizontal = 2
 theme = ExtResource("3_3bh8n")
 text = "Health: 100/100"
 horizontal_alignment = 1
@@ -43,16 +44,11 @@ autowrap_mode = 1
 
 [node name="TimePointsUI" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 15.0
-offset_top = -44.0
-offset_right = -15.0
-offset_bottom = -6.0
+offset_top = 60.0
+offset_bottom = 98.0
 grow_horizontal = 2
-grow_vertical = 0
 mouse_filter = 1
 script = ExtResource("3_cpyj2")
 

@@ -10,18 +10,13 @@ extends Node2D
 @export var walkable_hint_cell_scene: PackedScene
 @export var cell_damage_hint_scene: PackedScene
 
-@export_group("Walking cells setting")
-@export var scene_walk_cell: PackedScene
-@export var offset_spawn_cells: Vector2i
-@export var walk_field_size: Vector2i
-@export var spawn: bool: set = _tool_spawn_walk_cells
-
 var level: Level
 var root_walk_hint: Node2D
 var root_obs_cells: Node2D
 
 
 const CELL_OFFSETS = [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(0, 1)]
+const CELL_HINT_HIDE_POS = Vector2(-99, -99)
 
 var astar : AStar2D = AStar2D.new()
 
@@ -41,49 +36,6 @@ var hovered_obj: CellObject
 var debug_lines = []
 
 
-func _draw_debug() -> void:
-	if not is_debug:
-		return
-
-	for deb in debug_lines:
-		deb.queue_free()
-
-	for cell_id in dict_id_and_walk_pos:
-		var cell_walk = dict_id_and_walk_pos[cell_id]
-
-		if astar.is_point_disabled(cell_id):
-			continue
-
-		var connected_points = astar.get_point_connections(cell_id)
-		for conn_id in connected_points:
-			if astar.is_point_disabled(conn_id):
-				continue
-
-			var conn_cell = dict_id_and_walk_pos[conn_id]
-			var line = DrawDebug.line2d(cell_walk.position, conn_cell.position)
-			debug_lines.append(line)
-
-
-func _tool_spawn_walk_cells(tmp):
-	if not Engine.is_editor_hint() or get_child_count() <= 2:
-		return
-
-	var root: Node2D = get_child(0).get_node_or_null("RootWalkCells")
-	if root == null:
-		return
-
-	for child in root.get_children():
-		child.queue_free()
-
-	for x in range(0, walk_field_size.x):
-		for y in range(0, walk_field_size.y):
-			var spawned: Node2D = scene_walk_cell.instantiate()
-			root.add_child(spawned)
-			spawned.set_owner(get_tree().edited_scene_root)
-
-			spawned.position = offset_spawn_cells + Vector2i(x, y) * Globals.CELL_SIZE
-
-
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
@@ -99,9 +51,8 @@ func init() -> void:
 	_connect_walkable_cells()
 	_add_obstacles()
 
-	fog_of_war.init(self)
+	#fog_of_war.init(self)
 
-	_draw_debug()
 
 
 func _connect_walkable_cells():
@@ -114,7 +65,7 @@ func _connect_walkable_cells():
 			dict_id_and_walk_pos[id] = grid_pos
 			walk_grid_poses.append(grid_pos)
 
-			fog_of_war.spawn_fog(grid_pos, 2)
+			#fog_of_war.spawn_fog(grid_pos, 2)
 
 
 	for walk_pos in dict_id_and_walk_pos.values():
@@ -434,9 +385,6 @@ func _enable_point_by_pos(grid_pos: Vector2i, enable: bool, update_debug: bool =
 	var cell_id := get_cell_id_by_grid_pos(grid_pos)
 	astar.set_point_disabled(cell_id, !enable)
 
-	if update_debug:
-		_draw_debug()
-
 
 func _enable_connection(cell: CellObject, enable: bool, update_debug: bool = false):
 	var first_cell_id := get_cell_id_by_grid_pos(cell.grid_pos)
@@ -448,9 +396,6 @@ func _enable_connection(cell: CellObject, enable: bool, update_debug: bool = fal
 	else:
 		astar.disconnect_points(first_cell_id, second_cell_id)
 		print("disconected {0}, {1}".format([first_cell_id, second_cell_id]))
-
-	if update_debug:
-		_draw_debug()
 
 
 func _on_hover_obj(cell_obj: CellObject):
@@ -468,11 +413,11 @@ func _on_input_system_on_mouse_hover(mouse_pos: Vector2) -> void:
 	if info.cell_obj != null and prev_hovered_cell_pos == info.grid_pos:
 		return
 
-	prev_hovered_cell_pos = info.grid_pos if info.is_ground or info.cell_obj else Vector2.ZERO
+	prev_hovered_cell_pos = info.grid_pos if info.is_ground or info.cell_obj else CELL_HINT_HIDE_POS
 	cell_hint.position = Globals.convert_to_cell_pos(prev_hovered_cell_pos)
 
 	if info.not_cell:
-		cell_hint.position = Vector2i.ZERO
+		cell_hint.position = CELL_HINT_HIDE_POS
 
 	GlobalBus.on_hovered_cell.emit(info)
 

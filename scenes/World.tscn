@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://daaa4wpe8k4g1"]
+[gd_scene load_steps=28 format=3 uid="uid://daaa4wpe8k4g1"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://scripts/visual/EffectManager.gd" id="11_cpn0u"]
 [ext_resource type="Script" path="res://scripts/CameraController.gd" id="11_sv5rh"]
 [ext_resource type="Script" path="res://scripts/Raycaster.gd" id="12_pdk27"]
-[ext_resource type="PackedScene" uid="uid://bcjh0gai8yj3f" path="res://scenes/cells/CellWalk.tscn" id="13_iafh6"]
 [ext_resource type="Script" path="res://scripts/utility_ai/BrainAI.gd" id="15_y513k"]
 [ext_resource type="PackedScene" uid="uid://bncbloimsnrob" path="res://scenes/visual/Bullet2D.tscn" id="16_n1bfs"]
 [ext_resource type="PackedScene" path="res://scenes/visual/FireEffect.tscn" id="17_e35id"]
@@ -43,8 +42,6 @@ script = ExtResource("8_ijmge")
 is_debug = false
 walkable_hint_cell_scene = ExtResource("6_vdct5")
 cell_damage_hint_scene = ExtResource("6_akxss")
-scene_walk_cell = ExtResource("13_iafh6")
-walk_field_size = Vector2i(96, 64)
 
 [node name="CellHovered" parent="UnitsManager/Pathfinding" instance=ExtResource("18_yo8ds")]
 position = Vector2(2.08165e-12, 2.08165e-12)
