@@ -41,11 +41,6 @@ func _get_visible_covers() -> Array[Vector2i]:
 
 
 func get_visible_enemies() -> Array[Unit]:
-	_cur_unit.unit_data.ai_settings.visible_enemies = GlobalUnits.get_enemies_in_range(_cur_unit)
-	return _cur_unit.unit_data.ai_settings.visible_enemies
-
-
-func get_shootable_enemies() -> Array[Unit]:
 	var result: Array[Unit]
 	for enemy in GlobalUnits.get_units(not _cur_unit.unit_data.is_enemy):
 		if GlobalMap.raycaster.make_ray_check_no_obstacle(_cur_unit.unit_object.visual_pos, enemy.unit_object.visual_pos):

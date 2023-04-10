@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="RangedWeaponSettings" load_steps=4 format=3 uid="uid://dabprdc4kprjs"]
 
 [ext_resource type="Script" path="res://scripts/settings/abilities/RangedWeaponSettings.gd" id="1_32p5p"]
-[ext_resource type="Resource" uid="uid://4vlp6vtsvwcf" path="res://data/settings/utility ai/presets/PresetRangeAttack.tres" id="1_nnelp"]
+[ext_resource type="Resource" uid="uid://7mwpvdhxjf4e" path="res://data/settings/utility ai/presets/PresetRangeAttack.tres" id="1_nnelp"]
 
 [sub_resource type="Curve" id="Curve_o5b85"]
 _data = [Vector2(0, 0.655325), 0.0, 0.501907, 0, 1, Vector2(0.500611, 0.906585), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.187059, 0.0, 1, 0]
@@ -14,6 +14,6 @@ max_ammo = 4
 reload_price = 50
 ability_name = "Winchester"
 use_price = 30
-damage = 3.0
+damage = 5.0
 can_stealth_attack = false
 ai_preset = ExtResource("1_nnelp")

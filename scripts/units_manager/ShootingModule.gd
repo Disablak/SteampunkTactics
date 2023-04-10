@@ -35,20 +35,21 @@ func select_enemy(cur_ability: UnitData.Abilities, cur_unit: Unit, enemy: Unit) 
 	if prev_unit_ability == cur_ability and selected_enemy != null and selected_enemy.id == enemy.id:
 		match cur_ability:
 			UnitData.Abilities.SHOOT:
-				return _shoot(cur_unit)
+				return await _shoot(cur_unit)
 
 			UnitData.Abilities.MALEE_ATACK:
 				return _kick_unit(cur_unit, enemy)
 		return false
 
 	deselect_enemy()
+
 	prev_unit_ability = cur_ability
 	selected_enemy = enemy
 
 	_show_selected_enemy_info(cur_ability, cur_unit, enemy)
 
-	var dir_to_enemy: int = rad_to_deg(cur_unit.unit_object.position.angle_to_point(enemy.unit_object.position))
-	cur_unit.unit_data.update_view_direction(dir_to_enemy, true)
+	var dir_to_enemy = (enemy.unit_object.visual_pos - cur_unit.unit_object.visual_pos).normalized()
+	cur_unit.unit_object.rotate_unit_visual(dir_to_enemy)
 
 	return false
 
@@ -143,7 +144,7 @@ func _shoot(shooter: Unit) -> bool:
 	var hit_type: HitType = _get_shoot_result(shooter)
 	var hitted_obs: CellObject = obstacles.pick_random() if obstacles.size() > 0 else null
 
-	effect_manager.shoot(shooter, selected_enemy, hit_type, cover_hit_pos, hitted_obs)
+	await effect_manager.shoot(shooter, selected_enemy, hit_type, cover_hit_pos, hitted_obs)
 
 	match hit_type:
 		HitType.HIT:
@@ -374,10 +375,11 @@ func _calc_obs_debaff() -> float:
 
 
 func _set_unit_damage(unit: Unit, atacker: Unit, ability_data: AbilityData):
-	var damage_multiplier = 1.0
-	if ability_data.settings.can_stealth_attack:
-		if not unit.unit_data.visibility_data.is_enemy_was_noticed(atacker):
-			damage_multiplier = 2.0
-			GlobalsUi.gui.show_flying_tooltip("stealth", atacker.unit_object.position)
+	unit.unit_data.set_damage(ability_data.settings.damage, atacker.id)
 
-	unit.unit_data.set_damage(ability_data.settings.damage * damage_multiplier, atacker.id)
+	#visual
+	if unit.unit_data.is_alive:
+		unit.unit_object.play_damage_anim()
+	else:
+		effect_manager.death_effect(unit.unit_object.position, unit.unit_object.main_sprite.texture.region)
+		unit.unit_object.queue_free()

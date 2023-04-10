@@ -49,11 +49,7 @@ func shoot(from: Unit, to: Unit, hit_type: ShootingModule.HitType, cover_pos: Ve
 		to_pos, time
 	)
 	tween.tween_callback(Callable(new_instance,"queue_free"))
-
 	await tween.finished
-	if hit_type == ShootingModule.HitType.HIT:
-		if to.unit_object != null:
-			to.unit_object.play_damage_anim()
 
 
 func _get_little_wrong_shoot_direction(shoot_vector: Vector2) -> Vector2:

@@ -133,7 +133,7 @@ func _update_team_visibility(enemy_team: bool, force_update: bool = false):
 
 func _update_unit_visibility(unit: Unit, force_update: bool = false):
 	var grid_unit_pos := unit.unit_object.grid_pos
-	var unit_view_direction := unit.unit_data.view_direction
+	var unit_view_direction := 0#unit.unit_data.view_direction
 	var visibility_data = unit.unit_data.visibility_data
 
 	if not force_update and grid_unit_pos == visibility_data.pos_last_check_visibility and unit_view_direction == visibility_data.prev_view_direction:

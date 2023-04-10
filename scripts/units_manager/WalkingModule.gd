@@ -96,8 +96,7 @@ func _move_via_points(points: Array[Vector2i]):
 		if not GlobalMap.can_show_cur_unit():
 			time_move = 0
 
-		var move_direction: int = rad_to_deg(start_point.angle_to_point(finish_point))
-		cur_unit_data.update_view_direction(move_direction)
+		cur_unit_object.rotate_unit_visual((finish_point - start_point).normalized())
 
 		tween_move = get_tree().create_tween()
 		tween_move.tween_property(

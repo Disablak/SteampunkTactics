@@ -7,7 +7,6 @@ signal on_unit_moved_to_another_cell(unit_id: int, cell_pos: Vector2i)
 signal on_unit_changed_control(unit_id, instantly)
 signal on_unit_changed_action(unit_id, unit_action_type)
 signal on_unit_updated_weapon(unit_id: int, ability: AbilityData)
-signal on_unit_changed_view_direction(unit_id: int, view_direction: int, update_fog: bool)
 
 signal on_cell_broke(cell: CellObject)
 

@@ -3,12 +3,10 @@ class_name UnitObject
 
 
 @onready var main_sprite := $VisualObject as Sprite2D
-@onready var view_direction := $CenterPoint/ViewDirection as Sprite2D
 @onready var noticed_icon := $NoticedIcon as Sprite2D
 
 @export var unit_settings: UnitSettings
 @export var ai_settings: AiSettings
-@export var start_view_dir: int = 0
 
 var unit_id = -1
 var main_material: Material
@@ -37,9 +35,6 @@ var is_enemy: bool:
 func init_unit(unit_id, unit_data: UnitData) -> void:
 	self.unit_id = unit_id
 
-	view_direction.visible = unit_data.is_enemy
-	unit_data.update_view_direction(start_view_dir)
-
 	origin_offset = Globals.get_height_of_obj(main_sprite.texture.region) + main_sprite.offset.y + main_sprite.position.y
 
 
@@ -62,7 +57,6 @@ func _ready() -> void:
 		return
 
 	GlobalBus.on_unit_change_health.connect(_on_unit_changed_health)
-	GlobalBus.on_unit_changed_view_direction.connect(_on_unit_changed_view_direction)
 
 	main_sprite_def_pos = main_sprite.position
 
@@ -100,13 +94,8 @@ func play_damage_anim():
 	await tween.finished
 
 
-func play_look_around():
-	var tween = create_tween()
-	tween.tween_property(view_direction, "rotation_degrees", 360, 1.0)
-
-
-func rotate_unit_visual(left):
-	main_sprite.flip_h = left
+func rotate_unit_visual(dir: Vector2):
+	main_sprite.flip_h = dir.x < 0
 
 
 func show_noticed_icon(show: bool):
@@ -122,15 +111,3 @@ func _on_unit_changed_health(unit_id):
 
 	pass
 	#play_damage_anim()
-
-
-func _on_unit_changed_view_direction(unit_id, angle, update_fog):
-	if self.unit_id != unit_id:
-		return
-
-	view_direction.rotation_degrees = angle
-	rotate_unit_visual(angle > 90 and angle < 270)
-
-	if angle == 1000: # TODO fix this!
-		play_look_around()
-

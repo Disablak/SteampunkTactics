@@ -10,5 +10,5 @@ texture = ExtResource("1_ndf2q")
 
 [node name="Trail" parent="." instance=ExtResource("2_23wh4")]
 width = 3.0
-default_color = Color(1, 1, 0.572549, 1)
+default_color = Color(0.901961, 0.901961, 0.92549, 1)
 length = 100

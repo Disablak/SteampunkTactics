@@ -13,8 +13,8 @@ enum Abilities {
 var unit_id := -1
 var is_enemy: bool
 var cur_health: float
-var view_direction: int
-var attention_direction: int = -1
+var is_alive: bool:
+	get: return cur_health > 0
 
 var unit_settings: UnitSettings
 var ai_settings: AiSettings
@@ -41,6 +41,9 @@ func _init(unit_settings: UnitSettings, ai_settings: AiSettings):
 func set_unit_id(id):
 	self.unit_id = id
 
+	if ai_settings != null:
+		ai_settings.unit_id = unit_id
+
 
 func set_damage(value: float, attacker_unit_id: int):
 	if cur_health <= 0:
@@ -50,8 +53,8 @@ func set_damage(value: float, attacker_unit_id: int):
 	cur_health -= value
 	GlobalBus.on_unit_change_health.emit(unit_id)
 
-	var attacker_object: UnitObject = GlobalUnits.units[attacker_unit_id].unit_object
-	update_attention_direction(attacker_object)
+	if ai_settings != null:
+		ai_settings.change_state_to_active()
 
 	if cur_health <= 0:
 		GlobalBus.on_unit_died.emit(unit_id, attacker_unit_id)
@@ -107,30 +110,4 @@ func init_abilities(abilities: Array[AbilitySettings]):
 	for data in all_abilities:
 		data.init_weapon()
 
-
-func update_view_direction(angle: int, update_fog_of_war = false):
-	if view_direction == angle:
-		return
-
-	view_direction = angle
-	GlobalBus.on_unit_changed_view_direction.emit(unit_id, angle, update_fog_of_war)
-
-
-func update_attention_direction(object: Node2D):
-	if not object:
-		attention_direction = -1
-		return
-
-	var cur_unit_object: UnitObject = GlobalUnits.units[unit_id].unit_object
-	var angle: int = rad_to_deg(cur_unit_object.position.angle_to_point(object.position))
-	attention_direction = angle
-
-
-func rotate_to_attention_dir():
-	update_view_direction(attention_direction, true)
-	update_attention_direction(null)
-
-
-func look_around():
-	update_view_direction(1000, true)
 

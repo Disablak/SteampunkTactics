@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="UnitSettings" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="UnitSettings" load_steps=4 format=3 uid="uid://w2vn8wuadrmx"]
 
+[ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/actions/ActionMoveToRandom.tres" id="2_226cl"]
 [ext_resource type="Resource" uid="uid://dabprdc4kprjs" path="res://data/settings/weapon/riffle0.tres" id="2_ybm50"]
-[ext_resource type="Resource" uid="uid://bko6rfue0rg42" path="res://data/settings/utility ai/actions/ActionMoveToPatrulZone.tres" id="3_qxqhn"]
-[ext_resource type="Resource" uid="uid://btyefmhj0flqm" path="res://data/settings/utility ai/actions/ActionSkipTurn.tres" id="4_ubp3n"]
 [ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="7_xq26t"]
 
 [resource]
@@ -13,4 +12,4 @@ walk_speed = 25
 initiative = 8
 range_of_view = 7
 abilities = Array[Resource("res://scripts/settings/abilities/AbilitySettings.gd")]([ExtResource("2_ybm50")])
-additional_ai_actions = Array[Resource("res://scripts/utility_ai/Action.gd")]([ExtResource("3_qxqhn"), ExtResource("4_ubp3n")])
+additional_ai_actions = Array[Resource("res://scripts/utility_ai/Action.gd")]([ExtResource("2_226cl")])

@@ -1,24 +1,25 @@
-[gd_scene load_steps=13 format=3 uid="uid://dlesfgwb7o2s1"]
+[gd_scene load_steps=14 format=3 uid="uid://bx3q55umdh51f"]
 
-[ext_resource type="PackedScene" uid="uid://dxtwt22vjkgto" path="res://scenes/levels/BaseLevel.tscn" id="1_6s7x3"]
-[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/Zone1.tscn" id="2_2e1o5"]
+[ext_resource type="PackedScene" path="res://scenes/levels/BaseLevel.tscn" id="1_6s7x3"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_2e1o5"]
 [ext_resource type="Texture2D" uid="uid://cgye1wpyv4n7r" path="res://content/sprites/gothic/fog_full.tres" id="3_erulp"]
-[ext_resource type="PackedScene" path="res://scenes/2d/UnitObject.tscn" id="3_s8jjc"]
+[ext_resource type="PackedScene" uid="uid://b3yhd8e21esis" path="res://scenes/2d/UnitObject.tscn" id="3_s8jjc"]
 [ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/unit0.tres" id="4_cgnvw"]
-[ext_resource type="Resource" path="res://data/settings/unit/level1/lvl1_unit0.tres" id="7_a6u54"]
+[ext_resource type="Resource" uid="uid://w2vn8wuadrmx" path="res://data/settings/unit/level1/lvl1_unit0.tres" id="7_a6u54"]
 [ext_resource type="Texture2D" uid="uid://b1h0pwlirgbvt" path="res://content/sprites/gothic/units/enemy0.tres" id="7_y1x2u"]
 [ext_resource type="Script" path="res://scripts/settings/AiSettings.gd" id="9_1u5t2"]
-[ext_resource type="Resource" path="res://data/settings/unit/level1/lvl1_unit1.tres" id="10_cmafy"]
+[ext_resource type="Resource" uid="uid://criftwds0pgl7" path="res://data/settings/unit/level1/lvl1_unit1.tres" id="10_cmafy"]
 [ext_resource type="Texture2D" uid="uid://cwni0rwde87bc" path="res://content/sprites/gothic/units/enemy1.tres" id="10_yujf1"]
+[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="11_u6wnr"]
 
 [sub_resource type="Resource" id="Resource_sqpsk"]
 script = ExtResource("9_1u5t2")
-walking_zone_node_path = NodePath("")
+walking_zone_node_path = NodePath("../../VisualObject")
 patrul_zones_paths = Array[NodePath]([])
 
 [sub_resource type="Resource" id="Resource_qguqj"]
 script = ExtResource("9_1u5t2")
-walking_zone_node_path = NodePath("")
+walking_zone_node_path = NodePath("../../VisualObject2")
 patrul_zones_paths = Array[NodePath]([])
 
 [node name="Level_1" instance=ExtResource("1_6s7x3")]
@@ -50,6 +51,20 @@ ai_settings = SubResource("Resource_qguqj")
 
 [node name="VisualObject" parent="RootUnits/Enemy1" index="0"]
 texture = ExtResource("10_yujf1")
+
+[node name="VisualObject" parent="." index="6" instance=ExtResource("2_2e1o5")]
+visible = false
+self_modulate = Color(1, 1, 1, 0.227451)
+position = Vector2(144, 16)
+scale = Vector2(4, 6)
+texture = ExtResource("11_u6wnr")
+
+[node name="VisualObject2" parent="." index="7" instance=ExtResource("2_2e1o5")]
+visible = false
+self_modulate = Color(1, 1, 1, 0.227451)
+position = Vector2(256, 16)
+scale = Vector2(5, 6)
+texture = ExtResource("11_u6wnr")
 
 [editable path="RootUnits/Enemy0"]
 [editable path="RootUnits/Enemy1"]

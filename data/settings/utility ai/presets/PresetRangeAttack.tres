@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AiPreset" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="AiPreset" load_steps=5 format=3 uid="uid://7mwpvdhxjf4e"]
 
 [ext_resource type="Resource" uid="uid://s5ie0dxr4drx" path="res://data/settings/utility ai/actions/ActionShoot.tres" id="1_bsfl8"]
 [ext_resource type="Resource" uid="uid://illxi77jvplu" path="res://data/settings/utility ai/actions/ActionReload.tres" id="2_bihqf"]

@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://b3yhd8e21esis"]
 
 [ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_a7ikt"]
-[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/Zone1.tscn" id="2_kmtyi"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_kmtyi"]
 [ext_resource type="Texture2D" uid="uid://ciry2hpepxf06" path="res://content/sprites/gothic/units/player1.tres" id="3_dfa2p"]
-[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="4_bpjp7"]
 [ext_resource type="Texture2D" uid="uid://b6e5yn1juhul0" path="res://content/sprites/gothic/noticed_icon.tres" id="5_qingj"]
 
 [node name="UnitObject" type="Node2D"]
@@ -12,17 +11,6 @@ script = ExtResource("1_a7ikt")
 [node name="VisualObject" parent="." instance=ExtResource("2_kmtyi")]
 position = Vector2(0, -5)
 texture = ExtResource("3_dfa2p")
-
-[node name="CenterPoint" type="Node2D" parent="."]
-position = Vector2(8, 8)
-
-[node name="ViewDirection" type="Sprite2D" parent="CenterPoint"]
-visible = false
-self_modulate = Color(0.721569, 0.721569, 0.854902, 1)
-scale = Vector2(0.1, 0.03)
-texture = ExtResource("4_bpjp7")
-centered = false
-offset = Vector2(70, -16)
 
 [node name="NoticedIcon" parent="." instance=ExtResource("2_kmtyi")]
 visible = false

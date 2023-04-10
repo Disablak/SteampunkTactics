@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitSettings" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="UnitSettings" load_steps=4 format=3 uid="uid://criftwds0pgl7"]
 
 [ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="1_mx7om"]
 [ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/actions/ActionMoveToRandom.tres" id="4_hlw2l"]

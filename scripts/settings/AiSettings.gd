@@ -5,6 +5,8 @@ extends Resource
 @export var walking_zone_node_path: NodePath
 @export var patrul_zones_paths: Array[NodePath]
 
+var unit_id: int = -1
+
 var walking_zone_rect: Rect2i
 var walking_zone_cells: Array[Vector2i]
 
@@ -32,6 +34,8 @@ func change_state_to_active():
 		return
 
 	ai_state = AiState.ACTIVE
+
+	GlobalUnits.units[unit_id].unit_object.show_noticed_icon(true)
 
 
 func get_cur_target_patrul_zone_points() -> Array[Vector2i]:
