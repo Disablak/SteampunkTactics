@@ -41,6 +41,10 @@ func _on_pathfinding_on_hovered_cell(cell_info: CellInfo) -> void:
 		_clear()
 		return
 
+	if unit.unit_data.ai_settings.ai_state == AiSettings.AiState.ACTIVE:
+		_clear()
+		return
+
 	cur_unit = unit
 	queue_redraw()
 

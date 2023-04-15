@@ -11,6 +11,7 @@ var is_game_over: bool = false
 
 func init():
 	GlobalBus.on_unit_moved_to_another_cell.connect(_on_unit_moved)
+	GlobalBus.on_unit_changed_control.connect(_on_unit_changed_control)
 
 
 func start_ai(unit: Unit):
@@ -25,6 +26,10 @@ func _on_unit_moved(unit_id: int, cell_pos: Vector2):
 
 	for enemy in GlobalUnits.get_enemies_in_range(unit):
 		enemy.unit_data.ai_settings.change_state_to_active()
+
+
+func _on_unit_changed_control(unit_id: int, instantly: bool):
+	_on_unit_moved(unit_id, Vector2.ZERO)
 
 
 func _set_actions(actions: Array[Action]):

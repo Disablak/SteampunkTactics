@@ -1,16 +1,37 @@
-[gd_scene load_steps=14 format=3 uid="uid://bx3q55umdh51f"]
+[gd_scene load_steps=35 format=3 uid="uid://bx3q55umdh51f"]
 
 [ext_resource type="PackedScene" path="res://scenes/levels/BaseLevel.tscn" id="1_6s7x3"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_2e1o5"]
-[ext_resource type="Texture2D" uid="uid://cgye1wpyv4n7r" path="res://content/sprites/gothic/fog_full.tres" id="3_erulp"]
 [ext_resource type="PackedScene" uid="uid://b3yhd8e21esis" path="res://scenes/2d/UnitObject.tscn" id="3_s8jjc"]
 [ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/unit0.tres" id="4_cgnvw"]
+[ext_resource type="Texture2D" uid="uid://w3tnd2y22h83" path="res://content/sprites/gothic/background/pillar.tres" id="4_v35qe"]
+[ext_resource type="Texture2D" uid="uid://1xxay4xsagly" path="res://content/sprites/gothic/background/side0.tres" id="5_roh63"]
+[ext_resource type="Texture2D" uid="uid://cq1gugbtx53uq" path="res://content/sprites/gothic/background/side1.tres" id="6_i8ksw"]
 [ext_resource type="Resource" uid="uid://w2vn8wuadrmx" path="res://data/settings/unit/level1/lvl1_unit0.tres" id="7_a6u54"]
+[ext_resource type="Texture2D" uid="uid://bho4ygohhfyql" path="res://content/sprites/gothic/background/side6.tres" id="7_s46bf"]
 [ext_resource type="Texture2D" uid="uid://b1h0pwlirgbvt" path="res://content/sprites/gothic/units/enemy0.tres" id="7_y1x2u"]
+[ext_resource type="Texture2D" uid="uid://gx14kk6e6w62" path="res://content/sprites/gothic/background/side5.tres" id="8_erk0o"]
 [ext_resource type="Script" path="res://scripts/settings/AiSettings.gd" id="9_1u5t2"]
+[ext_resource type="Texture2D" uid="uid://u38qkvqtobun" path="res://content/sprites/gothic/background/side4.tres" id="9_632f8"]
 [ext_resource type="Resource" uid="uid://criftwds0pgl7" path="res://data/settings/unit/level1/lvl1_unit1.tres" id="10_cmafy"]
+[ext_resource type="Texture2D" uid="uid://v2koeklyy7nb" path="res://content/sprites/gothic/background/border0.tres" id="10_s58c4"]
 [ext_resource type="Texture2D" uid="uid://cwni0rwde87bc" path="res://content/sprites/gothic/units/enemy1.tres" id="10_yujf1"]
+[ext_resource type="Texture2D" uid="uid://bagc5sgeunmom" path="res://content/sprites/gothic/background/border2.tres" id="11_kwubt"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="11_u6wnr"]
+[ext_resource type="Texture2D" uid="uid://bsnn5dw3c35bg" path="res://content/sprites/gothic/background/border3.tres" id="12_dqy8v"]
+[ext_resource type="Texture2D" uid="uid://buj1gm3or4nb" path="res://content/sprites/gothic/background/border7.tres" id="13_wmte4"]
+[ext_resource type="Texture2D" uid="uid://dn26d3exvsxrg" path="res://content/sprites/gothic/background/border5.tres" id="14_eq6bi"]
+[ext_resource type="Texture2D" uid="uid://l4wxk8w2olgm" path="res://content/sprites/gothic/background/border1.tres" id="15_klsn0"]
+[ext_resource type="Texture2D" uid="uid://c6hyox3y2o2kj" path="res://content/sprites/gothic/background/border4.tres" id="16_7nuhx"]
+[ext_resource type="Texture2D" uid="uid://vit5f4rxjgv8" path="res://content/sprites/gothic/background/border6.tres" id="16_pwtyf"]
+[ext_resource type="Texture2D" uid="uid://7n83p0pqpguk" path="res://content/sprites/gothic/background/rock0.tres" id="17_gkgvl"]
+[ext_resource type="Texture2D" uid="uid://dgu24ji0v3151" path="res://content/sprites/gothic/background/cloud0.tres" id="18_hygie"]
+[ext_resource type="Texture2D" uid="uid://dio1flrtagxal" path="res://content/sprites/gothic/background/cloud1.tres" id="19_4juj2"]
+[ext_resource type="Texture2D" uid="uid://cbnhvk2iygn3o" path="res://content/sprites/gothic/background/cloud2.tres" id="20_ee1ir"]
+[ext_resource type="Texture2D" uid="uid://dikfh8plutdfs" path="res://content/sprites/gothic/background/cloud3.tres" id="21_w8t3c"]
+[ext_resource type="Texture2D" uid="uid://cxsp7terxmcim" path="res://content/sprites/gothic/background/ground0.tres" id="23_vmvlx"]
+[ext_resource type="Texture2D" uid="uid://24yo3go3whx3" path="res://content/sprites/gothic/background/ground2.tres" id="24_kpg0q"]
+[ext_resource type="Texture2D" uid="uid://lxxpi74mdawy" path="res://content/sprites/gothic/background/ground1.tres" id="25_esn6k"]
 
 [sub_resource type="Resource" id="Resource_sqpsk"]
 script = ExtResource("9_1u5t2")
@@ -25,19 +46,346 @@ patrul_zones_paths = Array[NodePath]([])
 [node name="Level_1" instance=ExtResource("1_6s7x3")]
 
 [node name="BackGround" parent="RootWalkCells" index="0" instance=ExtResource("2_2e1o5")]
+modulate = Color(0.65098, 0.65098, 0.74902, 1)
 position = Vector2(-256, -192)
-scale = Vector2(96, 72)
-texture = ExtResource("3_erulp")
+scale = Vector2(48, 36)
+texture = ExtResource("11_u6wnr")
 
 [node name="Ground" parent="RootWalkCells" index="1"]
-scale = Vector2(24, 8)
+scale = Vector2(16, 8)
+
+[node name="FakeBridge" parent="RootVisual" index="0" instance=ExtResource("2_2e1o5")]
+position = Vector2(-128, 0)
+scale = Vector2(32, 8)
+metadata/_edit_lock_ = true
+
+[node name="FakeBridge2" parent="RootVisual" index="1" instance=ExtResource("2_2e1o5")]
+position = Vector2(-32, 240)
+scale = Vector2(4, 8)
+texture = ExtResource("5_roh63")
+metadata/_edit_lock_ = true
+
+[node name="Pillar" parent="RootVisual" index="2" instance=ExtResource("2_2e1o5")]
+position = Vector2(0, 144)
+texture = ExtResource("4_v35qe")
+
+[node name="Pillar2" parent="RootVisual" index="3" instance=ExtResource("2_2e1o5")]
+position = Vector2(-96, 144)
+texture = ExtResource("4_v35qe")
+flip_h = true
+
+[node name="Side" parent="RootVisual" index="4" instance=ExtResource("2_2e1o5")]
+position = Vector2(0, 128)
+scale = Vector2(7.6875, 1)
+texture = ExtResource("5_roh63")
+
+[node name="Side8" parent="RootVisual" index="5" instance=ExtResource("2_2e1o5")]
+position = Vector2(-128, 128)
+scale = Vector2(8, 1)
+texture = ExtResource("5_roh63")
+
+[node name="Side9" parent="RootVisual" index="6" instance=ExtResource("2_2e1o5")]
+position = Vector2(256, 128)
+scale = Vector2(8, 1)
+texture = ExtResource("5_roh63")
+
+[node name="Side5" parent="RootVisual" index="7" instance=ExtResource("2_2e1o5")]
+position = Vector2(139, 128)
+scale = Vector2(7.6875, 1)
+texture = ExtResource("5_roh63")
+
+[node name="Side2" parent="RootVisual" index="8" instance=ExtResource("2_2e1o5")]
+position = Vector2(0, 126)
+scale = Vector2(3.125, 1)
+texture = ExtResource("6_i8ksw")
+
+[node name="Side3" parent="RootVisual" index="9" instance=ExtResource("2_2e1o5")]
+position = Vector2(0, 125)
+scale = Vector2(2.5625, 1)
+texture = ExtResource("6_i8ksw")
+
+[node name="Side4" parent="RootVisual" index="10" instance=ExtResource("2_2e1o5")]
+position = Vector2(123, 128)
+texture = ExtResource("7_s46bf")
+
+[node name="Side6" parent="RootVisual" index="11" instance=ExtResource("2_2e1o5")]
+position = Vector2(172, 127)
+texture = ExtResource("8_erk0o")
+
+[node name="Side10" parent="RootVisual" index="12" instance=ExtResource("2_2e1o5")]
+position = Vector2(-47, 129)
+texture = ExtResource("8_erk0o")
+
+[node name="Side7" parent="RootVisual" index="13" instance=ExtResource("2_2e1o5")]
+position = Vector2(230, 129)
+texture = ExtResource("9_632f8")
+
+[node name="Border0" parent="RootVisual" index="14" instance=ExtResource("2_2e1o5")]
+position = Vector2(64, 116)
+texture = ExtResource("10_s58c4")
+
+[node name="Border1" parent="RootVisual" index="15" instance=ExtResource("2_2e1o5")]
+position = Vector2(80, 116)
+scale = Vector2(2.5, 1)
+texture = ExtResource("11_kwubt")
+
+[node name="Border2" parent="RootVisual" index="16" instance=ExtResource("2_2e1o5")]
+position = Vector2(120, 116)
+scale = Vector2(1.875, 1)
+texture = ExtResource("12_dqy8v")
+
+[node name="Border3" parent="RootVisual" index="17" instance=ExtResource("2_2e1o5")]
+position = Vector2(150, 116)
+texture = ExtResource("13_wmte4")
+
+[node name="Border4" parent="RootVisual" index="18" instance=ExtResource("2_2e1o5")]
+position = Vector2(183, 117)
+texture = ExtResource("14_eq6bi")
+
+[node name="Border5" parent="RootVisual" index="19" instance=ExtResource("2_2e1o5")]
+position = Vector2(199, 117)
+texture = ExtResource("15_klsn0")
+
+[node name="Border6" parent="RootVisual" index="20" instance=ExtResource("2_2e1o5")]
+position = Vector2(215, 117)
+texture = ExtResource("15_klsn0")
+
+[node name="Border8" parent="RootVisual" index="21" instance=ExtResource("2_2e1o5")]
+position = Vector2(247, 116)
+scale = Vector2(3.8125, 1)
+texture = ExtResource("15_klsn0")
+
+[node name="Border20" parent="RootVisual" index="22" instance=ExtResource("2_2e1o5")]
+position = Vector2(307, 116)
+scale = Vector2(1.8125, 1)
+texture = ExtResource("16_7nuhx")
+
+[node name="Border7" parent="RootVisual" index="23" instance=ExtResource("2_2e1o5")]
+position = Vector2(231, 116)
+texture = ExtResource("16_pwtyf")
+
+[node name="Border9" parent="RootVisual" index="24" instance=ExtResource("2_2e1o5")]
+position = Vector2(23, -8)
+texture = ExtResource("14_eq6bi")
+
+[node name="Border10" parent="RootVisual" index="25" instance=ExtResource("2_2e1o5")]
+position = Vector2(39, -8)
+scale = Vector2(2.1875, 1)
+texture = ExtResource("15_klsn0")
+
+[node name="Border11" parent="RootVisual" index="26" instance=ExtResource("2_2e1o5")]
+position = Vector2(74, -7)
+scale = Vector2(1.4375, 1)
+texture = ExtResource("17_gkgvl")
+
+[node name="Border18" parent="RootVisual" index="27" instance=ExtResource("2_2e1o5")]
+position = Vector2(-17, 116)
+scale = Vector2(1.4375, 1)
+texture = ExtResource("17_gkgvl")
+
+[node name="Border12" parent="RootVisual" index="28" instance=ExtResource("2_2e1o5")]
+position = Vector2(97, -8)
+scale = Vector2(3.3125, 1)
+texture = ExtResource("11_kwubt")
+
+[node name="Border14" parent="RootVisual" index="29" instance=ExtResource("2_2e1o5")]
+position = Vector2(181, -8)
+scale = Vector2(2.9375, 1)
+texture = ExtResource("11_kwubt")
+
+[node name="Border17" parent="RootVisual" index="30" instance=ExtResource("2_2e1o5")]
+position = Vector2(-144, 116)
+scale = Vector2(8, 1)
+texture = ExtResource("11_kwubt")
+
+[node name="Border15" parent="RootVisual" index="31" instance=ExtResource("2_2e1o5")]
+position = Vector2(228, -8)
+scale = Vector2(3.3125, 1)
+texture = ExtResource("11_kwubt")
+
+[node name="Border13" parent="RootVisual" index="32" instance=ExtResource("2_2e1o5")]
+position = Vector2(150, -8)
+scale = Vector2(1.6875, 1)
+texture = ExtResource("13_wmte4")
+
+[node name="Border16" parent="RootVisual" index="33" instance=ExtResource("2_2e1o5")]
+position = Vector2(281, -8)
+texture = ExtResource("16_7nuhx")
+
+[node name="Border19" parent="RootVisual" index="34" instance=ExtResource("2_2e1o5")]
+position = Vector2(165, -8)
+texture = ExtResource("14_eq6bi")
+
+[node name="Cloud0" parent="RootVisual" index="35" instance=ExtResource("2_2e1o5")]
+position = Vector2(2, -49)
+texture = ExtResource("18_hygie")
+
+[node name="Cloud4" parent="RootVisual" index="36" instance=ExtResource("2_2e1o5")]
+position = Vector2(176, 174)
+texture = ExtResource("18_hygie")
+
+[node name="Cloud1" parent="RootVisual" index="37" instance=ExtResource("2_2e1o5")]
+position = Vector2(118, -46)
+texture = ExtResource("19_4juj2")
+
+[node name="Cloud6" parent="RootVisual" index="38" instance=ExtResource("2_2e1o5")]
+position = Vector2(304, 144)
+texture = ExtResource("19_4juj2")
+
+[node name="Cloud2" parent="RootVisual" index="39" instance=ExtResource("2_2e1o5")]
+position = Vector2(165, -19)
+texture = ExtResource("20_ee1ir")
+
+[node name="Cloud3" parent="RootVisual" index="40" instance=ExtResource("2_2e1o5")]
+position = Vector2(54, 158)
+texture = ExtResource("21_w8t3c")
+
+[node name="Cloud7" parent="RootVisual" index="41" instance=ExtResource("2_2e1o5")]
+position = Vector2(272, -64)
+texture = ExtResource("21_w8t3c")
+
+[node name="Cloud5" parent="RootVisual" index="42" instance=ExtResource("2_2e1o5")]
+position = Vector2(-144, -32)
+texture = ExtResource("21_w8t3c")
+
+[node name="Ground0" parent="RootVisual" index="43" instance=ExtResource("2_2e1o5")]
+position = Vector2(80, 80)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground1" parent="RootVisual" index="44" instance=ExtResource("2_2e1o5")]
+position = Vector2(86, 76)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground2" parent="RootVisual" index="45" instance=ExtResource("2_2e1o5")]
+position = Vector2(81, 75)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground7" parent="RootVisual" index="46" instance=ExtResource("2_2e1o5")]
+position = Vector2(164, 8)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground8" parent="RootVisual" index="47" instance=ExtResource("2_2e1o5")]
+position = Vector2(174, 8)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground9" parent="RootVisual" index="48" instance=ExtResource("2_2e1o5")]
+position = Vector2(181, 5)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground10" parent="RootVisual" index="49" instance=ExtResource("2_2e1o5")]
+position = Vector2(28, 7)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground11" parent="RootVisual" index="50" instance=ExtResource("2_2e1o5")]
+position = Vector2(35, 10)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground12" parent="RootVisual" index="51" instance=ExtResource("2_2e1o5")]
+position = Vector2(26, 13)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground13" parent="RootVisual" index="52" instance=ExtResource("2_2e1o5")]
+position = Vector2(227, 50)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground22" parent="RootVisual" index="53" instance=ExtResource("2_2e1o5")]
+position = Vector2(277, 109)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground23" parent="RootVisual" index="54" instance=ExtResource("2_2e1o5")]
+position = Vector2(280, 106)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground24" parent="RootVisual" index="55" instance=ExtResource("2_2e1o5")]
+position = Vector2(240, 50)
+texture = ExtResource("23_vmvlx")
+
+[node name="Ground14" parent="RootVisual" index="56" instance=ExtResource("2_2e1o5")]
+position = Vector2(226, 55)
+texture = ExtResource("24_kpg0q")
+
+[node name="Ground15" parent="RootVisual" index="57" instance=ExtResource("2_2e1o5")]
+position = Vector2(228, 53)
+texture = ExtResource("24_kpg0q")
+
+[node name="Ground21" parent="RootVisual" index="58" instance=ExtResource("2_2e1o5")]
+position = Vector2(228, 53)
+texture = ExtResource("24_kpg0q")
+
+[node name="Ground20" parent="RootVisual" index="59" instance=ExtResource("2_2e1o5")]
+position = Vector2(228, 53)
+texture = ExtResource("24_kpg0q")
+
+[node name="Ground16" parent="RootVisual" index="60" instance=ExtResource("2_2e1o5")]
+position = Vector2(229, 44)
+texture = ExtResource("24_kpg0q")
+
+[node name="Ground17" parent="RootVisual" index="61" instance=ExtResource("2_2e1o5")]
+position = Vector2(234, 41)
+texture = ExtResource("24_kpg0q")
+
+[node name="Ground25" parent="RootVisual" index="62" instance=ExtResource("2_2e1o5")]
+position = Vector2(7, 98)
+texture = ExtResource("24_kpg0q")
+
+[node name="Ground26" parent="RootVisual" index="63" instance=ExtResource("2_2e1o5")]
+position = Vector2(10, 101)
+texture = ExtResource("24_kpg0q")
+
+[node name="Ground27" parent="RootVisual" index="64" instance=ExtResource("2_2e1o5")]
+position = Vector2(89, 84)
+texture = ExtResource("24_kpg0q")
+
+[node name="Ground18" parent="RootVisual" index="65" instance=ExtResource("2_2e1o5")]
+position = Vector2(236, 37)
+texture = ExtResource("24_kpg0q")
+
+[node name="Ground19" parent="RootVisual" index="66" instance=ExtResource("2_2e1o5")]
+position = Vector2(239, 40)
+texture = ExtResource("24_kpg0q")
+
+[node name="Ground3" parent="RootVisual" index="67" instance=ExtResource("2_2e1o5")]
+position = Vector2(141, 95)
+texture = ExtResource("25_esn6k")
+
+[node name="Ground28" parent="RootVisual" index="68" instance=ExtResource("2_2e1o5")]
+position = Vector2(-57, 69)
+texture = ExtResource("25_esn6k")
+
+[node name="Ground29" parent="RootVisual" index="69" instance=ExtResource("2_2e1o5")]
+position = Vector2(-63, 65)
+texture = ExtResource("25_esn6k")
+
+[node name="Ground30" parent="RootVisual" index="70" instance=ExtResource("2_2e1o5")]
+position = Vector2(-50, 60)
+texture = ExtResource("25_esn6k")
+
+[node name="Ground31" parent="RootVisual" index="71" instance=ExtResource("2_2e1o5")]
+position = Vector2(-86, 19)
+texture = ExtResource("25_esn6k")
+
+[node name="Ground32" parent="RootVisual" index="72" instance=ExtResource("2_2e1o5")]
+position = Vector2(-75, 16)
+texture = ExtResource("25_esn6k")
+
+[node name="Ground4" parent="RootVisual" index="73" instance=ExtResource("2_2e1o5")]
+position = Vector2(146, 88)
+texture = ExtResource("25_esn6k")
+
+[node name="Ground5" parent="RootVisual" index="74" instance=ExtResource("2_2e1o5")]
+position = Vector2(154, 94)
+texture = ExtResource("25_esn6k")
+
+[node name="Ground6" parent="RootVisual" index="75" instance=ExtResource("2_2e1o5")]
+position = Vector2(158, 82)
+texture = ExtResource("24_kpg0q")
 
 [node name="Player" parent="RootUnits" index="0" instance=ExtResource("3_s8jjc")]
 position = Vector2(16, 64)
 unit_settings = ExtResource("4_cgnvw")
 
 [node name="Enemy0" parent="RootUnits" index="1" instance=ExtResource("3_s8jjc")]
-position = Vector2(160, 96)
+position = Vector2(208, 96)
 unit_settings = ExtResource("7_a6u54")
 ai_settings = SubResource("Resource_sqpsk")
 
@@ -45,7 +393,7 @@ ai_settings = SubResource("Resource_sqpsk")
 texture = ExtResource("7_y1x2u")
 
 [node name="Enemy1" parent="RootUnits" index="2" instance=ExtResource("3_s8jjc")]
-position = Vector2(304, 32)
+position = Vector2(80, 32)
 unit_settings = ExtResource("10_cmafy")
 ai_settings = SubResource("Resource_qguqj")
 
