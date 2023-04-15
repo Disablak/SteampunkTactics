@@ -4,6 +4,7 @@ extends Node2D
 
 @onready var root_obstacles = $RootObsCells
 @onready var root_units = $RootUnits
+@onready var ground_plate = $RootWalkCells/Ground
 @export var roof_zones_path = {} # node path zone / node path parent of root cells
 
 
@@ -39,6 +40,8 @@ func _ready() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 	GlobalBus.on_hovered_cell.connect(_on_hovered_cell)
 	GlobalBus.on_unit_moved_to_another_cell.connect(_on_unit_moved_to_another_cell)
+
+	ground_plate.visible = false
 
 	for child in root_obstacles.get_children():
 		all_sorted_objects.append(child)
