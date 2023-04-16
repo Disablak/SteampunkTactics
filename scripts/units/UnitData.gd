@@ -8,6 +8,7 @@ enum Abilities {
 	SHOOT,
 	RELOAD,
 	GRENADE,
+	PUSH,
 }
 
 var unit_id := -1

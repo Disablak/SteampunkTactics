@@ -80,6 +80,23 @@ func clear_walking_cells():
 	pathfinding.clear_walking_cells()
 
 
+func push(unit: Unit, dir: Vector2i):
+	var start_point := unit.unit_object.position
+	var finish_point := unit.unit_object.position + Vector2(dir * Globals.CELL_SIZE)
+	var time_move = start_point.distance_to(finish_point) / MOVING_SPEED
+
+	tween_move = get_tree().create_tween()
+	tween_move.tween_property(
+		unit.unit_object,
+		"position",
+		finish_point,
+		time_move
+	).from(start_point)
+
+	await tween_move.finished
+	GlobalBus.on_unit_moved_to_another_cell.emit(unit.id, finish_point)
+
+
 func _move_via_points(points: Array[Vector2i]):
 	var converted_points := Globals.convert_grid_poses_to_cell_poses(points)
 	var cur_target_id = 0
@@ -111,6 +128,7 @@ func _move_via_points(points: Array[Vector2i]):
 		await tween_move.finished
 
 		GlobalBus.on_unit_moved_to_another_cell.emit(cur_unit_data.unit_id, finish_point)
+
 
 
 func _on_unit_finished_move():

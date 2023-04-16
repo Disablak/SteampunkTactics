@@ -40,7 +40,7 @@ func init():
 	brain_ai.init()
 
 	walking.set_data(pathfinding, _on_finish_move)
-	shooting.set_data(effect_manager, raycaster, pathfinding, line2d_manager)
+	shooting.set_data(effect_manager, raycaster, pathfinding, line2d_manager, walking)
 	effect_manager.inject_data(line2d_manager)
 	ai_world.init(self)
 
@@ -212,6 +212,9 @@ func change_unit_action(unit_action: UnitData.Abilities) -> bool:
 			shooting.update_malee_cells(units[cur_unit_id])
 			shooting.show_malee_atack_cells(units[cur_unit_id])
 
+		UnitData.Abilities.PUSH:
+			shooting.show_push_cells(units[cur_unit_id])
+
 		_:
 			printerr("change unit action not implemented for {0}".format([unit_action]))
 
@@ -230,7 +233,7 @@ func clear_all_lines(force_clear: bool = false):
 	line2d_manager.clear_path()
 	line2d_manager.clear_ray()
 	line2d_manager.clear_trajectory()
-	pathfinding.clear_damage_hints()
+	#pathfinding.clear_damage_hints()
 
 
 func try_move_unit_to_cell(grid_pos: Vector2):
@@ -274,6 +277,22 @@ func interact_with_door(cell_obj: CellObject) -> bool:
 	return true
 
 
+func _click_on_unit(click_unit_id: int):
+	var can_kick: bool = shooting.can_kick_unit(units[cur_unit_id], units[click_unit_id])
+	var can_push: bool = shooting.can_push_enemy(units[cur_unit_id], units[click_unit_id])
+
+	if can_push:
+		change_unit_action(UnitData.Abilities.PUSH)
+	elif can_kick:
+		change_unit_action(UnitData.Abilities.MALEE_ATACK)
+	else:
+		change_unit_action(UnitData.Abilities.SHOOT)
+
+	var success_action: bool = await shooting.select_enemy(cur_unit_action, units[cur_unit_id], units[click_unit_id])
+	if success_action:
+		clear_all_lines(true)
+
+
 func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 	if cur_unit_data.is_enemy:
 		GlobalsUi.message("Ai's turn")
@@ -310,13 +329,7 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 		return
 
 	if is_clicked_on_unit:
-		shooting.update_malee_cells(units[cur_unit_id])
-		var can_kick: bool = shooting.can_kick_unit(units[cur_unit_id], units[cell_info.unit_id])
-		change_unit_action(UnitData.Abilities.MALEE_ATACK if can_kick else UnitData.Abilities.SHOOT)
-
-		var success_action: bool = await shooting.select_enemy(cur_unit_action, units[cur_unit_id], units[cell_info.unit_id])
-		if success_action:
-			clear_all_lines(true)
+		_click_on_unit(cell_info.unit_id)
 		return
 
 	var can_move_one_cell = walking.can_move_one_cell()

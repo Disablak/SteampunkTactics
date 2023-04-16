@@ -21,6 +21,12 @@ keycode = 49
 [sub_resource type="Shortcut" id="Shortcut_b0hfn"]
 events = [SubResource("InputEventKey_gxohk")]
 
+[sub_resource type="InputEventKey" id="InputEventKey_4h2fk"]
+keycode = 53
+
+[sub_resource type="Shortcut" id="Shortcut_dewe6"]
+events = [SubResource("InputEventKey_4h2fk")]
+
 [sub_resource type="InputEventKey" id="InputEventKey_ldgbv"]
 keycode = 50
 
@@ -38,12 +44,6 @@ keycode = 52
 
 [sub_resource type="Shortcut" id="Shortcut_b30k4"]
 events = [SubResource("InputEventKey_o7cbd")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_4h2fk"]
-keycode = 53
-
-[sub_resource type="Shortcut" id="Shortcut_dewe6"]
-events = [SubResource("InputEventKey_4h2fk")]
 
 [sub_resource type="LabelSettings" id="LabelSettings_y2ytp"]
 font = ExtResource("12_mbk3r")
@@ -126,6 +126,18 @@ shortcut = SubResource("Shortcut_b0hfn")
 text = "Move"
 script = ExtResource("8_7jrsu")
 ability = 1
+
+[node name="BtnPush" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/MarginContainer/Container"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("7_omlrh")
+toggle_mode = true
+button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_dewe6")
+text = "Push
+"
+script = ExtResource("8_7jrsu")
+ability = 6
 
 [node name="BtnShoot" type="Button" parent="BattleUI/AlwaysUI/LeftSide/UnitAbils/MarginContainer/Container"]
 texture_filter = 1

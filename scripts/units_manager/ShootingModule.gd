@@ -9,6 +9,7 @@ var effect_manager: EffectManager
 var raycaster: Raycaster
 var pathfinding: Pathfinding
 var line2d_manager: Line2dManager
+var walking: WalkingModule
 
 var prev_unit_ability: UnitData.Abilities
 var selected_enemy: Unit
@@ -17,6 +18,7 @@ var obstacles_sum_debaff: float
 var cover: CellObject
 var cover_hit_pos: Vector2
 var malee_cells: Array[Vector2i]
+var push_cells: Array[Vector2i]
 
 
 func _ready() -> void:
@@ -24,11 +26,12 @@ func _ready() -> void:
 	random_number_generator.randomize()
 
 
-func set_data(effect_manager: EffectManager, raycaster: Raycaster, pathfinding: Pathfinding, line2d_manager: Line2dManager):
+func set_data(effect_manager: EffectManager, raycaster: Raycaster, pathfinding: Pathfinding, line2d_manager: Line2dManager, walking: WalkingModule):
 	self.effect_manager = effect_manager
 	self.raycaster = raycaster
 	self.pathfinding = pathfinding
 	self.line2d_manager = line2d_manager
+	self.walking = walking
 
 
 func select_enemy(cur_ability: UnitData.Abilities, cur_unit: Unit, enemy: Unit) -> bool:
@@ -39,6 +42,12 @@ func select_enemy(cur_ability: UnitData.Abilities, cur_unit: Unit, enemy: Unit) 
 
 			UnitData.Abilities.MALEE_ATACK:
 				return _kick_unit(cur_unit, enemy)
+
+			UnitData.Abilities.PUSH:
+				return _push_unit(cur_unit, enemy)
+
+			_:
+				printerr("not implimented!")
 		return false
 
 	deselect_enemy()
@@ -304,12 +313,14 @@ func update_malee_cells(unit: Unit) -> Array[Vector2i]:
 	return malee_cells
 
 
-func can_kick_unit(unit: Unit, another_unit: Unit) -> bool:
-	for grid_cell in malee_cells:
-		if another_unit.unit_object.grid_pos == grid_cell:
-			return true
+func can_kick_unit(cur_unit: Unit, another_unit: Unit) -> bool:
+	update_malee_cells(cur_unit)
+	return malee_cells.any(func(pos: Vector2i): return pos == another_unit.unit_object.grid_pos)
 
-	return false
+
+func can_push_enemy(cur_unit: Unit, another_unit: Unit) -> bool:
+	update_push_cells(cur_unit)
+	return push_cells.any(func(pos: Vector2i): return pos == another_unit.unit_object.grid_pos)
 
 
 func _kick_unit(unit: Unit, another_unit: Unit) -> bool:
@@ -344,6 +355,25 @@ func _kick_animation(unit: Unit, another_unit: Unit, dir: Vector2):
 		another_unit.unit_object.play_damage_anim()
 
 
+func _push_unit(unit: Unit, another_unit: Unit) -> bool:
+	if not can_push_enemy(unit, another_unit):
+		GlobalsUi.message("Cannot push!")
+		return false
+
+	const PUSH_PRICE = 50 # TODO tmp hardcode
+
+	if not TurnManager.can_spend_time_points(PUSH_PRICE):
+		GlobalsUi.message("Not enough time points!")
+		return false
+
+	TurnManager.spend_time_points(TurnManager.TypeSpendAction.PUSH, PUSH_PRICE)
+
+	var push_dir: Vector2i = another_unit.unit_object.grid_pos - unit.unit_object.grid_pos
+	walking.push(another_unit, push_dir)
+
+	return true
+
+
 func show_malee_atack_cells(unit: Unit):
 	if not unit.unit_data.has_ability(UnitData.Abilities.MALEE_ATACK):
 		return
@@ -353,6 +383,17 @@ func show_malee_atack_cells(unit: Unit):
 
 func clear_malee_attack_hints():
 	pathfinding.clear_damage_hints()
+
+
+func show_push_cells(unit: Unit):
+	update_push_cells(unit)
+	pathfinding.draw_damage_hints(push_cells)
+
+
+func update_push_cells(unit: Unit):
+	push_cells.clear()
+	for pos in Globals.CELL_AREA_FOUR_DIR:
+		push_cells.append(unit.unit_object.grid_pos + pos)
 
 
 func _get_weapon_accuracy(shooter: Unit) -> float:
