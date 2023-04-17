@@ -15,10 +15,12 @@ const MISSED_BULLET_DISTANCE = 1000
 const MISS_MAX_BULLET_OFFSET = 5
 
 var _line2d_manager: Line2dManager
+var _pathfinding: Pathfinding
 
 
-func inject_data(line2d_manager: Line2dManager):
+func inject_data(line2d_manager: Line2dManager, pathfinding: Pathfinding):
 	self._line2d_manager = line2d_manager
+	self._pathfinding = pathfinding
 
 
 func shoot(from: Unit, to: Unit, hit_type: ShootingModule.HitType, cover_pos: Vector2, random_obs: CellObject):
@@ -122,5 +124,19 @@ func death_effect(pos: Vector2, unit_texture_region):
 	effect.play_effect(unit_texture_region)
 
 
+func falling_effect(unit_object: UnitObject):
+	var visual_is_under_bridge: bool = unit_object.position.y < _pathfinding.level.ground_plate.position.y
+	unit_object.visual_ordering = -50 if visual_is_under_bridge else 50
+
+	unit_object.show_noticed_icon(false)
+
+	const FALLING_SPEED = 200
+	var final_pos: Vector2 = Vector2(unit_object.position.x, 400)
+	var duration = unit_object.position.distance_to(final_pos) / FALLING_SPEED
+	var tween = create_tween()
+	tween.tween_property(unit_object, "position", final_pos, duration)
+	tween.set_trans(Tween.TRANS_SINE)
+
+	await tween.finished
 
 

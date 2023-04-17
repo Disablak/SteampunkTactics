@@ -41,7 +41,7 @@ func init():
 
 	walking.set_data(pathfinding, _on_finish_move)
 	shooting.set_data(effect_manager, raycaster, pathfinding, line2d_manager, walking)
-	effect_manager.inject_data(line2d_manager)
+	effect_manager.inject_data(line2d_manager, pathfinding)
 	ai_world.init(self)
 
 	set_unit_control(TurnManager.get_cur_turn_unit_id(), true)

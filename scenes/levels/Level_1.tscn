@@ -46,341 +46,346 @@ patrul_zones_paths = Array[NodePath]([])
 
 [node name="Level_1" instance=ExtResource("1_6s7x3")]
 
-[node name="BackGround" parent="RootWalkCells" index="0" instance=ExtResource("2_2e1o5")]
+[node name="Ground" parent="RootWalkCells" index="0"]
+self_modulate = Color(0.419608, 0.419608, 0.231373, 0.223529)
+top_level = true
+scale = Vector2(16, 8)
+
+[node name="BackGround" parent="RootVisual" index="0" instance=ExtResource("2_2e1o5")]
 modulate = Color(0.65098, 0.65098, 0.74902, 1)
+z_index = -100
 position = Vector2(-256, -192)
 scale = Vector2(48, 36)
 texture = ExtResource("11_u6wnr")
 
-[node name="Ground" parent="RootWalkCells" index="1"]
-self_modulate = Color(0.419608, 0.419608, 0.231373, 0.223529)
-top_level = true
-position = Vector2(0, -16)
-scale = Vector2(16, 10)
+[node name="Clouds" type="Node2D" parent="RootVisual" index="1"]
+z_index = -99
 
-[node name="FakeBridge" parent="RootVisual" index="0" instance=ExtResource("2_2e1o5")]
+[node name="Cloud0" parent="RootVisual/Clouds" index="0" instance=ExtResource("2_2e1o5")]
+position = Vector2(2, -49)
+texture = ExtResource("18_hygie")
+
+[node name="Cloud4" parent="RootVisual/Clouds" index="1" instance=ExtResource("2_2e1o5")]
+position = Vector2(176, 174)
+texture = ExtResource("18_hygie")
+
+[node name="Cloud1" parent="RootVisual/Clouds" index="2" instance=ExtResource("2_2e1o5")]
+position = Vector2(118, -46)
+texture = ExtResource("19_4juj2")
+
+[node name="Cloud6" parent="RootVisual/Clouds" index="3" instance=ExtResource("2_2e1o5")]
+position = Vector2(304, 144)
+texture = ExtResource("19_4juj2")
+
+[node name="Cloud2" parent="RootVisual/Clouds" index="4" instance=ExtResource("2_2e1o5")]
+position = Vector2(165, -19)
+texture = ExtResource("20_ee1ir")
+
+[node name="Cloud3" parent="RootVisual/Clouds" index="5" instance=ExtResource("2_2e1o5")]
+position = Vector2(54, 158)
+texture = ExtResource("21_w8t3c")
+
+[node name="Cloud7" parent="RootVisual/Clouds" index="6" instance=ExtResource("2_2e1o5")]
+position = Vector2(272, -64)
+texture = ExtResource("21_w8t3c")
+
+[node name="Cloud5" parent="RootVisual/Clouds" index="7" instance=ExtResource("2_2e1o5")]
+position = Vector2(-144, -32)
+texture = ExtResource("21_w8t3c")
+
+[node name="Bridge" type="Node2D" parent="RootVisual" index="2"]
+
+[node name="BridgePlate" parent="RootVisual/Bridge" index="0" instance=ExtResource("2_2e1o5")]
 position = Vector2(-128, 0)
 scale = Vector2(32, 8)
 metadata/_edit_lock_ = true
 
-[node name="FakeBridge2" parent="RootVisual" index="1" instance=ExtResource("2_2e1o5")]
+[node name="Pillar" parent="RootVisual/Bridge" index="1" instance=ExtResource("2_2e1o5")]
+position = Vector2(0, 144)
+texture = ExtResource("4_v35qe")
+
+[node name="Pillar2" parent="RootVisual/Bridge" index="2" instance=ExtResource("2_2e1o5")]
+position = Vector2(-96, 144)
+texture = ExtResource("4_v35qe")
+flip_h = true
+
+[node name="Pillar3" parent="RootVisual/Bridge" index="3" instance=ExtResource("2_2e1o5")]
 position = Vector2(-32, 240)
 scale = Vector2(4, 8)
 texture = ExtResource("5_roh63")
 metadata/_edit_lock_ = true
 
-[node name="Pillar" parent="RootVisual" index="2" instance=ExtResource("2_2e1o5")]
-position = Vector2(0, 144)
-texture = ExtResource("4_v35qe")
-
-[node name="Pillar2" parent="RootVisual" index="3" instance=ExtResource("2_2e1o5")]
-position = Vector2(-96, 144)
-texture = ExtResource("4_v35qe")
-flip_h = true
-
-[node name="Side" parent="RootVisual" index="4" instance=ExtResource("2_2e1o5")]
+[node name="Side" parent="RootVisual/Bridge" index="4" instance=ExtResource("2_2e1o5")]
 position = Vector2(0, 128)
 scale = Vector2(7.6875, 1)
 texture = ExtResource("5_roh63")
 
-[node name="Side8" parent="RootVisual" index="5" instance=ExtResource("2_2e1o5")]
+[node name="Side8" parent="RootVisual/Bridge" index="5" instance=ExtResource("2_2e1o5")]
 position = Vector2(-128, 128)
 scale = Vector2(8, 1)
 texture = ExtResource("5_roh63")
 
-[node name="Side9" parent="RootVisual" index="6" instance=ExtResource("2_2e1o5")]
+[node name="Side9" parent="RootVisual/Bridge" index="6" instance=ExtResource("2_2e1o5")]
 position = Vector2(256, 128)
 scale = Vector2(8, 1)
 texture = ExtResource("5_roh63")
 
-[node name="Side5" parent="RootVisual" index="7" instance=ExtResource("2_2e1o5")]
+[node name="Side5" parent="RootVisual/Bridge" index="7" instance=ExtResource("2_2e1o5")]
 position = Vector2(139, 128)
 scale = Vector2(7.6875, 1)
 texture = ExtResource("5_roh63")
 
-[node name="Side2" parent="RootVisual" index="8" instance=ExtResource("2_2e1o5")]
+[node name="Side2" parent="RootVisual/Bridge" index="8" instance=ExtResource("2_2e1o5")]
 position = Vector2(0, 126)
 scale = Vector2(3.125, 1)
 texture = ExtResource("6_i8ksw")
 
-[node name="Side3" parent="RootVisual" index="9" instance=ExtResource("2_2e1o5")]
+[node name="Side3" parent="RootVisual/Bridge" index="9" instance=ExtResource("2_2e1o5")]
 position = Vector2(0, 125)
 scale = Vector2(2.5625, 1)
 texture = ExtResource("6_i8ksw")
 
-[node name="Side4" parent="RootVisual" index="10" instance=ExtResource("2_2e1o5")]
+[node name="Side4" parent="RootVisual/Bridge" index="10" instance=ExtResource("2_2e1o5")]
 position = Vector2(123, 128)
 texture = ExtResource("7_s46bf")
 
-[node name="Side6" parent="RootVisual" index="11" instance=ExtResource("2_2e1o5")]
+[node name="Side6" parent="RootVisual/Bridge" index="11" instance=ExtResource("2_2e1o5")]
 position = Vector2(172, 127)
 texture = ExtResource("8_erk0o")
 
-[node name="Side10" parent="RootVisual" index="12" instance=ExtResource("2_2e1o5")]
+[node name="Side10" parent="RootVisual/Bridge" index="12" instance=ExtResource("2_2e1o5")]
 position = Vector2(-47, 129)
 texture = ExtResource("8_erk0o")
 
-[node name="Side7" parent="RootVisual" index="13" instance=ExtResource("2_2e1o5")]
+[node name="Side7" parent="RootVisual/Bridge" index="13" instance=ExtResource("2_2e1o5")]
 position = Vector2(230, 129)
 texture = ExtResource("9_632f8")
 
-[node name="Border0" parent="RootVisual" index="14" instance=ExtResource("2_2e1o5")]
+[node name="Border0" parent="RootVisual/Bridge" index="14" instance=ExtResource("2_2e1o5")]
 position = Vector2(64, 116)
 texture = ExtResource("10_s58c4")
 
-[node name="Border1" parent="RootVisual" index="15" instance=ExtResource("2_2e1o5")]
+[node name="Border1" parent="RootVisual/Bridge" index="15" instance=ExtResource("2_2e1o5")]
 position = Vector2(80, 116)
 scale = Vector2(2.5, 1)
 texture = ExtResource("11_kwubt")
 
-[node name="Border2" parent="RootVisual" index="16" instance=ExtResource("2_2e1o5")]
+[node name="Border2" parent="RootVisual/Bridge" index="16" instance=ExtResource("2_2e1o5")]
 position = Vector2(120, 116)
 scale = Vector2(1.875, 1)
 texture = ExtResource("12_dqy8v")
 
-[node name="Border3" parent="RootVisual" index="17" instance=ExtResource("2_2e1o5")]
+[node name="Border3" parent="RootVisual/Bridge" index="17" instance=ExtResource("2_2e1o5")]
 position = Vector2(150, 116)
 texture = ExtResource("13_wmte4")
 
-[node name="Border4" parent="RootVisual" index="18" instance=ExtResource("2_2e1o5")]
+[node name="Border4" parent="RootVisual/Bridge" index="18" instance=ExtResource("2_2e1o5")]
 position = Vector2(183, 117)
 texture = ExtResource("14_eq6bi")
 
-[node name="Border5" parent="RootVisual" index="19" instance=ExtResource("2_2e1o5")]
+[node name="Border5" parent="RootVisual/Bridge" index="19" instance=ExtResource("2_2e1o5")]
 position = Vector2(199, 117)
 texture = ExtResource("15_klsn0")
 
-[node name="Border6" parent="RootVisual" index="20" instance=ExtResource("2_2e1o5")]
+[node name="Border6" parent="RootVisual/Bridge" index="20" instance=ExtResource("2_2e1o5")]
 position = Vector2(215, 117)
 texture = ExtResource("15_klsn0")
 
-[node name="Border8" parent="RootVisual" index="21" instance=ExtResource("2_2e1o5")]
+[node name="Border8" parent="RootVisual/Bridge" index="21" instance=ExtResource("2_2e1o5")]
 position = Vector2(247, 116)
 scale = Vector2(3.8125, 1)
 texture = ExtResource("15_klsn0")
 
-[node name="Border20" parent="RootVisual" index="22" instance=ExtResource("2_2e1o5")]
+[node name="Border20" parent="RootVisual/Bridge" index="22" instance=ExtResource("2_2e1o5")]
 position = Vector2(307, 116)
 scale = Vector2(1.8125, 1)
 texture = ExtResource("16_7nuhx")
 
-[node name="Border7" parent="RootVisual" index="23" instance=ExtResource("2_2e1o5")]
+[node name="Border7" parent="RootVisual/Bridge" index="23" instance=ExtResource("2_2e1o5")]
 position = Vector2(231, 116)
 texture = ExtResource("16_pwtyf")
 
-[node name="Border9" parent="RootVisual" index="24" instance=ExtResource("2_2e1o5")]
+[node name="Border9" parent="RootVisual/Bridge" index="24" instance=ExtResource("2_2e1o5")]
 position = Vector2(23, -8)
 texture = ExtResource("14_eq6bi")
 
-[node name="Border10" parent="RootVisual" index="25" instance=ExtResource("2_2e1o5")]
+[node name="Border10" parent="RootVisual/Bridge" index="25" instance=ExtResource("2_2e1o5")]
 position = Vector2(39, -8)
 scale = Vector2(2.1875, 1)
 texture = ExtResource("15_klsn0")
 
-[node name="Border11" parent="RootVisual" index="26" instance=ExtResource("2_2e1o5")]
+[node name="Border11" parent="RootVisual/Bridge" index="26" instance=ExtResource("2_2e1o5")]
 position = Vector2(74, -7)
 scale = Vector2(1.4375, 1)
 texture = ExtResource("17_gkgvl")
 
-[node name="Border18" parent="RootVisual" index="27" instance=ExtResource("2_2e1o5")]
+[node name="Border18" parent="RootVisual/Bridge" index="27" instance=ExtResource("2_2e1o5")]
 position = Vector2(-17, 116)
 scale = Vector2(1.4375, 1)
 texture = ExtResource("17_gkgvl")
 
-[node name="Border12" parent="RootVisual" index="28" instance=ExtResource("2_2e1o5")]
+[node name="Border12" parent="RootVisual/Bridge" index="28" instance=ExtResource("2_2e1o5")]
 position = Vector2(97, -8)
 scale = Vector2(3.3125, 1)
 texture = ExtResource("11_kwubt")
 
-[node name="Border14" parent="RootVisual" index="29" instance=ExtResource("2_2e1o5")]
+[node name="Border14" parent="RootVisual/Bridge" index="29" instance=ExtResource("2_2e1o5")]
 position = Vector2(181, -8)
 scale = Vector2(2.9375, 1)
 texture = ExtResource("11_kwubt")
 
-[node name="Border17" parent="RootVisual" index="30" instance=ExtResource("2_2e1o5")]
+[node name="Border17" parent="RootVisual/Bridge" index="30" instance=ExtResource("2_2e1o5")]
 position = Vector2(-144, 116)
 scale = Vector2(8, 1)
 texture = ExtResource("11_kwubt")
 
-[node name="Border15" parent="RootVisual" index="31" instance=ExtResource("2_2e1o5")]
+[node name="Border15" parent="RootVisual/Bridge" index="31" instance=ExtResource("2_2e1o5")]
 position = Vector2(228, -8)
 scale = Vector2(3.3125, 1)
 texture = ExtResource("11_kwubt")
 
-[node name="Border13" parent="RootVisual" index="32" instance=ExtResource("2_2e1o5")]
+[node name="Border13" parent="RootVisual/Bridge" index="32" instance=ExtResource("2_2e1o5")]
 position = Vector2(150, -8)
 scale = Vector2(1.6875, 1)
 texture = ExtResource("13_wmte4")
 
-[node name="Border16" parent="RootVisual" index="33" instance=ExtResource("2_2e1o5")]
+[node name="Border16" parent="RootVisual/Bridge" index="33" instance=ExtResource("2_2e1o5")]
 position = Vector2(281, -8)
 texture = ExtResource("16_7nuhx")
 
-[node name="Border19" parent="RootVisual" index="34" instance=ExtResource("2_2e1o5")]
+[node name="Border19" parent="RootVisual/Bridge" index="34" instance=ExtResource("2_2e1o5")]
 position = Vector2(165, -8)
 texture = ExtResource("14_eq6bi")
 
-[node name="Cloud0" parent="RootVisual" index="35" instance=ExtResource("2_2e1o5")]
-position = Vector2(2, -49)
-texture = ExtResource("18_hygie")
-
-[node name="Cloud4" parent="RootVisual" index="36" instance=ExtResource("2_2e1o5")]
-position = Vector2(176, 174)
-texture = ExtResource("18_hygie")
-
-[node name="Cloud1" parent="RootVisual" index="37" instance=ExtResource("2_2e1o5")]
-position = Vector2(118, -46)
-texture = ExtResource("19_4juj2")
-
-[node name="Cloud6" parent="RootVisual" index="38" instance=ExtResource("2_2e1o5")]
-position = Vector2(304, 144)
-texture = ExtResource("19_4juj2")
-
-[node name="Cloud2" parent="RootVisual" index="39" instance=ExtResource("2_2e1o5")]
-position = Vector2(165, -19)
-texture = ExtResource("20_ee1ir")
-
-[node name="Cloud3" parent="RootVisual" index="40" instance=ExtResource("2_2e1o5")]
-position = Vector2(54, 158)
-texture = ExtResource("21_w8t3c")
-
-[node name="Cloud7" parent="RootVisual" index="41" instance=ExtResource("2_2e1o5")]
-position = Vector2(272, -64)
-texture = ExtResource("21_w8t3c")
-
-[node name="Cloud5" parent="RootVisual" index="42" instance=ExtResource("2_2e1o5")]
-position = Vector2(-144, -32)
-texture = ExtResource("21_w8t3c")
-
-[node name="Ground0" parent="RootVisual" index="43" instance=ExtResource("2_2e1o5")]
+[node name="Ground0" parent="RootVisual/Bridge" index="35" instance=ExtResource("2_2e1o5")]
 position = Vector2(80, 80)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground1" parent="RootVisual" index="44" instance=ExtResource("2_2e1o5")]
+[node name="Ground1" parent="RootVisual/Bridge" index="36" instance=ExtResource("2_2e1o5")]
 position = Vector2(86, 76)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground2" parent="RootVisual" index="45" instance=ExtResource("2_2e1o5")]
+[node name="Ground2" parent="RootVisual/Bridge" index="37" instance=ExtResource("2_2e1o5")]
 position = Vector2(81, 75)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground7" parent="RootVisual" index="46" instance=ExtResource("2_2e1o5")]
+[node name="Ground7" parent="RootVisual/Bridge" index="38" instance=ExtResource("2_2e1o5")]
 position = Vector2(164, 8)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground8" parent="RootVisual" index="47" instance=ExtResource("2_2e1o5")]
+[node name="Ground8" parent="RootVisual/Bridge" index="39" instance=ExtResource("2_2e1o5")]
 position = Vector2(174, 8)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground9" parent="RootVisual" index="48" instance=ExtResource("2_2e1o5")]
+[node name="Ground9" parent="RootVisual/Bridge" index="40" instance=ExtResource("2_2e1o5")]
 position = Vector2(181, 5)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground10" parent="RootVisual" index="49" instance=ExtResource("2_2e1o5")]
+[node name="Ground10" parent="RootVisual/Bridge" index="41" instance=ExtResource("2_2e1o5")]
 position = Vector2(28, 7)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground11" parent="RootVisual" index="50" instance=ExtResource("2_2e1o5")]
+[node name="Ground11" parent="RootVisual/Bridge" index="42" instance=ExtResource("2_2e1o5")]
 position = Vector2(35, 10)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground12" parent="RootVisual" index="51" instance=ExtResource("2_2e1o5")]
+[node name="Ground12" parent="RootVisual/Bridge" index="43" instance=ExtResource("2_2e1o5")]
 position = Vector2(26, 13)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground13" parent="RootVisual" index="52" instance=ExtResource("2_2e1o5")]
+[node name="Ground13" parent="RootVisual/Bridge" index="44" instance=ExtResource("2_2e1o5")]
 position = Vector2(227, 50)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground22" parent="RootVisual" index="53" instance=ExtResource("2_2e1o5")]
+[node name="Ground22" parent="RootVisual/Bridge" index="45" instance=ExtResource("2_2e1o5")]
 position = Vector2(277, 109)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground23" parent="RootVisual" index="54" instance=ExtResource("2_2e1o5")]
+[node name="Ground23" parent="RootVisual/Bridge" index="46" instance=ExtResource("2_2e1o5")]
 position = Vector2(280, 106)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground24" parent="RootVisual" index="55" instance=ExtResource("2_2e1o5")]
+[node name="Ground24" parent="RootVisual/Bridge" index="47" instance=ExtResource("2_2e1o5")]
 position = Vector2(240, 50)
 texture = ExtResource("23_vmvlx")
 
-[node name="Ground14" parent="RootVisual" index="56" instance=ExtResource("2_2e1o5")]
+[node name="Ground14" parent="RootVisual/Bridge" index="48" instance=ExtResource("2_2e1o5")]
 position = Vector2(226, 55)
 texture = ExtResource("24_kpg0q")
 
-[node name="Ground15" parent="RootVisual" index="57" instance=ExtResource("2_2e1o5")]
+[node name="Ground15" parent="RootVisual/Bridge" index="49" instance=ExtResource("2_2e1o5")]
 position = Vector2(228, 53)
 texture = ExtResource("24_kpg0q")
 
-[node name="Ground21" parent="RootVisual" index="58" instance=ExtResource("2_2e1o5")]
+[node name="Ground21" parent="RootVisual/Bridge" index="50" instance=ExtResource("2_2e1o5")]
 position = Vector2(228, 53)
 texture = ExtResource("24_kpg0q")
 
-[node name="Ground20" parent="RootVisual" index="59" instance=ExtResource("2_2e1o5")]
+[node name="Ground20" parent="RootVisual/Bridge" index="51" instance=ExtResource("2_2e1o5")]
 position = Vector2(228, 53)
 texture = ExtResource("24_kpg0q")
 
-[node name="Ground16" parent="RootVisual" index="60" instance=ExtResource("2_2e1o5")]
+[node name="Ground16" parent="RootVisual/Bridge" index="52" instance=ExtResource("2_2e1o5")]
 position = Vector2(229, 44)
 texture = ExtResource("24_kpg0q")
 
-[node name="Ground17" parent="RootVisual" index="61" instance=ExtResource("2_2e1o5")]
+[node name="Ground17" parent="RootVisual/Bridge" index="53" instance=ExtResource("2_2e1o5")]
 position = Vector2(234, 41)
 texture = ExtResource("24_kpg0q")
 
-[node name="Ground25" parent="RootVisual" index="62" instance=ExtResource("2_2e1o5")]
+[node name="Ground25" parent="RootVisual/Bridge" index="54" instance=ExtResource("2_2e1o5")]
 position = Vector2(7, 98)
 texture = ExtResource("24_kpg0q")
 
-[node name="Ground26" parent="RootVisual" index="63" instance=ExtResource("2_2e1o5")]
+[node name="Ground26" parent="RootVisual/Bridge" index="55" instance=ExtResource("2_2e1o5")]
 position = Vector2(10, 101)
 texture = ExtResource("24_kpg0q")
 
-[node name="Ground27" parent="RootVisual" index="64" instance=ExtResource("2_2e1o5")]
+[node name="Ground27" parent="RootVisual/Bridge" index="56" instance=ExtResource("2_2e1o5")]
 position = Vector2(89, 84)
 texture = ExtResource("24_kpg0q")
 
-[node name="Ground18" parent="RootVisual" index="65" instance=ExtResource("2_2e1o5")]
+[node name="Ground18" parent="RootVisual/Bridge" index="57" instance=ExtResource("2_2e1o5")]
 position = Vector2(236, 37)
 texture = ExtResource("24_kpg0q")
 
-[node name="Ground19" parent="RootVisual" index="66" instance=ExtResource("2_2e1o5")]
+[node name="Ground19" parent="RootVisual/Bridge" index="58" instance=ExtResource("2_2e1o5")]
 position = Vector2(239, 40)
 texture = ExtResource("24_kpg0q")
 
-[node name="Ground3" parent="RootVisual" index="67" instance=ExtResource("2_2e1o5")]
+[node name="Ground3" parent="RootVisual/Bridge" index="59" instance=ExtResource("2_2e1o5")]
 position = Vector2(141, 95)
 texture = ExtResource("25_esn6k")
 
-[node name="Ground28" parent="RootVisual" index="68" instance=ExtResource("2_2e1o5")]
+[node name="Ground28" parent="RootVisual/Bridge" index="60" instance=ExtResource("2_2e1o5")]
 position = Vector2(-57, 69)
 texture = ExtResource("25_esn6k")
 
-[node name="Ground29" parent="RootVisual" index="69" instance=ExtResource("2_2e1o5")]
+[node name="Ground29" parent="RootVisual/Bridge" index="61" instance=ExtResource("2_2e1o5")]
 position = Vector2(-63, 65)
 texture = ExtResource("25_esn6k")
 
-[node name="Ground30" parent="RootVisual" index="70" instance=ExtResource("2_2e1o5")]
+[node name="Ground30" parent="RootVisual/Bridge" index="62" instance=ExtResource("2_2e1o5")]
 position = Vector2(-50, 60)
 texture = ExtResource("25_esn6k")
 
-[node name="Ground31" parent="RootVisual" index="71" instance=ExtResource("2_2e1o5")]
+[node name="Ground31" parent="RootVisual/Bridge" index="63" instance=ExtResource("2_2e1o5")]
 position = Vector2(-86, 19)
 texture = ExtResource("25_esn6k")
 
-[node name="Ground32" parent="RootVisual" index="72" instance=ExtResource("2_2e1o5")]
+[node name="Ground32" parent="RootVisual/Bridge" index="64" instance=ExtResource("2_2e1o5")]
 position = Vector2(-75, 16)
 texture = ExtResource("25_esn6k")
 
-[node name="Ground4" parent="RootVisual" index="73" instance=ExtResource("2_2e1o5")]
+[node name="Ground4" parent="RootVisual/Bridge" index="65" instance=ExtResource("2_2e1o5")]
 position = Vector2(146, 88)
 texture = ExtResource("25_esn6k")
 
-[node name="Ground5" parent="RootVisual" index="74" instance=ExtResource("2_2e1o5")]
+[node name="Ground5" parent="RootVisual/Bridge" index="66" instance=ExtResource("2_2e1o5")]
 position = Vector2(154, 94)
 texture = ExtResource("25_esn6k")
 
-[node name="Ground6" parent="RootVisual" index="75" instance=ExtResource("2_2e1o5")]
+[node name="Ground6" parent="RootVisual/Bridge" index="67" instance=ExtResource("2_2e1o5")]
 position = Vector2(158, 82)
 texture = ExtResource("24_kpg0q")
 
@@ -481,11 +486,11 @@ position = Vector2(224, 128)
 position = Vector2(240, 128)
 
 [node name="Player" parent="RootUnits" index="0" instance=ExtResource("3_s8jjc")]
-position = Vector2(80, 96)
+position = Vector2(80, 16)
 unit_settings = ExtResource("4_cgnvw")
 
 [node name="Enemy0" parent="RootUnits" index="1" instance=ExtResource("3_s8jjc")]
-position = Vector2(208, 96)
+position = Vector2(80, 0)
 unit_settings = ExtResource("7_a6u54")
 ai_settings = SubResource("Resource_sqpsk")
 

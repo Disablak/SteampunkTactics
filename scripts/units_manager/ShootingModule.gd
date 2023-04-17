@@ -370,7 +370,7 @@ func _push_unit(unit: Unit, another_unit: Unit) -> bool:
 
 	var push_dir: Vector2i = another_unit.unit_object.grid_pos - unit.unit_object.grid_pos
 	var finish_grid_pos: Vector2i = another_unit.unit_object.grid_pos + push_dir
-	if not pathfinding.is_pos_walk(finish_grid_pos):
+	if not pathfinding.is_pos_walk(finish_grid_pos) and not pathfinding.get_cell_by_pos(finish_grid_pos):
 		return false
 
 	walking.push(another_unit, push_dir)
@@ -399,6 +399,24 @@ func update_push_cells(unit: Unit):
 		push_cells.append(unit.unit_object.grid_pos + pos)
 
 
+func unit_falling(unit: Unit):
+	const DEATH_DAMAGE = 1000
+
+	await effect_manager.falling_effect(unit.unit_object)
+	set_unit_damage_value(unit, GlobalUnits.get_cur_unit(), DEATH_DAMAGE)
+
+
+func set_unit_damage_value(unit: Unit, atacker: Unit, dmg_value: float):
+	unit.unit_data.set_damage(dmg_value, atacker.id)
+
+	#visual
+	if unit.unit_data.is_alive:
+		unit.unit_object.play_damage_anim()
+	else:
+		effect_manager.death_effect(unit.unit_object.position, unit.unit_object.main_sprite.texture.region)
+		unit.unit_object.queue_free()
+
+
 func _get_weapon_accuracy(shooter: Unit) -> float:
 	var distance := get_distance_to_enemy(shooter)
 	var weapon_accuracy: float = shooter.unit_data.riffle.settings.accuracy.sample(distance / Globals.CURVE_X_METERS) # todo wtf?
@@ -416,18 +434,6 @@ func _calc_obs_debaff() -> float:
 
 	obstacles_sum_debaff = clampf(obstacles_sum_debaff, 0.0, 1.0)
 	return obstacles_sum_debaff
-
-
-func set_unit_damage_value(unit: Unit, atacker: Unit, dmg_value: float):
-	unit.unit_data.set_damage(dmg_value, atacker.id)
-
-	#visual
-	if unit.unit_data.is_alive:
-		unit.unit_object.play_damage_anim()
-	else:
-		effect_manager.death_effect(unit.unit_object.position, unit.unit_object.main_sprite.texture.region)
-		unit.unit_object.queue_free()
-
 
 func _set_unit_damage(unit: Unit, atacker: Unit, ability_data: AbilityData):
 	set_unit_damage_value(unit, atacker, ability_data.settings.damage)

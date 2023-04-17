@@ -124,8 +124,7 @@ func _on_unit_moved_to_another_cell(unit_id: int, pos: Vector2):
 	if cell_obj and cell_obj.comp_pit:
 		var cur_unit = GlobalUnits.get_cur_unit()
 		var moved_unit = GlobalUnits.units[unit_id]
-		const DEATH_DAMAGE = 1000
-		GlobalUnits.units_manager.shooting.set_unit_damage_value(moved_unit, cur_unit, DEATH_DAMAGE)
+		GlobalUnits.units_manager.shooting.unit_falling(moved_unit)
 
 
 func remove_cover(cell: CellObject):
