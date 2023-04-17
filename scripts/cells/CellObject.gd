@@ -10,6 +10,7 @@ enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE, DOOR}
 @onready var comp_interactable: CellCompInteractable = $CompInteractable as CellCompInteractable
 @onready var comp_obstacle: CellCompObstacle = $CompObstacle as CellCompObstacle
 @onready var comp_health: CellCompHealth = $CompHealth as CellCompHealth
+@onready var comp_pit: CellCompPit = $CellCompPit as CellCompPit
 
 
 var cell_type: CellType:
@@ -20,7 +21,7 @@ var cell_type: CellType:
 			return CellType.DOOR
 		if comp_wall:
 			return CellType.WALL
-		if comp_obstacle:
+		if comp_obstacle or comp_pit:
 			return CellType.OBSTACLE
 		if comp_walkable:
 			return CellType.GROUND

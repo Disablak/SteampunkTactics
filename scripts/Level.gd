@@ -9,7 +9,7 @@ extends Node2D
 
 
 var map_size: Vector2:
-	get: return get_node("RootWalkCells").get_node("Ground").scale
+	get: return ground_plate.scale
 
 var all_sorted_objects = []
 var prev_transparent_objs = []

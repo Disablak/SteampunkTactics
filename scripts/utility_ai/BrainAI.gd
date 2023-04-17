@@ -20,6 +20,9 @@ func start_ai(unit: Unit):
 
 
 func _on_unit_moved(unit_id: int, cell_pos: Vector2):
+	if not GlobalUnits.units.has(unit_id):
+		return
+
 	var unit: Unit = GlobalUnits.units[unit_id]
 	if unit.unit_data.is_enemy:
 		return

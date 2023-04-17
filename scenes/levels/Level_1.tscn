@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bx3q55umdh51f"]
+[gd_scene load_steps=36 format=3 uid="uid://bx3q55umdh51f"]
 
 [ext_resource type="PackedScene" uid="uid://cstpofqr23a2f" path="res://scenes/levels/BaseLevel.tscn" id="1_6s7x3"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_2e1o5"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://cxsp7terxmcim" path="res://content/sprites/gothic/background/ground0.tres" id="23_vmvlx"]
 [ext_resource type="Texture2D" uid="uid://24yo3go3whx3" path="res://content/sprites/gothic/background/ground2.tres" id="24_kpg0q"]
 [ext_resource type="Texture2D" uid="uid://lxxpi74mdawy" path="res://content/sprites/gothic/background/ground1.tres" id="25_esn6k"]
+[ext_resource type="PackedScene" uid="uid://d2gynj1adpgis" path="res://scenes/cells/CellPit.tscn" id="26_pa7om"]
 
 [sub_resource type="Resource" id="Resource_sqpsk"]
 script = ExtResource("9_1u5t2")
@@ -52,7 +53,10 @@ scale = Vector2(48, 36)
 texture = ExtResource("11_u6wnr")
 
 [node name="Ground" parent="RootWalkCells" index="1"]
-scale = Vector2(16, 8)
+self_modulate = Color(0.419608, 0.419608, 0.231373, 0.223529)
+top_level = true
+position = Vector2(0, -16)
+scale = Vector2(16, 10)
 
 [node name="FakeBridge" parent="RootVisual" index="0" instance=ExtResource("2_2e1o5")]
 position = Vector2(-128, 0)
@@ -380,8 +384,104 @@ texture = ExtResource("25_esn6k")
 position = Vector2(158, 82)
 texture = ExtResource("24_kpg0q")
 
+[node name="CellPit" parent="RootObsCells" index="0" instance=ExtResource("26_pa7om")]
+position = Vector2(0, -16)
+
+[node name="CellPit2" parent="RootObsCells" index="1" instance=ExtResource("26_pa7om")]
+position = Vector2(16, -16)
+
+[node name="CellPit3" parent="RootObsCells" index="2" instance=ExtResource("26_pa7om")]
+position = Vector2(32, -16)
+
+[node name="CellPit4" parent="RootObsCells" index="3" instance=ExtResource("26_pa7om")]
+position = Vector2(48, -16)
+
+[node name="CellPit5" parent="RootObsCells" index="4" instance=ExtResource("26_pa7om")]
+position = Vector2(64, -16)
+
+[node name="CellPit6" parent="RootObsCells" index="5" instance=ExtResource("26_pa7om")]
+position = Vector2(80, -16)
+
+[node name="CellPit7" parent="RootObsCells" index="6" instance=ExtResource("26_pa7om")]
+position = Vector2(96, -16)
+
+[node name="CellPit8" parent="RootObsCells" index="7" instance=ExtResource("26_pa7om")]
+position = Vector2(112, -16)
+
+[node name="CellPit9" parent="RootObsCells" index="8" instance=ExtResource("26_pa7om")]
+position = Vector2(128, -16)
+
+[node name="CellPit10" parent="RootObsCells" index="9" instance=ExtResource("26_pa7om")]
+position = Vector2(144, -16)
+
+[node name="CellPit11" parent="RootObsCells" index="10" instance=ExtResource("26_pa7om")]
+position = Vector2(160, -16)
+
+[node name="CellPit12" parent="RootObsCells" index="11" instance=ExtResource("26_pa7om")]
+position = Vector2(176, -16)
+
+[node name="CellPit13" parent="RootObsCells" index="12" instance=ExtResource("26_pa7om")]
+position = Vector2(192, -16)
+
+[node name="CellPit14" parent="RootObsCells" index="13" instance=ExtResource("26_pa7om")]
+position = Vector2(208, -16)
+
+[node name="CellPit15" parent="RootObsCells" index="14" instance=ExtResource("26_pa7om")]
+position = Vector2(224, -16)
+
+[node name="CellPit16" parent="RootObsCells" index="15" instance=ExtResource("26_pa7om")]
+position = Vector2(240, -16)
+
+[node name="CellPit17" parent="RootObsCells" index="16" instance=ExtResource("26_pa7om")]
+position = Vector2(0, 128)
+
+[node name="CellPit18" parent="RootObsCells" index="17" instance=ExtResource("26_pa7om")]
+position = Vector2(16, 128)
+
+[node name="CellPit19" parent="RootObsCells" index="18" instance=ExtResource("26_pa7om")]
+position = Vector2(32, 128)
+
+[node name="CellPit20" parent="RootObsCells" index="19" instance=ExtResource("26_pa7om")]
+position = Vector2(48, 128)
+
+[node name="CellPit21" parent="RootObsCells" index="20" instance=ExtResource("26_pa7om")]
+position = Vector2(64, 128)
+
+[node name="CellPit22" parent="RootObsCells" index="21" instance=ExtResource("26_pa7om")]
+position = Vector2(80, 128)
+
+[node name="CellPit23" parent="RootObsCells" index="22" instance=ExtResource("26_pa7om")]
+position = Vector2(96, 128)
+
+[node name="CellPit24" parent="RootObsCells" index="23" instance=ExtResource("26_pa7om")]
+position = Vector2(112, 128)
+
+[node name="CellPit25" parent="RootObsCells" index="24" instance=ExtResource("26_pa7om")]
+position = Vector2(128, 128)
+
+[node name="CellPit26" parent="RootObsCells" index="25" instance=ExtResource("26_pa7om")]
+position = Vector2(144, 128)
+
+[node name="CellPit27" parent="RootObsCells" index="26" instance=ExtResource("26_pa7om")]
+position = Vector2(160, 128)
+
+[node name="CellPit28" parent="RootObsCells" index="27" instance=ExtResource("26_pa7om")]
+position = Vector2(176, 128)
+
+[node name="CellPit29" parent="RootObsCells" index="28" instance=ExtResource("26_pa7om")]
+position = Vector2(192, 128)
+
+[node name="CellPit30" parent="RootObsCells" index="29" instance=ExtResource("26_pa7om")]
+position = Vector2(208, 128)
+
+[node name="CellPit31" parent="RootObsCells" index="30" instance=ExtResource("26_pa7om")]
+position = Vector2(224, 128)
+
+[node name="CellPit32" parent="RootObsCells" index="31" instance=ExtResource("26_pa7om")]
+position = Vector2(240, 128)
+
 [node name="Player" parent="RootUnits" index="0" instance=ExtResource("3_s8jjc")]
-position = Vector2(64, 32)
+position = Vector2(80, 96)
 unit_settings = ExtResource("4_cgnvw")
 
 [node name="Enemy0" parent="RootUnits" index="1" instance=ExtResource("3_s8jjc")]
@@ -393,7 +493,7 @@ ai_settings = SubResource("Resource_sqpsk")
 texture = ExtResource("7_y1x2u")
 
 [node name="Enemy1" parent="RootUnits" index="2" instance=ExtResource("3_s8jjc")]
-position = Vector2(80, 32)
+position = Vector2(80, 112)
 unit_settings = ExtResource("10_cmafy")
 ai_settings = SubResource("Resource_qguqj")
 

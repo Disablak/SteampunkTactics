@@ -41,6 +41,7 @@ func _ready() -> void:
 		return
 
 	GlobalBus.on_cell_broke.connect(_on_cell_broke)
+	GlobalBus.on_unit_moved_to_another_cell.connect(_on_unit_moved_to_another_cell)
 
 
 func init() -> void:
@@ -56,10 +57,10 @@ func init() -> void:
 
 
 func _connect_walkable_cells():
-	for x in level.map_size.x:
-		for y in level.map_size.y:
+	for x in level.ground_plate.scale.x:
+		for y in level.ground_plate.scale.y:
 			var id = astar.get_available_point_id()
-			var grid_pos = Vector2i(x, y)
+			var grid_pos = Vector2i(x, y) + Globals.convert_to_grid_pos(level.ground_plate.position)
 
 			astar.add_point(id, grid_pos)
 			dict_id_and_walk_pos[id] = grid_pos
@@ -114,6 +115,17 @@ func _on_cell_broke(cell: CellObject):
 		remove_cover(cell)
 	elif cell.cell_type == CellObject.CellType.OBSTACLE:
 		remove_obstacle(cell)
+
+
+func _on_unit_moved_to_another_cell(unit_id: int, pos: Vector2):
+	var grid_pos: Vector2i = Globals.convert_to_grid_pos(pos)
+	var cell_obj: CellObject = get_cell_by_pos(grid_pos)
+
+	if cell_obj and cell_obj.comp_pit:
+		var cur_unit = GlobalUnits.get_cur_unit()
+		var moved_unit = GlobalUnits.units[unit_id]
+		const DEATH_DAMAGE = 1000
+		GlobalUnits.units_manager.shooting.set_unit_damage_value(moved_unit, cur_unit, DEATH_DAMAGE)
 
 
 func remove_cover(cell: CellObject):

@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2gynj1adpgis"]
+
+[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="1_kfa5g"]
+[ext_resource type="Script" path="res://scripts/cells/CellObject.gd" id="2_dl3h7"]
+[ext_resource type="PackedScene" uid="uid://cfjo132xf1ufg" path="res://scenes/cells/components/CellCompPit.tscn" id="3_r1fow"]
+
+[node name="CellPit" type="Sprite2D"]
+self_modulate = Color(1, 0, 0, 0.713726)
+texture = ExtResource("1_kfa5g")
+centered = false
+script = ExtResource("2_dl3h7")
+
+[node name="CellCompPit" parent="." instance=ExtResource("3_r1fow")]

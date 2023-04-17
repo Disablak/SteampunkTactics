@@ -369,8 +369,11 @@ func _push_unit(unit: Unit, another_unit: Unit) -> bool:
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.PUSH, PUSH_PRICE)
 
 	var push_dir: Vector2i = another_unit.unit_object.grid_pos - unit.unit_object.grid_pos
-	walking.push(another_unit, push_dir)
+	var finish_grid_pos: Vector2i = another_unit.unit_object.grid_pos + push_dir
+	if not pathfinding.is_pos_walk(finish_grid_pos):
+		return false
 
+	walking.push(another_unit, push_dir)
 	return true
 
 
@@ -415,8 +418,8 @@ func _calc_obs_debaff() -> float:
 	return obstacles_sum_debaff
 
 
-func _set_unit_damage(unit: Unit, atacker: Unit, ability_data: AbilityData):
-	unit.unit_data.set_damage(ability_data.settings.damage, atacker.id)
+func set_unit_damage_value(unit: Unit, atacker: Unit, dmg_value: float):
+	unit.unit_data.set_damage(dmg_value, atacker.id)
 
 	#visual
 	if unit.unit_data.is_alive:
@@ -424,3 +427,7 @@ func _set_unit_damage(unit: Unit, atacker: Unit, ability_data: AbilityData):
 	else:
 		effect_manager.death_effect(unit.unit_object.position, unit.unit_object.main_sprite.texture.region)
 		unit.unit_object.queue_free()
+
+
+func _set_unit_damage(unit: Unit, atacker: Unit, ability_data: AbilityData):
+	set_unit_damage_value(unit, atacker, ability_data.settings.damage)
