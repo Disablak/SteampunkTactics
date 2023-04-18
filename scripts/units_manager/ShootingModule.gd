@@ -46,6 +46,9 @@ func select_enemy(cur_ability: UnitData.Abilities, cur_unit: Unit, enemy: Unit) 
 			UnitData.Abilities.PUSH:
 				return _push_unit(cur_unit, enemy)
 
+			UnitData.Abilities.NONE:
+				return true
+
 			_:
 				printerr("not implimented!")
 		return false
@@ -374,7 +377,7 @@ func _push_unit(unit: Unit, another_unit: Unit) -> bool:
 	if not pathfinding.is_pos_walk(finish_grid_pos) and not finish_cell:
 		return false
 
-	if finish_cell.comp_obstacle:
+	if finish_cell and finish_cell.comp_obstacle:
 		const COLLISION_DMG = 5
 		set_unit_damage_value(another_unit, unit, COLLISION_DMG)
 		return true

@@ -278,16 +278,6 @@ func interact_with_door(cell_obj: CellObject) -> bool:
 
 
 func _click_on_unit(click_unit_id: int):
-	var can_kick: bool = shooting.can_kick_unit(units[cur_unit_id], units[click_unit_id])
-	var can_push: bool = shooting.can_push_enemy(units[cur_unit_id], units[click_unit_id])
-
-	if can_push:
-		change_unit_action(UnitData.Abilities.PUSH)
-	elif can_kick:
-		change_unit_action(UnitData.Abilities.MALEE_ATACK)
-	else:
-		change_unit_action(UnitData.Abilities.SHOOT)
-
 	var success_action: bool = await shooting.select_enemy(cur_unit_action, units[cur_unit_id], units[click_unit_id])
 	if success_action:
 		clear_all_lines(true)
