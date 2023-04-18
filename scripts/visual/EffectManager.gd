@@ -13,6 +13,7 @@ const BULLET_SPEED = 2500
 const SHOOT_MISS_POS_LERP = [0.0, 0.1, 0.2, 0.3, 0.7, 0.8, 0.9, 1.0]
 const MISSED_BULLET_DISTANCE = 1000
 const MISS_MAX_BULLET_OFFSET = 5
+const FALLING_SPEED = 300
 
 var _line2d_manager: Line2dManager
 var _pathfinding: Pathfinding
@@ -127,10 +128,8 @@ func death_effect(pos: Vector2, unit_texture_region):
 func falling_effect(unit_object: UnitObject):
 	var visual_is_under_bridge: bool = unit_object.position.y < _pathfinding.level.ground_plate.position.y
 	unit_object.visual_ordering = -50 if visual_is_under_bridge else 50
-
 	unit_object.show_noticed_icon(false)
 
-	const FALLING_SPEED = 200
 	var final_pos: Vector2 = Vector2(unit_object.position.x, 400)
 	var duration = unit_object.position.distance_to(final_pos) / FALLING_SPEED
 	var tween = create_tween()

@@ -24,6 +24,7 @@ var walk_grid_poses: Array[Vector2i]
 var dict_id_and_walk_pos = {}
 var dict_pos_and_cell_wall = {}
 var dict_pos_and_cell_obstacle = {}
+var dict_pos_and_cell_pit = {}
 var dict_pos_and_cell_cover = {}
 var dict_pos_and_cell_door = {}
 
@@ -95,6 +96,9 @@ func _add_obstacles():
 		if cell_obj.cell_type == CellObject.CellType.OBSTACLE:
 			dict_pos_and_cell_obstacle[cell_obj.grid_pos] = cell_obj
 			_enable_point_by_pos(cell_obj.grid_pos, false)
+
+		if cell_obj.cell_type == CellObject.CellType.PIT:
+			dict_pos_and_cell_pit[cell_obj.grid_pos] = cell_obj
 
 		if cell_obj.cell_type == CellObject.CellType.COVER:
 			dict_pos_and_cell_cover[cell_obj.grid_pos] = cell_obj
@@ -317,6 +321,9 @@ func get_cell_by_pos(grid_pos: Vector2i) -> CellObject:
 
 	if dict_pos_and_cell_wall.has(grid_pos):
 		return dict_pos_and_cell_wall[grid_pos]
+
+	if dict_pos_and_cell_pit.has(grid_pos):
+		return dict_pos_and_cell_pit[grid_pos]
 
 	return null
 

@@ -2,7 +2,7 @@ class_name CellObject
 extends Node2D
 
 
-enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE, DOOR}
+enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE, DOOR, PIT}
 
 @onready var comp_visual: CellCompVisual = $CompVisual as CellCompVisual
 @onready var comp_wall: CellCompWall = $CompWall as CellCompWall
@@ -21,8 +21,10 @@ var cell_type: CellType:
 			return CellType.DOOR
 		if comp_wall:
 			return CellType.WALL
-		if comp_obstacle or comp_pit:
+		if comp_obstacle:
 			return CellType.OBSTACLE
+		if comp_pit:
+			return CellType.PIT
 		if comp_walkable:
 			return CellType.GROUND
 

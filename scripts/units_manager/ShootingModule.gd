@@ -370,8 +370,14 @@ func _push_unit(unit: Unit, another_unit: Unit) -> bool:
 
 	var push_dir: Vector2i = another_unit.unit_object.grid_pos - unit.unit_object.grid_pos
 	var finish_grid_pos: Vector2i = another_unit.unit_object.grid_pos + push_dir
-	if not pathfinding.is_pos_walk(finish_grid_pos) and not pathfinding.get_cell_by_pos(finish_grid_pos):
+	var finish_cell := pathfinding.get_cell_by_pos(finish_grid_pos)
+	if not pathfinding.is_pos_walk(finish_grid_pos) and not finish_cell:
 		return false
+
+	if finish_cell.comp_obstacle:
+		const COLLISION_DMG = 5
+		set_unit_damage_value(another_unit, unit, COLLISION_DMG)
+		return true
 
 	walking.push(another_unit, push_dir)
 	return true
