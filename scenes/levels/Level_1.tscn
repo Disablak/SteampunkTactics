@@ -490,11 +490,11 @@ position = Vector2(240, 128)
 position = Vector2(96, 0)
 
 [node name="Player" parent="RootUnits" index="0" instance=ExtResource("3_s8jjc")]
-position = Vector2(64, 0)
+position = Vector2(80, 80)
 unit_settings = ExtResource("4_cgnvw")
 
 [node name="Enemy0" parent="RootUnits" index="1" instance=ExtResource("3_s8jjc")]
-position = Vector2(80, 0)
+position = Vector2(224, 64)
 unit_settings = ExtResource("7_a6u54")
 ai_settings = SubResource("Resource_sqpsk")
 
@@ -502,7 +502,7 @@ ai_settings = SubResource("Resource_sqpsk")
 texture = ExtResource("7_y1x2u")
 
 [node name="Enemy1" parent="RootUnits" index="2" instance=ExtResource("3_s8jjc")]
-position = Vector2(80, 112)
+position = Vector2(80, 96)
 unit_settings = ExtResource("10_cmafy")
 ai_settings = SubResource("Resource_qguqj")
 

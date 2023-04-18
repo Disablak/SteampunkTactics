@@ -363,7 +363,7 @@ func _push_unit(unit: Unit, another_unit: Unit) -> bool:
 		GlobalsUi.message("Cannot push!")
 		return false
 
-	const PUSH_PRICE = 50 # TODO tmp hardcode
+	const PUSH_PRICE = 40 # TODO tmp hardcode
 
 	if not TurnManager.can_spend_time_points(PUSH_PRICE):
 		GlobalsUi.message("Not enough time points!")
@@ -376,6 +376,8 @@ func _push_unit(unit: Unit, another_unit: Unit) -> bool:
 	var finish_cell := pathfinding.get_cell_by_pos(finish_grid_pos)
 	if not pathfinding.is_pos_walk(finish_grid_pos) and not finish_cell:
 		return false
+
+	unit.unit_object.play_kick_anim(push_dir)
 
 	if finish_cell and finish_cell.comp_obstacle:
 		const COLLISION_DMG = 5

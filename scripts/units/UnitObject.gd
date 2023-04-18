@@ -76,7 +76,6 @@ func set_visibility(is_visible):
 	visible = is_visible
 
 
-
 func play_kick_anim(dir: Vector2):
 	const KICK_DISTANCE := Globals.CELL_HALF_SIZE
 	const KICK_TIME := 0.1
