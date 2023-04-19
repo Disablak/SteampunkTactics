@@ -13,6 +13,7 @@ var prev_marked_unit_id = -1
 func _ready() -> void:
 	GlobalBus.on_unit_changed_control.connect(func(unit_id, tmp): mark_unit(unit_id))
 	GlobalBus.on_unit_moved_to_another_cell.connect(func(id, cell_pos): _update_btns())
+	GlobalBus.on_unit_died.connect(func(id, killer_id): _update_btns())
 
 
 func init(units_ordered: Array[int]):

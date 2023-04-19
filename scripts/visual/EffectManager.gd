@@ -130,7 +130,7 @@ func falling_effect(unit_object: UnitObject):
 	unit_object.visual_ordering = -50 if visual_is_under_bridge else 50
 	unit_object.show_noticed_icon(false)
 
-	var final_pos: Vector2 = Vector2(unit_object.position.x, 400)
+	var final_pos: Vector2 = Vector2(unit_object.position.x, 300)
 	var duration = unit_object.position.distance_to(final_pos) / FALLING_SPEED
 	var tween = create_tween()
 	tween.tween_property(unit_object, "position", final_pos, duration)
