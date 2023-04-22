@@ -60,6 +60,9 @@ func remove_unit_from_order(unit_id: int):
 func check_is_game_over() -> bool:
 	var winner_team: int = 0
 	for unit_id in order_unit_id:
+		if not GlobalUnits.units.has(unit_id):
+			continue
+
 		var unit: Unit = GlobalUnits.units[unit_id]
 		var team_code: int = -1 if unit.unit_data.is_enemy else 1
 		if winner_team == 0:

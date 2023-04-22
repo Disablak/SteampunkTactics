@@ -15,7 +15,7 @@ var unit_id := -1
 var is_enemy: bool
 
 var cur_health: float:
-	get: return _get_stat_cur_value(UnitStat.StatType.HEALTH)
+	get: return get_stat_cur_value(UnitStat.StatType.HEALTH)
 	set(value): _set_stat_value(UnitStat.StatType.HEALTH, value)
 
 var max_health: float:
@@ -33,8 +33,8 @@ var range_of_view: float:
 var is_alive: bool:
 	get: return cur_health > 0
 
+var _unit_stats: Array[UnitStat]
 var unit_settings: UnitSettings
-var unit_stats: Array[UnitStat]
 var ai_settings: AiSettings
 var ai_actions: Array[Action]
 var visibility_data: VisibilityData = VisibilityData.new()
@@ -49,47 +49,45 @@ func _init(unit_settings: UnitSettings, ai_settings: AiSettings):
 	self.unit_settings = unit_settings
 	self.ai_settings = ai_settings
 
-	_init_stats(unit_settings)
-
 	is_enemy = ai_settings != null
 
-	init_abilities(unit_settings.abilities)
-	init_ai_actions()
+	_init_stats(unit_settings)
+	_init_abilities(unit_settings.abilities)
+	_init_ai_actions()
 
 
 func _init_stats(unit_settings: UnitSettings):
-	unit_stats.append(UnitStat.new(UnitStat.StatType.HEALTH, unit_settings.max_health))
-	unit_stats.append(UnitStat.new(UnitStat.StatType.MOVE_SPEED, unit_settings.walk_speed))
-	unit_stats.append(UnitStat.new(UnitStat.StatType.INITIATIVE, unit_settings.initiative))
-	unit_stats.append(UnitStat.new(UnitStat.StatType.RANGE_OF_VIEW, unit_settings.range_of_view))
+	_unit_stats.append(UnitStat.new(UnitStat.StatType.HEALTH, unit_settings.max_health))
+	_unit_stats.append(UnitStat.new(UnitStat.StatType.MOVE_SPEED, unit_settings.walk_speed))
+	_unit_stats.append(UnitStat.new(UnitStat.StatType.INITIATIVE, unit_settings.initiative))
+	_unit_stats.append(UnitStat.new(UnitStat.StatType.RANGE_OF_VIEW, unit_settings.range_of_view))
 
 
 func get_stat_value(stat_type: UnitStat.StatType) -> float:
+	return _get_stat_value_base(stat_type, func(stat: UnitStat): return stat.stat_value)
+
+
+func get_stat_cur_value(stat_type: UnitStat.StatType) -> float:
+	return _get_stat_value_base(stat_type, func(stat: UnitStat): return stat.stat_cur_value)
+
+
+func _get_stat_value_base(stat_type: UnitStat.StatType, callback_get_value: Callable):
 	var value_sum: float = 0
-	for stat in unit_stats:
+	var is_any_stat_exist: bool = false
+
+	for stat in _unit_stats:
 		if stat.stat_type == stat_type:
-			value_sum += stat.stat_value
+			is_any_stat_exist = true
+			value_sum += callback_get_value.call(stat)
 
-	if value_sum == 0:
-		printerr("stat type {0} not found".format([UnitStat.StatType.keys()[stat_type]]))
-
-	return value_sum
-
-
-func _get_stat_cur_value(stat_type: UnitStat.StatType) -> float:
-	var value_sum: float = 0
-	for stat in unit_stats:
-		if stat.stat_type == stat_type:
-			value_sum += stat.stat_cur_value
-
-	if value_sum == 0:
+	if not is_any_stat_exist:
 		printerr("stat type {0} not found".format([UnitStat.StatType.keys()[stat_type]]))
 
 	return value_sum
 
 
 func _set_stat_value(stat_type: UnitStat.StatType, value: float):
-	for stat in unit_stats:
+	for stat in _unit_stats:
 		if stat.stat_type == stat_type:
 			stat.stat_cur_value = value
 
@@ -118,7 +116,7 @@ func set_damage(value: float, attacker_unit_id: int):
 
 
 func get_move_price(count_cells: int) -> int:
-	return count_cells * unit_settings.walk_speed
+	return count_cells * move_speed
 
 
 func has_ability(ability: Abilities):
@@ -134,7 +132,7 @@ func has_ability(ability: Abilities):
 	return true
 
 
-func init_ai_actions():
+func _init_ai_actions():
 	if not is_enemy:
 		return
 
@@ -146,7 +144,7 @@ func init_ai_actions():
 		ai_actions.append_array(unit_settings.additional_ai_actions)
 
 
-func init_abilities(abilities: Array[AbilitySettings]):
+func _init_abilities(abilities: Array[AbilitySettings]):
 	for setting in abilities:
 		if setting is RangedWeaponSettings:
 			riffle = RangedWeaponData.new()
