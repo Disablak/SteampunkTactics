@@ -73,7 +73,7 @@ func deselect_enemy():
 	cover = null
 	cover_hit_pos = Vector2.ZERO
 
-	GlobalsUi.gui.battle_ui.selected_unit_info.clear()
+	GlobalsUi.gui.battle_ui.panel_unit_info.hide_panel()
 
 
 func _show_selected_enemy_info(cur_ability: UnitData.Abilities, cur_unit: Unit, enemy: Unit):
@@ -83,10 +83,10 @@ func _show_selected_enemy_info(cur_ability: UnitData.Abilities, cur_unit: Unit, 
 
 		UnitData.Abilities.MALEE_ATACK:
 			var str_kick_info = "Damage {0}".format([cur_unit.unit_data.knife.settings.damage])
-			GlobalsUi.gui.battle_ui.selected_unit_info.set_text(_get_str_unit_info(enemy) + str_kick_info)
+			GlobalsUi.gui.battle_ui.panel_unit_info.set_text(enemy.unit_data.get_unit_info_string() + str_kick_info)
 
 		_:
-			GlobalsUi.gui.battle_ui.selected_unit_info.set_text(_get_str_unit_info(enemy))
+			GlobalsUi.gui.battle_ui.panel_unit_info.set_text(enemy.unit_data.get_unit_info_string())
 
 
 func _show_shoot_info(cur_unit: Unit, enemy: Unit):
@@ -120,13 +120,8 @@ func _show_hit_chance(cur_unit: Unit, enemy_unit: Unit):
 	var obs_debaff: float = obstacles_sum_debaff
 	var miss: float = (1.0 - hit_chance) - (cover_debaff + obs_debaff)
 
-	var str_hit_chance: String = "Hit {0}\nHit in cover {1}\nHit in obstacle {2}\nMiss {3}".format([Globals.format_hit_chance(hit_chance), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(obs_debaff), Globals.format_hit_chance(miss)])
-	GlobalsUi.gui.battle_ui.selected_unit_info.set_text(_get_str_unit_info(enemy_unit) + str_hit_chance)
-
-
-func _get_str_unit_info(unit: Unit): #todo add in constants
-	var str_unit_info = "Health {0}/{1}\n".format([unit.unit_data.cur_health, unit.unit_data.max_health])
-	return str_unit_info
+	var str_hit_chance: String = "\n\nHit {0}\nHit in cover {1}\nHit in obstacle {2}\nMiss {3}".format([Globals.format_hit_chance(hit_chance), Globals.format_hit_chance(cover_debaff), Globals.format_hit_chance(obs_debaff), Globals.format_hit_chance(miss)])
+	GlobalsUi.gui.battle_ui.panel_unit_info.set_text(enemy_unit.unit_data.get_unit_info_string() + str_hit_chance)
 
 
 func _shoot(shooter: Unit) -> bool:

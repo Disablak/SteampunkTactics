@@ -92,6 +92,23 @@ func _set_stat_value(stat_type: UnitStat.StatType, value: float):
 			stat.stat_cur_value = value
 
 
+func _get_stat_string(stat_type: UnitStat.StatType) -> String:
+	var stat_name: String = UnitStat.StatType.keys()[stat_type].capitalize()
+	if stat_type == UnitStat.StatType.HEALTH:
+		return "{0}: {1}/{2}".format([stat_name, get_stat_cur_value(stat_type), get_stat_value(stat_type)])
+
+	return "{0}: {1}".format([stat_name, get_stat_value(stat_type)])
+
+
+func get_unit_info_string() -> String:
+	return "{0}\n{1}\n{2}\n{3}".format([
+		_get_stat_string(UnitStat.StatType.HEALTH),
+		_get_stat_string(UnitStat.StatType.MOVE_SPEED),
+		_get_stat_string(UnitStat.StatType.INITIATIVE),
+		_get_stat_string(UnitStat.StatType.RANGE_OF_VIEW),
+		])
+
+
 func set_unit_id(id):
 	self.unit_id = id
 

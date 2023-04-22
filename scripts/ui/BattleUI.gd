@@ -13,7 +13,7 @@ extends Control
 @onready var unit_info: UiUnitInfo = get_node("%UnitInfo") as UiUnitInfo
 @onready var unit_abilities: UiUnitAbilities = get_node("%UnitAbils") as UiUnitAbilities
 @onready var units_list: UiUnitsList = get_node("%UnitsList") as UiUnitsList
-@onready var selected_unit_info: UiSelectedUnitInfo = get_node("%SelectedUnitInfo")
+@onready var panel_unit_info: UiSelectedUnitInfo = get_node("%PanelUnitInfo")
 
 
 func _ready() -> void:
@@ -35,7 +35,7 @@ func init():
 	unit_info.init()
 	unit_abilities.init(GlobalUnits.get_cur_unit().unit_data)
 	units_list.init(TurnManager.order_unit_id)
-	selected_unit_info.init()
+	panel_unit_info.init()
 
 
 func _change_camera_zoom(zoom: float):

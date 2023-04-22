@@ -21,17 +21,12 @@ var cur_time_points := 100
 
 
 func set_units_order(units: Array):
-	var array_initiative = []
-	for unit in units:
-		array_initiative.append(unit.unit_data.initiative)
-
-	array_initiative.sort_custom(func(a, b): return a > b)
+	var ordered_units = Array(units)
+	ordered_units.sort_custom(func(a: Unit, b: Unit): return a.unit_data.initiative > b.unit_data.initiative)
 
 	order_unit_id.clear()
-	for initiative in array_initiative:
-		for unit in units:
-			if unit.unit_data.initiative == initiative:
-				order_unit_id.append(unit.id)
+	for unit in ordered_units:
+		order_unit_id.append(unit.id)
 
 	cur_unit_idx = 0
 

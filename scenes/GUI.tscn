@@ -12,8 +12,8 @@
 [ext_resource type="Theme" uid="uid://dmlr2ehopfsf3" path="res://data/settings/ui/gothic_ui_theme_1.tres" id="10_gtirj"]
 [ext_resource type="Shortcut" uid="uid://wn8cqlrakbky" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="12_e4ykp"]
 [ext_resource type="FontFile" uid="uid://cuq7uy43wcnc3" path="res://data/settings/ui/alagard.ttf" id="12_mbk3r"]
+[ext_resource type="Script" path="res://scripts/ui/UiSelectedUnitInfo.gd" id="13_28ycl"]
 [ext_resource type="PackedScene" uid="uid://br8vyxjhv1p53" path="res://scenes/2d/ui/UiUnitsList.tscn" id="13_iompt"]
-[ext_resource type="PackedScene" uid="uid://b4u6fb473yrgx" path="res://scenes/2d/ui/UiSelectedUnitInfo.tscn" id="14_nk3no"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_gxohk"]
 keycode = 49
@@ -242,8 +242,28 @@ theme_override_constants/margin_bottom = 10
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SelectedUnitInfo" parent="BattleUI/AlwaysUI/RightSide" instance=ExtResource("14_nk3no")]
+[node name="PanelUnitInfo" type="Panel" parent="BattleUI/AlwaysUI/RightSide"]
 unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 15.0
+offset_top = 329.0
+offset_right = 197.0
+offset_bottom = 528.0
+theme = ExtResource("7_omlrh")
+script = ExtResource("13_28ycl")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BattleUI/AlwaysUI/RightSide/PanelUnitInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unit info"
 
 [node name="BtnZoom100" type="Button" parent="BattleUI/AlwaysUI/RightSide"]
 unique_name_in_owner = true

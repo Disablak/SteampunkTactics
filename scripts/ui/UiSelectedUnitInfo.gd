@@ -7,17 +7,18 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	GlobalBus.on_unit_died.connect(func(unit_id, tmp): clear())
+	GlobalBus.on_unit_died.connect(func(unit_id, tmp): hide_panel())
 
 
 func init():
-	set_text("")
+	hide_panel()
 
 
 func set_text(text):
-	clear()
+	visible = true
+	rich_text_label.clear()
 	rich_text_label.add_text(text)
 
 
-func clear():
-	rich_text_label.clear()
+func hide_panel():
+	visible = false

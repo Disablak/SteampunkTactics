@@ -1,9 +1,10 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://f2kane5qr4jt"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://f2kane5qr4jt"]
 
 [ext_resource type="FontFile" uid="uid://cuq7uy43wcnc3" path="res://data/settings/ui/alagard.ttf" id="1_hbm3u"]
 [ext_resource type="StyleBox" path="res://data/settings/ui/buttons/ui_button_hovered_0.tres" id="2_6v0i1"]
-[ext_resource type="StyleBox" path="res://data/settings/ui/buttons/ui_button_normal_0.tres" id="3_l483m"]
+[ext_resource type="StyleBox" uid="uid://bwck4v0dkucth" path="res://data/settings/ui/buttons/ui_button_normal_0.tres" id="3_l483m"]
 [ext_resource type="StyleBox" path="res://data/settings/ui/buttons/ui_button_pressed_0.tres" id="4_bkmjr"]
+[ext_resource type="StyleBox" uid="uid://brbnmmp28r07o" path="res://data/settings/ui/panels/panel0.tres" id="5_3qb4i"]
 [ext_resource type="StyleBox" uid="uid://bgqk1fja720is" path="res://data/settings/ui/buttons/ui_progress_bar_back.tres" id="5_h1lox"]
 [ext_resource type="StyleBox" uid="uid://cduhf3qrl8p0" path="res://data/settings/ui/buttons/ui_progress_bar_fill.tres" id="6_84la8"]
 
@@ -65,7 +66,7 @@ Button/styles/focus = SubResource("StyleBoxFlat_ura6t")
 Button/styles/hover = ExtResource("2_6v0i1")
 Button/styles/normal = ExtResource("3_l483m")
 Button/styles/pressed = ExtResource("4_bkmjr")
-Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_color = Color(0.756863, 0.756863, 0.823529, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)
 Label/constants/line_spacing = 3
@@ -76,10 +77,12 @@ Label/constants/shadow_outline_size = 1
 Label/font_sizes/font_size = 20
 Label/fonts/font = ExtResource("1_hbm3u")
 Label/styles/normal = SubResource("StyleBoxEmpty_vct4e")
+Panel/styles/panel = ExtResource("5_3qb4i")
 ProgressBar/font_sizes/font_size = 18
 ProgressBar/fonts/font = ExtResource("1_hbm3u")
 ProgressBar/styles/background = ExtResource("5_h1lox")
 ProgressBar/styles/fill = ExtResource("6_84la8")
+RichTextLabel/colors/default_color = Color(0.756863, 0.756863, 0.823529, 1)
 RichTextLabel/fonts/bold_font = ExtResource("1_hbm3u")
 RichTextLabel/fonts/bold_italics_font = ExtResource("1_hbm3u")
 RichTextLabel/fonts/italics_font = ExtResource("1_hbm3u")

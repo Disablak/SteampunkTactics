@@ -12,7 +12,7 @@ script = ExtResource("1_a7ikt")
 position = Vector2(0, -5)
 texture = ExtResource("3_dfa2p")
 
-[node name="NoticedIcon" parent="." instance=ExtResource("2_kmtyi")]
+[node name="NoticedIcon" parent="VisualObject" instance=ExtResource("2_kmtyi")]
 visible = false
-position = Vector2(1, -19)
+position = Vector2(1, -14)
 texture = ExtResource("5_qingj")

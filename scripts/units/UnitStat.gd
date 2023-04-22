@@ -13,3 +13,4 @@ func _init(stat_type: StatType, stat_value: float) -> void:
 	self.stat_type = stat_type
 	self.stat_value = stat_value
 	stat_cur_value = stat_value
+

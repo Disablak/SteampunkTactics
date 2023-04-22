@@ -3,7 +3,7 @@ class_name UnitObject
 
 
 @onready var main_sprite := $VisualObject as Sprite2D
-@onready var noticed_icon := $NoticedIcon as Sprite2D
+@onready var noticed_icon := $VisualObject/NoticedIcon as Sprite2D
 
 @export var unit_settings: UnitSettings
 @export var ai_settings: AiSettings
