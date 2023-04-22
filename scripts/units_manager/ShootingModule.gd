@@ -145,6 +145,8 @@ func _shoot(shooter: Unit) -> bool:
 		GlobalsUi.message("Obstacle!")
 		return false
 
+	line2d_manager.clear_ray()
+
 	TurnManager.spend_time_points(TurnManager.TypeSpendAction.SHOOTING, shooter.unit_data.riffle.settings.use_price)
 	shooter.unit_data.riffle.spend_weapon_ammo()
 
