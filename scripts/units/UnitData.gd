@@ -13,11 +13,28 @@ enum Abilities {
 
 var unit_id := -1
 var is_enemy: bool
-var cur_health: float
+
+var cur_health: float:
+	get: return _get_stat_cur_value(UnitStat.StatType.HEALTH)
+	set(value): _set_stat_value(UnitStat.StatType.HEALTH, value)
+
+var max_health: float:
+	get: return get_stat_value(UnitStat.StatType.HEALTH)
+
+var move_speed: float:
+	get: return get_stat_value(UnitStat.StatType.MOVE_SPEED)
+
+var initiative: float:
+	get: return get_stat_value(UnitStat.StatType.INITIATIVE)
+
+var range_of_view: float:
+	get: return get_stat_value(UnitStat.StatType.RANGE_OF_VIEW)
+
 var is_alive: bool:
 	get: return cur_health > 0
 
 var unit_settings: UnitSettings
+var unit_stats: Array[UnitStat]
 var ai_settings: AiSettings
 var ai_actions: Array[Action]
 var visibility_data: VisibilityData = VisibilityData.new()
@@ -32,11 +49,49 @@ func _init(unit_settings: UnitSettings, ai_settings: AiSettings):
 	self.unit_settings = unit_settings
 	self.ai_settings = ai_settings
 
+	_init_stats(unit_settings)
+
 	is_enemy = ai_settings != null
-	cur_health = unit_settings.max_health
 
 	init_abilities(unit_settings.abilities)
 	init_ai_actions()
+
+
+func _init_stats(unit_settings: UnitSettings):
+	unit_stats.append(UnitStat.new(UnitStat.StatType.HEALTH, unit_settings.max_health))
+	unit_stats.append(UnitStat.new(UnitStat.StatType.MOVE_SPEED, unit_settings.walk_speed))
+	unit_stats.append(UnitStat.new(UnitStat.StatType.INITIATIVE, unit_settings.initiative))
+	unit_stats.append(UnitStat.new(UnitStat.StatType.RANGE_OF_VIEW, unit_settings.range_of_view))
+
+
+func get_stat_value(stat_type: UnitStat.StatType) -> float:
+	var value_sum: float = 0
+	for stat in unit_stats:
+		if stat.stat_type == stat_type:
+			value_sum += stat.stat_value
+
+	if value_sum == 0:
+		printerr("stat type {0} not found".format([UnitStat.StatType.keys()[stat_type]]))
+
+	return value_sum
+
+
+func _get_stat_cur_value(stat_type: UnitStat.StatType) -> float:
+	var value_sum: float = 0
+	for stat in unit_stats:
+		if stat.stat_type == stat_type:
+			value_sum += stat.stat_cur_value
+
+	if value_sum == 0:
+		printerr("stat type {0} not found".format([UnitStat.StatType.keys()[stat_type]]))
+
+	return value_sum
+
+
+func _set_stat_value(stat_type: UnitStat.StatType, value: float):
+	for stat in unit_stats:
+		if stat.stat_type == stat_type:
+			stat.stat_cur_value = value
 
 
 func set_unit_id(id):

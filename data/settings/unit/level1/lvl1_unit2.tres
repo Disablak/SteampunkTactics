@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitSettings" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="UnitSettings" load_steps=4 format=3 uid="uid://cu23b2r1ouw2g"]
 
 [ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="1_tjotu"]
 [ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/actions/ActionMoveToRandom.tres" id="4_18y2f"]
@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource("6_dd0b7")
 unit_name = "Werewolf"
+unit_stats = Array[Resource("res://scripts/units/UnitStat.gd")]([])
 max_health = 15.0
 walk_speed = 10
 initiative = 9

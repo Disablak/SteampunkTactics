@@ -207,7 +207,7 @@ func is_attention_pos_enemy_exist() -> bool:
 
 
 func _get_max_cells_to_walk() -> int:
-	return floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.unit_settings.walk_speed)
+	return floori(float(TurnManager.cur_time_points) / _cur_unit.unit_data.move_speed)
 
 
 func get_price_move_to_enemy() -> int:
@@ -221,14 +221,14 @@ func get_price_move_to_cover() -> int:
 func get_price_move_path(path_data: PathData) -> int:
 	var count_cells = path_data.path.size() - 1
 	var doors_open_price = path_data.doors.size() * Globals.TP_TO_OPEN_DOOR
-	return count_cells * _cur_unit.unit_data.unit_settings.walk_speed + doors_open_price
+	return count_cells * _cur_unit.unit_data.move_speed + doors_open_price
 
 
 func get_max_price_move():
-	if not TurnManager.can_spend_time_points(_cur_unit.unit_data.unit_settings.walk_speed):
+	if not TurnManager.can_spend_time_points(_cur_unit.unit_data.move_speed):
 		return 999
 
-	return _get_max_cells_to_walk() * _cur_unit.unit_data.unit_settings.walk_speed
+	return _get_max_cells_to_walk() * _cur_unit.unit_data.move_speed
 
 
 func _get_max_point_to_walk(path: Array[Vector2i]) -> Vector2i:

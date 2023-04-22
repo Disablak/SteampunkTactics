@@ -142,7 +142,7 @@ func _update_unit_visibility(unit: Unit, force_update: bool = false):
 	visibility_data.pos_last_check_visibility = grid_unit_pos
 	visibility_data.prev_view_direction = unit_view_direction
 
-	var all_circle_points := MyMath.get_circle_points(grid_unit_pos, unit.unit_data.unit_settings.range_of_view)
+	var all_circle_points := MyMath.get_circle_points(grid_unit_pos, unit.unit_data.range_of_view)
 	var all_circle_points_roof := MyMath.get_circle_points(grid_unit_pos, RAY_ROOF_LENGTH)
 	var sector_circle_points := MyMath.get_circle_sector_points(grid_unit_pos, all_circle_points, unit.unit_data.view_direction, HALF_RADIUS)
 

@@ -30,4 +30,4 @@ func on_unit_change_health(unit_id):
 		return
 
 	var unit: Unit = GlobalUnits.units[unit_id]
-	lbl_health.text = "Health {0}/{1}".format([unit.unit_data.cur_health, unit.unit_data.unit_settings.max_health])
+	lbl_health.text = "Health {0}/{1}".format([unit.unit_data.cur_health, unit.unit_data.max_health])

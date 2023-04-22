@@ -53,7 +53,7 @@ func _update_health(unit_id, is_first_create = false):
 	var unit_ui = units_ui[unit_id]
 	var unit_data = GlobalUnits.units[unit_id].unit_data
 
-	unit_ui.set_hp(unit_data.cur_health, unit_data.unit_settings.max_health)
+	unit_ui.set_hp(unit_data.cur_health, unit_data.max_health)
 
 	if is_first_create:
 		unit_ui.set_action(0)

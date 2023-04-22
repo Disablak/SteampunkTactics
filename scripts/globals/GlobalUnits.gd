@@ -32,7 +32,7 @@ func get_enemies_in_range(unit: Unit) -> Array[Unit]:
 	var result: Array[Unit]
 	for enemy in GlobalUnits.get_units(not unit.unit_data.is_enemy):
 		var distance = unit.unit_object.visual_pos.distance_to(enemy.unit_object.visual_pos) / Globals.CELL_SIZE
-		if distance <= enemy.unit_data.unit_settings.range_of_view:
+		if distance <= enemy.unit_data.range_of_view:
 			result.append(enemy)
 
 	return result

@@ -13,7 +13,7 @@ func _draw() -> void:
 		return
 
 	var center = cur_unit.unit_object.visual_pos
-	var radius = cur_unit.unit_data.unit_settings.range_of_view * Globals.CELL_SIZE
+	var radius = cur_unit.unit_data.range_of_view * Globals.CELL_SIZE
 	var color = Color.WHITE
 
 	draw_arc(center, radius, 0, TAU, 32, color)

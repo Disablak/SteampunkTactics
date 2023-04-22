@@ -40,4 +40,4 @@ func _to_string() -> String:
 
 
 func _get_max_walk_cell() -> float:
-	return float(floori(TurnManager.cur_time_points / GlobalUnits.get_cur_unit().unit_data.unit_settings.walk_speed))
+	return float(floori(TurnManager.cur_time_points / GlobalUnits.get_cur_unit().unit_data.move_speed))

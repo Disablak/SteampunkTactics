@@ -125,7 +125,7 @@ func _show_hit_chance(cur_unit: Unit, enemy_unit: Unit):
 
 
 func _get_str_unit_info(unit: Unit): #todo add in constants
-	var str_unit_info = "Health {0}/{1}\n".format([unit.unit_data.cur_health, unit.unit_data.unit_settings.max_health])
+	var str_unit_info = "Health {0}/{1}\n".format([unit.unit_data.cur_health, unit.unit_data.max_health])
 	return str_unit_info
 
 

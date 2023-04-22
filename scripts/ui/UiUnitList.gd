@@ -56,4 +56,4 @@ func select_btn(unit_id: int, is_select: bool):
 
 
 func _text(unit, is_selected) -> String:
-	return "{0} {1} - {2}".format(["->" if is_selected else "", unit.unit_data.unit_settings.initiative, unit.unit_data.unit_settings.unit_name])
+	return "{0} {1} - {2}".format(["->" if is_selected else "", unit.unit_data.initiative, unit.unit_data.unit_settings.unit_name])
