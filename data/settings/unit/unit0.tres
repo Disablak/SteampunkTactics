@@ -8,8 +8,8 @@
 [resource]
 script = ExtResource("1")
 unit_name = "Ann"
-max_health = 20.0
-walk_speed = 20
+max_health = 5.0
+walk_speed = 15
 initiative = 12
 range_of_view = 8
 abilities = Array[Resource("res://scripts/settings/abilities/AbilitySettings.gd")]([ExtResource("1_musci"), ExtResource("2_8r6bi"), ExtResource("3_enr6e")])

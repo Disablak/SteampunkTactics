@@ -78,6 +78,7 @@ Label/font_sizes/font_size = 20
 Label/fonts/font = ExtResource("1_hbm3u")
 Label/styles/normal = SubResource("StyleBoxEmpty_vct4e")
 Panel/styles/panel = ExtResource("5_3qb4i")
+ProgressBar/colors/font_color = Color(0.756863, 0.756863, 0.823529, 1)
 ProgressBar/font_sizes/font_size = 18
 ProgressBar/fonts/font = ExtResource("1_hbm3u")
 ProgressBar/styles/background = ExtResource("5_h1lox")

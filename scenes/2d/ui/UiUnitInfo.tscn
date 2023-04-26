@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://d6qdqp0vqao0"]
+[gd_scene load_steps=6 format=3 uid="uid://d6qdqp0vqao0"]
 
 [ext_resource type="Script" path="res://scripts/ui/UiUnitInfo.gd" id="1_4qew3"]
 [ext_resource type="Texture2D" uid="uid://drgerldkg8o4r" path="res://content/sprites/unit_portrait.png" id="2_fq5jh"]
 [ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="3_3bh8n"]
 [ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="3_cpyj2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_seqci"]
+font_size = 20
+font_color = Color(0.756863, 0.756863, 0.823529, 1)
+outline_color = Color(0.65098, 0.65098, 0.74902, 1)
+shadow_size = 2
+shadow_color = Color(0.501961, 0.501961, 0.643137, 1)
 
 [node name="UnitInfo" type="Control"]
 layout_mode = 3
@@ -38,6 +45,7 @@ offset_bottom = 61.0
 grow_horizontal = 2
 theme = ExtResource("3_3bh8n")
 text = "Health: 100/100"
+label_settings = SubResource("LabelSettings_seqci")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1

@@ -1,16 +1,16 @@
-[gd_scene load_steps=37 format=3 uid="uid://b76x0240u344g"]
+[gd_scene load_steps=47 format=3 uid="uid://cd0qlrdh707oq"]
 
 [ext_resource type="PackedScene" uid="uid://cstpofqr23a2f" path="res://scenes/levels/BaseLevel.tscn" id="1_6s7x3"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_2e1o5"]
 [ext_resource type="PackedScene" uid="uid://b3yhd8e21esis" path="res://scenes/2d/UnitObject.tscn" id="3_s8jjc"]
 [ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/unit0.tres" id="4_cgnvw"]
-[ext_resource type="Texture2D" uid="uid://w3tnd2y22h83" path="res://content/sprites/gothic/background/pillar.tres" id="4_v35qe"]
 [ext_resource type="Texture2D" uid="uid://1xxay4xsagly" path="res://content/sprites/gothic/background/side0.tres" id="5_roh63"]
 [ext_resource type="Texture2D" uid="uid://cq1gugbtx53uq" path="res://content/sprites/gothic/background/side1.tres" id="6_i8ksw"]
 [ext_resource type="Resource" uid="uid://w2vn8wuadrmx" path="res://data/settings/unit/level1/lvl1_unit0.tres" id="7_a6u54"]
 [ext_resource type="Texture2D" uid="uid://bho4ygohhfyql" path="res://content/sprites/gothic/background/side6.tres" id="7_s46bf"]
 [ext_resource type="Texture2D" uid="uid://b1h0pwlirgbvt" path="res://content/sprites/gothic/units/enemy0.tres" id="7_y1x2u"]
 [ext_resource type="Texture2D" uid="uid://gx14kk6e6w62" path="res://content/sprites/gothic/background/side5.tres" id="8_erk0o"]
+[ext_resource type="Texture2D" uid="uid://w3tnd2y22h83" path="res://content/sprites/gothic/background/bridge_pillar.tres" id="8_rmtb6"]
 [ext_resource type="Script" path="res://scripts/settings/AiSettings.gd" id="9_1u5t2"]
 [ext_resource type="Texture2D" uid="uid://u38qkvqtobun" path="res://content/sprites/gothic/background/side4.tres" id="9_632f8"]
 [ext_resource type="Resource" uid="uid://criftwds0pgl7" path="res://data/settings/unit/level1/lvl1_unit1.tres" id="10_cmafy"]
@@ -33,7 +33,17 @@
 [ext_resource type="Texture2D" uid="uid://24yo3go3whx3" path="res://content/sprites/gothic/background/ground2.tres" id="24_kpg0q"]
 [ext_resource type="Texture2D" uid="uid://lxxpi74mdawy" path="res://content/sprites/gothic/background/ground1.tres" id="25_esn6k"]
 [ext_resource type="PackedScene" uid="uid://d2gynj1adpgis" path="res://scenes/cells/CellPit.tscn" id="26_pa7om"]
+[ext_resource type="Texture2D" uid="uid://dwjydh7c7jash" path="res://content/sprites/gothic/background/pillar0.tres" id="26_rybeh"]
+[ext_resource type="Texture2D" uid="uid://cp02rl68nu4xd" path="res://content/sprites/gothic/background/pillar1.tres" id="27_jqre7"]
 [ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellTree.tscn" id="27_pvw4u"]
+[ext_resource type="Texture2D" uid="uid://c6gnf6y46grbq" path="res://content/sprites/gothic/background/pillar2.tres" id="28_tdhtw"]
+[ext_resource type="Texture2D" uid="uid://bvcf1aubdkrel" path="res://content/sprites/gothic/background/pillar3.tres" id="29_4cnd1"]
+[ext_resource type="Texture2D" uid="uid://yd5rj40ax31x" path="res://content/sprites/gothic/background/bridge_pillar_detail0.tres" id="30_scfj7"]
+[ext_resource type="Texture2D" uid="uid://dal5k4l6ut55o" path="res://content/sprites/gothic/background/vertical0.tres" id="31_8jl4p"]
+[ext_resource type="Texture2D" uid="uid://bjciwimkc3i72" path="res://content/sprites/gothic/background/ground3.tres" id="32_wkon5"]
+[ext_resource type="Texture2D" uid="uid://bp8pvquloxpha" path="res://content/sprites/gothic/background/ground4.tres" id="33_nmfns"]
+[ext_resource type="Texture2D" uid="uid://by6choylbw061" path="res://content/sprites/gothic/background/ground5.tres" id="34_v0vpy"]
+[ext_resource type="Texture2D" uid="uid://coa5q5k0pkspf" path="res://content/sprites/gothic/background/statue0.tres" id="35_qrgri"]
 
 [sub_resource type="Resource" id="Resource_sqpsk"]
 script = ExtResource("9_1u5t2")
@@ -63,7 +73,7 @@ texture = ExtResource("11_u6wnr")
 z_index = -99
 
 [node name="Cloud0" parent="RootVisual/Clouds" index="0" instance=ExtResource("2_2e1o5")]
-position = Vector2(2, -49)
+position = Vector2(2, -80)
 texture = ExtResource("18_hygie")
 
 [node name="Cloud4" parent="RootVisual/Clouds" index="1" instance=ExtResource("2_2e1o5")]
@@ -103,11 +113,11 @@ metadata/_edit_lock_ = true
 
 [node name="Pillar" parent="RootVisual/Bridge" index="1" instance=ExtResource("2_2e1o5")]
 position = Vector2(0, 144)
-texture = ExtResource("4_v35qe")
+texture = ExtResource("8_rmtb6")
 
 [node name="Pillar2" parent="RootVisual/Bridge" index="2" instance=ExtResource("2_2e1o5")]
 position = Vector2(-96, 144)
-texture = ExtResource("4_v35qe")
+texture = ExtResource("8_rmtb6")
 flip_h = true
 
 [node name="Pillar3" parent="RootVisual/Bridge" index="3" instance=ExtResource("2_2e1o5")]
@@ -390,6 +400,58 @@ texture = ExtResource("25_esn6k")
 position = Vector2(158, 82)
 texture = ExtResource("24_kpg0q")
 
+[node name="Pillar4" parent="RootVisual/Bridge" index="68" instance=ExtResource("2_2e1o5")]
+position = Vector2(55, 112)
+texture = ExtResource("26_rybeh")
+
+[node name="Pillar5" parent="RootVisual/Bridge" index="69" instance=ExtResource("2_2e1o5")]
+position = Vector2(21, -12)
+texture = ExtResource("27_jqre7")
+
+[node name="Pillar6" parent="RootVisual/Bridge" index="70" instance=ExtResource("2_2e1o5")]
+position = Vector2(313, -9)
+texture = ExtResource("28_tdhtw")
+
+[node name="Pillar7" parent="RootVisual/Bridge" index="71" instance=ExtResource("2_2e1o5")]
+position = Vector2(-71, 110)
+texture = ExtResource("29_4cnd1")
+
+[node name="PillarDetail" parent="RootVisual/Bridge" index="72" instance=ExtResource("2_2e1o5")]
+position = Vector2(10, 160)
+texture = ExtResource("30_scfj7")
+
+[node name="PillarDetail2" parent="RootVisual/Bridge" index="73" instance=ExtResource("2_2e1o5")]
+position = Vector2(-25, 162)
+texture = ExtResource("30_scfj7")
+
+[node name="PillarDetail3" parent="RootVisual/Bridge" index="74" instance=ExtResource("2_2e1o5")]
+position = Vector2(-25, 176)
+texture = ExtResource("31_8jl4p")
+
+[node name="Ground" parent="RootVisual/Bridge" index="75" instance=ExtResource("2_2e1o5")]
+position = Vector2(14, 8)
+texture = ExtResource("32_wkon5")
+
+[node name="Ground33" parent="RootVisual/Bridge" index="76" instance=ExtResource("2_2e1o5")]
+position = Vector2(11, 15)
+texture = ExtResource("32_wkon5")
+
+[node name="Ground34" parent="RootVisual/Bridge" index="77" instance=ExtResource("2_2e1o5")]
+position = Vector2(9, 11)
+texture = ExtResource("32_wkon5")
+
+[node name="Ground35" parent="RootVisual/Bridge" index="78" instance=ExtResource("2_2e1o5")]
+position = Vector2(134, 54)
+texture = ExtResource("33_nmfns")
+
+[node name="Ground36" parent="RootVisual/Bridge" index="79" instance=ExtResource("2_2e1o5")]
+position = Vector2(167, 87)
+texture = ExtResource("34_v0vpy")
+
+[node name="Ground37" parent="RootVisual/Bridge" index="80" instance=ExtResource("2_2e1o5")]
+position = Vector2(166, 90)
+texture = ExtResource("34_v0vpy")
+
 [node name="CellPit" parent="RootObsCells" index="0" instance=ExtResource("26_pa7om")]
 position = Vector2(0, -16)
 
@@ -487,10 +549,15 @@ position = Vector2(224, 128)
 position = Vector2(240, 128)
 
 [node name="CellObstacle" parent="RootObsCells" index="32" instance=ExtResource("27_pvw4u")]
-position = Vector2(96, 0)
+position = Vector2(160, 0)
+
+[node name="CompVisual" parent="RootObsCells/CellObstacle" index="0"]
+position = Vector2(-8, 16)
+texture = ExtResource("35_qrgri")
+offset = Vector2(2.08165e-12, -48)
 
 [node name="Player" parent="RootUnits" index="0" instance=ExtResource("3_s8jjc")]
-position = Vector2(80, 80)
+position = Vector2(96, 32)
 unit_settings = ExtResource("4_cgnvw")
 
 [node name="Enemy0" parent="RootUnits" index="1" instance=ExtResource("3_s8jjc")]
@@ -502,7 +569,7 @@ ai_settings = SubResource("Resource_sqpsk")
 texture = ExtResource("7_y1x2u")
 
 [node name="Enemy1" parent="RootUnits" index="2" instance=ExtResource("3_s8jjc")]
-position = Vector2(80, 96)
+position = Vector2(112, 0)
 unit_settings = ExtResource("10_cmafy")
 ai_settings = SubResource("Resource_qguqj")
 
@@ -523,5 +590,7 @@ position = Vector2(256, 16)
 scale = Vector2(5, 6)
 texture = ExtResource("11_u6wnr")
 
+[editable path="RootObsCells/CellObstacle"]
+[editable path="RootObsCells/CellObstacle/CompObstacle"]
 [editable path="RootUnits/Enemy0"]
 [editable path="RootUnits/Enemy1"]
