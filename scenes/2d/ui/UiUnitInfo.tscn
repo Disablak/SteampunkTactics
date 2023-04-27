@@ -44,7 +44,8 @@ anchor_right = 1.0
 offset_bottom = 61.0
 grow_horizontal = 2
 theme = ExtResource("3_3bh8n")
-text = "Health: 100/100"
+text = "Health: 100/100
+Armor: 5/5"
 label_settings = SubResource("LabelSettings_seqci")
 horizontal_alignment = 1
 vertical_alignment = 1

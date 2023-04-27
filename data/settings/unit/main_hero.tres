@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UnitSettings" load_steps=6 format=3 uid="uid://dvjjmneb2ovxf"]
+
+[ext_resource type="Resource" uid="uid://dabprdc4kprjs" path="res://data/settings/weapon/riffle0.tres" id="1_u0bml"]
+[ext_resource type="Resource" uid="uid://b3cx06at4iy5h" path="res://data/settings/weapon/granade0.tres" id="2_p1bmc"]
+[ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="3_5uyd4"]
+[ext_resource type="Resource" uid="uid://dvdqtbcgasgll" path="res://data/settings/equips/armor0.tres" id="4_uh6l1"]
+[ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="5_7qxl6"]
+
+[resource]
+script = ExtResource("5_7qxl6")
+unit_name = "Ann"
+max_health = 5.0
+walk_speed = 15
+initiative = 12
+range_of_view = 8
+equips = Array[Resource("res://scripts/units/EquipBase.gd")]([ExtResource("4_uh6l1")])
+abilities = Array[Resource("res://scripts/settings/abilities/AbilitySettings.gd")]([ExtResource("1_u0bml"), ExtResource("2_p1bmc"), ExtResource("3_5uyd4")])
+additional_ai_actions = Array[Resource("res://scripts/utility_ai/Action.gd")]([])

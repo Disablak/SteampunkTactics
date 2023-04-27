@@ -8,5 +8,6 @@ extends Resource
 @export var initiative: int = 10
 @export var range_of_view: int = 5
 
+@export var equips: Array[EquipBase]
 @export var abilities: Array[AbilitySettings]
 @export var additional_ai_actions: Array[Action]

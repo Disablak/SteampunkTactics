@@ -18,6 +18,10 @@ var cur_health: float:
 	get: return get_stat_cur_value(UnitStat.StatType.HEALTH)
 	set(value): _set_stat_value(UnitStat.StatType.HEALTH, value)
 
+var cur_armor: float:
+	get: return get_stat_cur_value(UnitStat.StatType.ARMOR)
+	set(value): _set_stat_value(UnitStat.StatType.ARMOR, value)
+
 var max_health: float:
 	get: return get_stat_value(UnitStat.StatType.HEALTH)
 
@@ -29,6 +33,9 @@ var initiative: float:
 
 var range_of_view: float:
 	get: return get_stat_value(UnitStat.StatType.RANGE_OF_VIEW)
+
+var dmg_resist: float:
+	get: return get_stat_value(UnitStat.StatType.DMG_RESIST)
 
 var is_alive: bool:
 	get: return cur_health > 0
@@ -52,8 +59,11 @@ func _init(unit_settings: UnitSettings, ai_settings: AiSettings):
 	is_enemy = ai_settings != null
 
 	_init_stats(unit_settings)
+	_init_start_equips()
 	_init_abilities(unit_settings.abilities)
 	_init_ai_actions()
+
+	print(cur_health)
 
 
 func _init_stats(unit_settings: UnitSettings):
@@ -61,6 +71,32 @@ func _init_stats(unit_settings: UnitSettings):
 	_unit_stats.append(UnitStat.new(UnitStat.StatType.MOVE_SPEED, unit_settings.walk_speed))
 	_unit_stats.append(UnitStat.new(UnitStat.StatType.INITIATIVE, unit_settings.initiative))
 	_unit_stats.append(UnitStat.new(UnitStat.StatType.RANGE_OF_VIEW, unit_settings.range_of_view))
+
+
+func _init_start_equips():
+	for equip in unit_settings.equips:
+		add_equip(equip)
+
+
+func add_equip(equip: EquipBase):
+	for stat in equip.get_stats():
+		if stat.stat_value == 0:
+			continue
+
+		if _unit_stats.has(stat):
+			continue
+
+		_unit_stats.append(stat)
+
+	GlobalBus.on_unit_equip_added.emit(unit_id, equip)
+
+
+func remove_equip(equip: EquipBase):
+	for stat in equip.get_stats():
+		if not _unit_stats.has(stat):
+			continue
+
+		_unit_stats.erase(stat)
 
 
 func get_stat_value(stat_type: UnitStat.StatType) -> float:
@@ -89,7 +125,9 @@ func _get_stat_value_base(stat_type: UnitStat.StatType, callback_get_value: Call
 func _set_stat_value(stat_type: UnitStat.StatType, value: float):
 	for stat in _unit_stats:
 		if stat.stat_type == stat_type:
-			stat.stat_cur_value = value
+			if stat.stat_cur_value != value:
+				stat.stat_cur_value = value
+				GlobalBus.on_unit_stat_changed.emit(unit_id, stat)
 
 
 func _get_stat_string(stat_type: UnitStat.StatType) -> String:
@@ -121,8 +159,15 @@ func set_damage(value: float, attacker_unit_id: int):
 		print("unit {0} is already dead".format([unit_id]))
 		return
 
-	cur_health -= value
-	GlobalBus.on_unit_change_health.emit(unit_id)
+	if cur_armor > 0:
+		cur_armor -= value
+
+		if cur_armor < 0:
+			cur_health -= abs(cur_armor)
+	else:
+		cur_health -= value
+
+	#GlobalBus.on_unit_change_health.emit(unit_id)
 
 	if ai_settings != null:
 		ai_settings.change_state_to_active()
