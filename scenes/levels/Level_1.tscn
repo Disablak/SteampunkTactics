@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cstpofqr23a2f" path="res://scenes/levels/BaseLevel.tscn" id="1_6s7x3"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_2e1o5"]
-[ext_resource type="PackedScene" uid="uid://b3yhd8e21esis" path="res://scenes/2d/UnitObject.tscn" id="3_s8jjc"]
+[ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/2d/UnitObject.tscn" id="3_s8jjc"]
 [ext_resource type="Texture2D" uid="uid://1xxay4xsagly" path="res://content/sprites/gothic/background/side0.tres" id="5_roh63"]
 [ext_resource type="Texture2D" uid="uid://cq1gugbtx53uq" path="res://content/sprites/gothic/background/side1.tres" id="6_i8ksw"]
 [ext_resource type="Resource" uid="uid://w2vn8wuadrmx" path="res://data/settings/unit/level1/lvl1_unit0.tres" id="7_a6u54"]

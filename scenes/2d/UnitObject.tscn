@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3yhd8e21esis"]
+[gd_scene load_steps=6 format=3 uid="uid://3fu3cqfb41k0"]
 
 [ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_a7ikt"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_kmtyi"]
 [ext_resource type="Texture2D" uid="uid://ciry2hpepxf06" path="res://content/sprites/gothic/units/player1.tres" id="3_dfa2p"]
+[ext_resource type="PackedScene" uid="uid://clvk0kxtgfpgg" path="res://scenes/2d/HealthBar.tscn" id="5_k4jia"]
 [ext_resource type="Texture2D" uid="uid://b6e5yn1juhul0" path="res://content/sprites/gothic/noticed_icon.tres" id="5_qingj"]
 
 [node name="UnitObject" type="Node2D"]
@@ -14,5 +15,8 @@ texture = ExtResource("3_dfa2p")
 
 [node name="NoticedIcon" parent="VisualObject" instance=ExtResource("2_kmtyi")]
 visible = false
-position = Vector2(1, -14)
+position = Vector2(9, -14)
 texture = ExtResource("5_qingj")
+
+[node name="HealthBar" parent="VisualObject" instance=ExtResource("5_k4jia")]
+position = Vector2(2, -7)

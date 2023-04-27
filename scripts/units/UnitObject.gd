@@ -4,6 +4,7 @@ class_name UnitObject
 
 @onready var main_sprite := $VisualObject as Sprite2D
 @onready var noticed_icon := $VisualObject/NoticedIcon as Sprite2D
+@onready var health_bar := $VisualObject/HealthBar as HealthBar
 
 @export var unit_settings: UnitSettings
 @export var ai_settings: AiSettings
@@ -34,6 +35,8 @@ var is_enemy: bool:
 
 func init_unit(unit_id, unit_data: UnitData) -> void:
 	self.unit_id = unit_id
+
+	health_bar.init(unit_id)
 
 	origin_offset = Globals.get_height_of_obj(main_sprite.texture.region) + main_sprite.offset.y + main_sprite.position.y
 

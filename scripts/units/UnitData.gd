@@ -22,6 +22,9 @@ var cur_armor: float:
 	get: return get_stat_cur_value(UnitStat.StatType.ARMOR)
 	set(value): _set_stat_value(UnitStat.StatType.ARMOR, value)
 
+var max_armor: float:
+	get: return get_stat_value(UnitStat.StatType.ARMOR)
+
 var max_health: float:
 	get: return get_stat_value(UnitStat.StatType.HEALTH)
 
