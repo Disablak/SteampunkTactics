@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=3 uid="uid://djecb7bf3eldt"]
+
+[ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="1_20mxr"]
+[ext_resource type="Script" path="res://scripts/ui/UnitSetupUI.gd" id="1_j3c78"]
+[ext_resource type="PackedScene" uid="uid://dj1yoladqn18w" path="res://scenes/2d/ui/Button.tscn" id="2_6k1ah"]
+[ext_resource type="Theme" uid="uid://dmlr2ehopfsf3" path="res://data/settings/ui/gothic_ui_theme_1.tres" id="3_afj3p"]
+
+[node name="UnitSetupUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j3c78")
+button_scene = ExtResource("2_6k1ah")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_20mxr")
+
+[node name="TabBar" type="TabBar" parent="Panel2"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 16.0
+offset_right = 272.0
+offset_bottom = 48.0
+clip_tabs = false
+scrolling_enabled = false
+tab_count = 3
+tab_0/title = "Unit 1"
+tab_1/title = "Unit 2"
+tab_2/title = "Unit 3"
+
+[node name="ScrollContainerUnitEquip" type="ScrollContainer" parent="Panel2"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 448.0
+
+[node name="VBoxContainerUnitEquip" type="VBoxContainer" parent="Panel2/ScrollContainerUnitEquip"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainerAvailableEquip" type="ScrollContainer" parent="Panel2"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 64.0
+offset_right = 480.0
+offset_bottom = 448.0
+
+[node name="VBoxContainerAvailableEquip" type="VBoxContainer" parent="Panel2/ScrollContainerAvailableEquip"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ButtonReady" parent="Panel2" instance=ExtResource("2_6k1ah")]
+unique_name_in_owner = true
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 608.0
+offset_top = 400.0
+offset_right = 768.0
+offset_bottom = 448.0
+grow_horizontal = 1
+grow_vertical = 1
+theme = ExtResource("3_afj3p")
+text = "Ready"
+
+[connection signal="button_down" from="Panel2/ButtonReady" to="." method="_on_button_ready_button_down"]

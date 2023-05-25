@@ -9,3 +9,9 @@ extends Resource
 
 @export_category("AI preset")
 @export var ai_preset: AiPreset
+
+var id: int = -1
+
+
+func _to_string() -> String:
+	return "{0}\n\nUse Price {1}\nDamage {2}\n".format([ability_name, use_price, damage])

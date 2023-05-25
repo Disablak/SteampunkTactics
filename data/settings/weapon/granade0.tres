@@ -6,6 +6,7 @@
 script = ExtResource("1_4jnnd")
 throw_distance = 5
 max_count = 5
-ability_name = "Grenade"
+ability_name = "Granede"
 use_price = 10
 damage = 10.0
+can_stealth_attack = false

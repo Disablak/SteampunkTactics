@@ -13,5 +13,6 @@ max_health = 5.0
 walk_speed = 25
 initiative = 8
 range_of_view = 7
+equips = Array[Resource("res://scripts/units/EquipBase.gd")]([])
 abilities = Array[Resource("res://scripts/settings/abilities/AbilitySettings.gd")]([ExtResource("1_meyno"), ExtResource("2_58kj0")])
 additional_ai_actions = Array[Resource("res://scripts/utility_ai/Action.gd")]([ExtResource("2_4gv4r"), ExtResource("4_0682j")])

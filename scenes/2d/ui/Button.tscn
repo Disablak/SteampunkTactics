@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dj1yoladqn18w"]
+[gd_scene load_steps=3 format=3 uid="uid://dj1yoladqn18w"]
 
 [ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="1_54eh1"]
+[ext_resource type="Script" path="res://scripts/ui/MyButton.gd" id="2_r0yi0"]
 
 [node name="UiBtnUnit" type="Button"]
 texture_filter = 1
@@ -17,3 +18,4 @@ grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("1_54eh1")
 text = "0 - Unit0"
+script = ExtResource("2_r0yi0")

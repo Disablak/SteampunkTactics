@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6jqsdvcncay5"]
+
+[ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="1_ojtod"]
+
+[node name="MyTooltip" type="Panel"]
+custom_minimum_size = Vector2(192, 160)
+offset_left = 224.0
+offset_top = 96.0
+offset_right = 416.0
+offset_bottom = 256.0
+mouse_filter = 2
+theme = ExtResource("1_ojtod")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "some text"
+scroll_following = true

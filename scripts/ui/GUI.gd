@@ -3,14 +3,16 @@ extends Control
 
 
 @export var tooltip_scene: PackedScene
+@export var setup_tooltip_scene: PackedScene
 @export var flying_tooltip_scene: PackedScene
 @export var message_scene: PackedScene
 @export var path_message_spawn: NodePath
 
-@onready var battle_ui = get_node("BattleUI")
+@onready var battle_ui = $AlwaysUI/BattleUI
 
 
 var tooltip: Control
+var setup_tooltip: Control
 var flying_tooltip: Control
 var message: Control
 var default_pos_message: Vector2
@@ -27,6 +29,10 @@ func _ready() -> void:
 	tooltip = tooltip_scene.instantiate()
 	tooltip.visible = false
 	add_child(tooltip)
+
+	setup_tooltip = setup_tooltip_scene.instantiate()
+	setup_tooltip.visible = false
+	$AlwaysUI.add_child(setup_tooltip)
 
 	flying_tooltip = flying_tooltip_scene.instantiate()
 	flying_tooltip.visible = false

@@ -2,7 +2,7 @@ extends Control
 
 
 @onready var label_fps: Label = get_node("%LabelFPS")
-@onready var label_is_enemy_turn = $AlwaysUI/LabelIsEnemyTurn
+@onready var label_is_enemy_turn = $LabelIsEnemyTurn
 
 @onready var btn_next_turn: Button = get_node("%BtnNextTurn")
 
