@@ -23,6 +23,7 @@ GlobalMap="*res://scripts/globals/GlobalMap.gd"
 GlobalUnits="*res://scripts/globals/GlobalUnits.gd"
 TurnManager="*res://scripts/units_manager/TurnManager.gd"
 GlobalsUi="*res://scripts/globals/GlobalsUI.gd"
+GlobalDB="*res://scripts/globals/GlobalDB.gd"
 
 [display]
 
