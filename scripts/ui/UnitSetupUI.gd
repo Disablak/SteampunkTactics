@@ -9,6 +9,9 @@ extends Control
 @onready var button_ready: MyButton = %ButtonReady
 
 
+var callback_click_ready: Callable
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,6 +21,11 @@ func _ready() -> void:
 		new_button.set_data(ability)
 		new_button.click_action = func(): return move_to_unit_equip(new_button)
 		container_available_equip.add_child(new_button)
+
+
+func init(callback: Callable):
+	self.callback_click_ready = callback
+	visible = true
 
 
 func move_to_unit_equip(btn: MyButton):
@@ -33,5 +41,5 @@ func move_to_available_equip(btn):
 
 
 func _on_button_ready_button_down() -> void:
-	for btn in container_unit_equip.get_children():
-		print(btn._ability_setting_data.id)
+	visible = false
+	callback_click_ready.call()

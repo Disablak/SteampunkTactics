@@ -34,8 +34,8 @@ func _ready() -> void:
 	GlobalBus.on_hovered_cell.connect(_on_pathfinding_on_hovered_cell)
 
 
-func init():
-	_init_units()
+func init(unit_settings: Array[UnitSetting]):
+	_init_units(unit_settings)
 	pathfinding.init()
 	brain_ai.init()
 
@@ -47,7 +47,7 @@ func init():
 	set_unit_control(TurnManager.get_cur_turn_unit_id(), true)
 
 
-func _init_units():
+func _init_units(unit_settings: Array[UnitSetting]):
 	var unit_objects = pathfinding.get_child(0).get_node("RootUnits").get_children()
 	var id = 0
 
@@ -55,12 +55,27 @@ func _init_units():
 		if not unit_object is UnitObject:
 			continue
 
-		var unit: Unit = Unit.new(id, UnitData.new(unit_object.unit_settings, unit_object.ai_settings), unit_object)
+		var unit_setting = _get_unit_setting_with_name(unit_settings, unit_object.unit_name)
+		if unit_setting:
+			unit_object.unit_settings = unit_setting
+		else:
+			unit_setting = unit_object.unit_settings_resource.get_object()
+			unit_object.unit_settings = unit_setting
+
+		var unit: Unit = Unit.new(id, UnitData.new(unit_setting, unit_object.ai_settings), unit_object)
 		GlobalUnits.units[id] = unit
 		id += 1
 
 	units = GlobalUnits.units
 	TurnManager.set_units_order(units.values())
+
+
+func _get_unit_setting_with_name(units, unit_name) -> UnitSetting:
+	for unit in units:
+		if unit.unit_name == unit_name:
+			return unit;
+
+	return null;
 
 
 func _on_clicked_ability(ability: UnitData.Abilities):

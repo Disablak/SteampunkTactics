@@ -13,12 +13,12 @@ func _ready() -> void:
 	GlobalMap.draw_debug = $DrawDebug
 
 
-func init(level_id: int):
+func init(level_id: int, unit_settings: Array[UnitSetting]):
 	var new_level = level_scenes[level_id].instantiate() as Level
 	units_manager.pathfinding.add_child(new_level)
 	units_manager.pathfinding.move_child(new_level, 0)
 
-	units_manager.init()
+	units_manager.init(unit_settings)
 
 	input_system.init(new_level.map_size)
 

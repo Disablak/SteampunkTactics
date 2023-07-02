@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cekx5o721hgx4"]
+[gd_scene load_steps=5 format=3 uid="uid://cekx5o721hgx4"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_p1tb3"]
+[ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/main_hero.tres" id="2_7sspv"]
 [ext_resource type="PackedScene" uid="uid://dgjava7c3ir6u" path="res://scenes/World.tscn" id="2_bb7rw"]
 [ext_resource type="PackedScene" uid="uid://d4avb1r3ohetp" path="res://scenes/GUI.tscn" id="3_m8362"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_p1tb3")
+main_hero_start_setting = ExtResource("2_7sspv")
 level_id = 1
 
 [node name="World" parent="." instance=ExtResource("2_bb7rw")]

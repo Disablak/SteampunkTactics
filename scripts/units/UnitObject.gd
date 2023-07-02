@@ -6,10 +6,12 @@ class_name UnitObject
 @onready var noticed_icon := $VisualObject/NoticedIcon as Sprite2D
 @onready var health_bar := $VisualObject/HealthBar as HealthBar
 
-@export var unit_settings: UnitSettings
+@export var unit_name: String = "Unit"
+@export var unit_settings_resource: UnitSettings
 @export var ai_settings: AiSettings
 
 var unit_id = -1
+var unit_settings: UnitSetting
 var main_material: Material
 var is_visible := true
 var ai_zone_rect: Rect2i

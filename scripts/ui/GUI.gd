@@ -9,6 +9,7 @@ extends Control
 @export var path_message_spawn: NodePath
 
 @onready var battle_ui = $AlwaysUI/BattleUI
+@onready var unit_setup_ui = $AlwaysUI/UnitSetupUI
 
 
 var tooltip: Control
@@ -46,6 +47,10 @@ func _ready() -> void:
 
 func init():
 	battle_ui.init()
+
+
+func init_unit_setup(callback):
+	unit_setup_ui.init(callback)
 
 
 func _on_unit_died(unit_id: int, killer_id: int):

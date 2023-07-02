@@ -11,3 +11,19 @@ extends Resource
 @export var equips: Array[EquipBase]
 @export var abilities: Array[AbilitySettings]
 @export var additional_ai_actions: Array[Action]
+
+
+func get_object() -> UnitSetting:
+	var unit_setting = UnitSetting.new()
+
+	unit_setting.unit_name = unit_name
+	unit_setting.max_health = max_health
+	unit_setting.walk_speed = walk_speed
+	unit_setting.initiative = initiative
+	unit_setting.range_of_view = range_of_view
+
+	unit_setting.equips = equips
+	unit_setting.abilities = abilities
+	unit_setting.additional_ai_actions = additional_ai_actions
+
+	return unit_setting

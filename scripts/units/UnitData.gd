@@ -44,7 +44,7 @@ var is_alive: bool:
 	get: return cur_health > 0
 
 var _unit_stats: Array[UnitStat]
-var unit_settings: UnitSettings
+var unit_settings: UnitSetting
 var ai_settings: AiSettings
 var ai_actions: Array[Action]
 var visibility_data: VisibilityData = VisibilityData.new()
@@ -55,7 +55,7 @@ var knife: MelleWeaponData
 var grenade: ThrowItemData
 
 
-func _init(unit_settings: UnitSettings, ai_settings: AiSettings):
+func _init(unit_settings: UnitSetting, ai_settings: AiSettings):
 	self.unit_settings = unit_settings
 	self.ai_settings = ai_settings
 
@@ -69,7 +69,7 @@ func _init(unit_settings: UnitSettings, ai_settings: AiSettings):
 	print(cur_health)
 
 
-func _init_stats(unit_settings: UnitSettings):
+func _init_stats(unit_settings: UnitSetting):
 	_unit_stats.append(UnitStat.new(UnitStat.StatType.HEALTH, unit_settings.max_health))
 	_unit_stats.append(UnitStat.new(UnitStat.StatType.MOVE_SPEED, unit_settings.walk_speed))
 	_unit_stats.append(UnitStat.new(UnitStat.StatType.INITIATIVE, unit_settings.initiative))
