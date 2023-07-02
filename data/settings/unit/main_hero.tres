@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://b3cx06at4iy5h" path="res://data/settings/weapon/granade0.tres" id="2_p1bmc"]
 [ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="3_5uyd4"]
 [ext_resource type="Resource" uid="uid://dvdqtbcgasgll" path="res://data/settings/equips/armor0.tres" id="4_uh6l1"]
-[ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="5_7qxl6"]
+[ext_resource type="Script" path="res://scripts/settings/UnitSettingsResource.gd" id="5_7qxl6"]
 
 [resource]
 script = ExtResource("5_7qxl6")

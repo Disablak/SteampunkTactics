@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UnitSettings" load_steps=6 format=3 uid="uid://cs6evk772csqf"]
 
-[ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/settings/UnitSettingsResource.gd" id="1"]
 [ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="1_meyno"]
 [ext_resource type="Resource" uid="uid://bko6rfue0rg42" path="res://data/settings/utility ai/actions/ActionMoveToPatrulZone.tres" id="2_4gv4r"]
 [ext_resource type="Resource" uid="uid://dabprdc4kprjs" path="res://data/settings/weapon/riffle0.tres" id="2_58kj0"]

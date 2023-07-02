@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="1_tjotu"]
 [ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/actions/ActionMoveToRandom.tres" id="4_18y2f"]
-[ext_resource type="Script" path="res://scripts/settings/UnitSettings.gd" id="6_dd0b7"]
+[ext_resource type="Script" path="res://scripts/settings/UnitSettingsResource.gd" id="6_dd0b7"]
 
 [resource]
 script = ExtResource("6_dd0b7")

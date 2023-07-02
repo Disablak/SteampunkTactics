@@ -7,7 +7,7 @@ class_name UnitObject
 @onready var health_bar := $VisualObject/HealthBar as HealthBar
 
 @export var unit_name: String = "Unit"
-@export var unit_settings_resource: UnitSettings
+@export var unit_settings_resource: UnitSettingsResource
 @export var ai_settings: AiSettings
 
 var unit_id = -1

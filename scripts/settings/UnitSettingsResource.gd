@@ -1,4 +1,4 @@
-class_name UnitSettings
+class_name UnitSettingsResource
 extends Resource
 
 

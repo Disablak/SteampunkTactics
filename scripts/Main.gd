@@ -4,7 +4,7 @@ extends Node3D
 @onready var world = $World
 @onready var gui = $GUI as GUI
 
-@export var main_hero_start_setting: UnitSettings
+@export var main_hero_start_setting: UnitSettingsResource
 @export var level_id := 0
 
 
