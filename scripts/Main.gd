@@ -9,14 +9,18 @@ extends Node3D
 
 
 func _ready() -> void:
-	var start_unit_settings = _get_settings()
-	gui.init_unit_setup(func(): start_battle(level_id, start_unit_settings))
+	var game_progress: GameProgress = _get_progress()
+	gui.init_unit_setup(func(): start_battle(game_progress))
 
 
-func start_battle(id, unit_settings: Array[UnitSetting]):
-	world.init(id, unit_settings)
+func start_battle(game_progress: GameProgress):
+	world.init(game_progress)
 	gui.init()
 
 
-func _get_settings() -> Array[UnitSetting]:
-	return [main_hero_start_setting.get_object()]
+func _get_progress() -> GameProgress:
+	var progress = GameProgress.new()
+	progress.units_setting.assign([main_hero_start_setting.get_object()])
+	progress.level_id = level_id
+
+	return progress
