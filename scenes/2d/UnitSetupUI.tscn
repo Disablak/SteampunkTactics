@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://djecb7bf3eldt"]
+[gd_scene load_steps=6 format=3 uid="uid://djecb7bf3eldt"]
 
 [ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="1_20mxr"]
 [ext_resource type="Script" path="res://scripts/ui/UnitSetupUI.gd" id="1_j3c78"]
 [ext_resource type="PackedScene" uid="uid://dj1yoladqn18w" path="res://scenes/2d/ui/Button.tscn" id="2_6k1ah"]
 [ext_resource type="Theme" uid="uid://dmlr2ehopfsf3" path="res://data/settings/ui/gothic_ui_theme_1.tres" id="3_afj3p"]
+[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="5_5ebpw"]
 
 [node name="UnitSetupUI" type="Control"]
 layout_mode = 3
@@ -37,6 +38,7 @@ grow_vertical = 2
 theme = ExtResource("1_20mxr")
 
 [node name="TabBar" type="TabBar" parent="Panel2"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 32.0
 offset_top = 16.0
@@ -44,34 +46,6 @@ offset_right = 272.0
 offset_bottom = 48.0
 clip_tabs = false
 scrolling_enabled = false
-tab_count = 3
-tab_0/title = "Unit 1"
-tab_1/title = "Unit 2"
-tab_2/title = "Unit 3"
-
-[node name="ScrollContainerUnitEquip" type="ScrollContainer" parent="Panel2"]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 64.0
-offset_right = 192.0
-offset_bottom = 448.0
-
-[node name="VBoxContainerUnitEquip" type="VBoxContainer" parent="Panel2/ScrollContainerUnitEquip"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ScrollContainerAvailableEquip" type="ScrollContainer" parent="Panel2"]
-layout_mode = 0
-offset_left = 320.0
-offset_top = 64.0
-offset_right = 480.0
-offset_bottom = 448.0
-
-[node name="VBoxContainerAvailableEquip" type="VBoxContainer" parent="Panel2/ScrollContainerAvailableEquip"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="ButtonReady" parent="Panel2" instance=ExtResource("2_6k1ah")]
 unique_name_in_owner = true
@@ -81,13 +55,83 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 608.0
+offset_left = 704.0
 offset_top = 400.0
-offset_right = 768.0
+offset_right = 864.0
 offset_bottom = 448.0
 grow_horizontal = 1
 grow_vertical = 1
 theme = ExtResource("3_afj3p")
 text = "Ready"
+
+[node name="Scroll0" type="TextureRect" parent="Panel2"]
+self_modulate = Color(1, 1, 1, 0.0784314)
+layout_mode = 2
+offset_left = 32.0
+offset_top = 96.0
+offset_right = 224.0
+offset_bottom = 448.0
+texture = ExtResource("5_5ebpw")
+
+[node name="ScrollContainerUnitEquip" type="ScrollContainer" parent="Panel2/Scroll0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainerUnitEquip" type="VBoxContainer" parent="Panel2/Scroll0/ScrollContainerUnitEquip"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Panel2/Scroll0"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = -32.0
+text = "Equip"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scroll1" type="TextureRect" parent="Panel2"]
+self_modulate = Color(1, 1, 1, 0.0784314)
+layout_mode = 2
+offset_left = 288.0
+offset_top = 96.0
+offset_right = 480.0
+offset_bottom = 448.0
+texture = ExtResource("5_5ebpw")
+
+[node name="ScrollContainerAvailableEquip" type="ScrollContainer" parent="Panel2/Scroll1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainerAvailableEquip" type="VBoxContainer" parent="Panel2/Scroll1/ScrollContainerAvailableEquip"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="Panel2/Scroll1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = -32.0
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="button_down" from="Panel2/ButtonReady" to="." method="_on_button_ready_button_down"]

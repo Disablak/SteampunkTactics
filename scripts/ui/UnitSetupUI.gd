@@ -7,8 +7,10 @@ extends Control
 @onready var container_unit_equip: Control = %VBoxContainerUnitEquip
 @onready var container_available_equip: Control = %VBoxContainerAvailableEquip
 @onready var button_ready: MyButton = %ButtonReady
+@onready var unit_tabs: TabBar = %TabBar
 
 
+var game_progress: GameProgress
 var callback_click_ready: Callable
 
 
@@ -23,9 +25,14 @@ func _ready() -> void:
 		container_available_equip.add_child(new_button)
 
 
-func init(callback: Callable):
+func init(game_progress: GameProgress, callback: Callable):
+	self.game_progress = game_progress
 	self.callback_click_ready = callback
+
 	visible = true
+
+	for unit_setting in game_progress.units_setting:
+		unit_tabs.add_tab(unit_setting.unit_name)
 
 
 func move_to_unit_equip(btn: MyButton):

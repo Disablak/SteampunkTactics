@@ -299,6 +299,9 @@ func _click_on_unit(click_unit_id: int):
 
 
 func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
+	if not units:
+		return
+
 	if cur_unit_data.is_enemy:
 		GlobalsUi.message("Ai's turn")
 		return
@@ -355,6 +358,9 @@ func _on_pathfinding_on_clicked_cell(cell_info: CellInfo):
 
 
 func _on_pathfinding_on_hovered_cell(cell_info: CellInfo):
+	if not units:
+		return
+
 	if cur_unit_data.is_enemy:
 		return
 

@@ -10,7 +10,7 @@ extends Node3D
 
 func _ready() -> void:
 	var game_progress: GameProgress = _get_progress()
-	gui.init_unit_setup(func(): start_battle(game_progress))
+	gui.init_unit_setup(game_progress, func(): start_battle(game_progress))
 
 
 func start_battle(game_progress: GameProgress):

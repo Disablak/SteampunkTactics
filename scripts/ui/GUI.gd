@@ -49,8 +49,8 @@ func init():
 	battle_ui.init()
 
 
-func init_unit_setup(callback):
-	unit_setup_ui.init(callback)
+func init_unit_setup(game_progress: GameProgress, callback):
+	unit_setup_ui.init(game_progress, callback)
 
 
 func _on_unit_died(unit_id: int, killer_id: int):
