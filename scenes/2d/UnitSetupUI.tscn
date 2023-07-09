@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://djecb7bf3eldt"]
+[gd_scene load_steps=7 format=3 uid="uid://djecb7bf3eldt"]
 
 [ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="1_20mxr"]
 [ext_resource type="Script" path="res://scripts/ui/UnitSetupUI.gd" id="1_j3c78"]
 [ext_resource type="PackedScene" uid="uid://dj1yoladqn18w" path="res://scenes/2d/ui/Button.tscn" id="2_6k1ah"]
 [ext_resource type="Theme" uid="uid://dmlr2ehopfsf3" path="res://data/settings/ui/gothic_ui_theme_1.tres" id="3_afj3p"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="5_5ebpw"]
+[ext_resource type="Texture2D" uid="uid://cwvtjwrec6b0g" path="res://content/sprites/gothic/units/player.tres" id="6_qkjs0"]
 
 [node name="UnitSetupUI" type="Control"]
 layout_mode = 3
@@ -91,6 +92,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Panel2/Scroll0"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -126,6 +128,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="Panel2/Scroll1"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -133,5 +136,22 @@ offset_top = -32.0
 text = "Inventory"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="LabelUnitInfo" type="Label" parent="Panel2"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 704.0
+offset_top = 224.0
+offset_right = 864.0
+offset_bottom = 384.0
+
+[node name="TextureRectUnit" type="TextureRect" parent="Panel2"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 720.0
+offset_top = 96.0
+offset_right = 848.0
+offset_bottom = 224.0
+texture = ExtResource("6_qkjs0")
 
 [connection signal="button_down" from="Panel2/ButtonReady" to="." method="_on_button_ready_button_down"]

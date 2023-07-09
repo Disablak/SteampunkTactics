@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitSettings" load_steps=6 format=3 uid="uid://dvjjmneb2ovxf"]
+[gd_resource type="Resource" script_class="UnitSettingsResource" load_steps=6 format=3 uid="uid://dvjjmneb2ovxf"]
 
 [ext_resource type="Resource" uid="uid://dabprdc4kprjs" path="res://data/settings/weapon/riffle0.tres" id="1_u0bml"]
 [ext_resource type="Resource" uid="uid://b3cx06at4iy5h" path="res://data/settings/weapon/granade0.tres" id="2_p1bmc"]
