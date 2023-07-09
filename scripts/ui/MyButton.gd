@@ -17,6 +17,10 @@ func set_data(ability_settings: AbilitySettings):
 	tooltip_text = "some text"
 
 
+func get_data():
+	return _ability_setting_data
+
+
 func _get_text_abilitity() -> String:
 	if not _ability_setting_data:
 		return ""

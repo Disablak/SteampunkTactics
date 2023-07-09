@@ -13,10 +13,9 @@ extends Control
 
 var game_progress: GameProgress
 var callback_click_ready: Callable
+var dict_id_to_abilities = {} # unit id to array of abilities
 
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	unit_tabs.tab_changed.connect(_on_change_tab)
 
@@ -43,11 +42,20 @@ func move_to_unit_equip(btn: MyButton):
 	container_unit_equip.add_child(btn)
 	btn.click_action = func(): return move_to_available_equip(btn)
 
+	if dict_id_to_abilities.keys().has(unit_tabs.current_tab):
+		dict_id_to_abilities[unit_tabs.current_tab].append(btn.get_data())
+	else:
+		dict_id_to_abilities[unit_tabs.current_tab] = []
+		dict_id_to_abilities[unit_tabs.current_tab].append(btn.get_data())
+
 
 func move_to_available_equip(btn):
 	container_unit_equip.remove_child(btn)
 	container_available_equip.add_child(btn)
 	btn.click_action = func(): return move_to_unit_equip(btn)
+
+	if dict_id_to_abilities.keys().has(unit_tabs.current_tab):
+		dict_id_to_abilities[unit_tabs.current_tab].erase(btn.get_data())
 
 
 func _on_change_tab(id):
@@ -59,5 +67,13 @@ func show_unit_info(unit_setting: UnitSetting):
 
 
 func _on_button_ready_button_down() -> void:
+	_apply_settings()
+
 	visible = false
 	callback_click_ready.call()
+
+
+func _apply_settings():
+	for id in game_progress.units_setting.size():
+		game_progress.units_setting[id].abilities.assign(dict_id_to_abilities[id])
+
