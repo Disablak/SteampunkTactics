@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://bvwkx08fi3j4f" path="res://data/settings/utility ai/actions/ActionMoveToRandom.tres" id="2_226cl"]
 [ext_resource type="Resource" uid="uid://dabprdc4kprjs" path="res://data/settings/weapon/riffle0.tres" id="2_ybm50"]
-[ext_resource type="Script" path="res://scripts/settings/UnitSettingsResource.gd" id="7_xq26t"]
+[ext_resource type="Script" path="res://scripts/resources/UnitSettingsResource.gd" id="7_xq26t"]
 
 [resource]
 script = ExtResource("7_xq26t")
@@ -11,6 +11,6 @@ max_health = 20.0
 walk_speed = 10
 initiative = 10
 range_of_view = 5
-equips = Array[Resource("res://scripts/units/EquipBase.gd")]([])
-abilities = Array[Resource("res://scripts/settings/abilities/AbilitySettings.gd")]([ExtResource("2_ybm50")])
+equips = Array[Resource("res://scripts/resources/equips/EquipBase.gd")]([])
+abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([ExtResource("2_ybm50")])
 additional_ai_actions = Array[Resource("res://scripts/utility_ai/Action.gd")]([ExtResource("2_226cl")])

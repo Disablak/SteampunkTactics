@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EquipArmor" load_steps=2 format=3 uid="uid://dvdqtbcgasgll"]
 
-[ext_resource type="Script" path="res://scripts/units/EquipArmor.gd" id="1_dsqf8"]
+[ext_resource type="Script" path="res://scripts/resources/equips/EquipArmor.gd" id="1_dsqf8"]
 
 [resource]
 script = ExtResource("1_dsqf8")

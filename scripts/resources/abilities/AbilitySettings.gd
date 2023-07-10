@@ -1,5 +1,5 @@
 class_name AbilitySettings
-extends Resource
+extends SettingResource
 
 
 @export var ability_name: String
@@ -9,8 +9,6 @@ extends Resource
 
 @export_category("AI preset")
 @export var ai_preset: AiPreset
-
-var id: int = -1
 
 
 func _to_string() -> String:

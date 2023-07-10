@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ThrowItemSettings" load_steps=2 format=3 uid="uid://b3cx06at4iy5h"]
 
-[ext_resource type="Script" path="res://scripts/settings/abilities/ThrowItemSettings.gd" id="1_4jnnd"]
+[ext_resource type="Script" path="res://scripts/resources/abilities/ThrowItemSettings.gd" id="1_4jnnd"]
 
 [resource]
 script = ExtResource("1_4jnnd")

@@ -1,5 +1,5 @@
 class_name EquipBase
-extends Resource
+extends SettingResource
 
 
 @export var price: int = 0
