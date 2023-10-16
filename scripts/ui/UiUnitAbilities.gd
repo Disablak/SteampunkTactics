@@ -6,13 +6,14 @@ var all_btns_ability = {}
 
 
 func _ready() -> void:
-	GlobalBus.on_unit_updated_weapon.connect(_on_unit_changed_ammo)
+	GlobalBus.on_unit_updated_weapon.connect(_on_unit_updated_weapon)
 	GlobalBus.on_unit_changed_action.connect(_on_changed_action)
 
 
 func init(unit_data: UnitData):
 	_init_all_buttons(unit_data)
-	_on_unit_changed_ammo(unit_data.unit_id, unit_data.riffle)
+	_on_unit_updated_weapon(unit_data.unit_id, unit_data.riffle)
+	_on_unit_updated_weapon(unit_data.unit_id, unit_data.grenade)
 
 
 func _init_all_buttons(unit_data: UnitData):
@@ -32,20 +33,35 @@ func _on_clicked_ability(btn):
 	GlobalBus.on_clicked_ability.emit(btn.ability)
 
 
-func _on_unit_changed_ammo(unit_id, weapon):
-	if not GlobalMap.can_show_cur_unit():
+func _on_unit_updated_weapon(unit_id: int, weapon: AbilityData):
+	if not _can_show_updated_weapon(unit_id):
 		return
+
+	if weapon is RangedWeaponData:
+		_update_riffle_btn_text(weapon)
+	elif weapon is ThrowItemData:
+		_update_grenade_btn_text(weapon)
+
+
+func _can_show_updated_weapon(unit_id: int) -> bool:
+	if not GlobalMap.can_show_cur_unit():
+		return false
 
 	if unit_id != GlobalUnits.cur_unit_id:
-		return
-
-	if not weapon is RangedWeaponData:
-		return
+		return false
 
 	if all_btns_ability.size() == 0:
-		return
+		return false
 
-	all_btns_ability[UnitData.Abilities.SHOOT].text = "Shoot ({0}/{1})".format([weapon.cur_weapon_ammo, weapon.settings.max_ammo])
+	return true
+
+
+func _update_riffle_btn_text(riffle: RangedWeaponData):
+	all_btns_ability[UnitData.Abilities.SHOOT].text = "Shoot ({0}/{1})".format([riffle.cur_weapon_ammo, riffle.settings.max_ammo])
+
+
+func _update_grenade_btn_text(grenade: ThrowItemData):
+	all_btns_ability[UnitData.Abilities.GRENADE].text = "Grenade ({0}/{1})".format([grenade.cur_count, grenade.throw_item_settings.max_count])
 
 
 func _on_changed_action(_id, action):

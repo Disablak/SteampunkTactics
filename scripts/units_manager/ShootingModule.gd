@@ -240,10 +240,6 @@ func draw_trejectory_granade(grid_pos: Vector2i):
 		line2d_manager.clear_trajectory()
 		return
 
-	if not cur_unit.unit_data.visibility_data.visible_points.has(grid_pos):
-		line2d_manager.clear_trajectory()
-		return
-
 	var cell_pos = Globals.convert_to_cell_pos(grid_pos) + Globals.CELL_OFFSET
 	var distance := cur_unit.unit_object.position.distance_to(cell_pos) / Globals.CELL_SIZE
 	line2d_manager.draw_trajectory(cur_unit.unit_object.visual_pos, cell_pos, distance <= cur_unit.unit_data.grenade.settings.throw_distance)
