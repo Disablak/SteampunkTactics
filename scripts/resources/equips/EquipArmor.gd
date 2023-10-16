@@ -19,3 +19,6 @@ func get_stats() -> Array[UnitStat]:
 		]
 
 	return _cached_stats
+
+func _to_string() -> String:
+	return super._to_string() + "\n\nArmor {0}\nDamage resist {1}\nMove speed {2}".format([armor, dmg_resist, move_speed])

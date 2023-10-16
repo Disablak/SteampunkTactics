@@ -13,16 +13,17 @@ extends Control
 
 var game_progress: GameProgress
 var callback_click_ready: Callable
-var dict_id_to_abilities = {} # unit id to array of abilities
+var dict_id_to_abilities = {} # unit id to array of resources
 
 
 func _ready() -> void:
 	unit_tabs.tab_changed.connect(_on_change_tab)
 
-	for ability in GlobalDB.weapon_settings:
+	var all_resources = GlobalDB.weapon_settings + GlobalDB.equip_settings
+	for resource in all_resources:
 		var new_button: MyButton = button_scene.instantiate() as MyButton
-		new_button.text = ability.ability_name
-		new_button.set_data(ability)
+		new_button.text = resource.setting_name
+		new_button.set_data(resource)
 		new_button.click_action = func(): return move_to_unit_equip(new_button)
 		container_available_equip.add_child(new_button)
 

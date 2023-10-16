@@ -8,3 +8,7 @@ extends SettingResource
 
 func get_stats() -> Array[UnitStat]:
 	return []
+
+
+func _to_string() -> String:
+	return super._to_string() + "Price {0}\nWeight {1}".format([price, weight])

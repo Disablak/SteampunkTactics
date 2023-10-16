@@ -8,6 +8,7 @@ var equip_settings: Array[EquipBase]
 
 func _ready() -> void:
 	_load_weapons()
+	_load_equips()
 
 
 func _load_weapons():
@@ -24,10 +25,10 @@ func _load_equips():
 	var all_files = list_files_in_directory("res://data/settings/equips/")
 
 	for path in all_files:
-		var ability: EquipBase = load(path)
+		var equip: EquipBase = load(path)
 		cur_settings_id += 1
-		ability.id = cur_settings_id
-		weapon_settings.append(ability)
+		equip.id = cur_settings_id
+		equip_settings.append(equip)
 
 
 func list_files_in_directory(path):

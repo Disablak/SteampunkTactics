@@ -2,7 +2,7 @@ class_name MyButton
 extends Button
 
 
-var _ability_setting_data: AbilitySettings
+var _ability_setting_data: SettingResource
 var click_action: Callable
 
 
@@ -12,9 +12,8 @@ func _ready() -> void:
 	mouse_exited.connect(_on_mouse_exit)
 
 
-func set_data(ability_settings: AbilitySettings):
+func set_data(ability_settings: SettingResource):
 	_ability_setting_data = ability_settings
-	tooltip_text = "some text"
 
 
 func get_data():

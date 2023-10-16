@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_dsqf8")
 armor = 10
-dmg_resist = 0
-move_speed = 0
+dmg_resist = null
+move_speed = null
 price = 10
-weight = 1
+weight = null
+setting_name = "Light Armor"
