@@ -153,6 +153,7 @@ func _shoot(shooter: Unit) -> bool:
 	var hit_type: HitType = _get_shoot_result(shooter)
 	var hitted_obs: CellObject = obstacles.pick_random() if obstacles.size() > 0 else null
 
+	await GlobalsUi.input_system.camera_controller.center_camera_between_two_units(shooter, selected_enemy)
 	await effect_manager.shoot(shooter, selected_enemy, hit_type, cover_hit_pos, hitted_obs)
 
 	match hit_type:

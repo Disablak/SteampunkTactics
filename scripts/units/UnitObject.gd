@@ -67,13 +67,11 @@ func _ready() -> void:
 
 	_update_ai_settings()
 
-	mark_selected(false)
 	show_noticed_icon(false)
 
 
-func mark_selected(is_selected: bool):
-	#main_material.set_shader_parameter("line_thickness", 1.0 if is_selected else 0.0)
-	pass
+func mark_selected():
+	GlobalUnits.units_manager.effect_manager.select_unit_effect(position)
 
 
 func set_visibility(is_visible):

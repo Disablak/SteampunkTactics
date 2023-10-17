@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=30 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -16,8 +16,10 @@
 [ext_resource type="Script" path="res://scripts/utility_ai/BrainAI.gd" id="15_y513k"]
 [ext_resource type="PackedScene" uid="uid://bncbloimsnrob" path="res://scenes/visual/Bullet2D.tscn" id="16_n1bfs"]
 [ext_resource type="PackedScene" path="res://scenes/visual/FireEffect.tscn" id="17_e35id"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="18_23k8t"]
 [ext_resource type="PackedScene" path="res://scenes/visual/UnitDeathEffect.tscn" id="18_r4ev8"]
 [ext_resource type="PackedScene" uid="uid://fvlc1uhmwwsm" path="res://scenes/cells/CellHovered.tscn" id="18_yo8ds"]
+[ext_resource type="Texture2D" uid="uid://cusny8mc6uocn" path="res://content/sprites/gothic/selected_frame.tres" id="19_g0qgd"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
 [ext_resource type="Resource" uid="uid://du37tccrd2rlv" path="res://data/settings/utility ai/actions/ActionNextTurn.tres" id="21_5e2k3"]
 [ext_resource type="Script" path="res://scripts/pathfinding/FogOfWar.gd" id="22_hxmls"]
@@ -44,7 +46,7 @@ walkable_hint_cell_scene = ExtResource("6_vdct5")
 cell_damage_hint_scene = ExtResource("6_akxss")
 
 [node name="CellHovered" parent="UnitsManager/Pathfinding" instance=ExtResource("18_yo8ds")]
-position = Vector2(2.08165e-12, 2.08165e-12)
+position = Vector2(-1000, -1000)
 
 [node name="FogOfWar" type="Node2D" parent="UnitsManager/Pathfinding"]
 script = ExtResource("22_hxmls")
@@ -56,12 +58,16 @@ script = ExtResource("9_42fdl")
 [node name="ShootingModule" type="Node2D" parent="UnitsManager"]
 script = ExtResource("10_yumpn")
 
-[node name="EffectManager" type="Node2D" parent="UnitsManager"]
+[node name="EffectManager" type="Node2D" parent="UnitsManager" node_paths=PackedStringArray("selected_frame")]
 script = ExtResource("11_cpn0u")
+selected_frame = NodePath("SelectedFrame")
 bullet_scene = ExtResource("16_n1bfs")
 granede_scene = ExtResource("24_2p2qp")
 fire_effect_scene = ExtResource("17_e35id")
 unit_death_effect_scene = ExtResource("18_r4ev8")
+
+[node name="SelectedFrame" parent="UnitsManager/EffectManager" instance=ExtResource("18_23k8t")]
+texture = ExtResource("19_g0qgd")
 
 [node name="Raycaster" type="Node2D" parent="UnitsManager"]
 script = ExtResource("12_pdk27")

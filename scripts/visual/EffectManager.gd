@@ -2,21 +2,21 @@ class_name EffectManager
 extends Node2D
 
 
+@export var selected_frame: Node2D
+
 @export var bullet_scene: PackedScene
 @export var granede_scene: PackedScene
 @export var fire_effect_scene: PackedScene
 @export var unit_death_effect_scene: PackedScene
 
-signal on_moved_obj_to_points()
-
-const BULLET_SPEED = 2500
-const SHOOT_MISS_POS_LERP = [0.0, 0.1, 0.2, 0.3, 0.7, 0.8, 0.9, 1.0]
-const MISSED_BULLET_DISTANCE = 1000
-const MISS_MAX_BULLET_OFFSET = 5
 const FALLING_SPEED = 300
 
 var _line2d_manager: Line2dManager
 var _pathfinding: Pathfinding
+
+var _shoot_effect: ShootEffect
+var _grenade_effect: GrenadeEffect
+var _selected_unit_effect: SelectedUnitEffect
 
 
 func inject_data(line2d_manager: Line2dManager, pathfinding: Pathfinding):
@@ -24,104 +24,26 @@ func inject_data(line2d_manager: Line2dManager, pathfinding: Pathfinding):
 	self._pathfinding = pathfinding
 
 
+func init():
+	_selected_unit_effect = SelectedUnitEffect.new(selected_frame)
+	_shoot_effect = ShootEffect.new(bullet_scene, self)
+
+	var callback_create_tween: Callable = create_tween
+	_grenade_effect = GrenadeEffect.new(callback_create_tween, granede_scene, fire_effect_scene, self)
+
+
 func shoot(from: Unit, to: Unit, hit_type: ShootingModule.HitType, cover_pos: Vector2, random_obs: CellObject):
-	var from_pos: Vector2 = from.unit_object.visual_pos
-	var to_pos: Vector2 = to.unit_object.visual_pos
-
-	if hit_type == ShootingModule.HitType.HIT_IN_COVER:
-		to_pos = cover_pos
-	elif hit_type == ShootingModule.HitType.HIT_IN_OBS:
-		to_pos = random_obs.position
-	elif hit_type == ShootingModule.HitType.MISS:
-		to_pos = from_pos + _get_little_wrong_shoot_direction(to_pos - from_pos)
-
-	await GlobalsUi.input_system.camera_controller.center_camera_between_two_units(from, to)
-
-	var new_instance: Node2D = bullet_scene.instantiate()
-	add_child(new_instance)
-
-	new_instance.position = from_pos
-	new_instance.look_at(to_pos)
-
-	var distance = from_pos.distance_to(to_pos)
-	var time = distance / BULLET_SPEED
-
-	var tween: Tween = create_tween()
-	tween.tween_property(
-		new_instance, "position",
-		to_pos, time
-	)
-	tween.tween_callback(Callable(new_instance,"queue_free"))
-	await tween.finished
-
-
-func _get_little_wrong_shoot_direction(shoot_vector: Vector2) -> Vector2:
-	var dir: Vector2 = shoot_vector.normalized()
-	var degree = Vector2.RIGHT.angle_to(dir) + PI / 2
-	var vec_perpen = Vector2.from_angle(degree) * MISS_MAX_BULLET_OFFSET
-
-	var random_offset = lerp(-vec_perpen, vec_perpen, SHOOT_MISS_POS_LERP.pick_random())
-	var with_big_length: Vector2 = (shoot_vector + random_offset).normalized() * MISSED_BULLET_DISTANCE
-
-	return with_big_length
+	await _shoot_effect.play(create_tween(), from, to, hit_type, cover_pos, random_obs)
 
 
 func granade(cells: Array[CellInfo]):
-	var granede_instance: Node2D = granede_scene.instantiate()
-	add_child(granede_instance)
-
-	_move_obj_to_points(granede_instance, _line2d_manager.line2d_trajectory.points, 200)
-	await on_moved_obj_to_points
-	granede_instance.queue_free()
-
-	for cell_info in cells:
-		if (not cell_info.is_ground and not cell_info.cell_obj) or (cell_info.cell_obj and cell_info.cell_obj.cell_type == CellObject.CellType.OBSTACLE):
-			continue
-
-		var new_fire: Node2D = fire_effect_scene.instantiate()
-		add_child(new_fire)
-
-		new_fire.position = Globals.convert_to_cell_pos(cell_info.grid_pos) + Globals.CELL_OFFSET
-
-		var tween: Tween = create_tween()
-		tween.tween_property(
-			new_fire, "scale",
-			Vector2.ZERO, 1.0
-		)
-		tween.tween_callback(Callable(new_fire, "queue_free"))
-
-
-func _move_obj_to_points(object: Node2D, points: Array[Vector2], speed: int):
-	var tween_move: Tween
-	var cur_target_id := 0
-
-	for point in points:
-		if cur_target_id == points.size() - 1:
-			on_moved_obj_to_points.emit()
-			return
-
-		var start_point = points[cur_target_id]
-		var finish_point = points[cur_target_id + 1]
-		var time_move = start_point.distance_to(finish_point) / speed
-
-		tween_move = get_tree().create_tween()
-		tween_move.tween_property(
-			object,
-			"position",
-			finish_point,
-			time_move
-		).from(start_point)
-
-		cur_target_id += 1
-
-		await tween_move.finished
+	_grenade_effect.play(cells, _line2d_manager.line2d_trajectory.points)
 
 
 func death_effect(pos: Vector2, unit_texture_region):
 	var effect = unit_death_effect_scene.instantiate()
 	add_child(effect)
 	effect.position = pos + Globals.CELL_OFFSET
-
 	effect.play_effect(unit_texture_region)
 
 
@@ -138,4 +60,7 @@ func falling_effect(unit_object: UnitObject):
 
 	await tween.finished
 
+
+func select_unit_effect(pos: Vector2):
+	_selected_unit_effect.play_effect(create_tween(), pos)
 

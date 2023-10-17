@@ -37,6 +37,7 @@ func _ready() -> void:
 func init(unit_settings: Array[UnitSetting]):
 	_init_units(unit_settings)
 	pathfinding.init()
+	effect_manager.init()
 	brain_ai.init()
 
 	walking.set_data(pathfinding, _on_finish_move)
@@ -172,7 +173,6 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	shooting.clear_malee_attack_hints()
 
 	if cur_unit_object != null:
-		cur_unit_object.mark_selected(false)
 		cur_unit_object.show_noticed_icon(false)
 		cur_unit_data.visibility_data.clear_enemies_saw()
 
@@ -180,7 +180,7 @@ func set_unit_control(unit_id, camera_focus_instantly: bool = false):
 	cur_unit_id = unit_id
 	cur_unit_data = units[unit_id].unit_data
 	cur_unit_object = units[unit_id].unit_object
-	cur_unit_object.mark_selected(true)
+	cur_unit_object.mark_selected()
 
 	TurnManager.restore_time_points()
 	walking.set_cur_unit(units[unit_id])
