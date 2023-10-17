@@ -10,9 +10,9 @@
 [ext_resource type="Script" path="res://scripts/units_manager/WalkingModule.gd" id="9_42fdl"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="10_yja2f"]
 [ext_resource type="Script" path="res://scripts/units_manager/ShootingModule.gd" id="10_yumpn"]
-[ext_resource type="Script" path="res://scripts/visual/EffectManager.gd" id="11_cpn0u"]
 [ext_resource type="Script" path="res://scripts/CameraController.gd" id="11_sv5rh"]
 [ext_resource type="Script" path="res://scripts/Raycaster.gd" id="12_pdk27"]
+[ext_resource type="Script" path="res://scripts/visual/effects/EffectManager.gd" id="13_rcon8"]
 [ext_resource type="Script" path="res://scripts/utility_ai/BrainAI.gd" id="15_y513k"]
 [ext_resource type="PackedScene" uid="uid://bncbloimsnrob" path="res://scenes/visual/Bullet2D.tscn" id="16_n1bfs"]
 [ext_resource type="PackedScene" path="res://scenes/visual/FireEffect.tscn" id="17_e35id"]
@@ -59,7 +59,7 @@ script = ExtResource("9_42fdl")
 script = ExtResource("10_yumpn")
 
 [node name="EffectManager" type="Node2D" parent="UnitsManager" node_paths=PackedStringArray("selected_frame")]
-script = ExtResource("11_cpn0u")
+script = ExtResource("13_rcon8")
 selected_frame = NodePath("SelectedFrame")
 bullet_scene = ExtResource("16_n1bfs")
 granede_scene = ExtResource("24_2p2qp")
