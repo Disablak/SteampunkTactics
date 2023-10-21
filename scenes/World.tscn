@@ -1,8 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=29 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
-[ext_resource type="PackedScene" path="res://scenes/levels/Playground.tscn" id="2_eiugl"]
 [ext_resource type="PackedScene" uid="uid://b7e6t7lpdt88j" path="res://scenes/levels/Level_1.tscn" id="3_r1xiw"]
 [ext_resource type="PackedScene" uid="uid://k27klyg28o74" path="res://scenes/cells/HintDamage.tscn" id="6_akxss"]
 [ext_resource type="PackedScene" uid="uid://cwx8drbr53vsv" path="res://scenes/cells/WalkableHintCell.tscn" id="6_vdct5"]
@@ -33,7 +32,7 @@
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_vidxh")
-level_scenes = Array[PackedScene]([ExtResource("2_eiugl"), ExtResource("3_r1xiw")])
+level_scenes = Array[PackedScene]([ExtResource("3_r1xiw")])
 
 [node name="UnitsManager" type="Node2D" parent="."]
 script = ExtResource("2_1pgd0")

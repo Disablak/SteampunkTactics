@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://wskuj41i0vmj" path="res://scenes/cells/components/CellCompInteractable.tscn" id="4_gn1jm"]
 
 [node name="CellDoorlHorizontal" instance=ExtResource("1_ftijc")]
+cell_type = 5
 
 [node name="CompVisual" parent="." index="1"]
 texture = ExtResource("2_y6qxb")

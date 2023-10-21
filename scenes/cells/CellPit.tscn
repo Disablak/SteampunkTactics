@@ -9,5 +9,6 @@ self_modulate = Color(1, 0, 0, 0.713726)
 texture = ExtResource("1_kfa5g")
 centered = false
 script = ExtResource("2_dl3h7")
+cell_type = 6
 
 [node name="CellCompPit" parent="." instance=ExtResource("3_r1fow")]

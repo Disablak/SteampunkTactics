@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://b7e6t7lpdt88j"]
+[gd_scene load_steps=47 format=3 uid="uid://b7e6t7lpdt88j"]
 
 [ext_resource type="PackedScene" uid="uid://cstpofqr23a2f" path="res://scenes/levels/BaseLevel.tscn" id="1_6s7x3"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_2e1o5"]
@@ -33,7 +33,6 @@
 [ext_resource type="PackedScene" uid="uid://d2gynj1adpgis" path="res://scenes/cells/CellPit.tscn" id="26_pa7om"]
 [ext_resource type="Texture2D" uid="uid://dwjydh7c7jash" path="res://content/sprites/gothic/background/pillar0.tres" id="26_rybeh"]
 [ext_resource type="Texture2D" uid="uid://cp02rl68nu4xd" path="res://content/sprites/gothic/background/pillar1.tres" id="27_jqre7"]
-[ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellTree.tscn" id="27_pvw4u"]
 [ext_resource type="Texture2D" uid="uid://c6gnf6y46grbq" path="res://content/sprites/gothic/background/pillar2.tres" id="28_tdhtw"]
 [ext_resource type="Texture2D" uid="uid://bvcf1aubdkrel" path="res://content/sprites/gothic/background/pillar3.tres" id="29_4cnd1"]
 [ext_resource type="Texture2D" uid="uid://yd5rj40ax31x" path="res://content/sprites/gothic/background/bridge_pillar_detail0.tres" id="30_scfj7"]
@@ -42,6 +41,8 @@
 [ext_resource type="Texture2D" uid="uid://bp8pvquloxpha" path="res://content/sprites/gothic/background/ground4.tres" id="33_nmfns"]
 [ext_resource type="Texture2D" uid="uid://by6choylbw061" path="res://content/sprites/gothic/background/ground5.tres" id="34_v0vpy"]
 [ext_resource type="Texture2D" uid="uid://coa5q5k0pkspf" path="res://content/sprites/gothic/background/statue0.tres" id="35_qrgri"]
+[ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellObstacle.tscn" id="36_m6xd1"]
+[ext_resource type="PackedScene" uid="uid://dl767lnvatxbd" path="res://scenes/cells/CellBarrel.tscn" id="38_7rrn5"]
 [ext_resource type="Script" path="res://scripts/resources/AiSettings.gd" id="40_t7joc"]
 
 [sub_resource type="Resource" id="Resource_sqpsk"]
@@ -547,13 +548,18 @@ position = Vector2(224, 128)
 [node name="CellPit32" parent="RootObsCells" index="31" instance=ExtResource("26_pa7om")]
 position = Vector2(240, 128)
 
-[node name="CellObstacle" parent="RootObsCells" index="32" instance=ExtResource("27_pvw4u")]
+[node name="CellObstacle" parent="RootObsCells" index="32" instance=ExtResource("36_m6xd1")]
 position = Vector2(160, 0)
+cell_type = 4
 
 [node name="CompVisual" parent="RootObsCells/CellObstacle" index="0"]
 position = Vector2(-8, 16)
 texture = ExtResource("35_qrgri")
 offset = Vector2(2.08165e-12, -48)
+
+[node name="CellBarrel" parent="RootObsCells" index="33" instance=ExtResource("38_7rrn5")]
+position = Vector2(192, 48)
+cell_type = 4
 
 [node name="Player" parent="RootUnits" index="0" instance=ExtResource("3_s8jjc")]
 position = Vector2(96, 32)

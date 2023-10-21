@@ -7,6 +7,7 @@
 [node name="CellWallHorizontal" instance=ExtResource("1_djgji")]
 texture_filter = 1
 texture = null
+cell_type = 2
 
 [node name="CompVisual" parent="." index="1" instance=ExtResource("2_ua3lm")]
 position = Vector2(2.08165e-12, 2.08165e-12)
