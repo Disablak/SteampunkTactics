@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://rplghuj625kd"]
+
+[ext_resource type="Script" path="res://scripts/navigation/MyNavigationRegion.gd" id="1_jskcq"]
+[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_vsl4e"]
+[ext_resource type="Script" path="res://scenes/levels/test path move.gd" id="3_nokh1"]
+[ext_resource type="Texture2D" uid="uid://cwvtjwrec6b0g" path="res://content/sprites/gothic/units/player.tres" id="4_ue2k8"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lwm2i"]
+
+[node name="BaseLevelNew" type="NavigationRegion2D" node_paths=PackedStringArray("collision_polygone_test_0", "collision_polygone_test_1", "collision_polygone_test_2", "collision_polygone_test_3")]
+navigation_polygon = SubResource("NavigationPolygon_lwm2i")
+script = ExtResource("1_jskcq")
+inner_radius = 20.0
+collision_polygone_test_0 = NodePath("BattleGround/GroundCollisionPolygon2D")
+collision_polygone_test_1 = NodePath("Sprite2D/CollisionPolygon2D")
+collision_polygone_test_2 = NodePath("Sprite2D3/CollisionPolygon2D")
+collision_polygone_test_3 = NodePath("")
+
+[node name="BattleGround" type="Sprite2D" parent="."]
+modulate = Color(0.203922, 0.341176, 0.360784, 0.478431)
+position = Vector2(96, 23)
+scale = Vector2(50, 30)
+texture = ExtResource("2_vsl4e")
+centered = false
+
+[node name="GroundCollisionPolygon2D" type="CollisionPolygon2D" parent="BattleGround"]
+scale = Vector2(0.02, 0.0333333)
+polygon = PackedVector2Array(2.08165e-12, 2.08165e-12, 800, 2.08165e-12, 800, 480, 2.08165e-12, 480)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(363, 34)
+scale = Vector2(5, 5)
+texture = ExtResource("2_vsl4e")
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D"]
+polygon = PackedVector2Array(2.08165e-12, 2.08165e-12, 16, 2.08165e-12, 16, 16, 2.08165e-12, 16)
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(552, 105)
+scale = Vector2(5, 5)
+texture = ExtResource("2_vsl4e")
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D3"]
+polygon = PackedVector2Array(2.08165e-12, 2.08165e-12, 16, 2.08165e-12, 16, 16, 2.08165e-12, 16)
+
+[node name="Sprite2D2" type="CharacterBody2D" parent="."]
+position = Vector2(204, 321)
+script = ExtResource("3_nokh1")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Sprite2D2"]
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_line_width = 5.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D2"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+scale = Vector2(5, 5)
+texture = ExtResource("4_ue2k8")
