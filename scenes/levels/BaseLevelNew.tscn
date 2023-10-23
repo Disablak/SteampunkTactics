@@ -1,16 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://rplghuj625kd"]
+[gd_scene load_steps=5 format=3 uid="uid://rplghuj625kd"]
 
 [ext_resource type="Script" path="res://scripts/navigation/MyNavigationRegion.gd" id="1_jskcq"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_vsl4e"]
 [ext_resource type="Script" path="res://scenes/levels/test path move.gd" id="3_nokh1"]
 [ext_resource type="Texture2D" uid="uid://cwvtjwrec6b0g" path="res://content/sprites/gothic/units/player.tres" id="4_ue2k8"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_lwm2i"]
-
 [node name="BaseLevelNew" type="NavigationRegion2D" node_paths=PackedStringArray("collision_battleground", "collision_objects")]
-navigation_polygon = SubResource("NavigationPolygon_lwm2i")
 script = ExtResource("1_jskcq")
-inner_radius = 20.0
 collision_battleground = NodePath("BattleGround/GroundCollisionPolygon2D")
 collision_objects = [NodePath("Sprite2D/CollisionPolygon2D"), NodePath("Sprite2D3/CollisionPolygon2D"), NodePath("Sprite2D4/CollisionPolygon2D"), NodePath("Sprite2D5/CollisionPolygon2D")]
 

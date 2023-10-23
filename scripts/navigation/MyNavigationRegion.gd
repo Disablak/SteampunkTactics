@@ -1,8 +1,8 @@
-class_name MyNavigationRegion
+class_name NavigationRegionGenerator
 extends NavigationRegion2D
 
 
-@export var inner_radius: float = 10
+@export var obstacle_offset: float = 10
 @export var collision_battleground: CollisionPolygon2D
 @export var collision_objects: Array[CollisionPolygon2D]
 
@@ -16,20 +16,26 @@ class PolygonObstacle extends RefCounted:
 	var polygon: PackedVector2Array
 
 
-
 func _ready():
-	_update_nav_polygon()
+	_regenerate_nav_polygon()
 
 	await get_tree().create_timer(2).timeout
 	collision_objects.erase(collision_objects.pick_random())
-	_update_nav_polygon()
+	_regenerate_nav_polygon()
 	print("update")
 
 
-func _update_nav_polygon():
+func update_nav_region(battleground: CollisionPolygon2D, objects: Array[CollisionPolygon2D]):
+	collision_battleground = battleground
+	collision_objects = objects
+
+	_regenerate_nav_polygon()
+
+
+func _regenerate_nav_polygon():
 	_new_navigation_polygon = NavigationPolygon.new()
 
-	var battleground_polygon := create_polygon_from_collision_polygon(collision_battleground)
+	var battleground_polygon := _create_polygon_from_collision_polygon(collision_battleground)
 	_new_navigation_polygon.add_outline(battleground_polygon)
 
 	_polygon_obstacles = []
@@ -44,7 +50,7 @@ func _create_polygon_obstacle_from_collision_polygon():
 	for coll_pol in collision_objects:
 		var polygon_obstacle := PolygonObstacle.new()
 		polygon_obstacle.merged_collision_polygones = [coll_pol]
-		polygon_obstacle.polygon = create_polygon_from_collision_polygon(coll_pol)
+		polygon_obstacle.polygon = _create_polygon_from_collision_polygon(coll_pol)
 		_polygon_obstacles.append(polygon_obstacle)
 
 
@@ -54,7 +60,7 @@ func _try_to_merge_polygon_obstacles():
 			if pol_obs_0 == pol_obs_1:
 				continue
 
-			if not is_polygones_intersects(pol_obs_0.polygon, pol_obs_1.polygon):
+			if not _is_polygones_intersects(pol_obs_0.polygon, pol_obs_1.polygon):
 				continue
 
 			_merge_polygon_obstacles_and_remove_second(pol_obs_0, pol_obs_1)
@@ -75,80 +81,31 @@ func _add_obstacles_to_nav_polygon():
 	_new_navigation_polygon.make_polygons_from_outlines()
 
 
-func find_and_merge_polygones():
-	for raw_collision_0 in collision_objects:
-		for raw_collision_1 in collision_objects:
-			if raw_collision_0 == raw_collision_1:
-				continue
-
-			var polygon_0 := create_polygon_from_collision_polygon(raw_collision_0)
-			var polygon_1 := create_polygon_from_collision_polygon(raw_collision_1)
-
-			if is_polygones_intersects(polygon_0, polygon_1):
-				if is_polygon_exist([raw_collision_0, raw_collision_1]):
-					continue
-
-				var merged_polygones := Geometry2D.merge_polygons(polygon_0, polygon_1)
-				var polygon_obstacle: PolygonObstacle = PolygonObstacle.new()
-				polygon_obstacle.merged_collision_polygones.append_array([raw_collision_0, raw_collision_1])
-				polygon_obstacle.polygon = merged_polygones[0]
-				_polygon_obstacles.append(polygon_obstacle)
-
-
-func find_others_collision_and_merge():
-	for polygon_obstacle in _polygon_obstacles:
-		for raw_collision in collision_objects:
-			var polygon := create_polygon_from_collision_polygon(raw_collision)
-
-			if not is_polygones_intersects(polygon, polygon_obstacle.polygon):
-				continue
-
-			if is_polygon_exist([raw_collision]):
-				continue
-
-			var merged_polygones := Geometry2D.merge_polygons(polygon, polygon_obstacle.polygon)
-			polygon_obstacle.merged_collision_polygones.append(raw_collision)
-			polygon_obstacle.polygon = merged_polygones[0]
-			find_others_collision_and_merge()
-			break
-
-
-
-func is_polygones_intersects(polygon_0: PackedVector2Array, polygon_1: PackedVector2Array) -> bool:
+func _is_polygones_intersects(polygon_0: PackedVector2Array, polygon_1: PackedVector2Array) -> bool:
 	var merged := Geometry2D.merge_polygons(polygon_0, polygon_1)
 	return merged.size() == 1
 
 
-func is_such_polygon_exists(collision_0: CollisionPolygon2D, collision_1: CollisionPolygon2D) -> bool:
-	var lambda = func(x: PolygonObstacle): return x.merged_collision_polygones.has(collision_0) && x.merged_collision_polygones.has(collision_1)
-	return _polygon_obstacles.any(lambda)
 
-func is_polygon_exist(collisions: Array[CollisionPolygon2D]) -> bool:
-	for polygon_obstacle in _polygon_obstacles:
-		if collisions.size() == polygon_obstacle.merged_collision_polygones.size():
-			if collisions.all(func (x: CollisionPolygon2D): return polygon_obstacle.merged_collision_polygones.has(x)):
-				return true
-
-	return false
-
-
-func parse_2d_collisionshapes(root_node: Node2D):
+func _parse_2d_collisionshapes(root_node: Node2D):
 	for node in root_node.get_children():
+		if not node.visible:
+			continue
 
 		if node.get_child_count() > 0:
-			parse_2d_collisionshapes(node)
+			_parse_2d_collisionshapes(node)
 
 		if node is CollisionPolygon2D:
-			_new_navigation_polygon.add_outline(create_polygon_from_collision_polygon(node))
+			_new_navigation_polygon.add_outline(_create_polygon_from_collision_polygon(node))
 
 
-func create_polygon_from_collision_polygon(collision_polygone: CollisionPolygon2D) -> PackedVector2Array:
+func _create_polygon_from_collision_polygon(collision_polygone: CollisionPolygon2D) -> PackedVector2Array:
 	var collisionpolygon_transform: Transform2D = collision_polygone.get_global_transform()
 	var collisionpolygon: PackedVector2Array = collision_polygone.polygon
 
 	var new_collision_outline: PackedVector2Array = collisionpolygon_transform * collisionpolygon
 
-	var radius: float = 0 if collision_polygone.name == "GroundCollisionPolygon2D" else inner_radius
+	var radius: float = 0 if collision_polygone.name == "GroundCollisionPolygon2D" else obstacle_offset
 	var collision_outline_with_radius: Array[PackedVector2Array] = Geometry2D.offset_polygon(new_collision_outline, radius)
 
 	return collision_outline_with_radius[0]
