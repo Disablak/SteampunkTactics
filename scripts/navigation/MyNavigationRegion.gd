@@ -3,9 +3,9 @@ extends NavigationRegion2D
 
 
 @export var obstacle_offset: float = 10
-@export var collision_battleground: CollisionPolygon2D
-@export var collision_objects: Array[CollisionPolygon2D]
 
+var collision_battleground: CollisionPolygon2D
+var collision_objects: Array[CollisionPolygon2D]
 
 var _new_navigation_polygon: NavigationPolygon = get_navigation_polygon()
 var _polygon_obstacles: Array[PolygonObstacle]
@@ -14,15 +14,6 @@ var _polygon_obstacles: Array[PolygonObstacle]
 class PolygonObstacle extends RefCounted:
 	var merged_collision_polygones: Array[CollisionPolygon2D]
 	var polygon: PackedVector2Array
-
-
-func _ready():
-	_regenerate_nav_polygon()
-
-	await get_tree().create_timer(2).timeout
-	collision_objects.erase(collision_objects.pick_random())
-	_regenerate_nav_polygon()
-	print("update")
 
 
 func update_nav_region(battleground: CollisionPolygon2D, objects: Array[CollisionPolygon2D]):
@@ -35,8 +26,9 @@ func update_nav_region(battleground: CollisionPolygon2D, objects: Array[Collisio
 func _regenerate_nav_polygon():
 	_new_navigation_polygon = NavigationPolygon.new()
 
-	var battleground_polygon := _create_polygon_from_collision_polygon(collision_battleground)
+	var battleground_polygon := _create_polygon_from_collision_polygon(collision_battleground, false)
 	_new_navigation_polygon.add_outline(battleground_polygon)
+	_new_navigation_polygon.make_polygons_from_outlines()
 
 	_polygon_obstacles = []
 	_create_polygon_obstacle_from_collision_polygon()
@@ -99,13 +91,13 @@ func _parse_2d_collisionshapes(root_node: Node2D):
 			_new_navigation_polygon.add_outline(_create_polygon_from_collision_polygon(node))
 
 
-func _create_polygon_from_collision_polygon(collision_polygone: CollisionPolygon2D) -> PackedVector2Array:
+func _create_polygon_from_collision_polygon(collision_polygone: CollisionPolygon2D, apply_radius = true) -> PackedVector2Array:
 	var collisionpolygon_transform: Transform2D = collision_polygone.get_global_transform()
 	var collisionpolygon: PackedVector2Array = collision_polygone.polygon
 
 	var new_collision_outline: PackedVector2Array = collisionpolygon_transform * collisionpolygon
 
-	var radius: float = 0 if collision_polygone.name == "GroundCollisionPolygon2D" else obstacle_offset
+	var radius: float = obstacle_offset if apply_radius else 0.0
 	var collision_outline_with_radius: Array[PackedVector2Array] = Geometry2D.offset_polygon(new_collision_outline, radius)
 
 	return collision_outline_with_radius[0]

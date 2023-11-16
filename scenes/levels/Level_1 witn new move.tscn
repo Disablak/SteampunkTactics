@@ -1,0 +1,694 @@
+[gd_scene load_steps=58 format=3 uid="uid://du6xcv567vuwr"]
+
+[ext_resource type="Script" path="res://scripts/navigation/LevelNavigation.gd" id="1_quk21"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_36nt1"]
+[ext_resource type="PackedScene" uid="uid://bhohr4686scjx" path="res://scenes/levels/components/NavigationRegionGenerator.tscn" id="2_kjput"]
+[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="3_8ipmm"]
+[ext_resource type="PackedScene" uid="uid://deiwiskh30hey" path="res://scenes/levels/components/ObjectSelector.tscn" id="3_y4i07"]
+[ext_resource type="Texture2D" uid="uid://dgu24ji0v3151" path="res://content/sprites/gothic/background/cloud0.tres" id="4_c62vu"]
+[ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="4_n82fm"]
+[ext_resource type="PackedScene" uid="uid://edjed5ijg5x1" path="res://scenes/2d/Collision.tscn" id="5_5ibfe"]
+[ext_resource type="Texture2D" uid="uid://dio1flrtagxal" path="res://content/sprites/gothic/background/cloud1.tres" id="5_ucrb5"]
+[ext_resource type="Texture2D" uid="uid://cbnhvk2iygn3o" path="res://content/sprites/gothic/background/cloud2.tres" id="6_e1vdr"]
+[ext_resource type="Texture2D" uid="uid://dikfh8plutdfs" path="res://content/sprites/gothic/background/cloud3.tres" id="7_76ai3"]
+[ext_resource type="Texture2D" uid="uid://w3tnd2y22h83" path="res://content/sprites/gothic/background/bridge_pillar.tres" id="8_ndyy1"]
+[ext_resource type="Texture2D" uid="uid://1xxay4xsagly" path="res://content/sprites/gothic/background/side0.tres" id="9_7a5iy"]
+[ext_resource type="Texture2D" uid="uid://cq1gugbtx53uq" path="res://content/sprites/gothic/background/side1.tres" id="10_482rt"]
+[ext_resource type="Texture2D" uid="uid://bho4ygohhfyql" path="res://content/sprites/gothic/background/side6.tres" id="11_3trfw"]
+[ext_resource type="Texture2D" uid="uid://gx14kk6e6w62" path="res://content/sprites/gothic/background/side5.tres" id="12_p7fi3"]
+[ext_resource type="Texture2D" uid="uid://u38qkvqtobun" path="res://content/sprites/gothic/background/side4.tres" id="13_8fexh"]
+[ext_resource type="Texture2D" uid="uid://v2koeklyy7nb" path="res://content/sprites/gothic/background/border0.tres" id="14_fripv"]
+[ext_resource type="Texture2D" uid="uid://bagc5sgeunmom" path="res://content/sprites/gothic/background/border2.tres" id="15_7rhfn"]
+[ext_resource type="Texture2D" uid="uid://bsnn5dw3c35bg" path="res://content/sprites/gothic/background/border3.tres" id="16_0co0h"]
+[ext_resource type="Texture2D" uid="uid://buj1gm3or4nb" path="res://content/sprites/gothic/background/border7.tres" id="17_msigq"]
+[ext_resource type="Texture2D" uid="uid://dn26d3exvsxrg" path="res://content/sprites/gothic/background/border5.tres" id="18_ib5w0"]
+[ext_resource type="Texture2D" uid="uid://l4wxk8w2olgm" path="res://content/sprites/gothic/background/border1.tres" id="19_knbax"]
+[ext_resource type="Texture2D" uid="uid://c6hyox3y2o2kj" path="res://content/sprites/gothic/background/border4.tres" id="20_jqc2f"]
+[ext_resource type="Texture2D" uid="uid://vit5f4rxjgv8" path="res://content/sprites/gothic/background/border6.tres" id="21_u3a0k"]
+[ext_resource type="Texture2D" uid="uid://7n83p0pqpguk" path="res://content/sprites/gothic/background/rock0.tres" id="22_1ccnd"]
+[ext_resource type="Texture2D" uid="uid://cxsp7terxmcim" path="res://content/sprites/gothic/background/ground0.tres" id="23_3rt51"]
+[ext_resource type="Texture2D" uid="uid://24yo3go3whx3" path="res://content/sprites/gothic/background/ground2.tres" id="24_qtx4q"]
+[ext_resource type="Texture2D" uid="uid://lxxpi74mdawy" path="res://content/sprites/gothic/background/ground1.tres" id="25_na26a"]
+[ext_resource type="Texture2D" uid="uid://dwjydh7c7jash" path="res://content/sprites/gothic/background/pillar0.tres" id="26_hk5en"]
+[ext_resource type="Texture2D" uid="uid://cp02rl68nu4xd" path="res://content/sprites/gothic/background/pillar1.tres" id="27_8xwmk"]
+[ext_resource type="Texture2D" uid="uid://c6gnf6y46grbq" path="res://content/sprites/gothic/background/pillar2.tres" id="28_otrv7"]
+[ext_resource type="Texture2D" uid="uid://bvcf1aubdkrel" path="res://content/sprites/gothic/background/pillar3.tres" id="29_tjtut"]
+[ext_resource type="Texture2D" uid="uid://yd5rj40ax31x" path="res://content/sprites/gothic/background/bridge_pillar_detail0.tres" id="30_5e0nv"]
+[ext_resource type="Texture2D" uid="uid://dal5k4l6ut55o" path="res://content/sprites/gothic/background/vertical0.tres" id="31_qutfn"]
+[ext_resource type="Texture2D" uid="uid://bjciwimkc3i72" path="res://content/sprites/gothic/background/ground3.tres" id="32_mhvpi"]
+[ext_resource type="Texture2D" uid="uid://bp8pvquloxpha" path="res://content/sprites/gothic/background/ground4.tres" id="33_fwb3g"]
+[ext_resource type="Texture2D" uid="uid://by6choylbw061" path="res://content/sprites/gothic/background/ground5.tres" id="34_yhms0"]
+[ext_resource type="PackedScene" uid="uid://d2gynj1adpgis" path="res://scenes/cells/CellPit.tscn" id="35_ngutv"]
+[ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellObstacle.tscn" id="36_5653b"]
+[ext_resource type="Texture2D" uid="uid://coa5q5k0pkspf" path="res://content/sprites/gothic/background/statue0.tres" id="37_88y2m"]
+[ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/2d/UnitObject.tscn" id="39_nfs43"]
+[ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="40_5iore"]
+[ext_resource type="Resource" uid="uid://w2vn8wuadrmx" path="res://data/settings/unit/level1/lvl1_unit0.tres" id="40_jqo2r"]
+[ext_resource type="Texture2D" uid="uid://ciry2hpepxf06" path="res://content/sprites/gothic/units/player1.tres" id="41_7rcj8"]
+[ext_resource type="Script" path="res://scripts/resources/AiSettings.gd" id="41_hxk06"]
+[ext_resource type="Texture2D" uid="uid://b1h0pwlirgbvt" path="res://content/sprites/gothic/units/enemy0.tres" id="42_ed2ht"]
+[ext_resource type="Texture2D" uid="uid://b6e5yn1juhul0" path="res://content/sprites/gothic/noticed_icon.tres" id="42_k3tcw"]
+[ext_resource type="Resource" uid="uid://criftwds0pgl7" path="res://data/settings/unit/level1/lvl1_unit1.tres" id="43_3adi3"]
+[ext_resource type="PackedScene" uid="uid://clvk0kxtgfpgg" path="res://scenes/2d/HealthBar.tscn" id="43_q53lv"]
+[ext_resource type="Texture2D" uid="uid://cwni0rwde87bc" path="res://content/sprites/gothic/units/enemy1.tres" id="44_350s8"]
+[ext_resource type="Script" path="res://scenes/levels/InteractableStaticBody.gd" id="44_ikmmq"]
+[ext_resource type="Script" path="res://scripts/cells/CellObject.gd" id="51_k5kbp"]
+[ext_resource type="PackedScene" uid="uid://ni28vw8lfi3a" path="res://scenes/cells/components/CellCompHealth.tscn" id="52_5l04s"]
+[ext_resource type="Texture2D" uid="uid://bfbi6hcg0i7i3" path="res://content/sprites/gothic/obstacle_2.tres" id="53_yg7et"]
+
+[sub_resource type="Resource" id="Resource_sqpsk"]
+script = ExtResource("41_hxk06")
+walking_zone_node_path = NodePath("../../VisualObject")
+patrul_zones_paths = Array[NodePath]([])
+
+[sub_resource type="Resource" id="Resource_qguqj"]
+script = ExtResource("41_hxk06")
+walking_zone_node_path = NodePath("../../VisualObject2")
+patrul_zones_paths = Array[NodePath]([])
+
+[node name="Level_1" type="Node2D" node_paths=PackedStringArray("camera", "navigation_region_generator", "collision_battleground", "object_selector", "player", "line2d_manager")]
+script = ExtResource("1_quk21")
+camera = NodePath("Camera2D")
+navigation_region_generator = NodePath("NavigationRegionGenerator")
+collision_battleground = NodePath("RootWalkCells/Ground/Collision")
+object_selector = NodePath("ObjectsSelector")
+player = NodePath("RootUnits/Player")
+line2d_manager = NodePath("Line2dManager")
+
+[node name="NavigationRegionGenerator" parent="." instance=ExtResource("2_kjput")]
+
+[node name="ObjectsSelector" parent="." instance=ExtResource("3_y4i07")]
+
+[node name="Line2dManager" parent="." instance=ExtResource("4_n82fm")]
+
+[node name="RootWalkCells" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Ground" parent="RootWalkCells" instance=ExtResource("2_36nt1")]
+self_modulate = Color(0.419608, 0.419608, 0.231373, 0.223529)
+top_level = true
+scale = Vector2(16, 8)
+texture = ExtResource("3_8ipmm")
+
+[node name="Collision" type="CollisionPolygon2D" parent="RootWalkCells/Ground"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+polygon = PackedVector2Array(2.08165e-12, 2.08165e-12, 16, 2.08165e-12, 16, 16, 2.08165e-12, 16)
+
+[node name="RootVisual" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.243137)
+
+[node name="BackGround" parent="RootVisual" instance=ExtResource("2_36nt1")]
+modulate = Color(0.65098, 0.65098, 0.74902, 1)
+z_index = -100
+position = Vector2(-253, -192)
+scale = Vector2(48, 36)
+texture = ExtResource("3_8ipmm")
+
+[node name="Clouds" type="Node2D" parent="RootVisual"]
+z_index = -99
+
+[node name="Cloud0" parent="RootVisual/Clouds" instance=ExtResource("2_36nt1")]
+position = Vector2(2, -80)
+texture = ExtResource("4_c62vu")
+
+[node name="Cloud4" parent="RootVisual/Clouds" instance=ExtResource("2_36nt1")]
+position = Vector2(176, 174)
+texture = ExtResource("4_c62vu")
+
+[node name="Cloud1" parent="RootVisual/Clouds" instance=ExtResource("2_36nt1")]
+position = Vector2(118, -46)
+texture = ExtResource("5_ucrb5")
+
+[node name="Cloud6" parent="RootVisual/Clouds" instance=ExtResource("2_36nt1")]
+position = Vector2(304, 144)
+texture = ExtResource("5_ucrb5")
+
+[node name="Cloud2" parent="RootVisual/Clouds" instance=ExtResource("2_36nt1")]
+position = Vector2(165, -19)
+texture = ExtResource("6_e1vdr")
+
+[node name="Cloud3" parent="RootVisual/Clouds" instance=ExtResource("2_36nt1")]
+position = Vector2(54, 158)
+texture = ExtResource("7_76ai3")
+
+[node name="Cloud7" parent="RootVisual/Clouds" instance=ExtResource("2_36nt1")]
+position = Vector2(272, -64)
+texture = ExtResource("7_76ai3")
+
+[node name="Cloud5" parent="RootVisual/Clouds" instance=ExtResource("2_36nt1")]
+position = Vector2(-144, -32)
+texture = ExtResource("7_76ai3")
+
+[node name="Bridge" type="Node2D" parent="RootVisual"]
+
+[node name="BridgePlate" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-128, 0)
+scale = Vector2(32, 8)
+metadata/_edit_lock_ = true
+
+[node name="Pillar" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(0, 144)
+texture = ExtResource("8_ndyy1")
+
+[node name="Pillar2" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-96, 144)
+texture = ExtResource("8_ndyy1")
+flip_h = true
+
+[node name="Pillar3" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-32, 240)
+scale = Vector2(4, 8)
+texture = ExtResource("9_7a5iy")
+metadata/_edit_lock_ = true
+
+[node name="Side" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(0, 128)
+scale = Vector2(7.6875, 1)
+texture = ExtResource("9_7a5iy")
+
+[node name="Side8" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-128, 128)
+scale = Vector2(8, 1)
+texture = ExtResource("9_7a5iy")
+
+[node name="Side9" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(256, 128)
+scale = Vector2(8, 1)
+texture = ExtResource("9_7a5iy")
+
+[node name="Side5" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(139, 128)
+scale = Vector2(7.6875, 1)
+texture = ExtResource("9_7a5iy")
+
+[node name="Side2" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(0, 126)
+scale = Vector2(3.125, 1)
+texture = ExtResource("10_482rt")
+
+[node name="Side3" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(0, 125)
+scale = Vector2(2.5625, 1)
+texture = ExtResource("10_482rt")
+
+[node name="Side4" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(123, 128)
+texture = ExtResource("11_3trfw")
+
+[node name="Side6" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(172, 127)
+texture = ExtResource("12_p7fi3")
+
+[node name="Side10" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-47, 129)
+texture = ExtResource("12_p7fi3")
+
+[node name="Side7" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(230, 129)
+texture = ExtResource("13_8fexh")
+
+[node name="Border0" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(64, 116)
+texture = ExtResource("14_fripv")
+
+[node name="Border1" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(80, 116)
+scale = Vector2(2.5, 1)
+texture = ExtResource("15_7rhfn")
+
+[node name="Border2" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(120, 116)
+scale = Vector2(1.875, 1)
+texture = ExtResource("16_0co0h")
+
+[node name="Border3" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(150, 116)
+texture = ExtResource("17_msigq")
+
+[node name="Border4" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(183, 117)
+texture = ExtResource("18_ib5w0")
+
+[node name="Border5" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(199, 117)
+texture = ExtResource("19_knbax")
+
+[node name="Border6" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(215, 117)
+texture = ExtResource("19_knbax")
+
+[node name="Border8" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(247, 116)
+scale = Vector2(3.8125, 1)
+texture = ExtResource("19_knbax")
+
+[node name="Border20" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(307, 116)
+scale = Vector2(1.8125, 1)
+texture = ExtResource("20_jqc2f")
+
+[node name="Border7" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(231, 116)
+texture = ExtResource("21_u3a0k")
+
+[node name="Border9" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(23, -8)
+texture = ExtResource("18_ib5w0")
+
+[node name="Border10" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(39, -8)
+scale = Vector2(2.1875, 1)
+texture = ExtResource("19_knbax")
+
+[node name="Border11" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(74, -7)
+scale = Vector2(1.4375, 1)
+texture = ExtResource("22_1ccnd")
+
+[node name="Border18" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-17, 116)
+scale = Vector2(1.4375, 1)
+texture = ExtResource("22_1ccnd")
+
+[node name="Border12" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(97, -8)
+scale = Vector2(3.3125, 1)
+texture = ExtResource("15_7rhfn")
+
+[node name="Border14" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(181, -8)
+scale = Vector2(2.9375, 1)
+texture = ExtResource("15_7rhfn")
+
+[node name="Border17" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-144, 116)
+scale = Vector2(8, 1)
+texture = ExtResource("15_7rhfn")
+
+[node name="Border15" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(228, -8)
+scale = Vector2(3.3125, 1)
+texture = ExtResource("15_7rhfn")
+
+[node name="Border13" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(150, -8)
+scale = Vector2(1.6875, 1)
+texture = ExtResource("17_msigq")
+
+[node name="Border16" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(281, -8)
+texture = ExtResource("20_jqc2f")
+
+[node name="Border19" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(165, -8)
+texture = ExtResource("18_ib5w0")
+
+[node name="Ground0" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(80, 80)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground1" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(86, 76)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground2" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(81, 75)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground7" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(164, 8)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground8" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(174, 8)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground9" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(181, 5)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground10" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(28, 7)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground11" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(35, 10)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground12" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(26, 13)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground13" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(227, 50)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground22" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(277, 109)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground23" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(280, 106)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground24" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(240, 50)
+texture = ExtResource("23_3rt51")
+
+[node name="Ground14" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(226, 55)
+texture = ExtResource("24_qtx4q")
+
+[node name="Ground15" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(228, 53)
+texture = ExtResource("24_qtx4q")
+
+[node name="Ground21" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(228, 53)
+texture = ExtResource("24_qtx4q")
+
+[node name="Ground20" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(228, 53)
+texture = ExtResource("24_qtx4q")
+
+[node name="Ground16" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(229, 44)
+texture = ExtResource("24_qtx4q")
+
+[node name="Ground17" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(234, 41)
+texture = ExtResource("24_qtx4q")
+
+[node name="Ground25" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(7, 98)
+texture = ExtResource("24_qtx4q")
+
+[node name="Ground26" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(10, 101)
+texture = ExtResource("24_qtx4q")
+
+[node name="Ground27" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(89, 84)
+texture = ExtResource("24_qtx4q")
+
+[node name="Ground18" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(236, 37)
+texture = ExtResource("24_qtx4q")
+
+[node name="Ground19" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(239, 40)
+texture = ExtResource("24_qtx4q")
+
+[node name="Ground3" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(141, 95)
+texture = ExtResource("25_na26a")
+
+[node name="Ground28" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-57, 69)
+texture = ExtResource("25_na26a")
+
+[node name="Ground29" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-63, 65)
+texture = ExtResource("25_na26a")
+
+[node name="Ground30" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-50, 60)
+texture = ExtResource("25_na26a")
+
+[node name="Ground31" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-86, 19)
+texture = ExtResource("25_na26a")
+
+[node name="Ground32" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-75, 16)
+texture = ExtResource("25_na26a")
+
+[node name="Ground4" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(146, 88)
+texture = ExtResource("25_na26a")
+
+[node name="Ground5" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(154, 94)
+texture = ExtResource("25_na26a")
+
+[node name="Ground6" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(158, 82)
+texture = ExtResource("24_qtx4q")
+
+[node name="Pillar4" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(55, 112)
+texture = ExtResource("26_hk5en")
+
+[node name="Pillar5" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(21, -12)
+texture = ExtResource("27_8xwmk")
+
+[node name="Pillar6" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(313, -9)
+texture = ExtResource("28_otrv7")
+
+[node name="Pillar7" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-71, 110)
+texture = ExtResource("29_tjtut")
+
+[node name="PillarDetail" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(10, 160)
+texture = ExtResource("30_5e0nv")
+
+[node name="PillarDetail2" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-25, 162)
+texture = ExtResource("30_5e0nv")
+
+[node name="PillarDetail3" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(-25, 176)
+texture = ExtResource("31_qutfn")
+
+[node name="Ground" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(14, 8)
+texture = ExtResource("32_mhvpi")
+
+[node name="Ground33" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(11, 15)
+texture = ExtResource("32_mhvpi")
+
+[node name="Ground34" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(9, 11)
+texture = ExtResource("32_mhvpi")
+
+[node name="Ground35" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(134, 54)
+texture = ExtResource("33_fwb3g")
+
+[node name="Ground36" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(167, 87)
+texture = ExtResource("34_yhms0")
+
+[node name="Ground37" parent="RootVisual/Bridge" instance=ExtResource("2_36nt1")]
+position = Vector2(166, 90)
+texture = ExtResource("34_yhms0")
+
+[node name="RootWalkHint" type="Node2D" parent="."]
+
+[node name="RootObsCells" type="Node2D" parent="."]
+
+[node name="CellPit" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(0, -16)
+
+[node name="CellPit2" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(16, -16)
+
+[node name="CellPit3" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(32, -16)
+
+[node name="CellPit4" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(48, -16)
+
+[node name="CellPit5" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(64, -16)
+
+[node name="CellPit6" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(80, -16)
+
+[node name="CellPit7" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(96, -16)
+
+[node name="CellPit8" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(112, -16)
+
+[node name="CellPit9" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(128, -16)
+
+[node name="CellPit10" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(144, -16)
+
+[node name="CellPit11" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(160, -16)
+
+[node name="CellPit12" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(176, -16)
+
+[node name="CellPit13" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(192, -16)
+
+[node name="CellPit14" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(208, -16)
+
+[node name="CellPit15" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(224, -16)
+
+[node name="CellPit16" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(240, -16)
+
+[node name="CellPit17" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(0, 128)
+
+[node name="CellPit18" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(16, 128)
+
+[node name="CellPit19" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(32, 128)
+
+[node name="CellPit20" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(48, 128)
+
+[node name="CellPit21" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(64, 128)
+
+[node name="CellPit22" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(80, 128)
+
+[node name="CellPit23" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(96, 128)
+
+[node name="CellPit24" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(112, 128)
+
+[node name="CellPit25" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(128, 128)
+
+[node name="CellPit26" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(144, 128)
+
+[node name="CellPit27" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(160, 128)
+
+[node name="CellPit28" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(176, 128)
+
+[node name="CellPit29" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(192, 128)
+
+[node name="CellPit30" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(208, 128)
+
+[node name="CellPit31" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(224, 128)
+
+[node name="CellPit32" parent="RootObsCells" instance=ExtResource("35_ngutv")]
+position = Vector2(240, 128)
+
+[node name="CellObstacle" parent="RootObsCells" instance=ExtResource("36_5653b")]
+position = Vector2(160, 0)
+cell_type = 4
+
+[node name="CompVisual" parent="RootObsCells/CellObstacle" index="0"]
+position = Vector2(-8, 16)
+texture = ExtResource("37_88y2m")
+offset = Vector2(2.08165e-12, -48)
+
+[node name="RootUnits" type="Node2D" parent="."]
+
+[node name="Player" type="Node2D" parent="RootUnits"]
+position = Vector2(24, 99)
+script = ExtResource("40_5iore")
+unit_name = "Ann"
+
+[node name="VisualObject" parent="RootUnits/Player" instance=ExtResource("2_36nt1")]
+position = Vector2(0, -5)
+texture = ExtResource("41_7rcj8")
+
+[node name="NoticedIcon" parent="RootUnits/Player/VisualObject" instance=ExtResource("2_36nt1")]
+visible = false
+position = Vector2(9, -14)
+texture = ExtResource("42_k3tcw")
+
+[node name="HealthBar" parent="RootUnits/Player/VisualObject" instance=ExtResource("43_q53lv")]
+position = Vector2(2, -7)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="RootUnits/Player" groups=["collision_interactable"]]
+input_pickable = true
+script = ExtResource("44_ikmmq")
+
+[node name="Collision" parent="RootUnits/Player/StaticBody2D" instance=ExtResource("5_5ibfe")]
+polygon = PackedVector2Array(8, 10, 4, 8, 4, 2, 6, -1, 10, -1, 12, 2, 12, 8)
+
+[node name="Enemy0" parent="RootUnits" instance=ExtResource("39_nfs43")]
+position = Vector2(224, 64)
+unit_settings_resource = ExtResource("40_jqo2r")
+ai_settings = SubResource("Resource_sqpsk")
+
+[node name="VisualObject" parent="RootUnits/Enemy0" index="0"]
+texture = ExtResource("42_ed2ht")
+
+[node name="Enemy1" parent="RootUnits" instance=ExtResource("39_nfs43")]
+position = Vector2(112, 0)
+unit_settings_resource = ExtResource("43_3adi3")
+ai_settings = SubResource("Resource_qguqj")
+
+[node name="VisualObject" parent="RootUnits/Enemy1" index="0"]
+texture = ExtResource("44_350s8")
+
+[node name="RootRoof" type="Node2D" parent="."]
+
+[node name="VisualObject" parent="." instance=ExtResource("2_36nt1")]
+visible = false
+self_modulate = Color(1, 1, 1, 0.227451)
+position = Vector2(144, 16)
+scale = Vector2(4, 6)
+texture = ExtResource("3_8ipmm")
+
+[node name="VisualObject2" parent="." instance=ExtResource("2_36nt1")]
+visible = false
+self_modulate = Color(1, 1, 1, 0.227451)
+position = Vector2(256, 16)
+scale = Vector2(5, 6)
+texture = ExtResource("3_8ipmm")
+
+[node name="Collision" parent="." instance=ExtResource("5_5ibfe")]
+position = Vector2(48, 64)
+
+[node name="Collision2" parent="." instance=ExtResource("5_5ibfe")]
+position = Vector2(144, 32)
+
+[node name="Collision3" parent="." instance=ExtResource("5_5ibfe")]
+position = Vector2(176, 80)
+
+[node name="CellBarrel" type="Node2D" parent="."]
+position = Vector2(97, 44)
+script = ExtResource("51_k5kbp")
+cell_type = 4
+
+[node name="CompHealth" parent="CellBarrel" instance=ExtResource("52_5l04s")]
+
+[node name="VisualObject" parent="CellBarrel" instance=ExtResource("2_36nt1")]
+texture = ExtResource("53_yg7et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CellBarrel" groups=["collision_interactable"]]
+input_pickable = true
+script = ExtResource("44_ikmmq")
+
+[node name="Collision" parent="CellBarrel/StaticBody2D" instance=ExtResource("5_5ibfe")]
+position = Vector2(0, 3)
+polygon = PackedVector2Array(6, 11, 1, 9, -1, 4, 4, -9, 16, -10, 15, 5, 13, 11)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(136, 80)
+zoom = Vector2(2, 2)
+
+[connection signal="on_click_on_object" from="ObjectsSelector" to="." method="_on_objects_selector_on_click_on_object"]
+
+[editable path="RootObsCells/CellObstacle"]
+[editable path="RootObsCells/CellObstacle/CompObstacle"]
+[editable path="RootUnits/Enemy0"]
+[editable path="RootUnits/Enemy1"]

@@ -1,14 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://rplghuj625kd"]
+[gd_scene load_steps=6 format=3 uid="uid://rplghuj625kd"]
 
 [ext_resource type="Script" path="res://scripts/navigation/MyNavigationRegion.gd" id="1_jskcq"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_vsl4e"]
+[ext_resource type="PackedScene" uid="uid://edjed5ijg5x1" path="res://scenes/2d/Collision.tscn" id="3_bikoo"]
 [ext_resource type="Script" path="res://scenes/levels/test path move.gd" id="3_nokh1"]
 [ext_resource type="Texture2D" uid="uid://cwvtjwrec6b0g" path="res://content/sprites/gothic/units/player.tres" id="4_ue2k8"]
 
-[node name="BaseLevelNew" type="NavigationRegion2D" node_paths=PackedStringArray("collision_battleground", "collision_objects")]
+[node name="BaseLevelNew" type="Node2D"]
+
+[node name="NavigationRegionGenerator" type="NavigationRegion2D" parent="."]
 script = ExtResource("1_jskcq")
-collision_battleground = NodePath("BattleGround/GroundCollisionPolygon2D")
-collision_objects = [NodePath("Sprite2D/CollisionPolygon2D"), NodePath("Sprite2D3/CollisionPolygon2D"), NodePath("Sprite2D4/CollisionPolygon2D"), NodePath("Sprite2D5/CollisionPolygon2D")]
 
 [node name="BattleGround" type="Sprite2D" parent="."]
 modulate = Color(0.203922, 0.341176, 0.360784, 0.478431)
@@ -48,14 +49,14 @@ centered = false
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D4"]
 polygon = PackedVector2Array(2.08165e-12, 2.08165e-12, 16, 2.08165e-12, 16, 16, 2.08165e-12, 16)
 
+[node name="Collision" parent="." instance=ExtResource("3_bikoo")]
+position = Vector2(431, 378)
+
 [node name="Sprite2D5" type="Sprite2D" parent="."]
 position = Vector2(354, 213)
 scale = Vector2(5, 5)
 texture = ExtResource("2_vsl4e")
 centered = false
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D5"]
-polygon = PackedVector2Array(2.08165e-12, 2.08165e-12, 16, 2.08165e-12, 16, 16, 2.08165e-12, 16)
 
 [node name="Sprite2D2" type="CharacterBody2D" parent="."]
 position = Vector2(204, 321)

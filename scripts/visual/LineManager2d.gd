@@ -18,6 +18,9 @@ var line2d_trajectory: Line2D
 func draw_path(points, can_move):
 	draw_scrolling_new_line(PATH_LINE_NAME, _points_with_offset(points), Globals.COLOR_5 if can_move else Globals.COLOR_1)
 
+func draw_path_without_offset(points: Array[Vector2], can_move):
+	draw_scrolling_new_line(PATH_LINE_NAME, points, Globals.COLOR_5 if can_move else Globals.COLOR_1)
+
 
 func clear_path():
 	clear_line(PATH_LINE_NAME)
