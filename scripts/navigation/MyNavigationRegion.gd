@@ -17,6 +17,8 @@ class PolygonObstacle extends RefCounted:
 
 
 func update_nav_region(battleground: CollisionPolygon2D, objects: Array[CollisionPolygon2D]):
+	return
+
 	collision_battleground = battleground
 	collision_objects = objects
 

@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhohr4686scjx"]
-
-[ext_resource type="Script" path="res://scripts/navigation/MyNavigationRegion.gd" id="1_1q0ge"]
-
-[node name="NavigationRegionGenerator" type="NavigationRegion2D"]
-script = ExtResource("1_1q0ge")
-obstacle_offset = 3.0

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctc3hst3u6p20"]
+
+[ext_resource type="Script" path="res://scripts/object/InteractableStaticBody.gd" id="1_c227t"]
+
+[node name="InteractableStaticBody" type="StaticBody2D" groups=["collision_interactable"]]
+input_pickable = true
+script = ExtResource("1_c227t")
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(2.08165e-12, 2.08165e-12, 8, 2.08165e-12, 8, 8, 2.08165e-12, 8)

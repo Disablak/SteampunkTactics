@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgdko33qxd1ci"]
+
+[ext_resource type="Script" path="res://scripts/navigation/NavRegion.gd" id="1_m6m5f"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_e66ft"]
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 0, 128, 256, 128, 256, 0)])
+parsed_geometry_type = 0
+source_geometry_mode = 2
+source_geometry_group_name = &"nav_obstacle"
+agent_radius = 3.0
+
+[node name="NavigationRegion" type="NavigationRegion2D"]
+navigation_polygon = SubResource("NavigationPolygon_e66ft")
+script = ExtResource("1_m6m5f")

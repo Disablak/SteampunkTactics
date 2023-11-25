@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://biqevm2kjhsep"]
+
+[ext_resource type="Script" path="res://scripts/object/NavObstacle.gd" id="1_iu1ny"]
+
+[node name="NavObstacle" type="Polygon2D" groups=["nav_obstacle"]]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(2.08165e-12, 2.08165e-12, 8, 2.08165e-12, 8, 8, 2.08165e-12, 8)
+script = ExtResource("1_iu1ny")
