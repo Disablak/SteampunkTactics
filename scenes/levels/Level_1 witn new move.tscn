@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://du6xcv567vuwr"]
+[gd_scene load_steps=65 format=3 uid="uid://du6xcv567vuwr"]
 
 [ext_resource type="PackedScene" uid="uid://cgdko33qxd1ci" path="res://scenes/levels/components/NavRegion.tscn" id="2_5p5s2"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_36nt1"]
@@ -11,8 +11,11 @@
 [ext_resource type="Script" path="res://scripts/units_manager/MoveControll.gd" id="6_bwtxu"]
 [ext_resource type="Texture2D" uid="uid://cbnhvk2iygn3o" path="res://content/sprites/gothic/background/cloud2.tres" id="6_e1vdr"]
 [ext_resource type="Texture2D" uid="uid://dikfh8plutdfs" path="res://content/sprites/gothic/background/cloud3.tres" id="7_76ai3"]
+[ext_resource type="Script" path="res://scripts/units_manager/AttackControll.gd" id="7_l24dv"]
 [ext_resource type="Texture2D" uid="uid://w3tnd2y22h83" path="res://content/sprites/gothic/background/bridge_pillar.tres" id="8_ndyy1"]
 [ext_resource type="Texture2D" uid="uid://1xxay4xsagly" path="res://content/sprites/gothic/background/side0.tres" id="9_7a5iy"]
+[ext_resource type="Script" path="res://scripts/Raycaster.gd" id="9_sol5y"]
+[ext_resource type="PackedScene" uid="uid://qe5vh8lqbl8k" path="res://scenes/visual/EffectManager.tscn" id="10_8s2ey"]
 [ext_resource type="Texture2D" uid="uid://cq1gugbtx53uq" path="res://content/sprites/gothic/background/side1.tres" id="10_482rt"]
 [ext_resource type="Texture2D" uid="uid://bho4ygohhfyql" path="res://content/sprites/gothic/background/side6.tres" id="11_3trfw"]
 [ext_resource type="Texture2D" uid="uid://gx14kk6e6w62" path="res://content/sprites/gothic/background/side5.tres" id="12_p7fi3"]
@@ -59,14 +62,16 @@
 [ext_resource type="Script" path="res://scripts/units_manager/UnitControll.gd" id="57_x5vxn"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="59_qpoyq"]
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_m8m4n"]
+
 [sub_resource type="Resource" id="Resource_sqpsk"]
 script = ExtResource("41_hxk06")
-walking_zone_node_path = NodePath("../../VisualObject")
+walking_zone_node_path = NodePath("")
 patrul_zones_paths = Array[NodePath]([])
 
 [sub_resource type="Resource" id="Resource_qguqj"]
 script = ExtResource("41_hxk06")
-walking_zone_node_path = NodePath("../../VisualObject2")
+walking_zone_node_path = NodePath("")
 patrul_zones_paths = Array[NodePath]([])
 
 [node name="Level_1" type="Node2D"]
@@ -82,18 +87,31 @@ camera = NodePath("../Camera2D")
 script = ExtResource("5_ixoom")
 nav_region = NodePath("../NavigationRegion")
 
-[node name="UnitControll" type="Node2D" parent="." node_paths=PackedStringArray("player", "move_controll")]
+[node name="UnitControll" type="Node2D" parent="." node_paths=PackedStringArray("player", "move_controll", "attack_controll", "object_selector")]
 script = ExtResource("57_x5vxn")
 player = NodePath("../Player")
 move_controll = NodePath("MoveControll")
+attack_controll = NodePath("AttackControll")
+object_selector = NodePath("../ObjectsSelector")
 
 [node name="MoveControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("object_mover", "line2d_manager")]
 script = ExtResource("6_bwtxu")
 object_mover = NodePath("../../ObjectMover")
 line2d_manager = NodePath("../../Line2dManager")
 
+[node name="AttackControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("line2d_manager", "effect_manager")]
+script = ExtResource("7_l24dv")
+line2d_manager = NodePath("../../Line2dManager")
+effect_manager = NodePath("../../EffectManager")
+
 [node name="InputSystem" type="Node2D" parent="."]
 script = ExtResource("59_qpoyq")
+
+[node name="Raycaster" type="Node2D" parent="."]
+script = ExtResource("9_sol5y")
+segment_shape_2d = SubResource("SegmentShape2D_m8m4n")
+
+[node name="EffectManager" parent="." instance=ExtResource("10_8s2ey")]
 
 [node name="RootWalkCells" type="Node2D" parent="."]
 metadata/_edit_group_ = true
@@ -104,10 +122,6 @@ self_modulate = Color(0.419608, 0.419608, 0.231373, 0.223529)
 top_level = true
 scale = Vector2(16, 8)
 texture = ExtResource("3_8ipmm")
-
-[node name="Collision" type="CollisionPolygon2D" parent="RootWalkCells/Ground"]
-position = Vector2(2.08165e-12, 2.08165e-12)
-polygon = PackedVector2Array(2.08165e-12, 2.08165e-12, 16, 2.08165e-12, 16, 16, 2.08165e-12, 16)
 
 [node name="RootVisual" type="Node2D" parent="."]
 modulate = Color(1, 1, 1, 0.243137)
@@ -621,29 +635,7 @@ ai_settings = SubResource("Resource_sqpsk")
 [node name="VisualObject" parent="RootUnits/Enemy0" index="0"]
 texture = ExtResource("42_ed2ht")
 
-[node name="Enemy1" parent="RootUnits" instance=ExtResource("39_nfs43")]
-position = Vector2(112, 0)
-unit_settings_resource = ExtResource("43_3adi3")
-ai_settings = SubResource("Resource_qguqj")
-
-[node name="VisualObject" parent="RootUnits/Enemy1" index="0"]
-texture = ExtResource("44_350s8")
-
 [node name="RootRoof" type="Node2D" parent="."]
-
-[node name="VisualObject" parent="." instance=ExtResource("2_36nt1")]
-visible = false
-self_modulate = Color(1, 1, 1, 0.227451)
-position = Vector2(144, 16)
-scale = Vector2(4, 6)
-texture = ExtResource("3_8ipmm")
-
-[node name="VisualObject2" parent="." instance=ExtResource("2_36nt1")]
-visible = false
-self_modulate = Color(1, 1, 1, 0.227451)
-position = Vector2(256, 16)
-scale = Vector2(5, 6)
-texture = ExtResource("3_8ipmm")
 
 [node name="CellBarrel" type="Node2D" parent="."]
 position = Vector2(97, 44)
@@ -656,11 +648,19 @@ cell_type = 4
 texture = ExtResource("53_yg7et")
 
 [node name="InteractableStaticBody" parent="CellBarrel" instance=ExtResource("56_vrdk0")]
+position = Vector2(4, 4)
+
+[node name="NavObstacle" parent="CellBarrel" instance=ExtResource("56_481g8")]
+position = Vector2(4, 4)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-107, -71)
 anchor_mode = 0
 zoom = Vector2(2, 2)
+
+[node name="NavObstacle" parent="." instance=ExtResource("56_481g8")]
+position = Vector2(141, 54)
+polygon = PackedVector2Array(-16, -11, 19, -20, 20, 15, -10, 16)
 
 [node name="Player" type="Node2D" parent="."]
 position = Vector2(78, 85)
@@ -685,9 +685,29 @@ position = Vector2(-4, -8)
 [node name="NavObstacle" parent="Player" instance=ExtResource("56_481g8")]
 position = Vector2(-4, -8)
 
-[node name="NavObstacle" parent="." instance=ExtResource("56_481g8")]
-position = Vector2(141, 54)
-polygon = PackedVector2Array(-16, -11, 19, -20, 20, 15, -10, 16)
+[node name="Enemy1" type="Node2D" parent="."]
+position = Vector2(134, 34)
+script = ExtResource("40_5iore")
+unit_settings_resource = ExtResource("43_3adi3")
+ai_settings = SubResource("Resource_qguqj")
+
+[node name="VisualObject" parent="Enemy1" instance=ExtResource("2_36nt1")]
+position = Vector2(-8, -12)
+texture = ExtResource("44_350s8")
+
+[node name="NoticedIcon" parent="Enemy1/VisualObject" instance=ExtResource("2_36nt1")]
+visible = false
+position = Vector2(9, -14)
+texture = ExtResource("42_k3tcw")
+
+[node name="HealthBar" parent="Enemy1/VisualObject" instance=ExtResource("43_q53lv")]
+position = Vector2(2, -7)
+
+[node name="InteractableStaticBody" parent="Enemy1" instance=ExtResource("56_vrdk0")]
+position = Vector2(-5, -8)
+
+[node name="NavObstacle" parent="Enemy1" instance=ExtResource("56_481g8")]
+position = Vector2(-5, -8)
 
 [connection signal="on_click_on_object" from="ObjectsSelector" to="." method="_on_objects_selector_on_click_on_object"]
 [connection signal="on_click_on_object" from="ObjectsSelector" to="ObjectMover" method="_on_objects_selector_on_click_on_object"]
@@ -696,4 +716,3 @@ polygon = PackedVector2Array(-16, -11, 19, -20, 20, 15, -10, 16)
 [editable path="RootObsCells/CellObstacle"]
 [editable path="RootObsCells/CellObstacle/CompObstacle"]
 [editable path="RootUnits/Enemy0"]
-[editable path="RootUnits/Enemy1"]

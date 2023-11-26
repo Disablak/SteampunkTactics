@@ -5,6 +5,7 @@ var world : MyWorld
 var raycaster : Raycaster
 var ai_world: AiWorld
 var draw_debug: DrawDebug
+var object_selector: ObjectSelector
 
 
 func can_show_cur_unit() -> bool:

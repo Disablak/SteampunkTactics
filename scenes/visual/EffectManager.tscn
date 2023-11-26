@@ -1,0 +1,20 @@
+[gd_scene load_steps=8 format=3 uid="uid://qe5vh8lqbl8k"]
+
+[ext_resource type="Script" path="res://scripts/visual/effects/EffectManager.gd" id="1_a06vs"]
+[ext_resource type="PackedScene" uid="uid://bncbloimsnrob" path="res://scenes/visual/Bullet2D.tscn" id="2_437mk"]
+[ext_resource type="PackedScene" uid="uid://b8lli71fdl17m" path="res://scenes/visual/Granede.tscn" id="3_w1oog"]
+[ext_resource type="PackedScene" path="res://scenes/visual/FireEffect.tscn" id="4_2bnr3"]
+[ext_resource type="PackedScene" path="res://scenes/visual/UnitDeathEffect.tscn" id="5_4eawh"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="6_1vs6i"]
+[ext_resource type="Texture2D" uid="uid://cusny8mc6uocn" path="res://content/sprites/gothic/selected_frame.tres" id="7_r1xhb"]
+
+[node name="EffectManager" type="Node2D"]
+script = ExtResource("1_a06vs")
+bullet_scene = ExtResource("2_437mk")
+granede_scene = ExtResource("3_w1oog")
+fire_effect_scene = ExtResource("4_2bnr3")
+unit_death_effect_scene = ExtResource("5_4eawh")
+
+[node name="SelectedFrame" parent="." instance=ExtResource("6_1vs6i")]
+position = Vector2(-1000, -1000)
+texture = ExtResource("7_r1xhb")

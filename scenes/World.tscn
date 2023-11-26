@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=23 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_vidxh"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitsManager.gd" id="2_1pgd0"]
@@ -10,22 +10,16 @@
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="10_yja2f"]
 [ext_resource type="Script" path="res://scripts/units_manager/ShootingModule.gd" id="10_yumpn"]
 [ext_resource type="Script" path="res://scripts/CameraController.gd" id="11_sv5rh"]
+[ext_resource type="PackedScene" uid="uid://qe5vh8lqbl8k" path="res://scenes/visual/EffectManager.tscn" id="12_28wh2"]
 [ext_resource type="Script" path="res://scripts/Raycaster.gd" id="12_pdk27"]
-[ext_resource type="Script" path="res://scripts/visual/effects/EffectManager.gd" id="13_rcon8"]
 [ext_resource type="Script" path="res://scripts/utility_ai/BrainAI.gd" id="15_y513k"]
-[ext_resource type="PackedScene" uid="uid://bncbloimsnrob" path="res://scenes/visual/Bullet2D.tscn" id="16_n1bfs"]
-[ext_resource type="PackedScene" path="res://scenes/visual/FireEffect.tscn" id="17_e35id"]
-[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="18_23k8t"]
-[ext_resource type="PackedScene" path="res://scenes/visual/UnitDeathEffect.tscn" id="18_r4ev8"]
 [ext_resource type="PackedScene" uid="uid://fvlc1uhmwwsm" path="res://scenes/cells/CellHovered.tscn" id="18_yo8ds"]
-[ext_resource type="Texture2D" uid="uid://cusny8mc6uocn" path="res://content/sprites/gothic/selected_frame.tres" id="19_g0qgd"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
 [ext_resource type="Resource" uid="uid://du37tccrd2rlv" path="res://data/settings/utility ai/actions/ActionNextTurn.tres" id="21_5e2k3"]
 [ext_resource type="Script" path="res://scripts/pathfinding/FogOfWar.gd" id="22_hxmls"]
 [ext_resource type="Script" path="res://scripts/visual/DrawUnitViewDirection.gd" id="22_n7khr"]
 [ext_resource type="PackedScene" uid="uid://c3fuon6h0o5qe" path="res://scenes/cells/CellFog.tscn" id="23_p1e0f"]
 [ext_resource type="Script" path="res://scripts/utility_ai/AiWorld.gd" id="23_waclr"]
-[ext_resource type="PackedScene" uid="uid://b8lli71fdl17m" path="res://scenes/visual/Granede.tscn" id="24_2p2qp"]
 [ext_resource type="Script" path="res://scripts/utils/DrawDebug.gd" id="27_xmkd7"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_x8rd3"]
@@ -57,16 +51,7 @@ script = ExtResource("9_42fdl")
 [node name="ShootingModule" type="Node2D" parent="UnitsManager"]
 script = ExtResource("10_yumpn")
 
-[node name="EffectManager" type="Node2D" parent="UnitsManager" node_paths=PackedStringArray("selected_frame")]
-script = ExtResource("13_rcon8")
-selected_frame = NodePath("SelectedFrame")
-bullet_scene = ExtResource("16_n1bfs")
-granede_scene = ExtResource("24_2p2qp")
-fire_effect_scene = ExtResource("17_e35id")
-unit_death_effect_scene = ExtResource("18_r4ev8")
-
-[node name="SelectedFrame" parent="UnitsManager/EffectManager" instance=ExtResource("18_23k8t")]
-texture = ExtResource("19_g0qgd")
+[node name="EffectManager" parent="UnitsManager" instance=ExtResource("12_28wh2")]
 
 [node name="Raycaster" type="Node2D" parent="UnitsManager"]
 script = ExtResource("12_pdk27")
@@ -102,7 +87,6 @@ zoom = Vector2(2, 2)
 z_index = 100
 script = ExtResource("27_xmkd7")
 
-[connection signal="on_mouse_click" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_click"]
 [connection signal="on_mouse_hover" from="InputSystem" to="UnitsManager/Pathfinding" method="_on_input_system_on_mouse_hover"]
 [connection signal="on_pressed_esc" from="InputSystem" to="UnitsManager" method="_on_input_system_on_pressed_esc"]
 [connection signal="on_pressed_rmc" from="InputSystem" to="UnitsManager" method="_on_input_system_on_pressed_rmc"]

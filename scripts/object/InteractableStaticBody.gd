@@ -11,9 +11,14 @@ func _ready() -> void:
 	mouse_exited.connect(_on_mouse_exit)
 
 
+func _exit_tree() -> void:
+	GlobalMap.object_selector.unsub_interactable_object_and_update_hovered(self)
+
+
 func _on_mouse_hover():
 	on_hover_object.emit(get_parent())
 
 
 func _on_mouse_exit():
 	on_unhover_object.emit(get_parent())
+

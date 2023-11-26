@@ -1,7 +1,7 @@
 class_name MoveControll
 extends Node
 
-const CONFIRM_CLICK_DISTANCE_PX := 10
+const CONFIRM_CLICK_DISTANCE_PX := 4
 
 @export var object_mover: ObjectMover
 @export var line2d_manager: Line2dManager
@@ -22,6 +22,10 @@ func try_to_move(unit_object: UnitObject, mouse_pos: Vector2):
 	else:
 		_show_future_path(unit_object, world_pos)
 
+func deselect_move():
+	is_second_click = false
+	line2d_manager.clear_path()
+
 
 func _cant_move() -> bool:
 	return object_mover.is_object_moving()
@@ -29,8 +33,7 @@ func _cant_move() -> bool:
 
 func _move_unit(unit_object: UnitObject, world_pos: Vector2):
 	object_mover.move_object_to_pos(unit_object, world_pos)
-	is_second_click = false
-	line2d_manager.clear_path()
+	deselect_move()
 
 
 func _show_future_path(unit_object: UnitObject, world_pos: Vector2):

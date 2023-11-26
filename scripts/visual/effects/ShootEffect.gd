@@ -16,9 +16,24 @@ func _init(bullet_scene: PackedScene, bullet_root: Node2D):
 	_bullet_root = bullet_root
 
 
-func play(tween: Tween, from: Unit, to: Unit, hit_type: ShootingModule.HitType, cover_pos: Vector2, random_obs: CellObject):
-	var from_pos: Vector2 = from.unit_object.visual_pos
-	var to_pos: Vector2 = to.unit_object.visual_pos
+func create_bullet_and_tween(tween: Tween, from: Vector2, to: Vector2):
+	var new_instance: Node2D = _bullet_scene.instantiate()
+	_bullet_root.add_child(new_instance)
+
+	new_instance.position = from
+	new_instance.look_at(to)
+
+	var distance = from.distance_to(to)
+	var time = distance / BULLET_SPEED
+
+	tween.tween_property(new_instance, "position", to, time)
+	tween.tween_callback(new_instance.queue_free)
+	await tween.finished
+
+
+func play(tween: Tween, from: Vector2, to: Vector2, hit_type: ShootingModule.HitType, cover_pos: Vector2, random_obs: CellObject):
+	var from_pos: Vector2 = from
+	var to_pos: Vector2 = to
 
 	if hit_type == ShootingModule.HitType.HIT_IN_COVER:
 		to_pos = cover_pos
@@ -27,18 +42,7 @@ func play(tween: Tween, from: Unit, to: Unit, hit_type: ShootingModule.HitType, 
 	elif hit_type == ShootingModule.HitType.MISS:
 		to_pos = from_pos + _get_little_wrong_shoot_direction(to_pos - from_pos)
 
-	var new_instance: Node2D = _bullet_scene.instantiate()
-	_bullet_root.add_child(new_instance)
-
-	new_instance.position = from_pos
-	new_instance.look_at(to_pos)
-
-	var distance = from_pos.distance_to(to_pos)
-	var time = distance / BULLET_SPEED
-
-	tween.tween_property(new_instance, "position", to_pos, time)
-	tween.tween_callback(new_instance.queue_free)
-	await tween.finished
+	await create_bullet_and_tween(tween, from_pos, to_pos)
 
 
 func _get_little_wrong_shoot_direction(shoot_vector: Vector2) -> Vector2:

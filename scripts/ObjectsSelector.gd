@@ -1,4 +1,4 @@
-class_name ObjectsSelector
+class_name ObjectSelector
 extends Node2D
 
 
@@ -13,6 +13,7 @@ signal on_click_on_object(click_pos: Vector2, objects: Array[Node])
 
 
 func _ready() -> void:
+	GlobalMap.object_selector = self
 	_subscribe_on_all_interactable_objects()
 
 
@@ -22,6 +23,23 @@ func is_any_hovered_obj() -> bool:
 
 func get_hovered_objects() -> Array[Node]:
 	return _hovered_objects
+
+
+func get_hovered_unit_object() -> UnitObject:
+	if not is_any_hovered_obj():
+		return null
+
+	var all_hovered_objects := get_hovered_objects()
+	var first_hovered_obj := all_hovered_objects[0]
+	if not first_hovered_obj is UnitObject:
+		return null
+
+	return first_hovered_obj as UnitObject
+
+
+func unsub_interactable_object_and_update_hovered(interactable: InteractableStaticBody):
+	_unsubscribe_interactable_object(interactable)
+	_hovered_objects.erase(interactable.get_parent())
 
 
 func _subscribe_on_all_interactable_objects():
@@ -43,16 +61,19 @@ func _subscribe_interactable_object(interactable: InteractableStaticBody):
 	interactable.on_unhover_object.connect(_on_unhover_object)
 
 
+func _unsubscribe_interactable_object(interactable: InteractableStaticBody):
+	interactable.on_hover_object.disconnect(_on_hover_object)
+	interactable.on_unhover_object.disconnect(_on_unhover_object)
+
+
 func _on_hover_object(node: Node2D):
 	if not _hovered_objects.has(node):
 		_hovered_objects.append(node)
-	print(_hovered_objects.size())
 
 
 func _on_unhover_object(node: Node2D):
 	if _hovered_objects.has(node):
 		_hovered_objects.erase(node)
-	print(_hovered_objects.size())
 
 
 func _input(event: InputEvent) -> void:

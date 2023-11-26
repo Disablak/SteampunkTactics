@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://bhvjfr1j3n3y7"]
 
 [ext_resource type="Script" path="res://scripts/visual/effects/DeathEffect.gd" id="1_tanr6"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="3_fvmaa"]

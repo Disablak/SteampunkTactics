@@ -24,7 +24,7 @@ func inject_data(line2d_manager: Line2dManager, pathfinding: Pathfinding):
 	self._pathfinding = pathfinding
 
 
-func init():
+func _ready() -> void:
 	_selected_unit_effect = SelectedUnitEffect.new(selected_frame)
 	_shoot_effect = ShootEffect.new(bullet_scene, self)
 
@@ -33,15 +33,15 @@ func init():
 
 
 func shoot(from: Unit, to: Unit, hit_type: ShootingModule.HitType, cover_pos: Vector2, random_obs: CellObject):
-	await _shoot_effect.play(create_tween(), from, to, hit_type, cover_pos, random_obs)
+	await _shoot_effect.play(create_tween(), from.unit_object.visual_pos, to.unit_object.visual_pos, hit_type, cover_pos, random_obs)
 
 
 func granade(cells: Array[CellInfo]):
 	_grenade_effect.play(cells, _line2d_manager.line2d_trajectory.points)
 
 
-func death_effect(pos: Vector2, unit_texture_region):
-	var effect = unit_death_effect_scene.instantiate()
+func death_effect(pos: Vector2, unit_texture_region: Rect2):
+	var effect := unit_death_effect_scene.instantiate()
 	add_child(effect)
 	effect.position = pos + Globals.CELL_OFFSET
 	effect.play_effect(unit_texture_region)
