@@ -5,9 +5,10 @@ extends RefCounted
 signal on_reach_point
 signal on_finished_tween
 
+var tween_move: Tween
+
 
 func tween_through_points(call_create_tween: Callable, node: Node2D, points: PackedVector2Array, speed: float):
-	var tween_move: Tween
 	var cur_target_id = 0
 
 	for point in points:
@@ -31,3 +32,7 @@ func tween_through_points(call_create_tween: Callable, node: Node2D, points: Pac
 
 		await tween_move.finished
 		on_reach_point.emit()
+
+
+func is_running() -> bool:
+	return tween_move and tween_move.is_valid() and tween_move.is_running()

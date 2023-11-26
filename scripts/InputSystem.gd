@@ -3,14 +3,14 @@ extends Node2D
 
 
 signal on_mouse_hover(mouse_pos: Vector2)
-signal on_mouse_click(mouse_pos: Vector2)
-signal on_drag(dir)
+signal on_pressed_lmc(mouse_pos: Vector2)
+signal on_pressed_rmc(mouse_pos: Vector2)
 signal on_pressed_esc()
-signal on_pressed_rmc()
+signal on_drag(dir: Vector2)
 
-@onready var camera_controller := get_node("CameraController") as CameraController
-@onready var camera := get_node("CameraController/Camera2d") as Camera2D
-@onready var camera_bounds: Node2D = get_node("CameraBounds") as Node2D
+#@onready var camera_controller := get_node("CameraController") as CameraController
+#@onready var camera := get_node("CameraController/Camera2d") as Camera2D
+#@onready var camera_bounds: Node2D = get_node("CameraBounds") as Node2D
 
 const TIME_CLICK_MS = 200
 
@@ -25,7 +25,7 @@ var time_pressed: int
 
 func init(map_size) -> void:
 	GlobalsUi.input_system = self
-	camera_controller.init(map_size)
+	#camera_controller.init(map_size)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -47,7 +47,7 @@ func _draging(event: InputEvent) -> bool:
 		drag_pos = (prev_drag_pos - event.position)
 		prev_drag_pos = event.position
 
-		camera_controller.drag(drag_pos)
+		#camera_controller.drag(drag_pos)
 		emit_signal("on_drag", drag_pos)
 		return true
 
@@ -63,7 +63,8 @@ func _mouse_click(event: InputEvent):
 
 			was_mouse_btn_pressed = false
 
-			on_mouse_click.emit(formatted_position(event.position))
+			on_pressed_lmc.emit(event.position)
+			#on_pressed_lmc.emit(formatted_position(event.position))
 			return
 
 		if event.pressed:
@@ -76,7 +77,7 @@ func _mouse_hover(event: InputEvent):
 	if not (event is InputEventMouseMotion):
 		return
 
-	on_mouse_hover.emit(formatted_position(event.position))
+	on_mouse_hover.emit(event.position)
 
 
 func _other_inputs(event: InputEvent):
@@ -84,7 +85,7 @@ func _other_inputs(event: InputEvent):
 		on_pressed_esc.emit()
 
 	if event.is_action_pressed("right_click"):
-		on_pressed_rmc.emit()
+		on_pressed_rmc.emit(event.position)
 
 	if event.is_action_pressed("cheat hide fog"):
 		Globals.DEBUG_HIDE_FOG = not Globals.DEBUG_HIDE_FOG
@@ -94,9 +95,3 @@ func _other_inputs(event: InputEvent):
 		Globals.DEBUG_SHOW_ENEMY_ALWAYS = not Globals.DEBUG_SHOW_ENEMY_ALWAYS
 		GlobalsUi.message("cheat DEBUG_SHOW_ENEMY_ALWAYS activated {0}".format([Globals.DEBUG_SHOW_ENEMY_ALWAYS]))
 
-
-func formatted_position(position: Vector2) -> Vector2:
-	var view_size := camera.get_viewport_rect().size
-	var camera_offset = camera_controller.position - (view_size / 2)
-	var camera_zoomed_pos = ((view_size / 2) - ((view_size / camera.zoom) / 2))
-	return camera_zoomed_pos + camera_offset + position / camera.zoom

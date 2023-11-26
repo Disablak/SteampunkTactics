@@ -24,6 +24,7 @@ GlobalUnits="*res://scripts/globals/GlobalUnits.gd"
 TurnManager="*res://scripts/units_manager/TurnManager.gd"
 GlobalsUi="*res://scripts/globals/GlobalsUI.gd"
 GlobalDB="*res://scripts/globals/GlobalDB.gd"
+GlobalUtils="*res://scripts/globals/GlobalUtils.gd"
 
 [display]
 
@@ -39,7 +40,7 @@ movie_writer/movie_file="/Users/disablak/Godot Projects/Godot Movies/test.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/script-name-on-top/plugin.cfg", "res://addons/quick_script_change/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/script-name-on-top/plugin.cfg")
 
 [input]
 
