@@ -6,8 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://clvk0kxtgfpgg" path="res://scenes/2d/HealthBar.tscn" id="5_k4jia"]
 [ext_resource type="Texture2D" uid="uid://b6e5yn1juhul0" path="res://content/sprites/gothic/noticed_icon.tres" id="5_qingj"]
 
-[node name="UnitObject" type="Node2D"]
+[node name="UnitObject" type="Node2D" node_paths=PackedStringArray("main_sprite", "noticed_icon", "health_bar")]
 script = ExtResource("1_a7ikt")
+main_sprite = NodePath("VisualObject")
+noticed_icon = NodePath("VisualObject/NoticedIcon")
+health_bar = NodePath("VisualObject/HealthBar")
 
 [node name="VisualObject" parent="." instance=ExtResource("2_kmtyi")]
 position = Vector2(0, -5)
@@ -19,4 +22,5 @@ position = Vector2(9, -14)
 texture = ExtResource("5_qingj")
 
 [node name="HealthBar" parent="VisualObject" instance=ExtResource("5_k4jia")]
+unique_name_in_owner = true
 position = Vector2(2, -7)

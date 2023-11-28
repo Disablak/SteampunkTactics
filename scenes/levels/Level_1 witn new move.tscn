@@ -1,21 +1,13 @@
-[gd_scene load_steps=65 format=3 uid="uid://du6xcv567vuwr"]
+[gd_scene load_steps=54 format=3 uid="uid://du6xcv567vuwr"]
 
-[ext_resource type="PackedScene" uid="uid://cgdko33qxd1ci" path="res://scenes/levels/components/NavRegion.tscn" id="2_5p5s2"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_36nt1"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="3_8ipmm"]
-[ext_resource type="PackedScene" uid="uid://deiwiskh30hey" path="res://scenes/levels/components/ObjectSelector.tscn" id="3_y4i07"]
 [ext_resource type="Texture2D" uid="uid://dgu24ji0v3151" path="res://content/sprites/gothic/background/cloud0.tres" id="4_c62vu"]
-[ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="4_n82fm"]
-[ext_resource type="Script" path="res://scripts/navigation/ObjectMover.gd" id="5_ixoom"]
 [ext_resource type="Texture2D" uid="uid://dio1flrtagxal" path="res://content/sprites/gothic/background/cloud1.tres" id="5_ucrb5"]
-[ext_resource type="Script" path="res://scripts/units_manager/MoveControll.gd" id="6_bwtxu"]
 [ext_resource type="Texture2D" uid="uid://cbnhvk2iygn3o" path="res://content/sprites/gothic/background/cloud2.tres" id="6_e1vdr"]
 [ext_resource type="Texture2D" uid="uid://dikfh8plutdfs" path="res://content/sprites/gothic/background/cloud3.tres" id="7_76ai3"]
-[ext_resource type="Script" path="res://scripts/units_manager/AttackControll.gd" id="7_l24dv"]
 [ext_resource type="Texture2D" uid="uid://w3tnd2y22h83" path="res://content/sprites/gothic/background/bridge_pillar.tres" id="8_ndyy1"]
 [ext_resource type="Texture2D" uid="uid://1xxay4xsagly" path="res://content/sprites/gothic/background/side0.tres" id="9_7a5iy"]
-[ext_resource type="Script" path="res://scripts/Raycaster.gd" id="9_sol5y"]
-[ext_resource type="PackedScene" uid="uid://qe5vh8lqbl8k" path="res://scenes/visual/EffectManager.tscn" id="10_8s2ey"]
 [ext_resource type="Texture2D" uid="uid://cq1gugbtx53uq" path="res://content/sprites/gothic/background/side1.tres" id="10_482rt"]
 [ext_resource type="Texture2D" uid="uid://bho4ygohhfyql" path="res://content/sprites/gothic/background/side6.tres" id="11_3trfw"]
 [ext_resource type="Texture2D" uid="uid://gx14kk6e6w62" path="res://content/sprites/gothic/background/side5.tres" id="12_p7fi3"]
@@ -59,10 +51,6 @@
 [ext_resource type="Texture2D" uid="uid://bfbi6hcg0i7i3" path="res://content/sprites/gothic/obstacle_2.tres" id="53_yg7et"]
 [ext_resource type="PackedScene" uid="uid://biqevm2kjhsep" path="res://scenes/object/NavObstacle.tscn" id="56_481g8"]
 [ext_resource type="PackedScene" uid="uid://ctc3hst3u6p20" path="res://scenes/object/InteractableStaticBody.tscn" id="56_vrdk0"]
-[ext_resource type="Script" path="res://scripts/units_manager/UnitControll.gd" id="57_x5vxn"]
-[ext_resource type="Script" path="res://scripts/InputSystem.gd" id="59_qpoyq"]
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_m8m4n"]
 
 [sub_resource type="Resource" id="Resource_sqpsk"]
 script = ExtResource("41_hxk06")
@@ -75,43 +63,6 @@ walking_zone_node_path = NodePath("")
 patrul_zones_paths = Array[NodePath]([])
 
 [node name="Level_1" type="Node2D"]
-
-[node name="NavigationRegion" parent="." instance=ExtResource("2_5p5s2")]
-
-[node name="ObjectsSelector" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_y4i07")]
-camera = NodePath("../Camera2D")
-
-[node name="Line2dManager" parent="." instance=ExtResource("4_n82fm")]
-
-[node name="ObjectMover" type="Node2D" parent="." node_paths=PackedStringArray("nav_region")]
-script = ExtResource("5_ixoom")
-nav_region = NodePath("../NavigationRegion")
-
-[node name="UnitControll" type="Node2D" parent="." node_paths=PackedStringArray("player", "move_controll", "attack_controll", "object_selector")]
-script = ExtResource("57_x5vxn")
-player = NodePath("../Player")
-move_controll = NodePath("MoveControll")
-attack_controll = NodePath("AttackControll")
-object_selector = NodePath("../ObjectsSelector")
-
-[node name="MoveControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("object_mover", "line2d_manager")]
-script = ExtResource("6_bwtxu")
-object_mover = NodePath("../../ObjectMover")
-line2d_manager = NodePath("../../Line2dManager")
-
-[node name="AttackControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("line2d_manager", "effect_manager")]
-script = ExtResource("7_l24dv")
-line2d_manager = NodePath("../../Line2dManager")
-effect_manager = NodePath("../../EffectManager")
-
-[node name="InputSystem" type="Node2D" parent="."]
-script = ExtResource("59_qpoyq")
-
-[node name="Raycaster" type="Node2D" parent="."]
-script = ExtResource("9_sol5y")
-segment_shape_2d = SubResource("SegmentShape2D_m8m4n")
-
-[node name="EffectManager" parent="." instance=ExtResource("10_8s2ey")]
 
 [node name="RootWalkCells" type="Node2D" parent="."]
 metadata/_edit_group_ = true
@@ -625,16 +576,6 @@ position = Vector2(-8, 16)
 texture = ExtResource("37_88y2m")
 offset = Vector2(2.08165e-12, -48)
 
-[node name="RootUnits" type="Node2D" parent="."]
-
-[node name="Enemy0" parent="RootUnits" instance=ExtResource("39_nfs43")]
-position = Vector2(224, 64)
-unit_settings_resource = ExtResource("40_jqo2r")
-ai_settings = SubResource("Resource_sqpsk")
-
-[node name="VisualObject" parent="RootUnits/Enemy0" index="0"]
-texture = ExtResource("42_ed2ht")
-
 [node name="RootRoof" type="Node2D" parent="."]
 
 [node name="CellBarrel" type="Node2D" parent="."]
@@ -653,18 +594,16 @@ position = Vector2(4, 4)
 [node name="NavObstacle" parent="CellBarrel" instance=ExtResource("56_481g8")]
 position = Vector2(4, 4)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-107, -71)
-anchor_mode = 0
-zoom = Vector2(2, 2)
-
 [node name="NavObstacle" parent="." instance=ExtResource("56_481g8")]
 position = Vector2(141, 54)
 polygon = PackedVector2Array(-16, -11, 19, -20, 20, 15, -10, 16)
 
-[node name="Player" type="Node2D" parent="."]
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("main_sprite", "noticed_icon", "health_bar") groups=["unit"]]
 position = Vector2(78, 85)
 script = ExtResource("40_5iore")
+main_sprite = NodePath("VisualObject")
+noticed_icon = NodePath("VisualObject/NoticedIcon")
+health_bar = NodePath("VisualObject/HealthBar")
 unit_name = "Ann"
 
 [node name="VisualObject" parent="Player" instance=ExtResource("2_36nt1")]
@@ -677,6 +616,7 @@ position = Vector2(9, -14)
 texture = ExtResource("42_k3tcw")
 
 [node name="HealthBar" parent="Player/VisualObject" instance=ExtResource("43_q53lv")]
+unique_name_in_owner = true
 position = Vector2(2, -7)
 
 [node name="InteractableStaticBody" parent="Player" instance=ExtResource("56_vrdk0")]
@@ -685,9 +625,22 @@ position = Vector2(-4, -8)
 [node name="NavObstacle" parent="Player" instance=ExtResource("56_481g8")]
 position = Vector2(-4, -8)
 
-[node name="Enemy1" type="Node2D" parent="."]
+[node name="Enemy0" parent="." groups=["unit"] instance=ExtResource("39_nfs43")]
+position = Vector2(224, 64)
+unit_name = "Unit0"
+unit_settings_resource = ExtResource("40_jqo2r")
+ai_settings = SubResource("Resource_sqpsk")
+
+[node name="VisualObject" parent="Enemy0" index="0"]
+texture = ExtResource("42_ed2ht")
+
+[node name="Enemy1" type="Node2D" parent="." node_paths=PackedStringArray("main_sprite", "noticed_icon", "health_bar") groups=["unit"]]
 position = Vector2(134, 34)
 script = ExtResource("40_5iore")
+main_sprite = NodePath("VisualObject")
+noticed_icon = NodePath("VisualObject/NoticedIcon")
+health_bar = NodePath("VisualObject/HealthBar")
+unit_name = "Unit1"
 unit_settings_resource = ExtResource("43_3adi3")
 ai_settings = SubResource("Resource_qguqj")
 
@@ -709,10 +662,6 @@ position = Vector2(-5, -8)
 [node name="NavObstacle" parent="Enemy1" instance=ExtResource("56_481g8")]
 position = Vector2(-5, -8)
 
-[connection signal="on_click_on_object" from="ObjectsSelector" to="." method="_on_objects_selector_on_click_on_object"]
-[connection signal="on_click_on_object" from="ObjectsSelector" to="ObjectMover" method="_on_objects_selector_on_click_on_object"]
-[connection signal="on_pressed_rmc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_rmc"]
-
 [editable path="RootObsCells/CellObstacle"]
 [editable path="RootObsCells/CellObstacle/CompObstacle"]
-[editable path="RootUnits/Enemy0"]
+[editable path="Enemy0"]
