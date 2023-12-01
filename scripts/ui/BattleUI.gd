@@ -34,7 +34,7 @@ func init():
 
 	unit_info.init()
 	unit_abilities.init(GlobalUnits.get_cur_unit().unit_data)
-	units_list.init(TurnManager.order_unit_id)
+	units_list.init(GlobalUnits.unit_order.ordered_unit_ids)
 	panel_unit_info.init()
 
 

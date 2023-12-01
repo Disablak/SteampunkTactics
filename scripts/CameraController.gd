@@ -135,3 +135,7 @@ func _clamp_pos_in_bounds(pos: Vector2) -> Vector2:
 func _on_camera_zoom_changed(zoom: float):
 	get_viewport().get_camera_2d().zoom = Vector2(zoom, zoom)
 	_calc_bounds()
+
+
+func _on_input_system_on_drag(dir: Vector2) -> void:
+	drag(dir)

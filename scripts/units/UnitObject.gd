@@ -10,6 +10,8 @@ class_name UnitObject
 @export var unit_settings_resource: UnitSettingsResource
 @export var ai_settings: AiSettings
 
+@onready var nav_obstacle: NavObstacle = $NavObstacle as NavObstacle
+
 var unit_id = -1
 var unit_settings: UnitSetting
 var main_material: Material
@@ -70,6 +72,10 @@ func _ready() -> void:
 	show_noticed_icon(false)
 
 
+func _exit_tree() -> void:
+	nav_obstacle.disable_obstacle()
+
+
 func mark_selected():
 	GlobalUnits.units_manager.effect_manager.select_unit_effect(position)
 
@@ -107,9 +113,16 @@ func show_noticed_icon(show: bool):
 	noticed_icon.visible = show
 
 
+func disable_obstacle():
+	nav_obstacle.disable_obstacle()
+
+
+func enable_obstacle():
+	nav_obstacle.enable_obstacle()
+
+
 func _on_unit_changed_health(unit_id):
 	if self.unit_id != unit_id:
 		return
 
-	pass
-	#play_damage_anim()
+	play_damage_anim()

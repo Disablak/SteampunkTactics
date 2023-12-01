@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=17 format=3 uid="uid://dgjava7c3ir6u"]
 
-[ext_resource type="Resource" uid="uid://dvjjmneb2ovxf" path="res://data/settings/unit/main_hero.tres" id="2_4olwv"]
+[ext_resource type="Script" path="res://scripts/World.gd" id="1_7w37h"]
+[ext_resource type="Script" path="res://scripts/units/UnitInitializator.gd" id="2_cenak"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="10_yja2f"]
 [ext_resource type="PackedScene" uid="uid://qe5vh8lqbl8k" path="res://scenes/visual/EffectManager.tscn" id="12_28wh2"]
 [ext_resource type="Script" path="res://scripts/UnitOrder.gd" id="12_6735i"]
+[ext_resource type="Script" path="res://scripts/CameraController.gd" id="14_ops4e"]
+[ext_resource type="Script" path="res://scripts/units/UnitList.gd" id="16_3smra"]
 [ext_resource type="PackedScene" uid="uid://cgdko33qxd1ci" path="res://scenes/levels/components/NavRegion.tscn" id="18_es1be"]
 [ext_resource type="PackedScene" uid="uid://du6xcv567vuwr" path="res://scenes/levels/Level_1 witn new move.tscn" id="19_nbpj7"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
@@ -14,24 +17,33 @@
 [ext_resource type="Script" path="res://scripts/units_manager/AttackControll.gd" id="27_3j6ta"]
 [ext_resource type="Script" path="res://scripts/utils/DrawDebug.gd" id="27_xmkd7"]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" node_paths=PackedStringArray("unit_initializator", "unit_list", "unit_order")]
+script = ExtResource("1_7w37h")
+unit_initializator = NodePath("UnitInitializator")
+unit_list = NodePath("UnitList")
+unit_order = NodePath("UnitOrder")
+
+[node name="UnitInitializator" type="Node2D" parent="."]
+script = ExtResource("2_cenak")
+
+[node name="UnitList" type="Node2D" parent="." node_paths=PackedStringArray("unit_order")]
+script = ExtResource("16_3smra")
+unit_order = NodePath("../UnitOrder")
 
 [node name="UnitOrder" type="Node2D" parent="."]
 script = ExtResource("12_6735i")
-main_hero_start_setting = ExtResource("2_4olwv")
 
 [node name="NavigationRegion" parent="." instance=ExtResource("18_es1be")]
 
 [node name="Level_1" parent="NavigationRegion" instance=ExtResource("19_nbpj7")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-96, -80)
+position = Vector2(-112, -64)
 anchor_mode = 0
 zoom = Vector2(2, 2)
 
-[node name="UnitControll" type="Node2D" parent="." node_paths=PackedStringArray("player", "move_controll", "attack_controll", "object_selector")]
+[node name="UnitControll" type="Node2D" parent="." node_paths=PackedStringArray("move_controll", "attack_controll", "object_selector")]
 script = ExtResource("25_xuv3j")
-player = NodePath("../NavigationRegion/Level_1/Player")
 move_controll = NodePath("MoveControll")
 attack_controll = NodePath("AttackControll")
 object_selector = NodePath("../ObjectSelector")
@@ -64,4 +76,8 @@ nav_region = NodePath("../NavigationRegion")
 
 [node name="Line2dManager" parent="." instance=ExtResource("20_syji7")]
 
+[node name="CameraController" type="Node2D" parent="."]
+script = ExtResource("14_ops4e")
+
+[connection signal="on_drag" from="InputSystem" to="CameraController" method="_on_input_system_on_drag"]
 [connection signal="on_pressed_rmc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_rmc"]

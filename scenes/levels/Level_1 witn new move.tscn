@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://du6xcv567vuwr"]
+[gd_scene load_steps=46 format=3 uid="uid://du6xcv567vuwr"]
 
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_36nt1"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="3_8ipmm"]
@@ -36,31 +36,15 @@
 [ext_resource type="PackedScene" uid="uid://d2gynj1adpgis" path="res://scenes/cells/CellPit.tscn" id="35_ngutv"]
 [ext_resource type="PackedScene" uid="uid://dk08unerfwfpc" path="res://scenes/cells/CellObstacle.tscn" id="36_5653b"]
 [ext_resource type="Texture2D" uid="uid://coa5q5k0pkspf" path="res://content/sprites/gothic/background/statue0.tres" id="37_88y2m"]
-[ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/2d/UnitObject.tscn" id="39_nfs43"]
-[ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="40_5iore"]
 [ext_resource type="Resource" uid="uid://w2vn8wuadrmx" path="res://data/settings/unit/level1/lvl1_unit0.tres" id="40_jqo2r"]
-[ext_resource type="Texture2D" uid="uid://ciry2hpepxf06" path="res://content/sprites/gothic/units/player1.tres" id="41_7rcj8"]
-[ext_resource type="Script" path="res://scripts/resources/AiSettings.gd" id="41_hxk06"]
-[ext_resource type="Texture2D" uid="uid://b1h0pwlirgbvt" path="res://content/sprites/gothic/units/enemy0.tres" id="42_ed2ht"]
-[ext_resource type="Texture2D" uid="uid://b6e5yn1juhul0" path="res://content/sprites/gothic/noticed_icon.tres" id="42_k3tcw"]
+[ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/object/UnitObject.tscn" id="42_rdbrx"]
 [ext_resource type="Resource" uid="uid://criftwds0pgl7" path="res://data/settings/unit/level1/lvl1_unit1.tres" id="43_3adi3"]
-[ext_resource type="PackedScene" uid="uid://clvk0kxtgfpgg" path="res://scenes/2d/HealthBar.tscn" id="43_q53lv"]
-[ext_resource type="Texture2D" uid="uid://cwni0rwde87bc" path="res://content/sprites/gothic/units/enemy1.tres" id="44_350s8"]
+[ext_resource type="Resource" uid="uid://17hwv3e7mu2s" path="res://data/settings/unit/ai_settings0.tres" id="44_47ex0"]
 [ext_resource type="Script" path="res://scripts/cells/CellObject.gd" id="51_k5kbp"]
 [ext_resource type="PackedScene" uid="uid://ni28vw8lfi3a" path="res://scenes/cells/components/CellCompHealth.tscn" id="52_5l04s"]
 [ext_resource type="Texture2D" uid="uid://bfbi6hcg0i7i3" path="res://content/sprites/gothic/obstacle_2.tres" id="53_yg7et"]
 [ext_resource type="PackedScene" uid="uid://biqevm2kjhsep" path="res://scenes/object/NavObstacle.tscn" id="56_481g8"]
 [ext_resource type="PackedScene" uid="uid://ctc3hst3u6p20" path="res://scenes/object/InteractableStaticBody.tscn" id="56_vrdk0"]
-
-[sub_resource type="Resource" id="Resource_sqpsk"]
-script = ExtResource("41_hxk06")
-walking_zone_node_path = NodePath("")
-patrul_zones_paths = Array[NodePath]([])
-
-[sub_resource type="Resource" id="Resource_qguqj"]
-script = ExtResource("41_hxk06")
-walking_zone_node_path = NodePath("")
-patrul_zones_paths = Array[NodePath]([])
 
 [node name="Level_1" type="Node2D"]
 
@@ -594,74 +578,27 @@ position = Vector2(4, 4)
 [node name="NavObstacle" parent="CellBarrel" instance=ExtResource("56_481g8")]
 position = Vector2(4, 4)
 
-[node name="NavObstacle" parent="." instance=ExtResource("56_481g8")]
-position = Vector2(141, 54)
-polygon = PackedVector2Array(-16, -11, 19, -20, 20, 15, -10, 16)
-
-[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("main_sprite", "noticed_icon", "health_bar") groups=["unit"]]
-position = Vector2(78, 85)
-script = ExtResource("40_5iore")
-main_sprite = NodePath("VisualObject")
-noticed_icon = NodePath("VisualObject/NoticedIcon")
-health_bar = NodePath("VisualObject/HealthBar")
+[node name="Player" parent="." instance=ExtResource("42_rdbrx")]
+position = Vector2(39, 60)
 unit_name = "Ann"
 
-[node name="VisualObject" parent="Player" instance=ExtResource("2_36nt1")]
-position = Vector2(-8, -14)
-texture = ExtResource("41_7rcj8")
-
-[node name="NoticedIcon" parent="Player/VisualObject" instance=ExtResource("2_36nt1")]
-visible = false
-position = Vector2(9, -14)
-texture = ExtResource("42_k3tcw")
-
-[node name="HealthBar" parent="Player/VisualObject" instance=ExtResource("43_q53lv")]
-unique_name_in_owner = true
-position = Vector2(2, -7)
-
-[node name="InteractableStaticBody" parent="Player" instance=ExtResource("56_vrdk0")]
-position = Vector2(-4, -8)
-
-[node name="NavObstacle" parent="Player" instance=ExtResource("56_481g8")]
-position = Vector2(-4, -8)
-
-[node name="Enemy0" parent="." groups=["unit"] instance=ExtResource("39_nfs43")]
-position = Vector2(224, 64)
-unit_name = "Unit0"
+[node name="Enemy0" parent="." node_paths=PackedStringArray("main_sprite", "noticed_icon", "health_bar") instance=ExtResource("42_rdbrx")]
+position = Vector2(161, 50)
+main_sprite = NodePath("../Player/VisualObject")
+noticed_icon = NodePath("../Player/VisualObject/NoticedIcon")
+health_bar = NodePath("../Player/VisualObject/HealthBar")
+unit_name = "Steve"
 unit_settings_resource = ExtResource("40_jqo2r")
-ai_settings = SubResource("Resource_sqpsk")
+ai_settings = ExtResource("44_47ex0")
 
-[node name="VisualObject" parent="Enemy0" index="0"]
-texture = ExtResource("42_ed2ht")
-
-[node name="Enemy1" type="Node2D" parent="." node_paths=PackedStringArray("main_sprite", "noticed_icon", "health_bar") groups=["unit"]]
-position = Vector2(134, 34)
-script = ExtResource("40_5iore")
-main_sprite = NodePath("VisualObject")
-noticed_icon = NodePath("VisualObject/NoticedIcon")
-health_bar = NodePath("VisualObject/HealthBar")
-unit_name = "Unit1"
+[node name="Enemy1" parent="." node_paths=PackedStringArray("main_sprite", "noticed_icon", "health_bar") instance=ExtResource("42_rdbrx")]
+position = Vector2(125, 103)
+main_sprite = NodePath("../Player/VisualObject")
+noticed_icon = NodePath("../Player/VisualObject/NoticedIcon")
+health_bar = NodePath("../Player/VisualObject/HealthBar")
+unit_name = "Tom"
 unit_settings_resource = ExtResource("43_3adi3")
-ai_settings = SubResource("Resource_qguqj")
-
-[node name="VisualObject" parent="Enemy1" instance=ExtResource("2_36nt1")]
-position = Vector2(-8, -12)
-texture = ExtResource("44_350s8")
-
-[node name="NoticedIcon" parent="Enemy1/VisualObject" instance=ExtResource("2_36nt1")]
-visible = false
-position = Vector2(9, -14)
-texture = ExtResource("42_k3tcw")
-
-[node name="HealthBar" parent="Enemy1/VisualObject" instance=ExtResource("43_q53lv")]
-position = Vector2(2, -7)
-
-[node name="InteractableStaticBody" parent="Enemy1" instance=ExtResource("56_vrdk0")]
-position = Vector2(-5, -8)
-
-[node name="NavObstacle" parent="Enemy1" instance=ExtResource("56_481g8")]
-position = Vector2(-5, -8)
+ai_settings = ExtResource("44_47ex0")
 
 [editable path="RootObsCells/CellObstacle"]
 [editable path="RootObsCells/CellObstacle/CompObstacle"]
-[editable path="Enemy0"]

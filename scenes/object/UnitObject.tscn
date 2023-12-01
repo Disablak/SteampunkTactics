@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://3fu3cqfb41k0"]
+
+[ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_cp6yk"]
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_7440i"]
+[ext_resource type="Texture2D" uid="uid://ciry2hpepxf06" path="res://content/sprites/gothic/units/player1.tres" id="3_k0aa5"]
+[ext_resource type="Texture2D" uid="uid://b6e5yn1juhul0" path="res://content/sprites/gothic/noticed_icon.tres" id="4_25j5p"]
+[ext_resource type="PackedScene" uid="uid://clvk0kxtgfpgg" path="res://scenes/2d/HealthBar.tscn" id="5_ske73"]
+[ext_resource type="PackedScene" uid="uid://ctc3hst3u6p20" path="res://scenes/object/InteractableStaticBody.tscn" id="6_c2p2v"]
+[ext_resource type="PackedScene" uid="uid://biqevm2kjhsep" path="res://scenes/object/NavObstacle.tscn" id="7_tdav3"]
+
+[node name="UnitObject" type="Node2D" node_paths=PackedStringArray("main_sprite", "noticed_icon", "health_bar") groups=["unit"]]
+script = ExtResource("1_cp6yk")
+main_sprite = NodePath("VisualObject")
+noticed_icon = NodePath("VisualObject/NoticedIcon")
+health_bar = NodePath("VisualObject/HealthBar")
+
+[node name="VisualObject" parent="." instance=ExtResource("2_7440i")]
+position = Vector2(-8, -14)
+texture = ExtResource("3_k0aa5")
+
+[node name="NoticedIcon" parent="VisualObject" instance=ExtResource("2_7440i")]
+visible = false
+position = Vector2(9, -14)
+texture = ExtResource("4_25j5p")
+
+[node name="HealthBar" parent="VisualObject" instance=ExtResource("5_ske73")]
+unique_name_in_owner = true
+position = Vector2(2, -7)
+
+[node name="InteractableStaticBody" parent="." instance=ExtResource("6_c2p2v")]
+position = Vector2(-4, -10)
+
+[node name="NavObstacle" parent="." instance=ExtResource("7_tdav3")]
+position = Vector2(-4, -4)

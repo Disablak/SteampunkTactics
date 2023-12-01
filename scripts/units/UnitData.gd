@@ -59,7 +59,7 @@ func _init(unit_settings: UnitSetting, ai_settings: AiSettings):
 	self.unit_settings = unit_settings
 	self.ai_settings = ai_settings
 
-	is_enemy = ai_settings != null
+	is_enemy = false#ai_settings != null
 
 	_init_stats(unit_settings)
 	_init_start_equips()
