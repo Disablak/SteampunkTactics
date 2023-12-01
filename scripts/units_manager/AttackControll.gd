@@ -8,7 +8,7 @@ extends Node
 var attack_confirmed: bool = false
 
 
-func try_to_attack(from: UnitObject, to: UnitObject):
+func try_to_attack(from: Unit, to: Unit):
 
 	if attack_confirmed:
 		_shoot_and_kill(from, to)
@@ -24,13 +24,16 @@ func deselect_attack():
 	attack_confirmed = false
 
 
-func _shoot_and_kill(player: UnitObject, enemy: UnitObject):
-	await effect_manager._shoot_effect.create_bullet_and_tween(create_tween(), player.position, enemy.position)
-	effect_manager.death_effect(enemy.position - Vector2(10, 10), enemy.main_sprite.texture.region)
-	enemy.queue_free()
+func _shoot_and_kill(player: Unit, enemy: Unit):
+	await effect_manager._shoot_effect.create_bullet_and_tween(create_tween(), player.unit_object.position, enemy.unit_object.position)
+	enemy.unit_data.set_damage(10, player.id)
+
+	if not enemy.unit_data.is_alive:
+		effect_manager.death_effect(enemy.unit_object.position - Vector2(10, 10), enemy.unit_object.main_sprite.texture.region)
+		enemy.unit_object.queue_free()
 
 
-func _draw_ray(from: UnitObject, to: UnitObject):
+func _draw_ray(from: Unit, to: Unit):
 	var ray_points: Array[Vector2]
-	ray_points.assign([from.position, to.position])
+	ray_points.assign([from.unit_object.position, to.unit_object.position])
 	line2d_manager.draw_ray(ray_points)

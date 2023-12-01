@@ -163,7 +163,7 @@ func set_damage(value: float, attacker_unit_id: int):
 	else:
 		cur_health -= value
 
-	#GlobalBus.on_unit_change_health.emit(unit_id)
+	GlobalBus.on_unit_change_health.emit(unit_id)
 
 	if cur_health <= 0:
 		GlobalBus.on_unit_died.emit(unit_id, attacker_unit_id)

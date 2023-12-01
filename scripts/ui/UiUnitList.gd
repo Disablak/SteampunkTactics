@@ -31,8 +31,8 @@ func init(units_ordered: Array[int]):
 
 func _update_btns():
 	for unit_id in dict_id_and_btn:
-		var is_unit_alive = GlobalUnits.units.has(unit_id)
-		dict_id_and_btn[unit_id].visible = is_unit_alive and GlobalMap.can_show_unit(unit_id)
+		var is_unit_alive = GlobalUnits.unit_list.is_unit_exist(unit_id)
+		dict_id_and_btn[unit_id].visible = is_unit_alive
 
 
 func mark_unit(unit_id: int):

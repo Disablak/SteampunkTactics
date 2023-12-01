@@ -14,6 +14,11 @@ func init(units: Array[Unit]):
 
 func _enter_tree() -> void:
 	GlobalBus.on_clicked_next_turn.connect(next_unit_turn)
+	GlobalBus.on_unit_died.connect(_on_unit_died)
+
+
+func _on_unit_died(unit_id: int, unit_id_killer: int):
+	remove_unit_from_order(unit_id)
 
 
 func _set_units_order(units: Array[Unit]):
@@ -55,5 +60,5 @@ func next_unit_turn():
 
 
 func _emit_unit_change_control():
-	var next_unit_id = get_cur_unit_id()
-	GlobalBus.on_unit_changed_control.emit(next_unit_id, false)
+	var unit_id = get_cur_unit_id()
+	GlobalBus.on_unit_changed_control.emit(unit_id, false)

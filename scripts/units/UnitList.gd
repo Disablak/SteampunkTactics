@@ -24,6 +24,10 @@ func get_unit(unit_id: int) -> Unit:
 	return _units[unit_id]
 
 
+func is_unit_exist(unit_id: int) -> bool:
+	return _units.has(unit_id)
+
+
 func get_team_units(enemies: bool) -> Array[Unit]:
 	var result: Array[Unit] = []
 	for unit: Unit in _units.values():

@@ -20,17 +20,17 @@
 [node name="World" type="Node2D" node_paths=PackedStringArray("unit_initializator", "unit_list", "unit_order")]
 script = ExtResource("1_7w37h")
 unit_initializator = NodePath("UnitInitializator")
-unit_list = NodePath("UnitList")
-unit_order = NodePath("UnitOrder")
+unit_list = NodePath("UnitInitializator/UnitList")
+unit_order = NodePath("UnitInitializator/UnitOrder")
 
 [node name="UnitInitializator" type="Node2D" parent="."]
 script = ExtResource("2_cenak")
 
-[node name="UnitList" type="Node2D" parent="." node_paths=PackedStringArray("unit_order")]
+[node name="UnitList" type="Node2D" parent="UnitInitializator" node_paths=PackedStringArray("unit_order")]
 script = ExtResource("16_3smra")
 unit_order = NodePath("../UnitOrder")
 
-[node name="UnitOrder" type="Node2D" parent="."]
+[node name="UnitOrder" type="Node2D" parent="UnitInitializator"]
 script = ExtResource("12_6735i")
 
 [node name="NavigationRegion" parent="." instance=ExtResource("18_es1be")]
