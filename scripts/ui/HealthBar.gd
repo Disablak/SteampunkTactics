@@ -31,7 +31,7 @@ func _update_healthbar(unit_id):
 	if unit_id != _unit_id:
 		return
 
-	var unit: Unit = GlobalUnits.units[unit_id]
+	var unit: Unit = GlobalUnits.unit_list.get_unit(unit_id)
 	line_health.scale.x = (unit.unit_data.cur_health / unit.unit_data.max_health) * _start_line_width
 
 	if unit.unit_data.cur_armor <= 0:

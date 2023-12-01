@@ -25,7 +25,6 @@ func camera_is_moving() -> bool:
 
 
 func _ready() -> void:
-	GlobalBus.on_unit_changed_control.connect(focus_camera)
 	GlobalBus.on_change_camera_zoom.connect(_on_camera_zoom_changed)
 
 
@@ -61,23 +60,6 @@ func move_camera(target_pos: Vector2, time: float):
 	)
 
 	await tween_move.finished
-
-
-func focus_camera(unit_id, instantly):
-	if not GlobalMap.can_show_cur_unit():
-		return
-
-	var target_pos: Vector2
-
-	if save_prev_pos and dict_id_and_prev_pos.has(unit_id):
-		target_pos = dict_id_and_prev_pos[unit_id]
-	else:
-		dict_id_and_prev_pos[TurnManager.get_prev_unit_id()] = position
-		var unit: Unit = GlobalUnits.units[unit_id]
-		var unit_pos = unit.unit_object.position
-		target_pos = _clamp_pos_in_bounds(unit_pos)
-
-	move_camera(target_pos, 0.0 if instantly else focus_time)
 
 
 func is_camera_moving() -> bool:

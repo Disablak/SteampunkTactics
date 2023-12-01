@@ -27,7 +27,7 @@ func _enable_obstacle_for_prev_and_disable_for_new():
 
 
 func _get_cur_unit_object() -> UnitObject:
-	return GlobalUnits.get_cur_unit().unit_object
+	return GlobalUnits.unit_list.get_cur_unit().unit_object
 
 
 func _on_input_system_on_pressed_rmc(mouse_pos: Vector2) -> void:

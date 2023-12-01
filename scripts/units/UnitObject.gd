@@ -8,7 +8,6 @@ class_name UnitObject
 
 @export var unit_name: String = "Unit"
 @export var unit_settings_resource: UnitSettingsResource
-@export var ai_settings: AiSettings
 
 @onready var nav_obstacle: NavObstacle = $NavObstacle as NavObstacle
 
@@ -33,9 +32,6 @@ var visual_ordering: int:
 	get: return main_sprite.z_index
 	set(value): main_sprite.z_index = value
 
-var is_enemy: bool:
-	get: return ai_settings != null
-
 
 func init_unit(unit_id, unit_data: UnitData) -> void:
 	self.unit_id = unit_id
@@ -45,19 +41,6 @@ func init_unit(unit_id, unit_data: UnitData) -> void:
 	origin_offset = Globals.get_height_of_obj(main_sprite.texture.region) + main_sprite.offset.y + main_sprite.position.y
 
 
-func _update_ai_settings():
-	if ai_settings == null:
-		return
-
-	var node_zone: Node2D = get_node_or_null(ai_settings.walking_zone_node_path)
-
-	var patrul_nodes: Array[Node2D]
-	for path in ai_settings.patrul_zones_paths:
-		var node = get_node(path)
-		patrul_nodes.append(node)
-
-	ai_settings.init(node_zone, patrul_nodes)
-
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -66,8 +49,6 @@ func _ready() -> void:
 	GlobalBus.on_unit_change_health.connect(_on_unit_changed_health)
 
 	main_sprite_def_pos = main_sprite.position
-
-	_update_ai_settings()
 
 	show_noticed_icon(false)
 
@@ -107,7 +88,7 @@ func rotate_unit_visual(dir: Vector2):
 
 
 func show_noticed_icon(show: bool):
-	if not is_enemy:
+	if false:
 		return
 
 	noticed_icon.visible = show

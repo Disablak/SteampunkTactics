@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="AiPreset" load_steps=4 format=3 uid="uid://4sjkfxm7asj7"]
-
-[ext_resource type="Resource" uid="uid://bsphbkps4jghi" path="res://data/settings/utility ai/actions/ActionMoveToNearEnemy.tres" id="1_2jdup"]
-[ext_resource type="Script" path="res://scripts/utility_ai/AiPreset.gd" id="1_dh2k0"]
-[ext_resource type="Resource" uid="uid://fubcetyf0t05" path="res://data/settings/utility ai/actions/ActionKickEnemy.tres" id="6_linam"]
-
-[resource]
-script = ExtResource("1_dh2k0")
-ai_actions = Array[Resource("res://scripts/utility_ai/Action.gd")]([ExtResource("1_2jdup"), ExtResource("6_linam")])

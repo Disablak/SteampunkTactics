@@ -45,8 +45,6 @@ var is_alive: bool:
 
 var _unit_stats: Array[UnitStat]
 var unit_settings: UnitSetting
-var ai_settings: AiSettings
-var ai_actions: Array[Action]
 var visibility_data: VisibilityData = VisibilityData.new()
 
 var all_abilities: Array[AbilityData]
@@ -55,16 +53,14 @@ var knife: MelleWeaponData
 var grenade: ThrowItemData
 
 
-func _init(unit_settings: UnitSetting, ai_settings: AiSettings):
+func _init(unit_settings: UnitSetting):
 	self.unit_settings = unit_settings
-	self.ai_settings = ai_settings
 
 	is_enemy = false#ai_settings != null
 
 	_init_stats(unit_settings)
 	_init_start_equips()
 	_init_abilities(unit_settings.abilities)
-	_init_ai_actions()
 
 	print(cur_health)
 
@@ -153,9 +149,6 @@ func get_unit_info_string() -> String:
 func set_unit_id(id):
 	self.unit_id = id
 
-	if ai_settings != null:
-		ai_settings.unit_id = unit_id
-
 
 func set_damage(value: float, attacker_unit_id: int):
 	if cur_health <= 0:
@@ -171,9 +164,6 @@ func set_damage(value: float, attacker_unit_id: int):
 		cur_health -= value
 
 	#GlobalBus.on_unit_change_health.emit(unit_id)
-
-	if ai_settings != null:
-		ai_settings.change_state_to_active()
 
 	if cur_health <= 0:
 		GlobalBus.on_unit_died.emit(unit_id, attacker_unit_id)
@@ -195,18 +185,6 @@ func has_ability(ability: Abilities):
 		return knife != null
 
 	return true
-
-
-func _init_ai_actions():
-	if not is_enemy:
-		return
-
-	for ability in all_abilities:
-		if ability.settings.ai_preset != null:
-			ai_actions.append_array(ability.settings.ai_preset.ai_actions)
-
-	if unit_settings.additional_ai_actions != null:
-		ai_actions.append_array(unit_settings.additional_ai_actions)
 
 
 func _init_abilities(abilities: Array[AbilitySettings]):

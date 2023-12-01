@@ -13,24 +13,18 @@ func _ready() -> void:
 
 
 func init():
-	on_change_unit(GlobalUnits.cur_unit_id, null)
+	on_change_unit(GlobalUnits.unit_list.get_cur_unit_id(), null)
 
 
 func on_change_unit(unit_id, _tmp):
-	if not GlobalMap.can_show_cur_unit():
-		return
-
 	on_unit_change_health(unit_id)
 
 
 func on_unit_change_health(unit_id):
-	if unit_id != GlobalUnits.cur_unit_id:
+	if unit_id != GlobalUnits.unit_list.get_cur_unit_id():
 		return
 
-	if not GlobalMap.can_show_cur_unit():
-		return
-
-	var unit: Unit = GlobalUnits.units[unit_id]
+	var unit: Unit = GlobalUnits.unit_list.get_cur_unit()
 
 	var txt_health: String = "Health {0}/{1}".format([unit.unit_data.cur_health, unit.unit_data.max_health])
 

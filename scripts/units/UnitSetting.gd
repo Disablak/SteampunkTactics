@@ -10,4 +10,3 @@ var range_of_view: int
 
 var equips: Array[EquipBase]
 var abilities: Array[AbilitySettings]
-var additional_ai_actions: Array[Action]

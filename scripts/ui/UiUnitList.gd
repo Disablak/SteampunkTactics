@@ -21,8 +21,8 @@ func init(units_ordered: Array[int]):
 		var btn: Button = scene_btn_unit.instantiate() as Button
 		add_child(btn)
 
-		var unit: Unit = GlobalUnits.units[id]
-		btn.visible = GlobalMap.can_show_unit(id)
+		var unit: Unit = GlobalUnits.unit_list.get_unit(id)
+		btn.visible = true
 		btn.text = _text(unit, false)
 		dict_id_and_btn[id] = btn
 
@@ -36,9 +36,6 @@ func _update_btns():
 
 
 func mark_unit(unit_id: int):
-	if not GlobalMap.can_show_unit(unit_id):
-		return
-
 	select_btn(prev_marked_unit_id, false)
 	select_btn(unit_id, true)
 
@@ -49,7 +46,7 @@ func select_btn(unit_id: int, is_select: bool):
 	if not dict_id_and_btn.has(unit_id):
 		return
 
-	var unit: Unit = GlobalUnits.units[unit_id]
+	var unit: Unit = GlobalUnits.unit_list.get_unit(unit_id)
 	var btn: Button = dict_id_and_btn[unit_id] as Button
 	var str_selected = "->"
 	btn.text = _text(unit, is_select)

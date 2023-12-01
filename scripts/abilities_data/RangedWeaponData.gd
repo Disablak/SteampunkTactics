@@ -27,4 +27,4 @@ func spend_weapon_ammo(count = 1):
 
 func _set_weapon_ammo(value):
 	cur_weapon_ammo = value
-	GlobalBus.on_unit_updated_weapon.emit(GlobalUnits.cur_unit_id, self)
+	GlobalBus.on_unit_updated_weapon.emit(GlobalUnits.unit_list.get_cur_unit_id(), self)

@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="MelleWeaponSettings" load_steps=3 format=3 uid="uid://h6op2geh7248"]
+[gd_resource type="Resource" script_class="MelleWeaponSettings" load_steps=2 format=3 uid="uid://h6op2geh7248"]
 
-[ext_resource type="Resource" uid="uid://4sjkfxm7asj7" path="res://data/settings/utility ai/presets/PresetMelleAttack.tres" id="1_306da"]
 [ext_resource type="Script" path="res://scripts/resources/abilities/MelleWeaponSettings.gd" id="1_npumr"]
 
 [resource]
@@ -9,5 +8,4 @@ type_attack = 2
 use_price = 20
 damage = 5.0
 can_stealth_attack = true
-ai_preset = ExtResource("1_306da")
 setting_name = "Dagger"

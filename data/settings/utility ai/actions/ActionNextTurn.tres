@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="ActionNextTurn" load_steps=2 format=3 uid="uid://du37tccrd2rlv"]
-
-[ext_resource type="Script" path="res://scripts/utility_ai/actions/ActionNextTurn.gd" id="1_cqs5r"]
-
-[resource]
-script = ExtResource("1_cqs5r")
-considerations = Array[Resource("res://scripts/utility_ai/Consideration.gd")]([])

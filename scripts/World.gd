@@ -3,7 +3,6 @@ extends Node2D
 
 
 @onready var input_system: InputSystem = $InputSystem
-@onready var units_manager: UnitsManager = $UnitsManager as UnitsManager
 
 @export var unit_initializator: UnitInitializator
 @export var unit_list: UnitList
@@ -29,5 +28,5 @@ func init(game_progress: GameProgress):
 
 
 func _add_level_to_pathfinding(new_level: Level):
-	units_manager.pathfinding.add_child(new_level)
-	units_manager.pathfinding.move_child(new_level, 0)
+	add_child(new_level)
+	move_child(new_level, 0)

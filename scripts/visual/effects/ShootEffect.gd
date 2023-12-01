@@ -31,15 +31,15 @@ func create_bullet_and_tween(tween: Tween, from: Vector2, to: Vector2):
 	await tween.finished
 
 
-func play(tween: Tween, from: Vector2, to: Vector2, hit_type: ShootingModule.HitType, cover_pos: Vector2, random_obs: CellObject):
+func play(tween: Tween, from: Vector2, to: Vector2, hit_type: int, cover_pos: Vector2, random_obs: CellObject):
 	var from_pos: Vector2 = from
 	var to_pos: Vector2 = to
 
-	if hit_type == ShootingModule.HitType.HIT_IN_COVER:
+	if hit_type == 0:
 		to_pos = cover_pos
-	elif hit_type == ShootingModule.HitType.HIT_IN_OBS:
+	elif hit_type == 1:
 		to_pos = random_obs.position
-	elif hit_type == ShootingModule.HitType.MISS:
+	elif hit_type == 2:
 		to_pos = from_pos + _get_little_wrong_shoot_direction(to_pos - from_pos)
 
 	await create_bullet_and_tween(tween, from_pos, to_pos)

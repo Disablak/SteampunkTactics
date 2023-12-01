@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_7w37h"]
 [ext_resource type="Script" path="res://scripts/units/UnitInitializator.gd" id="2_cenak"]
+[ext_resource type="PackedScene" uid="uid://du6xcv567vuwr" path="res://scenes/levels/Level_1.tscn" id="6_cfcg2"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="10_yja2f"]
 [ext_resource type="PackedScene" uid="uid://qe5vh8lqbl8k" path="res://scenes/visual/EffectManager.tscn" id="12_28wh2"]
 [ext_resource type="Script" path="res://scripts/UnitOrder.gd" id="12_6735i"]
 [ext_resource type="Script" path="res://scripts/CameraController.gd" id="14_ops4e"]
 [ext_resource type="Script" path="res://scripts/units/UnitList.gd" id="16_3smra"]
 [ext_resource type="PackedScene" uid="uid://cgdko33qxd1ci" path="res://scenes/levels/components/NavRegion.tscn" id="18_es1be"]
-[ext_resource type="PackedScene" uid="uid://du6xcv567vuwr" path="res://scenes/levels/Level_1 witn new move.tscn" id="19_nbpj7"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
 [ext_resource type="PackedScene" uid="uid://deiwiskh30hey" path="res://scenes/levels/components/ObjectSelector.tscn" id="22_4ur3f"]
 [ext_resource type="Script" path="res://scripts/navigation/ObjectMover.gd" id="23_eg25c"]
@@ -35,7 +35,7 @@ script = ExtResource("12_6735i")
 
 [node name="NavigationRegion" parent="." instance=ExtResource("18_es1be")]
 
-[node name="Level_1" parent="NavigationRegion" instance=ExtResource("19_nbpj7")]
+[node name="Level_1" parent="NavigationRegion" instance=ExtResource("6_cfcg2")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-112, -64)

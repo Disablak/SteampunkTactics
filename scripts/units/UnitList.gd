@@ -11,8 +11,12 @@ func _enter_tree() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 
 
+func get_cur_unit_id() -> int:
+	return unit_order.get_cur_unit_id()
+
+
 func get_cur_unit() -> Unit:
-	var cur_unit_id := unit_order.get_cur_unit_id()
+	var cur_unit_id := get_cur_unit_id()
 	return _units[cur_unit_id]
 
 

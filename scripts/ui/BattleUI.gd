@@ -33,7 +33,7 @@ func init():
 	_on_unit_change_control(-1, false)
 
 	unit_info.init()
-	unit_abilities.init(GlobalUnits.get_cur_unit().unit_data)
+	unit_abilities.init(GlobalUnits.unit_list.get_cur_unit().unit_data)
 	units_list.init(GlobalUnits.unit_order.ordered_unit_ids)
 	panel_unit_info.init()
 
@@ -43,11 +43,11 @@ func _change_camera_zoom(zoom: float):
 
 
 func _on_unit_change_control(unit_id, _instantly):
-	var unit: Unit = GlobalUnits.get_cur_unit()
+	var unit: Unit = GlobalUnits.unit_list.get_cur_unit()
 	if not unit:
 		return
 
-	var can_show_cur_unit = GlobalMap.can_show_cur_unit()
+	var can_show_cur_unit = true
 	var show_label_enemys_turn = unit.unit_data.is_enemy and not can_show_cur_unit
 	label_is_enemy_turn.visible = show_label_enemys_turn
 

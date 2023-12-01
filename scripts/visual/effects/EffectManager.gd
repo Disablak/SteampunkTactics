@@ -12,16 +12,14 @@ extends Node2D
 const FALLING_SPEED = 300
 
 var _line2d_manager: Line2dManager
-var _pathfinding: Pathfinding
 
 var _shoot_effect: ShootEffect
 var _grenade_effect: GrenadeEffect
 var _selected_unit_effect: SelectedUnitEffect
 
 
-func inject_data(line2d_manager: Line2dManager, pathfinding: Pathfinding):
+func inject_data(line2d_manager: Line2dManager):
 	self._line2d_manager = line2d_manager
-	self._pathfinding = pathfinding
 
 
 func _ready() -> void:
@@ -32,8 +30,8 @@ func _ready() -> void:
 	_grenade_effect = GrenadeEffect.new(callback_create_tween, granede_scene, fire_effect_scene, self)
 
 
-func shoot(from: Unit, to: Unit, hit_type: ShootingModule.HitType, cover_pos: Vector2, random_obs: CellObject):
-	await _shoot_effect.play(create_tween(), from.unit_object.visual_pos, to.unit_object.visual_pos, hit_type, cover_pos, random_obs)
+func shoot(from: Unit, to: Unit, cover_pos: Vector2, random_obs: CellObject):
+	await _shoot_effect.play(create_tween(), from.unit_object.visual_pos, to.unit_object.visual_pos, 0, cover_pos, random_obs)
 
 
 func granade(cells: Array[CellInfo]):
@@ -48,8 +46,8 @@ func death_effect(pos: Vector2, unit_texture_region: Rect2):
 
 
 func falling_effect(unit_object: UnitObject):
-	var visual_is_under_bridge: bool = unit_object.position.y < _pathfinding.level.ground_plate.position.y
-	unit_object.visual_ordering = -50 if visual_is_under_bridge else 50
+	#var visual_is_under_bridge: bool = unit_object.position.y < _pathfinding.level.ground_plate.position.y
+	unit_object.visual_ordering = -50 if true else 50
 	unit_object.show_noticed_icon(false)
 
 	var final_pos: Vector2 = Vector2(unit_object.position.x, 300)

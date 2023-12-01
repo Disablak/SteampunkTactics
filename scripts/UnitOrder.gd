@@ -28,6 +28,9 @@ func _set_units_order(units: Array[Unit]):
 
 
 func get_cur_unit_id() -> int:
+	if ordered_unit_ids.size() == 0:
+		return -1
+
 	return ordered_unit_ids[clamp(cur_unit_idx, 0, ordered_unit_ids.size() - 1)]
 
 

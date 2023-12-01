@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://k27klyg28o74"]
-
-[ext_resource type="PackedScene" uid="uid://cwx8drbr53vsv" path="res://scenes/cells/WalkableHintCell.tscn" id="1_6cutu"]
-
-[node name="HintDamage" instance=ExtResource("1_6cutu")]
-
-[node name="White" parent="." index="0"]
-self_modulate = Color(1, 0, 0, 0.313726)

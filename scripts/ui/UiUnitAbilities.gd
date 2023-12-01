@@ -44,10 +44,7 @@ func _on_unit_updated_weapon(unit_id: int, weapon: AbilityData):
 
 
 func _can_show_updated_weapon(unit_id: int) -> bool:
-	if not GlobalMap.can_show_cur_unit():
-		return false
-
-	if unit_id != GlobalUnits.cur_unit_id:
+	if unit_id != GlobalUnits.unit_list.get_cur_unit_id():
 		return false
 
 	if all_btns_ability.size() == 0:

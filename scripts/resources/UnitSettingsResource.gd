@@ -10,7 +10,6 @@ extends Resource
 
 @export var equips: Array[EquipBase]
 @export var abilities: Array[AbilitySettings]
-@export var additional_ai_actions: Array[Action]
 
 
 func get_object() -> UnitSetting:
@@ -24,6 +23,5 @@ func get_object() -> UnitSetting:
 
 	unit_setting.equips = equips
 	unit_setting.abilities = abilities
-	unit_setting.additional_ai_actions = additional_ai_actions
 
 	return unit_setting

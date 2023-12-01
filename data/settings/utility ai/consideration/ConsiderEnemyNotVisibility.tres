@@ -1,7 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dmgltw4smqivq"]
-
-[ext_resource type="Script" path="res://scripts/utility_ai/considerations/ConsiderEnemyVisibility.gd" id="1"]
-
-[resource]
-script = ExtResource("1")
-invert = true
