@@ -15,4 +15,3 @@ initiative = 12
 range_of_view = 8
 equips = Array[Resource("res://scripts/resources/equips/EquipBase.gd")]([ExtResource("4_uh6l1")])
 abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([ExtResource("1_u0bml"), ExtResource("2_p1bmc"), ExtResource("3_5uyd4")])
-additional_ai_actions = Array[null]([])

@@ -45,7 +45,6 @@ var is_alive: bool:
 
 var _unit_stats: Array[UnitStat]
 var unit_settings: UnitSetting
-var visibility_data: VisibilityData = VisibilityData.new()
 
 var all_abilities: Array[AbilityData]
 var riffle: RangedWeaponData
