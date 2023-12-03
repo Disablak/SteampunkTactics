@@ -473,18 +473,12 @@ position = Vector2(4, 4)
 position = Vector2(39, 60)
 unit_name = "Ann"
 
-[node name="Enemy0" parent="." node_paths=PackedStringArray("main_sprite", "noticed_icon", "health_bar") instance=ExtResource("3_s8jjc")]
+[node name="Enemy0" parent="." instance=ExtResource("3_s8jjc")]
 position = Vector2(161, 50)
-main_sprite = NodePath("../Player/VisualObject")
-noticed_icon = NodePath("../Player/VisualObject/NoticedIcon")
-health_bar = NodePath("../Player/VisualObject/HealthBar")
 unit_name = "Steve"
 unit_settings_resource = ExtResource("7_a6u54")
 
-[node name="Enemy1" parent="." node_paths=PackedStringArray("main_sprite", "noticed_icon", "health_bar") instance=ExtResource("3_s8jjc")]
+[node name="Enemy1" parent="." instance=ExtResource("3_s8jjc")]
 position = Vector2(125, 103)
-main_sprite = NodePath("../Player/VisualObject")
-noticed_icon = NodePath("../Player/VisualObject/NoticedIcon")
-health_bar = NodePath("../Player/VisualObject/HealthBar")
 unit_name = "Tom"
 unit_settings_resource = ExtResource("10_cmafy")

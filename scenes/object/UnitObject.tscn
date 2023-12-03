@@ -8,11 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://ctc3hst3u6p20" path="res://scenes/object/InteractableStaticBody.tscn" id="6_c2p2v"]
 [ext_resource type="PackedScene" uid="uid://biqevm2kjhsep" path="res://scenes/object/NavObstacle.tscn" id="7_tdav3"]
 
-[node name="UnitObject" type="Node2D" node_paths=PackedStringArray("main_sprite", "noticed_icon", "health_bar") groups=["unit"]]
+[node name="UnitObject" type="Node2D" groups=["unit"]]
 script = ExtResource("1_cp6yk")
-main_sprite = NodePath("VisualObject")
-noticed_icon = NodePath("VisualObject/NoticedIcon")
-health_bar = NodePath("VisualObject/HealthBar")
 
 [node name="VisualObject" parent="." instance=ExtResource("2_7440i")]
 position = Vector2(-8, -14)

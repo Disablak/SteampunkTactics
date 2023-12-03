@@ -2,9 +2,9 @@ extends Node2D
 class_name UnitObject
 
 
-@export var main_sprite: Sprite2D
-@export var noticed_icon: Sprite2D
-@export var health_bar: HealthBar
+@onready var main_sprite: Sprite2D = $VisualObject
+@onready var noticed_icon: Sprite2D = $VisualObject/NoticedIcon
+@onready var health_bar: HealthBar = $VisualObject/HealthBar
 
 @export var unit_name: String = "Unit"
 @export var unit_settings_resource: UnitSettingsResource

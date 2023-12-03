@@ -1,5 +1,5 @@
 class_name Unit
-extends Node
+extends RefCounted
 
 
 var id: int

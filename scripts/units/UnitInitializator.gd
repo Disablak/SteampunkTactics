@@ -14,7 +14,6 @@ func create_units(unit_settings: Array[UnitSetting]) -> Array[Unit]:
 		unit_object.unit_settings = _get_unit_setting(unit_settings, unit_object.unit_name, unit_object)
 		var new_unit: Unit = Unit.new(unit_id, UnitData.new(unit_object.unit_settings), unit_object)
 
-		#GlobalUnits.units[unit_id] = new_unit
 		units.append(new_unit)
 		unit_id += 1
 
