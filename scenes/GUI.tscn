@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d4avb1r3ohetp"]
+[gd_scene load_steps=31 format=3 uid="uid://d4avb1r3ohetp"]
 
 [ext_resource type="Script" path="res://scripts/ui/GUI.gd" id="1_vypfl"]
 [ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="2_8t721"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://caqxce2hd6oam" path="res://scenes/2d/ui/MessageUI.tscn" id="3_ouymi"]
 [ext_resource type="Script" path="res://scripts/ui/BattleUI.gd" id="4_4wdqw"]
 [ext_resource type="PackedScene" uid="uid://d6qdqp0vqao0" path="res://scenes/2d/ui/UiUnitInfo.tscn" id="5_10q7o"]
+[ext_resource type="Script" path="res://scripts/ui/UiToLogicBindings.gd" id="5_e0e17"]
 [ext_resource type="Script" path="res://scripts/ui/UiUnitAbilities.gd" id="6_q18j3"]
 [ext_resource type="ButtonGroup" uid="uid://bsrwr3ppmws16" path="res://data/settings/ui/ButtonGroup.tres" id="7_7jswe"]
 [ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="7_omlrh"]
@@ -86,6 +87,12 @@ setup_tooltip_scene = ExtResource("3_4amhc")
 flying_tooltip_scene = ExtResource("2_8t721")
 message_scene = ExtResource("3_ouymi")
 path_message_spawn = NodePath("AlwaysUI")
+
+[node name="UiToLogicBindings" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_e0e17")
 
 [node name="AlwaysUI" type="CanvasLayer" parent="."]
 

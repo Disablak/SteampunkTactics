@@ -65,10 +65,7 @@ func _update_grenade_btn_text(grenade: ThrowItemData):
 
 
 func _on_changed_action(_id: int, action: UnitData.UnitAction):
-	if not GlobalMap.can_show_cur_unit():
-		return
-
-	for btn in _all_btns_ability.values():
+	for btn: ButtonUnitAction in _all_btns_ability.values():
 		btn.set_pressed_no_signal(false)
 
 	if _all_btns_ability.has(action):

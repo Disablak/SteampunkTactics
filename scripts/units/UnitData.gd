@@ -60,7 +60,7 @@ var knife: MelleWeaponData
 var grenade: ThrowItemData
 
 var _cur_weapon: WeaponData
-var _cur_action: UnitAction = UnitAction.NONE
+var cur_action: UnitAction = UnitAction.NONE
 
 
 func set_unit_id(id):
@@ -197,7 +197,7 @@ func get_available_actions() -> Array[UnitAction]:
 
 
 func change_action(action: UnitAction):
-	_cur_action = action
+	cur_action = action
 
 
 func _init_weapons(abilities: Array[AbilitySettings]):
