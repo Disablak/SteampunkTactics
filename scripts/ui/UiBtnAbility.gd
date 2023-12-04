@@ -1,3 +1,4 @@
+class_name ButtonUnitAction
 extends Button
 
 

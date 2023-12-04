@@ -11,6 +11,8 @@ enum UnitAction {
 	PUSH,
 }
 
+const DEFAULT_ACTIONS: Array[UnitAction] = [UnitAction.WALK, UnitAction.PUSH]
+
 var unit_id := -1
 var unit_name: String
 var is_enemy: bool
@@ -59,7 +61,6 @@ var grenade: ThrowItemData
 
 var _cur_weapon: WeaponData
 var _cur_action: UnitAction = UnitAction.NONE
-
 
 
 func set_unit_id(id):
@@ -176,21 +177,27 @@ func set_damage(value: float, attacker_unit_id: int):
 		print_debug("unit_died ", unit_id)
 
 
-func get_move_price(count_cells: int) -> int:
-	return count_cells * move_speed
+func get_available_actions() -> Array[UnitAction]:
+	var available_actions: Array[UnitAction]
+	available_actions.append_array(DEFAULT_ACTIONS)
+
+	var is_any_ranged_weapon: bool = all_weapons.any(func(x): return x is RangedWeaponData)
+	if is_any_ranged_weapon:
+		available_actions.append(UnitAction.RELOAD)
+
+	for weapon: WeaponData in all_weapons:
+		if weapon is RangedWeaponData:
+			available_actions.append(UnitAction.SHOOT)
+		if weapon is MelleWeaponData:
+			available_actions.append(UnitAction.MALEE_ATACK)
+		if weapon is ThrowItemData:
+			available_actions.append(UnitAction.GRENADE)
+
+	return available_actions
 
 
-func has_ability(action: UnitAction):
-	if action == UnitAction.SHOOT or action == UnitAction.RELOAD:
-		return riffle != null
-
-	if action == UnitAction.GRENADE:
-		return grenade != null
-
-	if action == UnitAction.MALEE_ATACK:
-		return knife != null
-
-	return true
+func change_action(action: UnitAction):
+	_cur_action = action
 
 
 func _init_weapons(abilities: Array[AbilitySettings]):
