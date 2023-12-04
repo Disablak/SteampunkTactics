@@ -33,7 +33,7 @@ func _on_clicked_ability(btn):
 	GlobalBus.on_clicked_ability.emit(btn.ability)
 
 
-func _on_unit_updated_weapon(unit_id: int, weapon: AbilityData):
+func _on_unit_updated_weapon(unit_id: int, weapon: WeaponData):
 	if not _can_show_updated_weapon(unit_id):
 		return
 

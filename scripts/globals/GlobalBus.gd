@@ -6,7 +6,7 @@ signal on_unit_change_health(unit_id)
 signal on_unit_moved_to_another_cell(unit_id: int, cell_pos: Vector2i)
 signal on_unit_changed_control(unit_id, instantly)
 signal on_unit_changed_action(unit_id, unit_action_type)
-signal on_unit_updated_weapon(unit_id: int, ability: AbilityData)
+signal on_unit_updated_weapon(unit_id: int, weapon: WeaponData)
 signal on_unit_stat_changed(unit_id: int, unit_stat: UnitStat)
 signal on_unit_equip_added(unit_id: int, equip: EquipBase)
 

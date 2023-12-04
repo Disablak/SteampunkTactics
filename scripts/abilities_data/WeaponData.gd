@@ -1,4 +1,4 @@
-class_name AbilityData
+class_name WeaponData
 extends RefCounted
 
 

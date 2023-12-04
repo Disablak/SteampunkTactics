@@ -1,5 +1,5 @@
 class_name MelleWeaponData
-extends AbilityData
+extends WeaponData
 
 var melle_weapon_data: MelleWeaponSettings:
 	get: return settings as MelleWeaponSettings

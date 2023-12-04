@@ -1,5 +1,5 @@
 class_name ThrowItemData
-extends AbilityData
+extends WeaponData
 
 var throw_item_settings: ThrowItemSettings:
 	get: return settings as ThrowItemSettings

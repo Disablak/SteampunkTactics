@@ -12,56 +12,66 @@ enum Abilities {
 }
 
 var unit_id := -1
+var unit_name: String
 var is_enemy: bool
 
 var cur_health: float:
-	get: return get_stat_cur_value(UnitStat.StatType.HEALTH)
+	get: return _get_stat_cur_value(UnitStat.StatType.HEALTH)
 	set(value): _set_stat_value(UnitStat.StatType.HEALTH, value)
 
 var cur_armor: float:
-	get: return get_stat_cur_value(UnitStat.StatType.ARMOR)
+	get: return _get_stat_cur_value(UnitStat.StatType.ARMOR)
 	set(value): _set_stat_value(UnitStat.StatType.ARMOR, value)
 
 var max_armor: float:
-	get: return get_stat_value(UnitStat.StatType.ARMOR)
+	get: return _get_stat_value(UnitStat.StatType.ARMOR)
 
 var max_health: float:
-	get: return get_stat_value(UnitStat.StatType.HEALTH)
+	get: return _get_stat_value(UnitStat.StatType.HEALTH)
 
 var move_speed: float:
-	get: return get_stat_value(UnitStat.StatType.MOVE_SPEED)
+	get: return _get_stat_value(UnitStat.StatType.MOVE_SPEED)
 
 var initiative: float:
-	get: return get_stat_value(UnitStat.StatType.INITIATIVE)
+	get: return _get_stat_value(UnitStat.StatType.INITIATIVE)
 
 var range_of_view: float:
-	get: return get_stat_value(UnitStat.StatType.RANGE_OF_VIEW)
+	get: return _get_stat_value(UnitStat.StatType.RANGE_OF_VIEW)
 
 var dmg_resist: float:
-	get: return get_stat_value(UnitStat.StatType.DMG_RESIST)
+	get: return _get_stat_value(UnitStat.StatType.DMG_RESIST)
 
 var is_alive: bool:
 	get: return cur_health > 0
 
-var _unit_stats: Array[UnitStat]
-var unit_settings: UnitSetting
+var is_dead: bool:
+	get: return not is_alive
 
-var all_abilities: Array[AbilityData]
+var _unit_stats: Array[UnitStat]
+var _unit_settings: UnitSetting
+
+var all_weapons: Array[WeaponData]
 var riffle: RangedWeaponData
 var knife: MelleWeaponData
 var grenade: ThrowItemData
 
+var _cur_weapon: WeaponData
+
+
+
+func set_unit_id(id):
+	self.unit_id = id
+
 
 func _init(unit_settings: UnitSetting):
-	self.unit_settings = unit_settings
+	_unit_settings = unit_settings
 
 	is_enemy = false#ai_settings != null
+	unit_name = unit_settings.unit_name
 
 	_init_stats(unit_settings)
-	_init_start_equips()
-	_init_abilities(unit_settings.abilities)
-
-	print(cur_health)
+	_init_equips(unit_settings.equips)
+	_init_weapons(unit_settings.abilities)
 
 
 func _init_stats(unit_settings: UnitSetting):
@@ -71,12 +81,12 @@ func _init_stats(unit_settings: UnitSetting):
 	_unit_stats.append(UnitStat.new(UnitStat.StatType.RANGE_OF_VIEW, unit_settings.range_of_view))
 
 
-func _init_start_equips():
-	for equip in unit_settings.equips:
-		add_equip(equip)
+func _init_equips(equips: Array[EquipBase]):
+	for equip: EquipBase in equips:
+		_add_equip(equip)
 
 
-func add_equip(equip: EquipBase):
+func _add_equip(equip: EquipBase):
 	for stat in equip.get_stats():
 		if stat.stat_value == 0:
 			continue
@@ -89,7 +99,7 @@ func add_equip(equip: EquipBase):
 	GlobalBus.on_unit_equip_added.emit(unit_id, equip)
 
 
-func remove_equip(equip: EquipBase):
+func _remove_equip(equip: EquipBase):
 	for stat in equip.get_stats():
 		if not _unit_stats.has(stat):
 			continue
@@ -97,25 +107,22 @@ func remove_equip(equip: EquipBase):
 		_unit_stats.erase(stat)
 
 
-func get_stat_value(stat_type: UnitStat.StatType) -> float:
+func _get_stat_value(stat_type: UnitStat.StatType) -> float:
 	return _get_stat_value_base(stat_type, func(stat: UnitStat): return stat.stat_value)
 
 
-func get_stat_cur_value(stat_type: UnitStat.StatType) -> float:
+func _get_stat_cur_value(stat_type: UnitStat.StatType) -> float:
 	return _get_stat_value_base(stat_type, func(stat: UnitStat): return stat.stat_cur_value)
 
 
 func _get_stat_value_base(stat_type: UnitStat.StatType, callback_get_value: Callable):
-	var value_sum: float = 0
+	var value_sum: float = -1.0
 	var is_any_stat_exist: bool = false
 
 	for stat in _unit_stats:
 		if stat.stat_type == stat_type:
 			is_any_stat_exist = true
 			value_sum += callback_get_value.call(stat)
-
-	if not is_any_stat_exist:
-		printerr("stat type {0} not found".format([UnitStat.StatType.keys()[stat_type]]))
 
 	return value_sum
 
@@ -131,9 +138,9 @@ func _set_stat_value(stat_type: UnitStat.StatType, value: float):
 func _get_stat_string(stat_type: UnitStat.StatType) -> String:
 	var stat_name: String = UnitStat.StatType.keys()[stat_type].capitalize()
 	if stat_type == UnitStat.StatType.HEALTH:
-		return "{0}: {1}/{2}".format([stat_name, get_stat_cur_value(stat_type), get_stat_value(stat_type)])
+		return "{0}: {1}/{2}".format([stat_name, _get_stat_cur_value(stat_type), _get_stat_value(stat_type)])
 
-	return "{0}: {1}".format([stat_name, get_stat_value(stat_type)])
+	return "{0}: {1}".format([stat_name, _get_stat_value(stat_type)])
 
 
 func get_unit_info_string() -> String:
@@ -144,9 +151,6 @@ func get_unit_info_string() -> String:
 		_get_stat_string(UnitStat.StatType.RANGE_OF_VIEW),
 		])
 
-
-func set_unit_id(id):
-	self.unit_id = id
 
 
 func set_damage(value: float, attacker_unit_id: int):
@@ -186,24 +190,24 @@ func has_ability(ability: Abilities):
 	return true
 
 
-func _init_abilities(abilities: Array[AbilitySettings]):
+func _init_weapons(abilities: Array[AbilitySettings]):
 	for setting in abilities:
 		if setting is RangedWeaponSettings:
 			riffle = RangedWeaponData.new()
 			riffle.settings = setting
-			all_abilities.append(riffle)
+			all_weapons.append(riffle)
 
 		if setting is MelleWeaponSettings:
 			knife = MelleWeaponData.new()
 			knife.settings = setting
-			all_abilities.append(knife)
+			all_weapons.append(knife)
 
 		if setting is ThrowItemSettings:
 			grenade = ThrowItemData.new()
 			grenade.settings = setting
-			all_abilities.append(grenade)
+			all_weapons.append(grenade)
 
-	for data in all_abilities:
+	for data in all_weapons:
 		data.init_weapon()
 
 

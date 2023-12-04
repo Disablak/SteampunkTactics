@@ -1,5 +1,5 @@
 class_name RangedWeaponData
-extends AbilityData
+extends WeaponData
 
 
 var ranged_weapon_settings: RangedWeaponSettings:
