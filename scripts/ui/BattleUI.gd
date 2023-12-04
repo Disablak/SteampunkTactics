@@ -30,10 +30,9 @@ func _process(_delta: float) -> void:
 
 
 func init():
-	_on_unit_change_control(-1, false)
+	_update_abilities_and_label_enemys_turn(GlobalUnits.unit_list.get_cur_unit_id())
 
 	unit_info.init()
-	unit_abilities.init(GlobalUnits.unit_list.get_cur_unit().unit_data)
 	units_list.init(GlobalUnits.unit_order.ordered_unit_ids)
 	panel_unit_info.init()
 
@@ -42,17 +41,13 @@ func _change_camera_zoom(zoom: float):
 	GlobalBus.on_change_camera_zoom.emit(zoom)
 
 
-func _on_unit_change_control(unit_id, _instantly):
-	var unit: Unit = GlobalUnits.unit_list.get_cur_unit()
-	if not unit:
-		return
+func _on_unit_change_control(unit_id: int, instantly: bool):
+	_update_abilities_and_label_enemys_turn(unit_id)
 
-	var can_show_cur_unit = true
-	var show_label_enemys_turn = unit.unit_data.is_enemy and not can_show_cur_unit
+
+func _update_abilities_and_label_enemys_turn(unit_id: int):
+	var unit: Unit = GlobalUnits.unit_list.get_unit(unit_id)
+	unit_abilities.update_all_abilities(unit.unit_data)
+
+	var show_label_enemys_turn = unit.unit_data.is_enemy
 	label_is_enemy_turn.visible = show_label_enemys_turn
-
-	if not can_show_cur_unit:
-		return
-
-	unit_abilities.init(unit.unit_data)
-

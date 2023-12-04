@@ -1,4 +1,4 @@
 extends Button
 
 
-@export var ability: UnitData.Abilities = UnitData.Abilities.NONE
+@export var ability: UnitData.UnitAction = UnitData.UnitAction.NONE

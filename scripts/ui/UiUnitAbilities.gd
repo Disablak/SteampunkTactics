@@ -2,6 +2,8 @@ class_name UiUnitAbilities
 extends Control
 
 
+@export var btns_container: Control
+
 var all_btns_ability = {}
 
 
@@ -10,7 +12,7 @@ func _ready() -> void:
 	GlobalBus.on_unit_changed_action.connect(_on_changed_action)
 
 
-func init(unit_data: UnitData):
+func update_all_abilities(unit_data: UnitData):
 	_init_all_buttons(unit_data)
 	_on_unit_updated_weapon(unit_data.unit_id, unit_data.riffle)
 	_on_unit_updated_weapon(unit_data.unit_id, unit_data.grenade)
@@ -20,7 +22,7 @@ func _init_all_buttons(unit_data: UnitData):
 	if all_btns_ability.size() != 0:
 		return
 
-	for btn in get_child(0).get_child(0).get_children():
+	for btn in btns_container.get_children():
 		var button: Button = btn as Button
 		var is_btn_available = unit_data.has_ability(button.ability)
 		button.pressed.connect(func(): _on_clicked_ability(btn))
@@ -54,11 +56,11 @@ func _can_show_updated_weapon(unit_id: int) -> bool:
 
 
 func _update_riffle_btn_text(riffle: RangedWeaponData):
-	all_btns_ability[UnitData.Abilities.SHOOT].text = "Shoot ({0}/{1})".format([riffle.cur_weapon_ammo, riffle.settings.max_ammo])
+	all_btns_ability[UnitData.UnitAction.SHOOT].text = "Shoot ({0}/{1})".format([riffle.cur_weapon_ammo, riffle.settings.max_ammo])
 
 
 func _update_grenade_btn_text(grenade: ThrowItemData):
-	all_btns_ability[UnitData.Abilities.GRENADE].text = "Grenade ({0}/{1})".format([grenade.cur_count, grenade.throw_item_settings.max_count])
+	all_btns_ability[UnitData.UnitAction.GRENADE].text = "Grenade ({0}/{1})".format([grenade.cur_count, grenade.throw_item_settings.max_count])
 
 
 func _on_changed_action(_id, action):
@@ -70,3 +72,5 @@ func _on_changed_action(_id, action):
 
 	if all_btns_ability.has(action):
 		all_btns_ability[action].set_pressed_no_signal(true)
+
+

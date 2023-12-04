@@ -116,7 +116,7 @@ offset_left = -190.0
 offset_right = -16.0
 offset_bottom = 112.0
 
-[node name="UnitAbils" type="ScrollContainer" parent="AlwaysUI/BattleUI/LeftSide"]
+[node name="UnitAbils" type="ScrollContainer" parent="AlwaysUI/BattleUI/LeftSide" node_paths=PackedStringArray("btns_container")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 16.0
@@ -125,6 +125,7 @@ offset_right = 198.0
 offset_bottom = 360.0
 horizontal_scroll_mode = 0
 script = ExtResource("6_q18j3")
+btns_container = NodePath("MarginContainer/Container")
 
 [node name="MarginContainer" type="MarginContainer" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils"]
 layout_mode = 2

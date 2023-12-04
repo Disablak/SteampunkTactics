@@ -7,7 +7,7 @@ extends Node2D
 @export var object_selector: ObjectSelector
 
 var cur_unit: Unit
-var cur_action: UnitData.Abilities = UnitData.Abilities.WALK
+var cur_action: UnitData.UnitAction = UnitData.UnitAction.WALK
 
 
 func _ready() -> void:

@@ -1,7 +1,7 @@
 extends RefCounted
 class_name UnitData
 
-enum Abilities {
+enum UnitAction {
 	NONE,
 	WALK,
 	MALEE_ATACK,
@@ -15,6 +15,7 @@ var unit_id := -1
 var unit_name: String
 var is_enemy: bool
 
+#region Characteristics
 var cur_health: float:
 	get: return _get_stat_cur_value(UnitStat.StatType.HEALTH)
 	set(value): _set_stat_value(UnitStat.StatType.HEALTH, value)
@@ -40,6 +41,7 @@ var range_of_view: float:
 
 var dmg_resist: float:
 	get: return _get_stat_value(UnitStat.StatType.DMG_RESIST)
+#endregion
 
 var is_alive: bool:
 	get: return cur_health > 0
@@ -56,6 +58,7 @@ var knife: MelleWeaponData
 var grenade: ThrowItemData
 
 var _cur_weapon: WeaponData
+var _cur_action: UnitAction = UnitAction.NONE
 
 
 
@@ -177,14 +180,14 @@ func get_move_price(count_cells: int) -> int:
 	return count_cells * move_speed
 
 
-func has_ability(ability: Abilities):
-	if ability == Abilities.SHOOT or ability == Abilities.RELOAD:
+func has_ability(action: UnitAction):
+	if action == UnitAction.SHOOT or action == UnitAction.RELOAD:
 		return riffle != null
 
-	if ability == Abilities.GRENADE:
+	if action == UnitAction.GRENADE:
 		return grenade != null
 
-	if ability == Abilities.MALEE_ATACK:
+	if action == UnitAction.MALEE_ATACK:
 		return knife != null
 
 	return true
