@@ -198,6 +198,7 @@ func get_available_actions() -> Array[UnitAction]:
 
 func change_action(action: UnitAction):
 	cur_action = action
+	GlobalBus.on_unit_changed_action.emit(unit_id, cur_action)
 
 
 func _init_weapons(abilities: Array[AbilitySettings]):

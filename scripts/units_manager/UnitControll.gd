@@ -17,6 +17,9 @@ func _ready() -> void:
 func _on_unit_changed(id: int, instantly: bool):
 	_enable_obstacle_for_prev_and_disable_for_new()
 
+	var unit := _get_cur_unit()
+	unit.unit_data.change_action(UnitData.UnitAction.NONE)
+
 
 func _enable_obstacle_for_prev_and_disable_for_new():
 	if cur_unit:
@@ -51,7 +54,7 @@ func _try_move(mouse_pos: Vector2, is_hovered_on_obj: bool):
 		return
 
 	attack_controll.deselect_attack()
-	move_controll.try_to_move(cur_unit.unit_object, mouse_pos)
+	move_controll.try_to_move(cur_unit, mouse_pos)
 
 
 func _try_shoot(is_hovered_on_obj: bool):

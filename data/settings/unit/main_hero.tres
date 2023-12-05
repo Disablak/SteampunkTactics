@@ -10,7 +10,7 @@
 script = ExtResource("5_7qxl6")
 unit_name = "Ann"
 max_health = 5.0
-walk_speed = 15
+walk_speed = 70
 initiative = 12
 range_of_view = 8
 equips = Array[Resource("res://scripts/resources/equips/EquipBase.gd")]([ExtResource("4_uh6l1")])

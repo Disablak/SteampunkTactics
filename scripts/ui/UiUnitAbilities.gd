@@ -14,7 +14,6 @@ func _ready() -> void:
 
 	for btn: ButtonUnitAction in btns_container.get_children():
 		_all_btns_ability[btn.ability] = btn
-		btn.pressed.connect(func(): _on_pressed(btn.ability))
 
 
 func update_all_abilities(unit_data: UnitData):
@@ -30,10 +29,6 @@ func _update_all_buttons(unit_data: UnitData):
 	for button: ButtonUnitAction in btns_container.get_children():
 		var is_btn_available = available_actions.has(button.ability)
 		button.visible = is_btn_available
-
-
-func _on_pressed(action: UnitData.UnitAction):
-	GlobalBus.on_unit_changed_action.emit(_unit_id, action)
 
 
 func _on_unit_updated_weapon(unit_id: int, weapon: WeaponData):

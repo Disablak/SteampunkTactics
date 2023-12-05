@@ -64,7 +64,7 @@ func get_height_of_obj(region: Rect2) -> int:
 	return -1
 
 
-static func get_total_distance(points) -> float:
+static func get_total_distance(points: PackedVector2Array) -> float:
 	if points.size() <= 1:
 		return 0.0
 

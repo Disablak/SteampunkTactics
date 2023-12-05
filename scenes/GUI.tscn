@@ -348,3 +348,10 @@ vertical_alignment = 1
 visible = false
 offset_top = 1.0
 offset_bottom = 1.0
+
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnMove" to="UiToLogicBindings" method="_on_btn_move_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnPush" to="UiToLogicBindings" method="_on_btn_push_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnShoot" to="UiToLogicBindings" method="_on_btn_shoot_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnReload" to="UiToLogicBindings" method="_on_btn_reload_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnGrenade" to="UiToLogicBindings" method="_on_btn_grenade_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnKnife" to="UiToLogicBindings" method="_on_btn_knife_on_pressed_btn_action"]

@@ -1,34 +1,50 @@
 class_name MoveControll
 extends Node
 
-const CONFIRM_CLICK_DISTANCE_PX := 4
+const CONFIRM_CLICK_DISTANCE_PX := 2
 
 @export var object_mover: ObjectMover
 @export var line2d_manager: Line2dManager
 
-var move_target_pos: Vector2
-var is_second_click: bool = false
+var _move_target_pos: Vector2
+var _is_second_click: bool = false
 
 
-func try_to_move(unit_object: UnitObject, mouse_pos: Vector2):
-	if _cant_move():
+func try_to_move(unit: Unit, mouse_pos: Vector2):
+	var world_pos: Vector2 = GlobalUtils.screen_pos_to_world_pos(mouse_pos)
+	var path := GlobalUtils.find_path(unit.unit_object.position, world_pos)
+	var path_distance: float = Globals.get_total_distance(path)
+	var move_price: int = path_distance / 100 * unit.unit_data.move_speed
+
+	if not _can_move(move_price):
 		return
 
-	var world_pos: Vector2 = GlobalUtils.screen_pos_to_world_pos(mouse_pos)
-
-	var is_second_click_to_same_point = is_second_click and move_target_pos.distance_to(world_pos) < CONFIRM_CLICK_DISTANCE_PX
+	var is_second_click_to_same_point = _is_second_click and _move_target_pos.distance_to(world_pos) < CONFIRM_CLICK_DISTANCE_PX
 	if is_second_click_to_same_point:
-		_move_unit(unit_object, move_target_pos)
+		TurnManager.spend_time_points(move_price)
+		_move_unit(unit.unit_object, _move_target_pos)
 	else:
-		_show_future_path(unit_object, world_pos)
+		TurnManager.show_hint_spend_points(move_price)
+		_show_future_path(unit.unit_object, world_pos)
+
 
 func deselect_move():
-	is_second_click = false
+	_is_second_click = false
 	line2d_manager.clear_path()
+	TurnManager.show_hint_spend_points(0)
 
 
-func _cant_move() -> bool:
-	return object_mover.is_object_moving()
+func _can_move(move_price: int) -> bool:
+	if object_mover.is_object_moving():
+		return false
+
+	if not TurnManager.enough_time_points_for_start_move():
+		return false
+
+	if not TurnManager.can_spend_time_points(move_price):
+		return false
+
+	return true
 
 
 func _move_unit(unit_object: UnitObject, world_pos: Vector2):
@@ -40,8 +56,8 @@ func _show_future_path(unit_object: UnitObject, world_pos: Vector2):
 	var path := GlobalUtils.find_path(unit_object.position, world_pos)
 	_draw_path(path)
 
-	move_target_pos = world_pos
-	is_second_click = true
+	_move_target_pos = world_pos
+	_is_second_click = true
 
 
 func _draw_path(path: PackedVector2Array):
