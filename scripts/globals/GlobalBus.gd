@@ -8,6 +8,7 @@ signal on_unit_updated_weapon(unit_id: int, weapon: WeaponData)
 signal on_unit_stat_changed(unit_id: int, unit_stat: UnitStat)
 signal on_unit_equip_added(unit_id: int, equip: EquipBase)
 signal on_unit_changed_action(unit_id: int, action: UnitData.UnitAction)
+signal on_unit_changed_weapon(unit_id: int, weapon: WeaponData)
 
 
 signal on_changed_time_points(cur_points: int, max_points: int)

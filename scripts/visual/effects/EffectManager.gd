@@ -13,9 +13,9 @@ const FALLING_SPEED = 300
 
 var _line2d_manager: Line2dManager
 
-var _shoot_effect: ShootEffect
-var _grenade_effect: GrenadeEffect
-var _selected_unit_effect: SelectedUnitEffect
+var shoot_effect: ShootEffect
+var grenade_effect: GrenadeEffect
+var selected_unit_effect: SelectedUnitEffect
 
 
 func inject_data(line2d_manager: Line2dManager):
@@ -23,19 +23,19 @@ func inject_data(line2d_manager: Line2dManager):
 
 
 func _ready() -> void:
-	_selected_unit_effect = SelectedUnitEffect.new(selected_frame)
-	_shoot_effect = ShootEffect.new(bullet_scene, self)
+	selected_unit_effect = SelectedUnitEffect.new(selected_frame)
+	shoot_effect = ShootEffect.new(bullet_scene, self)
 
 	var callback_create_tween: Callable = create_tween
-	_grenade_effect = GrenadeEffect.new(callback_create_tween, granede_scene, fire_effect_scene, self)
+	grenade_effect = GrenadeEffect.new(callback_create_tween, granede_scene, fire_effect_scene, self)
 
 
 func shoot(from: Unit, to: Unit, cover_pos: Vector2, random_obs: CellObject):
-	await _shoot_effect.play(create_tween(), from.unit_object.visual_pos, to.unit_object.visual_pos, 0, cover_pos, random_obs)
+	await shoot_effect.play(create_tween(), from.unit_object.visual_pos, to.unit_object.visual_pos, 0, cover_pos, random_obs)
 
 
 func granade(cells: Array[CellInfo]):
-	_grenade_effect.play(cells, _line2d_manager.line2d_trajectory.points)
+	grenade_effect.play(cells, _line2d_manager.line2d_trajectory.points)
 
 
 func death_effect(pos: Vector2, unit_texture_region: Rect2):
@@ -60,5 +60,5 @@ func falling_effect(unit_object: UnitObject):
 
 
 func select_unit_effect(pos: Vector2):
-	_selected_unit_effect.play_effect(create_tween(), pos)
+	selected_unit_effect.play_effect(create_tween(), pos)
 

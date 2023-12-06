@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=18 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_7w37h"]
 [ext_resource type="Script" path="res://scripts/units/UnitInitializator.gd" id="2_cenak"]
 [ext_resource type="PackedScene" uid="uid://du6xcv567vuwr" path="res://scenes/levels/Level_1.tscn" id="6_cfcg2"]
+[ext_resource type="Script" path="res://scripts/units_manager/ReloadControll.gd" id="10_2apof"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="10_yja2f"]
 [ext_resource type="PackedScene" uid="uid://qe5vh8lqbl8k" path="res://scenes/visual/EffectManager.tscn" id="12_28wh2"]
 [ext_resource type="Script" path="res://scripts/UnitOrder.gd" id="12_6735i"]
@@ -14,7 +15,7 @@
 [ext_resource type="Script" path="res://scripts/navigation/ObjectMover.gd" id="23_eg25c"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitControll.gd" id="25_xuv3j"]
 [ext_resource type="Script" path="res://scripts/units_manager/MoveControll.gd" id="26_xex30"]
-[ext_resource type="Script" path="res://scripts/units_manager/AttackControll.gd" id="27_3j6ta"]
+[ext_resource type="Script" path="res://scripts/units_manager/ShootControll.gd" id="27_3j6ta"]
 [ext_resource type="Script" path="res://scripts/utils/DrawDebug.gd" id="27_xmkd7"]
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("unit_initializator", "unit_list", "unit_order")]
@@ -42,21 +43,25 @@ position = Vector2(-112, -64)
 anchor_mode = 0
 zoom = Vector2(2, 2)
 
-[node name="UnitControll" type="Node2D" parent="." node_paths=PackedStringArray("move_controll", "attack_controll", "object_selector")]
+[node name="UnitControll" type="Node2D" parent="." node_paths=PackedStringArray("object_selector", "move_controll", "shoot_controll", "reload_controll")]
 script = ExtResource("25_xuv3j")
-move_controll = NodePath("MoveControll")
-attack_controll = NodePath("AttackControll")
 object_selector = NodePath("../ObjectSelector")
+move_controll = NodePath("MoveControll")
+shoot_controll = NodePath("ShootControll")
+reload_controll = NodePath("ReloadControll")
 
 [node name="MoveControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("object_mover", "line2d_manager")]
 script = ExtResource("26_xex30")
 object_mover = NodePath("../../ObjectMover")
 line2d_manager = NodePath("../../Line2dManager")
 
-[node name="AttackControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("line2d_manager", "effect_manager")]
+[node name="ShootControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("line2d_manager", "effect_manager")]
 script = ExtResource("27_3j6ta")
 line2d_manager = NodePath("../../Line2dManager")
 effect_manager = NodePath("../../EffectManager")
+
+[node name="ReloadControll" type="Node2D" parent="UnitControll"]
+script = ExtResource("10_2apof")
 
 [node name="InputSystem" type="Node2D" parent="."]
 script = ExtResource("10_yja2f")

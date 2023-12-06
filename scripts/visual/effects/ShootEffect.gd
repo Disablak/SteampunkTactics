@@ -2,13 +2,18 @@ class_name ShootEffect
 extends RefCounted
 
 
-const BULLET_SPEED = 500
+const BULLET_SPEED = 800
 const SHOOT_MISS_POS_LERP = [0.0, 0.1, 0.2, 0.3, 0.7, 0.8, 0.9, 1.0]
 const MISSED_BULLET_DISTANCE = 1000
 const MISS_MAX_BULLET_OFFSET = 5
 
+var _tween: Tween
 var _bullet_scene: PackedScene
 var _bullet_root: Node2D
+
+
+func is_tweening() -> bool:
+	return _tween and _tween.is_valid() and _tween.is_running()
 
 
 func _init(bullet_scene: PackedScene, bullet_root: Node2D):
@@ -26,9 +31,10 @@ func create_bullet_and_tween(tween: Tween, from: Vector2, to: Vector2):
 	var distance = from.distance_to(to)
 	var time = distance / BULLET_SPEED
 
-	tween.tween_property(new_instance, "position", to, time)
-	tween.tween_callback(new_instance.queue_free)
-	await tween.finished
+	_tween = tween
+	_tween.tween_property(new_instance, "position", to, time)
+	_tween.tween_callback(new_instance.queue_free)
+	await _tween.finished
 
 
 func play(tween: Tween, from: Vector2, to: Vector2, hit_type: int, cover_pos: Vector2, random_obs: CellObject):

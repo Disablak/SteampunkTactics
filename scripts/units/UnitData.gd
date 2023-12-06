@@ -59,7 +59,7 @@ var riffle: RangedWeaponData
 var knife: MelleWeaponData
 var grenade: ThrowItemData
 
-var _cur_weapon: WeaponData
+var cur_weapon: WeaponData
 var cur_action: UnitAction = UnitAction.NONE
 
 
@@ -76,6 +76,9 @@ func _init(unit_settings: UnitSetting):
 	_init_stats(unit_settings)
 	_init_equips(unit_settings.equips)
 	_init_weapons(unit_settings.abilities)
+
+	if riffle:
+		change_weapon(riffle)
 
 
 func _init_stats(unit_settings: UnitSetting):
@@ -199,6 +202,11 @@ func get_available_actions() -> Array[UnitAction]:
 func change_action(action: UnitAction):
 	cur_action = action
 	GlobalBus.on_unit_changed_action.emit(unit_id, cur_action)
+
+
+func change_weapon(weapon: WeaponData):
+	cur_weapon = weapon
+	GlobalBus.on_unit_changed_weapon.emit(unit_id, cur_weapon)
 
 
 func _init_weapons(abilities: Array[AbilitySettings]):
