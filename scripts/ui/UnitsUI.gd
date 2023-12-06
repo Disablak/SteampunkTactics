@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 		units_ui[id].scale = Vector2.ONE / get_viewport().get_camera_2d().zoom
 
 
-func _update_unit_info(unit_id):
+func _update_unit_info(unit_id, dealer_unit_id):
 	if units_ui.has(unit_id):
 		_update_health(unit_id)
 	else:

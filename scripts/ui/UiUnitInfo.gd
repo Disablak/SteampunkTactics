@@ -17,10 +17,10 @@ func init():
 
 
 func on_change_unit(unit_id, _tmp):
-	on_unit_change_health(unit_id)
+	on_unit_change_health(unit_id, -1)
 
 
-func on_unit_change_health(unit_id):
+func on_unit_change_health(unit_id: int, dealer_unit_id: int):
 	if unit_id != GlobalUnits.unit_list.get_cur_unit_id():
 		return
 
@@ -36,4 +36,4 @@ func on_unit_change_health(unit_id):
 
 
 func _on_unit_stat_changed(unit_id: int, stat: UnitStat):
-	on_unit_change_health(unit_id)
+	on_unit_change_health(unit_id, -1)

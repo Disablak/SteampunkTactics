@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("7_xq26t")
 unit_name = "Enemy0"
-max_health = 20.0
+max_health = 35.0
 walk_speed = 10
 initiative = 10
 range_of_view = 5

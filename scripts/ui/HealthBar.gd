@@ -12,10 +12,12 @@ extends Sprite2D
 
 var _unit_id: int
 var _start_line_width: float
+var _start_pos: Vector2
 
 
 func _ready() -> void:
 	_start_line_width = line_health.scale.x
+	_start_pos = position
 
 	GlobalBus.on_unit_stat_changed.connect(_on_unit_stat_changed)
 
@@ -38,7 +40,7 @@ func _update_healthbar(unit_id):
 		texture = sprite_half_texture
 		line_armor.visible = false
 		back.scale.y = 0.187
-		position += Vector2(0, 2)
+		position = _start_pos + Vector2(0, 2)
 	else:
 		line_armor.scale.x = (unit.unit_data.cur_armor / unit.unit_data.max_armor) * _start_line_width
 

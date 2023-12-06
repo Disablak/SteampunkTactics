@@ -77,8 +77,7 @@ func _init(unit_settings: UnitSetting):
 	_init_equips(unit_settings.equips)
 	_init_weapons(unit_settings.abilities)
 
-	if riffle:
-		change_weapon(riffle)
+	change_weapon(riffle)
 
 
 func _init_stats(unit_settings: UnitSetting):
@@ -173,7 +172,7 @@ func set_damage(value: float, attacker_unit_id: int):
 	else:
 		cur_health -= value
 
-	GlobalBus.on_unit_change_health.emit(unit_id)
+	GlobalBus.on_unit_change_health.emit(unit_id, attacker_unit_id)
 
 	if cur_health <= 0:
 		GlobalBus.on_unit_died.emit(unit_id, attacker_unit_id)

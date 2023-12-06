@@ -19,4 +19,3 @@ func _on_obstacle_change():
 
 func _bake():
 	bake_navigation_polygon(false)
-	print("baking")

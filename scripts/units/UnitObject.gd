@@ -75,9 +75,9 @@ func play_kick_anim(dir: Vector2):
 	await tween.finished
 
 
-func play_damage_anim():
+func play_damage_anim(dir: Vector2):
 	var tween = create_tween()
-	tween.tween_property(main_sprite, "position", main_sprite_def_pos + Vector2.RIGHT * 5, 0.1)
+	tween.tween_property(main_sprite, "position", main_sprite_def_pos - dir * 5, 0.1)
 	tween.tween_property(main_sprite, "position", main_sprite_def_pos, 0.1)
 	tween.set_trans(Tween.TRANS_BOUNCE)
 	await tween.finished
@@ -102,8 +102,9 @@ func enable_obstacle():
 	nav_obstacle.enable_obstacle()
 
 
-func _on_unit_changed_health(unit_id):
+func _on_unit_changed_health(unit_id: int, unit_id_dealer: int):
 	if self.unit_id != unit_id:
 		return
 
-	play_damage_anim()
+	var dir: Vector2 = GlobalUtils.get_dir_from_units(unit_id, unit_id_dealer)
+	play_damage_anim(dir)

@@ -15,3 +15,9 @@ func find_path(from: Vector2, to: Vector2) -> PackedVector2Array:
 	var path = NavigationServer2D.map_get_path(map0, formatted_pos_from, formatted_pos_to, true)
 
 	return path
+
+func get_dir_from_units(from_id: int, to_id: int):
+	var from: UnitObject = GlobalUnits.unit_list.get_unit(from_id).unit_object
+	var to: UnitObject = GlobalUnits.unit_list.get_unit(to_id).unit_object
+
+	return (to.position - from.position).normalized()

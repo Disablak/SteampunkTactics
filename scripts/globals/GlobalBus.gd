@@ -2,7 +2,7 @@ extends Node
 
 
 signal on_unit_died(unit_id, unit_id_killer)
-signal on_unit_change_health(unit_id)
+signal on_unit_change_health(unit_id: int, unit_id_dealer: int)
 signal on_unit_changed_control(unit_id, instantly)
 signal on_unit_updated_weapon(unit_id: int, weapon: WeaponData)
 signal on_unit_stat_changed(unit_id: int, unit_stat: UnitStat)

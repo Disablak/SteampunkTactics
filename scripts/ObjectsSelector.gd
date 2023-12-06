@@ -25,7 +25,7 @@ func get_hovered_objects() -> Array[Node]:
 	return _hovered_objects
 
 
-func get_hovered_unit_object() -> UnitObject:
+func get_hovered_unit() -> Unit:
 	if not is_any_hovered_obj():
 		return null
 
@@ -34,7 +34,8 @@ func get_hovered_unit_object() -> UnitObject:
 	if not first_hovered_obj is UnitObject:
 		return null
 
-	return first_hovered_obj as UnitObject
+	var unit_object: UnitObject = first_hovered_obj as UnitObject
+	return GlobalUnits.unit_list.get_unit(unit_object.unit_id)
 
 
 func unsub_interactable_object_and_update_hovered(interactable: InteractableStaticBody):
@@ -80,7 +81,6 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		var click_pos = formatted_position(event.position)
 		on_click_on_object.emit(click_pos, get_hovered_objects())
-		print(click_pos)
 
 
 func formatted_position(position: Vector2) -> Vector2:

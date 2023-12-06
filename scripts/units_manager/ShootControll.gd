@@ -9,7 +9,7 @@ var attack_confirmed: bool = false
 
 
 func try_to_shoot(from: Unit, to: Unit):
-	if not _can_shoot(from.unit_data):
+	if not _can_shoot(from, to):
 		return
 
 	var ranged_weapon: RangedWeaponData = from.unit_data.cur_weapon as RangedWeaponData
@@ -30,11 +30,14 @@ func deselect_attack():
 	attack_confirmed = false
 
 
-func _can_shoot(unit_data: UnitData) -> bool:
-	if not unit_data.cur_weapon is RangedWeaponData :
+func _can_shoot(from: Unit, to: Unit) -> bool:
+	if not from or not to:
 		return false
 
-	var ranged_weapon: RangedWeaponData = unit_data.cur_weapon as RangedWeaponData
+	if not from.unit_data.cur_weapon is RangedWeaponData :
+		return false
+
+	var ranged_weapon: RangedWeaponData = from.unit_data.cur_weapon as RangedWeaponData
 	if not ranged_weapon.is_enough_ammo():
 		return false
 
@@ -51,7 +54,7 @@ func _shoot_and_kill(player: Unit, enemy: Unit):
 	await effect_manager.shoot_effect.create_bullet_and_tween(create_tween(), player.unit_object.position, enemy.unit_object.position)
 	enemy.unit_data.set_damage(10, player.id)
 
-	if not enemy.unit_data.is_alive:
+	if enemy.unit_data.is_dead:
 		effect_manager.death_effect(enemy.unit_object.position - Vector2(10, 10), enemy.unit_object.main_sprite.texture.region)
 		enemy.unit_object.queue_free()
 

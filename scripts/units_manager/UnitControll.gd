@@ -6,6 +6,7 @@ extends Node2D
 @export var move_controll: MoveControll
 @export var shoot_controll: ShootControll
 @export var reload_controll: ReloadControll
+@export var melle_attack_controll: MelleeAttackControll
 
 var cur_unit: Unit
 var cur_action: UnitData.UnitAction = UnitData.UnitAction.WALK
@@ -18,30 +19,24 @@ func _ready() -> void:
 
 func _on_unit_changed(id: int, instantly: bool):
 	_enable_obstacle_for_prev_and_disable_for_new()
-
-	var unit := _get_cur_unit()
-	unit.unit_data.change_action(UnitData.UnitAction.NONE)
+	cur_unit.unit_data.change_action(UnitData.UnitAction.NONE)
 
 
 func _on_unit_changed_action(id: int, action: UnitData.UnitAction):
 	if action == UnitData.UnitAction.RELOAD:
-		reload_controll.try_to_reload(_get_cur_unit())
+		reload_controll.try_to_reload(cur_unit)
 
 
 func _enable_obstacle_for_prev_and_disable_for_new():
 	if cur_unit:
 		cur_unit.unit_object.enable_obstacle()
 
-	cur_unit = _get_cur_unit()
+	cur_unit = GlobalUnits.unit_list.get_cur_unit()
 	if weakref(cur_unit).get_ref():
 		cur_unit.unit_object.disable_obstacle()
 
 
-func _get_cur_unit() -> Unit:
-	return GlobalUnits.unit_list.get_cur_unit()
-
 func _on_right_click_mouse(mouse_pos: Vector2):
-	var cur_unit := _get_cur_unit();
 	var is_hovered_on_obj := object_selector.is_any_hovered_obj()
 
 	match cur_unit.unit_data.cur_action:
@@ -53,6 +48,9 @@ func _on_right_click_mouse(mouse_pos: Vector2):
 
 		UnitData.UnitAction.SHOOT:
 			_try_shoot(is_hovered_on_obj)
+
+		UnitData.UnitAction.MALEE_ATACK:
+			_try_melee_attack()
 
 
 
@@ -68,11 +66,14 @@ func _try_shoot(is_hovered_on_obj: bool):
 	if not is_hovered_on_obj:
 		return
 
-	var enemy_object := object_selector.get_hovered_unit_object()
-	var enemy: Unit = GlobalUnits.unit_list.get_unit(enemy_object.unit_id)
-	if enemy_object:
-		move_controll.deselect_move()
-		shoot_controll.try_to_shoot(cur_unit, enemy)
+	var enemy: Unit = object_selector.get_hovered_unit()
+	move_controll.deselect_move()
+	shoot_controll.try_to_shoot(cur_unit, enemy)
+
+
+func _try_melee_attack():
+	var enemy: Unit = object_selector.get_hovered_unit()
+	melle_attack_controll.try_attack(cur_unit, enemy)
 
 
 func _on_input_system_on_pressed_rmc(mouse_pos: Vector2) -> void:
