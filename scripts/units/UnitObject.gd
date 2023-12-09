@@ -2,14 +2,15 @@ extends Node2D
 class_name UnitObject
 
 
+@export var unit_name: String = "Unit"
+@export var unit_settings_resource: UnitSettingsResource
+
 @onready var main_sprite: Sprite2D = $VisualObject
 @onready var noticed_icon: Sprite2D = $VisualObject/NoticedIcon
 @onready var health_bar: HealthBar = $VisualObject/HealthBar
 
-@export var unit_name: String = "Unit"
-@export var unit_settings_resource: UnitSettingsResource
-
 @onready var nav_obstacle: NavObstacle = $NavObstacle as NavObstacle
+@onready var interactable_stat_body: InteractableStaticBody = $InteractableStaticBody as InteractableStaticBody
 
 var unit_id = -1
 var unit_settings: UnitSetting

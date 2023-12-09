@@ -475,10 +475,8 @@ unit_name = "Ann"
 
 [node name="Enemy0" parent="." instance=ExtResource("3_s8jjc")]
 position = Vector2(161, 50)
-unit_name = "Steve"
 unit_settings_resource = ExtResource("7_a6u54")
 
 [node name="Enemy1" parent="." instance=ExtResource("3_s8jjc")]
 position = Vector2(125, 103)
-unit_name = "Tom"
 unit_settings_resource = ExtResource("10_cmafy")

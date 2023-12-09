@@ -23,8 +23,13 @@ func _on_unit_changed(id: int, instantly: bool):
 
 
 func _on_unit_changed_action(id: int, action: UnitData.UnitAction):
-	if action == UnitData.UnitAction.RELOAD:
-		reload_controll.try_to_reload(cur_unit)
+	match action:
+		UnitData.UnitAction.RELOAD:
+			reload_controll.try_to_reload(cur_unit)
+
+		UnitData.UnitAction.SHOOT:
+			shoot_controll.try_to_shoot(cur_unit)
+
 
 
 func _enable_obstacle_for_prev_and_disable_for_new():
@@ -68,7 +73,7 @@ func _try_shoot(is_hovered_on_obj: bool):
 
 	var enemy: Unit = object_selector.get_hovered_unit()
 	move_controll.deselect_move()
-	shoot_controll.try_to_shoot(cur_unit, enemy)
+	shoot_controll.try_to_shoot(cur_unit)
 
 
 func _try_melee_attack():
@@ -78,3 +83,10 @@ func _try_melee_attack():
 
 func _on_input_system_on_pressed_rmc(mouse_pos: Vector2) -> void:
 	_on_right_click_mouse(mouse_pos);
+
+
+func _on_input_system_on_pressed_esc() -> void:
+	cur_unit.unit_data.change_action(UnitData.UnitAction.NONE)
+
+
+

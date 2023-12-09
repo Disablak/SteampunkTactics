@@ -13,6 +13,16 @@ const GRAVITY = -9.8
 const POINTS_IN_TRAJECTORY = 20
 
 var line2d_trajectory: Line2D
+var line2d_shoot_raycast: Line2D
+
+
+func _ready() -> void:
+	line2d_shoot_raycast = draw_new_line(line_2d_scrolling, SHOOT_RAY, [Vector2(-100,-100), Vector2(-100,-100)], Color.WHITE)
+
+
+func set_shoot_raycast_pos(from: Vector2, to: Vector2):
+	line2d_shoot_raycast.set_point_position(0, from)
+	line2d_shoot_raycast.set_point_position(1, to)
 
 
 func draw_path(points, can_move):

@@ -19,7 +19,7 @@ func _ready() -> void:
 	show_tooltip(false, Vector3.ZERO, "")
 
 	for unit_id in GlobalUnits.units:
-		_update_unit_info(unit_id)
+		_update_unit_info(unit_id, -1)
 
 
 func _process(delta: float) -> void:

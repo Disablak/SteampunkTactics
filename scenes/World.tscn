@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=21 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_7w37h"]
 [ext_resource type="Script" path="res://scripts/units/UnitInitializator.gd" id="2_cenak"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/CameraController.gd" id="14_ops4e"]
 [ext_resource type="Script" path="res://scripts/units/UnitList.gd" id="16_3smra"]
 [ext_resource type="PackedScene" uid="uid://cgdko33qxd1ci" path="res://scenes/levels/components/NavRegion.tscn" id="18_es1be"]
+[ext_resource type="Script" path="res://scripts/Raycaster.gd" id="19_j1gqv"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
 [ext_resource type="PackedScene" uid="uid://deiwiskh30hey" path="res://scenes/levels/components/ObjectSelector.tscn" id="22_4ur3f"]
 [ext_resource type="Script" path="res://scripts/navigation/ObjectMover.gd" id="23_eg25c"]
@@ -18,6 +19,8 @@
 [ext_resource type="Script" path="res://scripts/units_manager/MoveControll.gd" id="26_xex30"]
 [ext_resource type="Script" path="res://scripts/units_manager/ShootControll.gd" id="27_3j6ta"]
 [ext_resource type="Script" path="res://scripts/utils/DrawDebug.gd" id="27_xmkd7"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_fnlar"]
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("unit_initializator", "unit_list", "unit_order")]
 script = ExtResource("1_7w37h")
@@ -57,10 +60,11 @@ script = ExtResource("26_xex30")
 object_mover = NodePath("../../ObjectMover")
 line2d_manager = NodePath("../../Line2dManager")
 
-[node name="ShootControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("line2d_manager", "effect_manager")]
+[node name="ShootControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("line2d_manager", "effect_manager", "raycaster")]
 script = ExtResource("27_3j6ta")
 line2d_manager = NodePath("../../Line2dManager")
 effect_manager = NodePath("../../EffectManager")
+raycaster = NodePath("../../Raycaster")
 
 [node name="ReloadControll" type="Node2D" parent="UnitControll"]
 script = ExtResource("10_2apof")
@@ -90,5 +94,11 @@ nav_region = NodePath("../NavigationRegion")
 [node name="CameraController" type="Node2D" parent="."]
 script = ExtResource("14_ops4e")
 
+[node name="Raycaster" type="Node2D" parent="."]
+script = ExtResource("19_j1gqv")
+segment_shape_2d = SubResource("SegmentShape2D_fnlar")
+
 [connection signal="on_drag" from="InputSystem" to="CameraController" method="_on_input_system_on_drag"]
+[connection signal="on_pressed_esc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_esc"]
+[connection signal="on_pressed_lmc" from="InputSystem" to="UnitControll/ShootControll" method="_on_input_system_on_pressed_lmc"]
 [connection signal="on_pressed_rmc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_rmc"]

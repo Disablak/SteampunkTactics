@@ -4,8 +4,24 @@ extends Node2D
 
 @export var segment_shape_2d: SegmentShape2D
 
+const LAYER_1 := 0xFFFFFFFF
 const MASK_WALL = 16
 const MASK_OBSTACLE = 32
+
+
+func make_ray_get_units(from: Vector2, to: Vector2) -> Array[UnitObject]:
+	var intersections: Array[Dictionary] = make_ray_intersections(from, to)
+	var result: Array[UnitObject]
+
+	for intersection in intersections:
+		if intersection.is_empty():
+			continue
+
+		var unit_object: UnitObject = intersection.collider.get_parent() as UnitObject
+		if unit_object:
+			result.append(unit_object)
+
+	return result
 
 
 func make_ray_get_obstacles(from, to) -> Array[CellObject]:
@@ -54,12 +70,16 @@ func make_ray_and_get_collision_point(pos_from: Vector2, pos_to: Vector2, collsi
 	return result.position
 
 
-func make_ray(from, to, collsion_mask) -> Dictionary:
-	var space_state = get_world_2d().direct_space_state
-	var ray_query_params := PhysicsRayQueryParameters2D.create(from, to, collsion_mask)
+func make_ray_with_excludes(from, to, exclude: Array[RID]):
+	return make_ray(from, to, LAYER_1, exclude)
+
+
+func make_ray(from: Vector2, to: Vector2, collsion_mask: int = LAYER_1, exlude: Array[RID] = []) -> Dictionary:
+	var ray_query_params := PhysicsRayQueryParameters2D.create(from, to, collsion_mask, exlude)
 	ray_query_params.collide_with_bodies = true
 	ray_query_params.collide_with_areas = true
 
+	var space_state = get_world_2d().direct_space_state
 	return space_state.intersect_ray(ray_query_params)
 
 
@@ -67,10 +87,9 @@ func make_ray_intersections(from, to) -> Array[Dictionary]:
 	segment_shape_2d.a = from
 	segment_shape_2d.b = to
 
-	var space_state = get_world_2d().direct_space_state
 	var shape_query_params := PhysicsShapeQueryParameters2D.new()
-
 	shape_query_params.shape = segment_shape_2d
-	shape_query_params.collision_mask = MASK_OBSTACLE
+	#shape_query_params.collision_mask = MASK_OBSTACLE
 
+	var space_state = get_world_2d().direct_space_state
 	return space_state.intersect_shape(shape_query_params)

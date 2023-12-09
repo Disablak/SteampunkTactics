@@ -26,6 +26,7 @@ position = Vector2(2, -7)
 
 [node name="InteractableStaticBody" parent="." instance=ExtResource("6_c2p2v")]
 position = Vector2(-4, -10)
+collision_layer = 8
 
 [node name="NavObstacle" parent="." instance=ExtResource("7_tdav3")]
 position = Vector2(-4, -4)

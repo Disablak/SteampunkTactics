@@ -5,10 +5,22 @@ extends Node2D
 var lines: Array[Array]
 var lines_malee_raycast: Array[Array]
 var point_ordering = {} # pos and ordering
+var dic_lines = {} # name group to array of lines
 
 
-func draw_vision_lines(line: Array):
-	lines.append(line)
+
+func add_line(line: Array, name: String):
+	if not dic_lines.has(name):
+		dic_lines[name] = []
+
+	dic_lines[name].append(line)
+	queue_redraw()
+
+
+func clear_lines(name: String):
+	if dic_lines.has(name):
+		dic_lines.erase(name)
+
 	queue_redraw()
 
 
@@ -38,10 +50,17 @@ func clear_malee_raycast_lines():
 
 
 func _draw() -> void:
+	_draw_lines()
 	_draw_fog_of_war_raycast()
 	_draw_objects_ordering()
 	_draw_malee_raycast()
 	_draw_grid_pos()
+
+
+func _draw_lines():
+	for group: Array in dic_lines.values():
+		for line in group:
+			draw_line(line[0], line[1], Color.WHITE)
 
 
 func _draw_fog_of_war_raycast():
