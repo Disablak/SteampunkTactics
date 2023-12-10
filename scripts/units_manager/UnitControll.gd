@@ -24,11 +24,14 @@ func _on_unit_changed(id: int, instantly: bool):
 
 func _on_unit_changed_action(id: int, action: UnitData.UnitAction):
 	match action:
+		UnitData.UnitAction.NONE:
+			shoot_controll.disable_aim()
+
 		UnitData.UnitAction.RELOAD:
 			reload_controll.try_to_reload(cur_unit)
 
 		UnitData.UnitAction.SHOOT:
-			shoot_controll.try_to_shoot(cur_unit)
+			shoot_controll.enable_aim(cur_unit)
 
 
 
@@ -63,7 +66,7 @@ func _try_move(mouse_pos: Vector2, is_hovered_on_obj: bool):
 	if is_hovered_on_obj:
 		return
 
-	shoot_controll.deselect_attack()
+	shoot_controll.disable_aim()
 	move_controll.try_to_move(cur_unit, mouse_pos)
 
 
@@ -73,7 +76,7 @@ func _try_shoot(is_hovered_on_obj: bool):
 
 	var enemy: Unit = object_selector.get_hovered_unit()
 	move_controll.deselect_move()
-	shoot_controll.try_to_shoot(cur_unit)
+	shoot_controll.enable_aim(cur_unit)
 
 
 func _try_melee_attack():
