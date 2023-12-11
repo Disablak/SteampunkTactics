@@ -23,10 +23,10 @@ func _on_unit_changed(id: int, instantly: bool):
 
 
 func _on_unit_changed_action(id: int, action: UnitData.UnitAction):
-	match action:
-		UnitData.UnitAction.NONE:
-			shoot_controll.disable_aim()
+	move_controll.deselect_move()
+	shoot_controll.disable_aim()
 
+	match action:
 		UnitData.UnitAction.RELOAD:
 			reload_controll.try_to_reload(cur_unit)
 
