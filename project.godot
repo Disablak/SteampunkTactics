@@ -25,6 +25,8 @@ TurnManager="*res://scripts/units_manager/TurnManager.gd"
 GlobalsUi="*res://scripts/globals/GlobalsUI.gd"
 GlobalDB="*res://scripts/globals/GlobalDB.gd"
 GlobalUtils="*res://scripts/globals/GlobalUtils.gd"
+BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
+BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 
 [display]
 
@@ -40,7 +42,7 @@ movie_writer/movie_file="/Users/disablak/Godot Projects/Godot Movies/test.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/script-name-on-top/plugin.cfg")
+enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/script-name-on-top/plugin.cfg")
 
 [input]
 
