@@ -9,6 +9,7 @@
 [resource]
 script = ExtResource("5_7qxl6")
 unit_name = "Ann"
+is_enemy = false
 max_health = 5.0
 walk_speed = 70
 initiative = 12

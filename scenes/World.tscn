@@ -22,11 +22,12 @@
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_fnlar"]
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("unit_initializator", "unit_list", "unit_order")]
+[node name="World" type="Node2D" node_paths=PackedStringArray("unit_initializator", "unit_list", "unit_order", "unit_controll")]
 script = ExtResource("1_7w37h")
 unit_initializator = NodePath("UnitInitializator")
 unit_list = NodePath("UnitInitializator/UnitList")
 unit_order = NodePath("UnitInitializator/UnitOrder")
+unit_controll = NodePath("UnitControll")
 
 [node name="UnitInitializator" type="Node2D" parent="."]
 script = ExtResource("2_cenak")

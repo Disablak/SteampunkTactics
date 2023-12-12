@@ -70,7 +70,7 @@ func set_unit_id(id):
 func _init(unit_settings: UnitSetting):
 	_unit_settings = unit_settings
 
-	is_enemy = false#ai_settings != null
+	is_enemy = unit_settings.is_enemy
 	unit_name = unit_settings.unit_name
 
 	_init_stats(unit_settings)

@@ -22,7 +22,7 @@ func _ready() -> void:
 	btn_zoom_100.pressed.connect(func(): _change_camera_zoom(2))
 	btn_zoom_150.pressed.connect(func(): _change_camera_zoom(1.5))
 	btn_zoom_200.pressed.connect(func(): _change_camera_zoom(1))
-	btn_next_turn.pressed.connect(func(): GlobalBus.on_clicked_next_turn.emit())
+	btn_next_turn.pressed.connect(_next_turn)
 
 
 func _process(_delta: float) -> void:
@@ -39,6 +39,10 @@ func init():
 
 func _change_camera_zoom(zoom: float):
 	GlobalBus.on_change_camera_zoom.emit(zoom)
+
+
+func _next_turn():
+	GlobalUnits.unit_control.next_turn()
 
 
 func _on_unit_change_control(unit_id: int, instantly: bool):

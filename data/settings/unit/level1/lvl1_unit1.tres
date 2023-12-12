@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource("7_dcyvk")
 unit_name = "Enemy1"
+is_enemy = true
 max_health = 8.0
 walk_speed = 20
 initiative = 5

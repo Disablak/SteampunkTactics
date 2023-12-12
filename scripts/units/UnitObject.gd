@@ -4,6 +4,7 @@ class_name UnitObject
 
 @export var unit_name: String = "Unit"
 @export var unit_settings_resource: UnitSettingsResource
+@export var beehave_tree: BeehaveTree
 
 @onready var main_sprite: Sprite2D = $VisualObject
 @onready var noticed_icon: Sprite2D = $VisualObject/NoticedIcon
@@ -33,6 +34,9 @@ var visual_ordering: int:
 	get: return main_sprite.z_index
 	set(value): main_sprite.z_index = value
 
+var is_enemy: bool:
+	get: return beehave_tree != null
+
 
 func init_unit(unit_id, unit_data: UnitData) -> void:
 	self.unit_id = unit_id
@@ -41,6 +45,15 @@ func init_unit(unit_id, unit_data: UnitData) -> void:
 
 	origin_offset = Globals.get_height_of_obj(main_sprite.texture.region) + main_sprite.offset.y + main_sprite.position.y
 
+
+func try_to_start_ai():
+	if is_enemy:
+		beehave_tree.enable()
+
+
+func try_to_finish_ai():
+	if is_enemy:
+		beehave_tree.disable()
 
 
 func _ready() -> void:

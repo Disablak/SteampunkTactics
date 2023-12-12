@@ -7,6 +7,7 @@ extends Node2D
 @export var unit_initializator: UnitInitializator
 @export var unit_list: UnitList
 @export var unit_order: UnitOrder
+@export var unit_controll: UnitControll
 @export var level_scenes: Array[PackedScene]
 
 
@@ -15,6 +16,7 @@ func _ready() -> void:
 	GlobalMap.draw_debug = $DrawDebug
 	GlobalUnits.unit_list = unit_list
 	GlobalUnits.unit_order = unit_order
+	GlobalUnits.unit_control = unit_controll
 
 
 func init(game_progress: GameProgress):

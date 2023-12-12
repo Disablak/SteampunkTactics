@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func _on_unit_changed(id: int, instantly: bool):
-	_enable_obstacle_for_prev_and_disable_for_new()
+	_finish_for_prev_start_for_new()
 	cur_unit.unit_data.change_action(UnitData.UnitAction.NONE)
 
 
@@ -34,14 +34,22 @@ func _on_unit_changed_action(id: int, action: UnitData.UnitAction):
 			shoot_controll.enable_aim(cur_unit)
 
 
+func _finish_for_prev_start_for_new():
+	_finish_turn_unit()
+	cur_unit = GlobalUnits.unit_list.get_cur_unit()
+	_start_turn_unit()
 
-func _enable_obstacle_for_prev_and_disable_for_new():
+
+func _finish_turn_unit():
 	if cur_unit:
 		cur_unit.unit_object.enable_obstacle()
+		cur_unit.unit_object.try_to_finish_ai()
 
-	cur_unit = GlobalUnits.unit_list.get_cur_unit()
+
+func _start_turn_unit():
 	if weakref(cur_unit).get_ref():
 		cur_unit.unit_object.disable_obstacle()
+		cur_unit.unit_object.try_to_start_ai()
 
 
 func _on_right_click_mouse(mouse_pos: Vector2):
@@ -52,7 +60,7 @@ func _on_right_click_mouse(mouse_pos: Vector2):
 			return
 
 		UnitData.UnitAction.WALK:
-			_try_move(mouse_pos, is_hovered_on_obj)
+			try_move(mouse_pos, is_hovered_on_obj)
 
 		UnitData.UnitAction.SHOOT:
 			_try_shoot(is_hovered_on_obj)
@@ -62,12 +70,12 @@ func _on_right_click_mouse(mouse_pos: Vector2):
 
 
 
-func _try_move(mouse_pos: Vector2, is_hovered_on_obj: bool):
+func try_move(mouse_pos: Vector2, is_hovered_on_obj: bool):
 	if is_hovered_on_obj:
 		return
 
-	shoot_controll.disable_aim()
-	move_controll.try_to_move(cur_unit, mouse_pos)
+	var world_pos: Vector2 = GlobalUtils.screen_pos_to_world_pos(mouse_pos)
+	move_controll.try_to_move(cur_unit, world_pos)
 
 
 func _try_shoot(is_hovered_on_obj: bool):
@@ -75,13 +83,16 @@ func _try_shoot(is_hovered_on_obj: bool):
 		return
 
 	var enemy: Unit = object_selector.get_hovered_unit()
-	move_controll.deselect_move()
 	shoot_controll.enable_aim(cur_unit)
 
 
 func _try_melee_attack():
 	var enemy: Unit = object_selector.get_hovered_unit()
 	melle_attack_controll.try_attack(cur_unit, enemy)
+
+
+func next_turn():
+	GlobalBus.on_clicked_next_turn.emit()
 
 
 func _on_input_system_on_pressed_rmc(mouse_pos: Vector2) -> void:

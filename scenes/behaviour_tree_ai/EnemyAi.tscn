@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://0ro7blx56hka"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_fink7"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_667by"]
+[ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/SetMovePosToEnemyAction.gd" id="3_hs1mr"]
+[ext_resource type="PackedScene" uid="uid://cmykt8w161oru" path="res://scenes/behaviour_tree_ai/SequenceMoveToPos.tscn" id="4_c3mqq"]
+[ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/EndTurnAction.gd" id="7_oy5ty"]
+
+[node name="EnemyAi0" type="Node" node_paths=PackedStringArray("blackboard")]
+script = ExtResource("1_fink7")
+enabled = false
+actor_node_path = NodePath("..")
+blackboard = NodePath("@Node@31451")
+
+[node name="SequenceMoveToEnemy" type="Node" parent="."]
+script = ExtResource("2_667by")
+
+[node name="SetMovePosToEnemyAction" type="Node" parent="SequenceMoveToEnemy"]
+script = ExtResource("3_hs1mr")
+
+[node name="SequenceMoveToPos" parent="SequenceMoveToEnemy" instance=ExtResource("4_c3mqq")]
+
+[node name="EndTurnAction" type="Node" parent="SequenceMoveToEnemy"]
+script = ExtResource("7_oy5ty")

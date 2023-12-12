@@ -10,11 +10,8 @@ var _move_target_pos: Vector2
 var _is_second_click: bool = false
 
 
-func try_to_move(unit: Unit, mouse_pos: Vector2):
-	var world_pos: Vector2 = GlobalUtils.screen_pos_to_world_pos(mouse_pos)
-	var path := GlobalUtils.find_path(unit.unit_object.position, world_pos)
-	var path_distance: float = Globals.get_total_distance(path)
-	var move_price: int = path_distance / 100 * unit.unit_data.move_speed
+func try_to_move(unit: Unit, world_pos: Vector2):
+	var move_price = get_move_price(unit, unit.unit_object.position, world_pos)
 
 	if not _can_move(move_price):
 		return
@@ -32,6 +29,13 @@ func deselect_move():
 	_is_second_click = false
 	line2d_manager.clear_path()
 	TurnManager.show_hint_spend_points(0)
+
+
+func get_move_price(unit: Unit, from: Vector2, to: Vector2) -> int:
+	var path := GlobalUtils.find_path(from, to)
+	var path_distance: float = Globals.get_total_distance(path)
+	var move_price: int = path_distance / 100 * unit.unit_data.move_speed
+	return move_price
 
 
 func _can_move(move_price: int) -> bool:
