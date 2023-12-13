@@ -453,7 +453,7 @@ texture = ExtResource("34_v0vpy")
 [node name="RootRoof" type="Node2D" parent="."]
 
 [node name="CellBarrel" type="Node2D" parent="."]
-position = Vector2(97, 44)
+position = Vector2(120, 56)
 script = ExtResource("37_kc02r")
 cell_type = 4
 
@@ -471,7 +471,7 @@ position = Vector2(4, 4)
 position = Vector2(4, 4)
 
 [node name="Player" parent="." instance=ExtResource("3_s8jjc")]
-position = Vector2(39, 60)
+position = Vector2(72, 64)
 unit_name = "Ann"
 
 [node name="Enemy0" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("3_s8jjc")]

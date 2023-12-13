@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=21 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_7w37h"]
 [ext_resource type="Script" path="res://scripts/units/UnitInitializator.gd" id="2_cenak"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://scripts/units/UnitList.gd" id="16_3smra"]
 [ext_resource type="PackedScene" uid="uid://cgdko33qxd1ci" path="res://scenes/levels/components/NavRegion.tscn" id="18_es1be"]
 [ext_resource type="Script" path="res://scripts/Raycaster.gd" id="19_j1gqv"]
-[ext_resource type="Texture2D" uid="uid://dbb4ktvlrhst5" path="res://content/sprites/ground/dithering.png" id="20_4n6qu"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
 [ext_resource type="PackedScene" uid="uid://deiwiskh30hey" path="res://scenes/levels/components/ObjectSelector.tscn" id="22_4ur3f"]
 [ext_resource type="Script" path="res://scripts/navigation/ObjectMover.gd" id="23_eg25c"]
@@ -40,10 +39,7 @@ unit_order = NodePath("../UnitOrder")
 [node name="UnitOrder" type="Node2D" parent="UnitInitializator"]
 script = ExtResource("12_6735i")
 
-[node name="NavigationRegion" parent="." node_paths=PackedStringArray("polygon2d", "polygon2d_circle", "polygon2d_intersection") instance=ExtResource("18_es1be")]
-polygon2d = NodePath("../Polygon2DGround")
-polygon2d_circle = NodePath("../Polygon2DCircle")
-polygon2d_intersection = NodePath("../Polygon2DIntersection")
+[node name="NavigationRegion" parent="." instance=ExtResource("18_es1be")]
 
 [node name="Level_1" parent="NavigationRegion" instance=ExtResource("6_cfcg2")]
 
@@ -102,17 +98,6 @@ script = ExtResource("14_ops4e")
 [node name="Raycaster" type="Node2D" parent="."]
 script = ExtResource("19_j1gqv")
 segment_shape_2d = SubResource("SegmentShape2D_fnlar")
-
-[node name="Polygon2DGround" type="Polygon2D" parent="."]
-color = Color(1, 1, 1, 0.356863)
-
-[node name="Polygon2DCircle" type="Polygon2D" parent="."]
-color = Color(0.764706, 0.721569, 0.309804, 0.32549)
-
-[node name="Polygon2DIntersection" type="Polygon2D" parent="."]
-texture_repeat = 2
-color = Color(0.509804, 0.882353, 0.101961, 1)
-texture = ExtResource("20_4n6qu")
 
 [connection signal="on_drag" from="InputSystem" to="CameraController" method="_on_input_system_on_drag"]
 [connection signal="on_pressed_esc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_esc"]
