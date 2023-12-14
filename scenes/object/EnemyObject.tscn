@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://i5vko2tvl1sy"]
+
+[ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/object/UnitObject.tscn" id="1_a03kc"]
+[ext_resource type="Texture2D" uid="uid://cwni0rwde87bc" path="res://content/sprites/gothic/units/enemy1.tres" id="2_wm205"]
+
+[node name="EnemyObject" instance=ExtResource("1_a03kc")]
+
+[node name="VisualObject" parent="." index="0"]
+texture = ExtResource("2_wm205")
