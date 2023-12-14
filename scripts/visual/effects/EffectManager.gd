@@ -2,8 +2,6 @@ class_name EffectManager
 extends Node2D
 
 
-@export var selected_frame: Node2D
-
 @export var bullet_scene: PackedScene
 @export var granede_scene: PackedScene
 @export var fire_effect_scene: PackedScene
@@ -15,7 +13,6 @@ var _line2d_manager: Line2dManager
 
 var shoot_effect: ShootEffect
 var grenade_effect: GrenadeEffect
-var selected_unit_effect: SelectedUnitEffect
 
 
 func inject_data(line2d_manager: Line2dManager):
@@ -23,7 +20,6 @@ func inject_data(line2d_manager: Line2dManager):
 
 
 func _ready() -> void:
-	selected_unit_effect = SelectedUnitEffect.new(selected_frame)
 	shoot_effect = ShootEffect.new(bullet_scene, self)
 
 	var callback_create_tween: Callable = create_tween
@@ -58,7 +54,4 @@ func falling_effect(unit_object: UnitObject):
 
 	await tween.finished
 
-
-func select_unit_effect(pos: Vector2):
-	selected_unit_effect.play_effect(create_tween(), pos)
 
