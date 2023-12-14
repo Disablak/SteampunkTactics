@@ -77,7 +77,7 @@ func _init(unit_settings: UnitSetting):
 	_init_equips(unit_settings.equips)
 	_init_weapons(unit_settings.abilities)
 
-	change_weapon(riffle)
+	change_weapon(knife)
 
 
 func _init_stats(unit_settings: UnitSetting):

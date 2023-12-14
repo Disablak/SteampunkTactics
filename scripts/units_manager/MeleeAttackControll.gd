@@ -6,23 +6,16 @@ extends Node2D
 
 
 func try_attack(from: Unit, to: Unit):
-	if not _can_attack(from, to):
-		return
-
-	var melle_weapon: MelleWeaponData = from.unit_data.cur_weapon as MelleWeaponData
-	var direction: Vector2 = (to.unit_object.position - from.unit_object.position).normalized()
-
-	TurnManager.spend_time_points(melle_weapon.melle_weapon_settings.use_price)
-
-	await from.unit_object.play_kick_anim(direction)
-	to.unit_data.set_damage(melle_weapon.melle_weapon_settings.damage, from.id)
-
-	if to.unit_data.is_dead:
-		effect_manager.death_effect(to.unit_object.position - Vector2(10, 10), to.unit_object.main_sprite.texture.region)
-		to.unit_object.queue_free()
+	if can_attack(from, to):
+		attack(from, to)
 
 
-func _can_attack(from: Unit, to: Unit) -> bool:
+func get_price_attack(unit: Unit) -> int:
+	var melle_weapon: MelleWeaponData = unit.unit_data.cur_weapon as MelleWeaponData
+	return melle_weapon.melle_weapon_settings.use_price
+
+
+func can_attack(from: Unit, to: Unit) -> bool:
 	if not from or not to:
 		return false
 
@@ -39,3 +32,17 @@ func _can_attack(from: Unit, to: Unit) -> bool:
 		return false
 
 	return true
+
+
+func attack(from: Unit, to: Unit):
+	var melle_weapon: MelleWeaponData = from.unit_data.cur_weapon as MelleWeaponData
+	var direction: Vector2 = (to.unit_object.position - from.unit_object.position).normalized()
+
+	TurnManager.spend_time_points(melle_weapon.melle_weapon_settings.use_price)
+
+	await from.unit_object.play_kick_anim(direction)
+	to.unit_data.set_damage(melle_weapon.melle_weapon_settings.damage, from.id)
+
+	if to.unit_data.is_dead:
+		effect_manager.death_effect(to.unit_object.position - Vector2(10, 10), to.unit_object.main_sprite.texture.region)
+		to.unit_object.queue_free()

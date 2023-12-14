@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://0ro7blx56hka"]
+[gd_scene load_steps=10 format=3 uid="uid://0ro7blx56hka"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_fink7"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_667by"]
@@ -8,18 +8,16 @@
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/FindPositionsAroundTargetAction.gd" id="5_mxoen"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/SetMovePosAction.gd" id="6_pgrgx"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/EndTurnAction.gd" id="7_oy5ty"]
+[ext_resource type="PackedScene" uid="uid://bk7fiayovebl4" path="res://scenes/behaviour_tree_ai/SequanceMelleAttack.tscn" id="8_71kc8"]
 
 [node name="EnemyAi0" type="Node" node_paths=PackedStringArray("blackboard")]
 script = ExtResource("1_fink7")
 enabled = false
 actor_node_path = NodePath("..")
-blackboard = NodePath("@Node@67289")
+blackboard = NodePath("@Node@87083")
 
 [node name="SequenceMoveToEnemy" type="Node" parent="."]
 script = ExtResource("2_667by")
-
-[node name="MakeDelay" type="Node" parent="SequenceMoveToEnemy"]
-script = ExtResource("3_vvoi0")
 
 [node name="FindNearestEnemy" type="Node" parent="SequenceMoveToEnemy"]
 script = ExtResource("4_aykqw")
@@ -31,9 +29,17 @@ script = ExtResource("5_mxoen")
 script = ExtResource("6_pgrgx")
 move_pos_type = 2
 
+[node name="MakeDelay" type="Node" parent="SequenceMoveToEnemy"]
+script = ExtResource("3_vvoi0")
+
 [node name="SequenceMoveToPos" parent="SequenceMoveToEnemy" instance=ExtResource("4_c3mqq")]
 
 [node name="MakeDelay2" type="Node" parent="SequenceMoveToEnemy"]
+script = ExtResource("3_vvoi0")
+
+[node name="SequenceMeleeAttack" parent="SequenceMoveToEnemy" instance=ExtResource("8_71kc8")]
+
+[node name="MakeDelay3" type="Node" parent="SequenceMoveToEnemy"]
 script = ExtResource("3_vvoi0")
 
 [node name="EndTurn" type="Node" parent="SequenceMoveToEnemy"]

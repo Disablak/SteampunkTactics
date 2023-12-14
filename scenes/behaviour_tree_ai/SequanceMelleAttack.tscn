@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk7fiayovebl4"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="1_5ceku"]
+[ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/SetEnergyPriceAction.gd" id="2_edf0f"]
+[ext_resource type="Script" path="res://scripts/behaviour_tree_ai/condition/EnoughEnergyCondition.gd" id="3_ul1tq"]
+[ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/MelleAttackTarget.gd" id="4_5p25g"]
+
+[node name="SequenceMeleeAttack" type="Node"]
+script = ExtResource("1_5ceku")
+
+[node name="SetEnergyAction" type="Node" parent="."]
+script = ExtResource("2_edf0f")
+price_type = 2
+
+[node name="EnoughEnergyCondition" type="Node" parent="."]
+script = ExtResource("3_ul1tq")
+
+[node name="MelleAttackTarget" type="Node" parent="."]
+script = ExtResource("4_5p25g")
