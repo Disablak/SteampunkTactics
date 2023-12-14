@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://jcmgoqb752kg"]
+
+[ext_resource type="Script" path="res://scripts/ui/UiWeaponSelector.gd" id="1_toiur"]
+[ext_resource type="PackedScene" uid="uid://dj1yoladqn18w" path="res://scenes/2d/ui/Button.tscn" id="1_xn1ud"]
+
+[node name="Weapons" type="VBoxContainer"]
+offset_right = 81.0
+offset_bottom = 40.0
+script = ExtResource("1_toiur")
+button_scene = ExtResource("1_xn1ud")

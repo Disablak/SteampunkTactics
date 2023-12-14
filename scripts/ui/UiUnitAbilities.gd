@@ -5,23 +5,34 @@ extends Control
 @export var btns_container: Control
 
 var _all_btns_ability = {}
-var _unit_id: int = -1
 
 
 func _ready() -> void:
-	GlobalBus.on_unit_updated_weapon.connect(_on_unit_updated_weapon)
 	GlobalBus.on_unit_changed_action.connect(_on_changed_action)
+	GlobalBus.on_unit_changed_control.connect(_on_unit_changed_control)
+	GlobalBus.on_unit_changed_weapon.connect(_on_unit_changed_weapon)
+	GlobalBus.on_unit_updated_weapon.connect(_on_unit_updated_weapon)
 
 	for btn: ButtonUnitAction in btns_container.get_children():
 		_all_btns_ability[btn.ability] = btn
 
 
-func update_all_abilities(unit_data: UnitData):
-	_unit_id = unit_data.unit_id
 
+func _on_unit_changed_weapon(id, weapon_data: WeaponData):
+	_on_unit_changed_control(id, false)
+
+
+func _on_unit_changed_control(id, instantly):
+	if not GlobalUnits.unit_list.is_unit_exist(id):
+		return
+
+	var unit_data: UnitData = GlobalUnits.unit_list.get_unit(id).unit_data
+	_update_all_abilities(unit_data)
+
+
+func _update_all_abilities(unit_data: UnitData):
 	_update_all_buttons(unit_data)
-	_on_unit_updated_weapon(unit_data.unit_id, unit_data.riffle)
-	_on_unit_updated_weapon(unit_data.unit_id, unit_data.grenade)
+	_on_unit_updated_weapon(unit_data.unit_id, unit_data.cur_weapon)
 
 
 func _update_all_buttons(unit_data: UnitData):
@@ -65,5 +76,4 @@ func _on_changed_action(_id: int, action: UnitData.UnitAction):
 
 	if _all_btns_ability.has(action):
 		_all_btns_ability[action].set_pressed_no_signal(true)
-
 

@@ -11,7 +11,6 @@ extends Control
 @onready var btn_zoom_200: Button = %BtnZoom200
 
 @onready var unit_info: UiUnitInfo = get_node("%UnitInfo") as UiUnitInfo
-@onready var unit_abilities: UiUnitAbilities = get_node("%UnitAbils") as UiUnitAbilities
 @onready var units_list: UiUnitsList = get_node("%UnitsList") as UiUnitsList
 @onready var panel_unit_info: UiSelectedUnitInfo = get_node("%PanelUnitInfo")
 
@@ -30,7 +29,7 @@ func _process(_delta: float) -> void:
 
 
 func init():
-	_update_abilities_and_label_enemys_turn(GlobalUnits.unit_list.get_cur_unit_id())
+	_update_label_enemys_turn(GlobalUnits.unit_list.get_cur_unit_id())
 
 	unit_info.init()
 	units_list.init(GlobalUnits.unit_order.ordered_unit_ids)
@@ -46,12 +45,10 @@ func _next_turn():
 
 
 func _on_unit_change_control(unit_id: int, instantly: bool):
-	_update_abilities_and_label_enemys_turn(unit_id)
+	_update_label_enemys_turn(unit_id)
 
 
-func _update_abilities_and_label_enemys_turn(unit_id: int):
+func _update_label_enemys_turn(unit_id: int):
 	var unit: Unit = GlobalUnits.unit_list.get_unit(unit_id)
-	unit_abilities.update_all_abilities(unit.unit_data)
-
 	var show_label_enemys_turn = unit.unit_data.is_enemy
 	label_is_enemy_turn.visible = show_label_enemys_turn

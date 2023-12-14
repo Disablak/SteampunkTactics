@@ -77,7 +77,8 @@ func _init(unit_settings: UnitSetting):
 	_init_equips(unit_settings.equips)
 	_init_weapons(unit_settings.abilities)
 
-	change_weapon(knife)
+	if all_weapons.size() > 0:
+		change_weapon(all_weapons[0])
 
 
 func _init_stats(unit_settings: UnitSetting):
@@ -183,17 +184,13 @@ func get_available_actions() -> Array[UnitAction]:
 	var available_actions: Array[UnitAction]
 	available_actions.append_array(DEFAULT_ACTIONS)
 
-	var is_any_ranged_weapon: bool = all_weapons.any(func(x): return x is RangedWeaponData)
-	if is_any_ranged_weapon:
+	if cur_weapon is RangedWeaponData:
+		available_actions.append(UnitAction.SHOOT)
 		available_actions.append(UnitAction.RELOAD)
-
-	for weapon: WeaponData in all_weapons:
-		if weapon is RangedWeaponData:
-			available_actions.append(UnitAction.SHOOT)
-		if weapon is MelleWeaponData:
-			available_actions.append(UnitAction.MALEE_ATACK)
-		if weapon is ThrowItemData:
-			available_actions.append(UnitAction.GRENADE)
+	elif cur_weapon is MelleWeaponData:
+		available_actions.append(UnitAction.MALEE_ATACK)
+	elif cur_weapon is ThrowItemData:
+		available_actions.append(UnitAction.GRENADE)
 
 	return available_actions
 
