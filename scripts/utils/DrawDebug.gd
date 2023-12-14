@@ -5,8 +5,24 @@ extends Node2D
 var lines: Array[Array]
 var lines_malee_raycast: Array[Array]
 var point_ordering = {} # pos and ordering
-var dic_lines = {} # name group to array of lines
 
+var dic_lines = {} # name group to array of lines
+var dic_circles = {}
+
+
+func add_circle(pos: Vector2, name: String):
+	if not dic_circles.has(name):
+		dic_circles[name] = []
+
+	dic_circles[name].append(pos)
+	queue_redraw()
+
+
+func clear_circles(name: String):
+	if dic_circles.has(name):
+		dic_circles.erase(name)
+
+	queue_redraw()
 
 
 func add_line(line: Array, name: String):
@@ -51,6 +67,8 @@ func clear_malee_raycast_lines():
 
 func _draw() -> void:
 	_draw_lines()
+	_draw_circles()
+
 	_draw_fog_of_war_raycast()
 	_draw_objects_ordering()
 	_draw_malee_raycast()
@@ -61,6 +79,12 @@ func _draw_lines():
 	for group: Array in dic_lines.values():
 		for line in group:
 			draw_line(line[0], line[1], Color.WHITE)
+
+
+func _draw_circles():
+	for group: Array in dic_circles.values():
+		for pos in group:
+			draw_circle(pos, 2, Color.WHITE)
 
 
 func _draw_fog_of_war_raycast():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://du6xcv567vuwr"]
+[gd_scene load_steps=44 format=3 uid="uid://du6xcv567vuwr"]
 
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_2e1o5"]
 [ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/object/UnitObject.tscn" id="3_s8jjc"]
@@ -39,6 +39,7 @@
 [ext_resource type="Script" path="res://scripts/cells/components/CellCompHealth.gd" id="35_4uwg2"]
 [ext_resource type="Script" path="res://scripts/cells/CellObject.gd" id="37_kc02r"]
 [ext_resource type="Texture2D" uid="uid://bfbi6hcg0i7i3" path="res://content/sprites/gothic/obstacle_2.tres" id="39_4iwfi"]
+[ext_resource type="Resource" uid="uid://5diunhr2km1q" path="res://data/settings/unit/level1/lvl1_player1.tres" id="40_bgxqx"]
 [ext_resource type="PackedScene" uid="uid://ctc3hst3u6p20" path="res://scenes/object/InteractableStaticBody.tscn" id="40_sifm2"]
 [ext_resource type="PackedScene" uid="uid://biqevm2kjhsep" path="res://scenes/object/NavObstacle.tscn" id="41_74pyh"]
 [ext_resource type="PackedScene" uid="uid://0ro7blx56hka" path="res://scenes/behaviour_tree_ai/EnemyAi.tscn" id="41_h41yb"]
@@ -470,9 +471,14 @@ position = Vector2(4, 4)
 [node name="NavObstacle" parent="CellBarrel" instance=ExtResource("41_74pyh")]
 position = Vector2(4, 4)
 
-[node name="Player" parent="." instance=ExtResource("3_s8jjc")]
+[node name="Player0" parent="." instance=ExtResource("3_s8jjc")]
 position = Vector2(72, 64)
-unit_name = "Ann"
+unit_name = "Player0"
+
+[node name="Player1" parent="." instance=ExtResource("3_s8jjc")]
+position = Vector2(104, 96)
+unit_name = "Player1"
+unit_settings_resource = ExtResource("40_bgxqx")
 
 [node name="Enemy0" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("3_s8jjc")]
 position = Vector2(168, 40)
@@ -481,7 +487,7 @@ unit_settings_resource = ExtResource("7_a6u54")
 beehave_tree = NodePath("EnemyAi0")
 
 [node name="EnemyAi0" parent="Enemy0" node_paths=PackedStringArray("blackboard") instance=ExtResource("41_h41yb")]
-blackboard = NodePath("@Node@17511")
+blackboard = NodePath("@Node@53534")
 
 [node name="Enemy1" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("3_s8jjc")]
 position = Vector2(160, 104)
@@ -490,4 +496,4 @@ unit_settings_resource = ExtResource("10_cmafy")
 beehave_tree = NodePath("EnemyAi1")
 
 [node name="EnemyAi1" parent="Enemy1" node_paths=PackedStringArray("blackboard") instance=ExtResource("41_h41yb")]
-blackboard = NodePath("@Node@17512")
+blackboard = NodePath("@Node@53535")

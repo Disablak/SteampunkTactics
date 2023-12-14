@@ -9,13 +9,13 @@ var _is_finished: bool = false
 
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
-	if _tween_delay and _tween_delay.is_running():
+	if _tween_delay and _tween_delay.is_valid() and _tween_delay.is_running():
 		return RUNNING
 
 	if (_is_finished):
+		_is_finished = false
 		return SUCCESS
 
-	_is_finished = false
 	_tween_delay = create_tween()
 	_tween_delay.tween_interval(delay_time)
 	_tween_delay.tween_callback(_set_is_finished_delay)
@@ -26,3 +26,4 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 
 func _set_is_finished_delay():
 	_is_finished = true
+	_tween_delay.kill()

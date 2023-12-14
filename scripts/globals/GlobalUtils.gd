@@ -17,6 +17,14 @@ func find_path(from: Vector2, to: Vector2) -> PackedVector2Array:
 	return path
 
 
+func is_point_inside_nav_polygon(point: Vector2) -> bool:
+	var maps = NavigationServer2D.get_maps()
+	var map0 = maps[0]
+	var formatted_point := NavigationServer2D.map_get_closest_point(map0, point)
+	var distance: float = formatted_point.distance_to(point)
+	return distance < 2
+
+
 func get_dir_from_units(from_id: int, to_id: int):
 	var from: UnitObject = GlobalUnits.unit_list.get_unit(from_id).unit_object
 	var to: UnitObject = GlobalUnits.unit_list.get_unit(to_id).unit_object
@@ -45,3 +53,14 @@ func cut_path(path: PackedVector2Array, size: float) -> PackedVector2Array:
 			break
 
 	return result
+
+
+func get_circle_points(center_pos: Vector2, radius: float, segment_count: int) -> Array[Vector2]:
+	var result: Array[Vector2]
+	for i in segment_count:
+		var rad = deg_to_rad(i * 360 / segment_count)
+		result.append(center_pos + Vector2(radius * cos(rad), radius * sin(rad)))
+
+	return result
+
+
