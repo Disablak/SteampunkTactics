@@ -484,7 +484,7 @@ unit_settings_resource = ExtResource("7_a6u54")
 beehave_tree = NodePath("EnemyAi0")
 
 [node name="EnemyAi0" parent="EnemyObject" node_paths=PackedStringArray("blackboard") instance=ExtResource("41_h41yb")]
-blackboard = NodePath("@Node@154955")
+blackboard = NodePath("@Node@269650")
 
 [node name="EnemyObject2" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_mj8ro")]
 position = Vector2(192, 48)
@@ -492,4 +492,4 @@ unit_settings_resource = ExtResource("10_cmafy")
 beehave_tree = NodePath("EnemyAi1")
 
 [node name="EnemyAi1" parent="EnemyObject2" node_paths=PackedStringArray("blackboard") instance=ExtResource("41_h41yb")]
-blackboard = NodePath("@Node@154954")
+blackboard = NodePath("@Node@269651")

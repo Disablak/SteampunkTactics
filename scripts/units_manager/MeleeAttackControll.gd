@@ -19,6 +19,9 @@ func can_attack(from: Unit, to: Unit) -> bool:
 	if not from or not to:
 		return false
 
+	if from.unit_object.is_tween_running:
+		return false
+
 	if not from.unit_data.cur_weapon is MelleWeaponData:
 		return false
 

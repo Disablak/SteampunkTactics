@@ -20,6 +20,7 @@ var is_visible := true
 var ai_zone_rect: Rect2i
 var origin_offset := 0
 var main_sprite_def_pos: Vector2
+var tween: Tween
 
 var origin_pos: Vector2:
 	get: return position
@@ -30,6 +31,9 @@ var visual_ordering: int:
 
 var is_enemy: bool:
 	get: return beehave_tree != null
+
+var is_tween_running: bool:
+	get: return tween and tween.is_valid() and tween.is_running()
 
 
 func init_unit(unit_id, unit_data: UnitData) -> void:
@@ -77,14 +81,14 @@ func set_visibility(is_visible):
 func play_kick_anim(dir: Vector2):
 	const KICK_DISTANCE := Globals.CELL_HALF_SIZE
 	const KICK_TIME := 0.1
-	var tween = create_tween()
+	tween = create_tween()
 	tween.tween_property(main_sprite, "position", main_sprite_def_pos + dir * KICK_DISTANCE, KICK_TIME)
 	tween.tween_property(main_sprite, "position", main_sprite_def_pos, KICK_TIME)
 	await tween.finished
 
 
 func play_damage_anim(dir: Vector2):
-	var tween = create_tween()
+	tween = create_tween()
 	tween.tween_property(main_sprite, "position", main_sprite_def_pos - dir * 5, 0.1)
 	tween.tween_property(main_sprite, "position", main_sprite_def_pos, 0.1)
 	tween.set_trans(Tween.TRANS_BOUNCE)
