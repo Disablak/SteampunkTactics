@@ -7,7 +7,8 @@ var range: float
 
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
-	if actor.position.distance_to(target_pos) < range:
+	var unit_object: UnitObject = actor as UnitObject
+	if unit_object.origin_pos.distance_to(target_pos) < range:
 		return SUCCESS
 	else:
 		return FAILURE

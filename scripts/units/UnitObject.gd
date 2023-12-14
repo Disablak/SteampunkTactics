@@ -21,14 +21,8 @@ var ai_zone_rect: Rect2i
 var origin_offset := 0
 var main_sprite_def_pos: Vector2
 
-var grid_pos: Vector2i:
-	get: return Globals.convert_to_grid_pos(position)
-
-var visual_pos: Vector2:
-	get: return position + Globals.CELL_OFFSET
-
 var origin_pos: Vector2:
-	get: return position + Vector2(8, origin_offset)
+	get: return position
 
 var visual_ordering: int:
 	get: return main_sprite.z_index

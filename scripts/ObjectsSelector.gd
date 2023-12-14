@@ -79,13 +79,6 @@ func _on_unhover_object(node: Node2D):
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
-		var click_pos = formatted_position(event.position)
+		var click_pos = GlobalUtils.screen_pos_to_world_pos(event.position)
 		on_click_on_object.emit(click_pos, get_hovered_objects())
-
-
-func formatted_position(position: Vector2) -> Vector2:
-	var view_size := camera.get_viewport_rect().size
-	var camera_offset = camera.position - (view_size / 2)
-	var camera_zoomed_pos = ((view_size / 2) - ((view_size / camera.zoom) / 2))
-	return camera_zoomed_pos + camera_offset + position / camera.zoom
 

@@ -3,11 +3,12 @@ extends ActionLeaf
 
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
-	var target_enemy: Unit = blackboard.get_value(BehaviourAiConst.TARGET_ENEMY)
-	var enemy_object_pos: Vector2 = target_enemy.unit_object.position
+	var unit_object: UnitObject = actor as UnitObject
+	var target_enemy: Unit = blackboard.get_value(BehaviourAiConst.TARGET_ENEMY) as Unit
+	var enemy_object_pos: Vector2 = target_enemy.origin_pos
 
 	var points_around := GlobalUtils.get_circle_points(enemy_object_pos, 15, 6)
-	var filtered_points := _filter_points(points_around, actor.position)
+	var filtered_points := _filter_points(points_around, unit_object.origin_pos)
 
 	if filtered_points.size() == 0:
 		return FAILURE

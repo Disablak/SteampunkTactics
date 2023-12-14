@@ -15,7 +15,7 @@ func before_run(actor: Node, blackboard: Blackboard):
 func tick(actor: Node, blackboard: Blackboard):
 	var target_pos: Vector2 = blackboard.get_value("move_pos")
 	var is_unit_moving := _move_controll.object_mover.is_object_moving()
-	var is_too_far: bool = _cur_unit.unit_object.position.distance_to(target_pos) > 10
+	var is_too_far: bool = _cur_unit.origin_pos.distance_to(target_pos) > 10
 
 	if is_unit_moving and is_too_far:
 		return RUNNING

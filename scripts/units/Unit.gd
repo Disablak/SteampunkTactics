@@ -6,6 +6,9 @@ var id: int
 var unit_data: UnitData
 var unit_object: UnitObject
 
+var origin_pos: Vector2:
+	get: return unit_object.origin_pos
+
 
 func _init(id, unit_data, unit_object):
 	self.id = id
