@@ -64,19 +64,7 @@ func get_height_of_obj(region: Rect2) -> int:
 	return -1
 
 
-static func get_total_distance(points: PackedVector2Array) -> float:
-	if points.size() <= 1:
-		return 0.0
 
-	var distance = 0.0
-	var start: Vector2 = points[0]
-
-	for i in range(1, points.size()):
-		var end = points[i]
-		distance += start.distance_to(end)
-		start = points[i]
-
-	return distance
 
 
 static func format_hit_chance(hit_chance: float) -> String:

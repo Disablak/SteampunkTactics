@@ -7,6 +7,7 @@ enum MovePos {
 	NONE,
 	TARGET_UNIT,
 	TARGET_UNIT_AROUND_POINT_RANDOM,
+	TARGET_UNIT_SHORTEST_PATH_POINT,
 }
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
@@ -21,6 +22,9 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 		MovePos.TARGET_UNIT_AROUND_POINT_RANDOM:
 			var points_around_target: Array[Vector2] = blackboard.get_value(BehaviourAiConst.TARGET_ENEMY_AROUND_POINTS)
 			blackboard.set_value(BehaviourAiConst.MOVE_POS, points_around_target.pick_random())
+
+		MovePos.TARGET_UNIT_SHORTEST_PATH_POINT:
+			blackboard.set_value(BehaviourAiConst.MOVE_POS, blackboard.get_value(BehaviourAiConst.SHORTEST_PATH_POINT))
 
 
 	return SUCCESS

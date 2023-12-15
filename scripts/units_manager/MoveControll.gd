@@ -33,7 +33,7 @@ func deselect_move():
 
 func get_move_price(unit: Unit, from: Vector2, to: Vector2) -> int:
 	var path := GlobalUtils.find_path(from, to)
-	var path_distance: float = Globals.get_total_distance(path)
+	var path_distance: float = GlobalUtils.get_total_distance(path)
 	var move_price: int = path_distance / 100 * unit.unit_data.move_speed
 	return move_price
 

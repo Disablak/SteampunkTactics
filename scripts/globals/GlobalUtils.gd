@@ -17,6 +17,21 @@ func find_path(from: Vector2, to: Vector2) -> PackedVector2Array:
 	return path
 
 
+static func get_total_distance(points: PackedVector2Array) -> float:
+	if points.size() <= 1:
+		return 0.0
+
+	var distance = 0.0
+	var start: Vector2 = points[0]
+
+	for i in range(1, points.size()):
+		var end = points[i]
+		distance += start.distance_to(end)
+		start = points[i]
+
+	return distance
+
+
 func is_point_inside_nav_polygon(point: Vector2) -> bool:
 	var maps = NavigationServer2D.get_maps()
 	var map0 = maps[0]
