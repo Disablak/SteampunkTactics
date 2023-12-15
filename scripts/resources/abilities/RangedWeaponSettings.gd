@@ -2,9 +2,10 @@ class_name RangedWeaponSettings
 extends AbilitySettings
 
 
-@export var accuracy: Curve
 @export var max_ammo := 1
 @export var reload_price := 30
+@export var aim_speed := 1.0
+@export var aim_offset := 3
 
 
 func _to_string() -> String:

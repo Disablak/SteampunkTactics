@@ -4,7 +4,6 @@ extends SettingResource
 
 @export var use_price: int
 @export var damage: float
-@export var can_stealth_attack: bool = false
 
 
 

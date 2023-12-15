@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=22 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_7w37h"]
 [ext_resource type="Script" path="res://scripts/units/UnitInitializator.gd" id="2_cenak"]
 [ext_resource type="PackedScene" uid="uid://du6xcv567vuwr" path="res://scenes/levels/Level_1.tscn" id="6_cfcg2"]
+[ext_resource type="Script" path="res://scripts/units_manager/ShootAim.gd" id="10_1ywrq"]
 [ext_resource type="Script" path="res://scripts/units_manager/ReloadControll.gd" id="10_2apof"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="10_yja2f"]
 [ext_resource type="Script" path="res://scripts/units_manager/MeleeAttackControll.gd" id="11_iun6q"]
@@ -61,11 +62,16 @@ script = ExtResource("26_xex30")
 object_mover = NodePath("../../ObjectMover")
 line2d_manager = NodePath("../../Line2dManager")
 
-[node name="ShootControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("line2d_manager", "effect_manager", "raycaster")]
+[node name="ShootControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("line2d_manager", "effect_manager", "raycaster", "shoot_aim")]
 script = ExtResource("27_3j6ta")
 line2d_manager = NodePath("../../Line2dManager")
 effect_manager = NodePath("../../EffectManager")
 raycaster = NodePath("../../Raycaster")
+shoot_aim = NodePath("ShootAim")
+
+[node name="ShootAim" type="Node2D" parent="UnitControll/ShootControll" node_paths=PackedStringArray("line2d_manager")]
+script = ExtResource("10_1ywrq")
+line2d_manager = NodePath("../../../Line2dManager")
 
 [node name="ReloadControll" type="Node2D" parent="UnitControll"]
 script = ExtResource("10_2apof")

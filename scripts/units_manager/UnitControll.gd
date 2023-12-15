@@ -31,7 +31,8 @@ func _on_unit_changed_action(id: int, action: UnitData.UnitAction):
 			reload_controll.try_to_reload(cur_unit)
 
 		UnitData.UnitAction.SHOOT:
-			shoot_controll.enable_aim(cur_unit)
+			if shoot_controll.can_shoot(cur_unit):
+				shoot_controll.enable_aim(cur_unit)
 
 
 func _finish_for_prev_start_for_new():

@@ -21,7 +21,7 @@ func _init(bullet_scene: PackedScene, bullet_root: Node2D):
 	_bullet_root = bullet_root
 
 
-func create_bullet_and_tween(tween: Tween, from: Vector2, to: Vector2):
+func create_bullet_and_tween(tween: Tween, from: Vector2, to: Vector2, on_finish: Callable):
 	var new_instance: Node2D = _bullet_scene.instantiate()
 	_bullet_root.add_child(new_instance)
 
@@ -31,9 +31,13 @@ func create_bullet_and_tween(tween: Tween, from: Vector2, to: Vector2):
 	var distance = from.distance_to(to)
 	var time = distance / BULLET_SPEED
 
+	var _on_finish = func():
+		new_instance.queue_free()
+		on_finish.call()
+
 	_tween = tween
 	_tween.tween_property(new_instance, "position", to, time)
-	_tween.tween_callback(new_instance.queue_free)
+	_tween.tween_callback(_on_finish)
 	await _tween.finished
 
 
@@ -48,7 +52,7 @@ func play(tween: Tween, from: Vector2, to: Vector2, hit_type: int, cover_pos: Ve
 	elif hit_type == 2:
 		to_pos = from_pos + _get_little_wrong_shoot_direction(to_pos - from_pos)
 
-	await create_bullet_and_tween(tween, from_pos, to_pos)
+	await create_bullet_and_tween(tween, from_pos, to_pos, Callable())
 
 
 func _get_little_wrong_shoot_direction(shoot_vector: Vector2) -> Vector2:

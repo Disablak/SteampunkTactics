@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RangedWeaponSettings" load_steps=2 format=3 uid="uid://b0uv5gxduahtx"]
+
+[ext_resource type="Script" path="res://scripts/resources/abilities/RangedWeaponSettings.gd" id="1_eqsbb"]
+
+[resource]
+script = ExtResource("1_eqsbb")
+max_ammo = 1
+reload_price = 30
+aim_speed = 1.5
+aim_offset = 8
+use_price = 20
+damage = 8.0
+setting_name = "Riffle"
