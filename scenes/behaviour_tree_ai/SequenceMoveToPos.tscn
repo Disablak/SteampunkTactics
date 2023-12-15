@@ -1,19 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmykt8w161oru"]
+[gd_scene load_steps=4 format=3 uid="uid://cmykt8w161oru"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="1_dnfdr"]
-[ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/SetEnergyPriceAction.gd" id="2_1im25"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/condition/EnoughEnergyCondition.gd" id="3_klb06"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/MoveToTargetAction.gd" id="4_dsdi1"]
 
 [node name="SequenceMoveToPos" type="Node"]
 script = ExtResource("1_dnfdr")
 
-[node name="SetPriceMoveEnergyAction" type="Node" parent="."]
-script = ExtResource("2_1im25")
-price_type = 1
-
 [node name="EnoughEnergyCondition" type="Node" parent="."]
 script = ExtResource("3_klb06")
+price = 1
 
 [node name="MoveToTargetAction" type="Node" parent="."]
 script = ExtResource("4_dsdi1")

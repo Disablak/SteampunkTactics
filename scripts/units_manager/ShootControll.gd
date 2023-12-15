@@ -10,12 +10,14 @@ var _aim_enabled: bool = false
 var _cur_unit: Unit
 var _aim_time: float = 0.0
 var _aim_vector: Vector2
+var _aim_dir: Vector2
+var _aim_input_mouse: bool = true
 var _cur_unit_pos: Vector2:
 	get: return _cur_unit.unit_object.position
 
 
 func enable_aim(from: Unit):
-	if not _can_shoot(from):
+	if not can_shoot(from):
 		return
 
 	_cur_unit = from
@@ -24,6 +26,7 @@ func enable_aim(from: Unit):
 
 func disable_aim():
 	_aim_enabled = false
+	_aim_input_mouse = true
 
 	GlobalMap.draw_debug.clear_lines("shoot line")
 	GlobalMap.draw_debug.clear_lines("min_max_dir")
@@ -31,7 +34,16 @@ func disable_aim():
 	line2d_manager.set_shoot_raycast_pos(Vector2.ZERO, Vector2.ZERO)
 
 
-func _can_shoot(from: Unit) -> bool:
+func set_aim_dir_and_disable_mouse(aim_dir: Vector2):
+	_aim_dir = aim_dir
+	_aim_input_mouse = false
+
+
+func make_shoot():
+	_shoot()
+
+
+func can_shoot(from: Unit) -> bool:
 	if not from:
 		return false
 
@@ -52,27 +64,26 @@ func _can_shoot(from: Unit) -> bool:
 
 
 func _process(delta: float) -> void:
-	if not _aim_enabled or not _cur_unit:
+	if not _aim_enabled:
 		return
 
-	_calc_and_draw_aim_direction(delta)
+	_calc_and_draw_aim_direction(_get_aim_dir(), delta)
 
 
 func _on_input_system_on_pressed_lmc(mouse_pos: Vector2) -> void:
-	if not _aim_enabled or not _cur_unit:
+	if not _aim_enabled:
 		return
 
 	_shoot()
 
 
-func _calc_and_draw_aim_direction(delta: float):
-	var dir_to_mouse: Vector2 = _get_dir_to_mouse()
+func _calc_and_draw_aim_direction(aim_dir: Vector2, delta: float):
 	const DISTANCE_TO_APPLY_OFFSET = 100
-	var vector_to_mouse_100px: Vector2 = _cur_unit_pos + dir_to_mouse * DISTANCE_TO_APPLY_OFFSET
-	var perpendecular_vector_to_mouse_dir: Vector2 = _get_perpendecular_vector_to_mouse_dir(dir_to_mouse)
+	var vector_to_aim_dir_100px: Vector2 = _cur_unit_pos + aim_dir * DISTANCE_TO_APPLY_OFFSET
+	var perpendecular_vector_to_aim_dir: Vector2 = _get_perpendecular_vector_to_mouse_dir(aim_dir)
 
-	var min_dir: Vector2 = vector_to_mouse_100px - perpendecular_vector_to_mouse_dir
-	var max_dir: Vector2 = vector_to_mouse_100px + perpendecular_vector_to_mouse_dir
+	var min_dir: Vector2 = vector_to_aim_dir_100px - perpendecular_vector_to_aim_dir
+	var max_dir: Vector2 = vector_to_aim_dir_100px + perpendecular_vector_to_aim_dir
 	_draw_debug(min_dir, max_dir)
 
 	var lerp_time = _get_lerp_time(delta)
@@ -83,6 +94,13 @@ func _calc_and_draw_aim_direction(delta: float):
 	_aim_vector = dir_to_lerpred_value * MAX_SHOOT_DISTANCE
 
 	line2d_manager.set_shoot_raycast_pos(_cur_unit_pos, _cur_unit_pos + _aim_vector)
+
+
+func _get_aim_dir() -> Vector2:
+	if _aim_input_mouse:
+		return _get_dir_to_mouse()
+	else:
+		return _aim_dir
 
 
 func _get_dir_to_mouse() -> Vector2:

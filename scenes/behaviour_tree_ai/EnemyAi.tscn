@@ -1,11 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://0ro7blx56hka"]
+[gd_scene load_steps=15 format=3 uid="uid://0ro7blx56hka"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_fink7"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_667by"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="3_h8r7o"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/MakeDelayAction.gd" id="3_vvoi0"]
+[ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/ShootToTargetAction.gd" id="4_5uorc"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/FindNearestEnemy.gd" id="4_aykqw"]
 [ext_resource type="PackedScene" uid="uid://cmykt8w161oru" path="res://scenes/behaviour_tree_ai/SequenceMoveToPos.tscn" id="4_c3mqq"]
+[ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/ChangeWeaponAction.gd" id="4_ltft1"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="5_l7kol"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/FindPositionsAroundTargetAction.gd" id="5_mxoen"]
+[ext_resource type="Script" path="res://scripts/behaviour_tree_ai/condition/IfDistanceToTargetLessThanRange.gd" id="6_nt7jk"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/SetMovePosAction.gd" id="6_pgrgx"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/EndTurnAction.gd" id="7_oy5ty"]
 [ext_resource type="PackedScene" uid="uid://bk7fiayovebl4" path="res://scenes/behaviour_tree_ai/SequanceMelleAttack.tscn" id="8_71kc8"]
@@ -14,33 +19,60 @@
 script = ExtResource("1_fink7")
 enabled = false
 actor_node_path = NodePath("..")
-blackboard = NodePath("@Node@87083")
+blackboard = NodePath("@Node@50119")
 
-[node name="SequenceMoveToEnemy" type="Node" parent="."]
+[node name="SequenceComposite" type="Node" parent="."]
 script = ExtResource("2_667by")
 
-[node name="FindNearestEnemy" type="Node" parent="SequenceMoveToEnemy"]
+[node name="ShootOrMelleAttack" type="Node" parent="SequenceComposite"]
+script = ExtResource("3_h8r7o")
+
+[node name="Shoot" type="Node" parent="SequenceComposite/ShootOrMelleAttack"]
+script = ExtResource("2_667by")
+
+[node name="FindNearestTargetEnemy" type="Node" parent="SequenceComposite/ShootOrMelleAttack/Shoot"]
 script = ExtResource("4_aykqw")
 
-[node name="FindPositionsAroundTarget" type="Node" parent="SequenceMoveToEnemy"]
+[node name="IfDistanceMore" type="Node" parent="SequenceComposite/ShootOrMelleAttack/Shoot"]
+script = ExtResource("5_l7kol")
+
+[node name="IfDistanceToTargetLessThanRange" type="Node" parent="SequenceComposite/ShootOrMelleAttack/Shoot/IfDistanceMore"]
+script = ExtResource("6_nt7jk")
+
+[node name="ChangeWeaponAction" type="Node" parent="SequenceComposite/ShootOrMelleAttack/Shoot"]
+script = ExtResource("4_ltft1")
+
+[node name="ShootToTarget" type="Node" parent="SequenceComposite/ShootOrMelleAttack/Shoot"]
+script = ExtResource("4_5uorc")
+
+[node name="MakeDelay" type="Node" parent="SequenceComposite/ShootOrMelleAttack/Shoot"]
+script = ExtResource("3_vvoi0")
+
+[node name="MoveAndMelleAttack" type="Node" parent="SequenceComposite/ShootOrMelleAttack"]
+script = ExtResource("2_667by")
+
+[node name="FindNearestEnemy" type="Node" parent="SequenceComposite/ShootOrMelleAttack/MoveAndMelleAttack"]
+script = ExtResource("4_aykqw")
+
+[node name="FindPositionsAroundTarget" type="Node" parent="SequenceComposite/ShootOrMelleAttack/MoveAndMelleAttack"]
 script = ExtResource("5_mxoen")
 
-[node name="SetMovePos" type="Node" parent="SequenceMoveToEnemy"]
+[node name="SetMovePos" type="Node" parent="SequenceComposite/ShootOrMelleAttack/MoveAndMelleAttack"]
 script = ExtResource("6_pgrgx")
 move_pos_type = 2
 
-[node name="MakeDelay" type="Node" parent="SequenceMoveToEnemy"]
+[node name="MakeDelay" type="Node" parent="SequenceComposite/ShootOrMelleAttack/MoveAndMelleAttack"]
 script = ExtResource("3_vvoi0")
 
-[node name="SequenceMoveToPos" parent="SequenceMoveToEnemy" instance=ExtResource("4_c3mqq")]
+[node name="SequenceMoveToPos" parent="SequenceComposite/ShootOrMelleAttack/MoveAndMelleAttack" instance=ExtResource("4_c3mqq")]
 
-[node name="MakeDelay2" type="Node" parent="SequenceMoveToEnemy"]
+[node name="MakeDelay2" type="Node" parent="SequenceComposite/ShootOrMelleAttack/MoveAndMelleAttack"]
 script = ExtResource("3_vvoi0")
 
-[node name="SequenceMeleeAttack" parent="SequenceMoveToEnemy" instance=ExtResource("8_71kc8")]
+[node name="SequenceMeleeAttack" parent="SequenceComposite/ShootOrMelleAttack/MoveAndMelleAttack" instance=ExtResource("8_71kc8")]
 
-[node name="MakeDelay3" type="Node" parent="SequenceMoveToEnemy"]
+[node name="MakeDelay3" type="Node" parent="SequenceComposite/ShootOrMelleAttack/MoveAndMelleAttack"]
 script = ExtResource("3_vvoi0")
 
-[node name="EndTurn" type="Node" parent="SequenceMoveToEnemy"]
+[node name="EndTurn" type="Node" parent="SequenceComposite"]
 script = ExtResource("7_oy5ty")
