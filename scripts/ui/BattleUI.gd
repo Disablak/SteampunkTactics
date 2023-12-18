@@ -41,7 +41,7 @@ func _change_camera_zoom(zoom: float):
 
 
 func _next_turn():
-	GlobalUnits.unit_control.next_turn()
+	GlobalUnits.unit_order.next_unit_turn()
 
 
 func _on_unit_change_control(unit_id: int, instantly: bool):

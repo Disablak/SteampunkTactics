@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="UnitSettingsResource" load_steps=4 format=3 uid="uid://w2vn8wuadrmx"]
+[gd_resource type="Resource" script_class="UnitSettingsResource" load_steps=3 format=3 uid="uid://w2vn8wuadrmx"]
 
-[ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="1_inr5r"]
 [ext_resource type="Resource" uid="uid://dabprdc4kprjs" path="res://data/settings/weapon/riffle0.tres" id="2_4hhm6"]
 [ext_resource type="Script" path="res://scripts/resources/UnitSettingsResource.gd" id="7_xq26t"]
 
@@ -13,4 +12,4 @@ walk_speed = 10
 initiative = 10
 range_of_view = 5
 equips = Array[Resource("res://scripts/resources/equips/EquipBase.gd")]([])
-abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([ExtResource("1_inr5r"), ExtResource("2_4hhm6")])
+abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([ExtResource("2_4hhm6")])

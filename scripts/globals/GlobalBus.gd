@@ -10,9 +10,9 @@ signal on_unit_equip_added(unit_id: int, equip: EquipBase)
 signal on_unit_changed_action(unit_id: int, action: UnitData.UnitAction)
 signal on_unit_changed_weapon(unit_id: int, weapon: WeaponData)
 
+signal on_game_over(win_side: int)
 
 signal on_changed_time_points(cur_points: int, max_points: int)
 signal on_hint_time_points(cur_points, max_points)
 
 signal on_change_camera_zoom(zoom: float)
-signal on_clicked_next_turn()

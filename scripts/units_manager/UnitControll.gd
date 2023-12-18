@@ -15,6 +15,7 @@ var cur_action: UnitData.UnitAction = UnitData.UnitAction.WALK
 func _ready() -> void:
 	GlobalBus.on_unit_changed_control.connect(_on_unit_changed)
 	GlobalBus.on_unit_changed_action.connect(_on_unit_changed_action)
+	GlobalBus.on_game_over.connect(_on_game_over)
 
 
 func _on_unit_changed(id: int, instantly: bool):
@@ -92,10 +93,6 @@ func _try_melee_attack():
 	melle_attack_controll.try_attack(cur_unit, enemy)
 
 
-func next_turn():
-	GlobalBus.on_clicked_next_turn.emit()
-
-
 func _on_input_system_on_pressed_rmc(mouse_pos: Vector2) -> void:
 	_on_right_click_mouse(mouse_pos);
 
@@ -104,4 +101,7 @@ func _on_input_system_on_pressed_esc() -> void:
 	cur_unit.unit_data.change_action(UnitData.UnitAction.NONE)
 
 
+func _on_game_over(win_side: int):
+	cur_unit.unit_object.try_to_finish_ai()
 
+	print("game over")

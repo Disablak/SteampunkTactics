@@ -2,7 +2,6 @@ class_name UnitOrder
 extends Node
 
 
-var units: Array[Unit]
 var ordered_unit_ids: Array[int] = []
 var cur_unit_idx: int = 0
 
@@ -13,7 +12,6 @@ func init(units: Array[Unit]):
 
 
 func _enter_tree() -> void:
-	GlobalBus.on_clicked_next_turn.connect(next_unit_turn)
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 
 
@@ -55,6 +53,10 @@ func remove_unit_from_order(unit_id: int):
 
 
 func next_unit_turn():
+	if _is_game_over():
+		GlobalBus.on_game_over.emit(0)
+		return
+
 	set_next_unit_id()
 	_emit_unit_change_control()
 
@@ -62,3 +64,10 @@ func next_unit_turn():
 func _emit_unit_change_control():
 	var unit_id = get_cur_unit_id()
 	GlobalBus.on_unit_changed_control.emit(unit_id, false)
+
+
+func _is_game_over() -> bool:
+	var all_player_units := GlobalUnits.unit_list.get_team_units(false)
+	var all_enemy_units := GlobalUnits.unit_list.get_team_units(true)
+
+	return all_player_units.size() == 0 or all_enemy_units.size() == 0
