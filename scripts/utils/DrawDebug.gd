@@ -2,6 +2,9 @@ class_name DrawDebug
 extends Node2D
 
 
+@export var redraw: bool:
+	set(value): queue_redraw()
+
 var lines: Array[Array]
 var lines_malee_raycast: Array[Array]
 var point_ordering = {} # pos and ordering

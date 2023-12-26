@@ -77,7 +77,7 @@ func try_move(mouse_pos: Vector2, is_hovered_on_obj: bool):
 		return
 
 	var world_pos: Vector2 = GlobalUtils.screen_pos_to_world_pos(mouse_pos)
-	move_controll.try_to_move(cur_unit, world_pos)
+	move_controll.try_to_move_or_show_hint(cur_unit, world_pos)
 
 
 func _try_shoot(is_hovered_on_obj: bool):

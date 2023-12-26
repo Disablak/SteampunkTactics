@@ -10,17 +10,24 @@ var _move_target_pos: Vector2
 var _is_second_click: bool = false
 
 
-func try_to_move(unit: Unit, world_pos: Vector2):
-	var move_price = get_move_price(unit, unit.unit_object.position, world_pos)
-
-	if not _can_move(move_price):
-		return
-
+func try_to_move_or_show_hint(unit: Unit, world_pos: Vector2):
 	var is_second_click_to_same_point = _is_second_click and _move_target_pos.distance_to(world_pos) < CONFIRM_CLICK_DISTANCE_PX
 	if is_second_click_to_same_point:
+		try_to_move(unit, world_pos)
+	else:
+		try_show_hint(unit, world_pos)
+
+
+func try_to_move(unit: Unit, world_pos: Vector2):
+	var move_price = get_move_price(unit, unit.unit_object.position, world_pos)
+	if _can_move(move_price):
 		TurnManager.spend_time_points(move_price)
 		_move_unit(unit.unit_object, _move_target_pos)
-	else:
+
+
+func try_show_hint(unit: Unit, world_pos: Vector2):
+	var move_price = get_move_price(unit, unit.unit_object.position, world_pos)
+	if _can_move(move_price):
 		TurnManager.show_hint_spend_points(move_price)
 		_show_future_path(unit.unit_object, world_pos)
 

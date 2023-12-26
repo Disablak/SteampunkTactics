@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://0ro7blx56hka"]
+[gd_scene load_steps=18 format=3 uid="uid://0ro7blx56hka"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_fink7"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_667by"]
@@ -7,9 +7,11 @@
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/ShootToTargetAction.gd" id="4_5uorc"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/FindNearestEnemy.gd" id="4_aykqw"]
 [ext_resource type="PackedScene" uid="uid://cmykt8w161oru" path="res://scenes/behaviour_tree_ai/SequenceMoveToPos.tscn" id="4_c3mqq"]
+[ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/FindAreaPointsAction.gd" id="4_gvkfp"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/ChangeWeaponAction.gd" id="4_ltft1"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="5_l7kol"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/FindPositionsAroundTargetAction.gd" id="5_mxoen"]
+[ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/FilterAreaPointsByDistanceToEnemyAction.gd" id="6_dw1e6"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/condition/IfDistanceToTargetLessThanRange.gd" id="6_nt7jk"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/setters/SetMovePosAction.gd" id="6_pgrgx"]
 [ext_resource type="Script" path="res://scripts/behaviour_tree_ai/action/EndTurnAction.gd" id="7_oy5ty"]
@@ -20,13 +22,37 @@
 script = ExtResource("1_fink7")
 enabled = false
 actor_node_path = NodePath("..")
-blackboard = NodePath("@Node@34389")
+blackboard = NodePath("@Node@17514")
 
 [node name="SelectorComposite" type="Node" parent="."]
 script = ExtResource("3_h8r7o")
 
 [node name="ShootOrMelleAttack" type="Node" parent="SelectorComposite"]
 script = ExtResource("3_h8r7o")
+
+[node name="MoveAndShoot" type="Node" parent="SelectorComposite/ShootOrMelleAttack"]
+script = ExtResource("2_667by")
+
+[node name="FindNearestEnemy" type="Node" parent="SelectorComposite/ShootOrMelleAttack/MoveAndShoot"]
+script = ExtResource("4_aykqw")
+
+[node name="IfDistanceToTargetLessThanRange" type="Node" parent="SelectorComposite/ShootOrMelleAttack/MoveAndShoot"]
+script = ExtResource("6_nt7jk")
+
+[node name="FindAreaPoints" type="Node" parent="SelectorComposite/ShootOrMelleAttack/MoveAndShoot"]
+script = ExtResource("4_gvkfp")
+
+[node name="FilterAreaPointsByDistanceToEnemy" type="Node" parent="SelectorComposite/ShootOrMelleAttack/MoveAndShoot"]
+script = ExtResource("6_dw1e6")
+
+[node name="FindShortestPathPointAction" type="Node" parent="SelectorComposite/ShootOrMelleAttack/MoveAndShoot"]
+script = ExtResource("11_vs2rn")
+
+[node name="SetMovePos" type="Node" parent="SelectorComposite/ShootOrMelleAttack/MoveAndShoot"]
+script = ExtResource("6_pgrgx")
+move_pos_type = 3
+
+[node name="SequenceMoveToPos" parent="SelectorComposite/ShootOrMelleAttack/MoveAndShoot" instance=ExtResource("4_c3mqq")]
 
 [node name="Shoot" type="Node" parent="SelectorComposite/ShootOrMelleAttack"]
 script = ExtResource("2_667by")
@@ -67,6 +93,7 @@ script = ExtResource("5_mxoen")
 
 [node name="FindShortestPath" type="Node" parent="SelectorComposite/ShootOrMelleAttack/MoveAndMeleeAttack"]
 script = ExtResource("11_vs2rn")
+key_points_array = "target_enemy_around_points"
 
 [node name="SetMovePos" type="Node" parent="SelectorComposite/ShootOrMelleAttack/MoveAndMeleeAttack"]
 script = ExtResource("6_pgrgx")

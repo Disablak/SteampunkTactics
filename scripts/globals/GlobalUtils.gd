@@ -40,6 +40,10 @@ func is_point_inside_nav_polygon(point: Vector2) -> bool:
 	return distance < 2
 
 
+func get_points_inside_nav_polygon(points: Array[Vector2]) -> Array[Vector2]:
+	return points.filter(is_point_inside_nav_polygon)
+
+
 func get_dir_from_units(from_id: int, to_id: int):
 	var from: UnitObject = GlobalUnits.unit_list.get_unit(from_id).unit_object
 	var to: UnitObject = GlobalUnits.unit_list.get_unit(to_id).unit_object
@@ -77,5 +81,15 @@ func get_circle_points(center_pos: Vector2, radius: float, segment_count: int) -
 		result.append(center_pos + Vector2(radius * cos(rad), radius * sin(rad)))
 
 	return result
+
+
+func get_area_of_points(center_pos: Vector2, area: Vector2, point_distance: float, rot_euler = 0.0) -> Array[Vector2]:
+	var points: Array[Vector2]
+	for x in range(-(area.x / 2), (area.x / 2), point_distance):
+		for y in range(-(area.y / 2), (area.y / 2), point_distance):
+			var pos := (center_pos + (Vector2(x, y)).rotated(deg_to_rad(rot_euler)))
+			points.append(pos)
+
+	return points
 
 
