@@ -10,7 +10,7 @@ script = ExtResource("1_5ceku")
 
 [node name="ChangeWeaponAction" type="Node" parent="."]
 script = ExtResource("3_lj3hh")
-to_ranged = false
+weapon_type = 1
 
 [node name="EnoughEnergyCondition" type="Node" parent="."]
 script = ExtResource("3_ul1tq")
