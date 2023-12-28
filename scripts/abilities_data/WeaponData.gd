@@ -4,7 +4,7 @@ extends RefCounted
 
 enum WeaponType {
 	NONE,
-	MALEE,
+	MELEE,
 	RANGE,
 	GRENADE
 }

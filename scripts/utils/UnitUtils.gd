@@ -11,7 +11,7 @@ static func get_weapon_of_type(unit: Unit, weapon_type: WeaponData.WeaponType) -
 static func _filter_weapon(weapon: WeaponData, weapon_type: WeaponData.WeaponType) -> bool:
 	if weapon is RangedWeaponData and weapon_type == WeaponData.WeaponType.RANGE:
 		return true
-	elif weapon is MelleWeaponData and weapon_type == WeaponData.WeaponType.MALEE:
+	elif weapon is MelleWeaponData and weapon_type == WeaponData.WeaponType.MELEE:
 		return true
 	elif weapon is ThrowItemData and weapon_type == WeaponData.WeaponType.GRENADE:
 		return true

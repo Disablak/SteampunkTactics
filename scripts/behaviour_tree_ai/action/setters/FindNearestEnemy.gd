@@ -26,5 +26,5 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 
 
 func _set_nearest_enemy(enemy: Unit, blackboard: Blackboard):
-	print("nearest enemy ", enemy.unit_data.unit_name)
+	PrintDebug.print_ai("nearest enemy " + enemy.unit_data.unit_name)
 	blackboard.set_value(BehaviourAiConst.TARGET_ENEMY, enemy)

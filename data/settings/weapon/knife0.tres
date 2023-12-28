@@ -5,7 +5,6 @@
 [resource]
 script = ExtResource("1_npumr")
 max_distance = 30
-use_price = 5
-damage = 5.0
-can_stealth_attack = true
+use_price = 30
+damage = 10.0
 setting_name = "Dagger"

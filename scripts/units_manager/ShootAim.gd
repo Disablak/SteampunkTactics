@@ -30,6 +30,8 @@ func enable_aim(unit: Unit):
 	_ranged_weapon = _cur_unit.unit_data.cur_weapon as RangedWeaponData
 	_aim_enabled = true
 
+	_aim_time = randf_range(0.0, 1.0)
+
 
 func disable_aim():
 	_aim_enabled = false

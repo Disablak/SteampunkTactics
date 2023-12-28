@@ -26,5 +26,6 @@ func tick(actor: Node, blackboard: Blackboard):
 
 	_move_controll.try_show_hint(_cur_unit, target_pos)
 	_move_controll.try_to_move(_cur_unit, target_pos)
-	print("moving to ", target_pos)
+
+	PrintDebug.print_ai("moving to {0}".format([target_pos]))
 	return RUNNING
