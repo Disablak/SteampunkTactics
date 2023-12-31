@@ -68,9 +68,11 @@ func _on_bullet_finish_tween(ray_result):
 	if ray_result.is_empty():
 		return
 
-	var hitted_unit: Unit = _get_unit_from_ray_result(ray_result)
-	_set_damage_to_enemy(_cur_unit, hitted_unit)
-	_if_enemy_died_play_effect(hitted_unit)
+	var hitted_object: GameObject = _get_game_object_from_ray_result(ray_result)
+	if not hitted_object.comp_health:
+		return
+
+	_set_damage_to_object(_cur_unit, hitted_object)
 
 
 func _raycast_and_get_result(shoot_pos: Vector2) -> Dictionary:
@@ -84,21 +86,20 @@ func _raycast_and_get_result(shoot_pos: Vector2) -> Dictionary:
 	return ray_result
 
 
+func _get_game_object_from_ray_result(ray_result: Dictionary) -> GameObject:
+	var game_object: GameObject = ray_result.collider.get_parent()
+	return game_object
+
+
 func _get_unit_from_ray_result(ray_result: Dictionary) -> Unit:
 	var unit_object: UnitObject = ray_result.collider.get_parent()
 	var unit: Unit = GlobalUnits.unit_list.get_unit(unit_object.unit_id)
 	return unit
 
 
-func _set_damage_to_enemy(player: Unit, enemy: Unit):
+func _set_damage_to_object(player: Unit, object: GameObject):
 	var ranged_weapon: RangedWeaponData = _cur_unit.unit_data.cur_weapon
-	enemy.unit_data.set_damage(ranged_weapon.settings.damage, player.id)
-
-
-func _if_enemy_died_play_effect(enemy: Unit):
-	if enemy.unit_data.is_dead:
-		effect_manager.death_effect(enemy.unit_object.position - Vector2(10, 10), enemy.unit_object.main_sprite.texture.region)
-		enemy.unit_object.queue_free()
+	object.comp_health.set_damage(ranged_weapon.settings.damage, player.id)
 
 
 func _spend_time_and_ammo():

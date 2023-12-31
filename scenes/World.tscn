@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=23 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_7w37h"]
 [ext_resource type="Script" path="res://scripts/units/UnitInitializator.gd" id="2_cenak"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cgdko33qxd1ci" path="res://scenes/levels/components/NavRegion.tscn" id="18_es1be"]
 [ext_resource type="Script" path="res://scripts/Raycaster.gd" id="19_j1gqv"]
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
+[ext_resource type="Script" path="res://scripts/managers/AllCovers.gd" id="21_pg1d3"]
 [ext_resource type="PackedScene" uid="uid://deiwiskh30hey" path="res://scenes/levels/components/ObjectSelector.tscn" id="22_4ur3f"]
 [ext_resource type="Script" path="res://scripts/navigation/ObjectMover.gd" id="23_eg25c"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitControll.gd" id="25_xuv3j"]
@@ -69,9 +70,10 @@ effect_manager = NodePath("../../EffectManager")
 raycaster = NodePath("../../Raycaster")
 shoot_aim = NodePath("ShootAim")
 
-[node name="ShootAim" type="Node2D" parent="UnitControll/ShootControll" node_paths=PackedStringArray("line2d_manager")]
+[node name="ShootAim" type="Node2D" parent="UnitControll/ShootControll" node_paths=PackedStringArray("line2d_manager", "all_covers")]
 script = ExtResource("10_1ywrq")
 line2d_manager = NodePath("../../../Line2dManager")
+all_covers = NodePath("../../../AllCovers")
 
 [node name="ReloadControll" type="Node2D" parent="UnitControll"]
 script = ExtResource("10_2apof")
@@ -104,6 +106,9 @@ script = ExtResource("14_ops4e")
 [node name="Raycaster" type="Node2D" parent="."]
 script = ExtResource("19_j1gqv")
 segment_shape_2d = SubResource("SegmentShape2D_fnlar")
+
+[node name="AllCovers" type="Node2D" parent="."]
+script = ExtResource("21_pg1d3")
 
 [connection signal="on_drag" from="InputSystem" to="CameraController" method="_on_input_system_on_drag"]
 [connection signal="on_pressed_esc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_esc"]

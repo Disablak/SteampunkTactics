@@ -7,7 +7,7 @@ extends Node2D
 @onready var comp_walkable: CellCompWalkable = $CompWalkable as CellCompWalkable
 @onready var comp_interactable: CellCompInteractable = $CompInteractable as CellCompInteractable
 @onready var comp_obstacle: CellCompObstacle = $CompObstacle as CellCompObstacle
-@onready var comp_health: CellCompHealth = $CompHealth as CellCompHealth
+@onready var comp_health: CompHealth = $CompHealth as CompHealth
 @onready var comp_pit: CellCompPit = $CellCompPit as CellCompPit
 
 enum CellType {NONE, GROUND, WALL, COVER, OBSTACLE, DOOR, PIT, BARREL}

@@ -1,4 +1,4 @@
-extends Node2D
+extends GameObject
 class_name UnitObject
 
 
@@ -40,6 +40,7 @@ func init_unit(unit_id, unit_data: UnitData) -> void:
 	self.unit_id = unit_id
 
 	health_bar.init(unit_id)
+	comp_health.unit_data = unit_data
 
 	origin_offset = Globals.get_height_of_obj(main_sprite.texture.region) + main_sprite.offset.y + main_sprite.position.y
 
@@ -55,10 +56,7 @@ func try_to_finish_ai():
 
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-
-	GlobalBus.on_unit_change_health.connect(_on_unit_changed_health)
+	super._ready()
 
 	main_sprite_def_pos = main_sprite.position
 
@@ -114,9 +112,11 @@ func enable_obstacle():
 	nav_obstacle.enable_obstacle()
 
 
-func _on_unit_changed_health(unit_id: int, unit_id_dealer: int):
-	if self.unit_id != unit_id:
-		return
-
-	var dir: Vector2 = GlobalUtils.get_dir_from_units(unit_id, unit_id_dealer)
+func _on_damaged(attacker_id: int):
+	var dir: Vector2 = GlobalUtils.get_dir_from_units(unit_id, attacker_id)
 	play_damage_anim(dir)
+
+
+func _on_died():
+	GlobalMap.effect_manager.death_effect(origin_pos - Vector2(10, 10), main_sprite.texture.region)
+	queue_free()

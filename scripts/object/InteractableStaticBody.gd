@@ -22,3 +22,10 @@ func _on_mouse_hover():
 func _on_mouse_exit():
 	on_unhover_object.emit(get_parent())
 
+
+func enable_collision():
+	$Collision.disabled = false
+
+
+func disable_collision():
+	$Collision.disabled = true

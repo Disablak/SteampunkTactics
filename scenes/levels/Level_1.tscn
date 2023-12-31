@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://du6xcv567vuwr"]
+[gd_scene load_steps=47 format=3 uid="uid://du6xcv567vuwr"]
 
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_2e1o5"]
 [ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/object/UnitObject.tscn" id="3_s8jjc"]
@@ -35,11 +35,13 @@
 [ext_resource type="Texture2D" uid="uid://dal5k4l6ut55o" path="res://content/sprites/gothic/background/vertical0.tres" id="31_8jl4p"]
 [ext_resource type="Texture2D" uid="uid://bjciwimkc3i72" path="res://content/sprites/gothic/background/ground3.tres" id="32_wkon5"]
 [ext_resource type="Texture2D" uid="uid://bp8pvquloxpha" path="res://content/sprites/gothic/background/ground4.tres" id="33_nmfns"]
+[ext_resource type="Script" path="res://scripts/object/GameObject.gd" id="34_bew1i"]
 [ext_resource type="Texture2D" uid="uid://by6choylbw061" path="res://content/sprites/gothic/background/ground5.tres" id="34_v0vpy"]
-[ext_resource type="Script" path="res://scripts/cells/components/CellCompHealth.gd" id="35_4uwg2"]
-[ext_resource type="Script" path="res://scripts/cells/CellObject.gd" id="37_kc02r"]
+[ext_resource type="Script" path="res://scripts/object/CompHealth.gd" id="35_vpd8q"]
 [ext_resource type="Texture2D" uid="uid://bfbi6hcg0i7i3" path="res://content/sprites/gothic/obstacle_2.tres" id="39_4iwfi"]
+[ext_resource type="Script" path="res://scripts/object/CoverPoints.gd" id="39_yt45b"]
 [ext_resource type="Resource" uid="uid://5diunhr2km1q" path="res://data/settings/unit/level1/lvl1_player1.tres" id="40_bgxqx"]
+[ext_resource type="Texture2D" uid="uid://rsncl7kapn8d" path="res://content/sprites/gothic/white_circle.tres" id="40_hxa83"]
 [ext_resource type="PackedScene" uid="uid://ctc3hst3u6p20" path="res://scenes/object/InteractableStaticBody.tscn" id="40_sifm2"]
 [ext_resource type="PackedScene" uid="uid://biqevm2kjhsep" path="res://scenes/object/NavObstacle.tscn" id="41_74pyh"]
 [ext_resource type="PackedScene" uid="uid://0ro7blx56hka" path="res://scenes/behaviour_tree_ai/EnemyAi.tscn" id="41_h41yb"]
@@ -453,21 +455,81 @@ texture = ExtResource("34_v0vpy")
 
 [node name="CellBarrel" type="Node2D" parent="."]
 position = Vector2(120, 56)
-script = ExtResource("37_kc02r")
-cell_type = 4
+script = ExtResource("34_bew1i")
 
 [node name="CompHealth" type="Node2D" parent="CellBarrel"]
-script = ExtResource("35_4uwg2")
-health = 20
+script = ExtResource("35_vpd8q")
+start_health = 10
 
 [node name="VisualObject" parent="CellBarrel" instance=ExtResource("2_2e1o5")]
 texture = ExtResource("39_4iwfi")
 
 [node name="InteractableStaticBody" parent="CellBarrel" instance=ExtResource("40_sifm2")]
 position = Vector2(4, 4)
+collision_layer = 9
 
 [node name="NavObstacle" parent="CellBarrel" instance=ExtResource("41_74pyh")]
 position = Vector2(4, 4)
+
+[node name="CoverPoints" type="Node2D" parent="CellBarrel" node_paths=PackedStringArray("interactable_static_body") groups=["cover_points"]]
+script = ExtResource("39_yt45b")
+interactable_static_body = NodePath("../InteractableStaticBody")
+
+[node name="Sprite2D" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(0, 8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(8, 16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(16, 8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D4" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(8, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D5" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(2, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D6" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(2, 14)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D7" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(14, 14)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(14, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
 
 [node name="Player0" parent="." instance=ExtResource("3_s8jjc")]
 position = Vector2(72, 64)
@@ -484,7 +546,7 @@ unit_settings_resource = ExtResource("7_a6u54")
 beehave_tree = NodePath("EnemyAi0")
 
 [node name="EnemyAi0" parent="EnemyObject" node_paths=PackedStringArray("blackboard") instance=ExtResource("41_h41yb")]
-blackboard = NodePath("@Node@17511")
+blackboard = NodePath("@Node@215337")
 
 [node name="EnemyObject2" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_mj8ro")]
 position = Vector2(136, 40)
@@ -492,4 +554,88 @@ unit_settings_resource = ExtResource("10_cmafy")
 beehave_tree = NodePath("EnemyAi1")
 
 [node name="EnemyAi1" parent="EnemyObject2" node_paths=PackedStringArray("blackboard") instance=ExtResource("41_h41yb")]
-blackboard = NodePath("@Node@17512")
+blackboard = NodePath("@Node@215338")
+
+[node name="TestCover" type="Node2D" parent="."]
+position = Vector2(83, 34)
+script = ExtResource("34_bew1i")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestCover"]
+scale = Vector2(0.375, 1.4375)
+texture = ExtResource("11_u6wnr")
+centered = false
+
+[node name="CompHealth" type="Node2D" parent="TestCover"]
+script = ExtResource("35_vpd8q")
+start_health = 10
+
+[node name="InteractableStaticBody" parent="TestCover" instance=ExtResource("40_sifm2")]
+collision_layer = 9
+
+[node name="Collision" parent="TestCover/InteractableStaticBody" index="0"]
+polygon = PackedVector2Array(2.08165e-12, 2.08165e-12, 6, 0, 6, 23, 0, 23)
+
+[node name="CoverPoints" type="Node2D" parent="TestCover" node_paths=PackedStringArray("interactable_static_body") groups=["cover_points"]]
+script = ExtResource("39_yt45b")
+interactable_static_body = NodePath("../InteractableStaticBody")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(-3, 8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D2" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(1, 23)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D3" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(9, 20)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D4" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(9, 13)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D5" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(9, 7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D6" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(8, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D7" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="Sprite2D8" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(-3, 16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_hxa83")
+
+[node name="NavObstacle" parent="TestCover" instance=ExtResource("41_74pyh")]
+position = Vector2(4, 4)
+polygon = PackedVector2Array(-4, -4, 2, -4, 2, 19, -4, 19)
+
+[editable path="TestCover/InteractableStaticBody"]

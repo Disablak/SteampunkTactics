@@ -14,6 +14,7 @@ extends Node2D
 func _ready() -> void:
 	GlobalMap.world = self
 	GlobalMap.draw_debug = $DrawDebug
+	GlobalMap.effect_manager = $EffectManager
 	GlobalUnits.unit_list = unit_list
 	GlobalUnits.unit_order = unit_order
 	GlobalUnits.unit_control = unit_controll

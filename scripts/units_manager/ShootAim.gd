@@ -6,6 +6,7 @@ const DISTANCE_TO_APPLY_OFFSET = 100
 
 
 @export var line2d_manager: Line2dManager
+@export var all_covers: AllCovers
 
 var _cur_unit: Unit
 var _ranged_weapon: WeaponData
@@ -29,8 +30,9 @@ func enable_aim(unit: Unit):
 	_cur_unit = unit
 	_ranged_weapon = _cur_unit.unit_data.cur_weapon as RangedWeaponData
 	_aim_enabled = true
-
 	_aim_time = randf_range(0.0, 1.0)
+
+	all_covers.try_to_disable_cover_collision(unit)
 
 
 func disable_aim():
@@ -41,6 +43,8 @@ func disable_aim():
 	GlobalMap.draw_debug.clear_lines("min_max_dir")
 	line2d_manager.clear_ray()
 	line2d_manager.set_shoot_raycast_pos(Vector2.ZERO, Vector2.ZERO)
+
+	all_covers.enable_all_covers_collision()
 
 
 func set_aim_dir(aim_dir: Vector2):
