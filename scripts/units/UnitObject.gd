@@ -11,7 +11,7 @@ class_name UnitObject
 @onready var health_bar: HealthBar = $VisualObject/HealthBar
 
 @onready var nav_obstacle: NavObstacle = $NavObstacle as NavObstacle
-@onready var interactable_stat_body: InteractableStaticBody = $InteractableStaticBody as InteractableStaticBody
+
 
 var unit_id = -1
 var unit_settings: UnitSetting

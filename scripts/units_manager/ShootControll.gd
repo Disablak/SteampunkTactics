@@ -7,6 +7,8 @@ extends Node
 @export var raycaster: Raycaster
 @export var shoot_aim: ShootAim
 
+const RAY_UNIT_LAYER := 8
+
 var _cur_unit: Unit
 
 
@@ -76,8 +78,7 @@ func _on_bullet_finish_tween(ray_result):
 
 
 func _raycast_and_get_result(shoot_pos: Vector2) -> Dictionary:
-	var exclude_rids: Array[RID] = [_cur_unit.unit_object.interactable_stat_body.get_rid()]
-	const RAY_UNIT_LAYER := 8
+	var exclude_rids: Array[RID] = _cur_unit.unit_object.get_this_exclude_rid()
 	var ray_result = raycaster.make_ray(_cur_unit.unit_object.position, shoot_pos, RAY_UNIT_LAYER, exclude_rids)
 
 	GlobalMap.draw_debug.clear_lines("shoot line")

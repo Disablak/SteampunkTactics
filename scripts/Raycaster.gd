@@ -62,10 +62,10 @@ func make_ray_and_get_positions(pos_from: Vector2, pos_to: Vector2, show_line_to
 		return []
 
 
-func make_ray_and_get_collision_point(pos_from: Vector2, pos_to: Vector2, collsion_mask) -> Vector2:
-	var result = make_ray(pos_from, pos_to, collsion_mask)
+func make_ray_and_get_collision_point(pos_from: Vector2, pos_to: Vector2, collsion_mask: int, exlude: Array[RID] = []) -> Vector2:
+	var result = make_ray(pos_from, pos_to, collsion_mask, exlude)
 	if result.is_empty():
-		return Vector2.ZERO
+		return pos_to
 
 	return result.position
 

@@ -70,10 +70,11 @@ effect_manager = NodePath("../../EffectManager")
 raycaster = NodePath("../../Raycaster")
 shoot_aim = NodePath("ShootAim")
 
-[node name="ShootAim" type="Node2D" parent="UnitControll/ShootControll" node_paths=PackedStringArray("line2d_manager", "all_covers")]
+[node name="ShootAim" type="Node2D" parent="UnitControll/ShootControll" node_paths=PackedStringArray("line2d_manager", "all_covers", "raycaster")]
 script = ExtResource("10_1ywrq")
 line2d_manager = NodePath("../../../Line2dManager")
 all_covers = NodePath("../../../AllCovers")
+raycaster = NodePath("../../../Raycaster")
 
 [node name="ReloadControll" type="Node2D" parent="UnitControll"]
 script = ExtResource("10_2apof")

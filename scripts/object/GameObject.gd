@@ -3,6 +3,7 @@ extends Node2D
 
 
 @onready var comp_health: CompHealth = $CompHealth
+@onready var interactable_stat_body: InteractableStaticBody = $InteractableStaticBody as InteractableStaticBody
 
 
 func _ready() -> void:
@@ -23,3 +24,10 @@ func _on_damaged(attacker_id: int):
 
 func _on_died():
 	queue_free()
+
+
+func get_this_exclude_rid() -> Array[RID]:
+	if interactable_stat_body:
+		return [interactable_stat_body.get_rid()]
+
+	return []

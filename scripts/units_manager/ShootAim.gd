@@ -7,6 +7,7 @@ const DISTANCE_TO_APPLY_OFFSET = 100
 
 @export var line2d_manager: Line2dManager
 @export var all_covers: AllCovers
+@export var raycaster: Raycaster
 
 var _cur_unit: Unit
 var _ranged_weapon: WeaponData
@@ -74,7 +75,14 @@ func _calc_and_draw_aim_direction(aim_dir: Vector2, delta: float):
 	const MAX_SHOOT_DISTANCE = 500
 	_aim_vector = dir_to_lerpred_value * MAX_SHOOT_DISTANCE
 
-	line2d_manager.set_shoot_raycast_pos(_cur_unit_pos, _cur_unit_pos + _aim_vector)
+	var ray_end_pos: Vector2 = raycaster.make_ray_and_get_collision_point(
+		_cur_unit_pos,
+		_cur_unit_pos + _aim_vector,
+		ShootControll.RAY_UNIT_LAYER,
+		_cur_unit.unit_object.get_this_exclude_rid()
+	)
+
+	line2d_manager.set_shoot_raycast_pos(_cur_unit_pos, ray_end_pos)
 
 
 func _get_aim_dir() -> Vector2:
