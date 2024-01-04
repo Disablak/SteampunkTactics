@@ -1,0 +1,658 @@
+[gd_scene load_steps=48 format=3 uid="uid://du6xcv567vuwr"]
+
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="1_drly5"]
+[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_perh8"]
+[ext_resource type="Texture2D" uid="uid://dgu24ji0v3151" path="res://content/sprites/gothic/background/cloud0.tres" id="3_bbi3c"]
+[ext_resource type="Texture2D" uid="uid://dio1flrtagxal" path="res://content/sprites/gothic/background/cloud1.tres" id="4_qv61e"]
+[ext_resource type="Texture2D" uid="uid://cbnhvk2iygn3o" path="res://content/sprites/gothic/background/cloud2.tres" id="5_gxf2k"]
+[ext_resource type="Texture2D" uid="uid://dikfh8plutdfs" path="res://content/sprites/gothic/background/cloud3.tres" id="6_8dyns"]
+[ext_resource type="Texture2D" uid="uid://w3tnd2y22h83" path="res://content/sprites/gothic/background/bridge_pillar.tres" id="7_anqp1"]
+[ext_resource type="Texture2D" uid="uid://1xxay4xsagly" path="res://content/sprites/gothic/background/side0.tres" id="8_cgqjf"]
+[ext_resource type="Texture2D" uid="uid://cq1gugbtx53uq" path="res://content/sprites/gothic/background/side1.tres" id="9_rrl4k"]
+[ext_resource type="Texture2D" uid="uid://bho4ygohhfyql" path="res://content/sprites/gothic/background/side6.tres" id="10_8aqqa"]
+[ext_resource type="Texture2D" uid="uid://gx14kk6e6w62" path="res://content/sprites/gothic/background/side5.tres" id="11_ir75t"]
+[ext_resource type="Texture2D" uid="uid://u38qkvqtobun" path="res://content/sprites/gothic/background/side4.tres" id="12_0jmja"]
+[ext_resource type="Texture2D" uid="uid://v2koeklyy7nb" path="res://content/sprites/gothic/background/border0.tres" id="13_4dere"]
+[ext_resource type="Texture2D" uid="uid://bagc5sgeunmom" path="res://content/sprites/gothic/background/border2.tres" id="14_f7l65"]
+[ext_resource type="Texture2D" uid="uid://bsnn5dw3c35bg" path="res://content/sprites/gothic/background/border3.tres" id="15_eg4j7"]
+[ext_resource type="Texture2D" uid="uid://buj1gm3or4nb" path="res://content/sprites/gothic/background/border7.tres" id="16_bqs5c"]
+[ext_resource type="Texture2D" uid="uid://dn26d3exvsxrg" path="res://content/sprites/gothic/background/border5.tres" id="17_3qx3m"]
+[ext_resource type="Texture2D" uid="uid://l4wxk8w2olgm" path="res://content/sprites/gothic/background/border1.tres" id="18_yqxyc"]
+[ext_resource type="Texture2D" uid="uid://c6hyox3y2o2kj" path="res://content/sprites/gothic/background/border4.tres" id="19_g0ue5"]
+[ext_resource type="Texture2D" uid="uid://vit5f4rxjgv8" path="res://content/sprites/gothic/background/border6.tres" id="20_hsi7h"]
+[ext_resource type="Texture2D" uid="uid://7n83p0pqpguk" path="res://content/sprites/gothic/background/rock0.tres" id="21_20whc"]
+[ext_resource type="Texture2D" uid="uid://cxsp7terxmcim" path="res://content/sprites/gothic/background/ground0.tres" id="22_6o0t6"]
+[ext_resource type="Texture2D" uid="uid://24yo3go3whx3" path="res://content/sprites/gothic/background/ground2.tres" id="23_3n33r"]
+[ext_resource type="Texture2D" uid="uid://lxxpi74mdawy" path="res://content/sprites/gothic/background/ground1.tres" id="24_dfan4"]
+[ext_resource type="Texture2D" uid="uid://dwjydh7c7jash" path="res://content/sprites/gothic/background/pillar0.tres" id="25_8boeo"]
+[ext_resource type="Texture2D" uid="uid://cp02rl68nu4xd" path="res://content/sprites/gothic/background/pillar1.tres" id="26_q5kfe"]
+[ext_resource type="Texture2D" uid="uid://c6gnf6y46grbq" path="res://content/sprites/gothic/background/pillar2.tres" id="27_vmolo"]
+[ext_resource type="Texture2D" uid="uid://bvcf1aubdkrel" path="res://content/sprites/gothic/background/pillar3.tres" id="28_b88ir"]
+[ext_resource type="Texture2D" uid="uid://yd5rj40ax31x" path="res://content/sprites/gothic/background/bridge_pillar_detail0.tres" id="29_81evg"]
+[ext_resource type="Texture2D" uid="uid://dal5k4l6ut55o" path="res://content/sprites/gothic/background/vertical0.tres" id="30_a1tku"]
+[ext_resource type="Texture2D" uid="uid://bjciwimkc3i72" path="res://content/sprites/gothic/background/ground3.tres" id="31_vrt66"]
+[ext_resource type="Texture2D" uid="uid://bp8pvquloxpha" path="res://content/sprites/gothic/background/ground4.tres" id="32_yl37h"]
+[ext_resource type="Texture2D" uid="uid://by6choylbw061" path="res://content/sprites/gothic/background/ground5.tres" id="33_w70sa"]
+[ext_resource type="Script" path="res://scripts/object/GameObject.gd" id="34_aelg0"]
+[ext_resource type="Script" path="res://scripts/object/CompHealth.gd" id="35_tfvk8"]
+[ext_resource type="Texture2D" uid="uid://bfbi6hcg0i7i3" path="res://content/sprites/gothic/obstacle_2.tres" id="36_03s7c"]
+[ext_resource type="PackedScene" uid="uid://ctc3hst3u6p20" path="res://scenes/object/InteractableStaticBody.tscn" id="37_2jbn6"]
+[ext_resource type="PackedScene" uid="uid://biqevm2kjhsep" path="res://scenes/object/NavObstacle.tscn" id="38_g5827"]
+[ext_resource type="Script" path="res://scripts/object/CoverPoints.gd" id="39_bbcbn"]
+[ext_resource type="Texture2D" uid="uid://rsncl7kapn8d" path="res://content/sprites/gothic/white_circle.tres" id="40_qfb82"]
+[ext_resource type="PackedScene" uid="uid://2u31rgktq1eu" path="res://scenes/object/components/healthbars/ListenerHealthBar.tscn" id="41_ssucb"]
+[ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/object/UnitObject.tscn" id="42_51i7x"]
+[ext_resource type="Resource" uid="uid://5diunhr2km1q" path="res://data/settings/unit/level1/lvl1_player1.tres" id="43_wcc36"]
+[ext_resource type="PackedScene" uid="uid://i5vko2tvl1sy" path="res://scenes/object/EnemyObject.tscn" id="44_pijve"]
+[ext_resource type="Resource" uid="uid://w2vn8wuadrmx" path="res://data/settings/unit/level1/lvl1_unit0.tres" id="45_kap0s"]
+[ext_resource type="PackedScene" uid="uid://0ro7blx56hka" path="res://scenes/behaviour_tree_ai/EnemyAi.tscn" id="46_m6upv"]
+[ext_resource type="Resource" uid="uid://criftwds0pgl7" path="res://data/settings/unit/level1/lvl1_unit1.tres" id="47_6ob6y"]
+
+[node name="LevelPlayground" type="Node2D"]
+
+[node name="RootWalkCells" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Ground" parent="RootWalkCells" groups=["ground"] instance=ExtResource("1_drly5")]
+visible = false
+self_modulate = Color(0.419608, 0.419608, 0.231373, 0.223529)
+top_level = true
+scale = Vector2(16, 8)
+texture = ExtResource("2_perh8")
+
+[node name="RootVisual" type="Node2D" parent="."]
+
+[node name="BackGround" parent="RootVisual" instance=ExtResource("1_drly5")]
+modulate = Color(0.65098, 0.65098, 0.74902, 1)
+z_index = -100
+position = Vector2(-202, -186)
+scale = Vector2(48, 36)
+texture = ExtResource("2_perh8")
+
+[node name="Clouds" type="Node2D" parent="RootVisual"]
+z_index = -99
+
+[node name="Cloud0" parent="RootVisual/Clouds" instance=ExtResource("1_drly5")]
+position = Vector2(2, -80)
+texture = ExtResource("3_bbi3c")
+
+[node name="Cloud4" parent="RootVisual/Clouds" instance=ExtResource("1_drly5")]
+position = Vector2(176, 174)
+texture = ExtResource("3_bbi3c")
+
+[node name="Cloud1" parent="RootVisual/Clouds" instance=ExtResource("1_drly5")]
+position = Vector2(118, -46)
+texture = ExtResource("4_qv61e")
+
+[node name="Cloud6" parent="RootVisual/Clouds" instance=ExtResource("1_drly5")]
+position = Vector2(304, 144)
+texture = ExtResource("4_qv61e")
+
+[node name="Cloud2" parent="RootVisual/Clouds" instance=ExtResource("1_drly5")]
+position = Vector2(165, -19)
+texture = ExtResource("5_gxf2k")
+
+[node name="Cloud3" parent="RootVisual/Clouds" instance=ExtResource("1_drly5")]
+position = Vector2(54, 158)
+texture = ExtResource("6_8dyns")
+
+[node name="Cloud7" parent="RootVisual/Clouds" instance=ExtResource("1_drly5")]
+position = Vector2(272, -64)
+texture = ExtResource("6_8dyns")
+
+[node name="Cloud5" parent="RootVisual/Clouds" instance=ExtResource("1_drly5")]
+position = Vector2(-144, -32)
+texture = ExtResource("6_8dyns")
+
+[node name="Bridge" type="Node2D" parent="RootVisual"]
+
+[node name="BridgePlate" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-128, 0)
+scale = Vector2(32, 8)
+metadata/_edit_lock_ = true
+
+[node name="Pillar" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(0, 144)
+texture = ExtResource("7_anqp1")
+
+[node name="Pillar2" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-96, 144)
+texture = ExtResource("7_anqp1")
+flip_h = true
+
+[node name="Pillar3" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-32, 240)
+scale = Vector2(4, 8)
+texture = ExtResource("8_cgqjf")
+metadata/_edit_lock_ = true
+
+[node name="Side" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(0, 128)
+scale = Vector2(7.6875, 1)
+texture = ExtResource("8_cgqjf")
+
+[node name="Side8" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-128, 128)
+scale = Vector2(8, 1)
+texture = ExtResource("8_cgqjf")
+
+[node name="Side9" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(256, 128)
+scale = Vector2(8, 1)
+texture = ExtResource("8_cgqjf")
+
+[node name="Side5" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(139, 128)
+scale = Vector2(7.6875, 1)
+texture = ExtResource("8_cgqjf")
+
+[node name="Side2" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(0, 126)
+scale = Vector2(3.125, 1)
+texture = ExtResource("9_rrl4k")
+
+[node name="Side3" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(0, 125)
+scale = Vector2(2.5625, 1)
+texture = ExtResource("9_rrl4k")
+
+[node name="Side4" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(123, 128)
+texture = ExtResource("10_8aqqa")
+
+[node name="Side6" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(172, 127)
+texture = ExtResource("11_ir75t")
+
+[node name="Side10" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-47, 129)
+texture = ExtResource("11_ir75t")
+
+[node name="Side7" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(230, 129)
+texture = ExtResource("12_0jmja")
+
+[node name="Border0" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(64, 116)
+texture = ExtResource("13_4dere")
+
+[node name="Border1" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(80, 116)
+scale = Vector2(2.5, 1)
+texture = ExtResource("14_f7l65")
+
+[node name="Border2" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(120, 116)
+scale = Vector2(1.875, 1)
+texture = ExtResource("15_eg4j7")
+
+[node name="Border3" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(150, 116)
+texture = ExtResource("16_bqs5c")
+
+[node name="Border4" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(183, 117)
+texture = ExtResource("17_3qx3m")
+
+[node name="Border5" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(199, 117)
+texture = ExtResource("18_yqxyc")
+
+[node name="Border6" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(215, 117)
+texture = ExtResource("18_yqxyc")
+
+[node name="Border8" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(247, 116)
+scale = Vector2(3.8125, 1)
+texture = ExtResource("18_yqxyc")
+
+[node name="Border20" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(307, 116)
+scale = Vector2(1.8125, 1)
+texture = ExtResource("19_g0ue5")
+
+[node name="Border7" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(231, 116)
+texture = ExtResource("20_hsi7h")
+
+[node name="Border9" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(23, -8)
+texture = ExtResource("17_3qx3m")
+
+[node name="Border10" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(39, -8)
+scale = Vector2(2.1875, 1)
+texture = ExtResource("18_yqxyc")
+
+[node name="Border11" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(74, -7)
+scale = Vector2(1.4375, 1)
+texture = ExtResource("21_20whc")
+
+[node name="Border18" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-17, 116)
+scale = Vector2(1.4375, 1)
+texture = ExtResource("21_20whc")
+
+[node name="Border12" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(97, -8)
+scale = Vector2(3.3125, 1)
+texture = ExtResource("14_f7l65")
+
+[node name="Border14" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(181, -8)
+scale = Vector2(2.9375, 1)
+texture = ExtResource("14_f7l65")
+
+[node name="Border17" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-144, 116)
+scale = Vector2(8, 1)
+texture = ExtResource("14_f7l65")
+
+[node name="Border15" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(228, -8)
+scale = Vector2(3.3125, 1)
+texture = ExtResource("14_f7l65")
+
+[node name="Border13" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(150, -8)
+scale = Vector2(1.6875, 1)
+texture = ExtResource("16_bqs5c")
+
+[node name="Border16" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(281, -8)
+texture = ExtResource("19_g0ue5")
+
+[node name="Border19" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(165, -8)
+texture = ExtResource("17_3qx3m")
+
+[node name="Ground0" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(80, 80)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground1" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(86, 76)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground2" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(81, 75)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground7" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(164, 8)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground8" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(174, 8)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground9" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(181, 5)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground10" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(28, 7)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground11" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(35, 10)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground12" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(26, 13)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground13" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(227, 50)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground22" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(277, 109)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground23" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(280, 106)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground24" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(240, 50)
+texture = ExtResource("22_6o0t6")
+
+[node name="Ground14" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(226, 55)
+texture = ExtResource("23_3n33r")
+
+[node name="Ground15" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(228, 53)
+texture = ExtResource("23_3n33r")
+
+[node name="Ground21" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(228, 53)
+texture = ExtResource("23_3n33r")
+
+[node name="Ground20" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(228, 53)
+texture = ExtResource("23_3n33r")
+
+[node name="Ground16" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(229, 44)
+texture = ExtResource("23_3n33r")
+
+[node name="Ground17" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(234, 41)
+texture = ExtResource("23_3n33r")
+
+[node name="Ground25" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(7, 98)
+texture = ExtResource("23_3n33r")
+
+[node name="Ground26" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(10, 101)
+texture = ExtResource("23_3n33r")
+
+[node name="Ground27" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(89, 84)
+texture = ExtResource("23_3n33r")
+
+[node name="Ground18" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(236, 37)
+texture = ExtResource("23_3n33r")
+
+[node name="Ground19" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(239, 40)
+texture = ExtResource("23_3n33r")
+
+[node name="Ground3" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(141, 95)
+texture = ExtResource("24_dfan4")
+
+[node name="Ground28" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-57, 69)
+texture = ExtResource("24_dfan4")
+
+[node name="Ground29" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-63, 65)
+texture = ExtResource("24_dfan4")
+
+[node name="Ground30" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-50, 60)
+texture = ExtResource("24_dfan4")
+
+[node name="Ground31" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-86, 19)
+texture = ExtResource("24_dfan4")
+
+[node name="Ground32" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-75, 16)
+texture = ExtResource("24_dfan4")
+
+[node name="Ground4" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(146, 88)
+texture = ExtResource("24_dfan4")
+
+[node name="Ground5" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(154, 94)
+texture = ExtResource("24_dfan4")
+
+[node name="Ground6" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(158, 82)
+texture = ExtResource("23_3n33r")
+
+[node name="Pillar4" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(55, 112)
+texture = ExtResource("25_8boeo")
+
+[node name="Pillar5" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(21, -12)
+texture = ExtResource("26_q5kfe")
+
+[node name="Pillar6" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(313, -9)
+texture = ExtResource("27_vmolo")
+
+[node name="Pillar7" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-71, 110)
+texture = ExtResource("28_b88ir")
+
+[node name="PillarDetail" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(10, 160)
+texture = ExtResource("29_81evg")
+
+[node name="PillarDetail2" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-25, 162)
+texture = ExtResource("29_81evg")
+
+[node name="PillarDetail3" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(-25, 176)
+texture = ExtResource("30_a1tku")
+
+[node name="Ground" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(14, 8)
+texture = ExtResource("31_vrt66")
+
+[node name="Ground33" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(11, 15)
+texture = ExtResource("31_vrt66")
+
+[node name="Ground34" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(9, 11)
+texture = ExtResource("31_vrt66")
+
+[node name="Ground35" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(134, 54)
+texture = ExtResource("32_yl37h")
+
+[node name="Ground36" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(167, 87)
+texture = ExtResource("33_w70sa")
+
+[node name="Ground37" parent="RootVisual/Bridge" instance=ExtResource("1_drly5")]
+position = Vector2(166, 90)
+texture = ExtResource("33_w70sa")
+
+[node name="CellBarrel" type="Node2D" parent="."]
+position = Vector2(96, 41)
+script = ExtResource("34_aelg0")
+
+[node name="CompHealth" type="Node2D" parent="CellBarrel"]
+script = ExtResource("35_tfvk8")
+start_health = 10
+
+[node name="VisualObject" parent="CellBarrel" instance=ExtResource("1_drly5")]
+texture = ExtResource("36_03s7c")
+
+[node name="InteractableStaticBody" parent="CellBarrel" instance=ExtResource("37_2jbn6")]
+position = Vector2(4, 4)
+collision_layer = 9
+
+[node name="NavObstacle" parent="CellBarrel" instance=ExtResource("38_g5827")]
+position = Vector2(4, 4)
+
+[node name="CoverPoints" type="Node2D" parent="CellBarrel" node_paths=PackedStringArray("interactable_static_body") groups=["cover_points"]]
+script = ExtResource("39_bbcbn")
+interactable_static_body = NodePath("../InteractableStaticBody")
+
+[node name="Sprite2D" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+visible = false
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(0, 8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+visible = false
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(8, 16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+visible = false
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(16, 8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D4" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+visible = false
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(8, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D5" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+visible = false
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(2, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D6" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+visible = false
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(2, 14)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D7" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+visible = false
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(14, 14)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CellBarrel/CoverPoints"]
+visible = false
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(14, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="ListenerHealthBar" parent="CellBarrel" node_paths=PackedStringArray("comp_health") instance=ExtResource("41_ssucb")]
+position = Vector2(2, -3)
+comp_health = NodePath("../CompHealth")
+
+[node name="Player0" parent="." instance=ExtResource("42_51i7x")]
+position = Vector2(72, 64)
+unit_name = "Player0"
+
+[node name="Player1" parent="." instance=ExtResource("42_51i7x")]
+position = Vector2(104, 96)
+unit_name = "Player1"
+unit_settings_resource = ExtResource("43_wcc36")
+
+[node name="EnemyObject" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
+position = Vector2(153, 81)
+unit_settings_resource = ExtResource("45_kap0s")
+beehave_tree = NodePath("EnemyAi0")
+
+[node name="EnemyAi0" parent="EnemyObject" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
+blackboard = NodePath("@Node@161298")
+
+[node name="EnemyObject2" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
+position = Vector2(144, 22)
+unit_settings_resource = ExtResource("47_6ob6y")
+beehave_tree = NodePath("EnemyAi1")
+
+[node name="EnemyAi1" parent="EnemyObject2" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
+blackboard = NodePath("@Node@161299")
+
+[node name="TestCover" type="Node2D" parent="."]
+visible = false
+position = Vector2(48, -48)
+script = ExtResource("34_aelg0")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestCover"]
+scale = Vector2(0.375, 1.4375)
+texture = ExtResource("2_perh8")
+centered = false
+
+[node name="CompHealth" type="Node2D" parent="TestCover"]
+script = ExtResource("35_tfvk8")
+start_health = 10
+
+[node name="InteractableStaticBody" parent="TestCover" instance=ExtResource("37_2jbn6")]
+collision_layer = 9
+
+[node name="Collision" parent="TestCover/InteractableStaticBody" index="0"]
+polygon = PackedVector2Array(2.08165e-12, 2.08165e-12, 6, 0, 6, 23, 0, 23)
+
+[node name="CoverPoints" type="Node2D" parent="TestCover" node_paths=PackedStringArray("interactable_static_body") groups=["cover_points"]]
+script = ExtResource("39_bbcbn")
+interactable_static_body = NodePath("../InteractableStaticBody")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(-3, 8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D2" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(1, 23)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D3" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(9, 20)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D4" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(9, 13)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D5" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(9, 7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D6" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(8, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D7" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="Sprite2D8" type="Sprite2D" parent="TestCover/CoverPoints"]
+modulate = Color(1, 1, 1, 0.121569)
+texture_filter = 1
+position = Vector2(-3, 16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_qfb82")
+
+[node name="NavObstacle" parent="TestCover" instance=ExtResource("38_g5827")]
+position = Vector2(4, 4)
+polygon = PackedVector2Array(-4, -4, 2, -4, 2, 19, -4, 19)
+
+[node name="ListenerHealthBar" parent="TestCover" node_paths=PackedStringArray("comp_health") instance=ExtResource("41_ssucb")]
+position = Vector2(-3, 5)
+comp_health = NodePath("../CompHealth")
+
+[editable path="TestCover/InteractableStaticBody"]

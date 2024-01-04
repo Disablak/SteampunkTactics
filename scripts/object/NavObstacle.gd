@@ -7,6 +7,11 @@ signal on_obstacle_change
 const OBSTACLE_GROUP_NAME = "nav_obstacle"
 
 
+
+func _exit_tree() -> void:
+	disable_obstacle()
+
+
 func enable_obstacle():
 	add_to_group(OBSTACLE_GROUP_NAME)
 	on_obstacle_change.emit()

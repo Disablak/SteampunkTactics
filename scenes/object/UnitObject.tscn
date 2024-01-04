@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_7440i"]
 [ext_resource type="Texture2D" uid="uid://ciry2hpepxf06" path="res://content/sprites/gothic/units/player1.tres" id="3_k0aa5"]
 [ext_resource type="Texture2D" uid="uid://b6e5yn1juhul0" path="res://content/sprites/gothic/noticed_icon.tres" id="4_25j5p"]
-[ext_resource type="PackedScene" uid="uid://clvk0kxtgfpgg" path="res://scenes/2d/HealthBar.tscn" id="5_ske73"]
+[ext_resource type="PackedScene" uid="uid://u7etv0gjups2" path="res://scenes/object/components/healthbars/UnitHealthBar.tscn" id="5_p78fn"]
 [ext_resource type="PackedScene" uid="uid://ctc3hst3u6p20" path="res://scenes/object/InteractableStaticBody.tscn" id="6_c2p2v"]
 [ext_resource type="PackedScene" uid="uid://biqevm2kjhsep" path="res://scenes/object/NavObstacle.tscn" id="7_tdav3"]
 [ext_resource type="Script" path="res://scripts/object/CompUnitHealth.gd" id="8_yvfh1"]
@@ -21,7 +21,7 @@ visible = false
 position = Vector2(9, -14)
 texture = ExtResource("4_25j5p")
 
-[node name="HealthBar" parent="VisualObject" instance=ExtResource("5_ske73")]
+[node name="HealthBar" parent="VisualObject" instance=ExtResource("5_p78fn")]
 unique_name_in_owner = true
 position = Vector2(2, -7)
 

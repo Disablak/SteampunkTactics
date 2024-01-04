@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://2u31rgktq1eu"]
+
+[ext_resource type="PackedScene" uid="uid://clvk0kxtgfpgg" path="res://scenes/object/components/healthbars/HealthBar.tscn" id="1_mdy3w"]
+[ext_resource type="Script" path="res://scripts/ui/healthbars/ListenerHealthBar.gd" id="2_jjy7w"]
+
+[node name="ListenerHealthBar" instance=ExtResource("1_mdy3w")]
+script = ExtResource("2_jjy7w")

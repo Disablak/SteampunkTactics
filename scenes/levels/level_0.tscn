@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://bttw10a71xtrk"]
+
+[ext_resource type="PackedScene" uid="uid://d1ivryo5a7c2p" path="res://scenes/levels/LevelBase.tscn" id="1_5nxfd"]
+[ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/object/UnitObject.tscn" id="2_qmpu1"]
+[ext_resource type="PackedScene" uid="uid://i5vko2tvl1sy" path="res://scenes/object/EnemyObject.tscn" id="3_dvsgs"]
+[ext_resource type="Resource" uid="uid://djiog7b2bureb" path="res://data/settings/unit/level0/lvl0_player0.tres" id="3_pi6et"]
+[ext_resource type="PackedScene" uid="uid://0ro7blx56hka" path="res://scenes/behaviour_tree_ai/EnemyAi.tscn" id="4_04vti"]
+[ext_resource type="Resource" uid="uid://ckxrno7n85e6q" path="res://data/settings/unit/level0/lvl0_unit0.tres" id="5_jxwh2"]
+
+[node name="LevelBase" instance=ExtResource("1_5nxfd")]
+
+[node name="Ground" parent="." index="0"]
+scale = Vector2(8, 8)
+
+[node name="BridgePlate" parent="Visual/Bridge" index="0"]
+position = Vector2(0, 0)
+scale = Vector2(8, 8)
+
+[node name="UnitObject" parent="." index="2" instance=ExtResource("2_qmpu1")]
+position = Vector2(8, 8)
+unit_name = "Player"
+unit_settings_resource = ExtResource("3_pi6et")
+
+[node name="EnemyObject" parent="." index="3" node_paths=PackedStringArray("beehave_tree") instance=ExtResource("3_dvsgs")]
+position = Vector2(120, 120)
+unit_settings_resource = ExtResource("5_jxwh2")
+beehave_tree = NodePath("EnemyAi0")
+
+[node name="EnemyAi0" parent="EnemyObject" index="4" node_paths=PackedStringArray("blackboard") instance=ExtResource("4_04vti")]
+blackboard = NodePath("@Node@136756")

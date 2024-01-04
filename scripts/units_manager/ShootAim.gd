@@ -66,7 +66,7 @@ func _calc_and_draw_aim_direction(aim_dir: Vector2, delta: float):
 
 	var min_dir: Vector2 = vector_to_aim_dir_100px - perpendecular_vector_to_aim_dir
 	var max_dir: Vector2 = vector_to_aim_dir_100px + perpendecular_vector_to_aim_dir
-	_draw_debug(min_dir, max_dir)
+	#_draw_debug(min_dir, max_dir)
 
 	var lerp_time = _get_lerp_time(delta)
 	var lerp_from_min_to_max: Vector2 = lerp(min_dir, max_dir, lerp_time)

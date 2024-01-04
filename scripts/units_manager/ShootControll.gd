@@ -81,8 +81,8 @@ func _raycast_and_get_result(shoot_pos: Vector2) -> Dictionary:
 	var exclude_rids: Array[RID] = _cur_unit.unit_object.get_this_exclude_rid()
 	var ray_result = raycaster.make_ray(_cur_unit.unit_object.position, shoot_pos, RAY_UNIT_LAYER, exclude_rids)
 
-	GlobalMap.draw_debug.clear_lines("shoot line")
-	GlobalMap.draw_debug.add_line([_cur_unit.origin_pos, shoot_pos], "shoot line")
+	#GlobalMap.draw_debug.clear_lines("shoot line")
+	#GlobalM3ap.draw_debug.add_line([_cur_unit.origin_pos, shoot_pos], "shoot line")
 
 	return ray_result
 

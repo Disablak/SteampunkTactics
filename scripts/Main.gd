@@ -8,10 +8,6 @@ extends Node3D
 @export var level_id := 0
 
 
-func _enter_tree() -> void:
-	_console_comands()
-
-
 func _ready() -> void:
 	var game_progress: GameProgress = _get_progress()
 	start_battle(game_progress)
@@ -29,12 +25,4 @@ func _get_progress() -> GameProgress:
 	progress.level_id = level_id
 
 	return progress
-
-
-func _console_comands():
-	Console.add_command("debug_ai", _debug_ai)
-
-
-func _debug_ai():
-	PrintDebug.toggle_ai()
 

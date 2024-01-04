@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=25 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_7w37h"]
 [ext_resource type="Script" path="res://scripts/units/UnitInitializator.gd" id="2_cenak"]
-[ext_resource type="PackedScene" uid="uid://du6xcv567vuwr" path="res://scenes/levels/Level_1.tscn" id="6_cfcg2"]
+[ext_resource type="PackedScene" uid="uid://du6xcv567vuwr" path="res://scenes/levels/LevelPlayground.tscn" id="6_cfcg2"]
+[ext_resource type="PackedScene" uid="uid://bttw10a71xtrk" path="res://scenes/levels/level_0.tscn" id="6_vrhvp"]
 [ext_resource type="Script" path="res://scripts/units_manager/ShootAim.gd" id="10_1ywrq"]
 [ext_resource type="Script" path="res://scripts/units_manager/ReloadControll.gd" id="10_2apof"]
 [ext_resource type="Script" path="res://scripts/InputSystem.gd" id="10_yja2f"]
@@ -16,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://ccjtjw661geoi" path="res://scenes/2d/Line2dManager.tscn" id="20_syji7"]
 [ext_resource type="Script" path="res://scripts/managers/AllCovers.gd" id="21_pg1d3"]
 [ext_resource type="PackedScene" uid="uid://deiwiskh30hey" path="res://scenes/levels/components/ObjectSelector.tscn" id="22_4ur3f"]
+[ext_resource type="Script" path="res://scripts/utils/ConsoleCommands.gd" id="23_bytt0"]
 [ext_resource type="Script" path="res://scripts/navigation/ObjectMover.gd" id="23_eg25c"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitControll.gd" id="25_xuv3j"]
 [ext_resource type="Script" path="res://scripts/units_manager/MoveControll.gd" id="26_xex30"]
@@ -24,12 +26,15 @@
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_fnlar"]
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("unit_initializator", "unit_list", "unit_order", "unit_controll")]
+[node name="World" type="Node2D" node_paths=PackedStringArray("nav_region", "unit_initializator", "unit_list", "unit_order", "unit_controll")]
 script = ExtResource("1_7w37h")
+nav_region = NodePath("NavigationRegion")
 unit_initializator = NodePath("UnitInitializator")
 unit_list = NodePath("UnitInitializator/UnitList")
 unit_order = NodePath("UnitInitializator/UnitOrder")
 unit_controll = NodePath("UnitControll")
+level_scenes = Array[PackedScene]([ExtResource("6_vrhvp")])
+playground_scene = ExtResource("6_cfcg2")
 
 [node name="UnitInitializator" type="Node2D" parent="."]
 script = ExtResource("2_cenak")
@@ -42,8 +47,7 @@ unit_order = NodePath("../UnitOrder")
 script = ExtResource("12_6735i")
 
 [node name="NavigationRegion" parent="." instance=ExtResource("18_es1be")]
-
-[node name="Level_1" parent="NavigationRegion" instance=ExtResource("6_cfcg2")]
+self_modulate = Color(1, 1, 1, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-112, -64)
@@ -110,6 +114,10 @@ segment_shape_2d = SubResource("SegmentShape2D_fnlar")
 
 [node name="AllCovers" type="Node2D" parent="."]
 script = ExtResource("21_pg1d3")
+
+[node name="ConsoleComands" type="Node2D" parent="." node_paths=PackedStringArray("nav_region_node")]
+script = ExtResource("23_bytt0")
+nav_region_node = NodePath("../NavigationRegion")
 
 [connection signal="on_drag" from="InputSystem" to="CameraController" method="_on_input_system_on_drag"]
 [connection signal="on_pressed_esc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_esc"]

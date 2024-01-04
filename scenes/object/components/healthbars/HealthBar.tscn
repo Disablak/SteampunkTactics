@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://clvk0kxtgfpgg"]
 
 [ext_resource type="Texture2D" uid="uid://bbxa7gkile6im" path="res://content/sprites/gothic/healthbar_full.tres" id="1_83mwn"]
-[ext_resource type="Script" path="res://scripts/ui/HealthBar.gd" id="2_2rhyx"]
+[ext_resource type="Script" path="res://scripts/ui/healthbars/HealthBar.gd" id="2_2rhyx"]
 [ext_resource type="Texture2D" uid="uid://dhrhlaxkw0idd" path="res://content/sprites/gothic/healthbar_half.tres" id="3_cn8n7"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="4_hcka7"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="5_cqnqd"]

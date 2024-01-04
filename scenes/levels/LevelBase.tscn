@@ -1,0 +1,515 @@
+[gd_scene load_steps=34 format=3 uid="uid://d1ivryo5a7c2p"]
+
+[ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="1_v816i"]
+[ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_nr28b"]
+[ext_resource type="Texture2D" uid="uid://dgu24ji0v3151" path="res://content/sprites/gothic/background/cloud0.tres" id="3_gpepd"]
+[ext_resource type="Texture2D" uid="uid://dio1flrtagxal" path="res://content/sprites/gothic/background/cloud1.tres" id="4_si6pc"]
+[ext_resource type="Texture2D" uid="uid://cbnhvk2iygn3o" path="res://content/sprites/gothic/background/cloud2.tres" id="5_ctiwb"]
+[ext_resource type="Texture2D" uid="uid://dikfh8plutdfs" path="res://content/sprites/gothic/background/cloud3.tres" id="6_1k6f8"]
+[ext_resource type="Texture2D" uid="uid://w3tnd2y22h83" path="res://content/sprites/gothic/background/bridge_pillar.tres" id="7_bvll5"]
+[ext_resource type="Texture2D" uid="uid://1xxay4xsagly" path="res://content/sprites/gothic/background/side0.tres" id="8_34cti"]
+[ext_resource type="Texture2D" uid="uid://cq1gugbtx53uq" path="res://content/sprites/gothic/background/side1.tres" id="9_8n8lw"]
+[ext_resource type="Texture2D" uid="uid://bho4ygohhfyql" path="res://content/sprites/gothic/background/side6.tres" id="10_6u26m"]
+[ext_resource type="Texture2D" uid="uid://gx14kk6e6w62" path="res://content/sprites/gothic/background/side5.tres" id="11_280vg"]
+[ext_resource type="Texture2D" uid="uid://u38qkvqtobun" path="res://content/sprites/gothic/background/side4.tres" id="12_slwhr"]
+[ext_resource type="Texture2D" uid="uid://v2koeklyy7nb" path="res://content/sprites/gothic/background/border0.tres" id="13_5nxyx"]
+[ext_resource type="Texture2D" uid="uid://bagc5sgeunmom" path="res://content/sprites/gothic/background/border2.tres" id="14_qqa74"]
+[ext_resource type="Texture2D" uid="uid://bsnn5dw3c35bg" path="res://content/sprites/gothic/background/border3.tres" id="15_y8gqa"]
+[ext_resource type="Texture2D" uid="uid://buj1gm3or4nb" path="res://content/sprites/gothic/background/border7.tres" id="16_uvo84"]
+[ext_resource type="Texture2D" uid="uid://dn26d3exvsxrg" path="res://content/sprites/gothic/background/border5.tres" id="17_dcq2g"]
+[ext_resource type="Texture2D" uid="uid://l4wxk8w2olgm" path="res://content/sprites/gothic/background/border1.tres" id="18_01cp3"]
+[ext_resource type="Texture2D" uid="uid://c6hyox3y2o2kj" path="res://content/sprites/gothic/background/border4.tres" id="19_5hjng"]
+[ext_resource type="Texture2D" uid="uid://vit5f4rxjgv8" path="res://content/sprites/gothic/background/border6.tres" id="20_52vhe"]
+[ext_resource type="Texture2D" uid="uid://7n83p0pqpguk" path="res://content/sprites/gothic/background/rock0.tres" id="21_qe70w"]
+[ext_resource type="Texture2D" uid="uid://cxsp7terxmcim" path="res://content/sprites/gothic/background/ground0.tres" id="22_ujxpo"]
+[ext_resource type="Texture2D" uid="uid://24yo3go3whx3" path="res://content/sprites/gothic/background/ground2.tres" id="23_bpiin"]
+[ext_resource type="Texture2D" uid="uid://lxxpi74mdawy" path="res://content/sprites/gothic/background/ground1.tres" id="24_1iaia"]
+[ext_resource type="Texture2D" uid="uid://dwjydh7c7jash" path="res://content/sprites/gothic/background/pillar0.tres" id="25_aycve"]
+[ext_resource type="Texture2D" uid="uid://cp02rl68nu4xd" path="res://content/sprites/gothic/background/pillar1.tres" id="26_tdx3a"]
+[ext_resource type="Texture2D" uid="uid://c6gnf6y46grbq" path="res://content/sprites/gothic/background/pillar2.tres" id="27_huln3"]
+[ext_resource type="Texture2D" uid="uid://bvcf1aubdkrel" path="res://content/sprites/gothic/background/pillar3.tres" id="28_jrh8g"]
+[ext_resource type="Texture2D" uid="uid://yd5rj40ax31x" path="res://content/sprites/gothic/background/bridge_pillar_detail0.tres" id="29_br341"]
+[ext_resource type="Texture2D" uid="uid://dal5k4l6ut55o" path="res://content/sprites/gothic/background/vertical0.tres" id="30_jos5w"]
+[ext_resource type="Texture2D" uid="uid://bjciwimkc3i72" path="res://content/sprites/gothic/background/ground3.tres" id="31_4wiie"]
+[ext_resource type="Texture2D" uid="uid://bp8pvquloxpha" path="res://content/sprites/gothic/background/ground4.tres" id="32_knnq8"]
+[ext_resource type="Texture2D" uid="uid://by6choylbw061" path="res://content/sprites/gothic/background/ground5.tres" id="33_4lmv2"]
+
+[node name="LevelBase" type="Node2D"]
+
+[node name="Ground" parent="." groups=["ground"] instance=ExtResource("1_v816i")]
+self_modulate = Color(0.419608, 0.419608, 0.231373, 0.168627)
+top_level = true
+scale = Vector2(16, 8)
+texture = ExtResource("2_nr28b")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="BackGround" parent="Visual" instance=ExtResource("1_v816i")]
+modulate = Color(0.65098, 0.65098, 0.74902, 1)
+z_index = -100
+position = Vector2(-202, -186)
+scale = Vector2(48, 36)
+texture = ExtResource("2_nr28b")
+
+[node name="Clouds" type="Node2D" parent="Visual"]
+z_index = -99
+
+[node name="Cloud0" parent="Visual/Clouds" instance=ExtResource("1_v816i")]
+position = Vector2(2, -80)
+texture = ExtResource("3_gpepd")
+
+[node name="Cloud4" parent="Visual/Clouds" instance=ExtResource("1_v816i")]
+position = Vector2(176, 174)
+texture = ExtResource("3_gpepd")
+
+[node name="Cloud1" parent="Visual/Clouds" instance=ExtResource("1_v816i")]
+position = Vector2(118, -46)
+texture = ExtResource("4_si6pc")
+
+[node name="Cloud6" parent="Visual/Clouds" instance=ExtResource("1_v816i")]
+position = Vector2(304, 144)
+texture = ExtResource("4_si6pc")
+
+[node name="Cloud2" parent="Visual/Clouds" instance=ExtResource("1_v816i")]
+position = Vector2(165, -19)
+texture = ExtResource("5_ctiwb")
+
+[node name="Cloud3" parent="Visual/Clouds" instance=ExtResource("1_v816i")]
+position = Vector2(54, 158)
+texture = ExtResource("6_1k6f8")
+
+[node name="Cloud7" parent="Visual/Clouds" instance=ExtResource("1_v816i")]
+position = Vector2(272, -64)
+texture = ExtResource("6_1k6f8")
+
+[node name="Cloud5" parent="Visual/Clouds" instance=ExtResource("1_v816i")]
+position = Vector2(-144, -32)
+texture = ExtResource("6_1k6f8")
+
+[node name="Bridge" type="Node2D" parent="Visual"]
+
+[node name="BridgePlate" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+position = Vector2(-128, 0)
+scale = Vector2(32, 8)
+metadata/_edit_lock_ = true
+
+[node name="Pillar" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(0, 144)
+texture = ExtResource("7_bvll5")
+
+[node name="Pillar2" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-96, 144)
+texture = ExtResource("7_bvll5")
+flip_h = true
+
+[node name="Pillar3" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-32, 240)
+scale = Vector2(4, 8)
+texture = ExtResource("8_34cti")
+metadata/_edit_lock_ = true
+
+[node name="Side" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(0, 128)
+scale = Vector2(7.6875, 1)
+texture = ExtResource("8_34cti")
+
+[node name="Side8" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-128, 128)
+scale = Vector2(8, 1)
+texture = ExtResource("8_34cti")
+
+[node name="Side9" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(256, 128)
+scale = Vector2(8, 1)
+texture = ExtResource("8_34cti")
+
+[node name="Side5" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(139, 128)
+scale = Vector2(7.6875, 1)
+texture = ExtResource("8_34cti")
+
+[node name="Side2" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(0, 126)
+scale = Vector2(3.125, 1)
+texture = ExtResource("9_8n8lw")
+
+[node name="Side3" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(0, 125)
+scale = Vector2(2.5625, 1)
+texture = ExtResource("9_8n8lw")
+
+[node name="Side4" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(123, 128)
+texture = ExtResource("10_6u26m")
+
+[node name="Side6" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(172, 127)
+texture = ExtResource("11_280vg")
+
+[node name="Side10" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-47, 129)
+texture = ExtResource("11_280vg")
+
+[node name="Side7" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(230, 129)
+texture = ExtResource("12_slwhr")
+
+[node name="Border0" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(64, 116)
+texture = ExtResource("13_5nxyx")
+
+[node name="Border1" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(80, 116)
+scale = Vector2(2.5, 1)
+texture = ExtResource("14_qqa74")
+
+[node name="Border2" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(120, 116)
+scale = Vector2(1.875, 1)
+texture = ExtResource("15_y8gqa")
+
+[node name="Border3" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(150, 116)
+texture = ExtResource("16_uvo84")
+
+[node name="Border4" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(183, 117)
+texture = ExtResource("17_dcq2g")
+
+[node name="Border5" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(199, 117)
+texture = ExtResource("18_01cp3")
+
+[node name="Border6" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(215, 117)
+texture = ExtResource("18_01cp3")
+
+[node name="Border8" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(247, 116)
+scale = Vector2(3.8125, 1)
+texture = ExtResource("18_01cp3")
+
+[node name="Border20" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(307, 116)
+scale = Vector2(1.8125, 1)
+texture = ExtResource("19_5hjng")
+
+[node name="Border7" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(231, 116)
+texture = ExtResource("20_52vhe")
+
+[node name="Border9" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(23, -8)
+texture = ExtResource("17_dcq2g")
+
+[node name="Border10" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(39, -8)
+scale = Vector2(2.1875, 1)
+texture = ExtResource("18_01cp3")
+
+[node name="Border11" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(74, -7)
+scale = Vector2(1.4375, 1)
+texture = ExtResource("21_qe70w")
+
+[node name="Border18" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-17, 116)
+scale = Vector2(1.4375, 1)
+texture = ExtResource("21_qe70w")
+
+[node name="Border12" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(97, -8)
+scale = Vector2(3.3125, 1)
+texture = ExtResource("14_qqa74")
+
+[node name="Border14" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(181, -8)
+scale = Vector2(2.9375, 1)
+texture = ExtResource("14_qqa74")
+
+[node name="Border17" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-144, 116)
+scale = Vector2(8, 1)
+texture = ExtResource("14_qqa74")
+
+[node name="Border15" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(228, -8)
+scale = Vector2(3.3125, 1)
+texture = ExtResource("14_qqa74")
+
+[node name="Border13" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(150, -8)
+scale = Vector2(1.6875, 1)
+texture = ExtResource("16_uvo84")
+
+[node name="Border16" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(281, -8)
+texture = ExtResource("19_5hjng")
+
+[node name="Border19" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(165, -8)
+texture = ExtResource("17_dcq2g")
+
+[node name="Ground0" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(80, 80)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground1" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(86, 76)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground2" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(81, 75)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground7" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(164, 8)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground8" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(174, 8)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground9" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(181, 5)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground10" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(28, 7)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground11" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(35, 10)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground12" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(26, 13)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground13" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(227, 50)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground22" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(277, 109)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground23" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(280, 106)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground24" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(240, 50)
+texture = ExtResource("22_ujxpo")
+
+[node name="Ground14" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(226, 55)
+texture = ExtResource("23_bpiin")
+
+[node name="Ground15" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(228, 53)
+texture = ExtResource("23_bpiin")
+
+[node name="Ground21" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(228, 53)
+texture = ExtResource("23_bpiin")
+
+[node name="Ground20" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(228, 53)
+texture = ExtResource("23_bpiin")
+
+[node name="Ground16" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(229, 44)
+texture = ExtResource("23_bpiin")
+
+[node name="Ground17" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(234, 41)
+texture = ExtResource("23_bpiin")
+
+[node name="Ground25" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(7, 98)
+texture = ExtResource("23_bpiin")
+
+[node name="Ground26" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(10, 101)
+texture = ExtResource("23_bpiin")
+
+[node name="Ground27" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(89, 84)
+texture = ExtResource("23_bpiin")
+
+[node name="Ground18" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(236, 37)
+texture = ExtResource("23_bpiin")
+
+[node name="Ground19" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(239, 40)
+texture = ExtResource("23_bpiin")
+
+[node name="Ground3" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(141, 95)
+texture = ExtResource("24_1iaia")
+
+[node name="Ground28" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-57, 69)
+texture = ExtResource("24_1iaia")
+
+[node name="Ground29" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-63, 65)
+texture = ExtResource("24_1iaia")
+
+[node name="Ground30" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-50, 60)
+texture = ExtResource("24_1iaia")
+
+[node name="Ground31" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-86, 19)
+texture = ExtResource("24_1iaia")
+
+[node name="Ground32" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-75, 16)
+texture = ExtResource("24_1iaia")
+
+[node name="Ground4" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(146, 88)
+texture = ExtResource("24_1iaia")
+
+[node name="Ground5" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(154, 94)
+texture = ExtResource("24_1iaia")
+
+[node name="Ground6" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(158, 82)
+texture = ExtResource("23_bpiin")
+
+[node name="Pillar4" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(55, 112)
+texture = ExtResource("25_aycve")
+
+[node name="Pillar5" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(21, -12)
+texture = ExtResource("26_tdx3a")
+
+[node name="Pillar6" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(313, -9)
+texture = ExtResource("27_huln3")
+
+[node name="Pillar7" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-71, 110)
+texture = ExtResource("28_jrh8g")
+
+[node name="PillarDetail" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(10, 160)
+texture = ExtResource("29_br341")
+
+[node name="PillarDetail2" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-25, 162)
+texture = ExtResource("29_br341")
+
+[node name="PillarDetail3" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(-25, 176)
+texture = ExtResource("30_jos5w")
+
+[node name="Ground" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(14, 8)
+texture = ExtResource("31_4wiie")
+
+[node name="Ground33" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(11, 15)
+texture = ExtResource("31_4wiie")
+
+[node name="Ground34" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(9, 11)
+texture = ExtResource("31_4wiie")
+
+[node name="Ground35" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(134, 54)
+texture = ExtResource("32_knnq8")
+
+[node name="Ground36" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(167, 87)
+texture = ExtResource("33_4lmv2")
+
+[node name="Ground37" parent="Visual/Bridge" instance=ExtResource("1_v816i")]
+visible = false
+position = Vector2(166, 90)
+texture = ExtResource("33_4lmv2")
