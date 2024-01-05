@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UnitSettingsResource" load_steps=3 format=3 uid="uid://c07b6oaudodm0"]
+
+[ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="1_okrwp"]
+[ext_resource type="Script" path="res://scripts/resources/UnitSettingsResource.gd" id="2_i3hfy"]
+
+[resource]
+script = ExtResource("2_i3hfy")
+unit_name = "Player0"
+is_enemy = false
+max_health = 20.0
+walk_speed = 50
+initiative = 11
+range_of_view = 5
+equips = Array[Resource("res://scripts/resources/equips/EquipBase.gd")]([])
+abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([ExtResource("1_okrwp")])

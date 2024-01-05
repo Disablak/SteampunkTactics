@@ -39,6 +39,10 @@ func init(game_progress: GameProgress):
 
 
 func _change_level(game_progress: GameProgress):
+	if not _is_level_exist(game_progress.level_id):
+		print("levels ended")
+		return
+
 	_remove_previous_level()
 	_spawn_level(game_progress.level_id)
 
@@ -70,8 +74,15 @@ func _spawn_level(level_id: int):
 	move_child(_cur_level, 0)
 
 
+func _is_level_exist(level_id: int):
+	return level_id >= 0 and level_id < level_scenes.size()
+
+
 func _on_battle_states_on_changed_battle_state(battle_states: BattleStates) -> void:
 	if battle_states.is_game_over:
+		if battle_states.cur_state == BattleStates.BattleState.MY_WIN:
+			_game_progress.level_id += 1
+
 		await get_tree().create_timer(1.0).timeout
-		is_playground = true
+
 		_change_level(_game_progress)

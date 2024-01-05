@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UnitSettingsResource" load_steps=3 format=3 uid="uid://cp1yp7kno5slb"]
+
+[ext_resource type="Resource" uid="uid://b0uv5gxduahtx" path="res://data/settings/weapon/pistol.tres" id="1_lufva"]
+[ext_resource type="Script" path="res://scripts/resources/UnitSettingsResource.gd" id="2_uuy81"]
+
+[resource]
+script = ExtResource("2_uuy81")
+unit_name = "Player1"
+is_enemy = false
+max_health = 20.0
+walk_speed = 50
+initiative = 11
+range_of_view = 5
+equips = Array[Resource("res://scripts/resources/equips/EquipBase.gd")]([])
+abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([ExtResource("1_lufva")])

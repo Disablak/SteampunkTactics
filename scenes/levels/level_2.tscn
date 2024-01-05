@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3 uid="uid://c2pt0kg120ncf"]
+
+[ext_resource type="PackedScene" uid="uid://d1ivryo5a7c2p" path="res://scenes/levels/LevelBase.tscn" id="1_ftw5i"]
+[ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/object/UnitObject.tscn" id="2_xdm3m"]
+[ext_resource type="Resource" uid="uid://cp1yp7kno5slb" path="res://data/settings/unit/level2/lvl2_player0.tres" id="3_iba6j"]
+[ext_resource type="Resource" uid="uid://c07b6oaudodm0" path="res://data/settings/unit/level2/lvl2_player1.tres" id="4_07y5y"]
+[ext_resource type="PackedScene" uid="uid://i5vko2tvl1sy" path="res://scenes/object/EnemyObject.tscn" id="5_6ck14"]
+[ext_resource type="Resource" uid="uid://dnlpmt0gh2phv" path="res://data/settings/unit/level2/lvl2_enemy0.tres" id="6_75485"]
+[ext_resource type="PackedScene" uid="uid://0ro7blx56hka" path="res://scenes/behaviour_tree_ai/EnemyAi.tscn" id="7_l4xcb"]
+[ext_resource type="Resource" uid="uid://bmcku7pjp25vd" path="res://data/settings/unit/level2/lvl2_enemy1.tres" id="8_2oyqg"]
+
+[node name="LevelBase" instance=ExtResource("1_ftw5i")]
+
+[node name="BridgePlate" parent="Visual/Bridge" index="0"]
+position = Vector2(0, 0)
+scale = Vector2(16, 8)
+
+[node name="UnitObject" parent="." index="2" instance=ExtResource("2_xdm3m")]
+position = Vector2(40, 48)
+unit_settings_resource = ExtResource("3_iba6j")
+
+[node name="UnitObject2" parent="." index="3" instance=ExtResource("2_xdm3m")]
+position = Vector2(72, 104)
+unit_settings_resource = ExtResource("4_07y5y")
+
+[node name="EnemyObject" parent="." index="4" node_paths=PackedStringArray("beehave_tree") instance=ExtResource("5_6ck14")]
+position = Vector2(152, 32)
+unit_settings_resource = ExtResource("6_75485")
+beehave_tree = NodePath("EnemyAi")
+
+[node name="EnemyAi" parent="EnemyObject" index="4" node_paths=PackedStringArray("blackboard") instance=ExtResource("7_l4xcb")]
+blackboard = NodePath("@Node@142921")
+
+[node name="EnemyObject2" parent="." index="5" node_paths=PackedStringArray("beehave_tree") instance=ExtResource("5_6ck14")]
+position = Vector2(208, 96)
+unit_settings_resource = ExtResource("8_2oyqg")
+beehave_tree = NodePath("EnemyAi")
+
+[node name="EnemyAi" parent="EnemyObject2" index="4" node_paths=PackedStringArray("blackboard") instance=ExtResource("7_l4xcb")]
+blackboard = NodePath("@Node@143028")

@@ -1,7 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=28 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_7w37h"]
 [ext_resource type="Script" path="res://scripts/units/UnitInitializator.gd" id="2_cenak"]
+[ext_resource type="PackedScene" uid="uid://bdf7oikkgscjv" path="res://scenes/levels/level_1.tscn" id="3_qx2ga"]
+[ext_resource type="PackedScene" uid="uid://c2pt0kg120ncf" path="res://scenes/levels/level_2.tscn" id="4_km8kt"]
 [ext_resource type="PackedScene" uid="uid://du6xcv567vuwr" path="res://scenes/levels/LevelPlayground.tscn" id="6_cfcg2"]
 [ext_resource type="PackedScene" uid="uid://bttw10a71xtrk" path="res://scenes/levels/level_0.tscn" id="6_vrhvp"]
 [ext_resource type="Script" path="res://scripts/units_manager/ShootAim.gd" id="10_1ywrq"]
@@ -36,7 +38,7 @@ unit_initializator = NodePath("UnitInitializator")
 unit_list = NodePath("UnitInitializator/UnitList")
 unit_order = NodePath("UnitInitializator/UnitOrder")
 unit_controll = NodePath("UnitControll")
-level_scenes = Array[PackedScene]([ExtResource("6_vrhvp")])
+level_scenes = Array[PackedScene]([ExtResource("6_vrhvp"), ExtResource("3_qx2ga"), ExtResource("4_km8kt")])
 playground_scene = ExtResource("6_cfcg2")
 
 [node name="UnitInitializator" type="Node2D" parent="."]
