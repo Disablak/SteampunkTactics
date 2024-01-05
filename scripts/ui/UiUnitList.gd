@@ -16,6 +16,8 @@ func _ready() -> void:
 
 
 func init(units_ordered: Array[int]):
+	_remove_all_btns()
+
 	for id in units_ordered:
 		var btn: Button = scene_btn_unit.instantiate() as Button
 		add_child(btn)
@@ -26,6 +28,14 @@ func init(units_ordered: Array[int]):
 		dict_id_and_btn[id] = btn
 
 	mark_unit(units_ordered.front())
+
+
+func _remove_all_btns():
+	for child in get_children():
+		child.queue_free()
+
+	dict_id_and_btn.clear()
+	prev_marked_unit_id = -1
 
 
 func _update_btns():

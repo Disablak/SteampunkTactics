@@ -2,12 +2,18 @@ class_name AllCovers
 extends Node2D
 
 
+const COVER_POINTS_GROUP: = "cover_points"
+
+
 var covers: Array[CoverPoints]
 
 
-func _ready() -> void:
-	covers.assign(get_tree().get_nodes_in_group("cover_points"))
-	print(covers)
+func init():
+	covers.assign(get_tree().get_nodes_in_group(COVER_POINTS_GROUP))
+
+
+func deinit():
+	covers.clear()
 
 
 func is_unit_in_any_cover(unit: Unit) -> bool:

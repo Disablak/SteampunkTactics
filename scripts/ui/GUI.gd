@@ -24,6 +24,7 @@ var flying_tooltip_tween: Tween
 
 func _ready() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
+	GlobalBus.on_changed_level.connect(_on_changed_level)
 
 	GlobalsUi.gui = self
 
@@ -45,16 +46,16 @@ func _ready() -> void:
 	default_pos_message = message.position
 
 
-func init():
-	battle_ui.init()
-
-
 func init_unit_setup(game_progress: GameProgress, callback):
 	unit_setup_ui.init(game_progress, callback)
 
 
 func _on_unit_died(unit_id: int, killer_id: int):
 	show_tooltip(false)
+
+
+func _on_changed_level(level_id):
+	battle_ui.init()
 
 
 func show_tooltip(show: bool, text: String = "", position: Vector2 = Vector2.ZERO):

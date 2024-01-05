@@ -23,7 +23,7 @@ var is_game_over: bool:
 	get: return _cur_state == BattleState.MY_WIN or _cur_state == BattleState.ENEMY_WIN
 
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	GlobalBus.on_unit_changed_control.connect(_on_unit_changed_control)
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 

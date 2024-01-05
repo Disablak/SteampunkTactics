@@ -14,7 +14,15 @@ signal on_click_on_object(click_pos: Vector2, objects: Array[Node])
 
 func _ready() -> void:
 	GlobalMap.object_selector = self
+
+
+
+func init():
 	_subscribe_on_all_interactable_objects()
+
+
+func deinit():
+	_unsubscribe_from_all_interactable_objects()
 
 
 func is_any_hovered_obj() -> bool:
@@ -47,6 +55,12 @@ func _subscribe_on_all_interactable_objects():
 	var all_interactable_nodes: Array[InteractableStaticBody] = _get_all_interactable_nodes()
 	for interactable in all_interactable_nodes:
 		_subscribe_interactable_object(interactable)
+
+
+func _unsubscribe_from_all_interactable_objects():
+	var all_interactable_nodes: Array[InteractableStaticBody] = _get_all_interactable_nodes()
+	for interactable in all_interactable_nodes:
+		_unsubscribe_interactable_object(interactable)
 
 
 func _get_all_interactable_nodes() -> Array[InteractableStaticBody]:

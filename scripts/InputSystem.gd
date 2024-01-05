@@ -8,10 +8,6 @@ signal on_pressed_rmc(mouse_pos: Vector2)
 signal on_pressed_esc()
 signal on_drag(dir: Vector2)
 
-#@onready var camera_controller := get_node("CameraController") as CameraController
-#@onready var camera := get_node("CameraController/Camera2d") as Camera2D
-#@onready var camera_bounds: Node2D = get_node("CameraBounds") as Node2D
-
 const TIME_CLICK_MS = 200
 
 var dragging: bool
@@ -21,11 +17,6 @@ var prev_hover_pos: Vector3
 
 var was_mouse_btn_pressed: bool = false
 var time_pressed: int
-
-
-func init(map_size) -> void:
-	GlobalsUi.input_system = self
-	#camera_controller.init(map_size)
 
 
 func _unhandled_input(event: InputEvent) -> void:

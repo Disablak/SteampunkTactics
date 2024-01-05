@@ -12,6 +12,10 @@ func init():
 	_bake()
 
 
+func deinit():
+	_unsubscribe_from_nav_obstacle()
+
+
 func _create_nav_region_bounds():
 	var ground_node: Sprite2D = get_tree().get_nodes_in_group(GROUND_GROUP)[0] as Sprite2D
 	var ground_pos: Vector2 = ground_node.position
@@ -40,6 +44,12 @@ func _subscribe_on_nav_obstacle():
 	var all_nav_obstacles = get_tree().get_nodes_in_group(NavObstacle.OBSTACLE_GROUP_NAME)
 	for nav_obstacle in all_nav_obstacles:
 		nav_obstacle.on_obstacle_change.connect(_on_obstacle_change)
+
+
+func _unsubscribe_from_nav_obstacle():
+	var all_nav_obstacles = get_tree().get_nodes_in_group(NavObstacle.OBSTACLE_GROUP_NAME)
+	for nav_obstacle in all_nav_obstacles:
+		nav_obstacle.on_obstacle_change.disconnect(_on_obstacle_change)
 
 
 func _on_obstacle_change():

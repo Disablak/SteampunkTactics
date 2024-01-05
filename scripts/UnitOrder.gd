@@ -14,6 +14,11 @@ func init(units: Array[Unit]):
 	_emit_unit_change_control()
 
 
+func deinit():
+	ordered_unit_ids.clear()
+	cur_unit_idx = 0
+
+
 func _enter_tree() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 

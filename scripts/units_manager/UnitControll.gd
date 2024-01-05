@@ -12,7 +12,12 @@ var cur_unit: Unit
 var cur_action: UnitData.UnitAction = UnitData.UnitAction.WALK
 
 
-func _ready() -> void:
+func deinit():
+	cur_unit = null
+	cur_action = UnitData.UnitAction.WALK
+
+
+func _enter_tree() -> void:
 	GlobalBus.on_unit_changed_control.connect(_on_unit_changed)
 	GlobalBus.on_unit_changed_action.connect(_on_unit_changed_action)
 
@@ -42,7 +47,7 @@ func _finish_for_prev_start_for_new():
 
 
 func _finish_turn_unit():
-	if cur_unit:
+	if weakref(cur_unit).get_ref():
 		cur_unit.unit_object.enable_obstacle()
 		cur_unit.unit_object.try_to_finish_ai()
 

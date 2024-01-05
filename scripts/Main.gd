@@ -16,7 +16,6 @@ func _ready() -> void:
 
 func start_battle(game_progress: GameProgress):
 	world.init(game_progress)
-	gui.init()
 
 
 func _get_progress() -> GameProgress:

@@ -11,6 +11,14 @@ func _enter_tree() -> void:
 	GlobalBus.on_unit_died.connect(_on_unit_died)
 
 
+func init(units: Array[Unit]):
+	add_units(units)
+
+
+func deinit():
+	remove_all_units()
+
+
 func get_cur_unit_id() -> int:
 	return unit_order.get_cur_unit_id()
 
@@ -53,6 +61,10 @@ func add_unit(unit: Unit):
 func remove_unit(unit_id: int):
 	if _units.has(unit_id):
 		_units.erase(unit_id)
+
+
+func remove_all_units():
+	_units.clear()
 
 
 func _on_unit_died(unit_id, unit_id_killer):

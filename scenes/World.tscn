@@ -27,9 +27,11 @@
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_fnlar"]
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("nav_region", "unit_initializator", "unit_list", "unit_order", "unit_controll")]
+[node name="World" type="Node2D" node_paths=PackedStringArray("nav_region", "object_selector", "all_covers", "unit_initializator", "unit_list", "unit_order", "unit_controll")]
 script = ExtResource("1_7w37h")
 nav_region = NodePath("NavigationRegion")
+object_selector = NodePath("ObjectSelector")
+all_covers = NodePath("AllCovers")
 unit_initializator = NodePath("UnitInitializator")
 unit_list = NodePath("UnitInitializator/UnitList")
 unit_order = NodePath("UnitInitializator/UnitOrder")
@@ -44,8 +46,9 @@ script = ExtResource("2_cenak")
 script = ExtResource("16_3smra")
 unit_order = NodePath("../UnitOrder")
 
-[node name="UnitOrder" type="Node2D" parent="UnitInitializator"]
+[node name="UnitOrder" type="Node2D" parent="UnitInitializator" node_paths=PackedStringArray("battle_states")]
 script = ExtResource("12_6735i")
+battle_states = NodePath("../../BattleStates")
 
 [node name="NavigationRegion" parent="." instance=ExtResource("18_es1be")]
 self_modulate = Color(1, 1, 1, 0)
@@ -107,6 +110,7 @@ nav_region = NodePath("../NavigationRegion")
 [node name="Line2dManager" parent="." instance=ExtResource("20_syji7")]
 
 [node name="CameraController" type="Node2D" parent="."]
+visible = false
 script = ExtResource("14_ops4e")
 
 [node name="Raycaster" type="Node2D" parent="."]
@@ -128,4 +132,5 @@ unit_list = NodePath("../UnitInitializator/UnitList")
 [connection signal="on_pressed_esc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_esc"]
 [connection signal="on_pressed_lmc" from="InputSystem" to="UnitControll/ShootControll" method="_on_input_system_on_pressed_lmc"]
 [connection signal="on_pressed_rmc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_rmc"]
+[connection signal="on_changed_battle_state" from="BattleStates" to="." method="_on_battle_states_on_changed_battle_state"]
 [connection signal="on_changed_battle_state" from="BattleStates" to="UnitControll" method="_on_battle_states_on_changed_battle_state"]

@@ -14,3 +14,5 @@ signal on_changed_time_points(cur_points: int, max_points: int)
 signal on_hint_time_points(cur_points, max_points)
 
 signal on_change_camera_zoom(zoom: float)
+
+signal on_changed_level(level_id: int)

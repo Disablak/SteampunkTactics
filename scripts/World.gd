@@ -2,9 +2,10 @@ class_name MyWorld
 extends Node2D
 
 
-@onready var input_system: InputSystem = $InputSystem
 
 @export var nav_region: NavRegion
+@export var object_selector: ObjectSelector
+@export var all_covers: AllCovers
 
 @export_group("Unit Components")
 @export var unit_initializator: UnitInitializator
@@ -19,6 +20,9 @@ extends Node2D
 @export var is_playground: bool = false
 @export var playground_scene: PackedScene
 
+var _game_progress: GameProgress
+var _cur_level: Node2D
+
 
 func _ready() -> void:
 	GlobalMap.world = self
@@ -30,16 +34,44 @@ func _ready() -> void:
 
 
 func init(game_progress: GameProgress):
-	_spawn_level(game_progress.level_id)
-	nav_region.init()
+	_game_progress = game_progress
+	_change_level(game_progress)
 
+
+func _change_level(game_progress: GameProgress):
+	_remove_previous_level()
+	_spawn_level(game_progress.level_id)
+
+	nav_region.init()
 	var units := unit_initializator.create_units(game_progress.units_setting)
-	unit_list.add_units(units)
+	unit_list.init(units)
 	unit_order.init(units)
+	object_selector.init()
+	all_covers.init()
+
+	GlobalBus.on_changed_level.emit(game_progress.level_id)
+
+
+func _remove_previous_level():
+	if _cur_level:
+		_cur_level.free()
+
+	nav_region.deinit()
+	unit_list.deinit()
+	unit_order.deinit()
+	object_selector.deinit()
+	all_covers.deinit()
+	unit_controll.deinit()
 
 
 func _spawn_level(level_id: int):
-	var new_level = (playground_scene if is_playground else level_scenes[level_id]).instantiate()
-	add_child(new_level)
-	move_child(new_level, 0)
+	_cur_level = (playground_scene if is_playground else level_scenes[level_id]).instantiate()
+	add_child(_cur_level)
+	move_child(_cur_level, 0)
 
+
+func _on_battle_states_on_changed_battle_state(battle_states: BattleStates) -> void:
+	if battle_states.is_game_over:
+		await get_tree().create_timer(1.0).timeout
+		is_playground = true
+		_change_level(_game_progress)

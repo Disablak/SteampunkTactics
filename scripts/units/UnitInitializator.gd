@@ -21,9 +21,8 @@ func create_units(unit_settings: Array[UnitSetting]) -> Array[Unit]:
 
 
 func _get_unit_objects() -> Array[UnitObject]:
-	var all_units = get_tree().get_nodes_in_group(UNIT_GROUP_NAME)
 	var all_unit_objects: Array[UnitObject]
-	all_unit_objects.assign(all_units)
+	all_unit_objects.assign(get_tree().get_nodes_in_group(UNIT_GROUP_NAME))
 
 	return all_unit_objects
 
