@@ -2,6 +2,9 @@ class_name UnitOrder
 extends Node
 
 
+@export var battle_states: BattleStates
+
+
 var ordered_unit_ids: Array[int] = []
 var cur_unit_idx: int = 0
 
@@ -53,8 +56,7 @@ func remove_unit_from_order(unit_id: int):
 
 
 func next_unit_turn():
-	if _is_game_over():
-		GlobalBus.on_game_over.emit(0)
+	if battle_states.is_game_over:
 		return
 
 	set_next_unit_id()

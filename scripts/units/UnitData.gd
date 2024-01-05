@@ -11,7 +11,7 @@ enum UnitAction {
 	PUSH,
 }
 
-const DEFAULT_ACTIONS: Array[UnitAction] = [UnitAction.WALK, UnitAction.PUSH]
+const DEFAULT_ACTIONS: Array[UnitAction] = [UnitAction.WALK]
 
 var unit_id := -1
 var unit_name: String

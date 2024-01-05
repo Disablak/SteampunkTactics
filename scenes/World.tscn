@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=26 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_7w37h"]
 [ext_resource type="Script" path="res://scripts/units/UnitInitializator.gd" id="2_cenak"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://deiwiskh30hey" path="res://scenes/levels/components/ObjectSelector.tscn" id="22_4ur3f"]
 [ext_resource type="Script" path="res://scripts/utils/ConsoleCommands.gd" id="23_bytt0"]
 [ext_resource type="Script" path="res://scripts/navigation/ObjectMover.gd" id="23_eg25c"]
+[ext_resource type="Script" path="res://scripts/battle/BattleStates.gd" id="24_adeo1"]
 [ext_resource type="Script" path="res://scripts/units_manager/UnitControll.gd" id="25_xuv3j"]
 [ext_resource type="Script" path="res://scripts/units_manager/MoveControll.gd" id="26_xex30"]
 [ext_resource type="Script" path="res://scripts/units_manager/ShootControll.gd" id="27_3j6ta"]
@@ -119,7 +120,12 @@ script = ExtResource("21_pg1d3")
 script = ExtResource("23_bytt0")
 nav_region_node = NodePath("../NavigationRegion")
 
+[node name="BattleStates" type="Node2D" parent="." node_paths=PackedStringArray("unit_list")]
+script = ExtResource("24_adeo1")
+unit_list = NodePath("../UnitInitializator/UnitList")
+
 [connection signal="on_drag" from="InputSystem" to="CameraController" method="_on_input_system_on_drag"]
 [connection signal="on_pressed_esc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_esc"]
 [connection signal="on_pressed_lmc" from="InputSystem" to="UnitControll/ShootControll" method="_on_input_system_on_pressed_lmc"]
 [connection signal="on_pressed_rmc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_rmc"]
+[connection signal="on_changed_battle_state" from="BattleStates" to="UnitControll" method="_on_battle_states_on_changed_battle_state"]
