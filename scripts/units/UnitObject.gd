@@ -9,6 +9,7 @@ class_name UnitObject
 @onready var main_sprite: Sprite2D = $VisualObject
 @onready var noticed_icon: Sprite2D = $VisualObject/NoticedIcon
 @onready var health_bar: HealthBar = $VisualObject/HealthBar
+@onready var aim_target: Node2D = %AimTarget
 
 @onready var nav_obstacle: NavObstacle = $NavObstacle as NavObstacle
 
@@ -24,6 +25,9 @@ var tween: Tween
 
 var origin_pos: Vector2:
 	get: return position
+
+var aim_point: Vector2:
+	get: return aim_target.global_position
 
 var visual_ordering: int:
 	get: return main_sprite.z_index

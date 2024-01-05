@@ -39,6 +39,7 @@ unit_list = NodePath("UnitInitializator/UnitList")
 unit_order = NodePath("UnitInitializator/UnitOrder")
 unit_controll = NodePath("UnitControll")
 level_scenes = Array[PackedScene]([ExtResource("6_vrhvp"), ExtResource("3_qx2ga"), ExtResource("4_km8kt")])
+is_playground = true
 playground_scene = ExtResource("6_cfcg2")
 
 [node name="UnitInitializator" type="Node2D" parent="."]

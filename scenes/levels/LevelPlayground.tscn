@@ -42,7 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://rsncl7kapn8d" path="res://content/sprites/gothic/white_circle.tres" id="40_qfb82"]
 [ext_resource type="PackedScene" uid="uid://2u31rgktq1eu" path="res://scenes/object/components/healthbars/ListenerHealthBar.tscn" id="41_ssucb"]
 [ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/object/UnitObject.tscn" id="42_51i7x"]
-[ext_resource type="Resource" uid="uid://5diunhr2km1q" path="res://data/settings/unit/level1/lvl1_player0.tres" id="43_wcc36"]
+[ext_resource type="Resource" uid="uid://5diunhr2km1q" path="res://data/settings/unit/level1/lvl1_player0.tres" id="43_vyx4g"]
 [ext_resource type="PackedScene" uid="uid://i5vko2tvl1sy" path="res://scenes/object/EnemyObject.tscn" id="44_pijve"]
 [ext_resource type="Resource" uid="uid://w2vn8wuadrmx" path="res://data/settings/unit/level1/lvl1_unit0.tres" id="45_kap0s"]
 [ext_resource type="PackedScene" uid="uid://0ro7blx56hka" path="res://scenes/behaviour_tree_ai/EnemyAi.tscn" id="46_m6upv"]
@@ -550,7 +550,7 @@ unit_name = "Player0"
 [node name="Player1" parent="." instance=ExtResource("42_51i7x")]
 position = Vector2(104, 96)
 unit_name = "Player1"
-unit_settings_resource = ExtResource("43_wcc36")
+unit_settings_resource = ExtResource("43_vyx4g")
 
 [node name="EnemyObject" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
 position = Vector2(153, 81)
@@ -558,7 +558,7 @@ unit_settings_resource = ExtResource("45_kap0s")
 beehave_tree = NodePath("EnemyAi0")
 
 [node name="EnemyAi0" parent="EnemyObject" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@161298")
+blackboard = NodePath("@Node@209060")
 
 [node name="EnemyObject2" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
 position = Vector2(144, 22)
@@ -566,7 +566,7 @@ unit_settings_resource = ExtResource("47_6ob6y")
 beehave_tree = NodePath("EnemyAi1")
 
 [node name="EnemyAi1" parent="EnemyObject2" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@161299")
+blackboard = NodePath("@Node@209061")
 
 [node name="TestCover" type="Node2D" parent="."]
 visible = false

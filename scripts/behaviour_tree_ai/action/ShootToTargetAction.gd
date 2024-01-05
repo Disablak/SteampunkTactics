@@ -24,7 +24,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 
 	_shoot_controll.enable_aim(unit)
 
-	var dir: Vector2 = (target_unit.origin_pos - unit.origin_pos).normalized()
+	var dir: Vector2 = (target_unit.unit_object.aim_point - unit.origin_pos).normalized()
 	_shoot_controll.set_aim_dir_and_disable_mouse(dir)
 
 	_start_tween_delay_and_shoot()

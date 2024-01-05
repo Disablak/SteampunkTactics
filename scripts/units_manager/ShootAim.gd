@@ -10,7 +10,7 @@ const DISTANCE_TO_APPLY_OFFSET = 100
 @export var raycaster: Raycaster
 
 var _cur_unit: Unit
-var _ranged_weapon: WeaponData
+var _ranged_weapon: RangedWeaponData
 var _aim_enabled: bool = false
 var _aim_time: float = 0.0
 var _aim_vector: Vector2
@@ -72,8 +72,7 @@ func _calc_and_draw_aim_direction(aim_dir: Vector2, delta: float):
 	var lerp_from_min_to_max: Vector2 = lerp(min_dir, max_dir, lerp_time)
 	var dir_to_lerpred_value: Vector2 = (lerp_from_min_to_max - _cur_unit_pos).normalized()
 
-	const MAX_SHOOT_DISTANCE = 500
-	_aim_vector = dir_to_lerpred_value * MAX_SHOOT_DISTANCE
+	_aim_vector = dir_to_lerpred_value * _ranged_weapon.ranged_weapon_settings.max_range
 
 	var ray_end_pos: Vector2 = raycaster.make_ray_and_get_collision_point(
 		_cur_unit_pos,

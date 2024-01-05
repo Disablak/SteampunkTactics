@@ -6,6 +6,7 @@ extends AbilitySettings
 @export var reload_price := 30
 @export var aim_speed := 1.0
 @export var aim_offset := 3
+@export var max_range: int = 300
 
 
 func _to_string() -> String:

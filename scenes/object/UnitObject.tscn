@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://3fu3cqfb41k0"]
+[gd_scene load_steps=10 format=3 uid="uid://3fu3cqfb41k0"]
 
 [ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_cp6yk"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_7440i"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ctc3hst3u6p20" path="res://scenes/object/InteractableStaticBody.tscn" id="6_c2p2v"]
 [ext_resource type="PackedScene" uid="uid://biqevm2kjhsep" path="res://scenes/object/NavObstacle.tscn" id="7_tdav3"]
 [ext_resource type="Script" path="res://scripts/object/CompUnitHealth.gd" id="8_yvfh1"]
+[ext_resource type="Script" path="res://scripts/object/InteractableStaticBody.gd" id="9_sv2fv"]
 
 [node name="UnitObject" type="Node2D" groups=["unit"]]
 script = ExtResource("1_cp6yk")
@@ -27,10 +28,23 @@ position = Vector2(2, -7)
 
 [node name="InteractableStaticBody" parent="." instance=ExtResource("6_c2p2v")]
 position = Vector2(-4, -10)
-collision_layer = 8
+collision_layer = 0
 
 [node name="NavObstacle" parent="." instance=ExtResource("7_tdav3")]
 position = Vector2(-4, -4)
 
 [node name="CompHealth" type="Node2D" parent="."]
 script = ExtResource("8_yvfh1")
+
+[node name="HitBox" type="StaticBody2D" parent="."]
+position = Vector2(-4, -6)
+collision_layer = 8
+script = ExtResource("9_sv2fv")
+
+[node name="Collision" type="CollisionPolygon2D" parent="HitBox"]
+modulate = Color(0.231373, 0.545098, 0, 1)
+polygon = PackedVector2Array(1, 2, 3, 0, 5, 0, 7, 2, 7, 4, 5, 6, 3, 6, 1, 4)
+
+[node name="AimTarget" type="Node2D" parent="HitBox"]
+unique_name_in_owner = true
+position = Vector2(4, 3)
