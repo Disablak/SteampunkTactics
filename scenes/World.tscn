@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dgjava7c3ir6u"]
+[gd_scene load_steps=29 format=3 uid="uid://dgjava7c3ir6u"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_7w37h"]
 [ext_resource type="Script" path="res://scripts/units/UnitInitializator.gd" id="2_cenak"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://scripts/units_manager/UnitControll.gd" id="25_xuv3j"]
 [ext_resource type="Script" path="res://scripts/units_manager/MoveControll.gd" id="26_xex30"]
 [ext_resource type="Script" path="res://scripts/units_manager/ShootControll.gd" id="27_3j6ta"]
+[ext_resource type="PackedScene" uid="uid://wgy1xfuyfvm2" path="res://scenes/mini_game/MiniGame.tscn" id="27_rlpxi"]
 [ext_resource type="Script" path="res://scripts/utils/DrawDebug.gd" id="27_xmkd7"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_fnlar"]
@@ -90,9 +91,10 @@ raycaster = NodePath("../../../Raycaster")
 [node name="ReloadControll" type="Node2D" parent="UnitControll"]
 script = ExtResource("10_2apof")
 
-[node name="MeleeAttackControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("effect_manager")]
+[node name="MeleeAttackControll" type="Node2D" parent="UnitControll" node_paths=PackedStringArray("effect_manager", "mini_game")]
 script = ExtResource("11_iun6q")
 effect_manager = NodePath("../../EffectManager")
+mini_game = NodePath("../../MiniGames/MiniGameMaleeAttack")
 
 [node name="InputSystem" type="Node2D" parent="."]
 script = ExtResource("10_yja2f")
@@ -130,6 +132,11 @@ nav_region_node = NodePath("../NavigationRegion")
 [node name="BattleStates" type="Node2D" parent="." node_paths=PackedStringArray("unit_list")]
 script = ExtResource("24_adeo1")
 unit_list = NodePath("../UnitInitializator/UnitList")
+
+[node name="MiniGames" type="Node2D" parent="."]
+
+[node name="MiniGameMaleeAttack" parent="MiniGames" instance=ExtResource("27_rlpxi")]
+visible = false
 
 [connection signal="on_drag" from="InputSystem" to="CameraController" method="_on_input_system_on_drag"]
 [connection signal="on_pressed_esc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_esc"]

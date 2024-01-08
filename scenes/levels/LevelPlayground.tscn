@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://du6xcv567vuwr"]
+[gd_scene load_steps=53 format=3 uid="uid://du6xcv567vuwr"]
 
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="1_drly5"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_perh8"]
@@ -44,9 +44,44 @@
 [ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/object/UnitObject.tscn" id="42_51i7x"]
 [ext_resource type="Resource" uid="uid://5diunhr2km1q" path="res://data/settings/unit/level1/lvl1_player0.tres" id="43_vyx4g"]
 [ext_resource type="PackedScene" uid="uid://i5vko2tvl1sy" path="res://scenes/object/EnemyObject.tscn" id="44_pijve"]
-[ext_resource type="Resource" uid="uid://w2vn8wuadrmx" path="res://data/settings/unit/level1/lvl1_unit0.tres" id="45_kap0s"]
+[ext_resource type="Resource" uid="uid://dabprdc4kprjs" path="res://data/settings/weapon/riffle0.tres" id="45_dbe7n"]
+[ext_resource type="Resource" uid="uid://h6op2geh7248" path="res://data/settings/weapon/knife0.tres" id="45_f76jr"]
 [ext_resource type="PackedScene" uid="uid://0ro7blx56hka" path="res://scenes/behaviour_tree_ai/EnemyAi.tscn" id="46_m6upv"]
-[ext_resource type="Resource" uid="uid://criftwds0pgl7" path="res://data/settings/unit/level1/lvl1_unit1.tres" id="47_6ob6y"]
+[ext_resource type="Script" path="res://scripts/resources/UnitSettingsResource.gd" id="46_smxab"]
+[ext_resource type="Resource" uid="uid://dvdqtbcgasgll" path="res://data/settings/equips/armor0.tres" id="48_d2uq8"]
+
+[sub_resource type="Resource" id="Resource_240js"]
+script = ExtResource("46_smxab")
+unit_name = "PlayerTest"
+is_enemy = false
+max_health = 20.0
+walk_speed = 10
+initiative = 20
+range_of_view = 5
+equips = Array[Resource("res://scripts/resources/equips/EquipBase.gd")]([])
+abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([ExtResource("45_f76jr")])
+
+[sub_resource type="Resource" id="Resource_eeitp"]
+script = ExtResource("46_smxab")
+unit_name = "Enemy0"
+is_enemy = true
+max_health = 35.0
+walk_speed = 50
+initiative = 10
+range_of_view = 5
+equips = Array[Resource("res://scripts/resources/equips/EquipBase.gd")]([])
+abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([ExtResource("45_f76jr")])
+
+[sub_resource type="Resource" id="Resource_hhd7n"]
+script = ExtResource("46_smxab")
+unit_name = "Enemy1"
+is_enemy = true
+max_health = 8.0
+walk_speed = 50
+initiative = 5
+range_of_view = 7
+equips = Array[Resource("res://scripts/resources/equips/EquipBase.gd")]([ExtResource("48_d2uq8")])
+abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([ExtResource("45_dbe7n")])
 
 [node name="LevelPlayground" type="Node2D"]
 
@@ -545,7 +580,8 @@ comp_health = NodePath("../CompHealth")
 
 [node name="Player0" parent="." instance=ExtResource("42_51i7x")]
 position = Vector2(72, 64)
-unit_name = "Player0"
+unit_name = "PlayerTest"
+unit_settings_resource = SubResource("Resource_240js")
 
 [node name="Player1" parent="." instance=ExtResource("42_51i7x")]
 position = Vector2(104, 96)
@@ -554,19 +590,19 @@ unit_settings_resource = ExtResource("43_vyx4g")
 
 [node name="EnemyObject" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
 position = Vector2(153, 81)
-unit_settings_resource = ExtResource("45_kap0s")
+unit_settings_resource = SubResource("Resource_eeitp")
 beehave_tree = NodePath("EnemyAi0")
 
 [node name="EnemyAi0" parent="EnemyObject" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@209060")
+blackboard = NodePath("@Node@385097")
 
 [node name="EnemyObject2" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
 position = Vector2(144, 22)
-unit_settings_resource = ExtResource("47_6ob6y")
+unit_settings_resource = SubResource("Resource_hhd7n")
 beehave_tree = NodePath("EnemyAi1")
 
 [node name="EnemyAi1" parent="EnemyObject2" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@209061")
+blackboard = NodePath("@Node@385098")
 
 [node name="TestCover" type="Node2D" parent="."]
 visible = false

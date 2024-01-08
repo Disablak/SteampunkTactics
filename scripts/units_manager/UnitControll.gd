@@ -94,7 +94,7 @@ func _try_shoot(is_hovered_on_obj: bool):
 
 func _try_melee_attack():
 	var enemy: Unit = object_selector.get_hovered_unit()
-	melle_attack_controll.try_attack(cur_unit, enemy)
+	melle_attack_controll.try_attack_mini_game(cur_unit, enemy)
 
 
 func _on_input_system_on_pressed_rmc(mouse_pos: Vector2) -> void:
