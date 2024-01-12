@@ -59,46 +59,38 @@ func _shoot():
 	disable_aim()
 
 	var shoot_pos: Vector2 = _cur_unit.origin_pos + shoot_aim.aim_vector;
-	var ray_result = _raycast_and_get_result(shoot_pos)
-	if not ray_result.is_empty():
-		shoot_pos = ray_result.position
+	var shoot_data: ShootData = _raycast_and_get_result(shoot_pos)
 
-	#effect_manager.shoot_effect.create_bullet_and_tween(create_tween(), _cur_unit.unit_object.position, shoot_pos, func(): _on_bullet_finish_tween(ray_result))
+	effect_manager.create_shoot_effect(shoot_data, func(): _on_bullet_finish_tween(shoot_data))
 
 
-func _on_bullet_finish_tween(ray_result):
-	if ray_result.is_empty():
+func _on_bullet_finish_tween(shoot_data: ShootData):
+	if not shoot_data.is_hit_in_unit_object():
 		return
 
-	var hitted_object: GameObject = _get_game_object_from_ray_result(ray_result)
+	var hitted_object: GameObject = shoot_data.get_unit_object()
 	if not hitted_object.comp_health:
 		return
 
 	_set_damage_to_object(_cur_unit, hitted_object)
 
 
-func _raycast_and_get_result(shoot_pos: Vector2) -> Dictionary:
+func _raycast_and_get_result(shoot_pos: Vector2) -> ShootData:
 	var exclude_rids: Array[RID] = _cur_unit.unit_object.get_this_exclude_rid()
 	var ray_result = raycaster.make_ray(_cur_unit.unit_object.position, shoot_pos, RAY_UNIT_LAYER, exclude_rids)
 
 	var dir: Vector2 = (shoot_pos - _cur_unit.unit_object.position).normalized()
 	var ranged_weapon: RangedWeaponData = _cur_unit.unit_data.cur_weapon
-	var shoot_data: ShootData = raycaster.get_shoot_data(_cur_unit.unit_object.position, dir, ranged_weapon.ranged_weapon_settings.max_range, RAY_UNIT_LAYER, exclude_rids)
+	var shoot_data: ShootData = raycaster.get_shoot_data(
+		_cur_unit.unit_object.position,
+		dir,
+		ranged_weapon.ranged_weapon_settings.max_range,
+		ranged_weapon.ranged_weapon_settings.richochet_count,
+		RAY_UNIT_LAYER,
+		exclude_rids
+	)
 
-	GlobalMap.draw_debug.clear_lines("shoot line")
-	for i in shoot_data.shoot_points.size():
-		if i + 1 >= shoot_data.shoot_points.size():
-			break
-
-		var cur = shoot_data.shoot_points[i]
-		var next = shoot_data.shoot_points[i + 1]
-		GlobalMap.draw_debug.add_line([cur.point, next.point], "shoot line")
-
-	print(shoot_data.shoot_points.size())
-	for shoot in shoot_data.shoot_points:
-		print(shoot.point)
-
-	return ray_result
+	return shoot_data
 
 
 func _get_game_object_from_ray_result(ray_result: Dictionary) -> GameObject:

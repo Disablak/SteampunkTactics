@@ -26,6 +26,12 @@ func _ready() -> void:
 	grenade_effect = GrenadeEffect.new(callback_create_tween, granede_scene, fire_effect_scene, self)
 
 
+func create_shoot_effect(shoot_data: ShootData, on_finish: Callable) -> ShootEffect:
+	var effect: ShootEffect = ShootEffect.new(bullet_scene, self)
+	effect.tween_bullet(create_tween(), shoot_data, on_finish)
+	return effect
+
+
 func shoot(from: Unit, to: Unit, cover_pos: Vector2, random_obs: CellObject):
 	await shoot_effect.play(create_tween(), from.unit_object.visual_pos, to.unit_object.visual_pos, 0, cover_pos, random_obs)
 

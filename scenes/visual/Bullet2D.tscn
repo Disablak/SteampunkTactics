@@ -4,13 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://6yx286e2ar0p" path="res://scenes/visual/Trail.tscn" id="2_23wh4"]
 
 [node name="Bullet2d" type="Sprite2D"]
-self_modulate = Color(1, 1, 1, 0)
-position = Vector2(409, 277.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_xy6kd")
 
 [node name="Trail" parent="." instance=ExtResource("2_23wh4")]
-position = Vector2(-9, 10.5)
 width = 3.0
 default_color = Color(0.901961, 0.901961, 0.92549, 1)
-end_cap_mode = 2
-length = 100
+max_length = 10

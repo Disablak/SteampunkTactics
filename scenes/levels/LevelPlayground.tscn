@@ -58,6 +58,7 @@ reload_price = 1
 aim_speed = 1.5
 aim_offset = 1
 max_range = 300
+richochet_count = 20
 use_price = 1
 damage = 15.0
 setting_name = "Pistol"
@@ -609,8 +610,27 @@ position = Vector2(4, 2)
 scale = Vector2(1, 0.5)
 polygon = PackedVector2Array(-4, -4, 44, -4, 44, 12, -4, 12)
 
+[node name="Richoshet2" type="Node2D" parent="."]
+position = Vector2(88, 24)
+script = ExtResource("34_aelg0")
+
+[node name="VisualObject" parent="Richoshet2" instance=ExtResource("1_drly5")]
+scale = Vector2(3, 0.5)
+texture = ExtResource("2_perh8")
+
+[node name="InteractableStaticBody" parent="Richoshet2" groups=["collision_reflect"] instance=ExtResource("37_2jbn6")]
+collision_layer = 9
+
+[node name="Collision" parent="Richoshet2/InteractableStaticBody" index="0"]
+polygon = PackedVector2Array(0, 0, 48, 0, 48, 8, 0, 8)
+
+[node name="NavObstacle" parent="Richoshet2" instance=ExtResource("38_g5827")]
+position = Vector2(4, 2)
+scale = Vector2(1, 0.5)
+polygon = PackedVector2Array(-4, -4, 44, -4, 44, 12, -4, 12)
+
 [node name="Player0" parent="." instance=ExtResource("42_51i7x")]
-position = Vector2(16, 56)
+position = Vector2(32, 48)
 unit_name = "PlayerTest"
 unit_settings_resource = SubResource("Resource_240js")
 
@@ -620,7 +640,7 @@ unit_name = "Player1"
 unit_settings_resource = ExtResource("43_vyx4g")
 
 [node name="EnemyObject" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
-position = Vector2(153, 81)
+position = Vector2(176, 104)
 unit_settings_resource = SubResource("Resource_eeitp")
 beehave_tree = NodePath("EnemyAi0")
 
@@ -628,7 +648,7 @@ beehave_tree = NodePath("EnemyAi0")
 blackboard = NodePath("@Node@17495")
 
 [node name="EnemyObject2" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
-position = Vector2(144, 22)
+position = Vector2(152, 8)
 unit_settings_resource = SubResource("Resource_hhd7n")
 beehave_tree = NodePath("EnemyAi1")
 
@@ -723,4 +743,5 @@ position = Vector2(-3, 5)
 comp_health = NodePath("../CompHealth")
 
 [editable path="Richoshet/InteractableStaticBody"]
+[editable path="Richoshet2/InteractableStaticBody"]
 [editable path="TestCover/InteractableStaticBody"]

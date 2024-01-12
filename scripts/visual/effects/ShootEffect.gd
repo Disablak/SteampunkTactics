@@ -2,7 +2,7 @@ class_name ShootEffect
 extends RefCounted
 
 
-const BULLET_SPEED = 800
+const BULLET_SPEED = 400
 const SHOOT_MISS_POS_LERP = [0.0, 0.1, 0.2, 0.3, 0.7, 0.8, 0.9, 1.0]
 const MISSED_BULLET_DISTANCE = 1000
 const MISS_MAX_BULLET_OFFSET = 5
@@ -10,6 +10,8 @@ const MISS_MAX_BULLET_OFFSET = 5
 var _tween: Tween
 var _bullet_scene: PackedScene
 var _bullet_root: Node2D
+var _cur_bullet: Node2D
+var _on_finish: Callable
 
 
 func is_tweening() -> bool:
@@ -19,6 +21,38 @@ func is_tweening() -> bool:
 func _init(bullet_scene: PackedScene, bullet_root: Node2D):
 	_bullet_scene = bullet_scene
 	_bullet_root = bullet_root
+
+
+func tween_bullet(tween: Tween, shoot_data: ShootData, on_finish: Callable):
+	_on_finish = on_finish
+	_cur_bullet = _bullet_scene.instantiate()
+	_bullet_root.add_child(_cur_bullet)
+	_tween = tween
+	_cur_bullet.position = shoot_data.shoot_points[0].point
+
+	for i in shoot_data.shoot_points.size():
+		if i + 1 >= shoot_data.shoot_points.size():
+			break
+
+		var from = shoot_data.shoot_points[i].point
+		var to = shoot_data.shoot_points[i + 1].point
+
+		_cur_bullet.look_at(to)
+
+		var distance = from.distance_to(to)
+		var time = distance / BULLET_SPEED
+
+		_tween.tween_property(_cur_bullet, "position", to, time)
+
+	#_tween.tween_property(_cur_bullet, "modulate:a", 0.0, 0.3)
+	_tween.tween_callback(_on_finish_tween)
+
+
+func _on_finish_tween():
+	_cur_bullet.queue_free()
+
+	if _on_finish:
+		_on_finish.call()
 
 
 func create_bullet_and_tween(tween: Tween, from: Vector2, to: Vector2, on_finish: Callable):
