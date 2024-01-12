@@ -63,7 +63,7 @@ func _shoot():
 	if not ray_result.is_empty():
 		shoot_pos = ray_result.position
 
-	effect_manager.shoot_effect.create_bullet_and_tween(create_tween(), _cur_unit.unit_object.position, shoot_pos, func(): _on_bullet_finish_tween(ray_result))
+	#effect_manager.shoot_effect.create_bullet_and_tween(create_tween(), _cur_unit.unit_object.position, shoot_pos, func(): _on_bullet_finish_tween(ray_result))
 
 
 func _on_bullet_finish_tween(ray_result):
@@ -81,8 +81,22 @@ func _raycast_and_get_result(shoot_pos: Vector2) -> Dictionary:
 	var exclude_rids: Array[RID] = _cur_unit.unit_object.get_this_exclude_rid()
 	var ray_result = raycaster.make_ray(_cur_unit.unit_object.position, shoot_pos, RAY_UNIT_LAYER, exclude_rids)
 
-	#GlobalMap.draw_debug.clear_lines("shoot line")
-	#GlobalM3ap.draw_debug.add_line([_cur_unit.origin_pos, shoot_pos], "shoot line")
+	var dir: Vector2 = (shoot_pos - _cur_unit.unit_object.position).normalized()
+	var ranged_weapon: RangedWeaponData = _cur_unit.unit_data.cur_weapon
+	var shoot_data: ShootData = raycaster.get_shoot_data(_cur_unit.unit_object.position, dir, ranged_weapon.ranged_weapon_settings.max_range, RAY_UNIT_LAYER, exclude_rids)
+
+	GlobalMap.draw_debug.clear_lines("shoot line")
+	for i in shoot_data.shoot_points.size():
+		if i + 1 >= shoot_data.shoot_points.size():
+			break
+
+		var cur = shoot_data.shoot_points[i]
+		var next = shoot_data.shoot_points[i + 1]
+		GlobalMap.draw_debug.add_line([cur.point, next.point], "shoot line")
+
+	print(shoot_data.shoot_points.size())
+	for shoot in shoot_data.shoot_points:
+		print(shoot.point)
 
 	return ray_result
 

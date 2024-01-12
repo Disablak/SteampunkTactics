@@ -7,6 +7,37 @@ extends Node2D
 const LAYER_1 := 0xFFFFFFFF
 const MASK_WALL = 16
 const MASK_OBSTACLE = 32
+const REFLECT_COLLISION_GROUP = "collision_reflect"
+
+
+func get_shoot_data(pos: Vector2, dir: Vector2, max_distance: float, collsion_mask: int = LAYER_1, exlude: Array[RID] = []) -> ShootData:
+	var shoot_data = ShootData.new()
+	shoot_data.shoot_points.append(ShootData.ShootPoint.new(pos, null))
+
+	var ray_end: Vector2 = pos + (dir * max_distance)
+	var start_ray: Dictionary = make_ray(pos, ray_end, collsion_mask, exlude)
+	if not start_ray.is_empty():
+		if start_ray.collider.is_in_group(REFLECT_COLLISION_GROUP):
+			var game_object: GameObject = start_ray.collider.get_parent() as GameObject
+			shoot_data.shoot_points.append(ShootData.ShootPoint.new(start_ray.position, game_object))
+			exlude.append(game_object.get_this_exclude_rid())
+
+			var dir_to_start = (pos - start_ray.position).normalized()
+			var dir_reflect: Vector2 = dir_to_start.reflect(start_ray.normal)
+			var distance_remains: float = max_distance - pos.distance_to(start_ray.position)
+			var reflect_end_pos: Vector2 = start_ray.position + (dir_reflect * distance_remains)
+			var reflect_ray: Dictionary = make_ray(start_ray.position, reflect_end_pos, collsion_mask, exlude)
+
+			if reflect_ray.is_empty():
+				shoot_data.shoot_points.append(ShootData.ShootPoint.new(reflect_end_pos, null))
+			else:
+				shoot_data.shoot_points.append(ShootData.ShootPoint.new(reflect_ray.position, reflect_ray.collider.get_parent()))
+		else:
+			shoot_data.shoot_points.append(ShootData.ShootPoint.new(start_ray.position, start_ray.collider.get_parent()))
+	else:
+		shoot_data.shoot_points.append(ShootData.ShootPoint.new(ray_end, null))
+
+	return shoot_data
 
 
 func make_ray_get_units(from: Vector2, to: Vector2) -> Array[UnitObject]:

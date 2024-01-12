@@ -33,7 +33,8 @@ func create_bullet_and_tween(tween: Tween, from: Vector2, to: Vector2, on_finish
 
 	var _on_finish = func():
 		new_instance.queue_free()
-		on_finish.call()
+		if on_finish:
+			on_finish.call()
 
 	_tween = tween
 	_tween.tween_property(new_instance, "position", to, time)

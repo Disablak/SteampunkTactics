@@ -11,4 +11,4 @@ aim_offset = 8
 max_range = 100
 use_price = 20
 damage = 15.0
-setting_name = "Riffle"
+setting_name = "Pistol"

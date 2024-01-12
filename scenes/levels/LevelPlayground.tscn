@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://du6xcv567vuwr"]
+[gd_scene load_steps=55 format=3 uid="uid://du6xcv567vuwr"]
 
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="1_drly5"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_perh8"]
@@ -42,6 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://rsncl7kapn8d" path="res://content/sprites/gothic/white_circle.tres" id="40_qfb82"]
 [ext_resource type="PackedScene" uid="uid://2u31rgktq1eu" path="res://scenes/object/components/healthbars/ListenerHealthBar.tscn" id="41_ssucb"]
 [ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/object/UnitObject.tscn" id="42_51i7x"]
+[ext_resource type="Script" path="res://scripts/resources/abilities/RangedWeaponSettings.gd" id="43_u4vck"]
 [ext_resource type="Resource" uid="uid://5diunhr2km1q" path="res://data/settings/unit/level1/lvl1_player0.tres" id="43_vyx4g"]
 [ext_resource type="PackedScene" uid="uid://i5vko2tvl1sy" path="res://scenes/object/EnemyObject.tscn" id="44_pijve"]
 [ext_resource type="Resource" uid="uid://dabprdc4kprjs" path="res://data/settings/weapon/riffle0.tres" id="45_dbe7n"]
@@ -49,6 +50,17 @@
 [ext_resource type="PackedScene" uid="uid://0ro7blx56hka" path="res://scenes/behaviour_tree_ai/EnemyAi.tscn" id="46_m6upv"]
 [ext_resource type="Script" path="res://scripts/resources/UnitSettingsResource.gd" id="46_smxab"]
 [ext_resource type="Resource" uid="uid://dvdqtbcgasgll" path="res://data/settings/equips/armor0.tres" id="48_d2uq8"]
+
+[sub_resource type="Resource" id="Resource_mcyre"]
+script = ExtResource("43_u4vck")
+max_ammo = 100
+reload_price = 1
+aim_speed = 1.5
+aim_offset = 1
+max_range = 300
+use_price = 1
+damage = 15.0
+setting_name = "Pistol"
 
 [sub_resource type="Resource" id="Resource_240js"]
 script = ExtResource("46_smxab")
@@ -59,7 +71,7 @@ walk_speed = 10
 initiative = 20
 range_of_view = 5
 equips = Array[Resource("res://scripts/resources/equips/EquipBase.gd")]([])
-abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([ExtResource("45_f76jr")])
+abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([SubResource("Resource_mcyre")])
 
 [sub_resource type="Resource" id="Resource_eeitp"]
 script = ExtResource("46_smxab")
@@ -578,8 +590,27 @@ texture = ExtResource("40_qfb82")
 position = Vector2(2, -3)
 comp_health = NodePath("../CompHealth")
 
+[node name="Richoshet" type="Node2D" parent="."]
+position = Vector2(80, 8)
+script = ExtResource("34_aelg0")
+
+[node name="VisualObject" parent="Richoshet" instance=ExtResource("1_drly5")]
+scale = Vector2(3, 0.5)
+texture = ExtResource("2_perh8")
+
+[node name="InteractableStaticBody" parent="Richoshet" groups=["collision_reflect"] instance=ExtResource("37_2jbn6")]
+collision_layer = 9
+
+[node name="Collision" parent="Richoshet/InteractableStaticBody" index="0"]
+polygon = PackedVector2Array(0, 0, 48, 0, 48, 8, 0, 8)
+
+[node name="NavObstacle" parent="Richoshet" instance=ExtResource("38_g5827")]
+position = Vector2(4, 2)
+scale = Vector2(1, 0.5)
+polygon = PackedVector2Array(-4, -4, 44, -4, 44, 12, -4, 12)
+
 [node name="Player0" parent="." instance=ExtResource("42_51i7x")]
-position = Vector2(72, 64)
+position = Vector2(16, 56)
 unit_name = "PlayerTest"
 unit_settings_resource = SubResource("Resource_240js")
 
@@ -594,7 +625,7 @@ unit_settings_resource = SubResource("Resource_eeitp")
 beehave_tree = NodePath("EnemyAi0")
 
 [node name="EnemyAi0" parent="EnemyObject" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@385097")
+blackboard = NodePath("@Node@17495")
 
 [node name="EnemyObject2" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
 position = Vector2(144, 22)
@@ -602,7 +633,7 @@ unit_settings_resource = SubResource("Resource_hhd7n")
 beehave_tree = NodePath("EnemyAi1")
 
 [node name="EnemyAi1" parent="EnemyObject2" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@385098")
+blackboard = NodePath("@Node@17496")
 
 [node name="TestCover" type="Node2D" parent="."]
 visible = false
@@ -691,4 +722,5 @@ polygon = PackedVector2Array(-4, -4, 2, -4, 2, 19, -4, 19)
 position = Vector2(-3, 5)
 comp_health = NodePath("../CompHealth")
 
+[editable path="Richoshet/InteractableStaticBody"]
 [editable path="TestCover/InteractableStaticBody"]
