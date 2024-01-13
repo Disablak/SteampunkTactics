@@ -23,19 +23,7 @@ class ShootPoint:
 var shoot_points: Array[ShootPoint]
 
 
-func is_hit_in_unit_object() -> bool:
-	for shoot_point in shoot_points:
-		if shoot_point.game_object is UnitObject:
-			return true
-
-		continue
-
-	return false
+func get_last_game_object() -> GameObject:
+	return shoot_points[shoot_points.size() - 1].game_object
 
 
-func get_unit_object() -> UnitObject:
-	for shoot_point in shoot_points:
-		if shoot_point != null and shoot_point.game_object is UnitObject:
-			return shoot_point.game_object
-
-	return null

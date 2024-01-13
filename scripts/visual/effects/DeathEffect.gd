@@ -23,11 +23,13 @@ func play_effect(unit_texture_region: Rect2):
 		for y in range(unit_texture_region.position.y, unit_texture_region.end.y, part_step):
 			region_parts.append(Rect2(x, y, part_step, part_step))
 
+	region_parts.shuffle()
+
 	for part_idx in parts_count:
 		var part: Sprite2D = visual_obj.instantiate() as Sprite2D
 		var atlas_texture := AtlasTexture.new()
 		atlas_texture.atlas = ImageTexture.create_from_image(Globals.main_atlas_image)
-		atlas_texture.region = region_parts.pick_random()
+		atlas_texture.region = region_parts[part_idx]
 		part.texture = atlas_texture
 		add_child(part)
 

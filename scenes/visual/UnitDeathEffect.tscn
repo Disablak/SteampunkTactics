@@ -11,3 +11,4 @@ point_count = 3
 script = ExtResource("1_tanr6")
 traectory_curve = SubResource("Curve_tukiv")
 visual_obj = ExtResource("3_fvmaa")
+parts_count = 6

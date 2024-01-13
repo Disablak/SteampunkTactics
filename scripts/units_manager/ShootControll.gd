@@ -65,10 +65,10 @@ func _shoot():
 
 
 func _on_bullet_finish_tween(shoot_data: ShootData):
-	if not shoot_data.is_hit_in_unit_object():
+	if not shoot_data.get_last_game_object():
 		return
 
-	var hitted_object: GameObject = shoot_data.get_unit_object()
+	var hitted_object: GameObject = shoot_data.get_last_game_object()
 	if not hitted_object.comp_health:
 		return
 
