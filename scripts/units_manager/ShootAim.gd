@@ -18,7 +18,7 @@ var _aim_dir: Vector2
 var _aim_input_mouse: bool = true
 
 var _cur_unit_pos: Vector2:
-	get: return _cur_unit.unit_object.position
+	get: return _cur_unit.unit_object.shoot_point
 
 var aim_vector: Vector2:
 	get: return _aim_vector

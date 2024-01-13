@@ -45,6 +45,15 @@ movie_writer/movie_file="/Users/disablak/Godot Projects/Godot Movies/test.avi"
 
 enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/distraction_free_script_editor/plugin.cfg", "res://addons/quick_script_change/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://content/": "red",
+"res://data/": "yellow",
+"res://scenes/": "purple",
+"res://scripts/": "green"
+}
+
 [input]
 
 left_click={

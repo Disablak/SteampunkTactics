@@ -58,7 +58,7 @@ func _shoot():
 	_spend_time_and_ammo()
 	disable_aim()
 
-	var shoot_pos: Vector2 = _cur_unit.origin_pos + shoot_aim.aim_vector;
+	var shoot_pos: Vector2 = shoot_aim._cur_unit_pos + shoot_aim.aim_vector;
 	var shoot_data: ShootData = _raycast_and_get_result(shoot_pos)
 
 	effect_manager.create_shoot_effect(shoot_data, func(): _on_bullet_finish_tween(shoot_data))
@@ -77,12 +77,10 @@ func _on_bullet_finish_tween(shoot_data: ShootData):
 
 func _raycast_and_get_result(shoot_pos: Vector2) -> ShootData:
 	var exclude_rids: Array[RID] = _cur_unit.unit_object.get_this_exclude_rid()
-	var ray_result = raycaster.make_ray(_cur_unit.unit_object.position, shoot_pos, RAY_UNIT_LAYER, exclude_rids)
-
-	var dir: Vector2 = (shoot_pos - _cur_unit.unit_object.position).normalized()
+	var dir: Vector2 = (shoot_pos - shoot_aim._cur_unit_pos).normalized()
 	var ranged_weapon: RangedWeaponData = _cur_unit.unit_data.cur_weapon
 	var shoot_data: ShootData = raycaster.get_shoot_data(
-		_cur_unit.unit_object.position,
+		shoot_aim._cur_unit_pos,
 		dir,
 		ranged_weapon.ranged_weapon_settings.max_range,
 		ranged_weapon.ranged_weapon_settings.richochet_count,

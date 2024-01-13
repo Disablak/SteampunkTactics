@@ -29,6 +29,9 @@ var origin_pos: Vector2:
 var aim_point: Vector2:
 	get: return aim_target.global_position
 
+var shoot_point: Vector2:
+	get: return $ShootPoint.global_position
+
 var visual_ordering: int:
 	get: return main_sprite.z_index
 	set(value): main_sprite.z_index = value

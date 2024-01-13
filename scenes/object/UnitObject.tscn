@@ -47,3 +47,6 @@ polygon = PackedVector2Array(1, 2, 3, 0, 5, 0, 7, 2, 7, 4, 5, 6, 3, 6, 1, 4)
 [node name="AimTarget" type="Node2D" parent="HitBox"]
 unique_name_in_owner = true
 position = Vector2(4, 3)
+
+[node name="ShootPoint" type="Node2D" parent="."]
+position = Vector2(0, -8)
