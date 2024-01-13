@@ -72,7 +72,7 @@ walk_speed = 10
 initiative = 20
 range_of_view = 5
 equips = Array[Resource("res://scripts/resources/equips/EquipBase.gd")]([])
-abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([SubResource("Resource_mcyre")])
+abilities = Array[Resource("res://scripts/resources/abilities/AbilitySettings.gd")]([SubResource("Resource_mcyre"), ExtResource("45_f76jr")])
 
 [sub_resource type="Resource" id="Resource_eeitp"]
 script = ExtResource("46_smxab")
@@ -645,7 +645,7 @@ unit_settings_resource = SubResource("Resource_eeitp")
 beehave_tree = NodePath("EnemyAi0")
 
 [node name="EnemyAi0" parent="EnemyObject" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@112638")
+blackboard = NodePath("@Node@115734")
 
 [node name="EnemyObject2" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
 position = Vector2(152, 8)
@@ -653,7 +653,7 @@ unit_settings_resource = SubResource("Resource_hhd7n")
 beehave_tree = NodePath("EnemyAi1")
 
 [node name="EnemyAi1" parent="EnemyObject2" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@112639")
+blackboard = NodePath("@Node@115735")
 
 [node name="TestCover" type="Node2D" parent="."]
 visible = false

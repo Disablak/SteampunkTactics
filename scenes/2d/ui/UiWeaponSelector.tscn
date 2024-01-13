@@ -6,5 +6,6 @@
 [node name="Weapons" type="VBoxContainer"]
 offset_right = 81.0
 offset_bottom = 40.0
+alignment = 2
 script = ExtResource("1_toiur")
 button_scene = ExtResource("1_xn1ud")

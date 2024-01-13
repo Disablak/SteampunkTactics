@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d4avb1r3ohetp"]
+[gd_scene load_steps=31 format=3 uid="uid://d4avb1r3ohetp"]
 
 [ext_resource type="Script" path="res://scripts/ui/GUI.gd" id="1_vypfl"]
 [ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="2_8t721"]
@@ -11,7 +11,6 @@
 [ext_resource type="ButtonGroup" uid="uid://bsrwr3ppmws16" path="res://data/settings/ui/ButtonGroup.tres" id="7_7jswe"]
 [ext_resource type="Theme" uid="uid://f2kane5qr4jt" path="res://data/settings/ui/gothic_ui_theme_0.tres" id="7_omlrh"]
 [ext_resource type="Script" path="res://scripts/ui/UiBtnAbility.gd" id="8_7jrsu"]
-[ext_resource type="Theme" uid="uid://dmlr2ehopfsf3" path="res://data/settings/ui/gothic_ui_theme_1.tres" id="10_gtirj"]
 [ext_resource type="Shortcut" uid="uid://wn8cqlrakbky" path="res://data/settings/shortcuts/ShortcutNextTurn.tres" id="12_e4ykp"]
 [ext_resource type="FontFile" uid="uid://cuq7uy43wcnc3" path="res://data/settings/ui/alagard.ttf" id="12_mbk3r"]
 [ext_resource type="Script" path="res://scripts/ui/UiSelectedUnitInfo.gd" id="13_28ycl"]
@@ -119,36 +118,39 @@ mouse_filter = 1
 
 [node name="UnitInfo" parent="AlwaysUI/BattleUI/LeftSide" instance=ExtResource("5_10q7o")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 offset_left = -194.0
 offset_right = -16.0
-offset_bottom = 112.0
+offset_bottom = 56.0
 
 [node name="UnitAbils" type="ScrollContainer" parent="AlwaysUI/BattleUI/LeftSide" node_paths=PackedStringArray("btns_container")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 16.0
-offset_top = 112.0
-offset_right = 192.0
-offset_bottom = 369.0
+offset_left = 88.0
+offset_top = 312.0
+offset_right = 484.0
+offset_bottom = 360.0
 horizontal_scroll_mode = 0
 script = ExtResource("6_q18j3")
-btns_container = NodePath("MarginContainer/Container")
+btns_container = NodePath("MarginContainer/HBoxContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_bottom = 10
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 8
 
-[node name="Container" type="VBoxContainer" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="BtnMove" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container"]
+[node name="BtnMove" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("7_omlrh")
+theme_override_font_sizes/font_size = 15
 toggle_mode = true
 button_group = ExtResource("7_7jswe")
 shortcut = SubResource("Shortcut_b0hfn")
@@ -156,10 +158,10 @@ text = "Move"
 script = ExtResource("8_7jrsu")
 ability = 1
 
-[node name="BtnPush" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container"]
+[node name="BtnPush" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("7_omlrh")
+theme_override_font_sizes/font_size = 15
 toggle_mode = true
 button_group = ExtResource("7_7jswe")
 shortcut = SubResource("Shortcut_em5ud")
@@ -168,10 +170,10 @@ text = "Push
 script = ExtResource("8_7jrsu")
 ability = 6
 
-[node name="BtnShoot" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container"]
+[node name="BtnShoot" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("7_omlrh")
+theme_override_font_sizes/font_size = 15
 toggle_mode = true
 button_group = ExtResource("7_7jswe")
 shortcut = SubResource("Shortcut_xx4o5")
@@ -179,10 +181,10 @@ text = "Shoot"
 script = ExtResource("8_7jrsu")
 ability = 3
 
-[node name="BtnReload" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container"]
+[node name="BtnReload" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("7_omlrh")
+theme_override_font_sizes/font_size = 15
 toggle_mode = true
 button_group = ExtResource("7_7jswe")
 shortcut = SubResource("Shortcut_5qic7")
@@ -191,10 +193,10 @@ text = "Reload
 script = ExtResource("8_7jrsu")
 ability = 4
 
-[node name="BtnGrenade" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container"]
+[node name="BtnGrenade" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("7_omlrh")
+theme_override_font_sizes/font_size = 15
 toggle_mode = true
 button_group = ExtResource("7_7jswe")
 shortcut = SubResource("Shortcut_b30k4")
@@ -202,10 +204,10 @@ text = "Throw grenade"
 script = ExtResource("8_7jrsu")
 ability = 5
 
-[node name="BtnKnife" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container"]
+[node name="BtnKnife" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("7_omlrh")
+theme_override_font_sizes/font_size = 15
 toggle_mode = true
 button_group = ExtResource("7_7jswe")
 shortcut = SubResource("Shortcut_dewe6")
@@ -217,24 +219,24 @@ ability = 2
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 2
-offset_left = 20.0
-offset_top = 487.0
-offset_right = 194.0
-offset_bottom = 528.0
+offset_left = 496.0
+offset_top = 320.0
+offset_right = 632.0
+offset_bottom = 351.0
 grow_horizontal = 0
 grow_vertical = 0
-theme = ExtResource("10_gtirj")
 shortcut = ExtResource("12_e4ykp")
 text = "Next Turn"
 
 [node name="Weapons" parent="AlwaysUI/BattleUI/LeftSide" instance=ExtResource("14_sae6o")]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 352.0
-offset_right = 97.0
-offset_bottom = 392.0
+offset_left = 8.0
+offset_top = 256.0
+offset_right = 89.0
+offset_bottom = 352.0
 
 [node name="RightSide" type="Control" parent="AlwaysUI/BattleUI"]
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -353,9 +355,9 @@ visible = false
 offset_top = 1.0
 offset_bottom = 1.0
 
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnMove" to="UiToLogicBindings" method="_on_btn_move_on_pressed_btn_action"]
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnPush" to="UiToLogicBindings" method="_on_btn_push_on_pressed_btn_action"]
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnShoot" to="UiToLogicBindings" method="_on_btn_shoot_on_pressed_btn_action"]
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnReload" to="UiToLogicBindings" method="_on_btn_reload_on_pressed_btn_action"]
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnGrenade" to="UiToLogicBindings" method="_on_btn_grenade_on_pressed_btn_action"]
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/Container/BtnKnife" to="UiToLogicBindings" method="_on_btn_knife_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnMove" to="UiToLogicBindings" method="_on_btn_move_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnPush" to="UiToLogicBindings" method="_on_btn_push_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnShoot" to="UiToLogicBindings" method="_on_btn_shoot_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnReload" to="UiToLogicBindings" method="_on_btn_reload_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnGrenade" to="UiToLogicBindings" method="_on_btn_grenade_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnKnife" to="UiToLogicBindings" method="_on_btn_knife_on_pressed_btn_action"]

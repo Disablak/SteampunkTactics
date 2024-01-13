@@ -58,7 +58,7 @@ battle_states = NodePath("../../BattleStates")
 self_modulate = Color(1, 1, 1, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-112, -64)
+position = Vector2(-32, -24)
 anchor_mode = 0
 zoom = Vector2(2, 2)
 

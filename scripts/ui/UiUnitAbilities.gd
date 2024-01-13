@@ -17,7 +17,6 @@ func _ready() -> void:
 		_all_btns_ability[btn.ability] = btn
 
 
-
 func _on_unit_changed_weapon(id, weapon_data: WeaponData):
 	_on_unit_changed_control(id, false)
 
