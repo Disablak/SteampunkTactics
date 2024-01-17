@@ -4,6 +4,7 @@ extends Node2D
 
 @onready var comp_health: CompHealth = $CompHealth
 @onready var interactable_stat_body: InteractableStaticBody = $InteractableStaticBody as InteractableStaticBody
+@onready var hit_box: StaticBody2D = $HitBox as StaticBody2D
 
 
 func _ready() -> void:
@@ -27,7 +28,12 @@ func _on_died():
 
 
 func get_this_exclude_rid() -> Array[RID]:
-	if interactable_stat_body:
-		return [interactable_stat_body.get_rid()]
+	var result: Array[RID]
 
-	return []
+	if interactable_stat_body:
+		result.append(interactable_stat_body.get_rid())
+
+	if hit_box:
+		result.append(hit_box.get_rid())
+
+	return result

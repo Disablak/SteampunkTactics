@@ -59,7 +59,7 @@ func _can_move(move_price: int) -> bool:
 
 
 func _move_unit(unit_object: UnitObject, world_pos: Vector2):
-	object_mover.move_object_to_pos(unit_object, world_pos)
+	object_mover.move_unit_by_pos(unit_object, world_pos)
 	deselect_move()
 
 

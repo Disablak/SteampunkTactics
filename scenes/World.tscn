@@ -114,9 +114,9 @@ nav_region = NodePath("../NavigationRegion")
 
 [node name="Line2dManager" parent="." instance=ExtResource("20_syji7")]
 
-[node name="CameraController" type="Node2D" parent="."]
-visible = false
+[node name="CameraController" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
 script = ExtResource("14_ops4e")
+camera = NodePath("../Camera2D")
 
 [node name="Raycaster" type="Node2D" parent="."]
 script = ExtResource("19_j1gqv")

@@ -10,6 +10,7 @@ class_name UnitObject
 @onready var noticed_icon: Sprite2D = $VisualObject/NoticedIcon
 @onready var health_bar: HealthBar = $VisualObject/HealthBar
 @onready var aim_target: Node2D = %AimTarget
+@onready var weapon_pointer: Node2D = $WeaponPointer
 
 @onready var nav_obstacle: NavObstacle = $NavObstacle as NavObstacle
 
@@ -100,7 +101,9 @@ func play_damage_anim(dir: Vector2):
 	await tween.finished
 
 
-func rotate_unit_visual(dir: Vector2):
+func rotate_unit(dir: Vector2) -> void:
+	var angle := dir.angle_to(Vector2.RIGHT)
+	weapon_pointer.rotation = -angle
 	main_sprite.flip_h = dir.x < 0
 
 

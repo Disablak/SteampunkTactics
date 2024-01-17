@@ -57,7 +57,9 @@ func _process(delta: float) -> void:
 	if not _aim_enabled:
 		return
 
-	_calc_and_draw_aim_direction(_get_aim_dir(), delta)
+	var aim_dir: Vector2 = _get_aim_dir()
+	_cur_unit.unit_object.rotate_unit(aim_dir)
+	_calc_and_draw_aim_direction(aim_dir, delta)
 
 
 func _calc_and_draw_aim_direction(aim_dir: Vector2, delta: float):

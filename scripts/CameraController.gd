@@ -4,6 +4,7 @@ extends Node2D
 
 const PIXEL_TRASH_HOLD = 3
 
+@export var camera: Camera2D
 @export var focus_time = 0.2
 @export var drag_sensitive = 0.4
 @export var save_prev_pos = true
@@ -67,8 +68,9 @@ func is_camera_moving() -> bool:
 
 
 func drag(vector_move: Vector2) -> void:
-	var new_pos = position + vector_move * sensetive
-	position = _clamp_pos_in_bounds(new_pos)
+	var new_pos = camera.position + vector_move * drag_sensitive
+	camera.position = new_pos
+	#camera.position = _clamp_pos_in_bounds(new_pos)
 
 
 func try_to_move_in_helper_view(pos: Vector2):

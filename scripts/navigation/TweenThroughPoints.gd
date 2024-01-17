@@ -4,6 +4,7 @@ extends RefCounted
 
 signal on_reach_point
 signal on_finished_tween
+signal on_started_tween_to_point(node: Node2D, point: Vector2)
 
 var tween_move: Tween
 
@@ -19,6 +20,8 @@ func tween_through_points(call_create_tween: Callable, node: Node2D, points: Pac
 		var start_point := points[cur_target_id]
 		var finish_point := points[cur_target_id + 1]
 		var time_move = start_point.distance_to(finish_point) / speed
+
+		on_started_tween_to_point.emit(node, finish_point)
 
 		tween_move = call_create_tween.call()
 		tween_move.tween_property(

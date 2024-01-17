@@ -38,8 +38,7 @@ func _draging(event: InputEvent) -> bool:
 		drag_pos = (prev_drag_pos - event.position)
 		prev_drag_pos = event.position
 
-		#camera_controller.drag(drag_pos)
-		emit_signal("on_drag", drag_pos)
+		on_drag.emit(drag_pos)
 		return true
 
 	return false

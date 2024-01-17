@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://du6xcv567vuwr"]
+[gd_scene load_steps=56 format=3 uid="uid://du6xcv567vuwr"]
 
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="1_drly5"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_perh8"]
@@ -42,6 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://rsncl7kapn8d" path="res://content/sprites/gothic/white_circle.tres" id="40_qfb82"]
 [ext_resource type="PackedScene" uid="uid://2u31rgktq1eu" path="res://scenes/object/components/healthbars/ListenerHealthBar.tscn" id="41_ssucb"]
 [ext_resource type="PackedScene" uid="uid://3fu3cqfb41k0" path="res://scenes/object/UnitObject.tscn" id="42_51i7x"]
+[ext_resource type="Texture2D" uid="uid://bk3mqskw7nd4i" path="res://content/sprites/gothic/fog_half.tres" id="42_enxke"]
 [ext_resource type="Script" path="res://scripts/resources/abilities/RangedWeaponSettings.gd" id="43_u4vck"]
 [ext_resource type="Resource" uid="uid://5diunhr2km1q" path="res://data/settings/unit/level1/lvl1_player0.tres" id="43_vyx4g"]
 [ext_resource type="PackedScene" uid="uid://i5vko2tvl1sy" path="res://scenes/object/EnemyObject.tscn" id="44_pijve"]
@@ -597,7 +598,7 @@ script = ExtResource("34_aelg0")
 
 [node name="VisualObject" parent="Richoshet" instance=ExtResource("1_drly5")]
 scale = Vector2(3, 0.5)
-texture = ExtResource("2_perh8")
+texture = ExtResource("42_enxke")
 
 [node name="InteractableStaticBody" parent="Richoshet" groups=["collision_reflect"] instance=ExtResource("37_2jbn6")]
 collision_layer = 9
@@ -616,7 +617,7 @@ script = ExtResource("34_aelg0")
 
 [node name="VisualObject" parent="Richoshet2" instance=ExtResource("1_drly5")]
 scale = Vector2(3, 0.5)
-texture = ExtResource("2_perh8")
+texture = ExtResource("42_enxke")
 
 [node name="InteractableStaticBody" parent="Richoshet2" groups=["collision_reflect"] instance=ExtResource("37_2jbn6")]
 collision_layer = 9
@@ -645,7 +646,7 @@ unit_settings_resource = SubResource("Resource_eeitp")
 beehave_tree = NodePath("EnemyAi0")
 
 [node name="EnemyAi0" parent="EnemyObject" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@115734")
+blackboard = NodePath("@Node@46990")
 
 [node name="EnemyObject2" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
 position = Vector2(152, 8)
@@ -653,7 +654,7 @@ unit_settings_resource = SubResource("Resource_hhd7n")
 beehave_tree = NodePath("EnemyAi1")
 
 [node name="EnemyAi1" parent="EnemyObject2" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@115735")
+blackboard = NodePath("@Node@46991")
 
 [node name="TestCover" type="Node2D" parent="."]
 visible = false

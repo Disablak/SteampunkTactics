@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://3fu3cqfb41k0"]
+[gd_scene load_steps=11 format=3 uid="uid://3fu3cqfb41k0"]
 
 [ext_resource type="Script" path="res://scripts/units/UnitObject.gd" id="1_cp6yk"]
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="2_7440i"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://biqevm2kjhsep" path="res://scenes/object/NavObstacle.tscn" id="7_tdav3"]
 [ext_resource type="Script" path="res://scripts/object/CompUnitHealth.gd" id="8_yvfh1"]
 [ext_resource type="Script" path="res://scripts/object/InteractableStaticBody.gd" id="9_sv2fv"]
+[ext_resource type="Texture2D" uid="uid://b1at8dyrxrxwn" path="res://content/sprites/test weapon.png" id="10_u3rdh"]
 
 [node name="UnitObject" type="Node2D" groups=["unit"]]
 script = ExtResource("1_cp6yk")
@@ -50,3 +51,9 @@ position = Vector2(4, 3)
 
 [node name="ShootPoint" type="Node2D" parent="."]
 position = Vector2(0, -8)
+
+[node name="WeaponPointer" parent="." instance=ExtResource("2_7440i")]
+position = Vector2(4.54488e-13, -7)
+scale = Vector2(0.5, 1)
+texture = ExtResource("10_u3rdh")
+offset = Vector2(2.08165e-12, -8)
