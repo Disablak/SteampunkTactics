@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://d4avb1r3ohetp"]
+[gd_scene load_steps=32 format=3 uid="uid://d4avb1r3ohetp"]
 
 [ext_resource type="Script" path="res://scripts/ui/GUI.gd" id="1_vypfl"]
 [ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="2_8t721"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" path="res://scenes/2d/ui/UiUnitsList.tscn" id="13_iompt"]
 [ext_resource type="PackedScene" uid="uid://jcmgoqb752kg" path="res://scenes/2d/ui/UiWeaponSelector.tscn" id="14_sae6o"]
 [ext_resource type="PackedScene" uid="uid://djecb7bf3eldt" path="res://scenes/2d/UnitSetupUI.tscn" id="15_6tte0"]
+[ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="17_1dr40"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_gxohk"]
 keycode = 49
@@ -101,8 +102,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -349,6 +348,34 @@ grow_vertical = 2
 text = "Is enemy turn"
 label_settings = SubResource("LabelSettings_y2ytp")
 horizontal_alignment = 1
+
+[node name="TimePointsUI" type="Control" parent="AlwaysUI/BattleUI"]
+anchors_preset = 0
+offset_left = 128.0
+offset_top = 8.0
+offset_right = 512.0
+offset_bottom = 16.0
+mouse_filter = 1
+script = ExtResource("17_1dr40")
+
+[node name="ProgressBack" type="ColorRect" parent="AlwaysUI/BattleUI/TimePointsUI"]
+visible = false
+layout_mode = 0
+offset_right = 384.0
+offset_bottom = 8.0
+color = Color(0.101961, 0.101961, 0.141176, 1)
+
+[node name="Progress" type="ColorRect" parent="AlwaysUI/BattleUI/TimePointsUI"]
+layout_mode = 0
+offset_right = 344.0
+offset_bottom = 8.0
+color = Color(0.2, 0.2, 0.27451, 1)
+
+[node name="ProgressHint" type="ColorRect" parent="AlwaysUI/BattleUI/TimePointsUI"]
+layout_mode = 0
+offset_right = 272.0
+offset_bottom = 8.0
+color = Color(0.501961, 0.501961, 0.643137, 1)
 
 [node name="UnitSetupUI" parent="AlwaysUI" instance=ExtResource("15_6tte0")]
 visible = false

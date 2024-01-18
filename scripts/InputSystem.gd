@@ -7,6 +7,8 @@ signal on_pressed_lmc(mouse_pos: Vector2)
 signal on_pressed_rmc(mouse_pos: Vector2)
 signal on_pressed_esc()
 signal on_drag(dir: Vector2)
+signal on_aim_enabled()
+signal on_aim_disabled()
 
 const TIME_CLICK_MS = 200
 
@@ -29,7 +31,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _draging(event: InputEvent) -> bool:
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		dragging = event.pressed
 		prev_drag_pos = event.position
 		return false
@@ -71,6 +73,12 @@ func _mouse_hover(event: InputEvent):
 
 
 func _other_inputs(event: InputEvent):
+	if event.is_action_pressed("aim"):
+		on_aim_enabled.emit()
+
+	if event.is_action_released("aim"):
+		on_aim_disabled.emit()
+
 	if event.is_action_pressed("ui_cancel"):
 		on_pressed_esc.emit()
 

@@ -60,24 +60,26 @@ func _start_turn_unit():
 
 func _on_right_click_mouse(mouse_pos: Vector2):
 	var is_hovered_on_obj := object_selector.is_any_hovered_obj()
+	try_move(mouse_pos, is_hovered_on_obj)
 
-	match cur_unit.unit_data.cur_action:
-		UnitData.UnitAction.NONE:
-			return
-
-		UnitData.UnitAction.WALK:
-			try_move(mouse_pos, is_hovered_on_obj)
-
-		UnitData.UnitAction.SHOOT:
-			_try_shoot(is_hovered_on_obj)
-
-		UnitData.UnitAction.MALEE_ATACK:
-			_try_melee_attack()
-
+	#return
+#
+	#match cur_unit.unit_data.cur_action:
+		#UnitData.UnitAction.NONE:
+			#return
+#
+		#UnitData.UnitAction.WALK:
+			#try_move(mouse_pos, is_hovered_on_obj)
+#
+		#UnitData.UnitAction.SHOOT:
+			#_try_shoot(is_hovered_on_obj)
+#
+		#UnitData.UnitAction.MALEE_ATACK:
+			#_try_melee_attack()
 
 
 func try_move(mouse_pos: Vector2, is_hovered_on_obj: bool):
-	if is_hovered_on_obj:
+	if is_hovered_on_obj or shoot_controll.aim_enabled:
 		return
 
 	var world_pos: Vector2 = GlobalUtils.screen_pos_to_world_pos(mouse_pos)
@@ -88,7 +90,6 @@ func _try_shoot(is_hovered_on_obj: bool):
 	if not is_hovered_on_obj:
 		return
 
-	var enemy: Unit = object_selector.get_hovered_unit()
 	shoot_controll.enable_aim(cur_unit)
 
 
@@ -97,15 +98,28 @@ func _try_melee_attack():
 	melle_attack_controll.try_attack_mini_game(cur_unit, enemy)
 
 
+func _reset_unit_action():
+	cur_unit.unit_data.change_action(UnitData.UnitAction.NONE)
+
+
 func _on_input_system_on_pressed_rmc(mouse_pos: Vector2) -> void:
 	_on_right_click_mouse(mouse_pos);
 
 
 func _on_input_system_on_pressed_esc() -> void:
-	cur_unit.unit_data.change_action(UnitData.UnitAction.NONE)
+	_reset_unit_action()
 
 
 func _on_battle_states_on_changed_battle_state(battle_states: BattleStates) -> void:
 	if battle_states.is_game_over:
 		cur_unit.unit_object.try_to_finish_ai()
 		print("game over")
+
+
+func _on_input_system_on_aim_enabled() -> void:
+	_reset_unit_action()
+	shoot_controll.enable_aim(cur_unit)
+
+
+func _on_input_system_on_aim_disabled() -> void:
+	shoot_controll.disable_aim()

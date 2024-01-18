@@ -138,6 +138,8 @@ unit_list = NodePath("../UnitInitializator/UnitList")
 [node name="MiniGameMaleeAttack" parent="MiniGames" instance=ExtResource("27_rlpxi")]
 visible = false
 
+[connection signal="on_aim_disabled" from="InputSystem" to="UnitControll" method="_on_input_system_on_aim_disabled"]
+[connection signal="on_aim_enabled" from="InputSystem" to="UnitControll" method="_on_input_system_on_aim_enabled"]
 [connection signal="on_drag" from="InputSystem" to="CameraController" method="_on_input_system_on_drag"]
 [connection signal="on_pressed_esc" from="InputSystem" to="UnitControll" method="_on_input_system_on_pressed_esc"]
 [connection signal="on_pressed_lmc" from="InputSystem" to="UnitControll/ShootControll" method="_on_input_system_on_pressed_lmc"]

@@ -11,6 +11,9 @@ const RAY_UNIT_LAYER := 8
 
 var _cur_unit: Unit
 
+var aim_enabled: bool:
+	get: return shoot_aim.aim_enabled
+
 
 func enable_aim(unit: Unit):
 	_cur_unit = unit
@@ -50,13 +53,12 @@ func can_shoot(from: Unit) -> bool:
 
 
 func _on_input_system_on_pressed_lmc(mouse_pos: Vector2) -> void:
-	if shoot_aim.aim_enabled:
+	if aim_enabled:
 		_shoot()
 
 
 func _shoot():
 	_spend_time_and_ammo()
-	disable_aim()
 
 	var shoot_pos: Vector2 = shoot_aim._cur_unit_pos + shoot_aim.aim_vector;
 	var shoot_data: ShootData = _raycast_and_get_result(shoot_pos)
