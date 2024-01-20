@@ -17,7 +17,7 @@ func deinit():
 
 
 func _create_nav_region_bounds():
-	var ground_node: Sprite2D = get_tree().get_nodes_in_group(GROUND_GROUP)[0] as Sprite2D
+	var ground_node: Sprite2D = get_tree().get_first_node_in_group(GROUND_GROUP) as Sprite2D
 	var ground_pos: Vector2 = ground_node.position
 	var ground_size: Vector2 = Vector2(ground_node.scale.x * ground_node.texture.get_width(), ground_node.scale.y * ground_node.texture.get_height())
 

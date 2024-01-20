@@ -58,9 +58,7 @@ battle_states = NodePath("../../BattleStates")
 self_modulate = Color(1, 1, 1, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-32, -24)
 anchor_mode = 0
-zoom = Vector2(2, 2)
 
 [node name="UnitControll" type="Node2D" parent="." node_paths=PackedStringArray("object_selector", "move_controll", "shoot_controll", "reload_controll", "melle_attack_controll")]
 script = ExtResource("25_xuv3j")
@@ -117,6 +115,7 @@ nav_region = NodePath("../NavigationRegion")
 [node name="CameraController" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
 script = ExtResource("14_ops4e")
 camera = NodePath("../Camera2D")
+drag_sensitive = 1.0
 
 [node name="Raycaster" type="Node2D" parent="."]
 script = ExtResource("19_j1gqv")

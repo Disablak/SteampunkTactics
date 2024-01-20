@@ -26,16 +26,7 @@ func camera_is_moving() -> bool:
 
 
 func _ready() -> void:
-	GlobalBus.on_change_camera_zoom.connect(_on_camera_zoom_changed)
-
-
-func init(map_size: Vector2):
-	self.map_size = map_size
-
-	_calc_bounds()
-
-	var first_unit: Unit = GlobalUnits.get_cur_unit()
-	move_camera(first_unit.unit_object.position, 0.0)
+	GlobalBus.on_changed_level.connect(_on_changed_level)
 
 
 func center_camera_between_two_units(unit_first: Unit, unit_second: Unit):
@@ -69,8 +60,8 @@ func is_camera_moving() -> bool:
 
 func drag(vector_move: Vector2) -> void:
 	var new_pos = camera.position + vector_move * drag_sensitive
-	camera.position = new_pos
-	#camera.position = _clamp_pos_in_bounds(new_pos)
+	#camera.position = new_pos
+	camera.position = _clamp_pos_in_bounds(new_pos)
 
 
 func try_to_move_in_helper_view(pos: Vector2):
@@ -91,34 +82,29 @@ func get_clamped_pos_in_helper(pos: Vector2) -> Vector2:
 	return Vector2(clampf(pos.x, position.x - viewport_helper_size.x, position.x + viewport_helper_size.x), clampf(pos.y, position.y - viewport_helper_size.y, position.y + viewport_helper_size.y))
 
 
-func _calc_bounds():
-	var size = map_size * Globals.CELL_SIZE
-	var camera_bound_rect := Rect2(size/2, size)
+func _on_changed_level(lvl_id):
+	var node_camera_borders: Sprite2D = get_tree().get_first_node_in_group("camera_bounds") as Sprite2D
+	var size_px = node_camera_borders.scale * node_camera_borders.texture.get_size()
+	_calc_bounds(node_camera_borders.position, size_px)
 
 
+func _calc_bounds(pos: Vector2, size_px: Vector2):
+	var camera_bound_rect := Rect2(pos, size_px)
 	var zoom := get_viewport().get_camera_2d().zoom
 	sensetive = drag_sensitive / zoom.x
 
-	var half_bound_size := camera_bound_rect.size / 2
-	var viewport_size := get_viewport_rect().size
-	var half_camera_size := viewport_size / zoom / 2
-	var bound_offset_size = (map_camera_offset_cells * Globals.CELL_SIZE)
+	var viewport_size := get_viewport_rect().size / zoom
 
-	bounds_min.x = -half_bound_size.x + camera_bound_rect.position.x + half_camera_size.x - bound_offset_size
-	bounds_min.y = -half_bound_size.y + camera_bound_rect.position.y + half_camera_size.y - bound_offset_size
-	bounds_max.x =  half_bound_size.x + camera_bound_rect.position.x - half_camera_size.x + bound_offset_size
-	bounds_max.y =  half_bound_size.y + camera_bound_rect.position.y - half_camera_size.y + bound_offset_size
+	bounds_min.x = camera_bound_rect.position.x
+	bounds_min.y = camera_bound_rect.position.y
+	bounds_max.x = camera_bound_rect.end.x - viewport_size.x
+	bounds_max.y = camera_bound_rect.end.y - viewport_size.y
 
 	viewport_helper_size = (viewport_size / zoom) * helper_size_of_full
 
 
 func _clamp_pos_in_bounds(pos: Vector2) -> Vector2:
 	return Vector2(clampf(pos.x, bounds_min.x, bounds_max.x), clampf(pos.y, bounds_min.y, bounds_max.y))
-
-
-func _on_camera_zoom_changed(zoom: float):
-	get_viewport().get_camera_2d().zoom = Vector2(zoom, zoom)
-	_calc_bounds()
 
 
 func _on_input_system_on_drag(dir: Vector2) -> void:

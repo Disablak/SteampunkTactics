@@ -15,5 +15,6 @@ offset_right = -45.0
 offset_bottom = -195.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 10
 text = "0 - Unit0"
 script = ExtResource("2_r0yi0")

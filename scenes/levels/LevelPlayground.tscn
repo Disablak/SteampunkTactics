@@ -110,6 +110,14 @@ top_level = true
 scale = Vector2(16, 8)
 texture = ExtResource("2_perh8")
 
+[node name="CameraBounds" parent="RootWalkCells" groups=["camera_bounds"] instance=ExtResource("1_drly5")]
+visible = false
+self_modulate = Color(0.419608, 0.419608, 0.231373, 0.223529)
+top_level = true
+position = Vector2(-64, -64)
+scale = Vector2(24, 16)
+texture = ExtResource("2_perh8")
+
 [node name="RootVisual" type="Node2D" parent="."]
 
 [node name="BackGround" parent="RootVisual" instance=ExtResource("1_drly5")]
@@ -646,7 +654,7 @@ unit_settings_resource = SubResource("Resource_eeitp")
 beehave_tree = NodePath("EnemyAi0")
 
 [node name="EnemyAi0" parent="EnemyObject" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@46990")
+blackboard = NodePath("@Node@217560")
 
 [node name="EnemyObject2" parent="." node_paths=PackedStringArray("beehave_tree") instance=ExtResource("44_pijve")]
 position = Vector2(152, 8)
@@ -654,7 +662,7 @@ unit_settings_resource = SubResource("Resource_hhd7n")
 beehave_tree = NodePath("EnemyAi1")
 
 [node name="EnemyAi1" parent="EnemyObject2" node_paths=PackedStringArray("blackboard") instance=ExtResource("46_m6upv")]
-blackboard = NodePath("@Node@46991")
+blackboard = NodePath("@Node@217561")
 
 [node name="TestCover" type="Node2D" parent="."]
 visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d4avb1r3ohetp"]
+[gd_scene load_steps=35 format=3 uid="uid://d4avb1r3ohetp"]
 
 [ext_resource type="Script" path="res://scripts/ui/GUI.gd" id="1_vypfl"]
 [ext_resource type="PackedScene" uid="uid://dw4njm128t6yw" path="res://scenes/2d/ui/Tooltip.tscn" id="2_8t721"]
@@ -17,7 +17,16 @@
 [ext_resource type="PackedScene" path="res://scenes/2d/ui/UiUnitsList.tscn" id="13_iompt"]
 [ext_resource type="PackedScene" uid="uid://jcmgoqb752kg" path="res://scenes/2d/ui/UiWeaponSelector.tscn" id="14_sae6o"]
 [ext_resource type="PackedScene" uid="uid://djecb7bf3eldt" path="res://scenes/2d/UnitSetupUI.tscn" id="15_6tte0"]
+[ext_resource type="Texture2D" uid="uid://q3ym6naktr2o" path="res://content/sprites/ui/icon_move.tres" id="16_rbp2r"]
 [ext_resource type="Script" path="res://scripts/ui/TimePointsUI.gd" id="17_1dr40"]
+[ext_resource type="Texture2D" uid="uid://dqpy6e3t5bvms" path="res://content/sprites/ui/icon_reload.tres" id="18_eefw8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_v8nyb"]
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_y2ytp"]
+font = ExtResource("12_mbk3r")
+font_size = 40
 
 [sub_resource type="InputEventKey" id="InputEventKey_gxohk"]
 keycode = 49
@@ -64,10 +73,6 @@ unicode = 54
 
 [sub_resource type="Shortcut" id="Shortcut_dewe6"]
 events = [SubResource("InputEventKey_26opn")]
-
-[sub_resource type="LabelSettings" id="LabelSettings_y2ytp"]
-font = ExtResource("12_mbk3r")
-font_size = 40
 
 [node name="GUI" type="Control"]
 top_level = true
@@ -122,117 +127,6 @@ layout_mode = 1
 offset_left = -194.0
 offset_right = -16.0
 offset_bottom = 56.0
-
-[node name="UnitAbils" type="ScrollContainer" parent="AlwaysUI/BattleUI/LeftSide" node_paths=PackedStringArray("btns_container")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 88.0
-offset_top = 312.0
-offset_right = 484.0
-offset_bottom = 360.0
-horizontal_scroll_mode = 0
-script = ExtResource("6_q18j3")
-btns_container = NodePath("MarginContainer/HBoxContainer")
-
-[node name="MarginContainer" type="MarginContainer" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 8
-
-[node name="HBoxContainer" type="HBoxContainer" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer"]
-layout_mode = 2
-
-[node name="BtnMove" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-toggle_mode = true
-button_group = ExtResource("7_7jswe")
-shortcut = SubResource("Shortcut_b0hfn")
-text = "Move"
-script = ExtResource("8_7jrsu")
-ability = 1
-
-[node name="BtnPush" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-toggle_mode = true
-button_group = ExtResource("7_7jswe")
-shortcut = SubResource("Shortcut_em5ud")
-text = "Push
-"
-script = ExtResource("8_7jrsu")
-ability = 6
-
-[node name="BtnShoot" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-toggle_mode = true
-button_group = ExtResource("7_7jswe")
-shortcut = SubResource("Shortcut_xx4o5")
-text = "Shoot"
-script = ExtResource("8_7jrsu")
-ability = 3
-
-[node name="BtnReload" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-toggle_mode = true
-button_group = ExtResource("7_7jswe")
-shortcut = SubResource("Shortcut_5qic7")
-text = "Reload
-"
-script = ExtResource("8_7jrsu")
-ability = 4
-
-[node name="BtnGrenade" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-toggle_mode = true
-button_group = ExtResource("7_7jswe")
-shortcut = SubResource("Shortcut_b30k4")
-text = "Throw grenade"
-script = ExtResource("8_7jrsu")
-ability = 5
-
-[node name="BtnKnife" type="Button" parent="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-toggle_mode = true
-button_group = ExtResource("7_7jswe")
-shortcut = SubResource("Shortcut_dewe6")
-text = "Kick"
-script = ExtResource("8_7jrsu")
-ability = 2
-
-[node name="BtnNextTurn" type="Button" parent="AlwaysUI/BattleUI/LeftSide"]
-unique_name_in_owner = true
-texture_filter = 1
-layout_mode = 2
-offset_left = 496.0
-offset_top = 320.0
-offset_right = 632.0
-offset_bottom = 351.0
-grow_horizontal = 0
-grow_vertical = 0
-shortcut = ExtResource("12_e4ykp")
-text = "Next Turn"
-
-[node name="Weapons" parent="AlwaysUI/BattleUI/LeftSide" instance=ExtResource("14_sae6o")]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 256.0
-offset_right = 89.0
-offset_bottom = 352.0
 
 [node name="RightSide" type="Control" parent="AlwaysUI/BattleUI"]
 visible = false
@@ -325,6 +219,7 @@ text = "50%"
 
 [node name="LabelFPS" type="Label" parent="AlwaysUI/BattleUI"]
 unique_name_in_owner = true
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -334,6 +229,7 @@ offset_top = -1.0
 offset_bottom = 59.0
 grow_horizontal = 0
 text = "fps"
+label_settings = SubResource("LabelSettings_v8nyb")
 horizontal_alignment = 2
 
 [node name="LabelIsEnemyTurn" type="Label" parent="AlwaysUI/BattleUI"]
@@ -351,9 +247,9 @@ horizontal_alignment = 1
 
 [node name="TimePointsUI" type="Control" parent="AlwaysUI/BattleUI"]
 anchors_preset = 0
-offset_left = 128.0
+offset_left = 24.0
 offset_top = 8.0
-offset_right = 512.0
+offset_right = 296.0
 offset_bottom = 16.0
 mouse_filter = 1
 script = ExtResource("17_1dr40")
@@ -361,30 +257,137 @@ script = ExtResource("17_1dr40")
 [node name="ProgressBack" type="ColorRect" parent="AlwaysUI/BattleUI/TimePointsUI"]
 visible = false
 layout_mode = 0
-offset_right = 384.0
-offset_bottom = 8.0
+offset_right = 272.0
+offset_bottom = 4.0
 color = Color(0.101961, 0.101961, 0.141176, 1)
 
 [node name="Progress" type="ColorRect" parent="AlwaysUI/BattleUI/TimePointsUI"]
 layout_mode = 0
-offset_right = 344.0
-offset_bottom = 8.0
+offset_right = 208.0
+offset_bottom = 4.0
 color = Color(0.2, 0.2, 0.27451, 1)
 
 [node name="ProgressHint" type="ColorRect" parent="AlwaysUI/BattleUI/TimePointsUI"]
 layout_mode = 0
 offset_right = 272.0
-offset_bottom = 8.0
+offset_bottom = 4.0
 color = Color(0.501961, 0.501961, 0.643137, 1)
+
+[node name="WeaponsList" parent="AlwaysUI/BattleUI" instance=ExtResource("14_sae6o")]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 104.0
+offset_right = 32.0
+offset_bottom = 172.0
+
+[node name="UnitAbils" type="ScrollContainer" parent="AlwaysUI/BattleUI" node_paths=PackedStringArray("btns_container")]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 148.0
+offset_right = 301.0
+offset_bottom = 172.0
+horizontal_scroll_mode = 0
+script = ExtResource("6_q18j3")
+btns_container = NodePath("MarginContainer/HBoxContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="AlwaysUI/BattleUI/UnitAbils"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AlwaysUI/BattleUI/UnitAbils/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="BtnMove" type="Button" parent="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+toggle_mode = true
+button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_b0hfn")
+icon = ExtResource("16_rbp2r")
+script = ExtResource("8_7jrsu")
+ability = 1
+
+[node name="BtnPush" type="Button" parent="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+toggle_mode = true
+button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_em5ud")
+text = "Push
+"
+script = ExtResource("8_7jrsu")
+ability = 6
+
+[node name="BtnShoot" type="Button" parent="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+toggle_mode = true
+button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_xx4o5")
+text = "Shoot"
+script = ExtResource("8_7jrsu")
+ability = 3
+
+[node name="BtnReload" type="Button" parent="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+toggle_mode = true
+button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_5qic7")
+icon = ExtResource("18_eefw8")
+script = ExtResource("8_7jrsu")
+ability = 4
+
+[node name="BtnGrenade" type="Button" parent="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+toggle_mode = true
+button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_b30k4")
+text = "Throw grenade"
+script = ExtResource("8_7jrsu")
+ability = 5
+
+[node name="BtnKnife" type="Button" parent="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+toggle_mode = true
+button_group = ExtResource("7_7jswe")
+shortcut = SubResource("Shortcut_dewe6")
+text = "Kick"
+script = ExtResource("8_7jrsu")
+ability = 2
+
+[node name="BtnNextTurn" type="Button" parent="AlwaysUI/BattleUI"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+offset_left = 256.0
+offset_top = 148.0
+offset_right = 313.0
+offset_bottom = 172.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
+shortcut = ExtResource("12_e4ykp")
+text = "Next Turn"
 
 [node name="UnitSetupUI" parent="AlwaysUI" instance=ExtResource("15_6tte0")]
 visible = false
 offset_top = 1.0
 offset_bottom = 1.0
 
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnMove" to="UiToLogicBindings" method="_on_btn_move_on_pressed_btn_action"]
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnPush" to="UiToLogicBindings" method="_on_btn_push_on_pressed_btn_action"]
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnShoot" to="UiToLogicBindings" method="_on_btn_shoot_on_pressed_btn_action"]
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnReload" to="UiToLogicBindings" method="_on_btn_reload_on_pressed_btn_action"]
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnGrenade" to="UiToLogicBindings" method="_on_btn_grenade_on_pressed_btn_action"]
-[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/LeftSide/UnitAbils/MarginContainer/HBoxContainer/BtnKnife" to="UiToLogicBindings" method="_on_btn_knife_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer/BtnMove" to="UiToLogicBindings" method="_on_btn_move_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer/BtnPush" to="UiToLogicBindings" method="_on_btn_push_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer/BtnShoot" to="UiToLogicBindings" method="_on_btn_shoot_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer/BtnReload" to="UiToLogicBindings" method="_on_btn_reload_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer/BtnGrenade" to="UiToLogicBindings" method="_on_btn_grenade_on_pressed_btn_action"]
+[connection signal="on_pressed_btn_action" from="AlwaysUI/BattleUI/UnitAbils/MarginContainer/HBoxContainer/BtnKnife" to="UiToLogicBindings" method="_on_btn_knife_on_pressed_btn_action"]

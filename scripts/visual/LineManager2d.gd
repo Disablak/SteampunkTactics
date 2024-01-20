@@ -17,7 +17,9 @@ var line2d_shoot_raycast: Line2D
 
 
 func _ready() -> void:
-	line2d_shoot_raycast = draw_new_line(line_2d_scrolling, SHOOT_RAY, [Vector2(-100,-100), Vector2(-100,-100)], Color.WHITE)
+	var color = Color.RED
+	color.a = 0.2
+	line2d_shoot_raycast = draw_new_line(null, SHOOT_RAY, [Vector2(-100,-100), Vector2(-100,-100)], color, 2)
 
 
 func set_shoot_raycast_pos(from: Vector2, to: Vector2):

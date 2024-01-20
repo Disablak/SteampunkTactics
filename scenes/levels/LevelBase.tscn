@@ -1,8 +1,9 @@
-[gd_scene load_steps=34 format=3 uid="uid://d1ivryo5a7c2p"]
+[gd_scene load_steps=35 format=3 uid="uid://d1ivryo5a7c2p"]
 
 [ext_resource type="PackedScene" uid="uid://27ueyvgi0pfn" path="res://scenes/2d/VisualObject.tscn" id="1_v816i"]
 [ext_resource type="Texture2D" uid="uid://dylewl2lgpsng" path="res://content/sprites/white_box.png" id="2_nr28b"]
 [ext_resource type="Texture2D" uid="uid://dgu24ji0v3151" path="res://content/sprites/gothic/background/cloud0.tres" id="3_gpepd"]
+[ext_resource type="Texture2D" uid="uid://bpnkjj6qghqyg" path="res://content/sprites/gothic/roof_left_center.tres" id="3_u14jg"]
 [ext_resource type="Texture2D" uid="uid://dio1flrtagxal" path="res://content/sprites/gothic/background/cloud1.tres" id="4_si6pc"]
 [ext_resource type="Texture2D" uid="uid://cbnhvk2iygn3o" path="res://content/sprites/gothic/background/cloud2.tres" id="5_ctiwb"]
 [ext_resource type="Texture2D" uid="uid://dikfh8plutdfs" path="res://content/sprites/gothic/background/cloud3.tres" id="6_1k6f8"]
@@ -37,10 +38,19 @@
 [node name="LevelBase" type="Node2D"]
 
 [node name="Ground" parent="." groups=["ground"] instance=ExtResource("1_v816i")]
+visible = false
 self_modulate = Color(0.419608, 0.419608, 0.231373, 0.168627)
 top_level = true
 scale = Vector2(16, 8)
 texture = ExtResource("2_nr28b")
+
+[node name="CameraBounds" parent="." groups=["camera_bounds"] instance=ExtResource("1_v816i")]
+visible = false
+self_modulate = Color(0, 0.447059, 0.580392, 0.458824)
+top_level = true
+position = Vector2(-16, -16)
+scale = Vector2(18, 10)
+texture = ExtResource("3_u14jg")
 
 [node name="Visual" type="Node2D" parent="."]
 

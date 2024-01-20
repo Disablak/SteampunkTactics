@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://jcmgoqb752kg"]
+[gd_scene load_steps=5 format=3 uid="uid://jcmgoqb752kg"]
 
 [ext_resource type="Script" path="res://scripts/ui/UiWeaponSelector.gd" id="1_toiur"]
 [ext_resource type="PackedScene" uid="uid://dj1yoladqn18w" path="res://scenes/2d/ui/Button.tscn" id="1_xn1ud"]
+[ext_resource type="Texture2D" uid="uid://druw6hxxdjpg0" path="res://content/sprites/ui/icon_melee.tres" id="3_qqhis"]
+[ext_resource type="Texture2D" uid="uid://7kspfoh26xli" path="res://content/sprites/ui/icon_range.tres" id="4_0yojt"]
 
 [node name="Weapons" type="VBoxContainer"]
 offset_right = 81.0
@@ -9,3 +11,4 @@ offset_bottom = 40.0
 alignment = 2
 script = ExtResource("1_toiur")
 button_scene = ExtResource("1_xn1ud")
+weapon_icons = Array[Texture2D]([ExtResource("3_qqhis"), ExtResource("4_0yojt")])

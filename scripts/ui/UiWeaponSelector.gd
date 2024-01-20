@@ -3,6 +3,7 @@ extends Control
 
 
 @export var button_scene: PackedScene
+@export var weapon_icons: Array[Texture2D]
 
 
 func _ready() -> void:
@@ -33,7 +34,8 @@ func _spawn_new_weapon_buttons(id: int):
 	var button_group = ButtonGroup.new()
 	for weapon: WeaponData in all_weapons:
 		var new_button: MyButton = button_scene.instantiate() as MyButton
-		new_button.text = weapon.settings.setting_name
+		new_button.text = "" #weapon.settings.setting_name
+		new_button.icon = _get_icon(weapon)
 		new_button.button_group = button_group
 		new_button.toggle_mode = true
 		new_button.pressed.connect(func(): return _on_pressed(unit, weapon))
@@ -52,3 +54,12 @@ func _select_weapon(weapon_data: WeaponData):
 	for button: Button in all_buttons:
 		if button.text == weapon_data.settings.setting_name:
 			button.set_pressed_no_signal(true)
+
+
+func _get_icon(weapon: WeaponData) -> Texture2D:
+	if weapon is MelleWeaponData:
+		return weapon_icons[0]
+	elif weapon is RangedWeaponData:
+		return weapon_icons[1]
+
+	return null
